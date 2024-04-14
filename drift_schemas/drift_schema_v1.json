@@ -1,0 +1,130 @@
+{
+  "_meta": {
+    "description": "This file contains a serialized version of schema entities for moor.",
+    "version": "0.1.0-dev-preview"
+  },
+  "entities": [
+    {
+      "data": {
+        "columns": [
+          {
+            "customConstraints": null,
+            "default_client_dart": null,
+            "default_dart": null,
+            "dsl_features": ["auto-increment", "primary-key"],
+            "getter_name": "id",
+            "moor_type": "ColumnType.integer",
+            "name": "id",
+            "nullable": false
+          },
+          {
+            "customConstraints": null,
+            "default_client_dart": null,
+            "default_dart": null,
+            "dsl_features": [],
+            "getter_name": "name",
+            "moor_type": "ColumnType.text",
+            "name": "name",
+            "nullable": false
+          },
+          {
+            "customConstraints": null,
+            "default_client_dart": null,
+            "default_dart": null,
+            "dsl_features": [],
+            "getter_name": "color",
+            "moor_type": "ColumnType.integer",
+            "name": "color",
+            "nullable": false,
+            "type_converter": {
+              "dart_expr": "const ColorConverter()",
+              "dart_type_name": "Color"
+            }
+          }
+        ],
+        "is_virtual": false,
+        "name": "categories",
+        "was_declared_in_moor": false
+      },
+      "id": 0,
+      "references": [],
+      "type": "table"
+    },
+    {
+      "data": {
+        "columns": [
+          {
+            "customConstraints": null,
+            "default_client_dart": null,
+            "default_dart": null,
+            "dsl_features": ["auto-increment", "primary-key"],
+            "getter_name": "id",
+            "moor_type": "ColumnType.integer",
+            "name": "id",
+            "nullable": false
+          },
+          {
+            "customConstraints": null,
+            "default_client_dart": null,
+            "default_dart": null,
+            "dsl_features": [],
+            "getter_name": "description",
+            "moor_type": "ColumnType.text",
+            "name": "description",
+            "nullable": false
+          },
+          {
+            "customConstraints": null,
+            "default_client_dart": null,
+            "default_dart": null,
+            "dsl_features": ["unknown"],
+            "getter_name": "category",
+            "moor_type": "ColumnType.integer",
+            "name": "category",
+            "nullable": true
+          }
+        ],
+        "is_virtual": false,
+        "name": "todo_entries",
+        "was_declared_in_moor": false
+      },
+      "id": 1,
+      "references": [0],
+      "type": "table"
+    },
+    {
+      "data": {
+        "columns": [
+          {
+            "customConstraints": "",
+            "default_client_dart": null,
+            "default_dart": null,
+            "dsl_features": [],
+            "getter_name": "description",
+            "moor_type": "ColumnType.text",
+            "name": "description",
+            "nullable": false
+          }
+        ],
+        "create_virtual_stmt": "CREATE VIRTUAL TABLE text_entries USING fts5 (\n    description,\n    content=todo_entries,\n    content_rowid=id\n);",
+        "is_virtual": true,
+        "name": "text_entries",
+        "was_declared_in_moor": true
+      },
+      "id": 2,
+      "references": [],
+      "type": "table"
+    },
+    {
+      "data": {
+        "name": "todos_insert",
+        "on": 1,
+        "refences_in_body": [2, 1],
+        "sql": "CREATE TRIGGER todos_insert AFTER INSERT ON todo_entries BEGIN\n  INSERT INTO text_entries(rowid, description) VALUES (new.id, new.description);\nEND;"
+      },
+      "id": 3,
+      "references": [1, 2],
+      "type": "trigger"
+    }
+  ]
+}
