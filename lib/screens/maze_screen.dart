@@ -224,7 +224,7 @@ class _MazeScreenState extends State<MazeScreen> {
               onPressed: () {
                 board.instantSearch = !board.instantSearch;
               },
-              child: const Text('Toggle Instance Search'),
+              child: const Text('Toggle Instant Find'),
             ),
           ],
         ),

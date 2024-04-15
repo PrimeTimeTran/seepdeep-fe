@@ -4,15 +4,20 @@ import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
 import 'package:drift_dev/api/migrations.dart';
 import 'package:flutter/foundation.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as p;
+import 'package:path_provider/path_provider.dart';
 import 'package:sqlite3/sqlite3.dart';
 import 'package:sqlite3_flutter_libs/sqlite3_flutter_libs.dart';
 
 Future<File> get databaseFile async {
-  // We use `path_provider` to find a suitable path to store our data in.
+  // Directory appDir = await getApplicationDocumentsDirectory();
+  // String dbPath = p.join(appDir.path, 'chinook.db');
+  // print("dbPath $dbPath");
+  // return File(dbPath);
+
   final appDir = await getApplicationDocumentsDirectory();
-  final dbPath = p.join(appDir.path, 'todos.db');
+  final dbPath = p.join(appDir.path, 'chinook.db');
+  print("dbPath $dbPath");
   return File(dbPath);
 }
 

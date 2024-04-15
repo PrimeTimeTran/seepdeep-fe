@@ -38,3 +38,4 @@ _search: SELECT todos.**, cat.** FROM text_entries
     WHERE text_entries MATCH :query
     ORDER BY rank;
 
+

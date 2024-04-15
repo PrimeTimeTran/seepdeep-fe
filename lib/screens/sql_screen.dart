@@ -16,40 +16,148 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
   List<Iterable<MapEntry<String, dynamic>>> records = [];
   Iterable<String> columnNames = [];
   bool queryFinished = false;
+  bool queried = false;
 
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: [CodeEditorScreen(onRun: onRun), buildResults()],
+      crossAxisAlignment:
+          queried ? CrossAxisAlignment.start : CrossAxisAlignment.center,
+      children: [
+        CodeEditorScreen(onRun: onRun),
+        buildPrompts(),
+        buildTable(),
+        buildResults(),
+      ],
     );
+  }
+
+  buildPrompts() {
+    if (!queryFinished) {
+      return Column(
+        children: [
+          const SizedBox(height: 50),
+          Text(
+            'Query for Results. Available Tables:',
+            style: Theme.of(context).textTheme.headlineSmall,
+          ),
+          const SizedBox(height: 25),
+          Text(
+            'Customers, Employees, Invoices, Invoice_Items, Albums, Playlists, Playlist_Track, Tracks, Artists, Genres, Media_Types',
+            style: Theme.of(context).textTheme.bodyLarge,
+          ),
+        ],
+      );
+    } else {
+      return const SizedBox();
+    }
   }
 
   buildResults() {
-    if (!queryFinished) {
-      return const Text(
-          'Query for Results. \nTables include Customers, Employees, Invoices, Invoice_Items, Albums, Playlists, Playlist_Track, Tracks, Artists, Genres, Media_Types');
+    if (queried && records.isEmpty && queryFinished) {
+      return Column(
+        children: [
+          const SizedBox(height: 50),
+          Text(
+            '0 Results found. Double check your query and try again.',
+            style: Theme.of(context).textTheme.headlineSmall,
+          ),
+          const SizedBox(height: 25),
+          Text(
+            'If this problem persists please checkout our help guide as we do have a few known issues with our parser.',
+            style: Theme.of(context).textTheme.bodyLarge,
+          ),
+          const SizedBox(height: 10),
+          Text(
+            'Column names should not have quotes and the value should be in single quotes. For Example:',
+            style: Theme.of(context).textTheme.bodyLarge,
+          ),
+          const SizedBox(height: 10),
+          RichText(
+            text: const TextSpan(
+              style: TextStyle(
+                fontSize: 16.0,
+                color: Colors.black,
+              ),
+              children: <TextSpan>[
+                TextSpan(
+                  text: 'SELECT * from Customers where country = \'USA\' ',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.blue,
+                  ),
+                ),
+              ],
+            ),
+          )
+        ],
+      );
+    } else {
+      return const SizedBox();
     }
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: SingleChildScrollView(
-        child: DataTable(
-          columns: columnNames.map<DataColumn>((String columnName) {
-            return DataColumn(label: Text(columnName));
-          }).toList(),
-          rows: records.map<DataRow>((Iterable<MapEntry<String, dynamic>> row) {
-            final cellMap = Map<String, dynamic>.fromEntries(row);
-            return DataRow(
-              cells: columnNames.map<DataCell>((String columnName) {
-                return DataCell(Text(cellMap[columnName]?.toString() ?? ''));
-              }).toList(),
-            );
-          }).toList(),
+  }
+
+  buildTable() {
+    if (records.isNotEmpty) {
+      return SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              DataTable(
+                columns: columnNames.map<DataColumn>((String columnName) {
+                  return DataColumn(label: Text(columnName));
+                }).toList(),
+                rows: records
+                    .map<DataRow>((Iterable<MapEntry<String, dynamic>> row) {
+                  final cellMap = Map<String, dynamic>.fromEntries(row);
+                  return DataRow(
+                    cells: columnNames.map<DataCell>((String columnName) {
+                      return DataCell(
+                          Text(cellMap[columnName]?.toString() ?? ''));
+                    }).toList(),
+                  );
+                }).toList(),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SizedBox(height: 10),
+                    Text(
+                      'Query Results: ${records.length} records.',
+                      style: Theme.of(context).textTheme.bodyMedium,
+                    ),
+                    const SizedBox(height: 30),
+                    Text(
+                      'DatabaseTables:',
+                      style: Theme.of(context).textTheme.bodySmall,
+                    ),
+                    const SizedBox(height: 5),
+                    Text(
+                      'Customers, Employees, Invoices, Invoice_Items, Albums, Playlists, Playlist_Track, Tracks, Artists, Genres, Media_Types',
+                      style: Theme.of(context).textTheme.bodySmall,
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
-      ),
-    );
+      );
+    } else {
+      return const SizedBox();
+    }
   }
 
   void onRun(String code) {
+    setState(() {
+      records = [];
+      queried = false;
+      columnNames = [];
+      queryFinished = false;
+    });
     query(code);
   }
 
@@ -64,21 +172,32 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
   void query(String code) async {
     try {
       final database = ref.read(AppDatabase.provider);
+      // Select table names
+      // code = "SELECT name FROM sqlite_master WHERE type='table';";
+      // code = "SELECT * from todo_entries";
+
+      // code = "SELECT * from customers where country='Brazil'";
+
+      // code = "Select * from categories";
+
       List<QueryRow> result = await database.customSelect(
         code,
         readsFrom: {...database.allTables},
       ).get();
+
       if (result.isNotEmpty) {
         records = parseQueryRows(result);
         QueryRow firstRow = result.first;
-
         columnNames = firstRow.data.keys;
-        print(columnNames);
-        print(firstRow.data);
         setState(() {
+          queried = true;
           records = records;
           queryFinished = true;
           columnNames = columnNames;
+        });
+      } else {
+        setState(() {
+          queryFinished = true;
         });
       }
     } catch (e) {
