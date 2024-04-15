@@ -42,8 +42,8 @@ class _CellState extends State<Cell> with SingleTickerProviderStateMixin {
         setState(() {});
       },
       child: AnimatedContainer(
-        width: 30,
-        height: 30,
+        width: 20,
+        height: 20,
         curve: Curves.fastOutSlowIn,
         decoration: BoxDecoration(
           color: color,

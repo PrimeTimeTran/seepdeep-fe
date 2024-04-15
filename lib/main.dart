@@ -49,17 +49,17 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
-  int currentPageIndex = 2;
+  int currentPageIndex = 0;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: const Text('DSA Visualizer'),
+        title: const Text('CS Toolkit'),
       ),
       body: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           NavigationRail(
             destinations: const [
@@ -87,6 +87,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
           Expanded(
             child: SingleChildScrollView(
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   [
                     const SortScreen(),
