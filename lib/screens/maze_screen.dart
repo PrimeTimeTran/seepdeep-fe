@@ -11,16 +11,16 @@ var greenButton = const ButtonStyle(
   backgroundColor: MaterialStatePropertyAll(Colors.green),
 );
 
-class MatrixPage extends StatefulWidget {
-  const MatrixPage({super.key});
+class MazeScreen extends StatefulWidget {
+  const MazeScreen({super.key});
 
   @override
-  State<MatrixPage> createState() => _MatrixPageState();
+  State<MazeScreen> createState() => _MazeScreenState();
 }
 
 enum Speeds { fast, faster, fastest }
 
-class _MatrixPageState extends State<MatrixPage> {
+class _MazeScreenState extends State<MazeScreen> {
   late Board board;
   bool play = false;
   late Toaster toaster;

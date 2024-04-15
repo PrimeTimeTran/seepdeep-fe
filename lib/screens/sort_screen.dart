@@ -25,14 +25,14 @@ class SortItem {
 
 enum SortOption { bubble, selection, insertion, merge }
 
-class SortPage extends StatefulWidget {
-  const SortPage({super.key});
+class SortScreen extends StatefulWidget {
+  const SortScreen({super.key});
 
   @override
-  State<SortPage> createState() => _SortPageState();
+  State<SortScreen> createState() => _SortScreenState();
 }
 
-class _SortPageState extends State<SortPage>
+class _SortScreenState extends State<SortScreen>
     with SingleTickerProviderStateMixin {
   int count = 25;
   int iterations = 0;
