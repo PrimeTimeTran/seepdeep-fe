@@ -27,7 +27,7 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
   buildResults() {
     if (!queryFinished) {
       return const Text(
-          'Query for Results. \nTables include Customers, Employees, Invoices, InvoiceItems, Albums, Playlists, PlaylistTrack, Tracks, Artists, Genres');
+          'Query for Results. \nTables include Customers, Employees, Invoices, Invoice_Items, Albums, Playlists, Playlist_Track, Tracks, Artists, Genres, Media_Types');
     }
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
