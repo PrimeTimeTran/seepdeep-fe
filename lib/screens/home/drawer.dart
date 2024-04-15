@@ -1,13 +1,46 @@
 import 'package:drift/drift.dart' hide Column;
 import 'package:flutter/material.dart';
-import 'package:flutter_colorpicker/flutter_colorpicker.dart';
+// import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../database/database.dart';
 import 'state.dart';
 
+Future<Color?> _selectColor(BuildContext context, Color initial) {
+  return showDialog(
+    context: context,
+    builder: (context) {
+      return const AlertDialog(
+        title: Text('Pick a color!'),
+        content: SingleChildScrollView(
+          child: Text('Sosos'),
+          // Use Material color picker:
+          //
+          // child: MaterialPicker(
+          //   pickerColor: pickerColor,
+          //   onColorChanged: changeColor,
+          //   showLabel: true, // only on portrait mode
+          // ),
+          //
+          // Use Block color picker:
+          //
+          // child: BlockPicker(
+          //   pickerColor: currentColor,
+          //   onColorChanged: changeColor,
+          // ),
+          //
+          // child: MultipleChoiceBlockPicker(
+          //   pickerColors: currentColors,
+          //   onColorsChanged: changeColors,
+          // ),
+        ),
+      );
+    },
+  );
+}
+
 class CategoriesDrawer extends ConsumerWidget {
-  const CategoriesDrawer({Key? key}) : super(key: key);
+  const CategoriesDrawer({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -49,7 +82,7 @@ class CategoriesDrawer extends ConsumerWidget {
 class _CategoryDrawerEntry extends ConsumerWidget {
   final CategoryWithCount entry;
 
-  const _CategoryDrawerEntry({Key? key, required this.entry}) : super(key: key);
+  const _CategoryDrawerEntry({super.key, required this.entry});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -168,40 +201,4 @@ class _CategoryDrawerEntry extends ConsumerWidget {
       ),
     );
   }
-}
-
-Future<Color?> _selectColor(BuildContext context, Color initial) {
-  return showDialog(
-    context: context,
-    builder: (context) {
-      return AlertDialog(
-        title: const Text('Pick a color!'),
-        content: SingleChildScrollView(
-          child: BlockPicker(
-            pickerColor: initial,
-            onColorChanged: (color) => Navigator.pop(context, color),
-          ),
-          // Use Material color picker:
-          //
-          // child: MaterialPicker(
-          //   pickerColor: pickerColor,
-          //   onColorChanged: changeColor,
-          //   showLabel: true, // only on portrait mode
-          // ),
-          //
-          // Use Block color picker:
-          //
-          // child: BlockPicker(
-          //   pickerColor: currentColor,
-          //   onColorChanged: changeColor,
-          // ),
-          //
-          // child: MultipleChoiceBlockPicker(
-          //   pickerColors: currentColors,
-          //   onColorsChanged: changeColors,
-          // ),
-        ),
-      );
-    },
-  );
 }
