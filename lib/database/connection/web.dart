@@ -2,23 +2,27 @@ import 'dart:async';
 
 import 'package:drift/drift.dart';
 import 'package:drift/wasm.dart';
-import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 /// Obtains a database connection for running drift on the web.
 DatabaseConnection connect() {
   return DatabaseConnection.delayed(Future(() async {
-    final db = await WasmDatabase.open(
-      databaseName: 'todo-app',
+    final result = await WasmDatabase.open(
+      databaseName: 'main',
       sqlite3Uri: Uri.parse('sqlite3.wasm'),
       driftWorkerUri: Uri.parse('drift_worker.js'),
+      initializeDatabase: () async {
+        final data = await rootBundle.load('assets/chinook.db');
+        return data.buffer.asUint8List();
+      },
     );
 
-    if (db.missingFeatures.isNotEmpty) {
-      debugPrint('Using ${db.chosenImplementation} due to unsupported '
-          'browser features: ${db.missingFeatures}');
+    if (result.missingFeatures.isNotEmpty) {
+      debugPrint('Using ${result.chosenImplementation} due to unsupported '
+          'browser features: ${result.missingFeatures}');
     }
-
-    return db.resolvedExecutor;
+    return result.resolvedExecutor;
   }));
 }
 
