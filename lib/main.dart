@@ -1,3 +1,5 @@
+import 'package:app/screens/maze_screen.dart';
+import 'package:app/screens/sort_screen.dart';
 import 'package:app/screens/sql_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -51,9 +53,6 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    // return const Scaffold(
-    //   body: Text('sosos'),
-    // );
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
@@ -73,13 +72,9 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                 label: Text('Matrix'),
               ),
               NavigationRailDestination(
-                icon: Icon(Icons.table_chart_outlined),
-                label: Text('SQL'),
-              ),
-              NavigationRailDestination(
                 icon: Icon(Icons.code),
-                label: Text('Code'),
-              )
+                label: Text('SQL & Code'),
+              ),
             ],
             selectedIndex: currentPageIndex,
             onDestinationSelected: (int index) {
@@ -89,43 +84,19 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
             },
           ),
           const VerticalDivider(thickness: 1, width: 1),
-          const Expanded(
+          Expanded(
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  // SortScreen(),
-                  // MazeScreen(),
-                  SQLScreen(),
-                  // CodeEditorScreen(onRun: () {})
+                  [
+                    const SortScreen(),
+                    const MazeScreen(),
+                    const SQLScreen(),
+                  ][currentPageIndex]
                 ],
               ),
             ),
           )
-          // Column(
-          //   children: [
-          //     [
-          //       const SortScreen(),
-          //       const MazeScreen(),
-          //       const SQLScreen(),
-          //       CodeEditorScreen(onRun: () {})
-          //     ][currentPageIndex]
-          //   ],
-          // )
-          // Expanded(
-          //   child: SingleChildScrollView(
-          //     child: Column(
-          //       children: [
-          //         [
-          //           const SortScreen(),
-          //           const MazeScreen(),
-          //           const SQLScreen(),
-          //           CodeEditorScreen(onRun: () {})
-          //         ][currentPageIndex]
-          //       ],
-          //     ),
-          //   ),
-          // ),
-          // const Expanded(child: CodeEditor()),
         ],
       ),
     );
