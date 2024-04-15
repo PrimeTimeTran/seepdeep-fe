@@ -13,22 +13,25 @@ class SQLScreen extends ConsumerStatefulWidget {
 }
 
 class _SQLScreenState extends ConsumerState<SQLScreen> {
-  List<Iterable<MapEntry<String, dynamic>>> records = [];
-  Iterable<String> columnNames = [];
-  bool queryFinished = false;
   bool queried = false;
+  bool queryFinished = false;
+  Iterable<String> columnNames = [];
+  List<Iterable<MapEntry<String, dynamic>>> records = [];
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment:
-          queried ? CrossAxisAlignment.start : CrossAxisAlignment.center,
-      children: [
-        CodeEditorScreen(onRun: onRun),
-        buildPrompts(),
-        buildTable(),
-        buildResults(),
-      ],
+    return Container(
+      // color: Colors.red,
+      child: Column(
+        crossAxisAlignment:
+            queried ? CrossAxisAlignment.start : CrossAxisAlignment.center,
+        children: [
+          CodeEditorScreen(onRun: onRun),
+          buildPrompts(),
+          buildTable(),
+          buildResults(),
+        ],
+      ),
     );
   }
 
@@ -103,6 +106,7 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
         scrollDirection: Axis.horizontal,
         child: SingleChildScrollView(
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               DataTable(
                 columns: columnNames.map<DataColumn>((String columnName) {
@@ -184,7 +188,6 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
         code,
         readsFrom: {...database.allTables},
       ).get();
-
       if (result.isNotEmpty) {
         records = parseQueryRows(result);
         QueryRow firstRow = result.first;
@@ -197,6 +200,7 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
         });
       } else {
         setState(() {
+          queried = true;
           queryFinished = true;
         });
       }

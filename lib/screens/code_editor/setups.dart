@@ -43,7 +43,7 @@ final sqlController = CodeController(
 // SELECT * FROM customers where country="USA" limit 5;
 // """;
 var sqlQuery = """
-SELECT * FROM albums limit 5;
+SELECT * FROM customers limit 5;
 """;
 getController(selectedLang) {
   switch (selectedLang) {

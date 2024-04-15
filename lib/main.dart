@@ -15,8 +15,7 @@ class MyApp extends StatelessWidget {
     routes: [
       GoRoute(
         path: '/',
-        builder: (_, __) =>
-            const MyHomePage(title: 'Data Structures & Algorithms'),
+        builder: (_, __) => const MyHomePage(),
         routes: const [],
       ),
     ],
@@ -40,9 +39,7 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  final String title;
-
-  const MyHomePage({super.key, required this.title});
+  const MyHomePage({super.key});
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
