@@ -216,6 +216,16 @@ class _MazeScreenState extends State<MazeScreen> {
                 setState(() {});
               },
             ),
+            const SizedBox(height: 10),
+            ElevatedButton(
+              style: const ButtonStyle(
+                  foregroundColor: MaterialStatePropertyAll(Colors.white),
+                  backgroundColor: MaterialStatePropertyAll(Colors.green)),
+              onPressed: () {
+                board.instantSearch = !board.instantSearch;
+              },
+              child: const Text('Toggle Instance Search'),
+            ),
           ],
         ),
       ),

@@ -26,6 +26,7 @@ class Board {
   late String endId = END_NODE;
   late String startId = START_NODE;
   late UpdateCallback updateCallback;
+  bool instantSearch = true;
 
   late List<List<Node>> board;
   Board() {
@@ -103,12 +104,16 @@ class Board {
     while (cur != startNode) {
       cur = parentMap[cur]!;
       path.add(cur);
-      await Future.delayed(delay);
+      if (!instantSearch) {
+        await Future.delayed(delay);
+      }
       updateCallback();
     }
     for (var cur in path.reversed) {
       cur.path = true;
-      await Future.delayed(delay);
+      if (!instantSearch) {
+        await Future.delayed(delay);
+      }
       updateCallback();
     }
   }
@@ -227,15 +232,18 @@ class Board {
         return;
       }
       if (!cur.start && !cur.isEnd) {
-        // cur.setVisited(true);
-        // updateCallback();
-        var delayedFuture = Future.delayed(Duration(microseconds: speed), () {
+        if (instantSearch) {
           cur.setVisited(true);
           updateCallback();
-        });
-        futures.add(delayedFuture);
+        } else {
+          var delayedFuture = Future.delayed(Duration(microseconds: speed), () {
+            cur.setVisited(true);
+            updateCallback();
+          });
+          futures.add(delayedFuture);
+          await Future.wait(futures);
+        }
       }
-      await Future.wait(futures);
 
       List<List<dynamic>> neighbors = getNeighbors(cur);
       for (var [nr, nc] in neighbors) {

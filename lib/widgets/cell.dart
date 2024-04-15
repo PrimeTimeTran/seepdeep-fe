@@ -52,6 +52,7 @@ class _CellState extends State<Cell> with SingleTickerProviderStateMixin {
         duration: const Duration(milliseconds: 500),
         child: Center(
           child: Text(
+            style: const TextStyle(fontSize: 8),
             widget.node.path
                 ? '${widget.node.layer == 0 ? '' : widget.node.layer}'
                 : '',
