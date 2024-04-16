@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../constants.dart';
+
 class AppBarContent extends StatefulWidget {
   const AppBarContent({super.key});
 
@@ -24,6 +26,13 @@ class _AppBarContentState extends State<AppBarContent> {
               const Text(
                 'CS Toolkit',
                 style: TextStyle(color: Colors.white, fontSize: 30),
+              ),
+              const SizedBox(width: 25),
+              ElevatedButton(
+                onPressed: () {
+                  openDrawer();
+                },
+                child: const Text('Problems'),
               ),
               const Spacer(),
               IconButton(
@@ -83,5 +92,9 @@ class _AppBarContentState extends State<AppBarContent> {
         ),
       ],
     );
+  }
+
+  void openDrawer() {
+    drawerKey.currentState?.openDrawer();
   }
 }
