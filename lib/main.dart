@@ -10,6 +10,7 @@ import 'package:app/screens/leaderboards_screen.dart';
 import 'package:app/screens/maze_screen.dart';
 import 'package:app/screens/notification_screen.dart';
 import 'package:app/screens/problem_screen.dart';
+import 'package:app/screens/problems_screen.dart';
 import 'package:app/screens/profile_screen.dart';
 import 'package:app/screens/search_screen.dart';
 import 'package:app/screens/settings_screen.dart';
@@ -47,9 +48,15 @@ final _router = GoRouter(
                 builder: (_, __) => const ProblemScreen(),
                 routes: [
                   GoRoute(
+                    path: 'problem',
+                    name: Routes.problem.toString(),
+                    builder: (_, __) => const ProblemScreen(),
+                    routes: const [],
+                  ),
+                  GoRoute(
                     path: 'problems',
                     name: Routes.problems.toString(),
-                    builder: (_, __) => const ProblemScreen(),
+                    builder: (_, __) => const ProblemsScreen(),
                     routes: const [],
                   ),
                   GoRoute(
@@ -174,6 +181,7 @@ class MyApp extends StatelessWidget {
 }
 
 enum Routes {
+  problem,
   problems,
   sort,
   sql,

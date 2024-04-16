@@ -48,7 +48,8 @@ class _AppBarContentState extends State<AppBarContent> {
                     ),
                     TextButton.icon(
                       onPressed: () {
-                        openDrawer();
+                        GoRouter.of(context).go('/problems');
+                        // openDrawer();
                       },
                       label: const Text('Problems',
                           style: TextStyle(color: Colors.white)),
