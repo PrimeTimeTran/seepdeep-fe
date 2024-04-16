@@ -24,6 +24,8 @@ dependencies:
   motion_toast: ^2.9.1
   flutter_code_editor: ^0.3.1
   graphview: ^1.2.0
+  webview_flutter: ^4.7.0
+  flutter_webview_plugin: ^0.4.0
 
 dev_dependencies:
   flutter_test:
@@ -42,3 +44,4 @@ flutter:
   uses-material-design: true
   assets:
     - assets/chinook.db
+    - assets/index.html

@@ -2,6 +2,7 @@ import 'package:app/screens/code_editor/code_editor_screen.dart';
 import 'package:drift/drift.dart' hide Column;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 
 import '../database/database.dart';
 
@@ -104,4 +105,16 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
       print('Error: $e');
     }
   }
+
+  // Future<void> _buildDialog(BuildContext context) {
+  //   return showDialog(
+  //     context: context,
+  //     builder: (_) => WebviewScaffold(
+  //       url: urlFeedbackForm,
+  //       appBar: AppBar(
+  //         title: const Text('RSE'),
+  //       ),
+  //     ),
+  //   );
+  // }
 }
