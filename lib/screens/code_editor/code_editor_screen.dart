@@ -4,6 +4,7 @@ import 'package:flutter_highlight/themes/vs.dart';
 
 import 'setups.dart';
 
+// ignore: must_be_immutable
 class CodeEditorScreen extends StatefulWidget {
   Function onRun;
   CodeEditorScreen({super.key, required this.onRun});

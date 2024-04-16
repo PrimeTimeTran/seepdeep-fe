@@ -1,3 +1,4 @@
+import 'package:app/screens/code_editor/code_editor_screen.dart';
 import 'package:app/screens/maze_screen.dart';
 import 'package:app/screens/sort_screen.dart';
 import 'package:app/screens/sql_screen.dart';
@@ -46,7 +47,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
-  int currentPageIndex = 2;
+  int currentPageIndex = 0;
+  NavigationRailLabelType labelType = NavigationRailLabelType.all;
 
   @override
   Widget build(BuildContext context) {
@@ -59,6 +61,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           NavigationRail(
+            labelType: labelType,
             destinations: const [
               NavigationRailDestination(
                 icon: Icon(Icons.sort),
@@ -70,9 +73,14 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
               ),
               NavigationRailDestination(
                 icon: Icon(Icons.code),
-                label: Text('SQL & Code'),
+                label: Text('Code'),
+              ),
+              NavigationRailDestination(
+                icon: Icon(Icons.table_chart_rounded),
+                label: Text('SQL'),
               ),
             ],
+            useIndicator: true,
             selectedIndex: currentPageIndex,
             onDestinationSelected: (int index) {
               setState(() {
@@ -90,6 +98,9 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                   [
                     const SortScreen(),
                     const MazeScreen(),
+                    CodeEditorScreen(
+                      onRun: () {},
+                    ),
                     const SQLScreen(),
                   ][currentPageIndex]
                 ],
