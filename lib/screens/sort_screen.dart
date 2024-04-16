@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:math';
 
+import 'package:app/widgets/modals.dart';
 import 'package:flutter/material.dart';
 
 import '../utils.dart';
@@ -54,6 +55,7 @@ class _SortScreenState extends State<SortScreen>
               Expanded(
                 child: Column(
                   children: [
+                    const Modal(type: GiffyType.image),
                     Row(
                       children: [
                         ElevatedButton(
@@ -245,12 +247,19 @@ class _SortScreenState extends State<SortScreen>
           color: color,
           value: item,
           position: index,
+          width: index * 25,
           label: item.toString(),
           height: item.toDouble() * 15,
-          width: index * 25,
         );
       },
     );
+    var needsShuffle = nums[0] > 18 || nums[1] > 18 || nums[2] > 18;
+    print('needsShuffle $needsShuffle');
+    while (needsShuffle) {
+      nums.shuffle();
+      needsShuffle = nums[0] > 18 || nums[1] > 18 || nums[2] > 18;
+    }
+
     setState(() {
       count = count;
       nums = nums;

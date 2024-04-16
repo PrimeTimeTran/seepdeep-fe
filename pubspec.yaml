@@ -26,6 +26,11 @@ dependencies:
   graphview: ^1.2.0
   webview_flutter: ^4.7.0
   flutter_webview_plugin: ^0.4.0
+  giffy_dialog: ^2.1.0
+  flutter_markdown: ^0.6.23
+  highlight: ^0.7.0
+  flutter_highlighter: ^0.1.1
+  google_fonts: ^6.2.1
 
 dev_dependencies:
   flutter_test:

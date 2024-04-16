@@ -12,7 +12,6 @@ var dartMain = """
 void main() {
   print('Hello World');
 }
-
 """;
 final pythonController = CodeController(
   text: pythonSort,

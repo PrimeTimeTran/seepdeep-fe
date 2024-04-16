@@ -3,6 +3,9 @@ import 'dart:html';
 import 'dart:ui' as ui;
 
 import 'package:app/screens/code_editor/code_editor_screen.dart';
+import 'package:app/utils.dart';
+import 'package:app/widgets/problem_prompt.dart';
+import 'package:app/widgets/vertical_split_view.dart';
 import 'package:flutter/material.dart';
 
 class Python extends StatefulWidget {
@@ -13,43 +16,46 @@ class Python extends StatefulWidget {
 }
 
 class _PythonState extends State<Python> {
-  late IFrameElement _vieww;
-  late String result = '';
-
+  String result = '';
+  IFrameElement _view = IFrameElement();
   @override
   Widget build(BuildContext context) {
     // ignore: undefined_prefixed_name
     ui.platformViewRegistry.registerViewFactory('index', (int viewId) {
-      _vieww = IFrameElement()
+      _view = IFrameElement()
         ..src = 'assets/index.html'
         ..style.border = 'none';
       window.onMessage.listen((message) {
-        // Extracting this to a class method results in the UI not rerendering.
         setState(() {
           result = message.data;
         });
       });
 
-      if (_vieww.contentWindow != null) {
-        _vieww.contentWindow?.postMessage('sososo', '*');
+      if (_view.contentWindow != null) {
+        _view.contentWindow?.postMessage('sososo', '*');
       }
 
-      return _vieww;
+      return _view;
     });
     return SizedBox(
-      height: 600,
+      height: getHeight(),
       width: double.infinity,
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          CodeEditorScreen(
-            selectedLang: 'python',
-            onRun: (code) {
-              onRun(code);
-            },
+          SizedBox(
+            height: getHeight() - 100,
+            width: double.infinity,
+            child: VerticalSplitView(
+              left: const ProblemPrompt(),
+              right: CodeEditorScreen(
+                selectedLang: 'python',
+                onRun: (code) {
+                  onRun(code);
+                },
+              ),
+            ),
           ),
-          const SizedBox(height: 20),
+          const SizedBox(height: 10),
           buildResult(),
           const Expanded(
             child: HtmlElementView(
@@ -74,6 +80,6 @@ class _PythonState extends State<Python> {
   }
 
   onRun(code) {
-    _vieww.contentWindow?.postMessage(code, '*');
+    _view.contentWindow?.postMessage(code, '*');
   }
 }

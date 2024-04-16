@@ -18,7 +18,6 @@
         window.parent.postMessage(message, '*')
       }
       window.addEventListener('message', (message) => {
-        console.log(`message: ${message.data}`)
         main(message.data)
       })
     </script>

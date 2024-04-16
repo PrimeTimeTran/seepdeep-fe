@@ -1,8 +1,20 @@
 import 'dart:math';
 
+import 'package:flutter/material.dart';
+
 String capitalize(String input) {
   if (input.isEmpty) return input;
   return input.substring(0, 1).toUpperCase() + input.substring(1);
+}
+
+getHeight() {
+  // ignore: deprecated_member_use
+  return MediaQueryData.fromView(WidgetsBinding.instance.window).size.height;
+}
+
+getWidth() {
+  // ignore: deprecated_member_use
+  return MediaQueryData.fromView(WidgetsBinding.instance.window).size.width;
 }
 
 List<int> sample(int limit, int sampleSize) {

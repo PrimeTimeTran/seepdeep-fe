@@ -1,10 +1,10 @@
-import 'package:app/screens/maze_screen.dart';
-import 'package:app/screens/python_screen.dart';
-import 'package:app/screens/sort_screen.dart';
-import 'package:app/screens/sql_screen.dart';
+import 'package:app/navigation/app_bar_content.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+
+import './constants.dart';
+import './navigation/root.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -26,14 +26,19 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ProviderScope(
-      child: MaterialApp.router(
-        debugShowCheckedModeBanner: false,
-        title: 'Data Structures & Algorithms',
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-          useMaterial3: true,
-        ),
-        routerConfig: _router,
+      child: ValueListenableBuilder<bool>(
+        valueListenable: material3Notifier,
+        builder: (BuildContext context, bool value, Widget? child) {
+          return MaterialApp.router(
+            debugShowCheckedModeBanner: false,
+            title: 'Data Structures & Algorithms',
+            theme: ThemeData(
+              colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+              useMaterial3: true,
+            ),
+            routerConfig: _router,
+          );
+        },
       ),
     );
   }
@@ -47,69 +52,21 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
-  int currentPageIndex = 2;
-  NavigationRailLabelType labelType = NavigationRailLabelType.all;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: const Text('CS Toolkit'),
-      ),
-      body: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          NavigationRail(
-            labelType: labelType,
-            destinations: const [
-              NavigationRailDestination(
-                icon: Icon(Icons.sort),
-                label: Text('Sorting'),
-              ),
-              NavigationRailDestination(
-                icon: Icon(Icons.grid_on),
-                label: Text('Matrix'),
-              ),
-              NavigationRailDestination(
-                icon: Icon(Icons.code),
-                label: Text('Code'),
-              ),
-              NavigationRailDestination(
-                icon: Icon(Icons.table_chart_rounded),
-                label: Text('SQL'),
-              ),
-            ],
-            useIndicator: true,
-            selectedIndex: currentPageIndex,
-            onDestinationSelected: (int index) {
-              setState(() {
-                currentPageIndex = index;
-              });
-            },
-          ),
-          const VerticalDivider(thickness: 1, width: 1),
-          Expanded(
-            child: SingleChildScrollView(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  [
-                    const SortScreen(),
-                    const MazeScreen(),
-                    const PythonScreen(),
-                    // CodeEditorScreen(
-                    //   onRun: () {},
-                    // ),
-                    const SQLScreen(),
-                  ][currentPageIndex]
-                ],
-              ),
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(60.0),
+        child: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: <Color>[Colors.blue[900]!, Colors.lightBlue],
             ),
-          )
-        ],
+          ),
+          child: const AppBarContent(),
+        ),
       ),
+      body: const RootNavigator(),
     );
   }
 }
