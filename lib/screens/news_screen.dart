@@ -45,49 +45,6 @@ List<User> userList = [
   User(name: "Zoe", avatar: "user.png"),
 ];
 
-class FilterPage extends StatelessWidget {
-  final List<User>? allTextList;
-  List<User>? selectedUserList = userList;
-  FilterPage({super.key, this.allTextList, this.selectedUserList});
-  @override
-  Widget build(BuildContext context) {
-    return FilterListWidget<User>(
-      themeData: FilterListThemeData(context),
-      hideSelectedTextCount: true,
-      listData: userList,
-      selectedListData: selectedUserList,
-      onApplyButtonClick: (list) {
-        Navigator.pop(context, list);
-      },
-      choiceChipLabel: (item) {
-        /// Used to print text on chip
-        return item!.name;
-      },
-      // choiceChipBuilder: (context, item, isSelected) {
-      //   return Container(
-      //     padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-      //     margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-      //     decoration: BoxDecoration(
-      //         border: Border.all(
-      //       color: isSelected! ? Colors.blue[300]! : Colors.grey[300]!,
-      //     )),
-      //     child: Text(item.name),
-      //   );
-      // },
-      validateSelectedItem: (list, val) {
-        ///  identify if item is selected or not
-        return list!.contains(val);
-      },
-      onItemSearch: (user, query) {
-        /// When search query change in search bar then this method will be called
-        ///
-        /// Check if items contains query
-        return user.name!.toLowerCase().contains(query.toLowerCase());
-      },
-    );
-  }
-}
-
 class NewsScreen extends StatefulWidget {
   final String? title;
   const NewsScreen({super.key, this.title});
@@ -130,67 +87,6 @@ class _NewsScreenState extends State<NewsScreen> {
             ),
         ],
       ),
-    );
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title!),
-      ),
-      bottomNavigationBar: Padding(
-        padding: const EdgeInsets.only(bottom: 30),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            TextButton(
-              onPressed: () async {
-                final list = await Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => FilterPage(
-                      allTextList: userList,
-                      selectedUserList: selectedUserList,
-                    ),
-                  ),
-                );
-                if (list != null) {
-                  setState(() {
-                    selectedUserList = List.from(list);
-                  });
-                }
-              },
-              style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(Colors.blue),
-              ),
-              child: const Text(
-                "Filter Page",
-                style: TextStyle(color: Colors.white),
-              ),
-            ),
-            TextButton(
-              onPressed: _openFilterDialog,
-              style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(Colors.blue),
-              ),
-              child: const Text(
-                "Filter Dialog",
-                style: TextStyle(color: Colors.white),
-              ),
-              // color: Colors.blue,
-            ),
-            TextButton(
-              onPressed: openFilterDelegate,
-              style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(Colors.blue),
-              ),
-              child: const Text(
-                "Filter Delegate",
-                style: TextStyle(color: Colors.white),
-              ),
-              // color: Colors.blue,
-            ),
-          ],
-        ),
-      ),
-      body: const Text('soso'),
     );
   }
 
@@ -256,20 +152,14 @@ class _NewsScreenState extends State<NewsScreen> {
       validateSelectedItem: (list, val) => list!.contains(val),
       controlButtons: [ControlButtonType.All, ControlButtonType.Reset],
       onItemSearch: (user, query) {
-        /// When search query change in search bar then this method will be called
-        ///
-        /// Check if items contains query
         return user.name!.toLowerCase().contains(query.toLowerCase());
       },
-
       onApplyButtonClick: (list) {
         setState(() {
           selectedUserList = List.from(list!);
         });
         Navigator.pop(context);
       },
-
-      /// uncomment below code to create custom choice chip
       choiceChipBuilder: (context, item, isSelected) {
         return Container(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
@@ -288,35 +178,3 @@ class _NewsScreenState extends State<NewsScreen> {
     );
   }
 }
-/// Another example of [FilterListWidget] to filter list of strings
-/*
- FilterListWidget<String>(
-    listData: [
-      "One",
-      "Two",
-      "Three",
-      "Four",
-      "five",
-      "Six",
-      "Seven",
-      "Eight",
-      "Nine",
-      "Ten"
-    ],
-    selectedListData: ["One", "Three", "Four", "Eight", "Nine"],
-    onApplyButtonClick: (list) {
-      Navigator.pop(context, list);
-    },
-    choiceChipLabel: (item) {
-      /// Used to print text on chip
-      return item;
-    },
-    validateSelectedItem: (list, val) {
-      ///  identify if item is selected or not
-      return list!.contains(val);
-    },
-    onItemSearch: (text, query) {
-      return text.toLowerCase().contains(query.toLowerCase());
-    },
-  )
-*/

@@ -4,46 +4,46 @@ import 'package:table_calendar/table_calendar.dart';
 
 import '../utils.dart';
 
-List<User> userList = [
-  User(name: "Python", avatar: "user.png"),
-  User(name: "Dart", avatar: "user.png"),
-  User(name: "SQL", avatar: "user.png"),
-  User(name: "Postgres", avatar: "user.png"),
-  User(name: "MongoDB", avatar: "user.png"),
-  User(name: "C", avatar: "user.png"),
-  User(name: "C++", avatar: "user.png"),
-  User(name: "C#", avatar: "user.png"),
-  User(name: "Go", avatar: "user.png"),
-  User(name: "Mojo", avatar: "user.png"),
-  User(name: "Ruby", avatar: "user.png"),
-  User(name: "Typescript", avatar: "user.png"),
-  User(name: "Javascript", avatar: "user.png"),
-  User(name: "Flutter", avatar: "user.png"),
-  User(name: "Vue", avatar: "user.png"),
-  User(name: "React", avatar: "user.png"),
-  User(name: "React Native", avatar: "user.png"),
-  User(name: "Nuxt", avatar: "user.png"),
-  User(name: "Next", avatar: "user.png"),
-  User(name: "Ruby on Rails", avatar: "user.png"),
-  User(name: "Django", avatar: "user.png"),
-  User(name: ".Net", avatar: "user.png"),
-  User(name: "NodeJS", avatar: "user.png"),
-  User(name: "Flask", avatar: "user.png"),
-  User(name: "Kubernetes", avatar: "user.png"),
-  User(name: "Docker", avatar: "user.png"),
-  User(name: "Data Analysis", avatar: "user.png"),
-  User(name: "Data Analytics", avatar: "user.png"),
-  User(name: "LLM", avatar: "user.png"),
-  User(name: "AI", avatar: "user.png"),
-  User(name: "Machine Learning", avatar: "user.png"),
-  User(name: "Theresa", avatar: "user.png"),
-  User(name: "Una", avatar: "user.png"),
-  User(name: "Vanessa", avatar: "user.png"),
-  User(name: "Victoria", avatar: "user.png"),
-  User(name: "Wanda", avatar: "user.png"),
-  User(name: "Wendy", avatar: "user.png"),
-  User(name: "Yvonne", avatar: "user.png"),
-  User(name: "Zoe", avatar: "user.png"),
+List<Topic> topicList = [
+  Topic(name: "Python", avatar: "Topic.png"),
+  Topic(name: "Dart", avatar: "Topic.png"),
+  Topic(name: "SQL", avatar: "Topic.png"),
+  Topic(name: "Postgres", avatar: "Topic.png"),
+  Topic(name: "MongoDB", avatar: "Topic.png"),
+  Topic(name: "C", avatar: "Topic.png"),
+  Topic(name: "C++", avatar: "Topic.png"),
+  Topic(name: "C#", avatar: "Topic.png"),
+  Topic(name: "Go", avatar: "Topic.png"),
+  Topic(name: "Mojo", avatar: "Topic.png"),
+  Topic(name: "Ruby", avatar: "Topic.png"),
+  Topic(name: "Typescript", avatar: "Topic.png"),
+  Topic(name: "Javascript", avatar: "Topic.png"),
+  Topic(name: "Flutter", avatar: "Topic.png"),
+  Topic(name: "Vue", avatar: "Topic.png"),
+  Topic(name: "React", avatar: "Topic.png"),
+  Topic(name: "React Native", avatar: "Topic.png"),
+  Topic(name: "Nuxt", avatar: "Topic.png"),
+  Topic(name: "Next", avatar: "Topic.png"),
+  Topic(name: "Ruby on Rails", avatar: "Topic.png"),
+  Topic(name: "Django", avatar: "Topic.png"),
+  Topic(name: ".Net", avatar: "Topic.png"),
+  Topic(name: "NodeJS", avatar: "Topic.png"),
+  Topic(name: "Flask", avatar: "Topic.png"),
+  Topic(name: "Kubernetes", avatar: "Topic.png"),
+  Topic(name: "Docker", avatar: "Topic.png"),
+  Topic(name: "Data Analysis", avatar: "Topic.png"),
+  Topic(name: "Data Analytics", avatar: "Topic.png"),
+  Topic(name: "LLM", avatar: "Topic.png"),
+  Topic(name: "AI", avatar: "Topic.png"),
+  Topic(name: "Machine Learning", avatar: "Topic.png"),
+  Topic(name: "Theresa", avatar: "Topic.png"),
+  Topic(name: "Una", avatar: "Topic.png"),
+  Topic(name: "Vanessa", avatar: "Topic.png"),
+  Topic(name: "Victoria", avatar: "Topic.png"),
+  Topic(name: "Wanda", avatar: "Topic.png"),
+  Topic(name: "Wendy", avatar: "Topic.png"),
+  Topic(name: "Yvonne", avatar: "Topic.png"),
+  Topic(name: "Zoe", avatar: "Topic.png"),
 ];
 
 class ProblemsScreen extends StatefulWidget {
@@ -53,14 +53,14 @@ class ProblemsScreen extends StatefulWidget {
   State<ProblemsScreen> createState() => _ProblemsScreenState();
 }
 
-class User {
+class Topic {
   final String? name;
   final String? avatar;
-  User({this.name, this.avatar});
+  Topic({this.name, this.avatar});
 }
 
 class _ProblemsScreenState extends State<ProblemsScreen> {
-  List<User>? selectedUserList = userList;
+  List<Topic>? selectedTopicList = topicList;
   bool toggleProblemTopics = false;
   @override
   Widget build(BuildContext context) {
@@ -138,9 +138,8 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
                     const Text("Topics", style: TextStyle(color: Colors.white)),
                 icon: const Icon(Icons.arrow_circle_up_outlined,
                     color: Colors.white),
-                onPressed: () => setState(() {
-                  toggleProblemTopics = !toggleProblemTopics;
-                }),
+                onPressed: () =>
+                    setState(() => toggleProblemTopics = !toggleProblemTopics),
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all(Colors.blue),
                 ),
@@ -151,10 +150,10 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
             width: 925,
             height: 400,
             child: FilterListWidget(
-              listData: userList,
+              listData: topicList,
               hideHeader: true,
               hideSelectedTextCount: true,
-              selectedListData: selectedUserList,
+              selectedListData: selectedTopicList,
               choiceChipLabel: (item) => item!.name,
               themeData: FilterListThemeData(context),
               validateSelectedItem: (list, val) => list!.contains(val),
@@ -167,7 +166,7 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
               },
               onApplyButtonClick: (list) {
                 setState(() {
-                  selectedUserList = List.from(list!);
+                  selectedTopicList = List.from(list!);
                 });
                 Navigator.pop(context);
               },
@@ -207,9 +206,8 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
                       style: TextStyle(color: Colors.white)),
                   icon: const Icon(Icons.arrow_circle_down_outlined,
                       color: Colors.white),
-                  onPressed: () => setState(() {
-                    toggleProblemTopics = !toggleProblemTopics;
-                  }),
+                  onPressed: () => setState(
+                      () => toggleProblemTopics = !toggleProblemTopics),
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all(Colors.blue),
                   ),
@@ -228,6 +226,7 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
       children: [
         SizedBox(
           width: 400,
+          height: 400,
           child: TableCalendar(
             focusedDay: DateTime.now(),
             lastDay: DateTime.utc(2030, 3, 14),
