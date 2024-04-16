@@ -2,6 +2,7 @@ import 'package:app/screens/maze_screen.dart';
 import 'package:app/screens/python_screen.dart';
 import 'package:app/screens/sort_screen.dart';
 import 'package:app/screens/sql_screen.dart';
+import 'package:app/utils.dart';
 import 'package:flutter/material.dart';
 
 class RootNavigator extends StatefulWidget {
@@ -56,15 +57,16 @@ class _RootNavigatorState extends State<RootNavigator> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                [
-                  const SortScreen(),
-                  const MazeScreen(),
-                  const PythonScreen(),
-                  // CodeEditorScreen(
-                  //   onRun: () {},
-                  // ),
-                  const SQLScreen(),
-                ][currentPageIndex]
+                SizedBox(
+                  width: getWidth(),
+                  height: getHeight(),
+                  child: [
+                    const SortScreen(),
+                    const MazeScreen(),
+                    const PythonScreen(),
+                    const SQLScreen(),
+                  ][currentPageIndex],
+                )
               ],
             ),
           ),

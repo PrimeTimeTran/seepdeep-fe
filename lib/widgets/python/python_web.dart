@@ -37,33 +37,29 @@ class _PythonState extends State<Python> {
 
       return _view;
     });
-    return SizedBox(
-      height: getHeight(),
-      width: double.infinity,
-      child: Column(
-        children: [
-          SizedBox(
-            height: getHeight() - 100,
-            width: double.infinity,
-            child: VerticalSplitView(
-              left: const ProblemPrompt(),
-              right: CodeEditorScreen(
-                selectedLang: 'python',
-                onRun: (code) {
-                  onRun(code);
-                },
-              ),
+    return Column(
+      children: [
+        SizedBox(
+          height: getHeight() - 100,
+          width: double.infinity,
+          child: VerticalSplitView(
+            left: const ProblemPrompt(),
+            right: CodeEditorScreen(
+              selectedLang: 'python',
+              onRun: (code) {
+                onRun(code);
+              },
             ),
           ),
-          const SizedBox(height: 10),
-          buildResult(),
-          const Expanded(
-            child: HtmlElementView(
-              viewType: 'index',
-            ),
+        ),
+        const SizedBox(height: 10),
+        buildResult(),
+        const Expanded(
+          child: HtmlElementView(
+            viewType: 'index',
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
