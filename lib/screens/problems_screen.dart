@@ -2,49 +2,8 @@ import 'package:filter_list/filter_list.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 
+import '../constants.dart';
 import '../utils.dart';
-
-List<Topic> topicList = [
-  Topic(name: "Python", avatar: "Topic.png"),
-  Topic(name: "Dart", avatar: "Topic.png"),
-  Topic(name: "SQL", avatar: "Topic.png"),
-  Topic(name: "Postgres", avatar: "Topic.png"),
-  Topic(name: "MongoDB", avatar: "Topic.png"),
-  Topic(name: "C", avatar: "Topic.png"),
-  Topic(name: "C++", avatar: "Topic.png"),
-  Topic(name: "C#", avatar: "Topic.png"),
-  Topic(name: "Go", avatar: "Topic.png"),
-  Topic(name: "Mojo", avatar: "Topic.png"),
-  Topic(name: "Ruby", avatar: "Topic.png"),
-  Topic(name: "Typescript", avatar: "Topic.png"),
-  Topic(name: "Javascript", avatar: "Topic.png"),
-  Topic(name: "Flutter", avatar: "Topic.png"),
-  Topic(name: "Vue", avatar: "Topic.png"),
-  Topic(name: "React", avatar: "Topic.png"),
-  Topic(name: "React Native", avatar: "Topic.png"),
-  Topic(name: "Nuxt", avatar: "Topic.png"),
-  Topic(name: "Next", avatar: "Topic.png"),
-  Topic(name: "Ruby on Rails", avatar: "Topic.png"),
-  Topic(name: "Django", avatar: "Topic.png"),
-  Topic(name: ".Net", avatar: "Topic.png"),
-  Topic(name: "NodeJS", avatar: "Topic.png"),
-  Topic(name: "Flask", avatar: "Topic.png"),
-  Topic(name: "Kubernetes", avatar: "Topic.png"),
-  Topic(name: "Docker", avatar: "Topic.png"),
-  Topic(name: "Data Analysis", avatar: "Topic.png"),
-  Topic(name: "Data Analytics", avatar: "Topic.png"),
-  Topic(name: "LLM", avatar: "Topic.png"),
-  Topic(name: "AI", avatar: "Topic.png"),
-  Topic(name: "Machine Learning", avatar: "Topic.png"),
-  Topic(name: "Theresa", avatar: "Topic.png"),
-  Topic(name: "Una", avatar: "Topic.png"),
-  Topic(name: "Vanessa", avatar: "Topic.png"),
-  Topic(name: "Victoria", avatar: "Topic.png"),
-  Topic(name: "Wanda", avatar: "Topic.png"),
-  Topic(name: "Wendy", avatar: "Topic.png"),
-  Topic(name: "Yvonne", avatar: "Topic.png"),
-  Topic(name: "Zoe", avatar: "Topic.png"),
-];
 
 class ProblemsScreen extends StatefulWidget {
   const ProblemsScreen({super.key});
@@ -53,15 +12,9 @@ class ProblemsScreen extends StatefulWidget {
   State<ProblemsScreen> createState() => _ProblemsScreenState();
 }
 
-class Topic {
-  final String? name;
-  final String? avatar;
-  Topic({this.name, this.avatar});
-}
-
 class _ProblemsScreenState extends State<ProblemsScreen> {
-  List<Topic>? selectedTopicList = topicList;
   bool toggleProblemTopics = false;
+  List<Topic>? selectedTopicList = topicList;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -173,13 +126,16 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
               choiceChipBuilder: (context, item, isSelected) {
                 return Container(
                   padding:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
                   margin:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                   decoration: BoxDecoration(
                       border: Border.all(
-                    color: isSelected! ? Colors.blue[300]! : Colors.grey[300]!,
-                  )),
+                        color:
+                            isSelected! ? Colors.blue[300]! : Colors.grey[300]!,
+                      ),
+                      borderRadius:
+                          const BorderRadius.all(Radius.circular(30))),
                   child: Text(
                     item.name,
                     style: TextStyle(

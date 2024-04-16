@@ -1,76 +1,29 @@
 import 'package:filter_list/filter_list.dart';
 import 'package:flutter/material.dart';
 
-/// Creating a global list for example purpose.
-/// Generally it should be within data class or where ever you want
-List<User> userList = [
-  User(name: "Python", avatar: "user.png"),
-  User(name: "Dart", avatar: "user.png"),
-  User(name: "SQL", avatar: "user.png"),
-  User(name: "Postgres", avatar: "user.png"),
-  User(name: "MongoDB", avatar: "user.png"),
-  User(name: "C", avatar: "user.png"),
-  User(name: "C++", avatar: "user.png"),
-  User(name: "C#", avatar: "user.png"),
-  User(name: "Go", avatar: "user.png"),
-  User(name: "Mojo", avatar: "user.png"),
-  User(name: "Ruby", avatar: "user.png"),
-  User(name: "Typescript", avatar: "user.png"),
-  User(name: "Javascript", avatar: "user.png"),
-  User(name: "Flutter", avatar: "user.png"),
-  User(name: "Vue", avatar: "user.png"),
-  User(name: "React", avatar: "user.png"),
-  User(name: "React Native", avatar: "user.png"),
-  User(name: "Nuxt", avatar: "user.png"),
-  User(name: "Next", avatar: "user.png"),
-  User(name: "Ruby on Rails", avatar: "user.png"),
-  User(name: "Django", avatar: "user.png"),
-  User(name: ".Net", avatar: "user.png"),
-  User(name: "NodeJS", avatar: "user.png"),
-  User(name: "Flask", avatar: "user.png"),
-  User(name: "Kubernetes", avatar: "user.png"),
-  User(name: "Docker", avatar: "user.png"),
-  User(name: "Data Analysis", avatar: "user.png"),
-  User(name: "Data Analytics", avatar: "user.png"),
-  User(name: "LLM", avatar: "user.png"),
-  User(name: "AI", avatar: "user.png"),
-  User(name: "Machine Learning", avatar: "user.png"),
-  User(name: "Theresa", avatar: "user.png"),
-  User(name: "Una", avatar: "user.png"),
-  User(name: "Vanessa", avatar: "user.png"),
-  User(name: "Victoria", avatar: "user.png"),
-  User(name: "Wanda", avatar: "user.png"),
-  User(name: "Wendy", avatar: "user.png"),
-  User(name: "Yvonne", avatar: "user.png"),
-  User(name: "Zoe", avatar: "user.png"),
-];
+import '../constants.dart';
 
 class NewsScreen extends StatefulWidget {
   final String? title;
   const NewsScreen({super.key, this.title});
 
   @override
+  // ignore: library_private_types_in_public_api
   _NewsScreenState createState() => _NewsScreenState();
 }
 
-class User {
-  final String? name;
-  final String? avatar;
-  User({this.name, this.avatar});
-}
-
 class _NewsScreenState extends State<NewsScreen> {
-  List<User>? selectedUserList = userList;
+  List<News>? selectedNewsList = newsList;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
         children: <Widget>[
-          if (selectedUserList == null || selectedUserList!.isEmpty)
+          if (selectedNewsList == null || selectedNewsList!.isEmpty)
             const Expanded(
               child: Center(
-                child: Text('No user selected'),
+                child: Text('No news selected'),
               ),
             )
           else
@@ -78,11 +31,11 @@ class _NewsScreenState extends State<NewsScreen> {
               child: ListView.separated(
                 itemBuilder: (context, index) {
                   return ListTile(
-                    title: Text(selectedUserList![index].name!),
+                    title: Text(selectedNewsList![index].name!),
                   );
                 },
                 separatorBuilder: (context, index) => const Divider(),
-                itemCount: selectedUserList!.length,
+                itemCount: selectedNewsList!.length,
               ),
             ),
         ],
@@ -99,10 +52,10 @@ class _NewsScreenState extends State<NewsScreen> {
   }
 
   Future<void> openFilterDelegate() async {
-    await FilterListDelegate.show<User>(
+    await FilterListDelegate.show<News>(
       context: context,
-      list: userList,
-      selectedListData: selectedUserList,
+      list: newsList,
+      selectedListData: selectedNewsList,
       theme: FilterListDelegateThemeData(
         listTileTheme: ListTileThemeData(
           shape: RoundedRectangleBorder(
@@ -115,16 +68,16 @@ class _NewsScreenState extends State<NewsScreen> {
         ),
       ),
       // enableOnlySingleSelection: true,
-      onItemSearch: (user, query) {
-        return user.name!.toLowerCase().contains(query.toLowerCase());
+      onItemSearch: (news, query) {
+        return news.name!.toLowerCase().contains(query.toLowerCase());
       },
-      tileLabel: (user) => user!.name,
-      emptySearchChild: const Center(child: Text('No user found')),
+      tileLabel: (news) => news!.name,
+      emptySearchChild: const Center(child: Text('No news found')),
       // enableOnlySingleSelection: true,
       searchFieldHint: 'Search Here..',
-      /*suggestionBuilder: (context, user, isSelected) {
+      /*suggestionBuilder: (context, news, isSelected) {
         return ListTile(
-          title: Text(user.name!),
+          title: Text(news.name!),
           leading: const CircleAvatar(
             backgroundColor: Colors.blue,
           ),
@@ -133,30 +86,30 @@ class _NewsScreenState extends State<NewsScreen> {
       },*/
       onApplyButtonClick: (list) {
         setState(() {
-          selectedUserList = list;
+          selectedNewsList = list;
         });
       },
     );
   }
 
   Future<void> _openFilterDialog() async {
-    await FilterListDialog.display<User>(
+    await FilterListDialog.display<News>(
       context,
       height: 500,
-      listData: userList,
+      listData: newsList,
       headlineText: 'Select Topics',
       hideSelectedTextCount: true,
-      selectedListData: selectedUserList,
+      selectedListData: selectedNewsList,
       choiceChipLabel: (item) => item!.name,
       themeData: FilterListThemeData(context),
       validateSelectedItem: (list, val) => list!.contains(val),
       controlButtons: [ControlButtonType.All, ControlButtonType.Reset],
-      onItemSearch: (user, query) {
-        return user.name!.toLowerCase().contains(query.toLowerCase());
+      onItemSearch: (news, query) {
+        return news.name!.toLowerCase().contains(query.toLowerCase());
       },
       onApplyButtonClick: (list) {
         setState(() {
-          selectedUserList = List.from(list!);
+          selectedNewsList = List.from(list!);
         });
         Navigator.pop(context);
       },

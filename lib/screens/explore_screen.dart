@@ -1,6 +1,7 @@
 import 'dart:developer' as dev;
 import 'dart:math';
 
+import 'package:app/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blurhash/flutter_blurhash.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -189,39 +190,44 @@ class _ExploreScreenState extends State<ExploreScreen> {
   double progression = 0;
 
   @override
-  Widget build(BuildContext context) =>
-      NotificationListener<ScrollNotification>(
-          onNotification: (ScrollNotification notif) {
-            // NO need to setState
-            setState(() {
-              progression = norm(notif.metrics.pixels, 0, 1);
-              // print("Progression $progression / px ${notif.metrics.pixels}");
-            });
-            return true;
-          },
-          child: Stack(children: [
-            FractionallySizedBox(
-              heightFactor: topMark,
-              child: Container(
-                decoration: const BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [Color(0xEEFFFFFF), Color(0xCCFFFFFF)],
-                    begin: Alignment.bottomCenter,
-                    end: Alignment.topCenter,
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        SizedBox(
+            width: getWidth() / 2,
+            child: NotificationListener<ScrollNotification>(
+                onNotification: (ScrollNotification notif) {
+                  setState(() {
+                    progression = norm(notif.metrics.pixels, 0, 1);
+                  });
+                  return true;
+                },
+                child: Stack(children: [
+                  FractionallySizedBox(
+                    heightFactor: topMark,
+                    child: Container(
+                      decoration: const BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [Color(0xEEFFFFFF), Color(0xCCFFFFFF)],
+                          begin: Alignment.bottomCenter,
+                          end: Alignment.topCenter,
+                        ),
+                      ),
+                    ),
                   ),
-                ),
-              ),
-            ),
-            Align(
-              alignment: const Alignment(-.8, -.5),
-              child: Container(
-                margin: const EdgeInsets.only(top: 100),
-                child: Header(progression: progression),
-              ),
-            ),
-            //BackdropFilter(child: , filter: ImageFilter.blur(sigmaY: 15, sigmaX: 15)),
-            buildInViewNotifierList()
-          ]));
+                  Align(
+                    alignment: const Alignment(-.8, -.5),
+                    child: Container(
+                      margin: const EdgeInsets.only(top: 100),
+                      child: Header(progression: progression),
+                    ),
+                  ),
+                  buildInViewNotifierList()
+                ]))),
+      ],
+    );
+  }
 
   Container buildEntry(bool isInView, int idx) => Container(
       padding: const EdgeInsets.only(left: 0, right: 200),
@@ -246,9 +252,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
           }),
       isInViewPortCondition:
           (double deltaTop, double deltaBottom, double viewPortDimension) =>
-              deltaTop < (topMark * viewPortDimension)
-      //&& deltaBottom > (0.3 * viewPortDimension)
-      );
+              deltaTop < (topMark * viewPortDimension));
 
   Widget buildList() => ListView.builder(
       itemCount: entries.length,
