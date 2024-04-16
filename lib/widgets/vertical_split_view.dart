@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 
 class HorizontalSplitView extends StatefulWidget {
@@ -49,11 +51,7 @@ class _HorizontalSplitViewState extends State<HorizontalSplitView> {
         }
 
         return Container(
-          decoration: BoxDecoration(
-            border: Border.all(
-              width: 1,
-            ),
-          ),
+          decoration: BoxDecoration(border: Border.all()),
           child: SizedBox(
             height: constraints.maxHeight,
             child: Column(
@@ -154,10 +152,7 @@ class _VerticalSplitViewState extends State<VerticalSplitView> {
                 });
               },
             ),
-            SizedBox(
-              width: _width2,
-              child: widget.right,
-            ),
+            SizedBox(width: _width2, child: widget.right),
           ],
         ),
       );

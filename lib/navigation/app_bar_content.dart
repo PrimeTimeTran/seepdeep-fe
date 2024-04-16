@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../constants.dart';
 
@@ -22,46 +23,118 @@ class _AppBarContentState extends State<AppBarContent> {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10),
           child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              const Text(
-                'CS Toolkit',
-                style: TextStyle(color: Colors.white, fontSize: 30),
+              TextButton.icon(
+                onPressed: () => GoRouter.of(context).go('/'),
+                icon: const Icon(Icons.home),
+                label: const Text(
+                  'GemsOfCS',
+                  style: TextStyle(color: Colors.white, fontSize: 15),
+                ),
               ),
-              const SizedBox(width: 25),
-              ElevatedButton(
-                onPressed: () {
-                  openDrawer();
-                },
-                child: const Text('Problems'),
+              const SizedBox(width: 10),
+              Expanded(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    TextButton.icon(
+                      onPressed: () {
+                        GoRouter.of(context).go('/explore');
+                      },
+                      label: const Text('Explore',
+                          style: TextStyle(color: Colors.white)),
+                      icon: const Icon(Icons.explore, color: Colors.white),
+                    ),
+                    TextButton.icon(
+                      onPressed: () {
+                        openDrawer();
+                      },
+                      label: const Text('Problems',
+                          style: TextStyle(color: Colors.white)),
+                      icon: const Icon(Icons.school_outlined,
+                          color: Colors.white),
+                    ),
+                    TextButton.icon(
+                      onPressed: () {
+                        GoRouter.of(context).go('/community');
+                      },
+                      label: const Text('Community',
+                          style: TextStyle(color: Colors.white)),
+                      icon: const Icon(Icons.groups_2_outlined,
+                          color: Colors.white),
+                    ),
+                    TextButton.icon(
+                      onPressed: () {
+                        GoRouter.of(context).go('/contests');
+                      },
+                      label: const Text('Contests',
+                          style: TextStyle(color: Colors.white)),
+                      icon: const Icon(Icons.sports_score_outlined,
+                          color: Colors.white),
+                    ),
+                    TextButton.icon(
+                      onPressed: () {
+                        GoRouter.of(context).go('/leaderboards');
+                      },
+                      label: const Text('Leaderboards',
+                          style: TextStyle(color: Colors.white)),
+                      icon: const Icon(Icons.leaderboard_outlined,
+                          color: Colors.white),
+                    ),
+                    TextButton.icon(
+                      onPressed: () {
+                        GoRouter.of(context).go('/news');
+                      },
+                      label: const Text('News',
+                          style: TextStyle(color: Colors.white)),
+                      icon: const Icon(Icons.newspaper, color: Colors.white),
+                    ),
+                    TextButton.icon(
+                      onPressed: () {
+                        GoRouter.of(context).go('/jobs');
+                      },
+                      label: const Text('Jobs',
+                          style: TextStyle(color: Colors.white)),
+                      icon: const Icon(Icons.work_outline_outlined,
+                          color: Colors.white),
+                    ),
+                  ],
+                ),
               ),
-              const Spacer(),
               IconButton(
                 icon: const Icon(
                   Icons.search,
                   size: 20,
                 ),
                 color: Colors.white,
-                onPressed: () {},
+                onPressed: () {
+                  GoRouter.of(context).go('/search');
+                },
               ),
               IconButton(
                 icon: const Icon(
-                  Icons.more_vert,
+                  Icons.fireplace_outlined,
                   size: 20,
                 ),
                 color: Colors.white,
-                onPressed: () {},
+                onPressed: () {
+                  GoRouter.of(context).go('/streak');
+                },
               ),
               IconButton(
                 icon: const Icon(
-                  Icons.help,
+                  Icons.notifications_active,
                   size: 20,
                 ),
                 color: Colors.white,
-                onPressed: () {},
+                onPressed: () {
+                  GoRouter.of(context).go('/notifications');
+                },
               ),
               PopupMenuButton<SampleItem>(
                 icon: const Icon(
-                  Icons.account_circle_outlined,
+                  Icons.help_center_outlined,
                   size: 20,
                   color: Colors.white,
                 ),
@@ -73,24 +146,50 @@ class _AppBarContentState extends State<AppBarContent> {
                 },
                 itemBuilder: (BuildContext context) =>
                     <PopupMenuEntry<SampleItem>>[
-                  const PopupMenuItem<SampleItem>(
-                    value: SampleItem.itemOne,
-                    child: Text('Profile'),
-                  ),
-                  const PopupMenuItem<SampleItem>(
-                    value: SampleItem.itemTwo,
-                    child: Text('Settings'),
-                  ),
-                  const PopupMenuItem<SampleItem>(
-                    value: SampleItem.itemThree,
-                    child: Text('Authentication'),
-                  ),
+                  buildMenuItem('Shortcuts', Icons.keyboard, "/explore"),
+                  buildMenuItem('Feature Requests', Icons.note_alt_outlined,
+                      "/feature-requests"),
+                  buildMenuItem('Report Bug', Icons.bug_report, "/bug-reports"),
+                ],
+              ),
+              PopupMenuButton<SampleItem>(
+                icon: const Icon(
+                  Icons.more_vert,
+                  size: 20,
+                  color: Colors.white,
+                ),
+                initialValue: selectedItem,
+                onSelected: (SampleItem item) {
+                  setState(() {
+                    selectedItem = item;
+                  });
+                },
+                itemBuilder: (BuildContext context) =>
+                    <PopupMenuEntry<SampleItem>>[
+                  buildMenuItem('Profile', Icons.person, "/profile"),
+                  buildMenuItem('Settings', Icons.settings, "/settings"),
+                  buildMenuItem('Report Bug', Icons.bug_report, "/bug-reports"),
+                  buildMenuItem('Logout', Icons.exit_to_app, "/bug-reports"),
                 ],
               ),
             ],
           ),
         ),
       ],
+    );
+  }
+
+  PopupMenuItem<SampleItem> buildMenuItem(
+      String title, IconData icon, String route) {
+    return PopupMenuItem<SampleItem>(
+      value: SampleItem.itemOne,
+      onTap: () {
+        GoRouter.of(context).go(route);
+      },
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [Icon(icon), const SizedBox(width: 5.0), Text(title)],
+      ),
     );
   }
 

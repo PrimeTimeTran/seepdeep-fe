@@ -20,7 +20,7 @@ final Map<int, Color> colorMapper = {
   10: Colors.blueGrey[900]!,
 };
 
-final sampleTree = TreeNode.root()
+final dsaTOC = TreeNode.root()
   ..addAll([
     TreeNode(key: "Array")
       ..addAll([
@@ -88,52 +88,66 @@ class _DrawerContentState extends State<DrawerContent> {
   Widget build(BuildContext context) {
     return Drawer(
       width: 500,
-      child: ListView(
-        padding: EdgeInsets.zero,
+      child: Column(
         children: [
-          const DrawerHeader(
-            decoration: BoxDecoration(
-              color: Colors.blue,
-            ),
-            child: Text('Problem Sets'),
-          ),
-          SizedBox(
-            width: 300,
-            height: getHeight(),
-            child: TreeView.simple(
-              tree: sampleTree,
-              showRootNode: false,
-              expansionIndicatorBuilder: (context, node) =>
-                  ChevronIndicator.rightDown(
-                tree: node,
-                color: Colors.blue[700],
-                padding: const EdgeInsets.all(8),
+          const SizedBox(
+            height: 200,
+            width: double.infinity,
+            child: DrawerHeader(
+              decoration: BoxDecoration(
+                color: Colors.blue,
               ),
-              indentation: const Indentation(style: IndentStyle.squareJoint),
-              onItemTap: (item) {
-                if (kDebugMode) print("Item tapped: ${item.key}");
+              child: Text('Problem Sets'),
+            ),
+          ),
+          ScrollConfiguration(
+            behavior:
+                ScrollConfiguration.of(context).copyWith(scrollbars: false),
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  SizedBox(
+                    width: double.infinity,
+                    height: getHeight() - 200,
+                    child: TreeView.simple(
+                      tree: dsaTOC,
+                      showRootNode: false,
+                      expansionIndicatorBuilder: (context, node) =>
+                          ChevronIndicator.rightDown(
+                        tree: node,
+                        color: Colors.blue[700],
+                        padding: const EdgeInsets.all(8),
+                      ),
+                      indentation:
+                          const Indentation(style: IndentStyle.squareJoint),
+                      onItemTap: (item) {
+                        if (kDebugMode) print("Item tapped: ${item.key}");
 
-                if (showSnackBar) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text("Item tapped: ${item.key}"),
-                      duration: const Duration(milliseconds: 750),
+                        if (showSnackBar) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text("Item tapped: ${item.key}"),
+                              duration: const Duration(milliseconds: 750),
+                            ),
+                          );
+                        }
+                      },
+                      onTreeReady: (controller) {
+                        if (expandChildrenOnReady) {
+                          // controller.expandAllChildren(dsaTOC);
+                        }
+                      },
+                      builder: (context, node) => Card(
+                        color: colorMapper[
+                            node.level.clamp(0, colorMapper.length - 1)]!,
+                        child: ListTile(
+                          title: Text("Item ${node.level}-${node.key}"),
+                          subtitle: Text('Level ${node.level}'),
+                        ),
+                      ),
                     ),
-                  );
-                }
-              },
-              onTreeReady: (controller) {
-                if (expandChildrenOnReady) {
-                  // controller.expandAllChildren(sampleTree);
-                }
-              },
-              builder: (context, node) => Card(
-                color:
-                    colorMapper[node.level.clamp(0, colorMapper.length - 1)]!,
-                child: ListTile(
-                  title: Text("Item ${node.level}-${node.key}"),
-                  subtitle: Text('Level ${node.level}'),
-                ),
+                  ),
+                ],
               ),
             ),
           ),
