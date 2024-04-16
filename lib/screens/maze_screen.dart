@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../models/board.dart';
 import '../models/node.dart';
-import '../toasts.dart';
+import '../widgets/toasts.dart';
 import '../widgets/cell.dart';
 import '../widgets/modals.dart';
 

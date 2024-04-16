@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class Python extends StatelessWidget {
-  const Python({super.key});
+class Problem extends StatelessWidget {
+  const Problem({super.key});
 
   @override
   Widget build(BuildContext context) {

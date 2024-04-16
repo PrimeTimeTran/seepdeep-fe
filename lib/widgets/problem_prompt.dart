@@ -57,7 +57,7 @@ Output: [0, 1, 2, 3, 3, 4, 5, 7, 8, 9, 11, 13, 20]
 ```
 
 ## Requirements
-O(N) Space & Time complexity
+`O(N^2)` Space & Time complexity
 """;
 
 class CodeElementBuilder extends MarkdownElementBuilder {

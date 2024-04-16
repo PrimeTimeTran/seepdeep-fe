@@ -7,7 +7,7 @@ import 'setups.dart';
 // ignore: must_be_immutable
 class CodeEditorScreen extends StatefulWidget {
   Function onRun;
-  String selectedLang;
+  Languages selectedLang;
   CodeEditorScreen(
       {super.key, required this.onRun, required this.selectedLang});
 

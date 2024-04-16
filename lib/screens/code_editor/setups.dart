@@ -13,11 +13,11 @@ void main() {
   print('Hello World');
 }
 """;
+
 final pythonController = CodeController(
   text: pythonSort,
   language: python,
 );
-
 var pythonSort = """
 nums = [20, 13, 3, 3, 4, 5, 1, 2, 8, 7, 9, 0, 11]
 def bubble_sort(nums):
@@ -38,17 +38,14 @@ final sqlController = CodeController(
   text: sqlQuery,
   language: sql,
 );
-// var sqlQuery = """
-// SELECT * FROM customers where country="USA" limit 5;
-// """;
 var sqlQuery = """
 SELECT * FROM customers;
 """;
 getController(selectedLang) {
   switch (selectedLang) {
-    case 'python':
+    case Languages.python:
       return pythonController;
-    case 'dart':
+    case Languages.dart:
       return dartController;
     default:
       return sqlController;
@@ -57,7 +54,7 @@ getController(selectedLang) {
 
 getLanguage(selectedLang) {
   switch (selectedLang) {
-    case 'python':
+    case Languages.python:
       return python;
     case 'dart':
       return dart;
@@ -65,3 +62,5 @@ getLanguage(selectedLang) {
       return sql;
   }
 }
+
+enum Languages { sql, python, dart }

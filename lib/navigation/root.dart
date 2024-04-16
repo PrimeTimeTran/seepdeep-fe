@@ -1,5 +1,5 @@
 import 'package:app/screens/maze_screen.dart';
-import 'package:app/screens/python_screen.dart';
+import 'package:app/screens/problem_screen.dart';
 import 'package:app/screens/sort_screen.dart';
 import 'package:app/screens/sql_screen.dart';
 import 'package:app/utils.dart';
@@ -13,7 +13,7 @@ class RootNavigator extends StatefulWidget {
 }
 
 class _RootNavigatorState extends State<RootNavigator> {
-  int currentPageIndex = 2;
+  int currentPageIndex = 0;
 
   NavigationRailLabelType labelType = NavigationRailLabelType.all;
 
@@ -26,16 +26,16 @@ class _RootNavigatorState extends State<RootNavigator> {
           labelType: labelType,
           destinations: const [
             NavigationRailDestination(
-              icon: Icon(Icons.sort),
+              icon: Icon(Icons.code),
+              label: Text('Code'),
+            ),
+            NavigationRailDestination(
+              icon: Icon(Icons.sort_by_alpha),
               label: Text('Sorting'),
             ),
             NavigationRailDestination(
               icon: Icon(Icons.grid_on),
               label: Text('Matrix'),
-            ),
-            NavigationRailDestination(
-              icon: Icon(Icons.code),
-              label: Text('Code'),
             ),
             NavigationRailDestination(
               icon: Icon(Icons.table_chart_rounded),
@@ -61,9 +61,9 @@ class _RootNavigatorState extends State<RootNavigator> {
                   width: getWidth(),
                   height: getHeight(),
                   child: [
+                    const ProblemScreen(),
                     const SortScreen(),
                     const MazeScreen(),
-                    const PythonScreen(),
                     const SQLScreen(),
                   ][currentPageIndex],
                 )

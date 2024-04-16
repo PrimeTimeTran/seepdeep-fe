@@ -3,19 +3,20 @@ import 'dart:html';
 import 'dart:ui' as ui;
 
 import 'package:app/screens/code_editor/code_editor_screen.dart';
+import 'package:app/screens/code_editor/setups.dart';
 import 'package:app/utils.dart';
 import 'package:app/widgets/problem_prompt.dart';
 import 'package:app/widgets/vertical_split_view.dart';
 import 'package:flutter/material.dart';
 
-class Python extends StatefulWidget {
-  const Python({super.key});
+class Problem extends StatefulWidget {
+  const Problem({super.key});
 
   @override
-  State<Python> createState() => _PythonState();
+  State<Problem> createState() => _ProblemState();
 }
 
-class _PythonState extends State<Python> {
+class _ProblemState extends State<Problem> {
   String result = '';
   IFrameElement _view = IFrameElement();
   @override
@@ -42,12 +43,9 @@ class _PythonState extends State<Python> {
         SizedBox(
           height: getHeight(),
           width: double.infinity,
-          child: Container(
-            // color: Colors.red,
-            child: VerticalSplitView(
-              left: const ProblemPrompt(),
-              right: buildRight(),
-            ),
+          child: VerticalSplitView(
+            left: const ProblemPrompt(),
+            right: buildRight(),
           ),
         ),
       ],
@@ -70,7 +68,7 @@ class _PythonState extends State<Python> {
   HorizontalSplitView buildRight() {
     return HorizontalSplitView(
       top: CodeEditorScreen(
-        selectedLang: 'python',
+        selectedLang: Languages.python,
         onRun: (code) {
           onRun(code);
         },
