@@ -1,7 +1,16 @@
 import 'package:flutter/material.dart';
 
-class AppBarContent extends StatelessWidget {
+class AppBarContent extends StatefulWidget {
   const AppBarContent({super.key});
+
+  @override
+  State<AppBarContent> createState() => _AppBarContentState();
+}
+
+enum SampleItem { itemOne, itemTwo, itemThree }
+
+class _AppBarContentState extends State<AppBarContent> {
+  SampleItem? selectedItem;
 
   @override
   Widget build(BuildContext context) {
@@ -32,6 +41,42 @@ class AppBarContent extends StatelessWidget {
                 ),
                 color: Colors.white,
                 onPressed: () {},
+              ),
+              IconButton(
+                icon: const Icon(
+                  Icons.help,
+                  size: 20,
+                ),
+                color: Colors.white,
+                onPressed: () {},
+              ),
+              PopupMenuButton<SampleItem>(
+                icon: const Icon(
+                  Icons.account_circle_outlined,
+                  size: 20,
+                  color: Colors.white,
+                ),
+                initialValue: selectedItem,
+                onSelected: (SampleItem item) {
+                  setState(() {
+                    selectedItem = item;
+                  });
+                },
+                itemBuilder: (BuildContext context) =>
+                    <PopupMenuEntry<SampleItem>>[
+                  const PopupMenuItem<SampleItem>(
+                    value: SampleItem.itemOne,
+                    child: Text('Profile'),
+                  ),
+                  const PopupMenuItem<SampleItem>(
+                    value: SampleItem.itemTwo,
+                    child: Text('Settings'),
+                  ),
+                  const PopupMenuItem<SampleItem>(
+                    value: SampleItem.itemThree,
+                    child: Text('Authentication'),
+                  ),
+                ],
               ),
             ],
           ),

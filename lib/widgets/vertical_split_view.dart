@@ -65,10 +65,9 @@ class _HorizontalSplitViewState extends State<HorizontalSplitView> {
                 GestureDetector(
                   behavior: HitTestBehavior.translucent,
                   child: Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.only(bottom: 4.0),
                     child: SizedBox(
                       height: _dividerHeight,
-                      width: double.infinity,
                       child: const Icon(Icons.drag_handle),
                     ),
                   ),
@@ -84,11 +83,15 @@ class _HorizontalSplitViewState extends State<HorizontalSplitView> {
                   },
                 ),
                 SizedBox(
-                  height: _height2 - 100,
+                  height: _height2 - 50,
                   width: double.infinity,
                   child: Container(
                     decoration: const BoxDecoration(
-                      border: Border(top: BorderSide(width: 1)),
+                      border: Border(
+                        top: BorderSide(
+                          width: 1,
+                        ),
+                      ),
                     ),
                     child: widget.bottom,
                   ),

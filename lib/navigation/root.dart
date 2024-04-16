@@ -50,9 +50,9 @@ class _RootNavigatorState extends State<RootNavigator> {
             });
           },
         ),
-        const VerticalDivider(thickness: 1, width: 1),
         Expanded(
           child: SingleChildScrollView(
+            physics: const NeverScrollableScrollPhysics(),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,

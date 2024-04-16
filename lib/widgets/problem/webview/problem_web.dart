@@ -5,7 +5,7 @@ import 'dart:ui' as ui;
 import 'package:app/screens/code_editor/code_editor_screen.dart';
 import 'package:app/screens/code_editor/setups.dart';
 import 'package:app/utils.dart';
-import 'package:app/widgets/problem_prompt.dart';
+import 'package:app/widgets/problem/problem_prompt.dart';
 import 'package:app/widgets/vertical_split_view.dart';
 import 'package:flutter/material.dart';
 
@@ -38,29 +38,39 @@ class _ProblemState extends State<Problem> {
 
       return _view;
     });
-    return Column(
-      children: [
-        SizedBox(
-          height: getHeight(),
-          width: double.infinity,
-          child: VerticalSplitView(
-            left: const ProblemPrompt(),
-            right: buildRight(),
-          ),
+    return ScrollConfiguration(
+      behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
+      child: SingleChildScrollView(
+        physics: const NeverScrollableScrollPhysics(),
+        child: Column(
+          children: [
+            SizedBox(
+              height: getHeight(),
+              width: double.infinity,
+              child: VerticalSplitView(
+                left: const ProblemPrompt(),
+                right: buildRight(),
+              ),
+            ),
+          ],
         ),
-      ],
+      ),
     );
   }
 
-  buildResult() {
-    return SizedBox(
-      height: 50,
-      width: double.infinity,
-      child: Column(
-        children: [
-          const SizedBox(height: 25),
-          Text(result),
-        ],
+  buildBottom() {
+    return Expanded(
+      child: Padding(
+        padding: const EdgeInsets.only(top: 8.0, left: 8),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SelectableText(result),
+            const HtmlElementView(
+              viewType: 'index',
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -73,20 +83,7 @@ class _ProblemState extends State<Problem> {
           onRun(code);
         },
       ),
-      bottom: Container(
-        color: Colors.white,
-        child: Column(
-          children: [
-            const SizedBox(height: 10),
-            buildResult(),
-            const Expanded(
-              child: HtmlElementView(
-                viewType: 'index',
-              ),
-            ),
-          ],
-        ),
-      ),
+      bottom: buildBottom(),
     );
   }
 

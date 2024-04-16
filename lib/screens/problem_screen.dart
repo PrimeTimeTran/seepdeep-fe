@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 
-import '../widgets/problem/all.dart';
+import '../widgets/problem/webview/all.dart';
 
 class ProblemScreen extends StatefulWidget {
   const ProblemScreen({super.key});
