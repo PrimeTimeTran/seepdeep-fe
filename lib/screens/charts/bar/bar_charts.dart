@@ -2,8 +2,6 @@ import 'dart:async';
 import 'dart:math' as math;
 import 'dart:math';
 
-//
-// import 'package:fl_chart_app/util/extensions/color_extensions.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
@@ -1408,7 +1406,7 @@ class BarChartSample8 extends StatefulWidget {
   final Color barBackgroundColor =
       AppColors.contentColorWhite.darken().withOpacity(0.3);
 
-  final Color barColor = AppColors.contentColorWhite;
+  final Color barColor = AppColors.contentColorBlue;
   BarChartSample8({super.key});
 
   @override
