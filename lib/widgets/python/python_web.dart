@@ -40,23 +40,14 @@ class _PythonState extends State<Python> {
     return Column(
       children: [
         SizedBox(
-          height: getHeight() - 100,
+          height: getHeight(),
           width: double.infinity,
-          child: VerticalSplitView(
-            left: const ProblemPrompt(),
-            right: CodeEditorScreen(
-              selectedLang: 'python',
-              onRun: (code) {
-                onRun(code);
-              },
+          child: Container(
+            // color: Colors.red,
+            child: VerticalSplitView(
+              left: const ProblemPrompt(),
+              right: buildRight(),
             ),
-          ),
-        ),
-        const SizedBox(height: 10),
-        buildResult(),
-        const Expanded(
-          child: HtmlElementView(
-            viewType: 'index',
           ),
         ),
       ],
@@ -69,8 +60,34 @@ class _PythonState extends State<Python> {
       width: double.infinity,
       child: Column(
         children: [
+          const SizedBox(height: 25),
           Text(result),
         ],
+      ),
+    );
+  }
+
+  HorizontalSplitView buildRight() {
+    return HorizontalSplitView(
+      top: CodeEditorScreen(
+        selectedLang: 'python',
+        onRun: (code) {
+          onRun(code);
+        },
+      ),
+      bottom: Container(
+        color: Colors.white,
+        child: Column(
+          children: [
+            const SizedBox(height: 10),
+            buildResult(),
+            const Expanded(
+              child: HtmlElementView(
+                viewType: 'index',
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -1,5 +1,22 @@
 import 'package:flutter/material.dart';
 
+class HorizontalSplitView extends StatefulWidget {
+  final Widget top;
+  final Widget bottom;
+  final double ratio;
+
+  const HorizontalSplitView({
+    super.key,
+    required this.top,
+    required this.bottom,
+    this.ratio = .80,
+  })  : assert(ratio >= 0),
+        assert(ratio <= 1);
+
+  @override
+  _HorizontalSplitViewState createState() => _HorizontalSplitViewState();
+}
+
 class VerticalSplitView extends StatefulWidget {
   final Widget left;
   final Widget right;
@@ -14,13 +31,88 @@ class VerticalSplitView extends StatefulWidget {
   _VerticalSplitViewState createState() => _VerticalSplitViewState();
 }
 
+class _HorizontalSplitViewState extends State<HorizontalSplitView> {
+  double _ratio = 1;
+  double _maxHeight = 100;
+  final _dividerHeight = 16.0;
+  double get _height1 => _ratio * _maxHeight;
+  double get _height2 => (1 - _ratio) * _maxHeight;
+
+  @override
+  Widget build(BuildContext context) {
+    return LayoutBuilder(
+      builder: (context, BoxConstraints constraints) {
+        assert(_ratio <= 1);
+        assert(_ratio >= 0);
+        if (_maxHeight != constraints.maxHeight) {
+          _maxHeight = constraints.maxHeight - _dividerHeight;
+        }
+
+        return Container(
+          decoration: BoxDecoration(
+            border: Border.all(
+              width: 1,
+            ),
+          ),
+          child: SizedBox(
+            height: constraints.maxHeight,
+            child: Column(
+              children: <Widget>[
+                SizedBox(
+                  height: _height1,
+                  child: widget.top,
+                ),
+                GestureDetector(
+                  behavior: HitTestBehavior.translucent,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: SizedBox(
+                      height: _dividerHeight,
+                      width: double.infinity,
+                      child: const Icon(Icons.drag_handle),
+                    ),
+                  ),
+                  onPanUpdate: (DragUpdateDetails details) {
+                    setState(() {
+                      _ratio += details.delta.dy / _maxHeight;
+                      if (_ratio > 1) {
+                        _ratio = 1;
+                      } else if (_ratio < 0.0) {
+                        _ratio = 0.0;
+                      }
+                    });
+                  },
+                ),
+                SizedBox(
+                  height: _height2 - 100,
+                  width: double.infinity,
+                  child: Container(
+                    decoration: const BoxDecoration(
+                      border: Border(top: BorderSide(width: 1)),
+                    ),
+                    child: widget.bottom,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _ratio = widget.ratio;
+  }
+}
+
 class _VerticalSplitViewState extends State<VerticalSplitView> {
-  final _dividerWidth = 16.0;
   double _ratio = 1;
   double _maxWidth = 100;
-
+  final _dividerWidth = 16.0;
   get _width1 => _ratio * _maxWidth;
-
   get _width2 => (1 - _ratio) * _maxWidth;
 
   @override
@@ -28,7 +120,6 @@ class _VerticalSplitViewState extends State<VerticalSplitView> {
     return LayoutBuilder(builder: (context, BoxConstraints constraints) {
       assert(_ratio <= 1);
       assert(_ratio >= 0);
-      _maxWidth ??= constraints.maxWidth - _dividerWidth;
       if (_maxWidth != constraints.maxWidth) {
         _maxWidth = constraints.maxWidth - _dividerWidth;
       }

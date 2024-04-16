@@ -16,32 +16,22 @@ class CodeEditorScreen extends StatefulWidget {
 }
 
 class _CodeEditorScreenState extends State<CodeEditorScreen> {
-  // String selectedLang = 'sql';
-
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        border: Border.all(
-          color: Colors.black,
-          width: 1,
+    return Column(
+      children: [
+        CodeTheme(
+          data: CodeThemeData(styles: vsTheme),
+          child: CodeField(
+            controller: getController(widget.selectedLang),
+          ),
         ),
-      ),
-      child: Column(
-        children: [
-          CodeTheme(
-            data: CodeThemeData(styles: vsTheme),
-            child: CodeField(
-              controller: getController(widget.selectedLang),
-            ),
-          ),
-          TextButton.icon(
-            onPressed: onRun,
-            icon: const Icon(Icons.play_circle_outline),
-            label: const Text('Run'),
-          ),
-        ],
-      ),
+        TextButton.icon(
+          onPressed: onRun,
+          icon: const Icon(Icons.play_circle_outline),
+          label: const Text('Run'),
+        ),
+      ],
     );
   }
 
