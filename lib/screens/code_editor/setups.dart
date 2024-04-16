@@ -32,7 +32,7 @@ def bubble_sort(nums):
         nums[i], nums[i + 1] = nums[i + 1], nums[i]
 
   return nums
-print('Bubble Sort:', bubble_sort(nums))
+bubble_sort(nums)
 """;
 
 final sqlController = CodeController(

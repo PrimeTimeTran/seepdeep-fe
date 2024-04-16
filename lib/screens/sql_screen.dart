@@ -20,18 +20,15 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      // color: Colors.red,
-      child: Column(
-        crossAxisAlignment:
-            queried ? CrossAxisAlignment.start : CrossAxisAlignment.center,
-        children: [
-          CodeEditorScreen(onRun: onRun),
-          buildPrompts(),
-          buildTable(),
-          buildResults(),
-        ],
-      ),
+    return Column(
+      crossAxisAlignment:
+          queried ? CrossAxisAlignment.start : CrossAxisAlignment.center,
+      children: [
+        CodeEditorScreen(onRun: onRun, selectedLang: 'sql'),
+        buildPrompts(),
+        buildTable(),
+        buildResults(),
+      ],
     );
   }
 
@@ -188,6 +185,8 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
         code,
         readsFrom: {...database.allTables},
       ).get();
+      print(result);
+      print(result[0].data);
       if (result.isNotEmpty) {
         records = parseQueryRows(result);
         QueryRow firstRow = result.first;

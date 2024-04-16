@@ -1,6 +1,7 @@
 import 'package:app/screens/maze_screen.dart';
-import 'package:app/screens/privacy_screen.dart';
+import 'package:app/screens/python_screen.dart';
 import 'package:app/screens/sort_screen.dart';
+import 'package:app/screens/sql_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -74,10 +75,10 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                 icon: Icon(Icons.code),
                 label: Text('Code'),
               ),
-              // NavigationRailDestination(
-              //   icon: Icon(Icons.table_chart_rounded),
-              //   label: Text('SQL'),
-              // ),
+              NavigationRailDestination(
+                icon: Icon(Icons.table_chart_rounded),
+                label: Text('SQL'),
+              ),
             ],
             useIndicator: true,
             selectedIndex: currentPageIndex,
@@ -97,11 +98,11 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                   [
                     const SortScreen(),
                     const MazeScreen(),
-                    const PrivacyPolicyScreen(),
+                    const PythonScreen(),
                     // CodeEditorScreen(
                     //   onRun: () {},
                     // ),
-                    // const SQLScreen(),
+                    const SQLScreen(),
                   ][currentPageIndex]
                 ],
               ),

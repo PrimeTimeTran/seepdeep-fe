@@ -7,14 +7,16 @@ import 'setups.dart';
 // ignore: must_be_immutable
 class CodeEditorScreen extends StatefulWidget {
   Function onRun;
-  CodeEditorScreen({super.key, required this.onRun});
+  String selectedLang;
+  CodeEditorScreen(
+      {super.key, required this.onRun, required this.selectedLang});
 
   @override
   State<CodeEditorScreen> createState() => _CodeEditorScreenState();
 }
 
 class _CodeEditorScreenState extends State<CodeEditorScreen> {
-  String selectedLang = 'sql';
+  // String selectedLang = 'sql';
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +32,7 @@ class _CodeEditorScreenState extends State<CodeEditorScreen> {
           CodeTheme(
             data: CodeThemeData(styles: vsTheme),
             child: CodeField(
-              controller: getController(selectedLang),
+              controller: getController(widget.selectedLang),
             ),
           ),
           TextButton.icon(
@@ -44,7 +46,7 @@ class _CodeEditorScreenState extends State<CodeEditorScreen> {
   }
 
   onRun() {
-    String code = getController(selectedLang).text;
+    String code = getController(widget.selectedLang).text;
     widget.onRun(code);
   }
 }

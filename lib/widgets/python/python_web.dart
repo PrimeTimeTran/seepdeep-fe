@@ -2,17 +2,19 @@
 import 'dart:html';
 import 'dart:ui' as ui;
 
+import 'package:app/screens/code_editor/code_editor_screen.dart';
 import 'package:flutter/material.dart';
 
-class Privacy extends StatefulWidget {
-  const Privacy({super.key});
+class Python extends StatefulWidget {
+  const Python({super.key});
 
   @override
-  State<Privacy> createState() => _PrivacyState();
+  State<Python> createState() => _PythonState();
 }
 
-class _PrivacyState extends State<Privacy> {
+class _PythonState extends State<Python> {
   late IFrameElement _vieww;
+  late String result = '';
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +24,10 @@ class _PrivacyState extends State<Privacy> {
         ..src = 'assets/index.html'
         ..style.border = 'none';
       window.onMessage.listen((message) {
-        print('Message from HTML: ${message.data}');
+        // Extracting this to a class method results in the UI not rerendering.
+        setState(() {
+          result = message.data;
+        });
       });
 
       if (_vieww.contentWindow != null) {
@@ -31,21 +36,21 @@ class _PrivacyState extends State<Privacy> {
 
       return _vieww;
     });
-    var go = Container(
-      color: Colors.red,
+    return SizedBox(
       height: 600,
-      width: 600,
+      width: double.infinity,
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          ElevatedButton(
-            onPressed: () {
-              onclick();
-              // _vieww.contentWindow!.postMessage('Hello from Flutter!', '*');
+          CodeEditorScreen(
+            selectedLang: 'python',
+            onRun: (code) {
+              onRun(code);
             },
-            child: const Text('Send Message to HTML'),
           ),
           const SizedBox(height: 20),
+          buildResult(),
           const Expanded(
             child: HtmlElementView(
               viewType: 'index',
@@ -54,11 +59,21 @@ class _PrivacyState extends State<Privacy> {
         ],
       ),
     );
-    return go;
   }
 
-  onclick() {
-    print(_vieww);
-    _vieww.contentWindow?.postMessage('print("Loi so sexy")', '*');
+  buildResult() {
+    return SizedBox(
+      height: 50,
+      width: double.infinity,
+      child: Column(
+        children: [
+          Text(result),
+        ],
+      ),
+    );
+  }
+
+  onRun(code) {
+    _vieww.contentWindow?.postMessage(code, '*');
   }
 }
