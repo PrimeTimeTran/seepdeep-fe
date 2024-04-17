@@ -97,7 +97,7 @@ Input: [20, 13, 3, 3, 4, 5, 1, 2, 8, 7, 9, 0, 11]
 Output: [0, 1, 2, 3, 3, 4, 5, 7, 8, 9, 11, 13, 20]
 ```
 
-## Requirements
+## Constraints
 `O(N^2)` Space & Time complexity
 """;
 

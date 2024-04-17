@@ -3,6 +3,8 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
+// Problem, Title, Solution, Acceptance, Difficulty, Frequency
+
 buildGenericListView(
     [title = 'Item',
     width = 500,
