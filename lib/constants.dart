@@ -28,46 +28,46 @@ List<NewsTopic> newsTopics = [
   NewsTopic(name: "Technology", avatar: "NewsTopic.png"),
 ];
 
-List<Topic> topicList = [
-  Topic(name: "Python", avatar: "Topic.png"),
-  Topic(name: "Dart", avatar: "Topic.png"),
-  Topic(name: "SQL", avatar: "Topic.png"),
-  Topic(name: "Postgres", avatar: "Topic.png"),
-  Topic(name: "MongoDB", avatar: "Topic.png"),
-  Topic(name: "C", avatar: "Topic.png"),
-  Topic(name: "C++", avatar: "Topic.png"),
-  Topic(name: "C#", avatar: "Topic.png"),
-  Topic(name: "Go", avatar: "Topic.png"),
-  Topic(name: "Mojo", avatar: "Topic.png"),
-  Topic(name: "Ruby", avatar: "Topic.png"),
-  Topic(name: "Typescript", avatar: "Topic.png"),
-  Topic(name: "Javascript", avatar: "Topic.png"),
-  Topic(name: "Flutter", avatar: "Topic.png"),
-  Topic(name: "Vue", avatar: "Topic.png"),
-  Topic(name: "React", avatar: "Topic.png"),
-  Topic(name: "React Native", avatar: "Topic.png"),
-  Topic(name: "Nuxt", avatar: "Topic.png"),
-  Topic(name: "Next", avatar: "Topic.png"),
-  Topic(name: "Ruby on Rails", avatar: "Topic.png"),
-  Topic(name: "Django", avatar: "Topic.png"),
-  Topic(name: ".Net", avatar: "Topic.png"),
-  Topic(name: "NodeJS", avatar: "Topic.png"),
-  Topic(name: "Flask", avatar: "Topic.png"),
-  Topic(name: "Kubernetes", avatar: "Topic.png"),
-  Topic(name: "Docker", avatar: "Topic.png"),
-  Topic(name: "Data Analysis", avatar: "Topic.png"),
-  Topic(name: "Data Analytics", avatar: "Topic.png"),
-  Topic(name: "LLM", avatar: "Topic.png"),
-  Topic(name: "AI", avatar: "Topic.png"),
-  Topic(name: "Machine Learning", avatar: "Topic.png"),
-  Topic(name: "Theresa", avatar: "Topic.png"),
-  Topic(name: "Una", avatar: "Topic.png"),
-  Topic(name: "Vanessa", avatar: "Topic.png"),
-  Topic(name: "Victoria", avatar: "Topic.png"),
-  Topic(name: "Wanda", avatar: "Topic.png"),
-  Topic(name: "Wendy", avatar: "Topic.png"),
-  Topic(name: "Yvonne", avatar: "Topic.png"),
-  Topic(name: "Zoe", avatar: "Topic.png"),
+List<CSTopic> topicList = [
+  CSTopic(name: "Python", avatar: "CSTopic.png"),
+  CSTopic(name: "Dart", avatar: "CSTopic.png"),
+  CSTopic(name: "SQL", avatar: "CSTopic.png"),
+  CSTopic(name: "Postgres", avatar: "CSTopic.png"),
+  CSTopic(name: "MongoDB", avatar: "CSTopic.png"),
+  CSTopic(name: "C", avatar: "CSTopic.png"),
+  CSTopic(name: "C++", avatar: "CSTopic.png"),
+  CSTopic(name: "C#", avatar: "CSTopic.png"),
+  CSTopic(name: "Go", avatar: "CSTopic.png"),
+  CSTopic(name: "Mojo", avatar: "CSTopic.png"),
+  CSTopic(name: "Ruby", avatar: "CSTopic.png"),
+  CSTopic(name: "Typescript", avatar: "CSTopic.png"),
+  CSTopic(name: "Javascript", avatar: "CSTopic.png"),
+  CSTopic(name: "Flutter", avatar: "CSTopic.png"),
+  CSTopic(name: "Vue", avatar: "CSTopic.png"),
+  CSTopic(name: "React", avatar: "CSTopic.png"),
+  CSTopic(name: "React Native", avatar: "CSTopic.png"),
+  CSTopic(name: "Nuxt", avatar: "CSTopic.png"),
+  CSTopic(name: "Next", avatar: "CSTopic.png"),
+  CSTopic(name: "Ruby on Rails", avatar: "CSTopic.png"),
+  CSTopic(name: "Django", avatar: "CSTopic.png"),
+  CSTopic(name: ".Net", avatar: "CSTopic.png"),
+  CSTopic(name: "NodeJS", avatar: "CSTopic.png"),
+  CSTopic(name: "Flask", avatar: "CSTopic.png"),
+  CSTopic(name: "Kubernetes", avatar: "CSTopic.png"),
+  CSTopic(name: "Docker", avatar: "CSTopic.png"),
+  CSTopic(name: "Data Analysis", avatar: "CSTopic.png"),
+  CSTopic(name: "Data Analytics", avatar: "CSTopic.png"),
+  CSTopic(name: "LLM", avatar: "CSTopic.png"),
+  CSTopic(name: "AI", avatar: "CSTopic.png"),
+  CSTopic(name: "Machine Learning", avatar: "CSTopic.png"),
+  CSTopic(name: "Theresa", avatar: "CSTopic.png"),
+  CSTopic(name: "Una", avatar: "CSTopic.png"),
+  CSTopic(name: "Vanessa", avatar: "CSTopic.png"),
+  CSTopic(name: "Victoria", avatar: "CSTopic.png"),
+  CSTopic(name: "Wanda", avatar: "CSTopic.png"),
+  CSTopic(name: "Wendy", avatar: "CSTopic.png"),
+  CSTopic(name: "Yvonne", avatar: "CSTopic.png"),
+  CSTopic(name: "Zoe", avatar: "CSTopic.png"),
 ];
 
 class NewsTopic {
@@ -76,8 +76,8 @@ class NewsTopic {
   NewsTopic({this.name, this.avatar});
 }
 
-class Topic {
+class CSTopic {
   final String? name;
   final String? avatar;
-  Topic({this.name, this.avatar});
+  CSTopic({this.name, this.avatar});
 }

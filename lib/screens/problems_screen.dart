@@ -1,8 +1,16 @@
+import 'dart:convert';
+
+import 'package:app/models/all.dart';
 import 'package:filter_list/filter_list.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 import '../constants.dart';
+import '../providers/problem_provider.dart';
 import '../utils.dart';
 
 class ProblemsScreen extends StatefulWidget {
@@ -14,32 +22,30 @@ class ProblemsScreen extends StatefulWidget {
 
 class _ProblemsScreenState extends State<ProblemsScreen> {
   bool toggleProblemTopics = false;
-  List<Topic>? selectedTopicList = topicList;
+  List<CSTopic>? selectedTopicList = topicList;
+  List<Problem>? problems = [];
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 4),
       child: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 50),
-          child: SizedBox(
-            height: getHeight() * 1.5,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Expanded(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      buildLeft(),
-                      const SizedBox(width: 10),
-                      buildRight(),
-                    ],
-                  ),
+        child: SizedBox(
+          height: getHeight() * 2,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Expanded(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    buildLeft(),
+                    const SizedBox(width: 10),
+                    buildRight(),
+                  ],
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
@@ -73,7 +79,30 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
         const SizedBox(height: 4),
         buildProblemTopics(),
         const SizedBox(height: 4),
-        buildGenericListView('Problem', 925, Colors.lightGreenAccent),
+        Container(
+          width: 1000,
+          color: Colors.green,
+          child: ListView.builder(
+            itemCount: problems!.length,
+            shrinkWrap: true,
+            itemBuilder: (BuildContext context, int idx) {
+              var item = problems![idx];
+              return GestureDetector(
+                onTap: () {
+                  Provider.of<ProblemProvider>(context, listen: false)
+                      .setFocusedProblem(item);
+                },
+                child: SizedBox(
+                  height: 40,
+                  width: 40,
+                  child: ListTile(
+                    title: Text('${item.numLC}. ${item.title}'),
+                  ),
+                ),
+              );
+            },
+          ),
+        ),
       ],
     );
   }
@@ -237,5 +266,47 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
         ),
       ],
     );
+  }
+
+  // Future<List<Article>> fetchProblems() async {
+  Future<List<Problem>> fetchProblems() async {
+    try {
+      String url = "https://api";
+      final response = await http.get(Uri.parse(url));
+      if (!kDebugMode) {
+        // Error();
+        final Map<String, dynamic> data = json.decode(response.body);
+        setProblems(data);
+      } else {
+        final localJson = await rootBundle.loadString("json/problems.json");
+        final Map<String, dynamic> data = json.decode(localJson);
+        setProblems(data);
+      }
+
+      return [];
+    } catch (e) {
+      print('Error: $e');
+      final localJson = await rootBundle.loadString("json/problems.json");
+      final Map<String, dynamic> data = json.decode(localJson);
+      setProblems(data);
+      return [];
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      fetchProblems();
+    });
+  }
+
+  setProblems(Map<String, dynamic> data) {
+    final List<dynamic> fetchedArticles = data['data'];
+    List<Problem> res =
+        fetchedArticles.map((item) => Problem.fromJson(item)).toList();
+    setState(() {
+      problems = res;
+    });
   }
 }

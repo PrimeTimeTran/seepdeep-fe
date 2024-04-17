@@ -17,16 +17,23 @@ import 'package:app/screens/settings_screen.dart';
 import 'package:app/screens/sort_screen.dart';
 import 'package:app/screens/sql_screen.dart';
 import 'package:app/screens/streak_screen.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart' as stateProvider;
 
 import './constants.dart';
 import './screens/news_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(const MyApp());
+  runApp(stateProvider.MultiProvider(
+    providers: [
+      stateProvider.ChangeNotifierProvider(create: (_) => MyApp()),
+    ],
+    child: MyApp(),
+  ));
 }
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
@@ -156,8 +163,10 @@ class App extends StatefulWidget {
   State<App> createState() => _AppState();
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+// ignore: must_be_immutable
+class MyApp extends StatelessWidget
+    with ChangeNotifier, DiagnosticableTreeMixin {
+  MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
