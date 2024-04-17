@@ -6,6 +6,10 @@ Everything CS
   - Tech
   - Business
   - Startups
+    Todo
+    - [ ] Use API to collect news: apikey=cce242e028864b98b729032f7d9d3d6f
+    - [ ] Build Web Scraper to collect news
+      - [ ] Should reformat using an AI
 
 - Articles
 - Tutorials
@@ -23,6 +27,9 @@ Everything CS
   - Score
 
 - Jobs
+
+  - [ ] Scrape Jobs with weekly job
+
 - Companies
 
 - Store

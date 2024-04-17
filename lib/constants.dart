@@ -106,3 +106,5 @@ class Topic {
   final String? avatar;
   Topic({this.name, this.avatar});
 }
+
+const KNEWS = "cce242e028864b98b729032f7d9d3d6f";
