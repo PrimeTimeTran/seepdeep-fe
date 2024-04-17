@@ -1,5 +1,6 @@
 import 'package:app/navigation/app_bar_content.dart';
 import 'package:app/navigation/drawer.dart';
+import 'package:app/navigation/root.dart';
 import 'package:app/providers/problem_provider.dart';
 import 'package:app/screens/bug_report_screen.dart';
 import 'package:app/screens/community_screen.dart';
@@ -53,18 +54,18 @@ final _router = GoRouter(
               GoRoute(
                 path: '/',
                 name: Routes.home.toString(),
-                builder: (_, __) => const ProblemScreen(),
+                builder: (_, __) => const ProblemsScreen(),
                 routes: [
-                  GoRoute(
-                    path: 'problem',
-                    name: Routes.problem.toString(),
-                    builder: (_, __) => const ProblemScreen(),
-                    routes: const [],
-                  ),
                   GoRoute(
                     path: 'problems',
                     name: Routes.problems.toString(),
                     builder: (_, __) => const ProblemsScreen(),
+                    routes: const [],
+                  ),
+                  GoRoute(
+                    path: 'problem',
+                    name: Routes.problem.toString(),
+                    builder: (_, __) => const ProblemScreen(),
                     routes: const [],
                   ),
                   GoRoute(
@@ -217,7 +218,7 @@ class _AppState extends State<App> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: drawerKey,
-      body: widget.shell,
+      body: RootNavigator(screen: widget.shell),
       drawer: const DrawerContent(),
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60.0),

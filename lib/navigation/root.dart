@@ -1,12 +1,9 @@
-import 'package:app/screens/maze_screen.dart';
-import 'package:app/screens/problem_screen.dart';
-import 'package:app/screens/sort_screen.dart';
-import 'package:app/screens/sql_screen.dart';
-import 'package:app/utils.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class RootNavigator extends StatefulWidget {
-  const RootNavigator({super.key});
+  Widget screen;
+  RootNavigator({super.key, required this.screen});
 
   @override
   State<RootNavigator> createState() => _RootNavigatorState();
@@ -45,32 +42,45 @@ class _RootNavigatorState extends State<RootNavigator> {
           useIndicator: true,
           selectedIndex: currentPageIndex,
           onDestinationSelected: (int index) {
+            if (index == 0) {
+              GoRouter.of(context).go('/problems');
+            } else if (index == 1) {
+              GoRouter.of(context).go('/sort');
+            } else if (index == 2) {
+              GoRouter.of(context).go('/maze');
+            } else if (index == 3) {
+              GoRouter.of(context).go('/sql');
+            }
             setState(() {
               currentPageIndex = index;
             });
           },
         ),
         Expanded(
-          child: SingleChildScrollView(
-            physics: const NeverScrollableScrollPhysics(),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                  width: getWidth(),
-                  height: getHeight(),
-                  child: [
-                    const ProblemScreen(),
-                    const SortScreen(),
-                    const MazeScreen(),
-                    const SQLScreen(),
-                  ][currentPageIndex],
-                )
-              ],
-            ),
-          ),
+          child: widget.screen,
         )
+        // Expanded(
+        //   child: SingleChildScrollView(
+        //     physics: const NeverScrollableScrollPhysics(),
+        //     child: Column(
+        //       mainAxisAlignment: MainAxisAlignment.start,
+        //       crossAxisAlignment: CrossAxisAlignment.start,
+        //       children: [
+        //         SizedBox(
+        //           width: getWidth(),
+        //           height: getHeight(),
+        //           child: [
+        //             widget.screen,
+        //             // const ProblemScreen(),
+        //             // const SortScreen(),
+        //             // const MazeScreen(),
+        //             // const SQLScreen(),
+        //           ][currentPageIndex],
+        //         )
+        //       ],
+        //     ),
+        //   ),
+        // )
       ],
     );
   }

@@ -93,7 +93,7 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
                   SchedulerBinding.instance.addPostFrameCallback((_) {
                     Provider.of<ProblemProvider>(context, listen: false)
                         .setFocusedProblem(item);
-                    GoRouter.of(context).go('/problem?foo=var');
+                    GoRouter.of(context).go('/problem');
                   });
                 },
                 child: SizedBox(
