@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'dart:async';
 import 'dart:math' as math;
 import 'dart:math';
@@ -485,7 +487,8 @@ class BarChartSample2State extends State<BarChartSample2> {
 }
 
 class BarChartSample3 extends StatefulWidget {
-  const BarChartSample3({super.key});
+  bool? rotate = false;
+  BarChartSample3({super.key, this.rotate});
 
   @override
   State<StatefulWidget> createState() => BarChartSample3State();
@@ -494,9 +497,9 @@ class BarChartSample3 extends StatefulWidget {
 class BarChartSample3State extends State<BarChartSample3> {
   @override
   Widget build(BuildContext context) {
-    return const AspectRatio(
+    return AspectRatio(
       aspectRatio: 1.6,
-      child: _BarChart(),
+      child: _BarChart(widget.rotate != null),
     );
   }
 }
@@ -1478,7 +1481,8 @@ class LegendWidget extends StatelessWidget {
 }
 
 class _BarChart extends StatelessWidget {
-  const _BarChart();
+  bool rotate = false;
+  _BarChart(this.rotate);
 
   List<BarChartGroupData> get barGroups => [
         BarChartGroupData(
@@ -1611,17 +1615,49 @@ class _BarChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BarChart(
-      BarChartData(
-        barTouchData: barTouchData,
-        titlesData: titlesData,
-        borderData: borderData,
-        barGroups: barGroups,
-        gridData: const FlGridData(show: false),
-        alignment: BarChartAlignment.spaceAround,
-        maxY: 20,
-      ),
-    );
+    if (rotate) {
+      return SizedBox(
+        width: 500,
+        height: 300,
+        child: Column(
+          children: [
+            Expanded(
+              child: RotatedBox(
+                quarterTurns: -3,
+                child: BarChart(
+                  BarChartData(
+                    barTouchData: barTouchData,
+                    titlesData: titlesData,
+                    borderData: borderData,
+                    barGroups: barGroups,
+                    gridData: const FlGridData(show: false),
+                    alignment: BarChartAlignment.spaceAround,
+                    maxY: 20,
+                  ),
+                ),
+              ),
+            ),
+            const SideTitleWidget(
+              angle: 4.7,
+              axisSide: AxisSide.left,
+              child: Text('sosos'),
+            ),
+          ],
+        ),
+      );
+    } else {
+      return BarChart(
+        BarChartData(
+          barTouchData: barTouchData,
+          titlesData: titlesData,
+          borderData: borderData,
+          barGroups: barGroups,
+          gridData: const FlGridData(show: false),
+          alignment: BarChartAlignment.spaceAround,
+          maxY: 20,
+        ),
+      );
+    }
   }
 
   Widget getTitles(double value, TitleMeta meta) {

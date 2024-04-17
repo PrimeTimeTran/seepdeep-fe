@@ -1,17 +1,7 @@
 import 'package:app/utils.dart';
 import 'package:flutter/material.dart';
 
-import 'charts/bar/bar_charts.dart';
-import 'charts/line/line_chart_sample1.dart';
-import 'charts/line/line_chart_sample10.dart';
-import 'charts/line/line_chart_sample2.dart';
-import 'charts/line/line_chart_sample3.dart';
-import 'charts/line/line_chart_sample4.dart';
-import 'charts/line/line_chart_sample5.dart';
-import 'charts/line/line_chart_sample6.dart';
-import 'charts/line/line_chart_sample7.dart';
-import 'charts/line/line_chart_sample8.dart';
-import 'charts/line/line_chart_sample9.dart';
+import 'charts/charts.dart';
 import 'charts/pie/pie_chart_sample1.dart';
 import 'charts/pie/pie_chart_sample2.dart';
 import 'charts/pie/pie_chart_sample3.dart';
@@ -44,8 +34,7 @@ class _LeaderboardsScreenState extends State<LeaderboardsScreen> {
                     const Text('Bar Charts'),
                     SizedBox(width: 600, height: 300, child: BarChartSample2()),
                     const SizedBox(height: 25),
-                    const SizedBox(
-                        width: 600, height: 300, child: BarChartSample3()),
+                    SizedBox(width: 600, height: 300, child: BarChartSample3()),
                     const SizedBox(height: 25),
                     SizedBox(width: 600, height: 300, child: BarChartSample4()),
                     const SizedBox(height: 25),

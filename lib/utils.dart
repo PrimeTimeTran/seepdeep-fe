@@ -1,9 +1,6 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-
-// Problem, Title, Solution, Acceptance, Difficulty, Frequency
 
 buildGenericListView(
     [title = 'Item',
@@ -45,21 +42,6 @@ getWidth() {
   return MediaQueryData.fromView(WidgetsBinding.instance.window).size.width;
 }
 
-Future<bool> isUrlValid(String url) async {
-  try {
-    final response = await http.head(Uri.parse(url));
-    return response.statusCode == 200;
-  } on http.ClientException catch (e) {
-    // Handle ClientException separately
-    print('ClientException occurred while checking URL: $e');
-    return false;
-  } catch (e) {
-    // Handle other exceptions
-    print('Error occurred while checking URL: $e');
-    return false;
-  }
-}
-
 List<int> sample(int limit, int sampleSize) {
   var random = Random();
   var sample = <int>{};
@@ -71,16 +53,4 @@ List<int> sample(int limit, int sampleSize) {
   }
 
   return sample.toList();
-}
-
-List<List<T>> zipLists<T>(List<T> list1, List<T> list2) {
-  if (list1.length != list2.length) {
-    throw ArgumentError('Lists must have the same length');
-  }
-
-  List<List<T>> zippedList = [];
-  for (int i = 0; i < list1.length; i++) {
-    zippedList.add([list1[i], list2[i]]);
-  }
-  return zippedList;
 }
