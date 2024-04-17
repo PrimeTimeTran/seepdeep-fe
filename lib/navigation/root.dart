@@ -1,12 +1,155 @@
+import 'package:app/main.dart';
+import 'package:app/screens/all.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+final routerConfig = GoRouter(
+  initialLocation: '/',
+  routes: [
+    StatefulShellRoute.indexedStack(
+        builder: (context, state, shell) {
+          return App(shell: shell);
+        },
+        branches: [
+          StatefulShellBranch(
+            navigatorKey: _shellNavigatorAKey,
+            routes: [
+              GoRoute(
+                path: '/',
+                name: Routes.home.toString(),
+                builder: (_, __) => const ProblemsScreen(),
+                routes: [
+                  GoRoute(
+                    path: 'problems',
+                    name: Routes.problems.toString(),
+                    builder: (_, __) => const ProblemsScreen(),
+                    routes: const [],
+                  ),
+                  GoRoute(
+                    path: 'problem',
+                    name: Routes.problem.toString(),
+                    builder: (_, __) => const ProblemScreen(),
+                    routes: const [],
+                  ),
+                  GoRoute(
+                    path: 'sort',
+                    name: Routes.sort.toString(),
+                    builder: (_, __) => const SortScreen(),
+                  ),
+                  GoRoute(
+                    path: 'maze',
+                    name: Routes.maze.toString(),
+                    builder: (_, __) => const MazeScreen(),
+                  ),
+                  GoRoute(
+                    path: 'sql',
+                    name: Routes.sql.toString(),
+                    builder: (_, __) => const SQLScreen(),
+                  ),
+                  GoRoute(
+                    path: 'news',
+                    name: Routes.news.toString(),
+                    builder: (_, __) => const NewsScreen(),
+                  ),
+                  GoRoute(
+                    path: 'explore',
+                    name: Routes.explore.toString(),
+                    builder: (_, __) => const ExploreScreen(),
+                  ),
+                  GoRoute(
+                    path: 'leaderboards',
+                    name: Routes.leaderboards.toString(),
+                    builder: (_, __) => const LeaderboardsScreen(),
+                  ),
+                  GoRoute(
+                    path: 'community',
+                    name: Routes.community.toString(),
+                    builder: (_, __) => const CommunityScreen(),
+                  ),
+                  GoRoute(
+                    path: 'contests',
+                    name: Routes.contests.toString(),
+                    builder: (_, __) => const ContestsScreen(),
+                  ),
+                  GoRoute(
+                    path: 'jobs',
+                    name: Routes.jobs.toString(),
+                    builder: (_, __) => const JobsScreen(),
+                  ),
+                  GoRoute(
+                    path: 'profile',
+                    name: Routes.profile.toString(),
+                    builder: (_, __) => const ProfileScreen(),
+                  ),
+                  GoRoute(
+                    path: 'notifications',
+                    name: Routes.notifications.toString(),
+                    builder: (_, __) => const NotificationScreen(),
+                  ),
+                  GoRoute(
+                    path: 'settings',
+                    name: Routes.settings.toString(),
+                    builder: (_, __) => const SettingsScreen(),
+                  ),
+                  GoRoute(
+                    path: 'feature-requests',
+                    name: Routes.featureRequests.toString(),
+                    builder: (_, __) => const FeatureRequestScreen(),
+                  ),
+                  GoRoute(
+                    path: 'bug-reports',
+                    name: Routes.bugReports.toString(),
+                    builder: (_, __) => const BugReportScreen(),
+                  ),
+                  GoRoute(
+                    path: 'search',
+                    name: Routes.search.toString(),
+                    builder: (_, __) => const SearchScreen(),
+                  ),
+                  GoRoute(
+                    path: 'streak',
+                    name: Routes.streak.toString(),
+                    builder: (_, __) => const StreakScreen(),
+                  ),
+                ],
+              ),
+            ],
+          )
+        ]),
+  ],
+);
+
+final _shellNavigatorAKey = GlobalKey<NavigatorState>(debugLabel: 'shellA');
+
+// ignore: must_be_immutable
 class RootNavigator extends StatefulWidget {
   Widget screen;
   RootNavigator({super.key, required this.screen});
 
   @override
   State<RootNavigator> createState() => _RootNavigatorState();
+}
+
+enum Routes {
+  problem,
+  problems,
+  sort,
+  sql,
+  maze,
+  news,
+  home,
+  jobs,
+  leaderboards,
+  contests,
+  community,
+  explore,
+  profile,
+  settings,
+  featureRequests,
+  bugReports,
+  notifications,
+  search,
+  streak
 }
 
 class _RootNavigatorState extends State<RootNavigator> {
