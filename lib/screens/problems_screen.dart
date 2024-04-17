@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:app/models/all.dart';
+import 'package:app/all.dart';
 import 'package:app/providers/problem_provider.dart';
 import 'package:filter_list/filter_list.dart';
 import 'package:flutter/material.dart';
@@ -44,23 +44,26 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
     );
   }
 
-  Padding buildCard(title, description) {
-    return Padding(
-      padding: const EdgeInsets.all(4),
-      child: Container(
-        decoration: const BoxDecoration(
-            color: Colors.lightBlue,
-            borderRadius: BorderRadius.all(Radius.circular(5))),
-        child: SizedBox(
-          height: 100,
-          width: 300,
-          child: ListTile(
-            leading: const Icon(Icons.abc),
-            title: Text(title),
-            subtitle: Text(description),
-          ),
-        ),
-      ),
+  buildCard(title, description, idx) {
+    String color = 'orange';
+    switch (idx) {
+      case 0:
+        color = 'blue';
+        break;
+      case 1:
+        color = 'green';
+        break;
+      case 2:
+        color = 'teal';
+        break;
+      default:
+        color = 'yellow';
+    }
+    return GradientCard(
+      color: color,
+      title: title ?? '',
+      description: description,
+      child: const Text('ssoosos'),
     );
   }
 
@@ -225,37 +228,38 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
         Row(
           children: [
             buildCard(
-                'System Design', 'System Design for Interviews and Beyond'),
+                'System Design', 'System Design for Interviews and Beyond', 0),
+            const SizedBox(
+              width: 10,
+            ),
+            buildCard('Data Structures & Algorithms',
+                'Data Structures & Algorithms', 1),
+            buildCard('SQL 50', 'Crack SQL interview in 50 Qs', 2),
+          ],
+        ),
+        const SizedBox(height: 4),
+        Row(
+          children: [
+            buildCard('Intro To Pandas', 'Learn Basic Pandas in 15 Qs', 0),
+            const SizedBox(
+              width: 10,
+            ),
+            buildCard('30 Days of JS', 'Learn JS Basics with 30 Qs', 1),
+            buildCard('Amazon Spring \'23 High Frequency',
+                'Practice 25 Recently seen problems from Amazon', 2),
+          ],
+        ),
+        const SizedBox(height: 4),
+        Row(
+          children: [
+            buildCard('Mastered', 'Review problems you\'ve mastered.', 0),
             const SizedBox(
               width: 10,
             ),
             buildCard(
-                'Data Structures & Algorithms', 'Data Structures & Algorithms'),
-            buildCard('SQL 50', 'Crack SQL interview in 50 Qs'),
-          ],
-        ),
-        const SizedBox(height: 4),
-        Row(
-          children: [
-            buildCard('Intro To Pandas', 'Learn Basic Pandas in 15 Qs'),
-            const SizedBox(
-              width: 10,
-            ),
-            buildCard('30 Days of JS', 'Learn JS Basics with 30 Qs'),
-            buildCard('Amazon Spring \'23 High Frequency',
-                'Practice 25 Recently seen problems from Amazon'),
-          ],
-        ),
-        const SizedBox(height: 4),
-        Row(
-          children: [
-            buildCard('Mastered', 'Review problems you\'ve mastered.'),
-            const SizedBox(
-              width: 10,
-            ),
-            buildCard('Focus', 'Focus on problems you\'re currently learning.'),
+                'Focus', 'Focus on problems you\'re currently learning.', 1),
             buildCard('Repetition',
-                'Spaced repetition for problems you\'re struggling on.'),
+                'Spaced repetition for problems you\'re struggling on.', 2),
           ],
         ),
       ],
