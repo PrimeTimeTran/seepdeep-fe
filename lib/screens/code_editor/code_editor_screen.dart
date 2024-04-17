@@ -59,13 +59,11 @@ class _CodeEditorScreenState extends State<CodeEditorScreen> {
             focusNode: FocusNode(),
             // ignore: deprecated_member_use
             onKey: (RawKeyEvent event) {
-              print('running');
               // ignore: deprecated_member_use
               if (event is RawKeyDownEvent) {
                 // ignore: deprecated_member_use
                 if (event.isControlPressed &&
                     event.logicalKey == LogicalKeyboardKey.enter) {
-                  print('running');
                   onRun();
                 }
               }

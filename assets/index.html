@@ -5,20 +5,22 @@
   </head>
   <body>
     <script type="text/javascript">
-      async function main(code) {
-        try {
-          const pyodide = await loadPyodide()
-          const result = pyodide.runPython(code)
-          sendMessageToFlutter('Success: ' + result)
-        } catch (error) {
-          sendMessageToFlutter('Error: ' + error)
+      window.addEventListener('load', function () {
+        async function main(code) {
+          try {
+            const pyodide = await loadPyodide()
+            const result = pyodide.runPython(code)
+            sendMessageToFlutter('Success: ' + result)
+          } catch (error) {
+            sendMessageToFlutter('Error: ' + error)
+          }
         }
-      }
-      function sendMessageToFlutter(message) {
-        window.parent.postMessage(message, '*')
-      }
-      window.addEventListener('message', (message) => {
-        main(message.data)
+        function sendMessageToFlutter(message) {
+          window.parent.postMessage(message, '*')
+        }
+        window.addEventListener('message', (message) => {
+          main(message.data)
+        })
       })
     </script>
   </body>

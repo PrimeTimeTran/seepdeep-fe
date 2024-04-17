@@ -3,12 +3,10 @@ import 'dart:convert';
 import 'package:app/models/all.dart';
 import 'package:app/providers/problem_provider.dart';
 import 'package:filter_list/filter_list.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
-import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 
@@ -275,12 +273,12 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
   // Future<List<Article>> fetchProblems() async {
   Future<List<Problem>> fetchProblems() async {
     try {
-      String url = "https://api";
-      final response = await http.get(Uri.parse(url));
-      if (!kDebugMode) {
+      // String url = "https://api";
+      // final response = await http.get(Uri.parse(url));
+      if (false) {
         // Error();
-        final Map<String, dynamic> data = json.decode(response.body);
-        setProblems(data);
+        // final Map<String, dynamic> data = json.decode(response.body);
+        // setProblems(data);
       } else {
         final localJson = await rootBundle.loadString("json/problems.json");
         final Map<String, dynamic> data = json.decode(localJson);

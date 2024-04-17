@@ -1,6 +1,6 @@
 // ignore: avoid_web_libraries_in_flutter
 import 'dart:html';
-import 'dart:ui' as ui;
+import 'dart:ui_web' as ui;
 
 import 'package:app/providers/problem_provider.dart';
 import 'package:app/screens/code_editor/code_editor_screen.dart';
@@ -22,10 +22,10 @@ class _ProblemViewState extends State<ProblemView> {
   String result = '';
 
   IFrameElement _view = IFrameElement();
+
   @override
   Widget build(BuildContext context) {
     final problem = Provider.of<ProblemProvider>(context).focusedProblem;
-    // ignore: undefined_prefixed_name
     ui.platformViewRegistry.registerViewFactory('index', (int viewId) {
       _view = IFrameElement()
         ..src = 'assets/index.html'
@@ -35,10 +35,6 @@ class _ProblemViewState extends State<ProblemView> {
           result = message.data;
         });
       });
-
-      if (_view.contentWindow != null) {
-        _view.contentWindow?.postMessage('sososo', '*');
-      }
 
       return _view;
     });
@@ -63,18 +59,23 @@ class _ProblemViewState extends State<ProblemView> {
   }
 
   buildBottom() {
-    return Expanded(
-      child: Padding(
-        padding: const EdgeInsets.only(top: 8.0, left: 8),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SelectableText(result),
-            const HtmlElementView(
+    return Padding(
+      padding: const EdgeInsets.only(top: 8.0, left: 8),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SelectableText(result),
+          SizedBox(
+            width: 100,
+            height: 10,
+            child: HtmlElementView(
               viewType: 'index',
+              onPlatformViewCreated: (int id) {
+                debugPrint('viewNum: $id');
+              },
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -91,12 +92,8 @@ class _ProblemViewState extends State<ProblemView> {
     );
   }
 
-  @override
-  void initState() {
-    super.initState();
-  }
-
   onRun(code) {
-    _view.contentWindow?.postMessage(code, '*');
+    // _view.contentWindow!.postMessage(code, '*');
+    _view.contentWindow!.postMessage(pythonSort, '*');
   }
 }
