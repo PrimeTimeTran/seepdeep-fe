@@ -60,7 +60,6 @@ class _AppState extends State<App> {
       key: drawerKey,
       body: RootNavigator(
           screen: Container(
-        color: Colors.blue,
         child: widget.shell,
       )),
       drawer: const DrawerContent(),

@@ -30,7 +30,7 @@ class _ContestsScreenState extends State<ContestsScreen> {
               ),
               const SizedBox(height: 10),
               Transform.translate(
-                offset: const Offset(0, -20),
+                offset: const Offset(0, -50),
                 child: SizedBox(
                   width: 1000,
                   height: 300,
