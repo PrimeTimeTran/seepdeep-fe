@@ -6,6 +6,7 @@ import 'dart:math';
 
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
 
 import '../../../extensions/extensions.dart';
 
@@ -1414,6 +1415,36 @@ class BarChartSample8 extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() => BarChartSample1State();
+}
+
+class ChartData {
+  final num x;
+  final double? y;
+  ChartData(this.x, this.y);
+}
+
+class HorizontalBarChart extends StatelessWidget {
+  const HorizontalBarChart({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final List<ChartData> chartData = [
+      ChartData(1, 35),
+      ChartData(2, 23),
+      ChartData(3, 34),
+      ChartData(4, 25),
+      ChartData(5, 40)
+    ];
+    return SizedBox(
+        width: 400,
+        child: SfCartesianChart(series: <CartesianSeries>[
+          // Renders bar chart
+          BarSeries<ChartData, double>(
+              dataSource: chartData,
+              xValueMapper: (ChartData data, _) => data.x.toDouble(),
+              yValueMapper: (ChartData data, _) => data.y)
+        ]));
+  }
 }
 
 class Legend {

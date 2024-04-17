@@ -40,7 +40,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               const Divider(),
                               ColoredCard(color: Colors.blue),
                               const Divider(),
-                              ColoredCard(color: Colors.blue),
+                              ColoredCard(color: Colors.red),
                               const Divider(),
                               ColoredCard(color: Colors.blue),
                             ],
@@ -73,21 +73,64 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   color: Colors.red,
                                   child: const Row(
                                     children: [
-                                      Column(
-                                        children: [
-                                          Text('sososo'),
-                                          GFAvatar(
-                                            backgroundImage: NetworkImage(
-                                              "https://i.pravatar.cc/150?img=3",
+                                      Expanded(
+                                        flex: 1,
+                                        child: Column(
+                                          children: [
+                                            Text('sososo'),
+                                            GFAvatar(
+                                              backgroundImage: NetworkImage(
+                                                "https://i.pravatar.cc/150?img=3",
+                                              ),
                                             ),
-                                          ),
-                                          RotatedBox(
-                                            quarterTurns: -3,
-                                          )
-                                        ],
+                                          ],
+                                        ),
                                       ),
-                                      Column(
-                                        children: [],
+                                      Expanded(
+                                        flex: 5,
+                                        child: Padding(
+                                          padding: EdgeInsets.symmetric(
+                                            vertical: 50,
+                                          ),
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              LinearProgressIndicator(
+                                                value: .9,
+                                                minHeight: 15,
+                                                color: Colors.red,
+                                                semanticsValue: '40',
+                                                semanticsLabel:
+                                                    'Linear progress indicator',
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(10)),
+                                              ),
+                                              Spacer(),
+                                              LinearProgressIndicator(
+                                                value: .5,
+                                                minHeight: 15,
+                                                color: Colors.blue,
+                                                semanticsValue: '40',
+                                                semanticsLabel:
+                                                    'Linear progress indicator',
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(10)),
+                                              ),
+                                              Spacer(),
+                                              LinearProgressIndicator(
+                                                value: .9,
+                                                minHeight: 15,
+                                                color: Colors.green,
+                                                semanticsValue: '40',
+                                                semanticsLabel:
+                                                    'Linear progress indicator',
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(10)),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
                                       ),
                                     ],
                                   ),
@@ -97,10 +140,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               Expanded(
                                 child: ColoredCard(
                                   color: Colors.blue,
-                                  child: Row(
+                                  child: const Row(
                                     children: [
-                                      const Text('ososo'),
-                                      BarChartSample3(rotate: true)
+                                      HorizontalBarChart(),
                                     ],
                                   ),
                                 ),

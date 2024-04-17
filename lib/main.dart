@@ -1,3 +1,4 @@
+import 'package:app/extensions/extensions.dart';
 import 'package:app/navigation/app_bar_content.dart';
 import 'package:app/navigation/drawer.dart';
 import 'package:app/navigation/root.dart';
@@ -60,7 +61,7 @@ class _AppState extends State<App> {
       key: drawerKey,
       body: RootNavigator(
         screen: Container(
-          color: Colors.blue[300],
+          color: Colors.black.lighten(75),
           child: widget.shell,
         ),
       ),
