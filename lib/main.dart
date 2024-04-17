@@ -58,7 +58,11 @@ class _AppState extends State<App> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: drawerKey,
-      body: RootNavigator(screen: widget.shell),
+      body: RootNavigator(
+          screen: Container(
+        color: Colors.blue,
+        child: widget.shell,
+      )),
       drawer: const DrawerContent(),
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60.0),

@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:app/utils.dart';
 import 'package:filter_list/filter_list.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -64,142 +65,125 @@ class _NewsScreenState extends State<NewsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            if (selectedNewsTopics == null || selectedNewsTopics!.isEmpty)
-              const Expanded(
-                child: Center(
-                  child: Text('No news selected'),
-                ),
-              )
-            else
-              Expanded(
-                child: Column(children: [
-                  SizedBox(
-                    width: 1500,
-                    height: 100,
-                    child: FilterListWidget(
-                      listData: selectedNewsTopics,
-                      hideHeader: true,
-                      hideSelectedTextCount: true,
-                      selectedListData: selectedNewsTopics,
-                      choiceChipLabel: (item) => item!.name,
-                      themeData: FilterListThemeData(context),
-                      validateSelectedItem: (list, val) => list!.contains(val),
-                      controlButtons: const [
-                        ControlButtonType.All,
-                        ControlButtonType.Reset,
-                      ],
-                      onItemSearch: (topic, query) {
-                        return topic.name!
-                            .toLowerCase()
-                            .contains(query.toLowerCase());
-                      },
-                      onApplyButtonClick: (list) {
-                        setState(() {
-                          selectedNewsTopics = List.from(list!);
-                        });
-                        // Navigator.pop(context);
-                      },
-                      choiceChipBuilder: (context, item, isSelected) {
-                        return Container(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 16, vertical: 5),
-                          margin: const EdgeInsets.symmetric(
-                              horizontal: 10, vertical: 5),
-                          decoration: BoxDecoration(
-                              border: Border.all(
-                                color: isSelected!
-                                    ? Colors.blue[300]!
-                                    : Colors.grey[300]!,
-                              ),
-                              borderRadius:
-                                  const BorderRadius.all(Radius.circular(30))),
-                          child: Text(
-                            item.name,
-                            style: TextStyle(
-                                color: isSelected
-                                    ? Colors.blue[300]
-                                    : Colors.grey[500]),
-                          ),
-                        );
-                      },
-                    ),
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          SizedBox(
+            height: 100,
+            width: double.infinity,
+            child: FilterListWidget(
+              listData: selectedNewsTopics,
+              hideHeader: true,
+              hideSelectedTextCount: true,
+              selectedListData: selectedNewsTopics,
+              choiceChipLabel: (item) => item!.name,
+              themeData: FilterListThemeData(context),
+              validateSelectedItem: (list, val) => list!.contains(val),
+              controlButtons: const [
+                ControlButtonType.All,
+                ControlButtonType.Reset,
+              ],
+              onItemSearch: (topic, query) {
+                return topic.name!.toLowerCase().contains(query.toLowerCase());
+              },
+              onApplyButtonClick: (list) {
+                setState(() {
+                  selectedNewsTopics = List.from(list!);
+                });
+                // Navigator.pop(context);
+              },
+              choiceChipBuilder: (context, item, isSelected) {
+                return Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
+                  margin:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                  decoration: BoxDecoration(
+                      border: Border.all(
+                        color:
+                            isSelected! ? Colors.blue[300]! : Colors.grey[300]!,
+                      ),
+                      borderRadius:
+                          const BorderRadius.all(Radius.circular(30))),
+                  child: Text(
+                    item.name,
+                    style: TextStyle(
+                        color:
+                            isSelected ? Colors.blue[300] : Colors.grey[500]),
                   ),
-                  Expanded(child: buildArticles())
-                ]),
-              ),
-          ],
-        ),
+                );
+              },
+            ),
+          ),
+          SizedBox(
+            child: buildArticles(),
+            width: getWidth() / 3,
+            height: getHeight(),
+          )
+        ],
       ),
     );
   }
 
   buildArticles() {
     if (articles.isNotEmpty) {
-      return SizedBox(
-        width: 1500,
-        child: ListView.builder(itemBuilder: (BuildContext context, int idx) {
-          final item = articles[idx];
-
-          return ListTile(
-            contentPadding: const EdgeInsets.all(50),
-            title: Text(item.title, style: const TextStyle(fontSize: 30)),
-            subtitle: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                    style: const TextStyle(fontSize: 15),
-                    item.publishedAt.toLocal().toString()),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(25),
-                      child: Image.network(
-                        item.urlToImage,
-                        height: 300,
-                        errorBuilder: (BuildContext context, Object exception,
-                            StackTrace? stackTrace) {
-                          return Container(
-                            decoration: BoxDecoration(
-                              color: Colors.grey[300],
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: const SizedBox(
-                              height: 300,
-                            ),
-                          );
-                        },
+      return ListView.builder(itemBuilder: (BuildContext context, int idx) {
+        final item = articles[idx];
+        return ListTile(
+          contentPadding: const EdgeInsets.all(50),
+          title: Text(item.title, style: const TextStyle(fontSize: 30)),
+          subtitle: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Text(
+                  style: const TextStyle(fontSize: 15),
+                  item.publishedAt.toLocal().toString()),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(25),
+                    child: Image.network(
+                      item.urlToImage,
+                      height: 300,
+                      errorBuilder: (BuildContext context, Object exception,
+                          StackTrace? stackTrace) {
+                        return Container(
+                          decoration: BoxDecoration(
+                            color: Colors.grey[300],
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: const SizedBox(
+                            height: 300,
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                  SizedBox(
+                    width: 500,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            maxLines: 2,
+                            item.description,
+                            overflow: TextOverflow.ellipsis,
+                            style: const TextStyle(fontSize: 20),
+                          )
+                        ],
                       ),
                     ),
-                    SizedBox(
-                      width: 500,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              maxLines: 2,
-                              item.description,
-                              overflow: TextOverflow.ellipsis,
-                              style: const TextStyle(fontSize: 20),
-                            )
-                          ],
-                        ),
-                      ),
-                    )
-                  ],
-                ),
-              ],
-            ),
-          );
-        }),
-      );
+                  )
+                ],
+              ),
+            ],
+          ),
+        );
+      });
     } else {
       return Container();
     }

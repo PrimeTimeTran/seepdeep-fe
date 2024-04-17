@@ -1,4 +1,3 @@
-import 'package:app/utils.dart';
 import 'package:app/widgets/shimmers.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -45,12 +44,7 @@ class PathItem {
 class _CommunityScreenState extends State<CommunityScreen> {
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        SizedBox(width: getWidth() / 2, child: const LoadingList()),
-      ],
-    );
+    return const LoadingList();
   }
 }
 
@@ -61,55 +55,78 @@ class _LoadingListState extends State<LoadingList> {
   @override
   Widget build(BuildContext context) {
     if (isLoaded) {
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const SizedBox(height: 10),
-          BreadCrumb(
-            items: <BreadCrumbItem>[
-              ...path.map((item) => BreadCrumbItem(
-                  content: Text(item),
-                  onTap: () {
-                    final newIdx = path.indexOf(item);
-                    path = path.take(newIdx + 1).toList();
-                    setState(() {
-                      path = path;
-                    });
-                  })),
-            ],
-            divider: const Icon(Icons.chevron_right),
-          ),
-          const SizedBox(height: 10),
-          Expanded(
-            child: SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 20.0),
-                child: Column(
-                  children: [
-                    buildCategory('AI'),
-                    buildCategory('Problems'),
-                    buildCategory('Maths'),
-                    buildCategory('Business'),
-                    buildCategory('Companies'),
-                    buildCategory('Reviews'),
-                  ],
-                ),
-              ),
+      return SingleChildScrollView(
+        child: Column(
+          children: [
+            const SizedBox(height: 10),
+            BreadCrumb(
+              items: <BreadCrumbItem>[
+                ...path.map((item) => BreadCrumbItem(
+                    content: Text(item),
+                    onTap: () {
+                      final newIdx = path.indexOf(item);
+                      path = path.take(newIdx + 1).toList();
+                      setState(() {
+                        path = path;
+                      });
+                    })),
+              ],
+              divider: const Icon(Icons.chevron_right),
             ),
-          ),
-        ],
+            const SizedBox(height: 10),
+            Column(
+              children: [
+                buildCategory('AI'),
+                buildCategory('Problems'),
+                buildCategory('Maths'),
+                buildCategory('Business'),
+                buildCategory('Companies'),
+                buildCategory('Reviews'),
+                buildCategory('AI'),
+                buildCategory('Problems'),
+                buildCategory('Maths'),
+                buildCategory('Business'),
+                buildCategory('Companies'),
+                buildCategory('Reviews'),
+                buildCategory('AI'),
+                buildCategory('Problems'),
+                buildCategory('Maths'),
+                buildCategory('Business'),
+                buildCategory('Companies'),
+                buildCategory('Reviews'),
+                buildCategory('AI'),
+              ],
+            ),
+          ],
+        ),
       );
     }
+
     return Shimmer.fromColors(
+      enabled: true,
       baseColor: Colors.grey.shade300,
       highlightColor: Colors.grey.shade100,
-      enabled: true,
       child: const SingleChildScrollView(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.max,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             BannerPlaceholder(),
+            ShimmerPost(),
+            ShimmerPost(),
+            ShimmerPost(),
+            ShimmerPost(),
+            ShimmerPost(),
+            ShimmerPost(),
+            ShimmerPost(),
+            ShimmerPost(),
+            ShimmerPost(),
+            ShimmerPost(),
+            ShimmerPost(),
+            ShimmerPost(),
+            ShimmerPost(),
+            ShimmerPost(),
+            ShimmerPost(),
+            ShimmerPost(),
             ShimmerPost(),
             ShimmerPost(),
             ShimmerPost(),
@@ -125,19 +142,22 @@ class _LoadingListState extends State<LoadingList> {
   }
 
   buildCategory(category) {
-    return GestureDetector(
-      onTap: () {
-        path.add(category);
-        setState(() {
-          path = path;
-        });
-      },
-      child: Column(
-        children: [
-          Row(
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(left: 200),
+          child: Row(
             children: [Text(category)],
           ),
-          SizedBox(
+        ),
+        GestureDetector(
+          onTap: () {
+            path.add(category);
+            setState(() {
+              path = path;
+            });
+          },
+          child: SizedBox(
             width: 925,
             height: 450,
             child: ListView.builder(
@@ -152,9 +172,9 @@ class _LoadingListState extends State<LoadingList> {
                     ],
                   );
                 }),
-          )
-        ],
-      ),
+          ),
+        )
+      ],
     );
   }
 

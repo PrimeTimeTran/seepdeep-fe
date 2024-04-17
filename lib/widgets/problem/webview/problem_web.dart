@@ -20,24 +20,25 @@ class ProblemView extends StatefulWidget {
 
 class _ProblemViewState extends State<ProblemView> {
   String result = '';
-
-  IFrameElement _view = IFrameElement();
+  IFrameElement webView = IFrameElement();
 
   @override
   Widget build(BuildContext context) {
     final problem = Provider.of<ProblemProvider>(context).focusedProblem;
     ui.platformViewRegistry.registerViewFactory('index', (int viewId) {
-      _view = IFrameElement()
+      webView = IFrameElement()
         ..src = 'assets/index.html'
         ..style.border = 'none';
+      print('registered');
       window.onMessage.listen((message) {
         setState(() {
           result = message.data;
         });
       });
 
-      return _view;
+      return webView;
     });
+
     return ScrollConfiguration(
       behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
       child: SingleChildScrollView(
@@ -71,6 +72,11 @@ class _ProblemViewState extends State<ProblemView> {
             child: HtmlElementView(
               viewType: 'index',
               onPlatformViewCreated: (int id) {
+                window.onMessage.listen((message) {
+                  setState(() {
+                    result = message.data;
+                  });
+                });
                 debugPrint('viewNum: $id');
               },
             ),
@@ -92,8 +98,14 @@ class _ProblemViewState extends State<ProblemView> {
     );
   }
 
+  @override
+  void dispose() {
+    webView.contentWindow!.close();
+    super.dispose();
+  }
+
   onRun(code) {
-    // _view.contentWindow!.postMessage(code, '*');
-    _view.contentWindow!.postMessage(pythonSort, '*');
+    print('sososo $webView.contentWindow');
+    webView.contentWindow?.postMessage(code, '*');
   }
 }

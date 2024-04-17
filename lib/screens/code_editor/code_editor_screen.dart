@@ -18,12 +18,13 @@ class CodeEditorScreen extends StatefulWidget {
 
 class _CodeEditorScreenState extends State<CodeEditorScreen> {
   final GlobalKey _codeEditorKey = GlobalKey();
-
+  var step = 1;
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Column(
         children: [
+          Text(step.toString()),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -62,6 +63,9 @@ class _CodeEditorScreenState extends State<CodeEditorScreen> {
               // ignore: deprecated_member_use
               if (event is RawKeyDownEvent) {
                 // ignore: deprecated_member_use
+                setState(() {
+                  step = 2;
+                });
                 if (event.isControlPressed &&
                     event.logicalKey == LogicalKeyboardKey.enter) {
                   onRun();

@@ -23,58 +23,63 @@ class _ContestsScreenState extends State<ContestsScreen> {
               Container(
                 color: Colors.red,
                 child: SizedBox(
-                  height: 500,
+                  height: 300,
                   width: getWidth(),
                   child: const Center(child: Text('CSGems Contest')),
                 ),
               ),
               const SizedBox(height: 10),
-              Expanded(
-                child: Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(
-                          color: Colors.red,
-                          child: SizedBox(
-                            width: getWidth() / 4,
-                            height: 250,
-                            child: const Text('Weekly'),
+              Transform.translate(
+                offset: const Offset(0, -20),
+                child: SizedBox(
+                  width: 1000,
+                  height: 300,
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                            color: Colors.blue,
+                            child: SizedBox(
+                              width: getWidth() / 4,
+                              height: 250,
+                              child: const Text('Weekly'),
+                            ),
                           ),
-                        ),
-                        const SizedBox(width: 20),
-                        Container(
-                          color: Colors.teal,
-                          child: SizedBox(
-                            width: getWidth() / 4,
-                            height: 250,
-                            child: const Text('BiWeekly'),
+                          const SizedBox(width: 20),
+                          Container(
+                            color: Colors.green,
+                            child: SizedBox(
+                              width: getWidth() / 4,
+                              height: 250,
+                              child: const Text('BiWeekly'),
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 10),
-                    SizedBox(
-                      height: 300,
-                      child: buildFeaturedContests(),
-                    ),
-                    const SizedBox(height: 10),
-                    Expanded(
-                      child: Container(
-                        color: Colors.green,
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            buildContestHistory(700),
-                            const SizedBox(width: 10),
-                            buildContestHistory(400)
-                          ],
+                        ],
+                      ),
+                      const SizedBox(height: 10),
+                      SizedBox(
+                        height: 300,
+                        child: buildFeaturedContests(),
+                      ),
+                      const SizedBox(height: 10),
+                      Expanded(
+                        child: Container(
+                          color: Colors.green,
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              buildContestHistory(700),
+                              const SizedBox(width: 10),
+                              buildContestHistory(400)
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ],

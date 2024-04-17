@@ -191,11 +191,13 @@ class _ExploreScreenState extends State<ExploreScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        SizedBox(
-            width: getWidth() / 2,
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          SizedBox(
+            width: double.infinity,
+            height: getHeight(),
             child: NotificationListener<ScrollNotification>(
                 onNotification: (ScrollNotification notif) {
                   setState(() {
@@ -224,8 +226,10 @@ class _ExploreScreenState extends State<ExploreScreen> {
                     ),
                   ),
                   buildInViewNotifierList()
-                ]))),
-      ],
+                ])),
+          ),
+        ],
+      ),
     );
   }
 

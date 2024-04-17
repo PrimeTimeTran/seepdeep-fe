@@ -26,28 +26,20 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
   List<Problem>? problems = [];
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 4),
-      child: SingleChildScrollView(
-        child: SizedBox(
-          height: getHeight() * 2,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Expanded(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    buildLeft(),
-                    const SizedBox(width: 10),
-                    buildRight(),
-                  ],
-                ),
-              ),
+              buildLeft(),
+              const SizedBox(width: 10),
+              buildRight(),
             ],
           ),
-        ),
+        ],
       ),
     );
   }
