@@ -1,4 +1,6 @@
-Everything CS
+## Goal
+
+To become the Reddit/Leetcode/Notion/HackerNews/HackerRank/Brilliant/TechCrunch/LinkedIn of Computer Science
 
 - News
 

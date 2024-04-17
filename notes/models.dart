@@ -1,8 +1,28 @@
+class Article {
+  String? type; // news, original, tutorial, announcement, review
+  User? author;
+  String? title;
+  String? caption;
+  String? body;
+  String? link;
+  String? urlCoverImg;
+  String? urlVideo;
+  String? isPublished;
+  DateTime? publishDate;
+  String? language;
+  List<Comment>? comments;
+  int? numComments;
+  List<int>? voterIds;
+  int? numVotes;
+
+  bool? isOriginal; // Was this published on CSGems first?
+}
+
 class Badge {
   int? year;
   int? month;
   String? name;
-  String? imgUrl;
+  String? urlImg;
 }
 
 class BadgeItem {
@@ -10,22 +30,33 @@ class BadgeItem {
   int? year;
   int? userId;
   DateTime? date;
-  String? imgUrl;
+  String? urlImg;
 }
 
 class Comment {
-  User? user;
   String? body;
-  Problem? problem;
+  User? user;
   Post? post;
-  Comment? comment;
-  List<Comment>? comments;
+  Article? article;
+  Comment? comment; // The comment this comment is replying to
+  Problem? problem;
+  Submission? submission;
+  List<Comment>? comments; // The replies this comment got.
   int? numVotes;
+  List<int>? voterIds;
+  String? code;
 }
 
 class Company {
   String? name;
   String? industry;
+  String? founded;
+  int? teamSize;
+  String? location;
+  String? urlAvatar;
+  List<User>? founders;
+  List<String>? industries;
+  List<String>? technologies;
 }
 
 class Contest {
@@ -38,18 +69,6 @@ class Contest {
   List<Problem>? problems;
   List<Submission>? submissions;
   List<ContestParticipation>? participants;
-}
-
-class Ranking {
-  Contest? contest;
-  User? user;
-  int? score;
-  int? finishTime;
-  int? rank;
-  int? q1;
-  int? q2;
-  int? q3;
-  int? q4;
 }
 
 class ContestParticipation {
@@ -65,15 +84,35 @@ class ContestParticipation {
 
 enum Difficulty { easy, medium, hard }
 
+// Should be able to filter by topic
+// Sort on date, ratings,
 class Forum {}
+
+class Guide {
+  String? title;
+  String? body;
+  String? caption;
+  String? description;
+  List<Topic>? topics;
+}
 
 class Job {
   String? title;
-  String? description;
-  String? requirements;
-  String? salary;
+  String? caption;
   String? location;
+  bool? isRemote;
   Company? company;
+  String? type; // Full or part time
+  String? description;
+  String? experience;
+  String? project; // What we're up to. Whats awesome about this position?
+  List<String>?
+      technologies; // What do we use everyday? Is it different from what we do
+  String? requirements;
+  String? whoAreYou;
+  String? salary;
+  String? equity;
+  String? benefits;
 }
 
 class LanguageScore {
@@ -82,9 +121,34 @@ class LanguageScore {
 }
 
 class Note {
+  User? user;
   String? body;
-  String? userId;
-  String? problemId;
+  Problem? problem;
+}
+
+class Notification {
+  String? type;
+  String? title;
+  String? body;
+  int? points;
+  bool? isPublished;
+  DateTime? date;
+}
+
+class NotificationItem {
+  int? icon;
+  bool? isRead;
+  int? points;
+  User? user;
+  DateTime? date;
+  // Notification Origin. A new post? A comment on a submission? A reply to comment?
+  String? notifiableId;
+  String? notifiableType;
+  // update(New Guide, New feature, Contest Starting),
+  // content(Post Created),
+  // reply/comment(Post, Submission, Comment)
+  String? type;
+  Notification? notification;
 }
 
 class Post {
@@ -96,48 +160,72 @@ class Post {
   int? numVotes;
   int? numViews;
   int? numComments;
-  List<Comment>? comments;
   List<Topic>? topics;
+  List<Comment>? comments;
 }
 
 class Problem {
-  String? status;
   String? title;
   String? body;
+  List<Topic>? topics;
+  String? status;
+  bool? isPublished;
+  bool? isSubmitted;
+  User? author;
+
+  String? editorialBody;
+  User? editorialAuthor;
+
   String? solution;
   String? acceptance;
-  Difficulty? difficult;
+
   double? frequency;
+  Difficulty? difficulty;
   int? accepted;
   int? submissions;
   double? acceptanceRate;
-  List<Topic>? topics;
-  int? elapsedTime;
+
+  // Map of language and their tests to test the problem.
+  Map<String, String>? bodyTests;
+
+  // Language, then list of test suite inputs and outputs;
+  Map<String, List<String>>? testSuite;
 }
 
-class StudyGuide {
-  String? title;
-  String? body;
-  String? caption;
-  String? description;
-  List<Topic>? topics;
+class Ranking {
+  String? type;
+  Contest? contest;
+  User? user;
+  int? score;
+  int? finishTime;
+  int? rank;
+  int? q1;
+  int? q2;
+  int? q3;
+  int? q4;
+}
+
+class Site {
+  List<Ranking>? globalRankings;
 }
 
 class Submission {
   User? user;
-  String? code;
-  Problem? problem;
+  String? body;
   DateTime? submitted;
-  bool? isAccepted;
+  Problem? problem;
   String? language;
+  bool? isAccepted;
   double? runTime;
   double? beats;
   String? notes;
 
   bool? isShared;
   String? title;
-  String? body;
+  String? explanation;
+
   int? numVotes;
+  List<int>? voterIds;
   int? numComments;
   List<Topic>? topics;
   List<Comment>? comments;
@@ -149,36 +237,45 @@ class Submission {
 
 class Topic {
   String? name;
+  List<Post>? posts;
+  List<Guide>? guides;
+  List<Problem>? problems;
+  List<Contest>? contests;
+  List<Submission>? submissions;
 }
 
 class TopicItem {
   String? name;
-  int? postId;
-  int? noteId;
-  int? problemId;
-  int? submissionId;
+  Note? note;
+  Post? post;
+  Guide? guide;
+  Problem? problem;
+  Contest? contest;
+  Submission? submission;
 }
 
 class User {
-  // Personal
+  int? rank;
+  String? email;
+  String? phone;
   String? username;
   String? firstName;
   String? lastName;
   String? location;
-  int? rank;
-  String? email;
   String? urlAvatar;
   String? urlPayPal;
   String? urlGithub;
   String? urlLinkedIn;
   String? urlPortfolio;
-  List<String>? urls;
+  String? urlCSProfile;
+  List<String>? siteUrls;
   Badge? activeBadge;
 
+  // Background worker updates these fields
   // Community
   int? views;
-  int? solutions;
   int? discuss;
+  int? solutions;
   int? reputation;
 
   // Contests
@@ -191,13 +288,12 @@ class User {
   double? top;
 
   List<Badge>? badges;
-  List<String>? websites;
   List<String>? activity;
   List<String>? contestRatings;
 
   // Learnings
+  List<Note>? notes;
   List<Submission>? problemsSolved;
-  List<Note>? problemNotes;
   List<LanguageScore>? languages;
   List<Submission>? submissions;
 
@@ -205,4 +301,7 @@ class User {
   int? numSubmittedProblems;
   int? numAcceptedSubmissions;
   int? numSubmissions;
+
+  String? gender;
+  String? avatar;
 }

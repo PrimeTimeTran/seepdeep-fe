@@ -1,13 +1,14 @@
 import 'dart:convert';
 
 import 'package:filter_list/filter_list.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 
 import '../constants.dart';
 
-class NewsArticle {
+class News {
   String title;
   String link;
   String author;
@@ -18,7 +19,7 @@ class NewsArticle {
   String urlToImage;
   String source;
   String language;
-  NewsArticle({
+  News({
     required this.title,
     required this.author,
     required this.link,
@@ -31,8 +32,8 @@ class NewsArticle {
     required this.language,
   });
 
-  factory NewsArticle.fromJson(Map<String, dynamic> j) {
-    return NewsArticle(
+  factory News.fromJson(Map<String, dynamic> j) {
+    return News(
       link: j['link'] ?? '',
       videoUrl: j['video_url'] ?? '',
       language: j['language'] ?? '',
@@ -58,8 +59,8 @@ class NewsScreen extends StatefulWidget {
 }
 
 class _NewsScreenState extends State<NewsScreen> {
-  List<News>? selectedNewsList = newsList;
-  List<NewsArticle> newsArticles = [];
+  List<NewsTopic>? selectedNewsTopics = newsTopics;
+  List<News> articles = [];
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +69,7 @@ class _NewsScreenState extends State<NewsScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            if (selectedNewsList == null || selectedNewsList!.isEmpty)
+            if (selectedNewsTopics == null || selectedNewsTopics!.isEmpty)
               const Expanded(
                 child: Center(
                   child: Text('No news selected'),
@@ -76,7 +77,60 @@ class _NewsScreenState extends State<NewsScreen> {
               )
             else
               Expanded(
-                child: buildNewsArticles(),
+                child: Column(children: [
+                  SizedBox(
+                    width: 1500,
+                    height: 100,
+                    child: FilterListWidget(
+                      listData: selectedNewsTopics,
+                      hideHeader: true,
+                      hideSelectedTextCount: true,
+                      selectedListData: selectedNewsTopics,
+                      choiceChipLabel: (item) => item!.name,
+                      themeData: FilterListThemeData(context),
+                      validateSelectedItem: (list, val) => list!.contains(val),
+                      controlButtons: const [
+                        ControlButtonType.All,
+                        ControlButtonType.Reset,
+                      ],
+                      onItemSearch: (topic, query) {
+                        return topic.name!
+                            .toLowerCase()
+                            .contains(query.toLowerCase());
+                      },
+                      onApplyButtonClick: (list) {
+                        setState(() {
+                          selectedNewsTopics = List.from(list!);
+                        });
+                        // Navigator.pop(context);
+                      },
+                      choiceChipBuilder: (context, item, isSelected) {
+                        return Container(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 16, vertical: 5),
+                          margin: const EdgeInsets.symmetric(
+                              horizontal: 10, vertical: 5),
+                          decoration: BoxDecoration(
+                              border: Border.all(
+                                color: isSelected!
+                                    ? Colors.blue[300]!
+                                    : Colors.grey[300]!,
+                              ),
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(30))),
+                          child: Text(
+                            item.name,
+                            style: TextStyle(
+                                color: isSelected
+                                    ? Colors.blue[300]
+                                    : Colors.grey[500]),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                  Expanded(child: buildArticles())
+                ]),
               ),
           ],
         ),
@@ -84,12 +138,12 @@ class _NewsScreenState extends State<NewsScreen> {
     );
   }
 
-  buildNewsArticles() {
-    if (newsArticles.isNotEmpty) {
+  buildArticles() {
+    if (articles.isNotEmpty) {
       return SizedBox(
         width: 1500,
         child: ListView.builder(itemBuilder: (BuildContext context, int idx) {
-          final item = newsArticles[idx];
+          final item = articles[idx];
 
           return ListTile(
             contentPadding: const EdgeInsets.all(50),
@@ -151,13 +205,13 @@ class _NewsScreenState extends State<NewsScreen> {
     }
   }
 
-  // Future<List<NewsArticle>> fetchArticles() async {
-  Future<List<NewsArticle>> fetchArticles() async {
+  // Future<List<Article>> fetchArticles() async {
+  Future<List<News>> fetchArticles() async {
     try {
       String url =
           "https://newsapi.org/v2/top-headlines?country=us&apiKey=$KNEWS";
       final response = await http.get(Uri.parse(url));
-      if (false) {
+      if (!kDebugMode) {
         // Error();
         final Map<String, dynamic> data = json.decode(response.body);
         setArticles(data);
@@ -170,6 +224,9 @@ class _NewsScreenState extends State<NewsScreen> {
       return [];
     } catch (e) {
       print('Error: $e');
+      final localJson = await rootBundle.loadString("json/news.json");
+      final Map<String, dynamic> data = json.decode(localJson);
+      setArticles(data);
       return [];
     }
   }
@@ -179,15 +236,15 @@ class _NewsScreenState extends State<NewsScreen> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       fetchArticles();
-      _openFilterDialog();
+      // _openFilterDialog();
     });
   }
 
   Future<void> openFilterDelegate() async {
-    await FilterListDelegate.show<News>(
+    await FilterListDelegate.show<NewsTopic>(
       context: context,
-      list: newsList,
-      selectedListData: selectedNewsList,
+      list: newsTopics,
+      selectedListData: selectedNewsTopics,
       theme: FilterListDelegateThemeData(
         listTileTheme: ListTileThemeData(
           shape: RoundedRectangleBorder(
@@ -218,30 +275,30 @@ class _NewsScreenState extends State<NewsScreen> {
       },*/
       onApplyButtonClick: (list) {
         setState(() {
-          selectedNewsList = list;
+          selectedNewsTopics = list;
         });
       },
     );
   }
 
   void setArticles(Map<String, dynamic> data) {
-    final List<dynamic> articles = data['articles'];
-    List<NewsArticle> res =
-        articles.map((item) => NewsArticle.fromJson(item)).toList();
+    final List<dynamic> fetchedArticles = data['articles'];
+    List<News> res =
+        fetchedArticles.map((item) => News.fromJson(item)).toList();
     res = res.where((element) => element.urlToImage != '').toList();
     setState(() {
-      newsArticles = res;
+      articles = res;
     });
   }
 
   Future<void> _openFilterDialog() async {
-    await FilterListDialog.display<News>(
+    await FilterListDialog.display<NewsTopic>(
       context,
       height: 500,
-      listData: newsList,
+      listData: newsTopics,
       headlineText: 'Select Topics',
       hideSelectedTextCount: true,
-      selectedListData: selectedNewsList,
+      selectedListData: selectedNewsTopics,
       choiceChipLabel: (item) => item!.name,
       themeData: FilterListThemeData(context),
       validateSelectedItem: (list, val) => list!.contains(val),
@@ -251,7 +308,7 @@ class _NewsScreenState extends State<NewsScreen> {
       },
       onApplyButtonClick: (list) {
         setState(() {
-          selectedNewsList = List.from(list!);
+          selectedNewsTopics = List.from(list!);
         });
         Navigator.pop(context);
       },

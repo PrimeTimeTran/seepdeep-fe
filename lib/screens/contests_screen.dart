@@ -25,7 +25,7 @@ class _ContestsScreenState extends State<ContestsScreen> {
                 child: SizedBox(
                   height: 500,
                   width: getWidth(),
-                  child: const Center(child: Text('GemsOfCS Contest')),
+                  child: const Center(child: Text('CSGems Contest')),
                 ),
               ),
               const SizedBox(height: 10),

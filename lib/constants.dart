@@ -4,53 +4,28 @@ import 'package:flutter/material.dart';
 
 const COLS = 80;
 const END_NODE = '20,75';
+const KNEWS = "cce242e028864b98b729032f7d9d3d6f";
 const ROWS = 40;
+
 const START_NODE = '20,5';
 
 final GlobalKey<ScaffoldState> drawerKey = GlobalKey();
 
 final material3Notifier = ValueNotifier<bool>(true);
 
-List<News> newsList = [
-  News(name: "Python", avatar: "News.png"),
-  News(name: "Dart", avatar: "News.png"),
-  News(name: "SQL", avatar: "News.png"),
-  News(name: "Postgres", avatar: "News.png"),
-  News(name: "MongoDB", avatar: "News.png"),
-  News(name: "C", avatar: "News.png"),
-  News(name: "C++", avatar: "News.png"),
-  News(name: "C#", avatar: "News.png"),
-  News(name: "Go", avatar: "News.png"),
-  News(name: "Mojo", avatar: "News.png"),
-  News(name: "Ruby", avatar: "News.png"),
-  News(name: "Typescript", avatar: "News.png"),
-  News(name: "Javascript", avatar: "News.png"),
-  News(name: "Flutter", avatar: "News.png"),
-  News(name: "Vue", avatar: "News.png"),
-  News(name: "React", avatar: "News.png"),
-  News(name: "React Native", avatar: "News.png"),
-  News(name: "Nuxt", avatar: "News.png"),
-  News(name: "Next", avatar: "News.png"),
-  News(name: "Ruby on Rails", avatar: "News.png"),
-  News(name: "Django", avatar: "News.png"),
-  News(name: ".Net", avatar: "News.png"),
-  News(name: "NodeJS", avatar: "News.png"),
-  News(name: "Flask", avatar: "News.png"),
-  News(name: "Kubernetes", avatar: "News.png"),
-  News(name: "Docker", avatar: "News.png"),
-  News(name: "Data Analysis", avatar: "News.png"),
-  News(name: "Data Analytics", avatar: "News.png"),
-  News(name: "LLM", avatar: "News.png"),
-  News(name: "AI", avatar: "News.png"),
-  News(name: "Machine Learning", avatar: "News.png"),
-  News(name: "Theresa", avatar: "News.png"),
-  News(name: "Una", avatar: "News.png"),
-  News(name: "Vanessa", avatar: "News.png"),
-  News(name: "Victoria", avatar: "News.png"),
-  News(name: "Wanda", avatar: "News.png"),
-  News(name: "Wendy", avatar: "News.png"),
-  News(name: "Yvonne", avatar: "News.png"),
-  News(name: "Zoe", avatar: "News.png"),
+List<NewsTopic> newsTopics = [
+  NewsTopic(name: "AI", avatar: "NewsTopic.png"),
+  NewsTopic(name: "Data", avatar: "NewsTopic.png"),
+  NewsTopic(name: "Health", avatar: "NewsTopic.png"),
+  NewsTopic(name: "Sports", avatar: "NewsTopic.png"),
+  NewsTopic(name: "Finance", avatar: "NewsTopic.png"),
+  NewsTopic(name: "Science", avatar: "NewsTopic.png"),
+  NewsTopic(name: "Business", avatar: "NewsTopic.png"),
+  NewsTopic(name: "Startups", avatar: "NewsTopic.png"),
+  NewsTopic(name: "Business", avatar: "NewsTopic.png"),
+  NewsTopic(name: "Medicine", avatar: "NewsTopic.png"),
+  NewsTopic(name: "Entertainment", avatar: "NewsTopic.png"),
+  NewsTopic(name: "Technology", avatar: "NewsTopic.png"),
 ];
 
 List<Topic> topicList = [
@@ -95,10 +70,10 @@ List<Topic> topicList = [
   Topic(name: "Zoe", avatar: "Topic.png"),
 ];
 
-class News {
+class NewsTopic {
   final String? name;
   final String? avatar;
-  News({this.name, this.avatar});
+  NewsTopic({this.name, this.avatar});
 }
 
 class Topic {
@@ -106,5 +81,3 @@ class Topic {
   final String? avatar;
   Topic({this.name, this.avatar});
 }
-
-const KNEWS = "cce242e028864b98b729032f7d9d3d6f";

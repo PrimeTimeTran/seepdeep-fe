@@ -29,7 +29,7 @@ class _AppBarContentState extends State<AppBarContent> {
                 onPressed: () => GoRouter.of(context).go('/'),
                 icon: const Icon(Icons.home),
                 label: const Text(
-                  'GemsOfCS',
+                  'CSGems',
                   style: TextStyle(color: Colors.white, fontSize: 15),
                 ),
               ),

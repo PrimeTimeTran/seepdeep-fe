@@ -167,7 +167,7 @@ class MyApp extends StatelessWidget {
         builder: (BuildContext context, bool value, Widget? child) {
           return MaterialApp.router(
             debugShowCheckedModeBanner: false,
-            title: 'GemsOfCS',
+            title: 'CSGems',
             routerConfig: _router,
             theme: ThemeData(
               useMaterial3: true,
