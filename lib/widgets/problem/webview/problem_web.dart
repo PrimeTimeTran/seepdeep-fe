@@ -2,25 +2,29 @@
 import 'dart:html';
 import 'dart:ui' as ui;
 
+import 'package:app/providers/problem_provider.dart';
 import 'package:app/screens/code_editor/code_editor_screen.dart';
 import 'package:app/screens/code_editor/setups.dart';
 import 'package:app/utils.dart';
 import 'package:app/widgets/problem/problem_prompt.dart';
 import 'package:app/widgets/vertical_split_view.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class Problem extends StatefulWidget {
-  const Problem({super.key});
+class ProblemView extends StatefulWidget {
+  const ProblemView({super.key});
 
   @override
-  State<Problem> createState() => _ProblemState();
+  State<ProblemView> createState() => _ProblemViewState();
 }
 
-class _ProblemState extends State<Problem> {
+class _ProblemViewState extends State<ProblemView> {
   String result = '';
+
   IFrameElement _view = IFrameElement();
   @override
   Widget build(BuildContext context) {
+    final problem = Provider.of<ProblemProvider>(context).focusedProblem;
     // ignore: undefined_prefixed_name
     ui.platformViewRegistry.registerViewFactory('index', (int viewId) {
       _view = IFrameElement()
@@ -48,7 +52,7 @@ class _ProblemState extends State<Problem> {
               height: getHeight(),
               width: double.infinity,
               child: VerticalSplitView(
-                left: const ProblemPrompt(),
+                left: ProblemPrompt(problem: problem!),
                 right: buildRight(),
               ),
             ),
@@ -85,6 +89,11 @@ class _ProblemState extends State<Problem> {
       ),
       bottom: buildBottom(),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
   }
 
   onRun(code) {

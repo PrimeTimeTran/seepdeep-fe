@@ -14,6 +14,6 @@ class ProblemScreen extends StatefulWidget {
 class _ProblemScreenState extends State<ProblemScreen> {
   @override
   Widget build(BuildContext context) {
-    return const Problem();
+    return const ProblemView();
   }
 }

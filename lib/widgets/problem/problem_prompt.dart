@@ -1,3 +1,4 @@
+import 'package:app/models/all.dart';
 import 'package:app/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_highlighter/flutter_highlighter.dart';
@@ -130,8 +131,10 @@ class CodeElementBuilder extends MarkdownElementBuilder {
   }
 }
 
+// ignore: must_be_immutable
 class ProblemPrompt extends StatefulWidget {
-  const ProblemPrompt({super.key});
+  Problem problem;
+  ProblemPrompt({super.key, required this.problem});
 
   @override
   State<ProblemPrompt> createState() => _ProblemPromptState();
@@ -145,6 +148,7 @@ class _ProblemPromptState extends State<ProblemPrompt> {
       length: 4,
       child: Scaffold(
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           flexibleSpace: SafeArea(
               child: SingleChildScrollView(
             scrollDirection: Axis.horizontal,
@@ -202,12 +206,37 @@ class _ProblemPromptState extends State<ProblemPrompt> {
         ),
         body: TabBarView(
           children: [
-            Markdown(
-              selectable: true,
-              data: markdownSource,
-              builders: {
-                'code': CodeElementBuilder(),
-              },
+            SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SelectableText(widget.problem.title!),
+                    const SizedBox(height: 10),
+                    SelectableText(widget.problem.body!),
+                    const SizedBox(height: 10),
+                    const SelectableText("Example 1"),
+                    const SizedBox(height: 10),
+                    SelectableText(
+                        widget.problem.testSuite![0]['input'].toString()),
+                    const SizedBox(height: 10),
+                    SelectableText(
+                        widget.problem.testSuite![0]['output'].toString()),
+                    // SizedBox(
+                    //   width: double.infinity,
+                    //   height: getHeight(),
+                    //   child: Markdown(
+                    //     selectable: true,
+                    //     data: widget.problem.body!,
+                    //     builders: {
+                    //       'code': CodeElementBuilder(),
+                    //     },
+                    //   ),
+                    // )
+                  ],
+                ),
+              ),
             ),
             const Icon(Icons.directions_transit),
             const Icon(Icons.directions_bike),
@@ -216,5 +245,20 @@ class _ProblemPromptState extends State<ProblemPrompt> {
         ),
       ),
     );
+  }
+
+  buildExamples(Problem problem) {
+    return ListView.builder(
+        itemCount: problem.testSuite!.length,
+        itemBuilder: (BuildContext context, int idx) {
+          final item = problem.testSuite![idx];
+          return Column(children: [
+            const SelectableText("Example 1"),
+            const SizedBox(height: 10),
+            SelectableText(item['input'].toString()),
+            const SizedBox(height: 10),
+            SelectableText(item['output'].toString()),
+          ]);
+        });
   }
 }

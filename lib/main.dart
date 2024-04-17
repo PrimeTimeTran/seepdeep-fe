@@ -1,5 +1,6 @@
 import 'package:app/navigation/app_bar_content.dart';
 import 'package:app/navigation/drawer.dart';
+import 'package:app/providers/problem_provider.dart';
 import 'package:app/screens/bug_report_screen.dart';
 import 'package:app/screens/community_screen.dart';
 import 'package:app/screens/contests_screen.dart';
@@ -30,7 +31,7 @@ void main() {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(stateProvider.MultiProvider(
     providers: [
-      stateProvider.ChangeNotifierProvider(create: (_) => MyApp()),
+      stateProvider.ChangeNotifierProvider(create: (_) => ProblemProvider()),
     ],
     child: MyApp(),
   ));

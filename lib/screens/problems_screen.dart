@@ -1,16 +1,18 @@
 import 'dart:convert';
 
 import 'package:app/models/all.dart';
+import 'package:app/providers/problem_provider.dart';
 import 'package:filter_list/filter_list.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
+import 'package:go_router/go_router.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 import '../constants.dart';
-import '../providers/problem_provider.dart';
 import '../utils.dart';
 
 class ProblemsScreen extends StatefulWidget {
@@ -79,9 +81,8 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
         const SizedBox(height: 4),
         buildProblemTopics(),
         const SizedBox(height: 4),
-        Container(
+        SizedBox(
           width: 1000,
-          color: Colors.green,
           child: ListView.builder(
             itemCount: problems!.length,
             shrinkWrap: true,
@@ -89,8 +90,11 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
               var item = problems![idx];
               return GestureDetector(
                 onTap: () {
-                  Provider.of<ProblemProvider>(context, listen: false)
-                      .setFocusedProblem(item);
+                  SchedulerBinding.instance.addPostFrameCallback((_) {
+                    Provider.of<ProblemProvider>(context, listen: false)
+                        .setFocusedProblem(item);
+                    GoRouter.of(context).go('/problem?foo=var');
+                  });
                 },
                 child: SizedBox(
                   height: 40,
