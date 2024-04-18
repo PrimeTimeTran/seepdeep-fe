@@ -24,7 +24,6 @@ class _CodeEditorScreenState extends State<CodeEditorScreen> {
     return SingleChildScrollView(
       child: Column(
         children: [
-          Text(step.toString()),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -63,9 +62,9 @@ class _CodeEditorScreenState extends State<CodeEditorScreen> {
               // ignore: deprecated_member_use
               if (event is RawKeyDownEvent) {
                 // ignore: deprecated_member_use
-                setState(() {
-                  step = 2;
-                });
+                // setState(() {
+                //   step = 2;
+                // });
                 if (event.isControlPressed &&
                     event.logicalKey == LogicalKeyboardKey.enter) {
                   onRun();

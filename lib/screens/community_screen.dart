@@ -58,6 +58,7 @@ class _LoadingListState extends State<LoadingList> {
       return Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             BreadCrumb(
               items: <BreadCrumbItem>[

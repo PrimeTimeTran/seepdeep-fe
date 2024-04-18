@@ -145,6 +145,7 @@ class _ProblemPromptState extends State<ProblemPrompt> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
+      animationDuration: Duration.zero,
       length: 4,
       child: Scaffold(
         appBar: AppBar(
@@ -212,7 +213,11 @@ class _ProblemPromptState extends State<ProblemPrompt> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SelectableText(widget.problem.title!),
+                    SelectableText(
+                      widget.problem.title!,
+                      style: const TextStyle(
+                          fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
                     const SizedBox(height: 10),
                     SelectableText(widget.problem.body!),
                     const SizedBox(height: 10),

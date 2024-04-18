@@ -11,7 +11,7 @@ class HorizontalSplitView extends StatefulWidget {
     super.key,
     required this.top,
     required this.bottom,
-    this.ratio = .80,
+    this.ratio = .70,
   })  : assert(ratio >= 0),
         assert(ratio <= 1);
 
