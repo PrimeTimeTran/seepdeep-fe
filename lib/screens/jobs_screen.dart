@@ -1,7 +1,5 @@
+import 'package:app/all.dart';
 import 'package:flutter/material.dart';
-
-import '../utils.dart';
-import '../widgets/loading_list.dart';
 
 class JobsScreen extends StatefulWidget {
   const JobsScreen({super.key});
@@ -16,7 +14,7 @@ class _JobsScreenState extends State<JobsScreen> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        SizedBox(width: getWidth() / 2, child: const LoadingList()),
+        SizedBox(width: getWidth() / 2, child: const ShimmerList()),
       ],
     );
   }

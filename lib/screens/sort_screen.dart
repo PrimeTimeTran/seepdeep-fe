@@ -1,10 +1,8 @@
 import 'dart:async';
 import 'dart:math';
 
-import 'package:app/widgets/modals.dart';
+import 'package:app/all.dart';
 import 'package:flutter/material.dart';
-
-import '../utils.dart';
 
 class SortItem {
   Color color;

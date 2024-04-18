@@ -1,4 +1,4 @@
-import 'package:app/widgets/shimmers.dart';
+import 'package:app/all.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_breadcrumb/flutter_breadcrumb.dart';

@@ -1,4 +1,4 @@
-import 'package:app/widgets/footer.dart';
+import 'package:app/all.dart';
 import 'package:flutter/material.dart';
 
 class ExploreScreen extends StatelessWidget {

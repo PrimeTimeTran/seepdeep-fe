@@ -3,7 +3,7 @@ import 'package:fl_chart/fl_chart.dart';
 // import 'package:fl_chart_app/presentation/widgets/indicator.dart';
 import 'package:flutter/material.dart';
 
-import '../../../widgets/indicator.dart';
+import '../../indicator.dart';
 import '../utils.dart';
 
 class PieChart2State extends State {

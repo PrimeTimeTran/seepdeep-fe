@@ -1,6 +1,5 @@
+import 'package:app/all.dart';
 import 'package:flutter/material.dart';
-
-import '../utils.dart';
 
 class ContestsScreen extends StatefulWidget {
   const ContestsScreen({super.key});

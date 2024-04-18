@@ -6,17 +6,16 @@ import 'package:flutter_highlight/themes/vs.dart';
 import 'setups.dart';
 
 // ignore: must_be_immutable
-class CodeEditorScreen extends StatefulWidget {
+class Editor extends StatefulWidget {
   Function onRun;
   Languages selectedLang;
-  CodeEditorScreen(
-      {super.key, required this.onRun, required this.selectedLang});
+  Editor({super.key, required this.onRun, required this.selectedLang});
 
   @override
-  State<CodeEditorScreen> createState() => _CodeEditorScreenState();
+  State<Editor> createState() => _EditorState();
 }
 
-class _CodeEditorScreenState extends State<CodeEditorScreen> {
+class _EditorState extends State<Editor> {
   final GlobalKey _codeEditorKey = GlobalKey();
   var step = 1;
   @override

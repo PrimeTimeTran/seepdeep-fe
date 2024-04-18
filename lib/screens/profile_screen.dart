@@ -1,11 +1,8 @@
-import 'package:app/utils.dart';
+import 'package:app/all.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_heatmap_calendar/flutter_heatmap_calendar.dart';
 import 'package:gap/gap.dart';
 import 'package:getwidget/getwidget.dart';
-
-import '../widgets/all.dart';
-import 'charts/charts.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});

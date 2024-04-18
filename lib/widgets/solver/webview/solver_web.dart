@@ -2,27 +2,20 @@
 import 'dart:html';
 import 'dart:ui_web' as ui;
 
-import 'package:app/providers/problem_provider.dart';
-import 'package:app/screens/code_editor/code_editor_screen.dart';
-import 'package:app/screens/code_editor/setups.dart';
-import 'package:app/utils.dart';
-import 'package:app/widgets/problem/problem_prompt.dart';
-import 'package:app/widgets/vertical_split_view.dart';
+import 'package:app/all.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:provider/provider.dart';
 
-import '../../toasts.dart';
-
-class ProblemView extends StatefulWidget {
-  const ProblemView({super.key});
+class Solver extends StatefulWidget {
+  const Solver({super.key});
 
   @override
-  State<ProblemView> createState() => _ProblemViewState();
+  State<Solver> createState() => _SolverState();
 }
 
-class _ProblemViewState extends State<ProblemView> {
+class _SolverState extends State<Solver> {
   String result = '';
   bool submitted = false;
   IFrameElement webView = IFrameElement();
@@ -62,8 +55,9 @@ class _ProblemViewState extends State<ProblemView> {
           child: Column(
             children: [
               SizedBox(
-                height: getHeight(),
-                width: double.infinity,
+                height: MediaQuery.of(context).size.height -
+                    MediaQuery.of(context).padding.top -
+                    kToolbarHeight,
                 child: VerticalSplitView(
                   left: ProblemPrompt(problem: problem!),
                   right: buildRight(problem),
@@ -105,7 +99,7 @@ class _ProblemViewState extends State<ProblemView> {
         ),
         SizedBox(
           width: double.infinity,
-          height: 500,
+          height: 300,
           child: DefaultTabController(
             length: 4,
             animationDuration: Duration.zero,
@@ -128,7 +122,7 @@ class _ProblemViewState extends State<ProblemView> {
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
                           buildTestCase(problem),
                           SelectableText(result),
@@ -165,7 +159,7 @@ class _ProblemViewState extends State<ProblemView> {
 
   HorizontalSplitView buildRight(problem) {
     return HorizontalSplitView(
-      top: CodeEditorScreen(
+      top: Editor(
         onRun: (code) => onRun(code),
         selectedLang: Languages.python,
       ),

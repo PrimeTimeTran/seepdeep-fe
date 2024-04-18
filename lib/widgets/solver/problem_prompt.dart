@@ -254,16 +254,17 @@ class _ProblemPromptState extends State<ProblemPrompt> {
 
   buildExamples(Problem problem) {
     return ListView.builder(
-        itemCount: problem.testSuite!.length,
-        itemBuilder: (BuildContext context, int idx) {
-          final item = problem.testSuite![idx];
-          return Column(children: [
-            const SelectableText("Example 1"),
-            const SizedBox(height: 10),
-            SelectableText(item['input'].toString()),
-            const SizedBox(height: 10),
-            SelectableText(item['output'].toString()),
-          ]);
-        });
+      itemCount: problem.testSuite!.length,
+      itemBuilder: (BuildContext context, int idx) {
+        final item = problem.testSuite![idx];
+        return Column(children: [
+          const SelectableText("Example 1"),
+          const SizedBox(height: 10),
+          SelectableText(item['input'].toString()),
+          const SizedBox(height: 10),
+          SelectableText(item['output'].toString()),
+        ]);
+      },
+    );
   }
 }

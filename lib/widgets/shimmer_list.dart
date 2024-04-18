@@ -4,14 +4,14 @@ import 'package:shimmer/shimmer.dart';
 
 import 'shimmers.dart';
 
-class LoadingList extends StatefulWidget {
-  const LoadingList({super.key});
+class ShimmerList extends StatefulWidget {
+  const ShimmerList({super.key});
 
   @override
-  State<LoadingList> createState() => _LoadingListState();
+  State<ShimmerList> createState() => ShimmerListState();
 }
 
-class _LoadingListState extends State<LoadingList> {
+class ShimmerListState extends State<ShimmerList> {
   @override
   Widget build(BuildContext context) {
     return Shimmer.fromColors(

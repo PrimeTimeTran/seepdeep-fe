@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class ProblemView extends StatelessWidget {
-  const ProblemView({super.key});
+class Solver extends StatelessWidget {
+  const Solver({super.key});
 
   @override
   Widget build(BuildContext context) {

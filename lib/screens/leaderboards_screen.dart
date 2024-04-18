@@ -1,14 +1,5 @@
-import 'package:app/utils.dart';
+import 'package:app/all.dart';
 import 'package:flutter/material.dart';
-
-import 'charts/bar/bar_charts.dart';
-import 'charts/line/line_charts.dart';
-import 'charts/pie/pie_chart_sample1.dart';
-import 'charts/pie/pie_chart_sample2.dart';
-import 'charts/pie/pie_chart_sample3.dart';
-import 'charts/radar/radar_chart_sample1.dart';
-import 'charts/scatter/scatter_chart_sample1.dart';
-import 'charts/scatter/scatter_chart_sample2.dart';
 
 class LeaderboardsScreen extends StatefulWidget {
   const LeaderboardsScreen({super.key});
