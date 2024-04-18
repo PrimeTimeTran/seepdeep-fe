@@ -189,37 +189,31 @@ class _SolverState extends State<Solver> {
 
   buildTestCase(problem) {
     final testCase = problem.testSuite![0];
-    final input = testCase['input'][0];
-    final input2 = testCase['input'][1];
-    final output = testCase['output'][0];
-    return Column(
-      children: [
-        TextFormField(
-          initialValue: '$input',
-          decoration: const InputDecoration(
-            border: OutlineInputBorder(),
-            hintText: 'Enter a search term',
-            labelText: "Input",
-          ),
-        ),
-        const SizedBox(height: 10),
-        TextFormField(
-          initialValue: '$input2',
-          style:
-              const TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
-          // Unable to move label outside as of now.
-          decoration: const InputDecoration(
-            // filled: true,
-            // fillColor: Colors.blue,
-            // contentPadding: EdgeInsets.all(0),
-            // floatingLabelBehavior: FloatingLabelBehavior.always,
-            border: OutlineInputBorder(),
-            hintText: 'Enter a search term',
-            labelText: "Input 2",
-          ),
-        ),
-        // SelectableText(result),
-      ],
+    final inputs = testCase['input'];
+    final output = testCase['output'];
+    return SizedBox(
+      height: 300,
+      width: double.infinity,
+      // For each test case build it's number of inputs.
+      child: ListView.builder(
+        itemCount: inputs?.length > 1 ? inputs.length : 1,
+        itemBuilder: (BuildContext context, int idx) {
+          final testInput = testCase['input'][idx];
+          return Column(
+            children: [
+              TextFormField(
+                initialValue: '$testInput',
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  hintText: 'Enter a search term',
+                  labelText: "Input",
+                ),
+              ),
+              const SizedBox(height: 10),
+            ],
+          );
+        },
+      ),
     );
   }
 

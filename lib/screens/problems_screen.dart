@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:app/all.dart';
 import 'package:filter_list/filter_list.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
@@ -127,11 +126,9 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
                   : Colors.green;
           return GestureDetector(
             onTap: () {
-              SchedulerBinding.instance.addPostFrameCallback((_) {
-                Provider.of<ProblemProvider>(context, listen: false)
-                    .setFocusedProblem(item);
-                GoRouter.of(context).go('/problem');
-              });
+              Provider.of<ProblemProvider>(context, listen: false)
+                  .setFocusedProblem(item);
+              GoRouter.of(context).go('/problem');
             },
             child: Container(
               color: color,
