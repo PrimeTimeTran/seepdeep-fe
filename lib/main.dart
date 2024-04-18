@@ -3,6 +3,7 @@ import 'package:app/navigation/app_bar_content.dart';
 import 'package:app/navigation/drawer.dart';
 import 'package:app/navigation/root.dart';
 import 'package:app/providers/problem_provider.dart';
+import 'package:app/utils.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -61,6 +62,7 @@ class _AppState extends State<App> {
       key: drawerKey,
       body: RootNavigator(
         screen: Container(
+          height: getHeight(),
           color: Colors.black.lighten(75),
           child: widget.shell,
         ),
@@ -68,13 +70,15 @@ class _AppState extends State<App> {
       drawer: const MyDrawer(),
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60.0),
-        child: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: <Color>[Colors.blue[900]!, Colors.lightBlue],
+        child: SizedBox(
+          child: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: <Color>[Colors.blue[900]!, Colors.lightBlue],
+              ),
             ),
+            child: const AppBarContent(),
           ),
-          child: const AppBarContent(),
         ),
       ),
     );

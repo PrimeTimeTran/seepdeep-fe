@@ -57,50 +57,52 @@ class _LoadingListState extends State<LoadingList> {
     if (isLoaded) {
       return Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            BreadCrumb(
-              items: <BreadCrumbItem>[
-                ...path.map((item) => BreadCrumbItem(
-                    content: Text(item),
-                    onTap: () {
-                      final newIdx = path.indexOf(item);
-                      path = path.take(newIdx + 1).toList();
-                      setState(() {
-                        path = path;
-                      });
-                    })),
-              ],
-              divider: const Icon(Icons.chevron_right),
-            ),
-            const SizedBox(height: 10),
-            SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  buildCategory('D.S.A.'),
-                  buildCategory('Math'),
-                  buildCategory('Companies'),
-                  buildCategory('Startups'),
-                  buildCategory('Green'),
-                  buildCategory('Hardware'),
-                  buildCategory('Finance'),
-                  buildCategory('Automotive'),
-                  buildCategory('Space'),
-                  buildCategory('Education'),
-                  buildCategory('AI'),
-                  buildCategory('Social'),
-                  buildCategory('Telecommunications'),
-                  buildCategory('Business'),
-                  buildCategory('Product Reviews'),
-                  buildCategory('Misc'),
-                  buildCategory('Systems'),
-                  buildCategory('Entertainment'),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              BreadCrumb(
+                items: <BreadCrumbItem>[
+                  ...path.map((item) => BreadCrumbItem(
+                      content: Text(item),
+                      onTap: () {
+                        final newIdx = path.indexOf(item);
+                        path = path.take(newIdx + 1).toList();
+                        setState(() {
+                          path = path;
+                        });
+                      })),
                 ],
+                divider: const Icon(Icons.chevron_right),
               ),
-            ),
-          ],
+              const SizedBox(height: 10),
+              SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    buildCategory('D.S.A.'),
+                    buildCategory('Math'),
+                    buildCategory('Companies'),
+                    buildCategory('Startups'),
+                    buildCategory('Green'),
+                    buildCategory('Hardware'),
+                    buildCategory('Finance'),
+                    buildCategory('Automotive'),
+                    buildCategory('Space'),
+                    buildCategory('Education'),
+                    buildCategory('AI'),
+                    buildCategory('Social'),
+                    buildCategory('Telecommunications'),
+                    buildCategory('Business'),
+                    buildCategory('Product Reviews'),
+                    buildCategory('Misc'),
+                    buildCategory('Systems'),
+                    buildCategory('Entertainment'),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       );
     }

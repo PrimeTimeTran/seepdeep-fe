@@ -42,58 +42,55 @@ class _SortScreenState extends State<SortScreen>
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: getHeight(),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Row(
-            children: [
-              buildSortItemOptions(),
-              buildSortPanel(),
-              Expanded(
-                child: Column(
-                  children: [
-                    const Modal(type: GiffyType.image),
-                    Row(
-                      children: [
-                        ElevatedButton(
-                          onPressed: () => _sort(sortType),
-                          style: const ButtonStyle(
-                              backgroundColor:
-                                  MaterialStatePropertyAll(Colors.green)),
-                          child: const Text(
-                            'Sort',
-                            style: TextStyle(
-                              color: Colors.white,
-                            ),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Row(
+          children: [
+            buildSortItemOptions(),
+            buildSortPanel(),
+            Expanded(
+              child: Column(
+                children: [
+                  const Modal(type: GiffyType.image),
+                  Row(
+                    children: [
+                      ElevatedButton(
+                        onPressed: () => _sort(sortType),
+                        style: const ButtonStyle(
+                            backgroundColor:
+                                MaterialStatePropertyAll(Colors.green)),
+                        child: const Text(
+                          'Sort',
+                          style: TextStyle(
+                            color: Colors.white,
                           ),
                         ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-          Transform.translate(
-            offset: const Offset(0, -100),
-            child: SizedBox(
-              height: ((count / 5) * 80),
-              width: 125 + ((count / 5) * 125),
-              child: Stack(
-                children: [
-                  buildInfoPanel(),
-                  ...List.generate(
-                    sortItems.length,
-                    buildSortItem,
-                  )
+                      ),
+                    ],
+                  ),
                 ],
               ),
             ),
+          ],
+        ),
+        Transform.translate(
+          offset: const Offset(0, -100),
+          child: SizedBox(
+            height: ((count / 5) * 80),
+            width: 125 + ((count / 5) * 125),
+            child: Stack(
+              children: [
+                buildInfoPanel(),
+                ...List.generate(
+                  sortItems.length,
+                  buildSortItem,
+                )
+              ],
+            ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 

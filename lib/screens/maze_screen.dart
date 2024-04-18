@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 
 import '../models/board.dart';
 import '../models/node.dart';
-import '../widgets/toasts.dart';
 import '../widgets/cell.dart';
 import '../widgets/modals.dart';
+import '../widgets/toasts.dart';
 
 var greenButton = const ButtonStyle(
   foregroundColor: MaterialStatePropertyAll(Colors.white),
@@ -31,6 +31,7 @@ class _MazeScreenState extends State<MazeScreen> {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           buildPanel(),
           ..._buildMatrix(),
