@@ -17,6 +17,7 @@ class Solver extends StatefulWidget {
 
 class _SolverState extends State<Solver> {
   String result = '';
+  String code = '';
   bool registered = false;
   bool submitted = false;
   IFrameElement webView = IFrameElement();
@@ -41,7 +42,7 @@ class _SolverState extends State<Solver> {
           ..src = 'assets/index.html'
           ..style.border = 'none';
         window.onMessage.listen((message) {
-          print('onMessage');
+          print('onMessage ${message.data}');
           toaster.simpleToast(message.data);
           setState(() {
             result = message.data;
@@ -85,23 +86,38 @@ class _SolverState extends State<Solver> {
           padding: const EdgeInsets.all(8.0),
           child: Row(
             children: [
-              GFButtonBadge(
-                icon: const Icon(Icons.abc),
-                position: GFPosition.start,
-                color: Colors.grey.shade100,
-                textColor: Colors.black,
-                textStyle: const TextStyle(fontWeight: FontWeight.bold),
-                onPressed: () {},
-                text: "Test Cases",
+              Expanded(
+                flex: 3,
+                child: Row(
+                  children: [
+                    GFButtonBadge(
+                      icon: const Icon(Icons.abc),
+                      position: GFPosition.start,
+                      color: Colors.grey.shade100,
+                      textColor: Colors.black,
+                      textStyle: const TextStyle(fontWeight: FontWeight.bold),
+                      onPressed: () {},
+                      text: "Test Cases",
+                    ),
+                    const Gap(10),
+                    GFButtonBadge(
+                      color: Colors.grey.shade100,
+                      onPressed: () {},
+                      textStyle: const TextStyle(fontWeight: FontWeight.bold),
+                      text: "Results",
+                    ),
+                  ],
+                ),
               ),
-              const Gap(10),
-              GFButtonBadge(
-                color: Colors.grey.shade100,
-                textColor: Colors.black,
-                onPressed: () {},
-                textStyle: const TextStyle(fontWeight: FontWeight.bold),
-                text: "Results",
-              ),
+              Expanded(
+                child: GFButtonBadge(
+                  color: Colors.green.shade300,
+                  onPressed: () => onRun(code),
+                  textStyle: const TextStyle(
+                      fontWeight: FontWeight.bold, color: Colors.white),
+                  text: "Run",
+                ),
+              )
             ],
           ),
         ),
@@ -168,9 +184,17 @@ class _SolverState extends State<Solver> {
   HorizontalSplitView buildRight(problem) {
     return HorizontalSplitView(
       top: Editor(
-        onRun: (code) => onRun(code),
-        // selectedLang: Languages.python,
-      ),
+          onRun: (code) => onRun(code),
+          onType: (code) {
+            if (code.length > 1) {
+              setState(() {
+                code = code;
+                print(code);
+              });
+            }
+          }
+          // selectedLang: Languages.python,
+          ),
       bottom: buildBottom(problem),
     );
   }

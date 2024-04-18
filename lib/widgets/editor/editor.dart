@@ -7,8 +7,9 @@ import 'package:flutter_highlight/themes/vs.dart';
 // ignore: must_be_immutable
 class Editor extends StatefulWidget {
   Function onRun;
+  Function onType;
   // Languages selectedLang;
-  Editor({super.key, required this.onRun});
+  Editor({super.key, required this.onRun, required this.onType});
 
   @override
   State<Editor> createState() => _EditorState();
@@ -63,9 +64,12 @@ class _EditorState extends State<Editor> {
                 // setState(() {
                 //   step = 2;
                 // });
+                // widget.onType(getController(Languages.python).text);
                 if (event.isControlPressed &&
                     event.logicalKey == LogicalKeyboardKey.enter) {
                   onRun();
+                } else {
+                  widget.onType(getController(Languages.python).text);
                 }
               }
             },
@@ -86,4 +90,6 @@ class _EditorState extends State<Editor> {
     String code = getController(Languages.python).text;
     widget.onRun(code);
   }
+
+  updateCode() {}
 }
