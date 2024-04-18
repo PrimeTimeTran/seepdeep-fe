@@ -3,7 +3,8 @@ import 'package:app/screens/all.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-final navigatorKey = GlobalKey<NavigatorState>(debugLabel: 'shellA');
+final navigatorKeyA = GlobalKey<NavigatorState>(debugLabel: 'shellA');
+final navigatorKeyB = GlobalKey<NavigatorState>(debugLabel: 'shellB');
 
 final routerConfig = GoRouter(
   initialLocation: '/',
@@ -14,7 +15,7 @@ final routerConfig = GoRouter(
         },
         branches: [
           StatefulShellBranch(
-            navigatorKey: navigatorKey,
+            navigatorKey: navigatorKeyA,
             routes: [
               GoRoute(
                 path: '/',
@@ -127,6 +128,7 @@ class RootNavigator extends StatefulWidget {
 }
 
 enum Routes {
+  landing,
   problem,
   problems,
   sort,

@@ -1,7 +1,6 @@
 export './card.dart';
 export './cell.dart';
 export './charts/all.dart';
-export './code_editor/setups.dart';
 export './footer.dart';
 export './indicator.dart';
 export './modals.dart';
@@ -12,4 +11,5 @@ export './solver/webview/all.dart';
 export './toasts.dart';
 export './uikit/all.dart';
 export './vertical_split_view.dart';
-export 'code_editor/editor.dart';
+export 'editor/editor.dart';
+export 'editor/helpers.dart';

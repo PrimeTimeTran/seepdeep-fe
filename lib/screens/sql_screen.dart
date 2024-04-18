@@ -1,5 +1,4 @@
-import 'package:app/widgets/code_editor/editor.dart';
-import 'package:app/widgets/code_editor/setups.dart';
+import 'package:app/widgets/all.dart';
 import 'package:drift/drift.dart' hide Column;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -25,7 +24,7 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
       crossAxisAlignment:
           queried ? CrossAxisAlignment.start : CrossAxisAlignment.center,
       children: [
-        Editor(onRun: onRun, selectedLang: Languages.sql),
+        Editor(onRun: onRun),
         buildPrompts(),
         buildTable(),
         buildResults(),

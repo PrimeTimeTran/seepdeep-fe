@@ -76,14 +76,14 @@ final dsaTOC = TreeNode.root()
 // TreeNode(key: "0D"),
 // TreeNode(key: "0E"),
 
-class DrawerContent extends StatefulWidget {
-  const DrawerContent({super.key});
+class MyDrawer extends StatefulWidget {
+  const MyDrawer({super.key});
 
   @override
-  State<DrawerContent> createState() => _DrawerContentState();
+  State<MyDrawer> createState() => _MyDrawerState();
 }
 
-class _DrawerContentState extends State<DrawerContent> {
+class _MyDrawerState extends State<MyDrawer> {
   @override
   Widget build(BuildContext context) {
     return Drawer(

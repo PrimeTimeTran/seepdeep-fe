@@ -161,7 +161,7 @@ class _SolverState extends State<Solver> {
     return HorizontalSplitView(
       top: Editor(
         onRun: (code) => onRun(code),
-        selectedLang: Languages.python,
+        // selectedLang: Languages.python,
       ),
       bottom: buildBottom(problem),
     );

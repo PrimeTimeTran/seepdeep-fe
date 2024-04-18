@@ -1,15 +1,14 @@
+import 'package:app/all.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_code_editor/flutter_code_editor.dart';
 import 'package:flutter_highlight/themes/vs.dart';
 
-import 'setups.dart';
-
 // ignore: must_be_immutable
 class Editor extends StatefulWidget {
   Function onRun;
-  Languages selectedLang;
-  Editor({super.key, required this.onRun, required this.selectedLang});
+  // Languages selectedLang;
+  Editor({super.key, required this.onRun});
 
   @override
   State<Editor> createState() => _EditorState();
@@ -74,7 +73,7 @@ class _EditorState extends State<Editor> {
               data: CodeThemeData(styles: vsTheme),
               child: CodeField(
                 key: _codeEditorKey,
-                controller: getController(widget.selectedLang),
+                controller: getController(Languages.python),
               ),
             ),
           ),
@@ -84,7 +83,7 @@ class _EditorState extends State<Editor> {
   }
 
   onRun() {
-    String code = getController(widget.selectedLang).text;
+    String code = getController(Languages.python).text;
     widget.onRun(code);
   }
 }

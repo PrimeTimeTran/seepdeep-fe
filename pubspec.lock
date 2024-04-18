@@ -688,6 +688,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.11.0"
+  meta_seo:
+    dependency: "direct main"
+    description:
+      name: meta_seo
+      sha256: fb1984710baca873da6ca9cd411d869bc56370f0cfb8e140dd42827424c681b5
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.0.9"
   mime:
     dependency: transitive
     description:
@@ -904,6 +912,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.5.1"
+  rxdart:
+    dependency: transitive
+    description:
+      name: rxdart
+      sha256: "0c7c0cedd93788d996e33041ffecda924cc54389199cde4e6a34b440f50044cb"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.27.7"
   scratch_space:
     dependency: transitive
     description:
@@ -928,6 +944,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.3.8"
+  seo:
+    dependency: "direct main"
+    description:
+      name: seo
+      sha256: "951b658533600e8ef0244737129afeb1f074b23c05061a95698b29f2a323a63b"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.7"
   shelf:
     dependency: transitive
     description:

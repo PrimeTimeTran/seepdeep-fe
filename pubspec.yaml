@@ -1,5 +1,5 @@
 name: app
-description: A cross-platform todo tracker built with drift.
+description: A Computer Scientists dream come true
 publish_to: 'none'
 
 version: 1.0.0+1
@@ -44,7 +44,8 @@ dependencies:
   provider: ^6.1.2
   getwidget: ^4.0.0
   gap: ^3.0.1
-
+  seo: ^0.0.7
+  meta_seo: ^3.0.9
 dev_dependencies:
   flutter_test:
     sdk: flutter

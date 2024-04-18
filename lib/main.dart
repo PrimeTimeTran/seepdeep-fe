@@ -65,7 +65,7 @@ class _AppState extends State<App> {
           child: widget.shell,
         ),
       ),
-      drawer: const DrawerContent(),
+      drawer: const MyDrawer(),
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60.0),
         child: Container(
