@@ -1,38 +1,39 @@
-import 'package:app/screens/community_screen.dart';
+// ignore_for_file: must_be_immutable
+
+import 'package:app/all.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
-import 'shimmers.dart';
-
 class ShimmerList extends StatefulWidget {
-  const ShimmerList({super.key});
+  int? count;
+  ShimmerList({super.key, this.count = 25});
 
   @override
-  State<ShimmerList> createState() => ShimmerListState();
+  State<ShimmerList> createState() => _ShimmerListState();
 }
 
-class ShimmerListState extends State<ShimmerList> {
+class _ShimmerListState extends State<ShimmerList> {
   @override
   Widget build(BuildContext context) {
     return Shimmer.fromColors(
+      enabled: true,
       baseColor: Colors.grey.shade300,
       highlightColor: Colors.grey.shade100,
-      enabled: true,
-      child: const SingleChildScrollView(
-        // physics: NeverScrollableScrollPhysics(),
+      child: SingleChildScrollView(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.max,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            BannerPlaceholder(),
-            ShimmerPost(),
-            ShimmerPost(),
-            ShimmerPost(),
-            ShimmerPost(),
-            ShimmerPost(),
-            ShimmerPost(),
-            ShimmerPost(),
-            ShimmerPost(),
+            const BannerPlaceholder(),
+            SizedBox(
+              height: getHeight(),
+              width: double.infinity,
+              child: ListView.builder(
+                itemCount: widget.count,
+                itemBuilder: (context, index) {
+                  return const ShimmerPost();
+                },
+              ),
+            ),
           ],
         ),
       ),

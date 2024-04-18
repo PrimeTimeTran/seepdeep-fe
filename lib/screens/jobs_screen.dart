@@ -11,11 +11,6 @@ class JobsScreen extends StatefulWidget {
 class _JobsScreenState extends State<JobsScreen> {
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        SizedBox(width: getWidth() / 2, child: const ShimmerList()),
-      ],
-    );
+    return ShimmerList();
   }
 }

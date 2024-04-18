@@ -60,11 +60,10 @@ class _EditorState extends State<Editor> {
             onKey: (RawKeyEvent event) {
               // ignore: deprecated_member_use
               if (event is RawKeyDownEvent) {
-                // ignore: deprecated_member_use
                 // setState(() {
                 //   step = 2;
                 // });
-                // widget.onType(getController(Languages.python).text);
+                // ignore: deprecated_member_use
                 if (event.isControlPressed &&
                     event.logicalKey == LogicalKeyboardKey.enter) {
                   onRun();

@@ -1,7 +1,10 @@
+import 'package:app/all.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../constants.dart';
+void openDrawer() {
+  drawerKey.currentState?.openDrawer();
+}
 
 class AppBarContent extends StatefulWidget {
   const AppBarContent({super.key});
@@ -195,9 +198,5 @@ class _AppBarContentState extends State<AppBarContent> {
         children: [Icon(icon), const SizedBox(width: 5.0), Text(title)],
       ),
     );
-  }
-
-  void openDrawer() {
-    drawerKey.currentState?.openDrawer();
   }
 }

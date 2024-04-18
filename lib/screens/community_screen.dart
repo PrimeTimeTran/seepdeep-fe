@@ -1,8 +1,9 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:app/all.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_breadcrumb/flutter_breadcrumb.dart';
-import 'package:shimmer/shimmer.dart';
 
 class BannerPlaceholder extends StatelessWidget {
   const BannerPlaceholder({super.key});
@@ -28,13 +29,6 @@ class CommunityScreen extends StatefulWidget {
   State<CommunityScreen> createState() => _CommunityScreenState();
 }
 
-class LoadingList extends StatefulWidget {
-  const LoadingList({super.key});
-
-  @override
-  State<LoadingList> createState() => _LoadingListState();
-}
-
 class PathItem {
   String title;
   int depth;
@@ -42,16 +36,8 @@ class PathItem {
 }
 
 class _CommunityScreenState extends State<CommunityScreen> {
-  @override
-  Widget build(BuildContext context) {
-    return const LoadingList();
-  }
-}
-
-class _LoadingListState extends State<LoadingList> {
-  List<String> path = ['Home'];
   bool isLoaded = true;
-
+  List<String> path = ['Home'];
   @override
   Widget build(BuildContext context) {
     if (isLoaded) {
@@ -106,44 +92,7 @@ class _LoadingListState extends State<LoadingList> {
         ),
       );
     }
-
-    return Shimmer.fromColors(
-      enabled: true,
-      baseColor: Colors.grey.shade300,
-      highlightColor: Colors.grey.shade100,
-      child: const SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            BannerPlaceholder(),
-            ShimmerPost(),
-            ShimmerPost(),
-            ShimmerPost(),
-            ShimmerPost(),
-            ShimmerPost(),
-            ShimmerPost(),
-            ShimmerPost(),
-            ShimmerPost(),
-            ShimmerPost(),
-            ShimmerPost(),
-            ShimmerPost(),
-            ShimmerPost(),
-            ShimmerPost(),
-            ShimmerPost(),
-            ShimmerPost(),
-            ShimmerPost(),
-            ShimmerPost(),
-            ShimmerPost(),
-            ShimmerPost(),
-            ShimmerPost(),
-            ShimmerPost(),
-            ShimmerPost(),
-            ShimmerPost(),
-            ShimmerPost(),
-          ],
-        ),
-      ),
-    );
+    return ShimmerList();
   }
 
   buildCategory(category) {

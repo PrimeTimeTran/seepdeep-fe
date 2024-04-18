@@ -1,5 +1,4 @@
-import 'package:app/main.dart';
-import 'package:app/screens/all.dart';
+import 'package:app/all.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -115,8 +114,31 @@ final routerConfig = GoRouter(
             ],
           )
         ]),
+    StatefulShellRoute.indexedStack(
+        builder: (context, state, shell) {
+          return App(shell: shell);
+        },
+        branches: [
+          StatefulShellBranch(
+            navigatorKey: navigatorKeyB,
+            routes: [
+              GoRoute(
+                path: '/landing',
+                name: Routes.landing.toString(),
+                builder: (_, __) => const ProblemsScreen(),
+              ),
+            ],
+          )
+        ]),
   ],
 );
+
+class App extends StatefulWidget {
+  final StatefulNavigationShell shell;
+  const App({super.key, required this.shell});
+  @override
+  State<App> createState() => _AppState();
+}
 
 // ignore: must_be_immutable
 class RootNavigator extends StatefulWidget {
@@ -150,6 +172,36 @@ enum Routes {
   streak
 }
 
+class _AppState extends State<App> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      key: drawerKey,
+      body: RootNavigator(
+        screen: Container(
+          height: getHeight(),
+          color: Colors.black.lighten(75),
+          child: widget.shell,
+        ),
+      ),
+      drawer: const MyDrawer(),
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(60.0),
+        child: SizedBox(
+          child: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: <Color>[Colors.blue[900]!, Colors.lightBlue],
+              ),
+            ),
+            child: const AppBarContent(),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
 class _RootNavigatorState extends State<RootNavigator> {
   int currentPageIndex = 0;
 
@@ -170,6 +222,10 @@ class _RootNavigatorState extends State<RootNavigator> {
                 label: Text('Code'),
               ),
               NavigationRailDestination(
+                icon: Icon(Icons.topic),
+                label: Text('Topics'),
+              ),
+              NavigationRailDestination(
                 icon: Icon(Icons.sort_by_alpha),
                 label: Text('Sorting'),
               ),
@@ -188,10 +244,12 @@ class _RootNavigatorState extends State<RootNavigator> {
               if (index == 0) {
                 GoRouter.of(context).go('/problems');
               } else if (index == 1) {
-                GoRouter.of(context).go('/sort');
+                openDrawer();
               } else if (index == 2) {
-                GoRouter.of(context).go('/maze');
+                GoRouter.of(context).go('/sort');
               } else if (index == 3) {
+                GoRouter.of(context).go('/maze');
+              } else if (index == 4) {
                 GoRouter.of(context).go('/sql');
               }
               setState(() {

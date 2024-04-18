@@ -16,10 +16,12 @@ class Solver extends StatefulWidget {
 }
 
 class _SolverState extends State<Solver> {
-  String result = '';
+  bool? passed;
   String code = '';
-  bool registered = false;
+  String result = '';
+  late Toaster toaster;
   bool submitted = false;
+  bool registered = false;
   IFrameElement webView = IFrameElement();
 
   // Switch to submission
@@ -27,7 +29,6 @@ class _SolverState extends State<Solver> {
   //   code:  'print("gogogo")',
   //   lang:  'python',
   // }
-  late Toaster toaster;
 
   @override
   Widget build(BuildContext context) {
@@ -35,17 +36,25 @@ class _SolverState extends State<Solver> {
     print('Building: registered $registered');
     final problem = Provider.of<ProblemProvider>(context).focusedProblem;
 
+    // WIP: Fix multi load trigger not recognizing code input
+    //
     if (!registered) {
       ui.platformViewRegistry.registerViewFactory('index', (int viewId) {
         print('Registering');
         webView = IFrameElement()
           ..src = 'assets/index.html'
           ..style.border = 'none';
-        window.onMessage.listen((message) {
-          print('onMessage ${message.data}');
-          toaster.simpleToast(message.data);
+        window.onMessage.listen((msg) {
+          print('onMsg ${msg.data}');
+
+          if (msg.data.startsWith("onMsg Success:")) {
+            passed = true;
+          } else {
+            passed = false;
+          }
+          toaster.simpleToast(msg.data);
           setState(() {
-            result = message.data;
+            result = msg.data;
           });
         });
         return webView;
@@ -79,7 +88,64 @@ class _SolverState extends State<Solver> {
     );
   }
 
-  buildBottom(problem) {
+  HorizontalSplitView buildRight(problem) {
+    return HorizontalSplitView(
+      top: Editor(
+          onRun: (code) => onRun(code),
+          onType: (c) => setState(() => code = c)),
+      bottom: buildTestPanel(problem),
+    );
+  }
+
+  buildTab(title, casePassing) {
+    final color = casePassing ? Colors.green : Colors.red;
+    return SizedBox(
+      height: 40,
+      width: 75,
+      child: Row(
+        children: [
+          if (passed != null)
+            Tab(icon: Icon(Icons.circle, size: 10, color: color)),
+          const Gap(5),
+          Text(
+            title,
+            style: Theme.of(context).textTheme.bodySmall,
+          )
+        ],
+      ),
+    );
+  }
+
+  buildTestCase(problem) {
+    final testCase = problem.testSuite![0];
+    final inputs = testCase['input'];
+    return SizedBox(
+      height: 300,
+      width: double.infinity,
+      // Num of parameters for the problem.
+      child: ListView.builder(
+        itemCount: inputs.length,
+        itemBuilder: (BuildContext context, int idx) {
+          final testInput = testCase['input'][idx];
+          return Column(
+            children: [
+              TextFormField(
+                initialValue: '$testInput',
+                decoration: const InputDecoration(
+                  labelText: "Input",
+                  border: OutlineInputBorder(),
+                  hintText: 'Enter a search term',
+                ),
+              ),
+              const SizedBox(height: 10),
+            ],
+          );
+        },
+      ),
+    );
+  }
+
+  buildTestPanel(problem) {
     return Column(
       children: [
         Padding(
@@ -91,27 +157,27 @@ class _SolverState extends State<Solver> {
                 child: Row(
                   children: [
                     GFButtonBadge(
-                      icon: const Icon(Icons.abc),
-                      position: GFPosition.start,
-                      color: Colors.grey.shade100,
-                      textColor: Colors.black,
-                      textStyle: const TextStyle(fontWeight: FontWeight.bold),
                       onPressed: () {},
                       text: "Test Cases",
+                      textColor: Colors.black,
+                      position: GFPosition.start,
+                      color: Colors.grey.shade100,
+                      icon: const Icon(Icons.science_outlined),
+                      textStyle: const TextStyle(fontWeight: FontWeight.bold),
                     ),
                     const Gap(10),
                     GFButtonBadge(
-                      color: Colors.grey.shade100,
-                      onPressed: () {},
-                      textStyle: const TextStyle(fontWeight: FontWeight.bold),
                       text: "Results",
+                      onPressed: () {},
+                      color: Colors.grey.shade100,
+                      textStyle: const TextStyle(fontWeight: FontWeight.bold),
                     ),
                   ],
                 ),
               ),
               Expanded(
                 child: GFButtonBadge(
-                  color: Colors.green.shade300,
+                  color: Colors.green.shade600,
                   onPressed: () => onRun(code),
                   textStyle: const TextStyle(
                       fontWeight: FontWeight.bold, color: Colors.white),
@@ -122,8 +188,8 @@ class _SolverState extends State<Solver> {
           ),
         ),
         SizedBox(
-          width: double.infinity,
           height: 300,
+          width: double.infinity,
           child: DefaultTabController(
             length: 4,
             animationDuration: Duration.zero,
@@ -133,10 +199,10 @@ class _SolverState extends State<Solver> {
                   tabAlignment: TabAlignment.start,
                   isScrollable: true,
                   tabs: [
-                    buildTab('Case 1'),
-                    buildTab('Case 2'),
-                    buildTab('Case 3'),
-                    buildTab('Case 4'),
+                    buildTab('Case 1', true),
+                    buildTab('Case 2', false),
+                    buildTab('Case 3', false),
+                    buildTab('Case 4', true),
                   ],
                 ),
               ),
@@ -151,17 +217,12 @@ class _SolverState extends State<Solver> {
                           buildTestCase(problem),
                           SelectableText(result),
                           SizedBox(
-                            width: 100,
                             height: 10,
+                            width: 100,
                             child: HtmlElementView(
                               viewType: 'index',
                               onPlatformViewCreated: (int id) {
-                                // window.onMessage.listen((message) {
-                                //   setState(() {
-                                //     result = message.data;
-                                //   });
-                                // });
-                                debugPrint('viewNum: $id');
+                                debugPrint('New view loaded: viewNum $id');
                               },
                             ),
                           ),
@@ -178,65 +239,6 @@ class _SolverState extends State<Solver> {
           ),
         ),
       ],
-    );
-  }
-
-  HorizontalSplitView buildRight(problem) {
-    return HorizontalSplitView(
-      top: Editor(
-          onRun: (code) => onRun(code), onType: (c) => setState(() => code = c)
-          // selectedLang: Languages.python,
-          ),
-      bottom: buildBottom(problem),
-    );
-  }
-
-  buildTab(title) {
-    return SizedBox(
-      width: 75,
-      child: Row(
-        children: [
-          const Tab(
-            icon: Icon(
-              Icons.check_box_outlined,
-              color: Colors.green,
-            ),
-          ),
-          Text(
-            title,
-            style: Theme.of(context).textTheme.bodySmall,
-          )
-        ],
-      ),
-    );
-  }
-
-  buildTestCase(problem) {
-    final testCase = problem.testSuite![0];
-    final inputs = testCase['input'];
-    return SizedBox(
-      height: 300,
-      width: double.infinity,
-      // For each test case build it's number of inputs.
-      child: ListView.builder(
-        itemCount: inputs.length,
-        itemBuilder: (BuildContext context, int idx) {
-          final testInput = testCase['input'][idx];
-          return Column(
-            children: [
-              TextFormField(
-                initialValue: '$testInput',
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: 'Enter a search term',
-                  labelText: "Input",
-                ),
-              ),
-              const SizedBox(height: 10),
-            ],
-          );
-        },
-      ),
     );
   }
 

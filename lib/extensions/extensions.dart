@@ -1,5 +1,7 @@
 import 'dart:ui';
 
+import 'package:flutter/material.dart';
+
 extension ColorExtension on Color {
   Color avg(Color other) {
     final red = (this.red + other.red) ~/ 2;

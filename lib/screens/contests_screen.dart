@@ -68,8 +68,8 @@ class _ContestsScreenState extends State<ContestsScreen> {
                         width: double.infinity,
                         color: Colors.green,
                         child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             buildContestHistory(700),
                             const SizedBox(width: 10),
