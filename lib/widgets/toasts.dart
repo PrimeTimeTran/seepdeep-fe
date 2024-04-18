@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:motion_toast/motion_toast.dart';
 
 class Toaster {
   BuildContext context;
-  Toaster(this.context);
+  late FToast fToast;
+  Toaster(this.context) {
+    fToast = FToast();
+    fToast.init(context);
+  }
+
   void displayCustomMotionToast() {
     MotionToast(
       primaryColor: Colors.pink,
@@ -43,7 +49,7 @@ class Toaster {
         ),
       ),
       description: Text(body),
-      position: MotionToastPosition.bottom,
+      position: MotionToastPosition.top,
       barrierColor: Colors.black.withOpacity(0.3),
       width: 300,
       height: 80,
@@ -57,7 +63,7 @@ class Toaster {
         'Info',
         style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
       ),
-      position: MotionToastPosition.bottom,
+      position: MotionToastPosition.top,
       description: Text(body),
     ).show(context);
   }
@@ -204,6 +210,17 @@ class Toaster {
       borderRadius: 0,
       animationDuration: const Duration(milliseconds: 1000),
     ).show(context);
+  }
+
+  void simpleToast(msg) {
+    Fluttertoast.showToast(
+      msg: msg,
+      fontSize: 16.0,
+      timeInSecForIosWeb: 3,
+      textColor: Colors.white,
+      gravity: ToastGravity.CENTER,
+      toastLength: Toast.LENGTH_SHORT,
+    );
   }
 }
 

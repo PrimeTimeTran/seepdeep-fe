@@ -17,6 +17,7 @@ class Solver extends StatefulWidget {
 
 class _SolverState extends State<Solver> {
   String result = '';
+  bool registered = false;
   bool submitted = false;
   IFrameElement webView = IFrameElement();
 
@@ -30,21 +31,28 @@ class _SolverState extends State<Solver> {
   @override
   Widget build(BuildContext context) {
     toaster = Toaster(context);
-
+    print('Building: registered $registered');
     final problem = Provider.of<ProblemProvider>(context).focusedProblem;
-    ui.platformViewRegistry.registerViewFactory('index', (int viewId) {
-      webView = IFrameElement()
-        ..src = 'assets/index.html'
-        ..style.border = 'none';
-      window.onMessage.listen((message) {
-        toaster.displayInfoMotionToast(message.data);
-        setState(() {
-          result = message.data;
-        });
-      });
 
-      return webView;
-    });
+    if (!registered) {
+      ui.platformViewRegistry.registerViewFactory('index', (int viewId) {
+        print('Registering');
+        webView = IFrameElement()
+          ..src = 'assets/index.html'
+          ..style.border = 'none';
+        window.onMessage.listen((message) {
+          print('onMessage');
+          toaster.simpleToast(message.data);
+          setState(() {
+            result = message.data;
+          });
+        });
+        return webView;
+      });
+      setState(() {
+        registered = true;
+      });
+    }
 
     return ScrollConfiguration(
       behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
@@ -132,11 +140,11 @@ class _SolverState extends State<Solver> {
                             child: HtmlElementView(
                               viewType: 'index',
                               onPlatformViewCreated: (int id) {
-                                window.onMessage.listen((message) {
-                                  setState(() {
-                                    result = message.data;
-                                  });
-                                });
+                                // window.onMessage.listen((message) {
+                                //   setState(() {
+                                //     result = message.data;
+                                //   });
+                                // });
                                 debugPrint('viewNum: $id');
                               },
                             ),
@@ -190,13 +198,12 @@ class _SolverState extends State<Solver> {
   buildTestCase(problem) {
     final testCase = problem.testSuite![0];
     final inputs = testCase['input'];
-    final output = testCase['output'];
     return SizedBox(
       height: 300,
       width: double.infinity,
       // For each test case build it's number of inputs.
       child: ListView.builder(
-        itemCount: inputs?.length > 1 ? inputs.length : 1,
+        itemCount: inputs.length,
         itemBuilder: (BuildContext context, int idx) {
           final testInput = testCase['input'][idx];
           return Column(
