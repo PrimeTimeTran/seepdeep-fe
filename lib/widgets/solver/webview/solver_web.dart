@@ -1,4 +1,3 @@
-// ignore: avoid_web_libraries_in_flutter
 import 'dart:html';
 import 'dart:ui_web' as ui;
 
@@ -16,7 +15,7 @@ class Solver extends StatefulWidget {
 }
 
 class _SolverState extends State<Solver> {
-  bool? passed;
+  bool? passing;
   String code = '';
   String result = '';
   late Toaster toaster;
@@ -24,45 +23,14 @@ class _SolverState extends State<Solver> {
   bool registered = false;
   IFrameElement webView = IFrameElement();
 
-  // Switch to submission
-  // {
-  //   code:  'print("gogogo")',
-  //   lang:  'python',
-  // }
-
   @override
   Widget build(BuildContext context) {
     toaster = Toaster(context);
-    print('Building: registered $registered');
     final problem = Provider.of<ProblemProvider>(context).focusedProblem;
 
     // WIP: Fix multi load trigger not recognizing code input
     //
-    if (!registered) {
-      ui.platformViewRegistry.registerViewFactory('index', (int viewId) {
-        print('Registering');
-        webView = IFrameElement()
-          ..src = 'assets/index.html'
-          ..style.border = 'none';
-        window.onMessage.listen((msg) {
-          print('onMsg ${msg.data}');
-
-          if (msg.data.startsWith("onMsg Success:")) {
-            passed = true;
-          } else {
-            passed = false;
-          }
-          toaster.simpleToast(msg.data);
-          setState(() {
-            result = msg.data;
-          });
-        });
-        return webView;
-      });
-      setState(() {
-        registered = true;
-      });
-    }
+    setSubscription();
 
     return ScrollConfiguration(
       behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
@@ -104,7 +72,7 @@ class _SolverState extends State<Solver> {
       width: 75,
       child: Row(
         children: [
-          if (passed != null)
+          if (passing != null)
             Tab(icon: Icon(Icons.circle, size: 10, color: color)),
           const Gap(5),
           Text(
@@ -222,7 +190,9 @@ class _SolverState extends State<Solver> {
                             child: HtmlElementView(
                               viewType: 'index',
                               onPlatformViewCreated: (int id) {
-                                debugPrint('New view loaded: viewNum $id');
+                                debugPrint(
+                                    'HtmlElementView Platform View Loaded: viewNum $id');
+                                setSubscription();
                               },
                             ),
                           ),
@@ -242,19 +212,45 @@ class _SolverState extends State<Solver> {
     );
   }
 
-  @override
-  void dispose() {
-    webView.contentWindow!.close();
-    super.dispose();
-  }
+  // Switch to submission
+  // {
+  //   code:  'print("gogogo")',
+  //   lang:  'python',
+  // }
 
   onRun(submission) {
+    Glob.loadingStart();
     setState(() {
       submitted = true;
     });
     webView.contentWindow?.postMessage(submission, '*');
   }
-  // onRun(code) {
-  //   webView.contentWindow?.postMessage(code, '*');
-  // }
+
+  setSubscription() {
+    ui.platformViewRegistry.registerViewFactory('index', (int viewId) {
+      webView = IFrameElement()
+        ..src = 'assets/index.html'
+        ..style.border = 'none';
+      window.onMessage.listen((msg) {
+        Glob.loadingDone();
+        print('onMsg ${msg.data}');
+
+        if (msg.data?.startsWith("onMsg Success:")) {
+          passing = true;
+        } else {
+          passing = false;
+        }
+        toaster.simpleToast(msg.data);
+        setState(() => result = msg.data);
+      }, onError: (e) {
+        Glob.logI(e);
+      }, onDone: () {
+        Glob.logI('Done');
+      });
+      return webView;
+    }, isVisible: false);
+    setState(() {
+      registered = true;
+    });
+  }
 }

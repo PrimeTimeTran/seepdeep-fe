@@ -1,5 +1,6 @@
 import 'package:app/all.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:go_router/go_router.dart';
 
 final navigatorKeyA = GlobalKey<NavigatorState>(debugLabel: 'shellA');
@@ -7,6 +8,7 @@ final navigatorKeyB = GlobalKey<NavigatorState>(debugLabel: 'shellB');
 
 final routerConfig = GoRouter(
   initialLocation: '/',
+  debugLogDiagnostics: true,
   routes: [
     StatefulShellRoute.indexedStack(
         builder: (context, state, shell) {
@@ -26,6 +28,11 @@ final routerConfig = GoRouter(
                 name: Routes.problems.toString(),
                 builder: (_, __) => const ProblemsScreen(),
               ),
+              // GoRoute(
+              //   path: '/problem',
+              //   name: Routes.problem.toString(),
+              //   builder: (_, __) => const App(screen: ProblemScreen()),
+              // ),
               GoRoute(
                 path: '/problem',
                 name: Routes.problem.toString(),
@@ -125,7 +132,7 @@ final routerConfig = GoRouter(
               GoRoute(
                 path: '/landing',
                 name: Routes.landing.toString(),
-                builder: (_, __) => const ProblemsScreen(),
+                builder: (_, __) => const LandingScreen(),
               ),
             ],
           )
@@ -134,8 +141,9 @@ final routerConfig = GoRouter(
 );
 
 class App extends StatefulWidget {
-  final StatefulNavigationShell shell;
-  const App({super.key, required this.shell});
+  final StatefulNavigationShell? shell;
+  final Widget? screen;
+  const App({super.key, this.shell, this.screen});
   @override
   State<App> createState() => _AppState();
 }
@@ -175,26 +183,30 @@ enum Routes {
 class _AppState extends State<App> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: drawerKey,
-      body: RootNavigator(
-        screen: Container(
-          height: getHeight(),
-          color: Colors.black.lighten(75),
-          child: widget.shell,
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      builder: EasyLoading.init(),
+      home: Scaffold(
+        key: drawerKey,
+        body: RootNavigator(
+          screen: Container(
+            height: getHeight(),
+            color: Colors.black.lighten(75),
+            child: widget.screen ?? widget.shell,
+          ),
         ),
-      ),
-      drawer: const MyDrawer(),
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(60.0),
-        child: SizedBox(
-          child: Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: <Color>[Colors.blue[900]!, Colors.lightBlue],
+        drawer: const MyDrawer(),
+        appBar: PreferredSize(
+          preferredSize: const Size.fromHeight(60.0),
+          child: SizedBox(
+            child: Container(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: <Color>[Colors.blue[900]!, Colors.lightBlue],
+                ),
               ),
+              child: const AppBarContent(),
             ),
-            child: const AppBarContent(),
           ),
         ),
       ),
@@ -215,7 +227,9 @@ class _RootNavigatorState extends State<RootNavigator> {
         SizedBox(
           height: double.infinity,
           child: NavigationRail(
+            useIndicator: true,
             labelType: labelType,
+            selectedIndex: currentPageIndex,
             destinations: const [
               NavigationRailDestination(
                 icon: Icon(Icons.code),
@@ -238,8 +252,6 @@ class _RootNavigatorState extends State<RootNavigator> {
                 label: Text('SQL'),
               ),
             ],
-            useIndicator: true,
-            selectedIndex: currentPageIndex,
             onDestinationSelected: (int index) {
               if (index == 0) {
                 GoRouter.of(context).go('/problems');

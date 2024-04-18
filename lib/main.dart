@@ -9,12 +9,14 @@ import './constants.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(stateProvider.MultiProvider(
-    providers: [
-      stateProvider.ChangeNotifierProvider(create: (_) => ProblemProvider()),
-    ],
-    child: MyApp(),
-  ));
+  runApp(
+    stateProvider.MultiProvider(
+      providers: [
+        stateProvider.ChangeNotifierProvider(create: (_) => ProblemProvider()),
+      ],
+      child: MyApp(),
+    ),
+  );
 }
 
 // ignore: must_be_immutable

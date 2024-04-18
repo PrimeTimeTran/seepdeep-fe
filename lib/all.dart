@@ -1,5 +1,6 @@
 export './constants.dart';
 export './extensions/extensions.dart';
+export './global.dart';
 export './models/all.dart';
 export './navigation//all.dart';
 export './providers/all.dart';

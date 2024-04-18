@@ -4,6 +4,7 @@ export './contests_screen.dart';
 export './explore_screen.dart';
 export './feature_request_screen.dart';
 export './jobs_screen.dart';
+export './landing_screen.dart';
 export './leaderboards_screen.dart';
 export './maze_screen.dart';
 export './news_screen.dart';
