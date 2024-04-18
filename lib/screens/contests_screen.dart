@@ -15,7 +15,7 @@ class _ContestsScreenState extends State<ContestsScreen> {
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
       child: SingleChildScrollView(
         child: SizedBox(
-          height: getHeight() * 1.5,
+          height: getHeight() * 1.25,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -31,8 +31,8 @@ class _ContestsScreenState extends State<ContestsScreen> {
               Transform.translate(
                 offset: const Offset(0, -50),
                 child: SizedBox(
-                  width: 1000,
-                  height: 300,
+                  width: double.infinity,
+                  height: getHeight(),
                   child: Column(
                     children: [
                       Row(
@@ -63,18 +63,18 @@ class _ContestsScreenState extends State<ContestsScreen> {
                         child: buildFeaturedContests(),
                       ),
                       const SizedBox(height: 10),
-                      Expanded(
-                        child: Container(
-                          color: Colors.green,
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              buildContestHistory(700),
-                              const SizedBox(width: 10),
-                              buildContestHistory(400)
-                            ],
-                          ),
+                      Container(
+                        height: 700,
+                        width: double.infinity,
+                        color: Colors.green,
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            buildContestHistory(700),
+                            const SizedBox(width: 10),
+                            buildContestHistory(400)
+                          ],
                         ),
                       ),
                     ],
@@ -93,7 +93,7 @@ class _ContestsScreenState extends State<ContestsScreen> {
       width: width,
       color: Colors.red,
       child: ListView.builder(
-        itemCount: 100,
+        itemCount: 15,
         itemBuilder: (BuildContext context, int) {
           return SizedBox(
             height: 40,
