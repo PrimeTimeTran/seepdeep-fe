@@ -44,11 +44,12 @@ class _SortScreenState extends State<SortScreen>
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
+    return SizedBox(
+      height: getHeight(),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Row(
             children: [
               buildSortItemOptions(),
               buildSortPanel(),
@@ -77,21 +78,24 @@ class _SortScreenState extends State<SortScreen>
               ),
             ],
           ),
-        ),
-        SizedBox(
-          height: ((count / 5) * 80),
-          width: 125 + ((count / 5) * 125),
-          child: Stack(
-            children: [
-              buildInfoPanel(),
-              ...List.generate(
-                sortItems.length,
-                buildSortItem,
-              )
-            ],
+          Transform.translate(
+            offset: const Offset(0, -100),
+            child: SizedBox(
+              height: ((count / 5) * 80),
+              width: 125 + ((count / 5) * 125),
+              child: Stack(
+                children: [
+                  buildInfoPanel(),
+                  ...List.generate(
+                    sortItems.length,
+                    buildSortItem,
+                  )
+                ],
+              ),
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 

@@ -6,6 +6,7 @@ import 'package:filter_list/filter_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
+import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -74,33 +75,96 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
         const SizedBox(height: 4),
         buildProblemTopics(),
         const SizedBox(height: 4),
-        SizedBox(
-          width: 1000,
-          child: ListView.builder(
-            itemCount: problems!.length,
-            shrinkWrap: true,
-            itemBuilder: (BuildContext context, int idx) {
-              var item = problems![idx];
-              return GestureDetector(
-                onTap: () {
-                  SchedulerBinding.instance.addPostFrameCallback((_) {
-                    Provider.of<ProblemProvider>(context, listen: false)
-                        .setFocusedProblem(item);
-                    GoRouter.of(context).go('/problem');
-                  });
-                },
-                child: SizedBox(
-                  height: 40,
-                  width: 40,
-                  child: ListTile(
-                    title: Text('${item.numLC}. ${item.title}'),
-                  ),
-                ),
-              );
-            },
-          ),
-        ),
+        buildProblemList(),
       ],
+    );
+  }
+
+  buildProblemList() {
+    return SizedBox(
+      width: 1000,
+      child: ListView.builder(
+        itemCount: problems!.length,
+        shrinkWrap: true,
+        itemBuilder: (BuildContext context, int idx) {
+          if (idx == 0) {
+            return const Padding(
+              padding: EdgeInsets.only(),
+              child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    SizedBox(
+                        child: Text("Status",
+                            style: TextStyle(fontWeight: FontWeight.bold))),
+                    Gap(10),
+                    Expanded(
+                        flex: 4,
+                        child: Text("Title",
+                            style: TextStyle(fontWeight: FontWeight.bold))),
+                    SizedBox(
+                        width: 95,
+                        child: Text("Solution",
+                            style: TextStyle(fontWeight: FontWeight.bold))),
+                    SizedBox(
+                        width: 110,
+                        child: Text("Acceptance",
+                            style: TextStyle(fontWeight: FontWeight.bold))),
+                    SizedBox(
+                        width: 110,
+                        child: Text("Difficulty",
+                            style: TextStyle(fontWeight: FontWeight.bold))),
+                    SizedBox(
+                        width: 100,
+                        child: Text("Frequency",
+                            style: TextStyle(fontWeight: FontWeight.bold))),
+                  ]),
+            );
+          }
+          final item = problems![idx];
+          idx -= 1;
+          bool odd = idx % 2 == 0;
+          Color color = odd ? Colors.grey.shade500 : Colors.grey.shade600;
+          Color difficultyColor = item.difficulty == 'Hard'
+              ? Colors.red
+              : item.difficulty == 'Medium'
+                  ? Colors.yellow
+                  : Colors.green;
+          return GestureDetector(
+            onTap: () {
+              SchedulerBinding.instance.addPostFrameCallback((_) {
+                Provider.of<ProblemProvider>(context, listen: false)
+                    .setFocusedProblem(item);
+                GoRouter.of(context).go('/problem');
+              });
+            },
+            child: Container(
+              color: color,
+              child: ListTile(
+                iconColor: Colors.white,
+                leading: const Icon(Icons.abc),
+                textColor: Colors.white,
+                title: Row(
+                  children: [
+                    Expanded(
+                        flex: 10, child: Text('${item.numLC}. ${item.title}')),
+                    const Spacer(),
+                    const SizedBox(width: 60, child: Icon(Icons.abc)),
+                    const Spacer(),
+                    SizedBox(width: 60, child: Text('${item.acceptanceRate}')),
+                    const Spacer(),
+                    SizedBox(
+                        width: 70,
+                        child: Text('${item.difficulty}',
+                            style: TextStyle(color: difficultyColor))),
+                    const Spacer(),
+                    SizedBox(width: 60, child: Text('${item.frequency}')),
+                  ],
+                ),
+              ),
+            ),
+          );
+        },
+      ),
     );
   }
 
@@ -125,53 +189,7 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
               ),
             ],
           ),
-          SizedBox(
-            width: 925,
-            height: 400,
-            child: FilterListWidget(
-              listData: topicList,
-              hideHeader: true,
-              hideSelectedTextCount: true,
-              selectedListData: selectedTopicList,
-              choiceChipLabel: (item) => item!.name,
-              themeData: FilterListThemeData(context),
-              validateSelectedItem: (list, val) => list!.contains(val),
-              controlButtons: const [
-                ControlButtonType.All,
-                ControlButtonType.Reset
-              ],
-              onItemSearch: (user, query) {
-                return user.name!.toLowerCase().contains(query.toLowerCase());
-              },
-              onApplyButtonClick: (list) {
-                setState(() {
-                  selectedTopicList = List.from(list!);
-                });
-                Navigator.pop(context);
-              },
-              choiceChipBuilder: (context, item, isSelected) {
-                return Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
-                  margin:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                  decoration: BoxDecoration(
-                      border: Border.all(
-                        color:
-                            isSelected! ? Colors.blue[300]! : Colors.grey[300]!,
-                      ),
-                      borderRadius:
-                          const BorderRadius.all(Radius.circular(30))),
-                  child: Text(
-                    item.name,
-                    style: TextStyle(
-                        color:
-                            isSelected ? Colors.blue[300] : Colors.grey[500]),
-                  ),
-                );
-              },
-            ),
-          ),
+          buildTopicFilter(),
         ],
       );
     } else {
@@ -263,6 +281,48 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
           ],
         ),
       ],
+    );
+  }
+
+  SizedBox buildTopicFilter() {
+    return SizedBox(
+      width: 925,
+      height: 400,
+      child: FilterListWidget(
+        listData: topicList,
+        hideHeader: true,
+        hideSelectedTextCount: true,
+        selectedListData: selectedTopicList,
+        choiceChipLabel: (item) => item!.name,
+        themeData: FilterListThemeData(context),
+        validateSelectedItem: (list, val) => list!.contains(val),
+        controlButtons: const [ControlButtonType.All, ControlButtonType.Reset],
+        onItemSearch: (user, query) {
+          return user.name!.toLowerCase().contains(query.toLowerCase());
+        },
+        onApplyButtonClick: (list) {
+          setState(() {
+            selectedTopicList = List.from(list!);
+          });
+          Navigator.pop(context);
+        },
+        choiceChipBuilder: (context, item, isSelected) {
+          return Container(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
+            margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+            decoration: BoxDecoration(
+                border: Border.all(
+                  color: isSelected! ? Colors.blue[300]! : Colors.grey[300]!,
+                ),
+                borderRadius: const BorderRadius.all(Radius.circular(30))),
+            child: Text(
+              item.name,
+              style: TextStyle(
+                  color: isSelected ? Colors.blue[300] : Colors.grey[500]),
+            ),
+          );
+        },
+      ),
     );
   }
 

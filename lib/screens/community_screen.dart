@@ -55,10 +55,10 @@ class _LoadingListState extends State<LoadingList> {
   @override
   Widget build(BuildContext context) {
     if (isLoaded) {
-      return SingleChildScrollView(
+      return Padding(
+        padding: const EdgeInsets.all(8.0),
         child: Column(
           children: [
-            const SizedBox(height: 10),
             BreadCrumb(
               items: <BreadCrumbItem>[
                 ...path.map((item) => BreadCrumbItem(
@@ -74,28 +74,30 @@ class _LoadingListState extends State<LoadingList> {
               divider: const Icon(Icons.chevron_right),
             ),
             const SizedBox(height: 10),
-            Column(
-              children: [
-                buildCategory('AI'),
-                buildCategory('Problems'),
-                buildCategory('Maths'),
-                buildCategory('Business'),
-                buildCategory('Companies'),
-                buildCategory('Reviews'),
-                buildCategory('AI'),
-                buildCategory('Problems'),
-                buildCategory('Maths'),
-                buildCategory('Business'),
-                buildCategory('Companies'),
-                buildCategory('Reviews'),
-                buildCategory('AI'),
-                buildCategory('Problems'),
-                buildCategory('Maths'),
-                buildCategory('Business'),
-                buildCategory('Companies'),
-                buildCategory('Reviews'),
-                buildCategory('AI'),
-              ],
+            SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  buildCategory('D.S.A.'),
+                  buildCategory('Math'),
+                  buildCategory('Companies'),
+                  buildCategory('Startups'),
+                  buildCategory('Green'),
+                  buildCategory('Hardware'),
+                  buildCategory('Finance'),
+                  buildCategory('Automotive'),
+                  buildCategory('Space'),
+                  buildCategory('Education'),
+                  buildCategory('AI'),
+                  buildCategory('Social'),
+                  buildCategory('Telecommunications'),
+                  buildCategory('Business'),
+                  buildCategory('Product Reviews'),
+                  buildCategory('Misc'),
+                  buildCategory('Systems'),
+                  buildCategory('Entertainment'),
+                ],
+              ),
             ),
           ],
         ),
@@ -143,12 +145,10 @@ class _LoadingListState extends State<LoadingList> {
 
   buildCategory(category) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Padding(
-          padding: const EdgeInsets.only(left: 200),
-          child: Row(
-            children: [Text(category)],
-          ),
+        Row(
+          children: [Text(category)],
         ),
         GestureDetector(
           onTap: () {
@@ -164,6 +164,7 @@ class _LoadingListState extends State<LoadingList> {
                 itemCount: 7,
                 itemBuilder: (BuildContext context, int idx) {
                   return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       ListTile(
                         title: Text('Title $idx'),

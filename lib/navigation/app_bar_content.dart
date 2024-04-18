@@ -27,7 +27,10 @@ class _AppBarContentState extends State<AppBarContent> {
             children: <Widget>[
               TextButton.icon(
                 onPressed: () => GoRouter.of(context).go('/'),
-                icon: const Icon(Icons.home),
+                icon: const Icon(
+                  Icons.home,
+                  color: Colors.white,
+                ),
                 label: const Text(
                   'CSGems',
                   style: TextStyle(color: Colors.white, fontSize: 15),

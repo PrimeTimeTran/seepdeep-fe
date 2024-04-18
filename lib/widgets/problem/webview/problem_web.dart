@@ -29,7 +29,6 @@ class _ProblemViewState extends State<ProblemView> {
       webView = IFrameElement()
         ..src = 'assets/index.html'
         ..style.border = 'none';
-      print('registered');
       window.onMessage.listen((message) {
         setState(() {
           result = message.data;
@@ -43,17 +42,20 @@ class _ProblemViewState extends State<ProblemView> {
       behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
       child: SingleChildScrollView(
         physics: const NeverScrollableScrollPhysics(),
-        child: Column(
-          children: [
-            SizedBox(
-              height: getHeight(),
-              width: double.infinity,
-              child: VerticalSplitView(
-                left: ProblemPrompt(problem: problem!),
-                right: buildRight(),
+        child: Container(
+          color: Colors.white,
+          child: Column(
+            children: [
+              SizedBox(
+                height: getHeight(),
+                width: double.infinity,
+                child: VerticalSplitView(
+                  left: ProblemPrompt(problem: problem!),
+                  right: buildRight(),
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -105,7 +107,6 @@ class _ProblemViewState extends State<ProblemView> {
   }
 
   onRun(code) {
-    print('sososo $webView.contentWindow');
     webView.contentWindow?.postMessage(code, '*');
   }
 }
