@@ -223,7 +223,7 @@ class _SolverState extends State<Solver> {
     final dto = {
       "body": submission,
       "lang": 'python',
-      "method": "twoSum",
+      "name": "twoSum",
       "testCases": problem.testSuite
     };
     webView.contentWindow?.postMessage(jsonEncode(dto), '*');

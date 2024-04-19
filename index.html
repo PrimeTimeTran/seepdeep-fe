@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+  <head>
+      <script src="https://cdn.jsdelivr.net/pyodide/v0.25.1/full/pyodide.js"></script>
+  </head>
+  <body>
+    Pyodide test page <br>
+    Open your browser console to see Pyodide output
+    <script type="text/javascript">
+      async function main(){
+        let pyodide = await loadPyodide();
+        console.log(pyodide.runPython(`
+            import sys
+            sys.version
+        `));
+        pyodide.runPython(`print(1+1)`)
+        pyodide.runPython(`
+def twoSum(nums, target):
+  store = {}
+  for idx, n in enumerate(nums):
+    remainder = target - n
+    if store.get(remainder) != None:
+      return [store.get(remainder), idx]
+    store[n] = idx
+print(twoSum([2, 7, 11, 15], 9))`
+        );
+      }
+      main();
+    </script>
+  </body>
+</html>
