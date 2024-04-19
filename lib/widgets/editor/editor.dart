@@ -85,6 +85,15 @@ class _EditorState extends State<Editor> {
     );
   }
 
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Future.delayed(Duration.zero, () {
+      widget.onType(getController(Languages.python).text);
+    });
+  }
+
   onRun() {
     String code = getController(Languages.python).text;
     widget.onRun(code);

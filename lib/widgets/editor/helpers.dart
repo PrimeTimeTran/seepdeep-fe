@@ -19,20 +19,29 @@ final pythonController = CodeController(
   language: python,
 );
 var pythonSort = """
-nums = [20, 13, 3, 3, 4, 5, 1, 2, 8, 7, 9, 0, 11]
-def bubble_sort(nums):
-  sorted = False
-
-  while not sorted:
-    sorted = True
-    for i in range(len(nums) - 1):
-      if nums[i] > nums[i + 1]:
-        sorted = False
-        nums[i], nums[i + 1] = nums[i + 1], nums[i]
-
-  return nums
-bubble_sort(nums)
+def twoSum(nums, target):
+    store = {}
+    for idx, n in enumerate(nums):
+        remainder = target - n
+        if store.get(remainder) != None:
+            return [store.get(remainder), idx]
+        store[n] = idx
 """;
+// var pythonSort = """
+// nums = [20, 13, 3, 3, 4, 5, 1, 2, 8, 7, 9, 0, 11]
+// def bubble_sort(nums, a):
+//   sorted = False
+
+//   while not sorted:
+//     sorted = True
+//     for i in range(len(nums) - 1):
+//       if nums[i] > nums[i + 1]:
+//         sorted = False
+//         nums[i], nums[i + 1] = nums[i + 1], nums[i]
+
+//   return nums
+// bubble_sort(nums)
+// """;
 
 final sqlController = CodeController(
   text: sqlQuery,

@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:html';
 import 'dart:ui_web' as ui;
 
@@ -21,12 +22,13 @@ class _SolverState extends State<Solver> {
   late Toaster toaster;
   bool submitted = false;
   bool registered = false;
+  late Problem problem;
   IFrameElement webView = IFrameElement();
 
   @override
   Widget build(BuildContext context) {
     toaster = Toaster(context);
-    final problem = Provider.of<ProblemProvider>(context).focusedProblem;
+    problem = Provider.of<ProblemProvider>(context).focusedProblem;
 
     // WIP: Fix multi load trigger not recognizing code input
     //
@@ -45,7 +47,7 @@ class _SolverState extends State<Solver> {
                     MediaQuery.of(context).padding.top -
                     kToolbarHeight,
                 child: VerticalSplitView(
-                  left: ProblemPrompt(problem: problem!),
+                  left: ProblemPrompt(problem: problem),
                   right: buildRight(problem),
                 ),
               ),
@@ -212,18 +214,19 @@ class _SolverState extends State<Solver> {
     );
   }
 
-  // Switch to submission
-  // {
-  //   code:  'print("gogogo")',
-  //   lang:  'python',
-  // }
-
   onRun(submission) {
     Glob.loadingStart();
     setState(() {
       submitted = true;
     });
-    webView.contentWindow?.postMessage(submission, '*');
+    // May need to redo this to send to server for processing.
+    final dto = {
+      "body": submission,
+      "lang": 'python',
+      "method": "twoSum",
+      "testCases": problem.testSuite
+    };
+    webView.contentWindow?.postMessage(jsonEncode(dto), '*');
   }
 
   setSubscription() {
@@ -233,7 +236,7 @@ class _SolverState extends State<Solver> {
         ..style.border = 'none';
       window.onMessage.listen((msg) {
         Glob.loadingDone();
-        print('onMsg ${msg.data}');
+        Glob.logIObj(msg.data);
 
         if (msg.data?.startsWith("onMsg Success:")) {
           passing = true;

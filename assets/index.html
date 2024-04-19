@@ -5,15 +5,55 @@
   </head>
   <body>
     <script type="text/javascript">
-      window.addEventListener('load', function () {
-        async function main(code) {
+      window.addEventListener('load', async function () {
+        let pyodide = await loadPyodide()
+        function setup(msg) {
+          
+        }
+        async function main(msg) {
+          const request = await JSON.parse(msg)
+          console.log(request)
+          const results = []
           try {
-            const pyodide = await loadPyodide()
-            const result = pyodide.runPython(code)
-            sendMessageToFlutter('Success: ' + result)
+            let idx = 0;
+            try {
+              request.testCases.forEach(val => {
+                idx+=1;
+                const inputOne = val.input[0];
+                const inputTwo = val.input[1];
+                console.log({inputOne, inputTwo})
+                const pythonCode = `
+${request.body}
+result =  twoSum(${inputOne}, ${inputTwo})
+                `;
+                let result = pyodide.runPython(pythonCode);
+                let passing = JSON.stringify(result) === JSON.stringify(val.outputExpected);
+
+                let resp = {
+                  idx,
+                  inputOne: val.input[0],
+                  inputTwo: val.input[1],
+                  outputActual: result,
+                  outputExpected: val?.output,
+                  passing: passing,
+                  code: request.body,
+                }
+                results.push(resp)
+              });
+            } catch (error) {
+              const resp = {
+                idx,
+                passing: false,
+                output: error,
+                testCaseError: 'why',
+                code: msg.body
+              }
+              results.push(resp)
+            }
           } catch (error) {
             sendMessageToFlutter('Error: ' + error)
           }
+          sendMessageToFlutter(JSON.stringify(results))
         }
         function sendMessageToFlutter(message) {
           window.parent.postMessage(message, '*')

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:logger/logger.dart';
 
@@ -14,6 +16,7 @@ class Glob {
     });
   }
 
-  static logE(msg) => logger.e('Error: ', error: msg);
+  static logE(msg) => logger.e('Error CS: ', error: msg);
   static logI(msg) => logger.i(msg);
+  static logIObj(msg) => loggerNoStack.t(jsonDecode(msg));
 }

@@ -2,7 +2,7 @@ import 'package:app/models/all.dart';
 import 'package:flutter/foundation.dart';
 
 class ProblemProvider extends ChangeNotifier {
-  Problem? _focusedProblem = Problem.fromJson(
+  Problem _focusedProblem = Problem.fromJson(
     {
       "acceptanceRate": 52.4,
       "accepted": 12.9,
@@ -62,7 +62,7 @@ class ProblemProvider extends ChangeNotifier {
     },
   );
   List<Problem> problems = [];
-  Problem? get focusedProblem => _focusedProblem;
+  Problem get focusedProblem => _focusedProblem;
 
   Future<void> loadProblems() async {
     notifyListeners();
