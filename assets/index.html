@@ -29,7 +29,6 @@
           let code = `
 ${msg.body}
 ${msg.name}(${newParams})`
-          console.log('spam', code)
           let output = pyodide.runPython(code)
           return `${output}`
         } catch (err) {
