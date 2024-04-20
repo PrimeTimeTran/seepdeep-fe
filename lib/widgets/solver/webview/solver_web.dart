@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_web_libraries_in_flutter
 import 'dart:convert';
 import 'dart:html';
 import 'dart:ui_web' as ui;
@@ -6,6 +7,7 @@ import 'package:app/all.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:getwidget/getwidget.dart';
+import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 
 class Solver extends StatefulWidget {
@@ -259,7 +261,21 @@ class _SolverState extends State<Solver> {
       "name": "twoSum",
       "testCases": problem.testSuite
     };
+    postSubmission(submission);
     webView.contentWindow?.postMessage(jsonEncode(dto), '*');
+  }
+
+  postSubmission(submission) async {
+    try {
+      String url = "http://localhost:3000/api/submissions";
+      final response =
+          await http.post(Uri.parse(url), body: {'data': submission});
+      Glob.logIObj(response);
+    } catch (e) {
+      print('Error: $e');
+
+      return [];
+    }
   }
 
   setSubscription() {

@@ -106,6 +106,15 @@ class _AppBarContentState extends State<AppBarContent> {
                       icon: const Icon(Icons.work_outline_outlined,
                           color: Colors.white),
                     ),
+                    TextButton.icon(
+                      onPressed: () {
+                        GoRouter.of(context).go(AppScreens.auth.path);
+                      },
+                      label: const Text('Auth',
+                          style: TextStyle(color: Colors.white)),
+                      icon: const Icon(Icons.work_outline_outlined,
+                          color: Colors.white),
+                    ),
                   ],
                 ),
               ),

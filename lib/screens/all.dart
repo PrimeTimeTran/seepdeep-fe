@@ -18,3 +18,4 @@ export './sort_screen.dart';
 export './sql_screen.dart';
 export './streak_screen.dart';
 export './visualization_screen.dart';
+export './auth_screen.dart';

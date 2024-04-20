@@ -113,6 +113,11 @@ final routerConfig = GoRouter(
                 name: AppScreens.streak.name,
                 builder: (_, __) => const StreakScreen(),
               ),
+              GoRoute(
+                path: AppScreens.auth.path,
+                name: AppScreens.auth.name,
+                builder: (_, __) => const AuthScreen(),
+              ),
             ],
           )
         ]),
@@ -163,7 +168,8 @@ enum AppScreens {
   bugReports,
   notifications,
   search,
-  streak
+  streak,
+  auth,
 }
 
 // ignore: must_be_immutable
@@ -218,55 +224,57 @@ class _RootNavigatorState extends State<RootNavigator> {
 
   @override
   Widget build(BuildContext context) {
+    final path = GoRouter.of(context).routeInformationProvider.value.uri;
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        SizedBox(
-          height: double.infinity,
-          child: NavigationRail(
-            useIndicator: true,
-            labelType: labelType,
-            selectedIndex: currentPageIndex,
-            destinations: const [
-              NavigationRailDestination(
-                icon: Icon(Icons.code),
-                label: Text('Code'),
-              ),
-              NavigationRailDestination(
-                icon: Icon(Icons.topic),
-                label: Text('Topics'),
-              ),
-              NavigationRailDestination(
-                icon: Icon(Icons.sort_by_alpha),
-                label: Text('Sorting'),
-              ),
-              NavigationRailDestination(
-                icon: Icon(Icons.grid_on),
-                label: Text('Matrix'),
-              ),
-              NavigationRailDestination(
-                icon: Icon(Icons.table_chart_rounded),
-                label: Text('SQL'),
-              ),
-            ],
-            onDestinationSelected: (int index) {
-              if (index == 0) {
-                GoRouter.of(context).go('/problems');
-              } else if (index == 1) {
-                openDrawer();
-              } else if (index == 2) {
-                GoRouter.of(context).go('/sort');
-              } else if (index == 3) {
-                GoRouter.of(context).go('/maze');
-              } else if (index == 4) {
-                GoRouter.of(context).go('/sql');
-              }
-              setState(() {
-                currentPageIndex = index;
-              });
-            },
+        if (!path.toString().startsWith('/problem?'))
+          SizedBox(
+            height: double.infinity,
+            child: NavigationRail(
+              useIndicator: true,
+              labelType: labelType,
+              selectedIndex: currentPageIndex,
+              destinations: const [
+                NavigationRailDestination(
+                  icon: Icon(Icons.code),
+                  label: Text('Code'),
+                ),
+                NavigationRailDestination(
+                  icon: Icon(Icons.topic),
+                  label: Text('Topics'),
+                ),
+                NavigationRailDestination(
+                  icon: Icon(Icons.sort_by_alpha),
+                  label: Text('Sorting'),
+                ),
+                NavigationRailDestination(
+                  icon: Icon(Icons.grid_on),
+                  label: Text('Matrix'),
+                ),
+                NavigationRailDestination(
+                  icon: Icon(Icons.table_chart_rounded),
+                  label: Text('SQL'),
+                ),
+              ],
+              onDestinationSelected: (int index) {
+                if (index == 0) {
+                  GoRouter.of(context).go('/problems');
+                } else if (index == 1) {
+                  openDrawer();
+                } else if (index == 2) {
+                  GoRouter.of(context).go('/sort');
+                } else if (index == 3) {
+                  GoRouter.of(context).go('/maze');
+                } else if (index == 4) {
+                  GoRouter.of(context).go('/sql');
+                }
+                setState(() {
+                  currentPageIndex = index;
+                });
+              },
+            ),
           ),
-        ),
         Expanded(
           child: SingleChildScrollView(
             child: Column(
@@ -327,6 +335,8 @@ extension AppPageX on AppScreens {
         return 'SEARCH';
       case AppScreens.streak:
         return 'STREAK';
+      case AppScreens.auth:
+        return 'AUTH';
       default:
         return 'HOME';
     }
@@ -374,6 +384,8 @@ extension AppPageX on AppScreens {
         return '/contests';
       case AppScreens.jobs:
         return '/jobs';
+      case AppScreens.auth:
+        return '/auth';
 
       default:
         return '/';

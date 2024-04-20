@@ -70,14 +70,100 @@ List<CSTopic> topicList = [
   CSTopic(name: "Zoe", avatar: "CSTopic.png"),
 ];
 
-class NewsTopic {
-  final String? name;
-  final String? avatar;
-  NewsTopic({this.name, this.avatar});
-}
+var zMarkdownSource = """
+# Bubble Sort
+A sorting algorithm.
+
+## Description
+Your goal is to sort all the items in the list.
+
+```python
+nums = [20, 13, 3, 3, 4, 5, 1, 2, 8, 7, 9, 0, 11]
+def bubble_sort(nums):
+  sorted = False
+
+  while not sorted:
+    sorted = True
+    for i in range(len(nums) - 1):
+      if nums[i] > nums[i + 1]:
+        sorted = False
+        nums[i], nums[i + 1] = nums[i + 1], nums[i]
+
+  return nums
+bubble_sort(nums)
+```
+
+## Example 1
+```python
+Input: [20, 13, 3, 3, 4, 5, 1, 2, 8, 7, 9, 0, 11]
+Output: [0, 1, 2, 3, 3, 4, 5, 7, 8, 9, 11, 13, 20]
+```
+
+## Example 2
+```python
+Input: [20, 13, 3, 3, 4, 5, 1, 2, 8, 7, 9, 0, 11]
+Output: [0, 1, 2, 3, 3, 4, 5, 7, 8, 9, 11, 13, 20]
+```
+
+## Example 3
+```python
+Input: [20, 13, 3, 3, 4, 5, 1, 2, 8, 7, 9, 0, 11]
+Output: [0, 1, 2, 3, 3, 4, 5, 7, 8, 9, 11, 13, 20]
+```
+
+## Requirements
+`O(N^2)` Space & Time complexity# Bubble Sort
+A sorting algorithm.
+
+## Description
+Your goal is to sort all the items in the list.
+
+```python
+nums = [20, 13, 3, 3, 4, 5, 1, 2, 8, 7, 9, 0, 11]
+def bubble_sort(nums):
+  sorted = False
+
+  while not sorted:
+    sorted = True
+    for i in range(len(nums) - 1):
+      if nums[i] > nums[i + 1]:
+        sorted = False
+        nums[i], nums[i + 1] = nums[i + 1], nums[i]
+
+  return nums
+bubble_sort(nums)
+```
+
+## Example 1
+```python
+Input: [20, 13, 3, 3, 4, 5, 1, 2, 8, 7, 9, 0, 11]
+Output: [0, 1, 2, 3, 3, 4, 5, 7, 8, 9, 11, 13, 20]
+```
+
+## Example 2
+```python
+Input: [20, 13, 3, 3, 4, 5, 1, 2, 8, 7, 9, 0, 11]
+Output: [0, 1, 2, 3, 3, 4, 5, 7, 8, 9, 11, 13, 20]
+```
+
+## Example 3
+```python
+Input: [20, 13, 3, 3, 4, 5, 1, 2, 8, 7, 9, 0, 11]
+Output: [0, 1, 2, 3, 3, 4, 5, 7, 8, 9, 11, 13, 20]
+```
+
+## Constraints
+`O(N^2)` Space & Time complexity
+""";
 
 class CSTopic {
   final String? name;
   final String? avatar;
   CSTopic({this.name, this.avatar});
+}
+
+class NewsTopic {
+  final String? name;
+  final String? avatar;
+  NewsTopic({this.name, this.avatar});
 }

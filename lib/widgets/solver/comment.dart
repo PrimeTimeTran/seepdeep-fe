@@ -9,7 +9,7 @@ class Comment extends StatelessWidget {
       subtitleTextStyle: const TextStyle(height: 3),
       title: const Row(
         children: [
-          Icon(Icons.circle, size: 50),
+          Icon(Icons.circle, size: 40),
           Text('Username'),
           Spacer(),
           Text('Hours ago...')
@@ -21,28 +21,40 @@ class Comment extends StatelessWidget {
           const SizedBox(height: 5),
           const Text('body'),
           const SizedBox(height: 5),
-          Row(
-            children: [
-              IconButton(
-                  onPressed: () {}, icon: const Icon(Icons.arrow_upward)),
-              TextButton(
-                child: const Text('10'),
-                onPressed: () {},
-              ),
-              // icon: const Icon(Icons.abc)),
-              IconButton(
-                  onPressed: () {}, icon: const Icon(Icons.arrow_downward)),
-              TextButton.icon(
-                label: const Text('Show Replies'),
-                onPressed: () {},
-                icon: const Icon(Icons.comment),
-              ),
-              TextButton.icon(
-                label: const Text('Reply'),
-                onPressed: () {},
-                icon: const Icon(Icons.reply),
-              ),
-            ],
+          SizedBox(
+            width: double.infinity,
+            child: Row(
+              children: [
+                IconButton(
+                  onPressed: () {},
+                  icon: const Icon(
+                    Icons.arrow_upward,
+                    size: 10,
+                  ),
+                  iconSize: 10,
+                ),
+                TextButton(
+                  child: const Text('10'),
+                  onPressed: () {},
+                ),
+                // icon: const Icon(Icons.abc)),
+                IconButton(
+                  onPressed: () {},
+                  icon: const Icon(Icons.arrow_downward),
+                  iconSize: 10,
+                ),
+                TextButton.icon(
+                  label: const Text('Show Replies'),
+                  onPressed: () {},
+                  icon: const Icon(Icons.comment, size: 10),
+                ),
+                TextButton.icon(
+                  label: const Text('Reply'),
+                  onPressed: () {},
+                  icon: const Icon(Icons.reply, size: 10),
+                ),
+              ],
+            ),
           )
         ],
       ),
@@ -59,10 +71,10 @@ class Solution extends StatelessWidget {
       subtitleTextStyle: const TextStyle(height: 3),
       title: const Row(
         children: [
-          Icon(Icons.circle),
+          Icon(Icons.circle, size: 40),
           Text('Username'),
           Spacer(),
-          Text('DateTime')
+          Text('1 hour ago')
         ],
       ),
       subtitle: Column(
@@ -92,23 +104,22 @@ class Solution extends StatelessWidget {
           const Text('sososo'),
           const SizedBox(height: 5),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               TextButton.icon(
-                label: Text('10'),
+                label: const Text('10'),
                 onPressed: () {},
-                icon: Icon(Icons.arrow_upward),
+                icon: const Icon(Icons.arrow_upward),
               ),
               TextButton.icon(
-                label: Text('4.5K'),
+                label: const Text('4.5K'),
                 onPressed: () {},
-                icon: Icon(Icons.remove_red_eye_outlined),
+                icon: const Icon(Icons.remove_red_eye_outlined),
               ),
               TextButton.icon(
-                label: Text('5'),
+                label: const Text('5'),
                 onPressed: () {},
-                icon: Icon(Icons.comment),
+                icon: const Icon(Icons.comment),
               ),
             ],
           )
