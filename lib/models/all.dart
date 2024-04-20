@@ -11,5 +11,6 @@ export 'notification.dart';
 export 'post.dart';
 export 'problem.dart';
 export 'submission.dart';
+export 'testrun.dart';
 export 'topic.dart';
 export 'user.dart';

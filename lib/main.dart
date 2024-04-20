@@ -1,11 +1,8 @@
-import 'package:app/navigation/root.dart';
-import 'package:app/providers/problem_provider.dart';
+import 'package:app/all.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:provider/provider.dart' as stateProvider;
-
-import './constants.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();

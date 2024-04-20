@@ -29,7 +29,7 @@ class _AppBarContentState extends State<AppBarContent> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               TextButton.icon(
-                onPressed: () => GoRouter.of(context).go('/'),
+                onPressed: () => GoRouter.of(context).go(AppScreens.home.path),
                 icon: const Icon(
                   Icons.home,
                   color: Colors.white,
@@ -46,7 +46,7 @@ class _AppBarContentState extends State<AppBarContent> {
                   children: [
                     TextButton.icon(
                       onPressed: () {
-                        GoRouter.of(context).go('/explore');
+                        GoRouter.of(context).go(AppScreens.explore.path);
                       },
                       label: const Text('Explore',
                           style: TextStyle(color: Colors.white)),
@@ -54,7 +54,7 @@ class _AppBarContentState extends State<AppBarContent> {
                     ),
                     TextButton.icon(
                       onPressed: () {
-                        GoRouter.of(context).go('/problems');
+                        GoRouter.of(context).go(AppScreens.problems.path);
                         // openDrawer();
                       },
                       label: const Text('Problems',
@@ -64,7 +64,7 @@ class _AppBarContentState extends State<AppBarContent> {
                     ),
                     TextButton.icon(
                       onPressed: () {
-                        GoRouter.of(context).go('/community');
+                        GoRouter.of(context).go(AppScreens.community.path);
                       },
                       label: const Text('Community',
                           style: TextStyle(color: Colors.white)),
@@ -73,7 +73,7 @@ class _AppBarContentState extends State<AppBarContent> {
                     ),
                     TextButton.icon(
                       onPressed: () {
-                        GoRouter.of(context).go('/contests');
+                        GoRouter.of(context).go(AppScreens.contests.path);
                       },
                       label: const Text('Contests',
                           style: TextStyle(color: Colors.white)),
@@ -82,7 +82,7 @@ class _AppBarContentState extends State<AppBarContent> {
                     ),
                     TextButton.icon(
                       onPressed: () {
-                        GoRouter.of(context).go('/leaderboards');
+                        GoRouter.of(context).go(AppScreens.leaderboards.path);
                       },
                       label: const Text('Leaderboards',
                           style: TextStyle(color: Colors.white)),
@@ -91,7 +91,7 @@ class _AppBarContentState extends State<AppBarContent> {
                     ),
                     TextButton.icon(
                       onPressed: () {
-                        GoRouter.of(context).go('/news');
+                        GoRouter.of(context).go(AppScreens.news.path);
                       },
                       label: const Text('News',
                           style: TextStyle(color: Colors.white)),
@@ -99,7 +99,7 @@ class _AppBarContentState extends State<AppBarContent> {
                     ),
                     TextButton.icon(
                       onPressed: () {
-                        GoRouter.of(context).go('/jobs');
+                        GoRouter.of(context).go(AppScreens.jobs.path);
                       },
                       label: const Text('Jobs',
                           style: TextStyle(color: Colors.white)),
@@ -116,7 +116,7 @@ class _AppBarContentState extends State<AppBarContent> {
                 ),
                 color: Colors.white,
                 onPressed: () {
-                  GoRouter.of(context).go('/search');
+                  GoRouter.of(context).go(AppScreens.search.path);
                 },
               ),
               IconButton(
@@ -126,7 +126,7 @@ class _AppBarContentState extends State<AppBarContent> {
                 ),
                 color: Colors.white,
                 onPressed: () {
-                  GoRouter.of(context).go('/streak');
+                  GoRouter.of(context).go(AppScreens.streak.path);
                 },
               ),
               IconButton(
@@ -136,7 +136,7 @@ class _AppBarContentState extends State<AppBarContent> {
                 ),
                 color: Colors.white,
                 onPressed: () {
-                  GoRouter.of(context).go('/notifications');
+                  GoRouter.of(context).go(AppScreens.notifications.path);
                 },
               ),
               PopupMenuButton<SampleItem>(
@@ -153,10 +153,12 @@ class _AppBarContentState extends State<AppBarContent> {
                 },
                 itemBuilder: (BuildContext context) =>
                     <PopupMenuEntry<SampleItem>>[
-                  buildMenuItem('Shortcuts', Icons.keyboard, "/explore"),
+                  buildMenuItem(
+                      'Shortcuts', Icons.keyboard, AppScreens.explore.path),
                   buildMenuItem('Feature Requests', Icons.note_alt_outlined,
-                      "/feature-requests"),
-                  buildMenuItem('Report Bug', Icons.bug_report, "/bug-reports"),
+                      AppScreens.featureRequests.path),
+                  buildMenuItem('Report Bug', Icons.bug_report,
+                      AppScreens.bugReports.path),
                 ],
               ),
               PopupMenuButton<SampleItem>(
@@ -173,10 +175,14 @@ class _AppBarContentState extends State<AppBarContent> {
                 },
                 itemBuilder: (BuildContext context) =>
                     <PopupMenuEntry<SampleItem>>[
-                  buildMenuItem('Profile', Icons.person, "/profile"),
-                  buildMenuItem('Settings', Icons.settings, "/settings"),
-                  buildMenuItem('Report Bug', Icons.bug_report, "/bug-reports"),
-                  buildMenuItem('Logout', Icons.exit_to_app, "/bug-reports"),
+                  buildMenuItem(
+                      'Profile', Icons.person, AppScreens.profile.path),
+                  buildMenuItem(
+                      'Settings', Icons.settings, AppScreens.settings.path),
+                  buildMenuItem('Report Bug', Icons.bug_report,
+                      AppScreens.bugReports.path),
+                  buildMenuItem(
+                      'Logout', Icons.exit_to_app, AppScreens.bugReports.path),
                 ],
               ),
             ],

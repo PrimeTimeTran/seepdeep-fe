@@ -21,6 +21,7 @@ dependencies:
   path_provider: ^2.0.9
   path: ^1.8.0
   riverpod: ^2.3.0
+  provider: ^6.1.2
   motion_toast: ^2.9.1
   flutter_code_editor: ^0.3.1
   graphview: ^1.2.0
@@ -41,7 +42,6 @@ dependencies:
   shimmer: ^3.0.0
   table_calendar: ^3.1.1
   flutter_breadcrumb: ^1.0.1
-  provider: ^6.1.2
   getwidget: ^4.0.0
   gap: ^3.0.1
   seo: ^0.0.7

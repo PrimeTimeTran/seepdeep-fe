@@ -17,53 +17,58 @@ class Solver extends StatefulWidget {
 
 class _SolverState extends State<Solver> {
   bool? passing;
+  int? count = 0;
   String code = '';
   String result = '';
-  late Toaster toaster;
   bool submitted = false;
-  bool registered = false;
-  late Problem problem;
+  List<TestRun> testRuns = [];
+  late Toaster toaster = Toaster(context);
   IFrameElement webView = IFrameElement();
+  late Problem problem = Provider.of<ProblemProvider>(context).focusedProblem;
 
   @override
   Widget build(BuildContext context) {
-    toaster = Toaster(context);
-    problem = Provider.of<ProblemProvider>(context).focusedProblem;
-
     // WIP: Fix multi load trigger not recognizing code input
     //
     setSubscription();
-
-    return ScrollConfiguration(
-      behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
-      child: SingleChildScrollView(
-        physics: const NeverScrollableScrollPhysics(),
-        child: Container(
-          color: Colors.white,
-          child: Column(
-            children: [
-              SizedBox(
-                height: MediaQuery.of(context).size.height -
-                    MediaQuery.of(context).padding.top -
-                    kToolbarHeight,
-                child: VerticalSplitView(
-                  left: ProblemPrompt(problem: problem),
-                  right: buildRight(problem),
-                ),
-              ),
-            ],
+    return Container(
+      color: Colors.white,
+      child: Column(
+        children: [
+          SizedBox(
+            height: 5,
+            width: 100,
+            child: HtmlElementView(
+              viewType: 'index',
+              onPlatformViewCreated: (int id) {},
+            ),
           ),
-        ),
+          SizedBox(
+            height: MediaQuery.of(context).size.height -
+                MediaQuery.of(context).padding.top -
+                kToolbarHeight -
+                5,
+            child: VerticalSplitView(
+              left: ProblemPrompt(problem: problem),
+              right: buildRight(),
+            ),
+          ),
+        ],
       ),
     );
   }
 
-  HorizontalSplitView buildRight(problem) {
+  HorizontalSplitView buildRight() {
     return HorizontalSplitView(
       top: Editor(
           onRun: (code) => onRun(code),
           onType: (c) => setState(() => code = c)),
-      bottom: buildTestPanel(problem),
+      bottom: LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) {
+          double parentHeight = constraints.maxHeight;
+          return buildTestPanel(parentHeight);
+        },
+      ),
     );
   }
 
@@ -86,36 +91,77 @@ class _SolverState extends State<Solver> {
     );
   }
 
-  buildTestCase(problem) {
-    final testCase = problem.testSuite![0];
+  buildTestCase(idx, TestRun testRun) {
+    final testCase = problem.testSuite![idx];
     final inputs = testCase['input'];
-    return SizedBox(
-      height: 300,
-      width: double.infinity,
-      // Num of parameters for the problem.
-      child: ListView.builder(
-        itemCount: inputs.length,
-        itemBuilder: (BuildContext context, int idx) {
-          final testInput = testCase['input'][idx];
-          return Column(
+    print(testRun.passing);
+    return Column(
+      children: [
+        // Each parameter of the function.
+        SizedBox(
+          height: 150,
+          width: double.infinity,
+          child: ListView.builder(
+            itemCount: inputs.length,
+            itemBuilder: (BuildContext context, int idx) {
+              final testInput = testCase['input'][idx];
+              return Column(
+                children: [
+                  TextFormField(
+                    initialValue: '$testInput',
+                    decoration: const InputDecoration(
+                      labelText: "Input",
+                      border: OutlineInputBorder(),
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                ],
+              );
+            },
+          ),
+        ),
+        SizedBox(
+          height: 150,
+          width: double.infinity,
+          child: Column(
             children: [
               TextFormField(
-                initialValue: '$testInput',
+                readOnly: true,
+                initialValue: testRun.outputActual,
                 decoration: const InputDecoration(
-                  labelText: "Input",
+                  labelText: "Output",
                   border: OutlineInputBorder(),
-                  hintText: 'Enter a search term',
                 ),
               ),
-              const SizedBox(height: 10),
+              const Gap(25),
+              TextFormField(
+                readOnly: true,
+                initialValue: testRun.outputExpected,
+                decoration: const InputDecoration(
+                  labelText: "Expected",
+                  border: OutlineInputBorder(),
+                ),
+              ),
             ],
-          );
-        },
-      ),
+          ),
+        ),
+      ],
     );
   }
 
-  buildTestPanel(problem) {
+  buildTestPanel(parentHeight) {
+    List<Widget> testTabs = [];
+    List<Widget> testRunResultViews = [];
+    if (testRuns.isNotEmpty) {
+      for (var entry in testRuns.asMap().entries) {
+        int idx = entry.key;
+        final element = entry.value;
+        final tab = buildTab('Case $idx', element.passing);
+        testTabs.add(tab);
+        final view = buildTestRunResultView(idx, element);
+        testRunResultViews.add(view);
+      }
+    }
     return Column(
       children: [
         Padding(
@@ -158,59 +204,52 @@ class _SolverState extends State<Solver> {
           ),
         ),
         SizedBox(
-          height: 300,
+          height: parentHeight - 55,
           width: double.infinity,
           child: DefaultTabController(
-            length: 4,
+            length: testRuns.isNotEmpty ? testTabs.length : 3,
             animationDuration: Duration.zero,
             child: Scaffold(
               appBar: AppBar(
                 flexibleSpace: TabBar(
                   tabAlignment: TabAlignment.start,
                   isScrollable: true,
-                  tabs: [
-                    buildTab('Case 1', true),
-                    buildTab('Case 2', false),
-                    buildTab('Case 3', false),
-                    buildTab('Case 4', true),
-                  ],
+                  tabs: testRuns.isNotEmpty
+                      ? testTabs
+                      : [
+                          buildTab('Case 1', false),
+                          buildTab('Case 2', false),
+                          buildTab('Case 3', false),
+                        ],
                 ),
               ),
               body: TabBarView(
-                children: [
-                  SingleChildScrollView(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          buildTestCase(problem),
-                          SelectableText(result),
-                          SizedBox(
-                            height: 10,
-                            width: 100,
-                            child: HtmlElementView(
-                              viewType: 'index',
-                              onPlatformViewCreated: (int id) {
-                                debugPrint(
-                                    'HtmlElementView Platform View Loaded: viewNum $id');
-                                setSubscription();
-                              },
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  const Icon(Icons.directions_transit),
-                  const Icon(Icons.directions_bike),
-                  const Icon(Icons.directions_boat_rounded),
-                ],
+                children: testRuns.isNotEmpty
+                    ? testRunResultViews
+                    : [
+                        const Icon(Icons.directions),
+                        const Icon(Icons.directions_transit),
+                        const Icon(Icons.directions_bike),
+                      ],
               ),
             ),
           ),
         ),
       ],
+    );
+  }
+
+  SingleChildScrollView buildTestRunResultView(idx, testRun) {
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            buildTestCase(idx, testRun),
+          ],
+        ),
+      ),
     );
   }
 
@@ -236,15 +275,19 @@ class _SolverState extends State<Solver> {
         ..style.border = 'none';
       window.onMessage.listen((msg) {
         Glob.loadingDone();
-        Glob.logIObj(msg.data);
-
         if (msg.data?.startsWith("onMsg Success:")) {
           passing = true;
         } else {
           passing = false;
         }
-        toaster.simpleToast(msg.data);
-        setState(() => result = msg.data);
+        List<dynamic> dataList = jsonDecode(msg.data);
+        testRuns = dataList.map((item) => TestRun.fromMap(item)).toList();
+        setState(() {
+          count = count! + 1;
+          result = msg.data;
+          passing = passing;
+          testRuns = testRuns;
+        });
       }, onError: (e) {
         Glob.logI(e);
       }, onDone: () {
@@ -252,8 +295,5 @@ class _SolverState extends State<Solver> {
       });
       return webView;
     }, isVisible: false);
-    setState(() {
-      registered = true;
-    });
   }
 }

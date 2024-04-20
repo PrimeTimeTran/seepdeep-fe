@@ -19,103 +19,98 @@ final routerConfig = GoRouter(
             navigatorKey: navigatorKeyA,
             routes: [
               GoRoute(
-                path: '/',
-                name: Routes.home.toString(),
+                path: AppScreens.home.path,
+                name: AppScreens.home.name,
                 builder: (_, __) => const ProblemsScreen(),
               ),
               GoRoute(
-                path: '/problems',
-                name: Routes.problems.toString(),
+                path: AppScreens.problems.path,
+                name: AppScreens.problems.name,
                 builder: (_, __) => const ProblemsScreen(),
               ),
-              // GoRoute(
-              //   path: '/problem',
-              //   name: Routes.problem.toString(),
-              //   builder: (_, __) => const App(screen: ProblemScreen()),
-              // ),
               GoRoute(
-                path: '/problem',
-                name: Routes.problem.toString(),
+                path: AppScreens.problem.path,
+                name: AppScreens.problem.name,
                 builder: (_, __) => const ProblemScreen(),
               ),
               GoRoute(
-                path: '/sort',
-                name: Routes.sort.toString(),
+                path: AppScreens.sort.path,
+                name: AppScreens.sort.name,
                 builder: (_, __) => const SortScreen(),
               ),
               GoRoute(
-                path: '/maze',
-                name: Routes.maze.toString(),
+                path: AppScreens.maze.path,
+                name: AppScreens.maze.name,
                 builder: (_, __) => const MazeScreen(),
               ),
               GoRoute(
-                path: '/sql',
-                name: Routes.sql.toString(),
+                path: AppScreens.sql.path,
+                name: AppScreens.sql.name,
                 builder: (_, __) => const SQLScreen(),
               ),
               GoRoute(
-                path: '/news',
-                name: Routes.news.toString(),
+                path: AppScreens.news.path,
+                name: AppScreens.news.name,
                 builder: (_, __) => const NewsScreen(),
               ),
               GoRoute(
-                path: '/explore',
-                name: Routes.explore.toString(),
+                path: AppScreens.explore.path,
+                name: AppScreens.explore.name,
                 builder: (_, __) => const ExploreScreen(),
               ),
               GoRoute(
-                path: '/leaderboards',
-                name: Routes.leaderboards.toString(),
+                path: AppScreens.leaderboards.path,
+                name: AppScreens.leaderboards.name,
                 builder: (_, __) => const LeaderboardsScreen(),
               ),
               GoRoute(
-                path: '/community',
-                name: Routes.community.toString(),
+                path: AppScreens.community.path,
+                name: AppScreens.community.name,
                 builder: (_, __) => const CommunityScreen(),
               ),
               GoRoute(
-                path: '/contests',
-                name: Routes.contests.toString(),
+                path: AppScreens.contests.path,
+                name: AppScreens.contests.name,
                 builder: (_, __) => const ContestsScreen(),
               ),
               GoRoute(
-                path: '/jobs',
-                name: Routes.jobs.toString(),
+                path: AppScreens.jobs.path,
+                name: AppScreens.jobs.name,
                 builder: (_, __) => const JobsScreen(),
               ),
               GoRoute(
-                path: '/profile',
-                name: Routes.profile.toString(),
+                path: AppScreens.profile.path,
+                name: AppScreens.profile.name,
                 builder: (_, __) => const ProfileScreen(),
               ),
               GoRoute(
-                path: '/notifications',
-                name: Routes.notifications.toString(),
+                path: AppScreens.notifications.path,
+                name: AppScreens.notifications.name,
                 builder: (_, __) => const NotificationScreen(),
               ),
               GoRoute(
-                path: '/settings',
-                name: Routes.settings.toString(),
+                path: AppScreens.settings.path,
+                name: AppScreens.settings.name,
                 builder: (_, __) => const SettingsScreen(),
               ),
               GoRoute(
-                path: '/feature-requests',
-                name: Routes.featureRequests.toString(),
+                path: AppScreens.featureRequests.path,
+                name: AppScreens.featureRequests.name,
                 builder: (_, __) => const FeatureRequestScreen(),
               ),
               GoRoute(
-                path: '/bug-reports',
-                name: Routes.bugReports.toString(),
+                path: AppScreens.bugReports.path,
+                name: AppScreens.bugReports.name,
                 builder: (_, __) => const BugReportScreen(),
               ),
               GoRoute(
-                path: '/search',
-                name: Routes.search.toString(),
+                path: AppScreens.search.path,
+                name: AppScreens.search.name,
                 builder: (_, __) => const SearchScreen(),
               ),
               GoRoute(
-                path: '/streak',
-                name: Routes.streak.toString(),
+                path: AppScreens.streak.path,
+                name: AppScreens.streak.name,
                 builder: (_, __) => const StreakScreen(),
               ),
             ],
@@ -131,7 +126,7 @@ final routerConfig = GoRouter(
             routes: [
               GoRoute(
                 path: '/landing',
-                name: Routes.landing.toString(),
+                name: AppScreens.landing.toString(),
                 builder: (_, __) => const LandingScreen(),
               ),
             ],
@@ -148,16 +143,7 @@ class App extends StatefulWidget {
   State<App> createState() => _AppState();
 }
 
-// ignore: must_be_immutable
-class RootNavigator extends StatefulWidget {
-  Widget screen;
-  RootNavigator({super.key, required this.screen});
-
-  @override
-  State<RootNavigator> createState() => _RootNavigatorState();
-}
-
-enum Routes {
+enum AppScreens {
   landing,
   problem,
   problems,
@@ -180,6 +166,15 @@ enum Routes {
   streak
 }
 
+// ignore: must_be_immutable
+class RootNavigator extends StatefulWidget {
+  Widget screen;
+  RootNavigator({super.key, required this.screen});
+
+  @override
+  State<RootNavigator> createState() => _RootNavigatorState();
+}
+
 class _AppState extends State<App> {
   @override
   Widget build(BuildContext context) {
@@ -190,7 +185,9 @@ class _AppState extends State<App> {
         key: drawerKey,
         body: RootNavigator(
           screen: Container(
-            height: getHeight(),
+            height: MediaQuery.of(context).size.height -
+                MediaQuery.of(context).padding.top -
+                kToolbarHeight,
             color: Colors.black.lighten(75),
             child: widget.screen ?? widget.shell,
           ),
@@ -286,5 +283,100 @@ class _RootNavigatorState extends State<RootNavigator> {
         ),
       ],
     );
+  }
+}
+
+extension AppPageX on AppScreens {
+  String get name {
+    switch (this) {
+      case AppScreens.problems:
+        return 'PROBLEMS';
+      case AppScreens.problem:
+        return 'PROBLEM';
+      case AppScreens.explore:
+        return 'EXPLORE';
+      case AppScreens.leaderboards:
+        return 'LEADERBOARDS';
+      case AppScreens.jobs:
+        return 'JOBS';
+      case AppScreens.news:
+        return 'NEWS';
+      case AppScreens.community:
+        return 'COMMUNITY';
+      case AppScreens.featureRequests:
+        return 'FEATURE_REQUESTS';
+      case AppScreens.bugReports:
+        return 'BUG_REPORTS';
+      case AppScreens.landing:
+        return 'LANDING';
+      case AppScreens.notifications:
+        return 'NOTIFICATIONS';
+      case AppScreens.maze:
+        return 'MAZE';
+      case AppScreens.sort:
+        return 'SORT';
+      case AppScreens.sql:
+        return 'SQL';
+      case AppScreens.contests:
+        return 'CONTESTS';
+      case AppScreens.profile:
+        return 'PROFILE';
+      case AppScreens.settings:
+        return 'SETTINGS';
+      case AppScreens.search:
+        return 'SEARCH';
+      case AppScreens.streak:
+        return 'STREAK';
+      default:
+        return 'HOME';
+    }
+  }
+
+  String get path {
+    switch (this) {
+      case AppScreens.home:
+        return '/';
+      case AppScreens.problems:
+        return '/problems';
+      case AppScreens.problem:
+        return '/problem';
+      case AppScreens.explore:
+        return '/explore';
+      case AppScreens.news:
+        return '/news';
+      case AppScreens.notifications:
+        return '/notifications';
+      case AppScreens.leaderboards:
+        return '/leaderboards';
+      case AppScreens.community:
+        return '/community';
+      case AppScreens.settings:
+        return '/settings';
+      case AppScreens.profile:
+        return '/profile';
+      case AppScreens.bugReports:
+        return '/bugReports';
+      case AppScreens.featureRequests:
+        return '/featureRequests';
+      case AppScreens.search:
+        return '/search';
+      case AppScreens.streak:
+        return '/streak';
+      case AppScreens.landing:
+        return '/landing';
+      case AppScreens.sql:
+        return '/sql';
+      case AppScreens.maze:
+        return '/maze';
+      case AppScreens.sort:
+        return '/sort';
+      case AppScreens.contests:
+        return '/contests';
+      case AppScreens.jobs:
+        return '/jobs';
+
+      default:
+        return '/';
+    }
   }
 }

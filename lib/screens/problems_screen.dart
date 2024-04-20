@@ -59,7 +59,7 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
       color: color,
       title: title ?? '',
       description: description,
-      child: const Text('ssoosos'),
+      child: const Text(''),
     );
   }
 
@@ -75,6 +75,83 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
     );
   }
 
+  Padding buildListHeader() {
+    return const Padding(
+      padding: EdgeInsets.only(),
+      child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[
+            SizedBox(
+                child: Text("Status",
+                    style: TextStyle(fontWeight: FontWeight.bold))),
+            Gap(10),
+            Expanded(
+                flex: 4,
+                child: Text("Title",
+                    style: TextStyle(fontWeight: FontWeight.bold))),
+            SizedBox(
+                width: 95,
+                child: Text("Solution",
+                    style: TextStyle(fontWeight: FontWeight.bold))),
+            SizedBox(
+                width: 110,
+                child: Text("Acceptance",
+                    style: TextStyle(fontWeight: FontWeight.bold))),
+            SizedBox(
+                width: 110,
+                child: Text("Difficulty",
+                    style: TextStyle(fontWeight: FontWeight.bold))),
+            SizedBox(
+                width: 100,
+                child: Text("Frequency",
+                    style: TextStyle(fontWeight: FontWeight.bold))),
+          ]),
+    );
+  }
+
+  GestureDetector buildListItem(int idx, BuildContext context) {
+    final item = problems![idx];
+    idx -= 1;
+    bool odd = idx % 2 == 0;
+    Color color = odd ? Colors.grey.shade500 : Colors.grey.shade600;
+    Color difficultyColor = item.difficulty == 'Hard'
+        ? Colors.red
+        : item.difficulty == 'Medium'
+            ? Colors.yellow
+            : Colors.green;
+    return GestureDetector(
+      onTap: () {
+        Provider.of<ProblemProvider>(context, listen: false)
+            .setFocusedProblem(item);
+        GoRouter.of(context).go(AppScreens.problem.path);
+      },
+      child: Container(
+        color: color,
+        child: ListTile(
+          iconColor: Colors.white,
+          leading: const Icon(Icons.abc),
+          textColor: Colors.white,
+          title: Row(
+            children: [
+              Expanded(flex: 10, child: Text('${item.numLC}. ${item.title}')),
+              const Spacer(),
+              const SizedBox(width: 60, child: Icon(Icons.abc)),
+              const Spacer(),
+              SizedBox(width: 60, child: Text('${item.acceptanceRate}')),
+              const Spacer(),
+              SizedBox(
+                  width: 70,
+                  child: Text('${item.difficulty}',
+                      style: TextStyle(color: difficultyColor))),
+              const Spacer(),
+              SizedBox(width: 60, child: Text('${item.frequency}')),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
   buildProblemList() {
     return SizedBox(
       width: 1000,
@@ -83,79 +160,9 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
         shrinkWrap: true,
         itemBuilder: (BuildContext context, int idx) {
           if (idx == 0) {
-            return const Padding(
-              padding: EdgeInsets.only(),
-              child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    SizedBox(
-                        child: Text("Status",
-                            style: TextStyle(fontWeight: FontWeight.bold))),
-                    Gap(10),
-                    Expanded(
-                        flex: 4,
-                        child: Text("Title",
-                            style: TextStyle(fontWeight: FontWeight.bold))),
-                    SizedBox(
-                        width: 95,
-                        child: Text("Solution",
-                            style: TextStyle(fontWeight: FontWeight.bold))),
-                    SizedBox(
-                        width: 110,
-                        child: Text("Acceptance",
-                            style: TextStyle(fontWeight: FontWeight.bold))),
-                    SizedBox(
-                        width: 110,
-                        child: Text("Difficulty",
-                            style: TextStyle(fontWeight: FontWeight.bold))),
-                    SizedBox(
-                        width: 100,
-                        child: Text("Frequency",
-                            style: TextStyle(fontWeight: FontWeight.bold))),
-                  ]),
-            );
+            return buildListHeader();
           }
-          final item = problems![idx];
-          idx -= 1;
-          bool odd = idx % 2 == 0;
-          Color color = odd ? Colors.grey.shade500 : Colors.grey.shade600;
-          Color difficultyColor = item.difficulty == 'Hard'
-              ? Colors.red
-              : item.difficulty == 'Medium'
-                  ? Colors.yellow
-                  : Colors.green;
-          return GestureDetector(
-            onTap: () {
-              Provider.of<ProblemProvider>(context, listen: false)
-                  .setFocusedProblem(item);
-              GoRouter.of(context).go('/problem');
-            },
-            child: Container(
-              color: color,
-              child: ListTile(
-                iconColor: Colors.white,
-                leading: const Icon(Icons.abc),
-                textColor: Colors.white,
-                title: Row(
-                  children: [
-                    Expanded(
-                        flex: 10, child: Text('${item.numLC}. ${item.title}')),
-                    const Spacer(),
-                    const SizedBox(width: 60, child: Icon(Icons.abc)),
-                    const Spacer(),
-                    SizedBox(width: 60, child: Text('${item.acceptanceRate}')),
-                    const Spacer(),
-                    SizedBox(
-                        width: 70,
-                        child: Text('${item.difficulty}',
-                            style: TextStyle(color: difficultyColor))),
-                    const Spacer(),
-                    SizedBox(width: 60, child: Text('${item.frequency}')),
-                  ],
-                ),
-              ),
-            ),
-          );
+          return buildListItem(idx, context);
         },
       ),
     );
@@ -356,6 +363,9 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
     final List<dynamic> fetchedArticles = data['data'];
     List<Problem> res =
         fetchedArticles.map((item) => Problem.fromJson(item)).toList();
+    Glob.logI(res.length);
+    Glob.logI(res[0].title);
+    Glob.logI(res[1].title);
     setState(() {
       problems = res;
     });
