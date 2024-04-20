@@ -46,20 +46,27 @@ class _AuthScreenState extends State<AuthScreen> {
             child: const Text('podRequest')),
         ElevatedButton(
             onPressed: () {
-              getData();
+              getData('');
             },
-            child: const Text('getData'))
+            child: const Text('get index')),
+        ElevatedButton(
+            onPressed: () {
+              getData('/users');
+            },
+            child: const Text('get Users')),
+        ElevatedButton(
+            onPressed: () {
+              getData('/wizards');
+            },
+            child: const Text(' get Wizards'))
       ],
     );
   }
 
-  getData() async {
+  getData(resource) async {
     try {
-      final result = await Api.get('wizards');
+      final result = await Api.get(resource);
       Glob.logIObj(jsonEncode(result));
-      // final user = User.fromJson(result['user']);
-      // print(user);
-      // Glob.logIObj(jsonEncode(user));
     } catch (e) {
       print('Error: $e');
 

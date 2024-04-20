@@ -4,7 +4,7 @@ import 'package:app/all.dart';
 import 'package:http/http.dart' as http;
 
 class Api {
-  static const url = 'http://localhost:3000/api/';
+  static const url = 'http://localhost:3000/api';
   static http.Client client = http.Client();
   static String authToken =
       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWNkMmY0YzAyNjAwNDZhNDQzNTExYTIiLCJpYXQiOjE3MTM2NDU5MDUsImV4cCI6MjAyOTAwNTkwNX0.sxLZCqvzNl5AIFYjNB2npY-4oOWPeDmAdrrxNJNfqjg';
@@ -15,7 +15,8 @@ class Api {
     try {
       final headers = <String, String>{};
       headers['Authorization'] = 'Bearer $authToken';
-      final response = await http.post(Uri.parse(url + route));
+      final response = await http.get(Uri.parse(url + route));
+      print(response.body);
       return jsonDecode(response.body);
     } catch (e) {
       Glob.logI('Error: $e');
