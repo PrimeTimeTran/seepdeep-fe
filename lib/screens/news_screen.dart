@@ -89,7 +89,6 @@ class _NewsScreenState extends State<NewsScreen> {
                 setState(() {
                   selectedNewsTopics = List.from(list!);
                 });
-                // Navigator.pop(context);
               },
               choiceChipBuilder: (context, item, isSelected) {
                 return Container(
@@ -126,7 +125,10 @@ class _NewsScreenState extends State<NewsScreen> {
 
   buildArticles() {
     if (articles.isNotEmpty) {
-      return ListView.builder(itemBuilder: (BuildContext context, int idx) {
+      return ListView.builder(
+          // physics: NeverScrollableScrollPhysics(),
+          // clipBehavior: Clip.antiAlias,
+          itemBuilder: (BuildContext context, int idx) {
         final item = articles[idx];
         return ListTile(
           contentPadding: const EdgeInsets.all(50),
