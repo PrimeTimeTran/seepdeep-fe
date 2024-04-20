@@ -63,62 +63,71 @@ class _NewsScreenState extends State<NewsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          SizedBox(
-            height: 100,
-            width: double.infinity,
-            child: FilterListWidget(
-              listData: selectedNewsTopics,
-              hideHeader: true,
-              hideSelectedTextCount: true,
-              selectedListData: selectedNewsTopics,
-              choiceChipLabel: (item) => item!.name,
-              themeData: FilterListThemeData(context),
-              validateSelectedItem: (list, val) => list!.contains(val),
-              controlButtons: const [
-                ControlButtonType.All,
-                ControlButtonType.Reset,
-              ],
-              onItemSearch: (topic, query) {
-                return topic.name!.toLowerCase().contains(query.toLowerCase());
-              },
-              onApplyButtonClick: (list) {
-                setState(() {
-                  selectedNewsTopics = List.from(list!);
-                });
-              },
-              choiceChipBuilder: (context, item, isSelected) {
-                return Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
-                  margin:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                  decoration: BoxDecoration(
-                      border: Border.all(
-                        color:
-                            isSelected! ? Colors.blue[300]! : Colors.grey[300]!,
+    return Center(
+      child: SizedBox(
+        width: getWidth() / 1.4,
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              SizedBox(
+                height: 100,
+                width: double.infinity,
+                child: FilterListWidget(
+                  listData: selectedNewsTopics,
+                  hideHeader: true,
+                  hideSelectedTextCount: true,
+                  selectedListData: selectedNewsTopics,
+                  choiceChipLabel: (item) => item!.name,
+                  themeData: FilterListThemeData(context),
+                  validateSelectedItem: (list, val) => list!.contains(val),
+                  controlButtons: const [
+                    ControlButtonType.All,
+                    ControlButtonType.Reset,
+                  ],
+                  onItemSearch: (topic, query) {
+                    return topic.name!
+                        .toLowerCase()
+                        .contains(query.toLowerCase());
+                  },
+                  onApplyButtonClick: (list) {
+                    setState(() {
+                      selectedNewsTopics = List.from(list!);
+                    });
+                  },
+                  choiceChipBuilder: (context, item, isSelected) {
+                    return Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 16, vertical: 5),
+                      margin: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 5),
+                      decoration: BoxDecoration(
+                          border: Border.all(
+                            color: isSelected!
+                                ? Colors.blue[300]!
+                                : Colors.grey[300]!,
+                          ),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(30))),
+                      child: Text(
+                        item.name,
+                        style: TextStyle(
+                            color: isSelected
+                                ? Colors.blue[300]
+                                : Colors.grey[500]),
                       ),
-                      borderRadius:
-                          const BorderRadius.all(Radius.circular(30))),
-                  child: Text(
-                    item.name,
-                    style: TextStyle(
-                        color:
-                            isSelected ? Colors.blue[300] : Colors.grey[500]),
-                  ),
-                );
-              },
-            ),
+                    );
+                  },
+                ),
+              ),
+              SizedBox(
+                child: buildArticles(),
+                width: getWidth() / 3,
+                height: getHeight(),
+              )
+            ],
           ),
-          SizedBox(
-            child: buildArticles(),
-            width: getWidth() / 3,
-            height: getHeight(),
-          )
-        ],
+        ),
       ),
     );
   }
