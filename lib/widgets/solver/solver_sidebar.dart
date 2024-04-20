@@ -133,11 +133,11 @@ class CodeElementBuilder extends MarkdownElementBuilder {
 }
 
 // ignore: must_be_immutable
-class ProblemPrompt extends StatefulWidget {
+class SolverSidebar extends StatefulWidget {
   bool passing;
   Problem problem;
   bool submitted;
-  ProblemPrompt({
+  SolverSidebar({
     super.key,
     required this.problem,
     required this.passing,
@@ -145,10 +145,10 @@ class ProblemPrompt extends StatefulWidget {
   });
 
   @override
-  State<ProblemPrompt> createState() => _ProblemPromptState();
+  State<SolverSidebar> createState() => _SolverSidebarState();
 }
 
-class _ProblemPromptState extends State<ProblemPrompt> {
+class _SolverSidebarState extends State<SolverSidebar> {
   ScrollController controller = ScrollController();
   @override
   Widget build(BuildContext context) {

@@ -49,7 +49,7 @@ class _SolverState extends State<Solver> {
                 kToolbarHeight -
                 5,
             child: VerticalSplitView(
-              left: ProblemPrompt(
+              left: SolverSidebar(
                   problem: problem, passing: passing, submitted: submitted),
               right: buildRight(),
             ),
