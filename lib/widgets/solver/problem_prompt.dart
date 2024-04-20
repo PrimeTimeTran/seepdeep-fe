@@ -133,8 +133,15 @@ class CodeElementBuilder extends MarkdownElementBuilder {
 
 // ignore: must_be_immutable
 class ProblemPrompt extends StatefulWidget {
+  bool passing;
   Problem problem;
-  ProblemPrompt({super.key, required this.problem});
+  bool submitted;
+  ProblemPrompt({
+    super.key,
+    required this.problem,
+    required this.passing,
+    required this.submitted,
+  });
 
   @override
   State<ProblemPrompt> createState() => _ProblemPromptState();
@@ -228,17 +235,6 @@ class _ProblemPromptState extends State<ProblemPrompt> {
                     const SizedBox(height: 10),
                     SelectableText(
                         widget.problem.testSuite![0]['output'].toString()),
-                    // SizedBox(
-                    //   width: double.infinity,
-                    //   height: getHeight(),
-                    //   child: Markdown(
-                    //     selectable: true,
-                    //     data: widget.problem.body!,
-                    //     builders: {
-                    //       'code': CodeElementBuilder(),
-                    //     },
-                    //   ),
-                    // )
                   ],
                 ),
               ),

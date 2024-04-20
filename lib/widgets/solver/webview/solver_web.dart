@@ -16,10 +16,10 @@ class Solver extends StatefulWidget {
 }
 
 class _SolverState extends State<Solver> {
-  bool? passing;
   int? count = 0;
   String code = '';
   String result = '';
+  bool passing = false;
   bool submitted = false;
   List<TestRun> testRuns = [];
   late Toaster toaster = Toaster(context);
@@ -49,7 +49,8 @@ class _SolverState extends State<Solver> {
                 kToolbarHeight -
                 5,
             child: VerticalSplitView(
-              left: ProblemPrompt(problem: problem),
+              left: ProblemPrompt(
+                  problem: problem, passing: passing, submitted: submitted),
               right: buildRight(),
             ),
           ),
@@ -73,14 +74,17 @@ class _SolverState extends State<Solver> {
   }
 
   buildTab(title, casePassing) {
-    final color = casePassing ? Colors.green : Colors.red;
+    final color = submitted && testRuns.isEmpty
+        ? Colors.grey
+        : casePassing
+            ? Colors.green
+            : Colors.red;
     return SizedBox(
       height: 40,
       width: 75,
       child: Row(
         children: [
-          if (passing != null)
-            Tab(icon: Icon(Icons.circle, size: 10, color: color)),
+          if (submitted) Tab(icon: Icon(Icons.circle, size: 10, color: color)),
           const Gap(5),
           Text(
             title,
@@ -91,65 +95,58 @@ class _SolverState extends State<Solver> {
     );
   }
 
-  buildTestCase(idx, TestRun testRun) {
+  buildTestCase(idx, TestRun testRun, height) {
     final testCase = problem.testSuite![idx];
     final inputs = testCase['input'];
-    print(testRun.passing);
-    return Column(
-      children: [
-        // Each parameter of the function.
-        SizedBox(
-          height: 150,
-          width: double.infinity,
-          child: ListView.builder(
-            itemCount: inputs.length,
-            itemBuilder: (BuildContext context, int idx) {
-              final testInput = testCase['input'][idx];
-              return Column(
-                children: [
-                  TextFormField(
-                    initialValue: '$testInput',
-                    decoration: const InputDecoration(
-                      labelText: "Input",
-                      border: OutlineInputBorder(),
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                ],
-              );
-            },
-          ),
-        ),
-        SizedBox(
-          height: 150,
-          width: double.infinity,
-          child: Column(
-            children: [
-              TextFormField(
-                readOnly: true,
-                initialValue: testRun.outputActual,
-                decoration: const InputDecoration(
-                  labelText: "Output",
-                  border: OutlineInputBorder(),
-                ),
+    return SizedBox(
+        height: height,
+        width: double.infinity,
+        child: Column(
+          children: [
+            SizedBox(
+              height: 150,
+              width: double.infinity,
+              child: ListView.builder(
+                itemCount: inputs.length,
+                itemBuilder: (BuildContext context, int idx) {
+                  final testInput = testCase['input'][idx];
+                  return Column(
+                    children: [
+                      TextFormField(
+                        initialValue: '$testInput',
+                        decoration: const InputDecoration(
+                          labelText: "Input",
+                          border: OutlineInputBorder(),
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                    ],
+                  );
+                },
               ),
-              const Gap(25),
-              TextFormField(
-                readOnly: true,
-                initialValue: testRun.outputExpected,
-                decoration: const InputDecoration(
-                  labelText: "Expected",
-                  border: OutlineInputBorder(),
-                ),
+            ),
+            TextFormField(
+              readOnly: true,
+              initialValue: testRun.outputActual,
+              decoration: const InputDecoration(
+                labelText: "Output",
+                border: OutlineInputBorder(),
               ),
-            ],
-          ),
-        ),
-      ],
-    );
+            ),
+            const Gap(25),
+            TextFormField(
+              readOnly: true,
+              initialValue: testRun.outputExpected,
+              decoration: const InputDecoration(
+                labelText: "Expected",
+                border: OutlineInputBorder(),
+              ),
+            ),
+          ],
+        ));
   }
 
-  buildTestPanel(parentHeight) {
+  buildTestPanel(height) {
     List<Widget> testTabs = [];
     List<Widget> testRunResultViews = [];
     if (testRuns.isNotEmpty) {
@@ -158,7 +155,7 @@ class _SolverState extends State<Solver> {
         final element = entry.value;
         final tab = buildTab('Case $idx', element.passing);
         testTabs.add(tab);
-        final view = buildTestRunResultView(idx, element);
+        final view = buildTestRunResultView(idx, element, height);
         testRunResultViews.add(view);
       }
     }
@@ -204,7 +201,7 @@ class _SolverState extends State<Solver> {
           ),
         ),
         SizedBox(
-          height: parentHeight - 55,
+          height: height - 55,
           width: double.infinity,
           child: DefaultTabController(
             length: testRuns.isNotEmpty ? testTabs.length : 3,
@@ -239,14 +236,14 @@ class _SolverState extends State<Solver> {
     );
   }
 
-  SingleChildScrollView buildTestRunResultView(idx, testRun) {
+  SingleChildScrollView buildTestRunResultView(idx, testRun, height) {
     return SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            buildTestCase(idx, testRun),
+            buildTestCase(idx, testRun, height),
           ],
         ),
       ),

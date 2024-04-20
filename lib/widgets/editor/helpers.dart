@@ -20,7 +20,12 @@ final pythonController = CodeController(
 );
 var pythonSort = """
 def twoSum(nums, target):
-  return [1,2]
+  store = {}
+  for idx, n in enumerate(nums):
+    remainder = target - n
+    if store.get(remainder) != None:
+      return [store.get(remainder), idx]
+    store[n] = idx
 """;
 // var pythonSort = """
 // nums = [20, 13, 3, 3, 4, 5, 1, 2, 8, 7, 9, 0, 11]
