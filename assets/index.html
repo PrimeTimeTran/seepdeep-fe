@@ -1,95 +1,91 @@
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
     <script src="https://cdn.jsdelivr.net/pyodide/v0.25.1/full/pyodide.js"></script>
-  </head>
-  <body>
-    <script type="text/javascript">
-      function removeWhitespace(jsonString) {
-          // Use a regular expression to remove all whitespace characters
-          return jsonString.replace(/\s+/g, '');
+</head>
+<body>
+<script type="text/javascript">
+    function removeWhitespace(jsonString) {
+      return jsonString.replace(/\s+/g, '');
+    }
+    window.addEventListener('load', async function() {
+      async function setup() {
+        let pyodide = await loadPyodide();
+        return pyodide;
       }
-      window.addEventListener('load', async function() {
-          async function setup() {
-              let pyodide = await loadPyodide();
-              return pyodide;
+      let pyodideReadyPromise = setup();
+      async function evaluatePython(msg, params) {
+        const newParams = params.reduce((accumulator, currentValue, index) => {
+          let formattedValue;
+          if (Array.isArray(currentValue)) {
+            formattedValue = `[${currentValue.join(', ')}]`;
+          } else {
+            formattedValue = currentValue.toString();
           }
-          let pyodideReadyPromise = setup();
-          async function evaluatePython(msg, params) {
-              const newParams = params.reduce((accumulator, currentValue, index) => {
-                  let formattedValue;
-                  if (Array.isArray(currentValue)) {
-                      formattedValue = `[${currentValue.join(', ')}]`;
-                  } else {
-                      formattedValue = currentValue.toString();
-                  }
-                  return accumulator + formattedValue + (index < params.length - 1 ? ', ' : '');
-              }, '');
-              let pyodide = await pyodideReadyPromise;
-              try {
-                  let pythonCode = `
+          return accumulator + formattedValue + (index < params.length - 1 ? ', ' : '');
+        }, '');
+        let pyodide = await pyodideReadyPromise;
+        try {
+          let code = `
 ${msg.body}
 ${msg.name}(${newParams})`
-                  let output = pyodide.runPython(pythonCode)
-                  console.log(`Output: ${output}`)
-                  return `${output}`
-              } catch (err) {
-                  console.log(err);
-              }
+          let output = pyodide.runPython(code)
+          return `${output}`
+        } catch (err) {
+          console.log(err);
+        }
+      }
+      async function runner(msg) {
+        let pyodide = await loadPyodide()
+        const results = []
+        try {
+          let idx = 0;
+          try {
+            const promises = msg.testCases.map((val, index) => {
+              idx = index + 1
+              return new Promise(async (resolve) => {
+                let result = await evaluatePython(msg, val.input);
+                result = removeWhitespace(result)
+                let output = removeWhitespace(JSON.stringify(val.output))
+                let resp = {
+                  idx,
+                  outputActual: result,
+                  outputExpected: output,
+                  passing: output === result,
+                };
+                resolve(resp);
+              });
+            });
+            Promise.all(promises)
+              .then((results) => {
+                results.forEach((resp) => {
+                  results.push(resp);
+                });
+                sendMessageToFlutter(JSON.stringify(results))
+              })
+              .catch((error) => {
+                console.error('An error occurred:', error);
+              });
+          } catch (error) {
+            let resp = {
+              idx,
+              passing: false,
+              output: error,
+            }
+            results.push(resp)
           }
-          async function runHandler(msg) {
-              let pyodide = await loadPyodide()
-              const results = []
-              try {
-                  let idx = 0;
-                  try {
-                      const promises = msg.testCases.map((val, index) => {
-                          return new Promise(async (resolve) => {
-                              let result = await evaluatePython(msg, val.input);
-                              result = removeWhitespace(result)
-                              let output = removeWhitespace(JSON.stringify(val.output))
-                              let resp = {
-                                  idx: index + 1,
-                                  outputActual: result,
-                                  outputExpected: output,
-                                  passing: output === result,
-                              };
-                              resolve(resp);
-                          });
-                      });
-                      Promise.all(promises)
-                          .then((results) => {
-                              results.forEach((resp) => {
-                                  results.push(resp);
-                              });
-                              // console.log(results)
-                              console.log('All test cases processed:', results);
-                              sendMessageToFlutter(JSON.stringify(results))
-                          })
-                          .catch((error) => {
-                              // Handle any errors that occurred during the asynchronous operations
-                              console.error('An error occurred:', error);
-                          });
-                  } catch (error) {
-                      let resp = {
-                          idx,
-                          passing: false,
-                          output: error,
-                          testCaseError: 'why',
-                      }
-                      results.push(resp)
-                  }
-              } catch (error) {
-                  sendMessageToFlutter('Error: ' + error)
-              }
-          }
-          function sendMessageToFlutter(message) {
-              window.parent.postMessage(message, '*')
-          }
-          window.addEventListener('message', (message) => {
-              runHandler(JSON.parse(message.data))
-          })
+        } catch (error) {
+          sendMessageToFlutter('Error: ' + error)
+        }
+      }
+
+      function sendMessageToFlutter(message) {
+        window.parent.postMessage(message, '*')
+      }
+      window.addEventListener('message', (message) => {
+        runner(JSON.parse(message.data))
       })
-    </script>
-  </body>
+    })
+</script>
+</body>
 </html>
