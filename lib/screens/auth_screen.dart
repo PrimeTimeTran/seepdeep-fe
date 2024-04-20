@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:app/all.dart';
 import 'package:flutter/material.dart';
 
@@ -12,7 +10,7 @@ class AuthScreen extends StatefulWidget {
 
 class _AuthScreenState extends State<AuthScreen> {
   String email = 'datloiboi@gmail.com';
-  String password = 'asdfas';
+  String password = 'asdf!123';
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -41,9 +39,9 @@ class _AuthScreenState extends State<AuthScreen> {
         ),
         ElevatedButton(
             onPressed: () {
-              podRequest();
+              postRequest();
             },
-            child: const Text('podRequest')),
+            child: const Text('postRequest')),
         ElevatedButton(
             onPressed: () {
               getData('');
@@ -51,12 +49,12 @@ class _AuthScreenState extends State<AuthScreen> {
             child: const Text('get index')),
         ElevatedButton(
             onPressed: () {
-              getData('/users');
+              getData('users');
             },
             child: const Text('get Users')),
         ElevatedButton(
             onPressed: () {
-              getData('/wizards');
+              getData('wizards');
             },
             child: const Text(' get Wizards'))
       ],
@@ -66,25 +64,21 @@ class _AuthScreenState extends State<AuthScreen> {
   getData(resource) async {
     try {
       final result = await Api.get(resource);
-      Glob.logIObj(jsonEncode(result));
+      Glob.logI(result);
     } catch (e) {
-      print('Error: $e');
-
-      return [];
+      Glob.logE('Error: $e');
     }
   }
 
-  podRequest() async {
+  postRequest() async {
     try {
       final result = await Api.post(
           'auth/authenticate', {'email': email, 'password': password});
-      final user = User.fromJson(result['user']);
-      print(user);
-      Glob.logIObj(jsonEncode(user));
-    } catch (e) {
-      print('Error: $e');
 
-      return [];
+      final user = User.fromJson(result['user']);
+      Glob.logIObj(user);
+    } catch (e) {
+      Glob.logE('Error: $e');
     }
   }
 }
