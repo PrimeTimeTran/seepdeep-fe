@@ -3,12 +3,15 @@ import 'package:app/models/user.dart';
 
 class Problem {
   String? title;
-  int? numLC;
   String? body;
-  List<Topic>? topics;
+  String? frequency;
+  String? difficulty;
+  User? author;
   bool? isPublished;
   bool? isSubmitted;
-  User? author;
+
+  int? numLC;
+  List<Topic>? topics;
   List<String>? hints;
   List<String>? constraints;
   List<Map<String, String>>? similar;
@@ -20,8 +23,7 @@ class Problem {
   // In this way we don't have to create a new table for just votes
   // and we have the Object available client side to determine if current user has voted on this or not.
   Map<String, int>? editorialVotes;
-  String? frequency;
-  String? difficulty;
+
   double? accepted;
   double? submissions;
   double? acceptanceRate;

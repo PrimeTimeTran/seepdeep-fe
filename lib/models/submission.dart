@@ -5,29 +5,30 @@ import 'package:app/models/topic.dart';
 import 'package:app/models/user.dart';
 
 class Submission {
-  User? user;
   String? body;
-  DateTime? submitted;
-  Problem? problem;
-  String? language;
-  bool? isAccepted;
-  double? runTime;
-  double? beats;
-  String? notes;
-
-  bool? isShared;
   String? title;
   String? explanation;
+  String? language;
+  String? notes;
 
+  User? user;
+  DateTime? submitted;
+  Problem? problem;
+  Contest? contest;
+
+  bool? isAccepted;
+  bool? isShared;
+  bool? isContest;
+
+  int? penalty;
   int? numVotes;
-  List<int>? voterIds;
   int? numComments;
+  double? runTime;
+  double? beats;
+
+  List<int>? voterIds;
   List<Topic>? topics;
   List<Comment>? comments;
-
-  bool? isContest;
-  Contest? contest;
-  int? penalty;
 
   Submission({
     this.user,

@@ -4,9 +4,9 @@ class Company {
   String? name;
   String? industry;
   String? founded;
-  int? teamSize;
   String? location;
   String? urlAvatar;
+  int? teamSize;
   List<User>? founders;
   List<String>? industries;
   List<String>? technologies;
@@ -55,19 +55,20 @@ class Job {
   String? title;
   String? caption;
   String? location;
-  bool? isRemote;
-  Company? company;
   String? type; // Full or part time
   String? description;
   String? experience;
   String? project; // What we're up to. Whats awesome about this position?
-  List<String>?
-      technologies; // What do we use everyday? Is it different from what we do
   String? requirements;
   String? whoAreYou;
   String? salary;
   String? equity;
   String? benefits;
+
+  bool? isRemote;
+  Company? company;
+  List<String>?
+      technologies; // What do we use everyday? Is it different from what we do
 
   Job({
     this.title,

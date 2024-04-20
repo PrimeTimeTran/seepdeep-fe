@@ -5,17 +5,19 @@ import 'package:app/models/submission.dart';
 import 'package:app/models/user.dart';
 
 class Comment {
+  int? numVotes;
   String? body;
+  String? code;
+  Comment? comment; // The comment this comment is replying to
+
   User? user;
   Post? post;
   Article? article;
-  Comment? comment; // The comment this comment is replying to
   Problem? problem;
   Submission? submission;
+
   List<Comment>? comments; // The replies this comment got.
-  int? numVotes;
   List<int>? voterIds;
-  String? code;
 
   Comment({
     this.body,

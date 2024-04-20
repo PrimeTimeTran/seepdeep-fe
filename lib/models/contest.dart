@@ -12,7 +12,7 @@ class Contest {
   DateTime? start;
   List<Problem>? problems;
   List<Submission>? submissions;
-  List<ContestParticipation>? participants;
+  List<Participant>? participants;
 
   Contest({
     this.body,
@@ -42,8 +42,7 @@ class Contest {
             ?.map((submissionJson) => Submission.fromJson(submissionJson))
             .toList(),
         participants = (json['participants'] as List<dynamic>?)
-            ?.map((participantJson) =>
-                ContestParticipation.fromJson(participantJson))
+            ?.map((participantJson) => Participant.fromJson(participantJson))
             .toList();
 
   Map<String, dynamic> toJson() {
@@ -63,7 +62,7 @@ class Contest {
   }
 }
 
-class ContestParticipation {
+class Participant {
   User? user;
   Contest? contest;
   DateTime? time;
@@ -73,7 +72,7 @@ class ContestParticipation {
   List<Problem>? problems;
   List<Submission>? submissions;
 
-  ContestParticipation({
+  Participant({
     this.user,
     this.contest,
     this.time,
@@ -84,7 +83,7 @@ class ContestParticipation {
     this.submissions,
   });
 
-  ContestParticipation.fromJson(Map<String, dynamic> json)
+  Participant.fromJson(Map<String, dynamic> json)
       : user = json['user'] != null ? User.fromJson(json['user']) : null,
         contest =
             json['contest'] != null ? Contest.fromJson(json['contest']) : null,

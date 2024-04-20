@@ -3,23 +3,23 @@ import 'package:app/models/user.dart';
 
 class Article {
   String? type; // news, original, tutorial, announcement, review
-  User? author;
   String? title;
   String? caption;
   String? body;
   String? link;
   String? urlCoverImg;
   String? urlVideo;
-  bool? isPublished;
-  DateTime? publishDate;
   String? language;
-  List<Comment>? comments;
-  int? numComments;
-  List<int>? voterIds;
-  int? numVotes;
 
+  int? numComments;
+  int? numVotes;
+  DateTime? publishDate;
+  bool? isPublished;
   bool? isOriginal; // Was this published on CSGems first?
 
+  User? author;
+  List<int>? voterIds;
+  List<Comment>? comments;
   Article({
     this.type,
     this.author,

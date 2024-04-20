@@ -7,7 +7,7 @@ class Post {
   String? title;
   String? body;
   DateTime? submitted;
-  bool? isPublic;
+  bool? isPublished;
   int? numVotes;
   int? numViews;
   int? numComments;
@@ -19,7 +19,7 @@ class Post {
     this.title,
     this.body,
     this.submitted,
-    this.isPublic,
+    this.isPublished,
     this.numVotes,
     this.numViews,
     this.numComments,
@@ -34,7 +34,7 @@ class Post {
         submitted = json['submitted'] != null
             ? DateTime.parse(json['submitted'])
             : null,
-        isPublic = json['isPublic'],
+        isPublished = json['isPublished'],
         numVotes = json['numVotes'],
         numViews = json['numViews'],
         numComments = json['numComments'],
@@ -51,7 +51,7 @@ class Post {
       'title': title,
       'body': body,
       'submitted': submitted?.toIso8601String(),
-      'isPublic': isPublic,
+      'isPublished': isPublished,
       'numVotes': numVotes,
       'numViews': numViews,
       'numComments': numComments,
