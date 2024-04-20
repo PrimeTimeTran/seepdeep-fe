@@ -252,9 +252,7 @@ class _SolverState extends State<Solver> {
 
   onRun(submission) {
     Glob.loadingStart();
-    setState(() {
-      submitted = true;
-    });
+
     // May need to redo this to send to server for processing.
     final dto = {
       "body": submission,
@@ -284,6 +282,7 @@ class _SolverState extends State<Solver> {
           result = msg.data;
           passing = passing;
           testRuns = testRuns;
+          submitted = true;
         });
       }, onError: (e) {
         Glob.logI(e);
