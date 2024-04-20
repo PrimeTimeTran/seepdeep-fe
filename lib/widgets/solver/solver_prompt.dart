@@ -1,5 +1,6 @@
 import 'package:app/models/all.dart';
 import 'package:app/utils.dart';
+import 'package:app/widgets/solver/comment.dart' as ui;
 import 'package:flutter/material.dart';
 import 'package:flutter_highlighter/flutter_highlighter.dart';
 import 'package:flutter_highlighter/themes/atom-one-dark.dart';
@@ -215,35 +216,12 @@ class _ProblemPromptState extends State<ProblemPrompt> {
           )),
         ),
         body: TabBarView(
+          physics: const NeverScrollableScrollPhysics(),
           children: [
-            SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SelectableText(
-                      widget.problem.title!,
-                      style: const TextStyle(
-                          fontSize: 20, fontWeight: FontWeight.bold),
-                    ),
-                    const SizedBox(height: 10),
-                    SelectableText(widget.problem.body!),
-                    const SizedBox(height: 10),
-                    const SelectableText("Example 1"),
-                    const SizedBox(height: 10),
-                    SelectableText(
-                        widget.problem.testSuite![0]['input'].toString()),
-                    const SizedBox(height: 10),
-                    SelectableText(
-                        widget.problem.testSuite![0]['output'].toString()),
-                  ],
-                ),
-              ),
-            ),
-            const Icon(Icons.directions_transit),
-            const Icon(Icons.directions_bike),
-            const Icon(Icons.directions_boat_rounded),
+            buildTabProblem(context),
+            buildTabEditorial(),
+            buildTabSolutions(),
+            const ui.SubmissionTable(),
           ],
         ),
       ),
@@ -263,6 +241,135 @@ class _ProblemPromptState extends State<ProblemPrompt> {
           SelectableText(item['output'].toString()),
         ]);
       },
+    );
+  }
+
+  ScrollConfiguration buildTabEditorial() {
+    return ScrollConfiguration(
+      behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Row(
+              children: [
+                Icon(Icons.star, color: Colors.yellow),
+                Icon(Icons.star, color: Colors.yellow),
+                Icon(Icons.star, color: Colors.yellow),
+                Icon(Icons.star, color: Colors.yellow),
+                Icon(Icons.star, color: Colors.yellow),
+                SelectableText('4.53 (15 Votes)'),
+              ],
+            ),
+            const SelectableText('Editorial'),
+            SelectableText(
+              widget.problem.title!,
+              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 10),
+            SelectableText(
+              widget.problem.editorialBody!,
+              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 10),
+            const TextField(
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                hintText: 'Type a comment here... (Markdown Supported)',
+              ),
+            ),
+            SizedBox(
+              height: getHeight(),
+              child: ListView.builder(
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: 10,
+                itemBuilder: (BuildContext context, int idx) {
+                  return const ui.Comment();
+                },
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+  ScrollConfiguration buildTabProblem(BuildContext context) {
+    return ScrollConfiguration(
+      behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
+      child: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SelectableText(
+                widget.problem.title!,
+                style:
+                    const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 10),
+              SelectableText(widget.problem.body!),
+              const SizedBox(height: 10),
+              const SelectableText("Example 1"),
+              const SizedBox(height: 10),
+              SelectableText(widget.problem.testSuite![0]['input'].toString()),
+              const SizedBox(height: 10),
+              SelectableText(widget.problem.testSuite![0]['output'].toString()),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  ScrollConfiguration buildTabSolutions() {
+    return ScrollConfiguration(
+      behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const TextField(
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                hintText: 'Search',
+              ),
+            ),
+            SizedBox(
+              height: 50,
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: 10,
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (context, index) {
+                    return TextButton(
+                      onPressed: () {},
+                      child: const Text('Python'),
+                    );
+                  },
+                ),
+              ),
+            ),
+            SizedBox(
+              height: getHeight(),
+              child: ListView.separated(
+                itemCount: 10,
+                physics: const NeverScrollableScrollPhysics(),
+                separatorBuilder: (context, index) {
+                  return const Divider(color: Colors.grey);
+                },
+                itemBuilder: (BuildContext context, int idx) {
+                  return const ui.Solution();
+                },
+              ),
+            )
+          ],
+        ),
+      ),
     );
   }
 }

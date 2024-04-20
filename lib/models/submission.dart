@@ -7,6 +7,7 @@ import 'package:app/models/user.dart';
 class Submission {
   String? body;
   String? title;
+  // For those which are public
   String? explanation;
   String? language;
   String? notes;

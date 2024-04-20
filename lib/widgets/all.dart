@@ -6,7 +6,7 @@ export './indicator.dart';
 export './modals.dart';
 export './shimmer_list.dart';
 export './shimmers.dart';
-export './solver/problem_prompt.dart';
+export 'solver/solver_prompt.dart';
 export './solver/webview/all.dart';
 export './toasts.dart';
 export './uikit/all.dart';

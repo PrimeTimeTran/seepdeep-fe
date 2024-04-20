@@ -64,8 +64,8 @@ class User {
   String? urlLinkedIn;
   String? urlPortfolio;
   String? urlCSProfile;
-  List<String>? siteUrls;
   Badge? activeBadge;
+  List<String>? siteUrls;
 
   // Community
   int? views;
@@ -77,7 +77,7 @@ class User {
   int? contestRating;
   int? globalRanking;
   int? attended;
-  List<ContestParticipation>? contests;
+  List<Participant>? contests;
   int? startYear;
 
   double? top;
@@ -89,13 +89,13 @@ class User {
   // Learnings
   List<Note>? notes;
   List<Submission>? problemsSolved;
-  List<LanguageScore>? languages;
   List<Submission>? submissions;
+  List<LanguageScore>? languages;
 
+  int? numSubmissions;
   int? numAcceptedProblems;
   int? numSubmittedProblems;
   int? numAcceptedSubmissions;
-  int? numSubmissions;
 
   String? gender;
   String? avatar;
@@ -167,7 +167,7 @@ class User {
         globalRanking = json['globalRanking'],
         attended = json['attended'],
         contests = (json['contests'] as List<dynamic>?)
-            ?.map((contestJson) => ContestParticipation.fromJson(contestJson))
+            ?.map((contestJson) => Participant.fromJson(contestJson))
             .toList(),
         startYear = json['startYear'],
         top = json['top'],
