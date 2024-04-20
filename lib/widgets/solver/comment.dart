@@ -9,10 +9,10 @@ class Comment extends StatelessWidget {
       subtitleTextStyle: const TextStyle(height: 3),
       title: const Row(
         children: [
-          Icon(Icons.abc),
+          Icon(Icons.circle, size: 50),
           Text('Username'),
           Spacer(),
-          Text('DateTime')
+          Text('Hours ago...')
         ],
       ),
       subtitle: Column(
@@ -21,21 +21,28 @@ class Comment extends StatelessWidget {
           const SizedBox(height: 5),
           const Text('body'),
           const SizedBox(height: 5),
-          Container(
-            // color: Colors.red,
-            child: const Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Icon(Icons.abc),
-                Text('# Votes'),
-                Icon(Icons.abc),
-                Icon(Icons.comment),
-                Text('Show Replies'),
-                Icon(Icons.reply),
-                Icon(Icons.keyboard_option_key_sharp),
-              ],
-            ),
+          Row(
+            children: [
+              IconButton(
+                  onPressed: () {}, icon: const Icon(Icons.arrow_upward)),
+              TextButton(
+                child: const Text('10'),
+                onPressed: () {},
+              ),
+              // icon: const Icon(Icons.abc)),
+              IconButton(
+                  onPressed: () {}, icon: const Icon(Icons.arrow_downward)),
+              TextButton.icon(
+                label: const Text('Show Replies'),
+                onPressed: () {},
+                icon: const Icon(Icons.comment),
+              ),
+              TextButton.icon(
+                label: const Text('Reply'),
+                onPressed: () {},
+                icon: const Icon(Icons.reply),
+              ),
+            ],
           )
         ],
       ),
@@ -84,20 +91,26 @@ class Solution extends StatelessWidget {
           ),
           const Text('sososo'),
           const SizedBox(height: 5),
-          Container(
-            // color: Colors.red,
-            child: const Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Icon(Icons.abc),
-                Text('# Votes'),
-                Icon(Icons.remove_red_eye_outlined),
-                Text('# Views'),
-                Icon(Icons.comment),
-                Text('# Comments'),
-              ],
-            ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              TextButton.icon(
+                label: Text('10'),
+                onPressed: () {},
+                icon: Icon(Icons.arrow_upward),
+              ),
+              TextButton.icon(
+                label: Text('4.5K'),
+                onPressed: () {},
+                icon: Icon(Icons.remove_red_eye_outlined),
+              ),
+              TextButton.icon(
+                label: Text('5'),
+                onPressed: () {},
+                icon: Icon(Icons.comment),
+              ),
+            ],
           )
         ],
       ),

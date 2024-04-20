@@ -155,7 +155,7 @@ class _SolverSidebarState extends State<SolverSidebar> {
     return DefaultTabController(
       length: 4,
       key: ValueKey(widget.submitted),
-      initialIndex: widget.submitted ? 3 : 0,
+      initialIndex: widget.submitted ? 3 : 1,
       animationDuration: Duration.zero,
       child: Scaffold(
         appBar: AppBar(
@@ -278,15 +278,12 @@ class _SolverSidebarState extends State<SolverSidebar> {
                 hintText: 'Type a comment here... (Markdown Supported)',
               ),
             ),
-            SizedBox(
-              height: getHeight(),
-              child: ListView.builder(
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount: 10,
-                itemBuilder: (BuildContext context, int idx) {
-                  return const ui.Comment();
-                },
-              ),
+            ListView.builder(
+              shrinkWrap: true,
+              itemCount: 10,
+              itemBuilder: (BuildContext context, int idx) {
+                return const ui.Comment();
+              },
             )
           ],
         ),
@@ -354,19 +351,17 @@ class _SolverSidebarState extends State<SolverSidebar> {
                 ),
               ),
             ),
-            SizedBox(
-              height: getHeight(),
-              child: ListView.separated(
-                itemCount: 10,
-                physics: const NeverScrollableScrollPhysics(),
-                separatorBuilder: (context, index) {
-                  return const Divider(color: Colors.grey);
-                },
-                itemBuilder: (BuildContext context, int idx) {
-                  return const ui.Solution();
-                },
-              ),
-            )
+            ListView.separated(
+              shrinkWrap: true,
+              itemCount: 10,
+              physics: const NeverScrollableScrollPhysics(),
+              separatorBuilder: (context, index) {
+                return const Divider(color: Colors.grey);
+              },
+              itemBuilder: (BuildContext context, int idx) {
+                return const ui.Solution();
+              },
+            ),
           ],
         ),
       ),
