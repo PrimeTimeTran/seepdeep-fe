@@ -152,7 +152,7 @@ class _SolverSidebarState extends State<SolverSidebar> {
         return Column(children: [
           const SelectableText("Example 1"),
           const SizedBox(height: 10),
-          SelectableText(item['input'].toString()),
+          SelectableText(item['inputs'][0].toString()),
           const SizedBox(height: 10),
           SelectableText(item['output'].toString()),
         ]);

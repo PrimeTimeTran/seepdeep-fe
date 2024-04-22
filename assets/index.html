@@ -43,7 +43,7 @@ ${msg.name}(${newParams})`
           try {
             const promises = await msg.testCases.map((val, index) => {
               return new Promise(async (resolve) => {
-                let result = await evaluatePython(msg, val.input);
+                let result = await evaluatePython(msg, val.inputs);
                 result = removeWhitespace(result)
                 let output = removeWhitespace(JSON.stringify(val.output))
                 let isPassing = result === output;

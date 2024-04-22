@@ -98,7 +98,7 @@ class _SolverState extends State<Solver> {
 
   buildTestCase(idx, TestRun testRun, height) {
     final testCase = problem.testSuite![idx];
-    final inputs = testCase['input'];
+    final inputs = testCase['inputs'];
     return SizedBox(
         height: height,
         width: double.infinity,
@@ -110,7 +110,7 @@ class _SolverState extends State<Solver> {
               child: ListView.builder(
                 itemCount: inputs.length,
                 itemBuilder: (BuildContext context, int idx) {
-                  final testInput = testCase['input'][idx];
+                  final testInput = testCase['inputs'][idx]['value'];
                   return Column(
                     children: [
                       TextFormField(

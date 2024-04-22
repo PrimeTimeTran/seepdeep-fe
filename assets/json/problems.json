@@ -2888,8 +2888,8 @@
         "1 <= deadends.length <= 500",
         "deadends[i].length == 4",
         "target.length == 4",
-        "target will not be in the list deadends. ",
-        "target and deadends[i] consist of digits only.",
+        "target will not be in the list deadends.",
+        "target and deadends[i] consist of digits only."
       ],
       "difficulty": "Medium",
       "editorialAuthor": {
@@ -2913,7 +2913,7 @@
             { "name": "", "value": ["0201", "0101", "0102", "1212", "2002"] },
             { "name": "", "value": "0202" }
           ],
-          "explanation": ""
+          "explanation": "A sequence of valid moves would be '0000' -> '1000' -> '1100' -> '1200' -> '1201' -> '1202' -> '0202'. Note that a sequence like '0000' -> '0001' -> '0002' -> '0102' -> '0202' would be invalid, because the wheels of the lock become stuck after the display becomes the dead end '0102'."
         },
         {
           "output": 1,
@@ -2921,10 +2921,10 @@
             { "name": "", "value": "8888" },
             { "name": "", "value": "0009" }
           ],
-          "explanation": ""
+          "explanation": "We can turn the last wheel in reverse to move from '0000' -> '0009'."
         },
         {
-          "output": 0.25,
+          "output": -1,
           "inputs": [
             {
               "name": "",
@@ -2941,7 +2941,7 @@
             },
             { "name": "", "value": "8888" }
           ],
-          "explanation": ""
+          "explanation": "We cannot reach the target without getting stuck."
         }
       ],
       "title": "Open the Lock",
