@@ -1,0 +1,19 @@
+{
+  "data": [
+    {
+      "author": "The Seattle Times",
+      "content": null,
+      "description": null,
+      "publishedAt": "2024-04-16T00:23:22Z",
+      "source": {
+        "id": null,
+        "name": "The Seattle Times"
+      },
+      "title": "Sea-Tac airport expressway closed due to pro-Palestinian demonstration - The Seattle Times",
+      "url": "https://www.seattletimes.com/seattle-news/sea-tac-airport-expressway-closed-due-to-protesters/",
+      "urlToImage": null
+    }
+  ],
+  "status": "ok",
+  "totalResults": 37
+}
