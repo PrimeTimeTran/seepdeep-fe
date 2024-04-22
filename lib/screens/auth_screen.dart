@@ -41,37 +41,34 @@ class _AuthScreenState extends State<AuthScreen> {
         ),
         ElevatedButton(
           onPressed: () {
-            postRequest();
+            _authRequest();
           },
-          child: const Text('postRequest'),
+          child: const Text('authRequest'),
         ),
         const Gap(6),
         ElevatedButton(
           onPressed: () {
-            getData('');
+            _getData('');
           },
           child: const Text('get index'),
         ),
         const Gap(6),
         ElevatedButton(
           onPressed: () {
-            getData('users');
+            _getData('users');
           },
           child: const Text('get Users'),
         ),
         const Gap(6),
         ElevatedButton(
           onPressed: () {
-            getData('wizards');
+            _getData('wizards');
           },
           child: const Text(' get Wizards'),
         ),
         const Gap(6),
         ElevatedButton(
-          onPressed: () {
-            Provider.of<AuthProvider>(context, listen: false)
-                .setAuthenticated();
-          },
+          onPressed: () {},
           child: const Text('Toggle Auth State'),
         ),
         const Gap(6),
@@ -86,23 +83,21 @@ class _AuthScreenState extends State<AuthScreen> {
     );
   }
 
-  getData(resource) async {
-    try {
-      final result = await Api.get(resource);
-      // Glob.logI(result);
-    } catch (e) {
-      Glob.logE('Error: $e');
-    }
-  }
-
-  postRequest() async {
+  _authRequest() async {
     try {
       final result = await Api.post(
           'auth/authenticate', {'email': email, 'password': password});
 
       final user = User.fromJson(result['user']);
-      print(user);
-      // Glob.logI(user);
+      Provider.of<AuthProvider>(context, listen: false).setUser(user);
+    } catch (e) {
+      Glob.logE('Error: $e');
+    }
+  }
+
+  _getData(resource) async {
+    try {
+      final result = await Api.get(resource);
     } catch (e) {
       Glob.logE('Error: $e');
     }

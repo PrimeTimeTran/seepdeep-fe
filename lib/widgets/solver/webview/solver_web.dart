@@ -7,7 +7,6 @@ import 'package:app/all.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:getwidget/getwidget.dart';
-import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 
 class Solver extends StatefulWidget {
@@ -267,10 +266,11 @@ class _SolverState extends State<Solver> {
 
   postSubmission(submission) async {
     try {
-      String url = "http://localhost:3000/api/submissions";
-      final response =
-          await http.post(Uri.parse(url), body: {'data': submission});
-      Glob.logIObj(response);
+      final response = await Api.post('submissions', {'body': submission});
+      // String url = "http://localhost:3000/api/submissions";
+      // final response =
+      //     await http.post(Uri.parse(url), body: {'data': submission});
+      Glob.logI(response);
     } catch (e) {
       print('Error: $e');
 
