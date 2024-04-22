@@ -1,5 +1,7 @@
 import 'package:app/all.dart';
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
+import 'package:provider/provider.dart';
 
 class AuthScreen extends StatefulWidget {
   const AuthScreen({super.key});
@@ -43,24 +45,43 @@ class _AuthScreenState extends State<AuthScreen> {
           },
           child: const Text('postRequest'),
         ),
+        const Gap(6),
         ElevatedButton(
           onPressed: () {
             getData('');
           },
           child: const Text('get index'),
         ),
+        const Gap(6),
         ElevatedButton(
           onPressed: () {
             getData('users');
           },
           child: const Text('get Users'),
         ),
+        const Gap(6),
         ElevatedButton(
           onPressed: () {
             getData('wizards');
           },
           child: const Text(' get Wizards'),
         ),
+        const Gap(6),
+        ElevatedButton(
+          onPressed: () {
+            Provider.of<AuthProvider>(context, listen: false)
+                .setAuthenticated();
+          },
+          child: const Text('Toggle Auth State'),
+        ),
+        const Gap(6),
+        Consumer<AuthProvider>(
+          builder: (context, cart, child) {
+            return Text('isAuthenticated: ${cart.isAuthenticated}',
+                style: TextStyle(
+                    color: cart.isAuthenticated ? Colors.green : Colors.red));
+          },
+        )
       ],
     );
   }

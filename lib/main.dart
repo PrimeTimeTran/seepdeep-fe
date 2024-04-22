@@ -10,6 +10,7 @@ void main() {
     stateProvider.MultiProvider(
       providers: [
         stateProvider.ChangeNotifierProvider(create: (_) => ProblemProvider()),
+        stateProvider.ChangeNotifierProvider(create: (_) => AuthProvider()),
       ],
       child: MyApp(),
     ),

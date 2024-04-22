@@ -23,7 +23,6 @@ class Api {
         _url(path),
         headers: _headers(),
       );
-      // throw Future.error('Server down');
       return _result(response);
     } catch (e) {
       Glob.logI(e);
@@ -59,13 +58,13 @@ class Api {
   }
 
   static _result(response) {
-    final data = jsonDecode(response.body)['data'];
+    final body = jsonDecode(response.body);
+    final data = body['data'];
     if (isArray(data)) {
       if (data.length == 0) {
         Glob.logI('0 Results');
       } else {
-        Glob.logI(data.meta);
-        Glob.logI(data.page);
+        Glob.logI(body['meta']);
         Glob.logI(data[0]);
       }
     } else {
