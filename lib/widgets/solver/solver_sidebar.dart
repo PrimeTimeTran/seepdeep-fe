@@ -68,7 +68,7 @@ class _SolverSidebarState extends State<SolverSidebar> {
     return DefaultTabController(
       length: 4,
       key: ValueKey(widget.submitted),
-      initialIndex: widget.submitted ? 3 : 1,
+      initialIndex: widget.submitted ? 3 : 0,
       animationDuration: Duration.zero,
       child: Scaffold(
         appBar: AppBar(

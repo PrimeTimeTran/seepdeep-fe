@@ -1,40 +1,50 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:app/all.dart';
 import 'package:http/http.dart' as http;
 
+bool isArray(dynamic data) {
+  return data is List;
+}
+
 class Api {
-  static const url = 'http://localhost:3000/api/';
+  static const base = 'http://localhost:3000/api/';
   static http.Client client = http.Client();
   static String authToken =
       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWNkMmY0YzAyNjAwNDZhNDQzNTExYTIiLCJpYXQiOjE3MTM2NDg2NzgsImV4cCI6MjAyOTAwODY3OH0.HnX3iDxGkKdcgaxpZSAR34jXq5T1pASW6vaeEjuJ6EM';
 
   Api._();
 
-  static Future<dynamic> get(String route) async {
+  static FutureOr<dynamic> get(String path) async {
+    Glob.loadStart();
     try {
       final response = await client.get(
-        Uri.parse(url + route),
+        _url(path),
         headers: _headers(),
       );
-      Glob.logI(response.body);
-      return jsonDecode(response.body);
+      // throw Future.error('Server down');
+      return _result(response);
     } catch (e) {
-      Glob.logI('Error: $e');
+      Glob.logI(e);
+    } finally {
+      Glob.loadDone();
     }
   }
 
-  static Future<dynamic> post(String route, dynamic body) async {
+  static FutureOr<dynamic> post(String path, dynamic body) async {
+    Glob.loadStart();
     try {
       final response = await client.post(
-        Uri.parse(url + route),
+        _url(path),
         body: body,
         headers: _headers(),
       );
-      Glob.logI(response.body);
-      return jsonDecode(response.body);
+      return _result(response);
     } catch (e) {
       Glob.logI(e);
+    } finally {
+      Glob.loadDone();
     }
   }
 
@@ -46,5 +56,25 @@ class Api {
     final headers = <String, String>{};
     headers['authorization'] = 'Bearer $authToken';
     return headers;
+  }
+
+  static _result(response) {
+    final data = jsonDecode(response.body)['data'];
+    if (isArray(data)) {
+      if (data.length == 0) {
+        Glob.logI('0 Results');
+      } else {
+        Glob.logI(data.meta);
+        Glob.logI(data.page);
+        Glob.logI(data[0]);
+      }
+    } else {
+      Glob.logI(data);
+    }
+    return data;
+  }
+
+  static _url(path) {
+    return Uri.parse(base + path);
   }
 }

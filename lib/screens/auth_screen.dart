@@ -38,25 +38,29 @@ class _AuthScreenState extends State<AuthScreen> {
           ),
         ),
         ElevatedButton(
-            onPressed: () {
-              postRequest();
-            },
-            child: const Text('postRequest')),
+          onPressed: () {
+            postRequest();
+          },
+          child: const Text('postRequest'),
+        ),
         ElevatedButton(
-            onPressed: () {
-              getData('');
-            },
-            child: const Text('get index')),
+          onPressed: () {
+            getData('');
+          },
+          child: const Text('get index'),
+        ),
         ElevatedButton(
-            onPressed: () {
-              getData('users');
-            },
-            child: const Text('get Users')),
+          onPressed: () {
+            getData('users');
+          },
+          child: const Text('get Users'),
+        ),
         ElevatedButton(
-            onPressed: () {
-              getData('wizards');
-            },
-            child: const Text(' get Wizards'))
+          onPressed: () {
+            getData('wizards');
+          },
+          child: const Text(' get Wizards'),
+        ),
       ],
     );
   }
@@ -64,7 +68,7 @@ class _AuthScreenState extends State<AuthScreen> {
   getData(resource) async {
     try {
       final result = await Api.get(resource);
-      Glob.logI(result);
+      // Glob.logI(result);
     } catch (e) {
       Glob.logE('Error: $e');
     }
@@ -76,7 +80,8 @@ class _AuthScreenState extends State<AuthScreen> {
           'auth/authenticate', {'email': email, 'password': password});
 
       final user = User.fromJson(result['user']);
-      Glob.logIObj(user);
+      print(user);
+      // Glob.logI(user);
     } catch (e) {
       Glob.logE('Error: $e');
     }

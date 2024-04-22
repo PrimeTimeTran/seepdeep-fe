@@ -253,7 +253,7 @@ class _SolverState extends State<Solver> {
   }
 
   onRun(submission) {
-    Glob.loadingStart();
+    Glob.loadStart();
     // May need to redo this to send to server for processing.
     final dto = {
       "body": submission,
@@ -284,7 +284,7 @@ class _SolverState extends State<Solver> {
         ..src = 'assets/index.html'
         ..style.border = 'none';
       window.onMessage.listen((msg) {
-        Glob.loadingDone();
+        Glob.loadDone();
         if (msg.data?.startsWith("onMsg Success:")) {
           passing = true;
         } else {

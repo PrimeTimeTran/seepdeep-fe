@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:app/all.dart';
@@ -18,8 +19,8 @@ class ProblemsScreen extends StatefulWidget {
 
 class _ProblemsScreenState extends State<ProblemsScreen> {
   bool toggleProblemTopics = false;
+  Future<List<Problem>>? problems;
   List<CSTopic>? selectedTopicList = topicList;
-  List<Problem>? problems = [];
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -109,8 +110,7 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
     );
   }
 
-  GestureDetector buildListItem(int idx, BuildContext context) {
-    final item = problems![idx];
+  GestureDetector buildListItem(item, idx, BuildContext context) {
     idx -= 1;
     bool odd = idx % 2 == 0;
     Color color = odd ? Colors.grey.shade500 : Colors.grey.shade600;
@@ -141,9 +141,13 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
               SizedBox(width: 60, child: Text('${item.acceptanceRate}')),
               const Spacer(),
               SizedBox(
-                  width: 70,
-                  child: Text('${item.difficulty}',
-                      style: TextStyle(color: difficultyColor))),
+                width: 70,
+                child: Text(
+                  '${item.difficulty}',
+                  style: TextStyle(
+                      color: difficultyColor, fontWeight: FontWeight.bold),
+                ),
+              ),
               const Spacer(),
               SizedBox(width: 60, child: Text('${item.frequency}')),
             ],
@@ -153,19 +157,51 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
     );
   }
 
-  buildProblemList() {
-    return SizedBox(
-      width: 1000,
-      child: ListView.builder(
-        itemCount: problems!.length,
-        shrinkWrap: true,
-        itemBuilder: (BuildContext context, int idx) {
-          if (idx == 0) {
-            return buildListHeader();
-          }
-          return buildListItem(idx, context);
-        },
-      ),
+  FutureBuilder<List<Problem>> buildProblemList() {
+    return FutureBuilder<List<Problem>>(
+      future: problems,
+      builder: (BuildContext context, snapshot) {
+        Widget children;
+        if (snapshot.hasData) {
+          children = ListView.builder(
+            itemCount: snapshot.data?.length,
+            shrinkWrap: true,
+            itemBuilder: (BuildContext context, int idx) {
+              if (idx == 0) {
+                return buildListHeader();
+              }
+              return buildListItem(snapshot.data?[idx], idx, context);
+            },
+          );
+        } else if (snapshot.hasError) {
+          children = Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Icon(
+                Icons.error_outline,
+                color: Colors.red,
+                size: 60,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 16),
+                child: Text('Error: ${snapshot.error}'),
+              ),
+            ],
+          );
+        } else {
+          children = const Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              CircularProgressIndicator(),
+              Padding(
+                padding: EdgeInsets.only(top: 16),
+                child: Text('Awaiting result...'),
+              ),
+            ],
+          );
+        }
+        return SizedBox(height: 1000, width: 1000, child: children);
+      },
     );
   }
 
@@ -288,7 +324,7 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
   SizedBox buildTopicFilter() {
     return SizedBox(
       width: 925,
-      height: 400,
+      height: 300,
       child: FilterListWidget(
         listData: topicList,
         hideHeader: true,
@@ -327,48 +363,31 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
     );
   }
 
-  // Future<List<Article>> fetchProblems() async {
-  Future<List<Problem>> fetchProblems() async {
+  fetchProblems() async {
     try {
-      // String url = "https://api";
-      // final response = await http.get(Uri.parse(url));
-      if (false) {
-        // Error();
-        // final Map<String, dynamic> data = json.decode(response.body);
-        // setProblems(data);
-      } else {
-        final localJson = await rootBundle.loadString("json/problems.json");
-        final Map<String, dynamic> data = json.decode(localJson);
-        setProblems(data);
-      }
-
-      return [];
-    } catch (e) {
-      print('Error: $e');
-      final localJson = await rootBundle.loadString("json/problems.json");
-      final Map<String, dynamic> data = json.decode(localJson);
+      final json = await Api.get('problems');
+      final Map<String, dynamic> data = jsonDecode(json);
       setProblems(data);
-      return [];
+    } catch (e) {
+      Glob.logE('Fetching Problems');
+      final json = await rootBundle.loadString("json/problems.json");
+      final Map<String, dynamic> data = jsonDecode(json);
+      setProblems(data);
     }
   }
 
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      fetchProblems();
-    });
+    fetchProblems();
   }
 
   setProblems(Map<String, dynamic> data) {
-    final List<dynamic> fetchedArticles = data['data'];
+    final List<dynamic> fetchedProblems = data['data'];
     List<Problem> res =
-        fetchedArticles.map((item) => Problem.fromJson(item)).toList();
-    Glob.logI(res.length);
-    Glob.logI(res[0].title);
-    Glob.logI(res[1].title);
+        fetchedProblems.map((item) => Problem.fromJson(item)).toList();
     setState(() {
-      problems = res;
+      problems = Future.value(res);
     });
   }
 }
