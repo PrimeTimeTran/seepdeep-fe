@@ -16,42 +16,76 @@
       },
       "editorialBody": "Solutions include a brute force approach, using a hash table for efficient lookups, or sorting with two pointers.",
       "editorialRating": 4.5,
-      "editorialVotes": { "1": 5, "2": 4 },
+      "editorialVotes": {
+        "1": 5,
+        "2": 4
+      },
       "frequency": "High",
       "hints": [],
       "isPublished": true,
       "isSubmitted": true,
       "numLC": 1,
-      "similar": [{ "difficulty": "Medium", "id": 2, "title": "3 Sum" }],
+      "similar": [
+        {
+          "difficulty": "Medium",
+          "id": 2,
+          "title": "3 Sum"
+        }
+      ],
       "submissions": 24.6,
       "testSuite": [
         {
           "output": [0, 1],
           "inputs": [
-            { "name": "", "value": [2, 7, 11, 15] },
-            { "name": "", "value": 9 }
+            {
+              "name": "",
+              "value": [2, 7, 11, 15]
+            },
+            {
+              "name": "",
+              "value": 9
+            }
           ],
           "explanation": ""
         },
         {
           "output": [1, 2],
           "inputs": [
-            { "name": "", "value": [3, 2, 4] },
-            { "name": "", "value": 6 }
+            {
+              "name": "",
+              "value": [3, 2, 4]
+            },
+            {
+              "name": "",
+              "value": 6
+            }
           ],
           "explanation": ""
         },
         {
           "output": [0, 1],
           "inputs": [
-            { "name": "", "value": [3, 3] },
-            { "name": "", "value": 6 }
+            {
+              "name": "",
+              "value": [3, 3]
+            },
+            {
+              "name": "",
+              "value": 6
+            }
           ],
           "explanation": ""
         }
       ],
       "title": "Two Sum",
-      "topics": [{ "name": "Array" }, { "name": "Hash Table" }]
+      "topics": [
+        {
+          "name": "Array"
+        },
+        {
+          "name": "Hash Table"
+        }
+      ]
     },
     {
       "acceptanceRate": 52.4,
@@ -69,42 +103,76 @@
       },
       "editorialBody": "Solutions include a brute force approach, using a hash table for efficient lookups, or sorting with two pointers.",
       "editorialRating": 4.5,
-      "editorialVotes": { "1": 5, "2": 4 },
+      "editorialVotes": {
+        "1": 5,
+        "2": 4
+      },
       "frequency": "High",
       "hints": [],
       "isPublished": true,
       "isSubmitted": true,
       "numLC": 1,
-      "similar": [{ "difficulty": "Medium", "id": 2, "title": "3 Sum" }],
+      "similar": [
+        {
+          "difficulty": "Medium",
+          "id": 2,
+          "title": "3 Sum"
+        }
+      ],
       "submissions": 24.6,
       "testSuite": [
         {
           "output": [0, 1],
           "inputs": [
-            { "name": "", "value": [2, 7, 11, 15] },
-            { "name": "", "value": 9 }
+            {
+              "name": "",
+              "value": [2, 7, 11, 15]
+            },
+            {
+              "name": "",
+              "value": 9
+            }
           ],
           "explanation": ""
         },
         {
           "output": [1, 2],
           "inputs": [
-            { "name": "", "value": [3, 2, 4] },
-            { "name": "", "value": 6 }
+            {
+              "name": "",
+              "value": [3, 2, 4]
+            },
+            {
+              "name": "",
+              "value": 6
+            }
           ],
           "explanation": ""
         },
         {
           "output": [0, 1],
           "inputs": [
-            { "name": "", "value": [3, 3] },
-            { "name": "", "value": 6 }
+            {
+              "name": "",
+              "value": [3, 3]
+            },
+            {
+              "name": "",
+              "value": 6
+            }
           ],
           "explanation": ""
         }
       ],
       "title": "Two Sum",
-      "topics": [{ "name": "Array" }, { "name": "Hash Table" }]
+      "topics": [
+        {
+          "name": "Array"
+        },
+        {
+          "name": "Hash Table"
+        }
+      ]
     },
     {
       "acceptanceRate": 39.2,
@@ -122,45 +190,81 @@
       },
       "editorialBody": "The problem can be solved by traversing both linked lists simultaneously and performing addition while considering carry. Ensure to handle edge cases such as different list lengths and final carry.",
       "editorialRating": 4.6,
-      "editorialVotes": { "1": 7, "2": 2 },
+      "editorialVotes": {
+        "1": 7,
+        "2": 2
+      },
       "frequency": "High",
       "hints": [],
       "isPublished": true,
       "isSubmitted": true,
       "numLC": 2,
       "similar": [
-        { "difficulty": "Medium", "id": 445, "title": "Add Two Numbers II" },
-        { "difficulty": "Easy", "id": 1, "title": "Two Sum" }
+        {
+          "difficulty": "Medium",
+          "id": 445,
+          "title": "Add Two Numbers II"
+        },
+        {
+          "difficulty": "Easy",
+          "id": 1,
+          "title": "Two Sum"
+        }
       ],
       "submissions": 21.7,
       "testSuite": [
         {
           "output": [7, 0, 8],
           "inputs": [
-            { "name": "", "value": [2, 4, 3] },
-            { "name": "", "value": [5, 6, 4] }
+            {
+              "name": "",
+              "value": [2, 4, 3]
+            },
+            {
+              "name": "",
+              "value": [5, 6, 4]
+            }
           ],
           "explanation": ""
         },
         {
           "output": [0],
           "inputs": [
-            { "name": "", "value": [0] },
-            { "name": "", "value": [0] }
+            {
+              "name": "",
+              "value": [0]
+            },
+            {
+              "name": "",
+              "value": [0]
+            }
           ],
           "explanation": ""
         },
         {
           "output": [8, 9, 9, 9, 0, 0, 0, 1],
           "inputs": [
-            { "name": "", "value": [9, 9, 9, 9, 9, 9, 9] },
-            { "name": "", "value": [9, 9, 9, 9] }
+            {
+              "name": "",
+              "value": [9, 9, 9, 9, 9, 9, 9]
+            },
+            {
+              "name": "",
+              "value": [9, 9, 9, 9]
+            }
           ],
           "explanation": ""
         }
       ],
       "title": "Add Two Numbers",
-      "topics": [{ "name": "Linked List" }, { "name": "Math" }]
+      "topics": [
+        {
+          "name": "Linked List"
+        },
+        {
+          "name": "Math"
+        }
+      ]
     },
     {
       "acceptanceRate": 30.1,
@@ -178,14 +282,21 @@
       },
       "editorialBody": "This problem can be solved using a sliding window approach. Keep track of the characters seen so far in a set or map while sliding the window.",
       "editorialRating": 4.8,
-      "editorialVotes": { "1": 8, "2": 3 },
+      "editorialVotes": {
+        "1": 8,
+        "2": 3
+      },
       "frequency": "High",
       "hints": [],
       "isPublished": true,
       "isSubmitted": true,
       "numLC": 3,
       "similar": [
-        { "difficulty": "Hard", "id": 76, "title": "Minimum Window Substring" },
+        {
+          "difficulty": "Hard",
+          "id": 76,
+          "title": "Minimum Window Substring"
+        },
         {
           "difficulty": "Medium",
           "id": 438,
@@ -196,25 +307,46 @@
       "testSuite": [
         {
           "output": 3,
-          "inputs": [{ "name": "", "value": "abcabcbb" }],
+          "inputs": [
+            {
+              "name": "",
+              "value": "abcabcbb"
+            }
+          ],
           "explanation": ""
         },
         {
           "output": 1,
-          "inputs": [{ "name": "", "value": "bbbbb" }],
+          "inputs": [
+            {
+              "name": "",
+              "value": "bbbbb"
+            }
+          ],
           "explanation": ""
         },
         {
           "output": 3,
-          "inputs": [{ "name": "", "value": "pwwkew" }],
+          "inputs": [
+            {
+              "name": "",
+              "value": "pwwkew"
+            }
+          ],
           "explanation": ""
         }
       ],
       "title": "Longest Substring Without Repeating Characters",
       "topics": [
-        { "name": "String" },
-        { "name": "Sliding Window" },
-        { "name": "Hash Table" }
+        {
+          "name": "String"
+        },
+        {
+          "name": "Sliding Window"
+        },
+        {
+          "name": "Hash Table"
+        }
       ]
     },
     {
@@ -233,7 +365,10 @@
       },
       "editorialBody": "The problem can be solved using binary search to partition the arrays into two parts such that elements on the left are smaller than elements on the right. Then, calculate the median based on the partitioned arrays.",
       "editorialRating": 4.9,
-      "editorialVotes": { "1": 9, "2": 1 },
+      "editorialVotes": {
+        "1": 9,
+        "2": 1
+      },
       "frequency": "High",
       "hints": [],
       "isPublished": true,
@@ -256,33 +391,57 @@
         {
           "output": 2,
           "inputs": [
-            { "name": "", "value": [1, 3] },
-            { "name": "", "value": [2] }
+            {
+              "name": "",
+              "value": [1, 3]
+            },
+            {
+              "name": "",
+              "value": [2]
+            }
           ],
           "explanation": ""
         },
         {
           "output": 2.5,
           "inputs": [
-            { "name": "", "value": [1, 2] },
-            { "name": "", "value": [3, 4] }
+            {
+              "name": "",
+              "value": [1, 2]
+            },
+            {
+              "name": "",
+              "value": [3, 4]
+            }
           ],
           "explanation": ""
         },
         {
           "output": 0,
           "inputs": [
-            { "name": "", "value": [0, 0] },
-            { "name": "", "value": [0, 0] }
+            {
+              "name": "",
+              "value": [0, 0]
+            },
+            {
+              "name": "",
+              "value": [0, 0]
+            }
           ],
           "explanation": ""
         }
       ],
       "title": "Median of Two Sorted Arrays",
       "topics": [
-        { "name": "Array" },
-        { "name": "Binary Search" },
-        { "name": "Divide and Conquer" }
+        {
+          "name": "Array"
+        },
+        {
+          "name": "Binary Search"
+        },
+        {
+          "name": "Divide and Conquer"
+        }
       ]
     },
     {
@@ -301,14 +460,21 @@
       },
       "editorialBody": "The problem can be solved using dynamic programming. Iterate over the string and keep track of the longest palindromic substring found so far.",
       "editorialRating": 4.7,
-      "editorialVotes": { "1": 7, "2": 3 },
+      "editorialVotes": {
+        "1": 7,
+        "2": 3
+      },
       "frequency": "High",
       "hints": [],
       "isPublished": true,
       "isSubmitted": true,
       "numLC": 5,
       "similar": [
-        { "difficulty": "Hard", "id": 647, "title": "Palindromic Substrings" },
+        {
+          "difficulty": "Hard",
+          "id": 647,
+          "title": "Palindromic Substrings"
+        },
         {
           "difficulty": "Medium",
           "id": 516,
@@ -319,22 +485,44 @@
       "testSuite": [
         {
           "output": "bab",
-          "inputs": [{ "name": "", "value": "babad" }],
+          "inputs": [
+            {
+              "name": "",
+              "value": "babad"
+            }
+          ],
           "explanation": ""
         },
         {
           "output": "bb",
-          "inputs": [{ "name": "", "value": "cbbd" }],
+          "inputs": [
+            {
+              "name": "",
+              "value": "cbbd"
+            }
+          ],
           "explanation": ""
         },
         {
           "output": "a",
-          "inputs": [{ "name": "", "value": "a" }],
+          "inputs": [
+            {
+              "name": "",
+              "value": "a"
+            }
+          ],
           "explanation": ""
         }
       ],
       "title": "Longest Palindromic Substring",
-      "topics": [{ "name": "String" }, { "name": "Dynamic Programming" }]
+      "topics": [
+        {
+          "name": "String"
+        },
+        {
+          "name": "Dynamic Programming"
+        }
+      ]
     },
     {
       "acceptanceRate": 36.2,
@@ -352,7 +540,10 @@
       },
       "editorialBody": "The problem can be solved by simulating the zigzag pattern and mapping characters to their corresponding positions in the pattern.",
       "editorialRating": 4.5,
-      "editorialVotes": { "1": 6, "2": 4 },
+      "editorialVotes": {
+        "1": 6,
+        "2": 4
+      },
       "frequency": "High",
       "hints": [],
       "isPublished": true,
@@ -364,37 +555,63 @@
           "id": 8,
           "title": "String to Integer (atoi)"
         },
-        { "difficulty": "Medium", "id": 38, "title": "Count and Say" }
+        {
+          "difficulty": "Medium",
+          "id": 38,
+          "title": "Count and Say"
+        }
       ],
       "submissions": 20.4,
       "testSuite": [
         {
           "output": "PAHNAPLSIIGYIR",
           "inputs": [
-            { "name": "", "value": "PAYPALISHIRING" },
-            { "name": "", "value": 3 }
+            {
+              "name": "",
+              "value": "PAYPALISHIRING"
+            },
+            {
+              "name": "",
+              "value": 3
+            }
           ],
           "explanation": ""
         },
         {
           "output": "PINALSIGYAHRPI",
           "inputs": [
-            { "name": "", "value": "PAYPALISHIRING" },
-            { "name": "", "value": 4 }
+            {
+              "name": "",
+              "value": "PAYPALISHIRING"
+            },
+            {
+              "name": "",
+              "value": 4
+            }
           ],
           "explanation": ""
         },
         {
           "output": "A",
           "inputs": [
-            { "name": "", "value": "A" },
-            { "name": "", "value": 1 }
+            {
+              "name": "",
+              "value": "A"
+            },
+            {
+              "name": "",
+              "value": 1
+            }
           ],
           "explanation": ""
         }
       ],
       "title": "ZigZag Conversion",
-      "topics": [{ "name": "String" }]
+      "topics": [
+        {
+          "name": "String"
+        }
+      ]
     },
     {
       "acceptanceRate": 26.1,
@@ -412,36 +629,66 @@
       },
       "editorialBody": "The problem can be solved by using modulo and division to reverse the digits of the integer. Ensure to handle overflow and underflow cases.",
       "editorialRating": 4.8,
-      "editorialVotes": { "1": 8, "2": 2 },
+      "editorialVotes": {
+        "1": 8,
+        "2": 2
+      },
       "frequency": "High",
       "hints": [],
       "isPublished": true,
       "isSubmitted": true,
       "numLC": 7,
       "similar": [
-        { "difficulty": "Easy", "id": 9, "title": "Palindrome Number" },
-        { "difficulty": "Easy", "id": 13, "title": "Roman to Integer" }
+        {
+          "difficulty": "Easy",
+          "id": 9,
+          "title": "Palindrome Number"
+        },
+        {
+          "difficulty": "Easy",
+          "id": 13,
+          "title": "Roman to Integer"
+        }
       ],
       "submissions": 24.6,
       "testSuite": [
         {
           "output": 321,
-          "inputs": [{ "name": "", "value": 123 }],
+          "inputs": [
+            {
+              "name": "",
+              "value": 123
+            }
+          ],
           "explanation": ""
         },
         {
           "output": -321,
-          "inputs": [{ "name": "", "value": -123 }],
+          "inputs": [
+            {
+              "name": "",
+              "value": -123
+            }
+          ],
           "explanation": ""
         },
         {
           "output": 21,
-          "inputs": [{ "name": "", "value": 120 }],
+          "inputs": [
+            {
+              "name": "",
+              "value": 120
+            }
+          ],
           "explanation": ""
         }
       ],
       "title": "Reverse Integer",
-      "topics": [{ "name": "Math" }]
+      "topics": [
+        {
+          "name": "Math"
+        }
+      ]
     },
     {
       "acceptanceRate": 15.8,
@@ -459,14 +706,21 @@
       },
       "editorialBody": "The problem can be solved by implementing a state machine to handle different cases such as whitespace, sign, and overflow.",
       "editorialRating": 4.7,
-      "editorialVotes": { "1": 7, "2": 3 },
+      "editorialVotes": {
+        "1": 7,
+        "2": 3
+      },
       "frequency": "High",
       "hints": [],
       "isPublished": true,
       "isSubmitted": true,
       "numLC": 8,
       "similar": [
-        { "difficulty": "Medium", "id": 6, "title": "ZigZag Conversion" },
+        {
+          "difficulty": "Medium",
+          "id": 6,
+          "title": "ZigZag Conversion"
+        },
         {
           "difficulty": "Medium",
           "id": 10,
@@ -477,22 +731,41 @@
       "testSuite": [
         {
           "output": 42,
-          "inputs": [{ "name": "", "value": "42" }],
+          "inputs": [
+            {
+              "name": "",
+              "value": "42"
+            }
+          ],
           "explanation": ""
         },
         {
           "output": -42,
-          "inputs": [{ "name": "", "value": "   -42" }],
+          "inputs": [
+            {
+              "name": "",
+              "value": "   -42"
+            }
+          ],
           "explanation": ""
         },
         {
           "output": 4193,
-          "inputs": [{ "name": "", "value": "4193 with words" }],
+          "inputs": [
+            {
+              "name": "",
+              "value": "4193 with words"
+            }
+          ],
           "explanation": ""
         }
       ],
       "title": "String to Integer (atoi)",
-      "topics": [{ "name": "String" }]
+      "topics": [
+        {
+          "name": "String"
+        }
+      ]
     },
     {
       "acceptanceRate": 39.1,
@@ -510,36 +783,66 @@
       },
       "editorialBody": "The problem can be solved by converting the integer to a string and checking if the string is equal to its reverse. Alternatively, you can reverse the integer and compare it to the original.",
       "editorialRating": 4.9,
-      "editorialVotes": { "1": 9, "2": 1 },
+      "editorialVotes": {
+        "1": 9,
+        "2": 1
+      },
       "frequency": "High",
       "hints": [],
       "isPublished": true,
       "isSubmitted": true,
       "numLC": 9,
       "similar": [
-        { "difficulty": "Easy", "id": 7, "title": "Reverse Integer" },
-        { "difficulty": "Easy", "id": 13, "title": "Roman to Integer" }
+        {
+          "difficulty": "Easy",
+          "id": 7,
+          "title": "Reverse Integer"
+        },
+        {
+          "difficulty": "Easy",
+          "id": 13,
+          "title": "Roman to Integer"
+        }
       ],
       "submissions": 26.2,
       "testSuite": [
         {
           "output": true,
-          "inputs": [{ "name": "", "value": 121 }],
+          "inputs": [
+            {
+              "name": "",
+              "value": 121
+            }
+          ],
           "explanation": ""
         },
         {
           "output": false,
-          "inputs": [{ "name": "", "value": -121 }],
+          "inputs": [
+            {
+              "name": "",
+              "value": -121
+            }
+          ],
           "explanation": ""
         },
         {
           "output": false,
-          "inputs": [{ "name": "", "value": 10 }],
+          "inputs": [
+            {
+              "name": "",
+              "value": 10
+            }
+          ],
           "explanation": ""
         }
       ],
       "title": "Palindrome Number",
-      "topics": [{ "name": "Math" }]
+      "topics": [
+        {
+          "name": "Math"
+        }
+      ]
     },
     {
       "acceptanceRate": 26.1,
@@ -557,14 +860,21 @@
       },
       "editorialBody": "The problem can be solved using dynamic programming. Construct a 2D table to represent matches between different substrings of the input string and the pattern.",
       "editorialRating": 4.5,
-      "editorialVotes": { "1": 6, "2": 4 },
+      "editorialVotes": {
+        "1": 6,
+        "2": 4
+      },
       "frequency": "High",
       "hints": [],
       "isPublished": true,
       "isSubmitted": true,
       "numLC": 10,
       "similar": [
-        { "difficulty": "Hard", "id": 44, "title": "Wildcard Matching" },
+        {
+          "difficulty": "Hard",
+          "id": 44,
+          "title": "Wildcard Matching"
+        },
         {
           "difficulty": "Hard",
           "id": 44,
@@ -576,33 +886,57 @@
         {
           "output": false,
           "inputs": [
-            { "name": "", "value": "aa" },
-            { "name": "", "value": "a" }
+            {
+              "name": "",
+              "value": "aa"
+            },
+            {
+              "name": "",
+              "value": "a"
+            }
           ],
           "explanation": ""
         },
         {
           "output": true,
           "inputs": [
-            { "name": "", "value": "aa" },
-            { "name": "", "value": "a*" }
+            {
+              "name": "",
+              "value": "aa"
+            },
+            {
+              "name": "",
+              "value": "a*"
+            }
           ],
           "explanation": ""
         },
         {
           "output": true,
           "inputs": [
-            { "name": "", "value": "ab" },
-            { "name": "", "value": ".*" }
+            {
+              "name": "",
+              "value": "ab"
+            },
+            {
+              "name": "",
+              "value": ".*"
+            }
           ],
           "explanation": ""
         }
       ],
       "title": "Regular Expression Matching",
       "topics": [
-        { "name": "String" },
-        { "name": "Dynamic Programming" },
-        { "name": "Backtracking" }
+        {
+          "name": "String"
+        },
+        {
+          "name": "Dynamic Programming"
+        },
+        {
+          "name": "Backtracking"
+        }
       ]
     },
     {
@@ -621,14 +955,21 @@
       },
       "editorialBody": "The problem can be solved using a two-pointer approach. Start with two pointers at the beginning and end of the array, and move them towards each other while updating the maximum area.",
       "editorialRating": 4.6,
-      "editorialVotes": { "1": 7, "2": 3 },
+      "editorialVotes": {
+        "1": 7,
+        "2": 3
+      },
       "frequency": "High",
       "hints": [],
       "isPublished": true,
       "isSubmitted": true,
       "numLC": 11,
       "similar": [
-        { "difficulty": "Hard", "id": 42, "title": "Trapping Rain Water" },
+        {
+          "difficulty": "Hard",
+          "id": 42,
+          "title": "Trapping Rain Water"
+        },
         {
           "difficulty": "Medium",
           "id": 42,
@@ -639,22 +980,44 @@
       "testSuite": [
         {
           "output": 49,
-          "inputs": [{ "name": "", "value": [1, 8, 6, 2, 5, 4, 8, 3, 7] }],
+          "inputs": [
+            {
+              "name": "",
+              "value": [1, 8, 6, 2, 5, 4, 8, 3, 7]
+            }
+          ],
           "explanation": ""
         },
         {
           "output": 1,
-          "inputs": [{ "name": "", "value": [1, 1] }],
+          "inputs": [
+            {
+              "name": "",
+              "value": [1, 1]
+            }
+          ],
           "explanation": ""
         },
         {
           "output": 16,
-          "inputs": [{ "name": "", "value": [4, 3, 2, 1, 4] }],
+          "inputs": [
+            {
+              "name": "",
+              "value": [4, 3, 2, 1, 4]
+            }
+          ],
           "explanation": ""
         }
       ],
       "title": "Container With Most Water",
-      "topics": [{ "name": "Array" }, { "name": "Two Pointers" }]
+      "topics": [
+        {
+          "name": "Array"
+        },
+        {
+          "name": "Two Pointers"
+        }
+      ]
     },
     {
       "acceptanceRate": 56.8,
@@ -672,14 +1035,21 @@
       },
       "editorialBody": "The problem can be solved by iterating through the integer and converting each digit to its corresponding Roman numeral representation.",
       "editorialRating": 4.6,
-      "editorialVotes": { "1": 6, "2": 4 },
+      "editorialVotes": {
+        "1": 6,
+        "2": 4
+      },
       "frequency": "High",
       "hints": [],
       "isPublished": true,
       "isSubmitted": true,
       "numLC": 12,
       "similar": [
-        { "difficulty": "Medium", "id": 13, "title": "Roman to Integer" },
+        {
+          "difficulty": "Medium",
+          "id": 13,
+          "title": "Roman to Integer"
+        },
         {
           "difficulty": "Medium",
           "id": 273,
@@ -690,22 +1060,44 @@
       "testSuite": [
         {
           "output": "III",
-          "inputs": [{ "name": "", "value": 3 }],
+          "inputs": [
+            {
+              "name": "",
+              "value": 3
+            }
+          ],
           "explanation": ""
         },
         {
           "output": "IV",
-          "inputs": [{ "name": "", "value": 4 }],
+          "inputs": [
+            {
+              "name": "",
+              "value": 4
+            }
+          ],
           "explanation": ""
         },
         {
           "output": "IX",
-          "inputs": [{ "name": "", "value": 9 }],
+          "inputs": [
+            {
+              "name": "",
+              "value": 9
+            }
+          ],
           "explanation": ""
         }
       ],
       "title": "Integer to Roman",
-      "topics": [{ "name": "Math" }, { "name": "String" }]
+      "topics": [
+        {
+          "name": "Math"
+        },
+        {
+          "name": "String"
+        }
+      ]
     },
     {
       "acceptanceRate": 55,
@@ -723,14 +1115,21 @@
       },
       "editorialBody": "The problem can be solved by iterating through the Roman numeral string and converting each symbol to its corresponding integer value. Handle special cases like subtractive notation.",
       "editorialRating": 4.7,
-      "editorialVotes": { "1": 7, "2": 3 },
+      "editorialVotes": {
+        "1": 7,
+        "2": 3
+      },
       "frequency": "High",
       "hints": [],
       "isPublished": true,
       "isSubmitted": true,
       "numLC": 13,
       "similar": [
-        { "difficulty": "Medium", "id": 12, "title": "Integer to Roman" },
+        {
+          "difficulty": "Medium",
+          "id": 12,
+          "title": "Integer to Roman"
+        },
         {
           "difficulty": "Medium",
           "id": 273,
@@ -741,22 +1140,44 @@
       "testSuite": [
         {
           "output": 3,
-          "inputs": [{ "name": "", "value": "III" }],
+          "inputs": [
+            {
+              "name": "",
+              "value": "III"
+            }
+          ],
           "explanation": ""
         },
         {
           "output": 4,
-          "inputs": [{ "name": "", "value": "IV" }],
+          "inputs": [
+            {
+              "name": "",
+              "value": "IV"
+            }
+          ],
           "explanation": ""
         },
         {
           "output": 9,
-          "inputs": [{ "name": "", "value": "IX" }],
+          "inputs": [
+            {
+              "name": "",
+              "value": "IX"
+            }
+          ],
           "explanation": ""
         }
       ],
       "title": "Roman to Integer",
-      "topics": [{ "name": "Math" }, { "name": "String" }]
+      "topics": [
+        {
+          "name": "Math"
+        },
+        {
+          "name": "String"
+        }
+      ]
     },
     {
       "acceptanceRate": 36.6,
@@ -774,14 +1195,21 @@
       },
       "editorialBody": "The problem can be solved by iterating through the characters of the first string and comparing them with corresponding characters of other strings.",
       "editorialRating": 4.5,
-      "editorialVotes": { "1": 5, "2": 4 },
+      "editorialVotes": {
+        "1": 5,
+        "2": 4
+      },
       "frequency": "High",
       "hints": [],
       "isPublished": true,
       "isSubmitted": true,
       "numLC": 14,
       "similar": [
-        { "difficulty": "Easy", "id": 28, "title": "Implement strStr()" },
+        {
+          "difficulty": "Easy",
+          "id": 28,
+          "title": "Implement strStr()"
+        },
         {
           "difficulty": "Medium",
           "id": 28,
@@ -792,22 +1220,41 @@
       "testSuite": [
         {
           "output": "fl",
-          "inputs": [{ "name": "", "value": ["flower", "flow", "flight"] }],
+          "inputs": [
+            {
+              "name": "",
+              "value": ["flower", "flow", "flight"]
+            }
+          ],
           "explanation": ""
         },
         {
           "output": "",
-          "inputs": [{ "name": "", "value": ["dog", "racecar", "car"] }],
+          "inputs": [
+            {
+              "name": "",
+              "value": ["dog", "racecar", "car"]
+            }
+          ],
           "explanation": ""
         },
         {
           "output": "c",
-          "inputs": [{ "name": "", "value": ["cir", "car"] }],
+          "inputs": [
+            {
+              "name": "",
+              "value": ["cir", "car"]
+            }
+          ],
           "explanation": ""
         }
       ],
       "title": "Longest Common Prefix",
-      "topics": [{ "name": "String" }]
+      "topics": [
+        {
+          "name": "String"
+        }
+      ]
     },
     {
       "acceptanceRate": 28.6,
@@ -825,14 +1272,21 @@
       },
       "editorialBody": "The problem can be solved by sorting the array and using a two-pointer approach to find triplets that sum up to zero. Handle duplicate triplets by skipping duplicates in the array.",
       "editorialRating": 4.6,
-      "editorialVotes": { "1": 6, "2": 4 },
+      "editorialVotes": {
+        "1": 6,
+        "2": 4
+      },
       "frequency": "High",
       "hints": [],
       "isPublished": true,
       "isSubmitted": true,
       "numLC": 15,
       "similar": [
-        { "difficulty": "Medium", "id": 1, "title": "Two Sum" },
+        {
+          "difficulty": "Medium",
+          "id": 1,
+          "title": "Two Sum"
+        },
         {
           "difficulty": "Medium",
           "id": 11,
@@ -846,22 +1300,44 @@
             [-1, -1, 2],
             [-1, 0, 1]
           ],
-          "inputs": [{ "name": "", "value": [-1, 0, 1, 2, -1, -4] }],
+          "inputs": [
+            {
+              "name": "",
+              "value": [-1, 0, 1, 2, -1, -4]
+            }
+          ],
           "explanation": ""
         },
         {
           "output": [],
-          "inputs": [{ "name": "", "value": [] }],
+          "inputs": [
+            {
+              "name": "",
+              "value": []
+            }
+          ],
           "explanation": ""
         },
         {
           "output": [],
-          "inputs": [{ "name": "", "value": [0] }],
+          "inputs": [
+            {
+              "name": "",
+              "value": [0]
+            }
+          ],
           "explanation": ""
         }
       ],
       "title": "3Sum",
-      "topics": [{ "name": "Array" }, { "name": "Two Pointers" }]
+      "topics": [
+        {
+          "name": "Array"
+        },
+        {
+          "name": "Two Pointers"
+        }
+      ]
     },
     {
       "acceptanceRate": 33.7,
@@ -879,45 +1355,81 @@
       },
       "editorialBody": "The problem can be solved by sorting the array and using a two-pointer approach to find the closest triplet sum to the target.",
       "editorialRating": 4.5,
-      "editorialVotes": { "1": 5, "2": 4 },
+      "editorialVotes": {
+        "1": 5,
+        "2": 4
+      },
       "frequency": "High",
       "hints": [],
       "isPublished": true,
       "isSubmitted": true,
       "numLC": 16,
       "similar": [
-        { "difficulty": "Medium", "id": 1, "title": "Two Sum" },
-        { "difficulty": "Medium", "id": 15, "title": "3Sum" }
+        {
+          "difficulty": "Medium",
+          "id": 1,
+          "title": "Two Sum"
+        },
+        {
+          "difficulty": "Medium",
+          "id": 15,
+          "title": "3Sum"
+        }
       ],
       "submissions": 26.7,
       "testSuite": [
         {
           "output": 2,
           "inputs": [
-            { "name": "", "value": [-1, 2, 1, -4] },
-            { "name": "", "value": 1 }
+            {
+              "name": "",
+              "value": [-1, 2, 1, -4]
+            },
+            {
+              "name": "",
+              "value": 1
+            }
           ],
           "explanation": ""
         },
         {
           "output": 0,
           "inputs": [
-            { "name": "", "value": [0, 0, 0] },
-            { "name": "", "value": 1 }
+            {
+              "name": "",
+              "value": [0, 0, 0]
+            },
+            {
+              "name": "",
+              "value": 1
+            }
           ],
           "explanation": ""
         },
         {
           "output": 2,
           "inputs": [
-            { "name": "", "value": [1, 1, 1, 0] },
-            { "name": "", "value": -100 }
+            {
+              "name": "",
+              "value": [1, 1, 1, 0]
+            },
+            {
+              "name": "",
+              "value": -100
+            }
           ],
           "explanation": ""
         }
       ],
       "title": "3Sum Closest",
-      "topics": [{ "name": "Array" }, { "name": "Two Pointers" }]
+      "topics": [
+        {
+          "name": "Array"
+        },
+        {
+          "name": "Two Pointers"
+        }
+      ]
     },
     {
       "acceptanceRate": 48.7,
@@ -935,36 +1447,69 @@
       },
       "editorialBody": "The problem can be solved using backtracking. Iterate through the digits of the phone number and append corresponding letters from a mapping for each digit.",
       "editorialRating": 4.6,
-      "editorialVotes": { "1": 6, "2": 4 },
+      "editorialVotes": {
+        "1": 6,
+        "2": 4
+      },
       "frequency": "High",
       "hints": [],
       "isPublished": true,
       "isSubmitted": true,
       "numLC": 17,
       "similar": [
-        { "difficulty": "Medium", "id": 39, "title": "Combination Sum" },
-        { "difficulty": "Medium", "id": 46, "title": "Permutations" }
+        {
+          "difficulty": "Medium",
+          "id": 39,
+          "title": "Combination Sum"
+        },
+        {
+          "difficulty": "Medium",
+          "id": 46,
+          "title": "Permutations"
+        }
       ],
       "submissions": 25.2,
       "testSuite": [
         {
           "output": ["ad", "ae", "af", "bd", "be", "bf", "cd", "ce", "cf"],
-          "inputs": [{ "name": "", "value": "23" }],
+          "inputs": [
+            {
+              "name": "",
+              "value": "23"
+            }
+          ],
           "explanation": ""
         },
         {
           "output": ["a", "b", "c"],
-          "inputs": [{ "name": "", "value": "2" }],
+          "inputs": [
+            {
+              "name": "",
+              "value": "2"
+            }
+          ],
           "explanation": ""
         },
         {
           "output": [],
-          "inputs": [{ "name": "", "value": "" }],
+          "inputs": [
+            {
+              "name": "",
+              "value": ""
+            }
+          ],
           "explanation": ""
         }
       ],
       "title": "Letter Combinations of a Phone Number",
-      "topics": [{ "name": "String" }, { "name": "Backtracking" }]
+      "topics": [
+        {
+          "name": "String"
+        },
+        {
+          "name": "Backtracking"
+        }
+      ]
     },
     {
       "acceptanceRate": 31.2,
@@ -982,15 +1527,26 @@
       },
       "editorialBody": "The problem can be solved by sorting the array and using a combination of two-pointer approach and recursion to find unique quadruplets that sum up to the target.",
       "editorialRating": 4.5,
-      "editorialVotes": { "1": 5, "2": 4 },
+      "editorialVotes": {
+        "1": 5,
+        "2": 4
+      },
       "frequency": "High",
       "hints": [],
       "isPublished": true,
       "isSubmitted": true,
       "numLC": 18,
       "similar": [
-        { "difficulty": "Medium", "id": 1, "title": "Two Sum" },
-        { "difficulty": "Medium", "id": 15, "title": "3Sum" }
+        {
+          "difficulty": "Medium",
+          "id": 1,
+          "title": "Two Sum"
+        },
+        {
+          "difficulty": "Medium",
+          "id": 15,
+          "title": "3Sum"
+        }
       ],
       "submissions": 27.8,
       "testSuite": [
@@ -1001,30 +1557,55 @@
             [-1, 0, 0, 1]
           ],
           "inputs": [
-            { "name": "", "value": [1, 0, -1, 0, -2, 2] },
-            { "name": "", "value": 0 }
+            {
+              "name": "",
+              "value": [1, 0, -1, 0, -2, 2]
+            },
+            {
+              "name": "",
+              "value": 0
+            }
           ],
           "explanation": ""
         },
         {
           "output": [[2, 2, 2, 2]],
           "inputs": [
-            { "name": "", "value": [2, 2, 2, 2, 2] },
-            { "name": "", "value": 8 }
+            {
+              "name": "",
+              "value": [2, 2, 2, 2, 2]
+            },
+            {
+              "name": "",
+              "value": 8
+            }
           ],
           "explanation": ""
         },
         {
           "output": [],
           "inputs": [
-            { "name": "", "value": [] },
-            { "name": "", "value": 0 }
+            {
+              "name": "",
+              "value": []
+            },
+            {
+              "name": "",
+              "value": 0
+            }
           ],
           "explanation": ""
         }
       ],
       "title": "4Sum",
-      "topics": [{ "name": "Array" }, { "name": "Two Pointers" }]
+      "topics": [
+        {
+          "name": "Array"
+        },
+        {
+          "name": "Two Pointers"
+        }
+      ]
     },
     {
       "acceptanceRate": 38.6,
@@ -1042,7 +1623,10 @@
       },
       "editorialBody": "The problem can be solved using two pointers. Maintain two pointers that start from the head and move one pointer to the nth node from the beginning. Then move both pointers until the first pointer reaches the end of the list. At this point, the second pointer will be at the nth node from the end, and we can remove it from the list.",
       "editorialRating": 4.7,
-      "editorialVotes": { "1": 7, "2": 3 },
+      "editorialVotes": {
+        "1": 7,
+        "2": 3
+      },
       "frequency": "High",
       "hints": [],
       "isPublished": true,
@@ -1054,37 +1638,66 @@
           "id": 83,
           "title": "Remove Duplicates from Sorted List"
         },
-        { "difficulty": "Medium", "id": 21, "title": "Merge Two Sorted Lists" }
+        {
+          "difficulty": "Medium",
+          "id": 21,
+          "title": "Merge Two Sorted Lists"
+        }
       ],
       "submissions": 26.5,
       "testSuite": [
         {
           "output": [1, 2, 3, 5],
           "inputs": [
-            { "name": "", "value": [1, 2, 3, 4, 5] },
-            { "name": "", "value": 2 }
+            {
+              "name": "",
+              "value": [1, 2, 3, 4, 5]
+            },
+            {
+              "name": "",
+              "value": 2
+            }
           ],
           "explanation": ""
         },
         {
           "output": [],
           "inputs": [
-            { "name": "", "value": [1] },
-            { "name": "", "value": 1 }
+            {
+              "name": "",
+              "value": [1]
+            },
+            {
+              "name": "",
+              "value": 1
+            }
           ],
           "explanation": ""
         },
         {
           "output": [1],
           "inputs": [
-            { "name": "", "value": [1, 2] },
-            { "name": "", "value": 1 }
+            {
+              "name": "",
+              "value": [1, 2]
+            },
+            {
+              "name": "",
+              "value": 1
+            }
           ],
           "explanation": ""
         }
       ],
       "title": "Remove Nth Node From End of List",
-      "topics": [{ "name": "Linked List" }, { "name": "Two Pointers" }]
+      "topics": [
+        {
+          "name": "Linked List"
+        },
+        {
+          "name": "Two Pointers"
+        }
+      ]
     },
     {
       "acceptanceRate": 41.9,
@@ -1102,14 +1715,21 @@
       },
       "editorialBody": "The problem can be solved using a stack data structure. Iterate through the characters of the string, pushing opening brackets onto the stack and popping them when encountering their corresponding closing brackets. If the stack is empty after iterating through all characters, the string is valid.",
       "editorialRating": 4.6,
-      "editorialVotes": { "1": 6, "2": 4 },
+      "editorialVotes": {
+        "1": 6,
+        "2": 4
+      },
       "frequency": "High",
       "hints": [],
       "isPublished": true,
       "isSubmitted": true,
       "numLC": 20,
       "similar": [
-        { "difficulty": "Easy", "id": 739, "title": "Daily Temperatures" },
+        {
+          "difficulty": "Easy",
+          "id": 739,
+          "title": "Daily Temperatures"
+        },
         {
           "difficulty": "Medium",
           "id": 946,
@@ -1120,22 +1740,44 @@
       "testSuite": [
         {
           "output": true,
-          "inputs": [{ "name": "", "value": "()" }],
+          "inputs": [
+            {
+              "name": "",
+              "value": "()"
+            }
+          ],
           "explanation": ""
         },
         {
           "output": true,
-          "inputs": [{ "name": "", "value": "()[]{}" }],
+          "inputs": [
+            {
+              "name": "",
+              "value": "()[]{}"
+            }
+          ],
           "explanation": ""
         },
         {
           "output": false,
-          "inputs": [{ "name": "", "value": "(]" }],
+          "inputs": [
+            {
+              "name": "",
+              "value": "(]"
+            }
+          ],
           "explanation": ""
         }
       ],
       "title": "Valid Parentheses",
-      "topics": [{ "name": "String" }, { "name": "Stack" }]
+      "topics": [
+        {
+          "name": "String"
+        },
+        {
+          "name": "Stack"
+        }
+      ]
     },
     {
       "acceptanceRate": 53.9,
@@ -1153,45 +1795,78 @@
       },
       "editorialBody": "The problem can be solved iteratively or recursively. In both approaches, maintain a pointer to the merged list and move it to the next smallest node among the two input lists.",
       "editorialRating": 4.7,
-      "editorialVotes": { "1": 7, "2": 3 },
+      "editorialVotes": {
+        "1": 7,
+        "2": 3
+      },
       "frequency": "High",
       "hints": [],
       "isPublished": true,
       "isSubmitted": true,
       "numLC": 21,
       "similar": [
-        { "difficulty": "Medium", "id": 23, "title": "Merge k Sorted Lists" },
-        { "difficulty": "Easy", "id": 23, "title": "Merge Sorted Array" }
+        {
+          "difficulty": "Medium",
+          "id": 23,
+          "title": "Merge k Sorted Lists"
+        },
+        {
+          "difficulty": "Easy",
+          "id": 23,
+          "title": "Merge Sorted Array"
+        }
       ],
       "submissions": 27.3,
       "testSuite": [
         {
           "output": [1, 1, 2, 3, 4, 4],
           "inputs": [
-            { "name": "", "value": [1, 2, 4] },
-            { "name": "", "value": [1, 3, 4] }
+            {
+              "name": "",
+              "value": [1, 2, 4]
+            },
+            {
+              "name": "",
+              "value": [1, 3, 4]
+            }
           ],
           "explanation": ""
         },
         {
           "output": [],
           "inputs": [
-            { "name": "", "value": [] },
-            { "name": "", "value": [] }
+            {
+              "name": "",
+              "value": []
+            },
+            {
+              "name": "",
+              "value": []
+            }
           ],
           "explanation": ""
         },
         {
           "output": [0],
           "inputs": [
-            { "name": "", "value": [] },
-            { "name": "", "value": [0] }
+            {
+              "name": "",
+              "value": []
+            },
+            {
+              "name": "",
+              "value": [0]
+            }
           ],
           "explanation": ""
         }
       ],
       "title": "Merge Two Sorted Lists",
-      "topics": [{ "name": "Linked List" }]
+      "topics": [
+        {
+          "name": "Linked List"
+        }
+      ]
     },
     {
       "acceptanceRate": 68.9,
@@ -1209,7 +1884,10 @@
       },
       "editorialBody": "The problem can be solved using backtracking. Generate all possible combinations of parentheses and backtrack to prune invalid combinations.",
       "editorialRating": 4.8,
-      "editorialVotes": { "1": 8, "2": 2 },
+      "editorialVotes": {
+        "1": 8,
+        "2": 2
+      },
       "frequency": "High",
       "hints": [],
       "isPublished": true,
@@ -1221,28 +1899,54 @@
           "id": 17,
           "title": "Letter Combinations of a Phone Number"
         },
-        { "difficulty": "Medium", "id": 93, "title": "Restore IP Addresses" }
+        {
+          "difficulty": "Medium",
+          "id": 93,
+          "title": "Restore IP Addresses"
+        }
       ],
       "submissions": 29.6,
       "testSuite": [
         {
           "output": ["((()))", "(()())", "(())()", "()(())", "()()()"],
-          "inputs": [{ "name": "", "value": 3 }],
+          "inputs": [
+            {
+              "name": "",
+              "value": 3
+            }
+          ],
           "explanation": ""
         },
         {
           "output": ["()"],
-          "inputs": [{ "name": "", "value": 1 }],
+          "inputs": [
+            {
+              "name": "",
+              "value": 1
+            }
+          ],
           "explanation": ""
         },
         {
           "output": ["(())", "()()"],
-          "inputs": [{ "name": "", "value": 2 }],
+          "inputs": [
+            {
+              "name": "",
+              "value": 2
+            }
+          ],
           "explanation": ""
         }
       ],
       "title": "Generate Parentheses",
-      "topics": [{ "name": "String" }, { "name": "Backtracking" }]
+      "topics": [
+        {
+          "name": "String"
+        },
+        {
+          "name": "Backtracking"
+        }
+      ]
     },
     {
       "acceptanceRate": 39.5,
@@ -1260,7 +1964,10 @@
       },
       "editorialBody": "The problem can be solved using a priority queue. Maintain a priority queue to store the head nodes of all linked lists and repeatedly extract the smallest node from the priority queue and add its next node to the queue until all lists are exhausted.",
       "editorialRating": 4.9,
-      "editorialVotes": { "1": 9, "2": 1 },
+      "editorialVotes": {
+        "1": 9,
+        "2": 1
+      },
       "frequency": "High",
       "hints": [],
       "isPublished": true,
@@ -1272,7 +1979,11 @@
           "id": 84,
           "title": "Largest Rectangle in Histogram"
         },
-        { "difficulty": "Hard", "id": 147, "title": "Insertion Sort List" }
+        {
+          "difficulty": "Hard",
+          "id": 147,
+          "title": "Insertion Sort List"
+        }
       ],
       "submissions": 26.1,
       "testSuite": [
@@ -1292,20 +2003,36 @@
         },
         {
           "output": [],
-          "inputs": [{ "name": "", "value": [] }],
+          "inputs": [
+            {
+              "name": "",
+              "value": []
+            }
+          ],
           "explanation": ""
         },
         {
           "output": [1],
-          "inputs": [{ "name": "", "value": [[1]] }],
+          "inputs": [
+            {
+              "name": "",
+              "value": [[1]]
+            }
+          ],
           "explanation": ""
         }
       ],
       "title": "Merge k Sorted Lists",
       "topics": [
-        { "name": "Linked List" },
-        { "name": "Divide and Conquer" },
-        { "name": "Heap" }
+        {
+          "name": "Linked List"
+        },
+        {
+          "name": "Divide and Conquer"
+        },
+        {
+          "name": "Heap"
+        }
       ]
     },
     {
@@ -1324,36 +2051,66 @@
       },
       "editorialBody": "The problem can be solved iteratively or recursively. In both approaches, maintain pointers to the previous, current, and next nodes to perform the swap operation. Update the pointers accordingly while iterating through the list.",
       "editorialRating": 4.7,
-      "editorialVotes": { "1": 7, "2": 3 },
+      "editorialVotes": {
+        "1": 7,
+        "2": 3
+      },
       "frequency": "High",
       "hints": [],
       "isPublished": true,
       "isSubmitted": true,
       "numLC": 24,
       "similar": [
-        { "difficulty": "Easy", "id": 206, "title": "Reverse Linked List" },
-        { "difficulty": "Hard", "id": 25, "title": "Reverse Nodes in k-Group" }
+        {
+          "difficulty": "Easy",
+          "id": 206,
+          "title": "Reverse Linked List"
+        },
+        {
+          "difficulty": "Hard",
+          "id": 25,
+          "title": "Reverse Nodes in k-Group"
+        }
       ],
       "submissions": 29.2,
       "testSuite": [
         {
           "output": [2, 1, 4, 3],
-          "inputs": [{ "name": "", "value": [1, 2, 3, 4] }],
+          "inputs": [
+            {
+              "name": "",
+              "value": [1, 2, 3, 4]
+            }
+          ],
           "explanation": ""
         },
         {
           "output": [2, 1, 4, 3, 5],
-          "inputs": [{ "name": "", "value": [1, 2, 3, 4, 5] }],
+          "inputs": [
+            {
+              "name": "",
+              "value": [1, 2, 3, 4, 5]
+            }
+          ],
           "explanation": ""
         },
         {
           "output": [1],
-          "inputs": [{ "name": "", "value": [1] }],
+          "inputs": [
+            {
+              "name": "",
+              "value": [1]
+            }
+          ],
           "explanation": ""
         }
       ],
       "title": "Swap Nodes in Pairs",
-      "topics": [{ "name": "Linked List" }]
+      "topics": [
+        {
+          "name": "Linked List"
+        }
+      ]
     },
     {
       "acceptanceRate": 43.6,
@@ -1371,45 +2128,78 @@
       },
       "editorialBody": "The problem can be solved using a recursive approach with a helper function to reverse a sub-list of size k. Reverse each group of k nodes and connect the reversed groups together.",
       "editorialRating": 4.9,
-      "editorialVotes": { "1": 9, "2": 1 },
+      "editorialVotes": {
+        "1": 9,
+        "2": 1
+      },
       "frequency": "High",
       "hints": [],
       "isPublished": true,
       "isSubmitted": true,
       "numLC": 25,
       "similar": [
-        { "difficulty": "Medium", "id": 92, "title": "Reverse Linked List II" },
-        { "difficulty": "Hard", "id": 24, "title": "Swap Nodes in Pairs" }
+        {
+          "difficulty": "Medium",
+          "id": 92,
+          "title": "Reverse Linked List II"
+        },
+        {
+          "difficulty": "Hard",
+          "id": 24,
+          "title": "Swap Nodes in Pairs"
+        }
       ],
       "submissions": 28.4,
       "testSuite": [
         {
           "output": [2, 1, 4, 3, 5],
           "inputs": [
-            { "name": "", "value": [1, 2, 3, 4, 5] },
-            { "name": "", "value": 2 }
+            {
+              "name": "",
+              "value": [1, 2, 3, 4, 5]
+            },
+            {
+              "name": "",
+              "value": 2
+            }
           ],
           "explanation": ""
         },
         {
           "output": [3, 2, 1, 4, 5],
           "inputs": [
-            { "name": "", "value": [1, 2, 3, 4, 5] },
-            { "name": "", "value": 3 }
+            {
+              "name": "",
+              "value": [1, 2, 3, 4, 5]
+            },
+            {
+              "name": "",
+              "value": 3
+            }
           ],
           "explanation": ""
         },
         {
           "output": [1],
           "inputs": [
-            { "name": "", "value": [1] },
-            { "name": "", "value": 1 }
+            {
+              "name": "",
+              "value": [1]
+            },
+            {
+              "name": "",
+              "value": 1
+            }
           ],
           "explanation": ""
         }
       ],
       "title": "Reverse Nodes in k-Group",
-      "topics": [{ "name": "Linked List" }]
+      "topics": [
+        {
+          "name": "Linked List"
+        }
+      ]
     },
     {
       "acceptanceRate": 46.6,
@@ -1427,14 +2217,21 @@
       },
       "editorialBody": "The problem can be solved using two pointers. Initialize two pointers at the beginning of the array. Iterate through the array, moving the second pointer when encountering a non-duplicate element. Move the first pointer to the next non-duplicate element and replace it with the current element.",
       "editorialRating": 4.5,
-      "editorialVotes": { "1": 5, "2": 4 },
+      "editorialVotes": {
+        "1": 5,
+        "2": 4
+      },
       "frequency": "High",
       "hints": [],
       "isPublished": true,
       "isSubmitted": true,
       "numLC": 26,
       "similar": [
-        { "difficulty": "Easy", "id": 27, "title": "Remove Element" },
+        {
+          "difficulty": "Easy",
+          "id": 27,
+          "title": "Remove Element"
+        },
         {
           "difficulty": "Medium",
           "id": 80,
@@ -1445,22 +2242,44 @@
       "testSuite": [
         {
           "output": [1, 2],
-          "inputs": [{ "name": "", "value": [1, 1, 2] }],
+          "inputs": [
+            {
+              "name": "",
+              "value": [1, 1, 2]
+            }
+          ],
           "explanation": ""
         },
         {
           "output": [0, 1, 2, 3, 4],
-          "inputs": [{ "name": "", "value": [0, 0, 1, 1, 1, 2, 2, 3, 3, 4] }],
+          "inputs": [
+            {
+              "name": "",
+              "value": [0, 0, 1, 1, 1, 2, 2, 3, 3, 4]
+            }
+          ],
           "explanation": ""
         },
         {
           "output": [1],
-          "inputs": [{ "name": "", "value": [1] }],
+          "inputs": [
+            {
+              "name": "",
+              "value": [1]
+            }
+          ],
           "explanation": ""
         }
       ],
       "title": "Remove Duplicates from Sorted Array",
-      "topics": [{ "name": "Array" }, { "name": "Two Pointers" }]
+      "topics": [
+        {
+          "name": "Array"
+        },
+        {
+          "name": "Two Pointers"
+        }
+      ]
     },
     {
       "acceptanceRate": 45.7,
@@ -1478,7 +2297,10 @@
       },
       "editorialBody": "The problem can be solved using two pointers. Initialize two pointers at the beginning and end of the array. Iterate through the array, moving the second pointer when encountering the value to remove. Replace the value at the first pointer with the value at the second pointer.",
       "editorialRating": 4.4,
-      "editorialVotes": { "1": 6, "2": 3 },
+      "editorialVotes": {
+        "1": 6,
+        "2": 3
+      },
       "frequency": "High",
       "hints": [],
       "isPublished": true,
@@ -1501,30 +2323,55 @@
         {
           "output": [2, 2],
           "inputs": [
-            { "name": "", "value": [3, 2, 2, 3] },
-            { "name": "", "value": 3 }
+            {
+              "name": "",
+              "value": [3, 2, 2, 3]
+            },
+            {
+              "name": "",
+              "value": 3
+            }
           ],
           "explanation": ""
         },
         {
           "output": [0, 1, 4, 0, 3],
           "inputs": [
-            { "name": "", "value": [0, 1, 2, 2, 3, 0, 4, 2] },
-            { "name": "", "value": 2 }
+            {
+              "name": "",
+              "value": [0, 1, 2, 2, 3, 0, 4, 2]
+            },
+            {
+              "name": "",
+              "value": 2
+            }
           ],
           "explanation": ""
         },
         {
           "output": [],
           "inputs": [
-            { "name": "", "value": [1] },
-            { "name": "", "value": 1 }
+            {
+              "name": "",
+              "value": [1]
+            },
+            {
+              "name": "",
+              "value": 1
+            }
           ],
           "explanation": ""
         }
       ],
       "title": "Remove Element",
-      "topics": [{ "name": "Array" }, { "name": "Two Pointers" }]
+      "topics": [
+        {
+          "name": "Array"
+        },
+        {
+          "name": "Two Pointers"
+        }
+      ]
     },
     {
       "acceptanceRate": 33.9,
@@ -1542,7 +2389,10 @@
       },
       "editorialBody": "The problem can be solved using the sliding window technique. Iterate through the haystack, checking if the substring starting at each index matches the needle. Return the index if found.",
       "editorialRating": 4.2,
-      "editorialVotes": { "1": 4, "2": 3 },
+      "editorialVotes": {
+        "1": 4,
+        "2": 3
+      },
       "frequency": "High",
       "hints": [],
       "isPublished": true,
@@ -1554,37 +2404,66 @@
           "id": 459,
           "title": "Repeated Substring Pattern"
         },
-        { "difficulty": "Easy", "id": 14, "title": "Longest Common Prefix" }
+        {
+          "difficulty": "Easy",
+          "id": 14,
+          "title": "Longest Common Prefix"
+        }
       ],
       "submissions": 25.6,
       "testSuite": [
         {
           "output": 2,
           "inputs": [
-            { "name": "", "value": "hello" },
-            { "name": "", "value": "ll" }
+            {
+              "name": "",
+              "value": "hello"
+            },
+            {
+              "name": "",
+              "value": "ll"
+            }
           ],
           "explanation": ""
         },
         {
           "output": -1,
           "inputs": [
-            { "name": "", "value": "aaaaa" },
-            { "name": "", "value": "bba" }
+            {
+              "name": "",
+              "value": "aaaaa"
+            },
+            {
+              "name": "",
+              "value": "bba"
+            }
           ],
           "explanation": ""
         },
         {
           "output": 0,
           "inputs": [
-            { "name": "", "value": "" },
-            { "name": "", "value": "" }
+            {
+              "name": "",
+              "value": ""
+            },
+            {
+              "name": "",
+              "value": ""
+            }
           ],
           "explanation": ""
         }
       ],
       "title": "Implement strStr()",
-      "topics": [{ "name": "String" }, { "name": "Two Pointers" }]
+      "topics": [
+        {
+          "name": "String"
+        },
+        {
+          "name": "Two Pointers"
+        }
+      ]
     },
     {
       "acceptanceRate": 17.2,
@@ -1602,45 +2481,81 @@
       },
       "editorialBody": "The problem can be solved using bit manipulation. Divide the dividend and divisor using bit shifting operations to simulate division. Handle edge cases such as overflow and divisor being 0.",
       "editorialRating": 4.8,
-      "editorialVotes": { "1": 8, "2": 2 },
+      "editorialVotes": {
+        "1": 8,
+        "2": 2
+      },
       "frequency": "High",
       "hints": [],
       "isPublished": true,
       "isSubmitted": true,
       "numLC": 29,
       "similar": [
-        { "difficulty": "Medium", "id": 50, "title": "Pow(x, n)" },
-        { "difficulty": "Hard", "id": 69, "title": "Sqrt(x)" }
+        {
+          "difficulty": "Medium",
+          "id": 50,
+          "title": "Pow(x, n)"
+        },
+        {
+          "difficulty": "Hard",
+          "id": 69,
+          "title": "Sqrt(x)"
+        }
       ],
       "submissions": 24.8,
       "testSuite": [
         {
           "output": 3,
           "inputs": [
-            { "name": "", "value": 10 },
-            { "name": "", "value": 3 }
+            {
+              "name": "",
+              "value": 10
+            },
+            {
+              "name": "",
+              "value": 3
+            }
           ],
           "explanation": ""
         },
         {
           "output": -2,
           "inputs": [
-            { "name": "", "value": 7 },
-            { "name": "", "value": -3 }
+            {
+              "name": "",
+              "value": 7
+            },
+            {
+              "name": "",
+              "value": -3
+            }
           ],
           "explanation": ""
         },
         {
           "output": 0,
           "inputs": [
-            { "name": "", "value": 0 },
-            { "name": "", "value": 1 }
+            {
+              "name": "",
+              "value": 0
+            },
+            {
+              "name": "",
+              "value": 1
+            }
           ],
           "explanation": ""
         }
       ],
       "title": "Divide Two Integers",
-      "topics": [{ "name": "Math" }, { "name": "Bit Manipulation" }]
+      "topics": [
+        {
+          "name": "Math"
+        },
+        {
+          "name": "Bit Manipulation"
+        }
+      ]
     },
     {
       "acceptanceRate": 26.6,
@@ -1658,14 +2573,21 @@
       },
       "editorialBody": "The problem can be solved using a sliding window approach. Use a hashmap to store the occurrences of words in the words array. Slide a window of length equal to the total length of all words concatenated together, checking if the substring matches the concatenated words.",
       "editorialRating": 4.9,
-      "editorialVotes": { "1": 9, "2": 1 },
+      "editorialVotes": {
+        "1": 9,
+        "2": 1
+      },
       "frequency": "High",
       "hints": [],
       "isPublished": true,
       "isSubmitted": true,
       "numLC": 30,
       "similar": [
-        { "difficulty": "Hard", "id": 76, "title": "Minimum Window Substring" },
+        {
+          "difficulty": "Hard",
+          "id": 76,
+          "title": "Minimum Window Substring"
+        },
         {
           "difficulty": "Hard",
           "id": 159,
@@ -1677,30 +2599,55 @@
         {
           "output": [0, 9],
           "inputs": [
-            { "name": "", "value": "barfoothefoobarman" },
-            { "name": "", "value": ["foo", "bar"] }
+            {
+              "name": "",
+              "value": "barfoothefoobarman"
+            },
+            {
+              "name": "",
+              "value": ["foo", "bar"]
+            }
           ],
           "explanation": ""
         },
         {
           "output": [],
           "inputs": [
-            { "name": "", "value": "wordgoodgoodgoodbestword" },
-            { "name": "", "value": ["word", "good", "best", "word"] }
+            {
+              "name": "",
+              "value": "wordgoodgoodgoodbestword"
+            },
+            {
+              "name": "",
+              "value": ["word", "good", "best", "word"]
+            }
           ],
           "explanation": ""
         },
         {
           "output": [6, 9, 12],
           "inputs": [
-            { "name": "", "value": "barfoofoobarthefoobarman" },
-            { "name": "", "value": ["bar", "foo", "the"] }
+            {
+              "name": "",
+              "value": "barfoofoobarthefoobarman"
+            },
+            {
+              "name": "",
+              "value": ["bar", "foo", "the"]
+            }
           ],
           "explanation": ""
         }
       ],
       "title": "Substring with Concatenation of All Words",
-      "topics": [{ "name": "Hash Table" }, { "name": "Two Pointers" }]
+      "topics": [
+        {
+          "name": "Hash Table"
+        },
+        {
+          "name": "Two Pointers"
+        }
+      ]
     },
     {
       "acceptanceRate": 34.7,
@@ -1718,36 +2665,69 @@
       },
       "editorialBody": "The problem can be solved by finding the first decreasing element from the right and swapping it with the smallest element greater than it from the right. Then, reverse the elements from the next element of the swapped element to the end.",
       "editorialRating": 4.6,
-      "editorialVotes": { "1": 7, "2": 3 },
+      "editorialVotes": {
+        "1": 7,
+        "2": 3
+      },
       "frequency": "High",
       "hints": [],
       "isPublished": true,
       "isSubmitted": true,
       "numLC": 31,
       "similar": [
-        { "difficulty": "Medium", "id": 46, "title": "Permutations" },
-        { "difficulty": "Hard", "id": 47, "title": "Permutations II" }
+        {
+          "difficulty": "Medium",
+          "id": 46,
+          "title": "Permutations"
+        },
+        {
+          "difficulty": "Hard",
+          "id": 47,
+          "title": "Permutations II"
+        }
       ],
       "submissions": 26.3,
       "testSuite": [
         {
           "output": [1, 3, 2],
-          "inputs": [{ "name": "", "value": [1, 2, 3] }],
+          "inputs": [
+            {
+              "name": "",
+              "value": [1, 2, 3]
+            }
+          ],
           "explanation": ""
         },
         {
           "output": [1, 2, 3],
-          "inputs": [{ "name": "", "value": [3, 2, 1] }],
+          "inputs": [
+            {
+              "name": "",
+              "value": [3, 2, 1]
+            }
+          ],
           "explanation": ""
         },
         {
           "output": [1, 5, 1],
-          "inputs": [{ "name": "", "value": [1, 1, 5] }],
+          "inputs": [
+            {
+              "name": "",
+              "value": [1, 1, 5]
+            }
+          ],
           "explanation": ""
         }
       ],
       "title": "Next Permutation",
-      "topics": [{ "name": "Array" }, { "name": "Two Pointers" }]
+      "topics": [
+        {
+          "name": "Array"
+        },
+        {
+          "name": "Two Pointers"
+        }
+      ]
     },
     {
       "acceptanceRate": 29.6,
@@ -1765,14 +2745,21 @@
       },
       "editorialBody": "The problem can be solved using dynamic programming. Use a dp array to store the longest valid parentheses ending at each index. Iterate through the string, updating the dp array based on the current character and previous valid parentheses.",
       "editorialRating": 4.7,
-      "editorialVotes": { "1": 8, "2": 2 },
+      "editorialVotes": {
+        "1": 8,
+        "2": 2
+      },
       "frequency": "High",
       "hints": [],
       "isPublished": true,
       "isSubmitted": true,
       "numLC": 32,
       "similar": [
-        { "difficulty": "Medium", "id": 20, "title": "Valid Parentheses" },
+        {
+          "difficulty": "Medium",
+          "id": 20,
+          "title": "Valid Parentheses"
+        },
         {
           "difficulty": "Hard",
           "id": 301,
@@ -1783,22 +2770,44 @@
       "testSuite": [
         {
           "output": 2,
-          "inputs": [{ "name": "", "value": "(()" }],
+          "inputs": [
+            {
+              "name": "",
+              "value": "(()"
+            }
+          ],
           "explanation": ""
         },
         {
           "output": 4,
-          "inputs": [{ "name": "", "value": ")()())" }],
+          "inputs": [
+            {
+              "name": "",
+              "value": ")()())"
+            }
+          ],
           "explanation": ""
         },
         {
           "output": 0,
-          "inputs": [{ "name": "", "value": "" }],
+          "inputs": [
+            {
+              "name": "",
+              "value": ""
+            }
+          ],
           "explanation": ""
         }
       ],
       "title": "Longest Valid Parentheses",
-      "topics": [{ "name": "String" }, { "name": "Dynamic Programming" }]
+      "topics": [
+        {
+          "name": "String"
+        },
+        {
+          "name": "Dynamic Programming"
+        }
+      ]
     },
     {
       "acceptanceRate": 35.9,
@@ -1816,7 +2825,10 @@
       },
       "editorialBody": "The problem can be solved using binary search. Divide the array into two parts at the pivot point and perform binary search in the appropriate part based on the target value.",
       "editorialRating": 4.5,
-      "editorialVotes": { "1": 7, "2": 3 },
+      "editorialVotes": {
+        "1": 7,
+        "2": 3
+      },
       "frequency": "High",
       "hints": [],
       "isPublished": true,
@@ -1839,30 +2851,55 @@
         {
           "output": 4,
           "inputs": [
-            { "name": "", "value": [4, 5, 6, 7, 0, 1, 2] },
-            { "name": "", "value": 0 }
+            {
+              "name": "",
+              "value": [4, 5, 6, 7, 0, 1, 2]
+            },
+            {
+              "name": "",
+              "value": 0
+            }
           ],
           "explanation": ""
         },
         {
           "output": -1,
           "inputs": [
-            { "name": "", "value": [4, 5, 6, 7, 0, 1, 2] },
-            { "name": "", "value": 3 }
+            {
+              "name": "",
+              "value": [4, 5, 6, 7, 0, 1, 2]
+            },
+            {
+              "name": "",
+              "value": 3
+            }
           ],
           "explanation": ""
         },
         {
           "output": -1,
           "inputs": [
-            { "name": "", "value": [1] },
-            { "name": "", "value": 0 }
+            {
+              "name": "",
+              "value": [1]
+            },
+            {
+              "name": "",
+              "value": 0
+            }
           ],
           "explanation": ""
         }
       ],
       "title": "Search in Rotated Sorted Array",
-      "topics": [{ "name": "Array" }, { "name": "Binary Search" }]
+      "topics": [
+        {
+          "name": "Array"
+        },
+        {
+          "name": "Binary Search"
+        }
+      ]
     },
     {
       "acceptanceRate": 37.8,
@@ -1880,45 +2917,81 @@
       },
       "editorialBody": "The problem can be solved using binary search. Perform two binary searches, one for finding the leftmost occurrence of the target and another for finding the rightmost occurrence of the target.",
       "editorialRating": 4.4,
-      "editorialVotes": { "1": 6, "2": 4 },
+      "editorialVotes": {
+        "1": 6,
+        "2": 4
+      },
       "frequency": "High",
       "hints": [],
       "isPublished": true,
       "isSubmitted": true,
       "numLC": 34,
       "similar": [
-        { "difficulty": "Easy", "id": 278, "title": "First Bad Version" },
-        { "difficulty": "Medium", "id": 35, "title": "Search Insert Position" }
+        {
+          "difficulty": "Easy",
+          "id": 278,
+          "title": "First Bad Version"
+        },
+        {
+          "difficulty": "Medium",
+          "id": 35,
+          "title": "Search Insert Position"
+        }
       ],
       "submissions": 27.2,
       "testSuite": [
         {
           "output": [3, 4],
           "inputs": [
-            { "name": "", "value": [5, 7, 7, 8, 8, 10] },
-            { "name": "", "value": 8 }
+            {
+              "name": "",
+              "value": [5, 7, 7, 8, 8, 10]
+            },
+            {
+              "name": "",
+              "value": 8
+            }
           ],
           "explanation": ""
         },
         {
           "output": [-1, -1],
           "inputs": [
-            { "name": "", "value": [5, 7, 7, 8, 8, 10] },
-            { "name": "", "value": 6 }
+            {
+              "name": "",
+              "value": [5, 7, 7, 8, 8, 10]
+            },
+            {
+              "name": "",
+              "value": 6
+            }
           ],
           "explanation": ""
         },
         {
           "output": [-1, -1],
           "inputs": [
-            { "name": "", "value": [] },
-            { "name": "", "value": 0 }
+            {
+              "name": "",
+              "value": []
+            },
+            {
+              "name": "",
+              "value": 0
+            }
           ],
           "explanation": ""
         }
       ],
       "title": "Find First and Last Position of Element in Sorted Array",
-      "topics": [{ "name": "Array" }, { "name": "Binary Search" }]
+      "topics": [
+        {
+          "name": "Array"
+        },
+        {
+          "name": "Binary Search"
+        }
+      ]
     },
     {
       "acceptanceRate": 42.7,
@@ -1936,7 +3009,10 @@
       },
       "editorialBody": "The problem can be solved using binary search. Perform binary search to find the target or the position where the target should be inserted.",
       "editorialRating": 4.2,
-      "editorialVotes": { "1": 5, "2": 3 },
+      "editorialVotes": {
+        "1": 5,
+        "2": 3
+      },
       "frequency": "High",
       "hints": [],
       "isPublished": true,
@@ -1948,37 +3024,66 @@
           "id": 34,
           "title": "Find First and Last Position of Element in Sorted Array"
         },
-        { "difficulty": "Medium", "id": 74, "title": "Search a 2D Matrix" }
+        {
+          "difficulty": "Medium",
+          "id": 74,
+          "title": "Search a 2D Matrix"
+        }
       ],
       "submissions": 28.6,
       "testSuite": [
         {
           "output": 2,
           "inputs": [
-            { "name": "", "value": [1, 3, 5, 6] },
-            { "name": "", "value": 5 }
+            {
+              "name": "",
+              "value": [1, 3, 5, 6]
+            },
+            {
+              "name": "",
+              "value": 5
+            }
           ],
           "explanation": ""
         },
         {
           "output": 1,
           "inputs": [
-            { "name": "", "value": [1, 3, 5, 6] },
-            { "name": "", "value": 2 }
+            {
+              "name": "",
+              "value": [1, 3, 5, 6]
+            },
+            {
+              "name": "",
+              "value": 2
+            }
           ],
           "explanation": ""
         },
         {
           "output": 4,
           "inputs": [
-            { "name": "", "value": [1, 3, 5, 6] },
-            { "name": "", "value": 7 }
+            {
+              "name": "",
+              "value": [1, 3, 5, 6]
+            },
+            {
+              "name": "",
+              "value": 7
+            }
           ],
           "explanation": ""
         }
       ],
       "title": "Search Insert Position",
-      "topics": [{ "name": "Array" }, { "name": "Binary Search" }]
+      "topics": [
+        {
+          "name": "Array"
+        },
+        {
+          "name": "Binary Search"
+        }
+      ]
     },
     {
       "acceptanceRate": 45.6,
@@ -1996,14 +3101,21 @@
       },
       "editorialBody": "The problem can be solved by checking each row, column, and sub-box separately for validity. Use hash sets to keep track of seen digits.",
       "editorialRating": 4.3,
-      "editorialVotes": { "1": 6, "2": 4 },
+      "editorialVotes": {
+        "1": 6,
+        "2": 4
+      },
       "frequency": "High",
       "hints": [],
       "isPublished": true,
       "isSubmitted": true,
       "numLC": 36,
       "similar": [
-        { "difficulty": "Medium", "id": 37, "title": "Sudoku Solver" }
+        {
+          "difficulty": "Medium",
+          "id": 37,
+          "title": "Sudoku Solver"
+        }
       ],
       "submissions": 29.4,
       "testSuite": [
@@ -2093,7 +3205,14 @@
         }
       ],
       "title": "Valid Sudoku",
-      "topics": [{ "name": "Array" }, { "name": "Hash Table" }]
+      "topics": [
+        {
+          "name": "Array"
+        },
+        {
+          "name": "Hash Table"
+        }
+      ]
     },
     {
       "acceptanceRate": 32.8,
@@ -2111,14 +3230,21 @@
       },
       "editorialBody": "The problem can be solved using backtracking. Try all possible numbers for an empty cell, and backtrack if the sudoku becomes invalid.",
       "editorialRating": 4.8,
-      "editorialVotes": { "1": 9, "2": 1 },
+      "editorialVotes": {
+        "1": 9,
+        "2": 1
+      },
       "frequency": "High",
       "hints": [],
       "isPublished": true,
       "isSubmitted": true,
       "numLC": 37,
       "similar": [
-        { "difficulty": "Medium", "id": 36, "title": "Valid Sudoku" }
+        {
+          "difficulty": "Medium",
+          "id": 36,
+          "title": "Valid Sudoku"
+        }
       ],
       "submissions": 26.1,
       "testSuite": [
@@ -2176,7 +3302,14 @@
         }
       ],
       "title": "Sudoku Solver",
-      "topics": [{ "name": "Array" }, { "name": "Backtracking" }]
+      "topics": [
+        {
+          "name": "Array"
+        },
+        {
+          "name": "Backtracking"
+        }
+      ]
     },
     {
       "acceptanceRate": 42.7,
@@ -2194,7 +3327,10 @@
       },
       "editorialBody": "The problem can be solved iteratively. Iterate through the sequence, count the consecutive digits, and append the counts and digits to form the next sequence.",
       "editorialRating": 4.2,
-      "editorialVotes": { "1": 5, "2": 3 },
+      "editorialVotes": {
+        "1": 5,
+        "2": 3
+      },
       "frequency": "High",
       "hints": [],
       "isPublished": true,
@@ -2205,22 +3341,41 @@
       "testSuite": [
         {
           "output": "1",
-          "inputs": [{ "name": "", "value": 1 }],
+          "inputs": [
+            {
+              "name": "",
+              "value": 1
+            }
+          ],
           "explanation": ""
         },
         {
           "output": "1211",
-          "inputs": [{ "name": "", "value": 4 }],
+          "inputs": [
+            {
+              "name": "",
+              "value": 4
+            }
+          ],
           "explanation": ""
         },
         {
           "output": "111221",
-          "inputs": [{ "name": "", "value": 5 }],
+          "inputs": [
+            {
+              "name": "",
+              "value": 5
+            }
+          ],
           "explanation": ""
         }
       ],
       "title": "Count and Say",
-      "topics": [{ "name": "String" }]
+      "topics": [
+        {
+          "name": "String"
+        }
+      ]
     },
     {
       "acceptanceRate": 50.2,
@@ -2238,23 +3393,40 @@
       },
       "editorialBody": "The problem can be solved using backtracking. Explore all possible combinations by recursively trying each candidate and updating the target.",
       "editorialRating": 4.5,
-      "editorialVotes": { "1": 6, "2": 4 },
+      "editorialVotes": {
+        "1": 6,
+        "2": 4
+      },
       "frequency": "High",
       "hints": [],
       "isPublished": true,
       "isSubmitted": true,
       "numLC": 39,
       "similar": [
-        { "difficulty": "Medium", "id": 40, "title": "Combination Sum II" },
-        { "difficulty": "Medium", "id": 216, "title": "Combination Sum III" }
+        {
+          "difficulty": "Medium",
+          "id": 40,
+          "title": "Combination Sum II"
+        },
+        {
+          "difficulty": "Medium",
+          "id": 216,
+          "title": "Combination Sum III"
+        }
       ],
       "submissions": 30.2,
       "testSuite": [
         {
           "output": [[2, 2, 3], [7]],
           "inputs": [
-            { "name": "", "value": [2, 3, 6, 7] },
-            { "name": "", "value": 7 }
+            {
+              "name": "",
+              "value": [2, 3, 6, 7]
+            },
+            {
+              "name": "",
+              "value": 7
+            }
           ],
           "explanation": ""
         },
@@ -2265,22 +3437,41 @@
             [3, 5]
           ],
           "inputs": [
-            { "name": "", "value": [2, 3, 5] },
-            { "name": "", "value": 8 }
+            {
+              "name": "",
+              "value": [2, 3, 5]
+            },
+            {
+              "name": "",
+              "value": 8
+            }
           ],
           "explanation": ""
         },
         {
           "output": [],
           "inputs": [
-            { "name": "", "value": [2] },
-            { "name": "", "value": 1 }
+            {
+              "name": "",
+              "value": [2]
+            },
+            {
+              "name": "",
+              "value": 1
+            }
           ],
           "explanation": ""
         }
       ],
       "title": "Combination Sum",
-      "topics": [{ "name": "Array" }, { "name": "Backtracking" }]
+      "topics": [
+        {
+          "name": "Array"
+        },
+        {
+          "name": "Backtracking"
+        }
+      ]
     },
     {
       "acceptanceRate": 48.9,
@@ -2298,14 +3489,21 @@
       },
       "editorialBody": "The problem can be solved using backtracking. Sort the candidates array to avoid duplicate combinations, then explore all possible combinations by recursively trying each candidate and updating the target.",
       "editorialRating": 4.4,
-      "editorialVotes": { "1": 7, "2": 3 },
+      "editorialVotes": {
+        "1": 7,
+        "2": 3
+      },
       "frequency": "High",
       "hints": [],
       "isPublished": true,
       "isSubmitted": true,
       "numLC": 40,
       "similar": [
-        { "difficulty": "Medium", "id": 39, "title": "Combination Sum" }
+        {
+          "difficulty": "Medium",
+          "id": 39,
+          "title": "Combination Sum"
+        }
       ],
       "submissions": 32.6,
       "testSuite": [
@@ -2317,22 +3515,41 @@
             [2, 6]
           ],
           "inputs": [
-            { "name": "", "value": [10, 1, 2, 7, 6, 1, 5] },
-            { "name": "", "value": 8 }
+            {
+              "name": "",
+              "value": [10, 1, 2, 7, 6, 1, 5]
+            },
+            {
+              "name": "",
+              "value": 8
+            }
           ],
           "explanation": ""
         },
         {
           "output": [[1, 2, 2], [5]],
           "inputs": [
-            { "name": "", "value": [2, 5, 2, 1, 2] },
-            { "name": "", "value": 5 }
+            {
+              "name": "",
+              "value": [2, 5, 2, 1, 2]
+            },
+            {
+              "name": "",
+              "value": 5
+            }
           ],
           "explanation": ""
         }
       ],
       "title": "Combination Sum II",
-      "topics": [{ "name": "Array" }, { "name": "Backtracking" }]
+      "topics": [
+        {
+          "name": "Array"
+        },
+        {
+          "name": "Backtracking"
+        }
+      ]
     },
     {
       "acceptanceRate": 35.6,
@@ -2350,7 +3567,10 @@
       },
       "editorialBody": "The problem can be solved using swapping in-place. Iterate through the array and swap each positive integer to its correct position in the array. Then, iterate through the array again to find the first missing positive integer.",
       "editorialRating": 4.6,
-      "editorialVotes": { "1": 8, "2": 2 },
+      "editorialVotes": {
+        "1": 8,
+        "2": 2
+      },
       "frequency": "High",
       "hints": [],
       "isPublished": true,
@@ -2361,22 +3581,41 @@
       "testSuite": [
         {
           "output": 3,
-          "inputs": [{ "name": "", "value": [1, 2, 0] }],
+          "inputs": [
+            {
+              "name": "",
+              "value": [1, 2, 0]
+            }
+          ],
           "explanation": ""
         },
         {
           "output": 2,
-          "inputs": [{ "name": "", "value": [3, 4, -1, 1] }],
+          "inputs": [
+            {
+              "name": "",
+              "value": [3, 4, -1, 1]
+            }
+          ],
           "explanation": ""
         },
         {
           "output": 1,
-          "inputs": [{ "name": "", "value": [7, 8, 9, 11, 12] }],
+          "inputs": [
+            {
+              "name": "",
+              "value": [7, 8, 9, 11, 12]
+            }
+          ],
           "explanation": ""
         }
       ],
       "title": "First Missing Positive",
-      "topics": [{ "name": "Array" }]
+      "topics": [
+        {
+          "name": "Array"
+        }
+      ]
     },
     {
       "acceptanceRate": 48.9,
@@ -2394,7 +3633,10 @@
       },
       "editorialBody": "The problem can be solved using two-pointer technique. Iterate through the elevation map with two pointers and calculate the trapped water at each position.",
       "editorialRating": 4.7,
-      "editorialVotes": { "1": 9, "2": 1 },
+      "editorialVotes": {
+        "1": 9,
+        "2": 1
+      },
       "frequency": "High",
       "hints": [],
       "isPublished": true,
@@ -2406,26 +3648,45 @@
         {
           "output": 6,
           "inputs": [
-            { "name": "", "value": [0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1] }
+            {
+              "name": "",
+              "value": [0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1]
+            }
           ],
           "explanation": ""
         },
         {
           "output": 9,
-          "inputs": [{ "name": "", "value": [4, 2, 0, 3, 2, 5] }],
+          "inputs": [
+            {
+              "name": "",
+              "value": [4, 2, 0, 3, 2, 5]
+            }
+          ],
           "explanation": ""
         },
         {
           "output": 0,
-          "inputs": [{ "name": "", "value": [1, 2, 3, 4, 5] }],
+          "inputs": [
+            {
+              "name": "",
+              "value": [1, 2, 3, 4, 5]
+            }
+          ],
           "explanation": ""
         }
       ],
       "title": "Trapping Rain Water",
       "topics": [
-        { "name": "Array" },
-        { "name": "Two Pointers" },
-        { "name": "Stack" }
+        {
+          "name": "Array"
+        },
+        {
+          "name": "Two Pointers"
+        },
+        {
+          "name": "Stack"
+        }
       ]
     },
     {
@@ -2444,7 +3705,10 @@
       },
       "editorialBody": "The problem can be solved using the grade-school algorithm for multiplication. Perform multiplication digit by digit and keep track of the carry.",
       "editorialRating": 4.3,
-      "editorialVotes": { "1": 6, "2": 4 },
+      "editorialVotes": {
+        "1": 6,
+        "2": 4
+      },
       "frequency": "High",
       "hints": [],
       "isPublished": true,
@@ -2456,30 +3720,55 @@
         {
           "output": "6",
           "inputs": [
-            { "name": "", "value": "2" },
-            { "name": "", "value": "3" }
+            {
+              "name": "",
+              "value": "2"
+            },
+            {
+              "name": "",
+              "value": "3"
+            }
           ],
           "explanation": ""
         },
         {
           "output": "56088",
           "inputs": [
-            { "name": "", "value": "123" },
-            { "name": "", "value": "456" }
+            {
+              "name": "",
+              "value": "123"
+            },
+            {
+              "name": "",
+              "value": "456"
+            }
           ],
           "explanation": ""
         },
         {
           "output": "891",
           "inputs": [
-            { "name": "", "value": "9" },
-            { "name": "", "value": "99" }
+            {
+              "name": "",
+              "value": "9"
+            },
+            {
+              "name": "",
+              "value": "99"
+            }
           ],
           "explanation": ""
         }
       ],
       "title": "Multiply Strings",
-      "topics": [{ "name": "Math" }, { "name": "String" }]
+      "topics": [
+        {
+          "name": "Math"
+        },
+        {
+          "name": "String"
+        }
+      ]
     },
     {
       "acceptanceRate": 25.5,
@@ -2497,7 +3786,9 @@
       },
       "editorialBody": "The problem can be solved using dynamic programming. Maintain a two-dimensional DP array to store whether the substrings match up to a certain point.",
       "editorialRating": 4.8,
-      "editorialVotes": { "1": 10 },
+      "editorialVotes": {
+        "1": 10
+      },
       "frequency": "High",
       "hints": [],
       "isPublished": true,
@@ -2515,33 +3806,57 @@
         {
           "output": false,
           "inputs": [
-            { "name": "", "value": "aa" },
-            { "name": "", "value": "a" }
+            {
+              "name": "",
+              "value": "aa"
+            },
+            {
+              "name": "",
+              "value": "a"
+            }
           ],
           "explanation": ""
         },
         {
           "output": true,
           "inputs": [
-            { "name": "", "value": "aa" },
-            { "name": "", "value": "*" }
+            {
+              "name": "",
+              "value": "aa"
+            },
+            {
+              "name": "",
+              "value": "*"
+            }
           ],
           "explanation": ""
         },
         {
           "output": false,
           "inputs": [
-            { "name": "", "value": "cb" },
-            { "name": "", "value": "?a" }
+            {
+              "name": "",
+              "value": "cb"
+            },
+            {
+              "name": "",
+              "value": "?a"
+            }
           ],
           "explanation": ""
         }
       ],
       "title": "Wildcard Matching",
       "topics": [
-        { "name": "String" },
-        { "name": "Dynamic Programming" },
-        { "name": "Backtracking" }
+        {
+          "name": "String"
+        },
+        {
+          "name": "Dynamic Programming"
+        },
+        {
+          "name": "Backtracking"
+        }
       ]
     },
     {
@@ -2560,7 +3875,10 @@
       },
       "editorialBody": "The problem can be solved using greedy approach. Iterate through the array and maintain the maximum reachable position at each step.",
       "editorialRating": 4.7,
-      "editorialVotes": { "1": 9, "2": 1 },
+      "editorialVotes": {
+        "1": 9,
+        "2": 1
+      },
       "frequency": "High",
       "hints": [],
       "isPublished": true,
@@ -2571,22 +3889,44 @@
       "testSuite": [
         {
           "output": 2,
-          "inputs": [{ "name": "", "value": [2, 3, 1, 1, 4] }],
+          "inputs": [
+            {
+              "name": "",
+              "value": [2, 3, 1, 1, 4]
+            }
+          ],
           "explanation": ""
         },
         {
           "output": 2,
-          "inputs": [{ "name": "", "value": [2, 3, 0, 1, 4] }],
+          "inputs": [
+            {
+              "name": "",
+              "value": [2, 3, 0, 1, 4]
+            }
+          ],
           "explanation": ""
         },
         {
           "output": 0,
-          "inputs": [{ "name": "", "value": [1] }],
+          "inputs": [
+            {
+              "name": "",
+              "value": [1]
+            }
+          ],
           "explanation": ""
         }
       ],
       "title": "Jump Game II",
-      "topics": [{ "name": "Array" }, { "name": "Greedy" }]
+      "topics": [
+        {
+          "name": "Array"
+        },
+        {
+          "name": "Greedy"
+        }
+      ]
     },
     {
       "acceptanceRate": 60.1,
@@ -2604,14 +3944,21 @@
       },
       "editorialBody": "The problem can be solved using backtracking. Iterate through the array and recursively generate permutations by swapping elements.",
       "editorialRating": 4.5,
-      "editorialVotes": { "1": 8, "2": 2 },
+      "editorialVotes": {
+        "1": 8,
+        "2": 2
+      },
       "frequency": "High",
       "hints": [],
       "isPublished": true,
       "isSubmitted": true,
       "numLC": 46,
       "similar": [
-        { "difficulty": "Medium", "id": 47, "title": "Permutations II" }
+        {
+          "difficulty": "Medium",
+          "id": 47,
+          "title": "Permutations II"
+        }
       ],
       "submissions": 42.9,
       "testSuite": [
@@ -2624,7 +3971,12 @@
             [3, 1, 2],
             [3, 2, 1]
           ],
-          "inputs": [{ "name": "", "value": [1, 2, 3] }],
+          "inputs": [
+            {
+              "name": "",
+              "value": [1, 2, 3]
+            }
+          ],
           "explanation": ""
         },
         {
@@ -2632,17 +3984,31 @@
             [0, 1],
             [1, 0]
           ],
-          "inputs": [{ "name": "", "value": [0, 1] }],
+          "inputs": [
+            {
+              "name": "",
+              "value": [0, 1]
+            }
+          ],
           "explanation": ""
         },
         {
           "output": [[1]],
-          "inputs": [{ "name": "", "value": [1] }],
+          "inputs": [
+            {
+              "name": "",
+              "value": [1]
+            }
+          ],
           "explanation": ""
         }
       ],
       "title": "Permutations",
-      "topics": [{ "name": "Backtracking" }]
+      "topics": [
+        {
+          "name": "Backtracking"
+        }
+      ]
     },
     {
       "acceptanceRate": 46.7,
@@ -2660,14 +4026,21 @@
       },
       "editorialBody": "The problem can be solved using backtracking. Sort the array to handle duplicates, then iterate through and recursively generate permutations.",
       "editorialRating": 4.6,
-      "editorialVotes": { "1": 9, "2": 1 },
+      "editorialVotes": {
+        "1": 9,
+        "2": 1
+      },
       "frequency": "High",
       "hints": [],
       "isPublished": true,
       "isSubmitted": true,
       "numLC": 47,
       "similar": [
-        { "difficulty": "Medium", "id": 46, "title": "Permutations" }
+        {
+          "difficulty": "Medium",
+          "id": 46,
+          "title": "Permutations"
+        }
       ],
       "submissions": 37.2,
       "testSuite": [
@@ -2677,7 +4050,12 @@
             [1, 2, 1],
             [2, 1, 1]
           ],
-          "inputs": [{ "name": "", "value": [1, 1, 2] }],
+          "inputs": [
+            {
+              "name": "",
+              "value": [1, 1, 2]
+            }
+          ],
           "explanation": ""
         },
         {
@@ -2689,7 +4067,12 @@
             [3, 1, 2],
             [3, 2, 1]
           ],
-          "inputs": [{ "name": "", "value": [1, 2, 3] }],
+          "inputs": [
+            {
+              "name": "",
+              "value": [1, 2, 3]
+            }
+          ],
           "explanation": ""
         },
         {
@@ -2698,12 +4081,21 @@
             [1, 2, 1],
             [2, 1, 1]
           ],
-          "inputs": [{ "name": "", "value": [1, 2, 1] }],
+          "inputs": [
+            {
+              "name": "",
+              "value": [1, 2, 1]
+            }
+          ],
           "explanation": ""
         }
       ],
       "title": "Permutations II",
-      "topics": [{ "name": "Backtracking" }]
+      "topics": [
+        {
+          "name": "Backtracking"
+        }
+      ]
     },
     {
       "acceptanceRate": 56.4,
@@ -2721,7 +4113,10 @@
       },
       "editorialBody": "The problem can be solved by taking the transpose of the matrix and then reversing each row.",
       "editorialRating": 4.6,
-      "editorialVotes": { "1": 9, "2": 1 },
+      "editorialVotes": {
+        "1": 9,
+        "2": 1
+      },
       "frequency": "High",
       "hints": [],
       "isPublished": true,
@@ -2770,12 +4165,24 @@
         },
         {
           "output": [[1]],
-          "inputs": [{ "name": "", "value": [[1]] }],
+          "inputs": [
+            {
+              "name": "",
+              "value": [[1]]
+            }
+          ],
           "explanation": ""
         }
       ],
       "title": "Rotate Image",
-      "topics": [{ "name": "Array" }, { "name": "Matrix" }]
+      "topics": [
+        {
+          "name": "Array"
+        },
+        {
+          "name": "Matrix"
+        }
+      ]
     },
     {
       "acceptanceRate": 59.8,
@@ -2793,7 +4200,10 @@
       },
       "editorialBody": "The problem can be solved by sorting each string and using it as a key in a hashmap to group anagrams together.",
       "editorialRating": 4.7,
-      "editorialVotes": { "1": 9, "2": 1 },
+      "editorialVotes": {
+        "1": 9,
+        "2": 1
+      },
       "frequency": "High",
       "hints": [],
       "isPublished": true,
@@ -2805,23 +4215,43 @@
         {
           "output": [["bat"], ["nat", "tan"], ["ate", "eat", "tea"]],
           "inputs": [
-            { "name": "", "value": ["eat", "tea", "tan", "ate", "nat", "bat"] }
+            {
+              "name": "",
+              "value": ["eat", "tea", "tan", "ate", "nat", "bat"]
+            }
           ],
           "explanation": ""
         },
         {
           "output": [[""]],
-          "inputs": [{ "name": "", "value": [""] }],
+          "inputs": [
+            {
+              "name": "",
+              "value": [""]
+            }
+          ],
           "explanation": ""
         },
         {
           "output": [["a"]],
-          "inputs": [{ "name": "", "value": ["a"] }],
+          "inputs": [
+            {
+              "name": "",
+              "value": ["a"]
+            }
+          ],
           "explanation": ""
         }
       ],
       "title": "Group Anagrams",
-      "topics": [{ "name": "Hash Table" }, { "name": "String" }]
+      "topics": [
+        {
+          "name": "Hash Table"
+        },
+        {
+          "name": "String"
+        }
+      ]
     },
     {
       "acceptanceRate": 31.8,
@@ -2839,7 +4269,10 @@
       },
       "editorialBody": "The problem can be solved using recursion and divide-and-conquer approach. Keep dividing the problem into subproblems until n becomes 0.",
       "editorialRating": 4.5,
-      "editorialVotes": { "1": 9, "2": 1 },
+      "editorialVotes": {
+        "1": 9,
+        "2": 1
+      },
       "frequency": "High",
       "hints": [],
       "isPublished": true,
@@ -2851,34 +4284,59 @@
         {
           "output": 1024,
           "inputs": [
-            { "name": "", "value": 2 },
-            { "name": "", "value": 10 }
+            {
+              "name": "",
+              "value": 2
+            },
+            {
+              "name": "",
+              "value": 10
+            }
           ],
           "explanation": ""
         },
         {
           "output": 9.261,
           "inputs": [
-            { "name": "", "value": 2.1 },
-            { "name": "", "value": 3 }
+            {
+              "name": "",
+              "value": 2.1
+            },
+            {
+              "name": "",
+              "value": 3
+            }
           ],
           "explanation": ""
         },
         {
           "output": 0.25,
           "inputs": [
-            { "name": "", "value": 2 },
-            { "name": "", "value": -2 }
+            {
+              "name": "",
+              "value": 2
+            },
+            {
+              "name": "",
+              "value": -2
+            }
           ],
           "explanation": ""
         }
       ],
       "title": "Pow(x, n)",
-      "topics": [{ "name": "Math" }, { "name": "Binary Search" }]
+      "topics": [
+        {
+          "name": "Math"
+        },
+        {
+          "name": "Binary Search"
+        }
+      ]
     },
     {
       "acceptanceRate": 243.9,
-      "accepted": 57.0,
+      "accepted": 57,
       "author": {
         "urlAvatar": "https://avatars.leetcode.com/u/98765",
         "username": "PowMaster"
@@ -2898,7 +4356,10 @@
       },
       "editorialBody": "The problem can be solved using recursion and divide-and-conquer approach. Keep dividing the problem into subproblems until n becomes 0.",
       "editorialRating": 4.5,
-      "editorialVotes": { "1": 9, "2": 1 },
+      "editorialVotes": {
+        "1": 9,
+        "2": 1
+      },
       "frequency": "High",
       "hints": [],
       "isPublished": true,
@@ -2910,16 +4371,28 @@
         {
           "output": 6,
           "inputs": [
-            { "name": "", "value": ["0201", "0101", "0102", "1212", "2002"] },
-            { "name": "", "value": "0202" }
+            {
+              "name": "",
+              "value": ["0201", "0101", "0102", "1212", "2002"]
+            },
+            {
+              "name": "",
+              "value": "0202"
+            }
           ],
           "explanation": "A sequence of valid moves would be '0000' -> '1000' -> '1100' -> '1200' -> '1201' -> '1202' -> '0202'. Note that a sequence like '0000' -> '0001' -> '0002' -> '0102' -> '0202' would be invalid, because the wheels of the lock become stuck after the display becomes the dead end '0102'."
         },
         {
           "output": 1,
           "inputs": [
-            { "name": "", "value": "8888" },
-            { "name": "", "value": "0009" }
+            {
+              "name": "",
+              "value": "8888"
+            },
+            {
+              "name": "",
+              "value": "0009"
+            }
           ],
           "explanation": "We can turn the last wheel in reverse to move from '0000' -> '0009'."
         },
@@ -2939,13 +4412,251 @@
                 "9888"
               ]
             },
-            { "name": "", "value": "8888" }
+            {
+              "name": "",
+              "value": "8888"
+            }
           ],
           "explanation": "We cannot reach the target without getting stuck."
         }
       ],
       "title": "Open the Lock",
-      "topics": [{ "name": "Math" }, { "name": "Binary Search" }]
+      "topics": [
+        {
+          "name": "Math"
+        },
+        {
+          "name": "Binary Search"
+        }
+      ]
+    },
+    {
+      "acceptanceRate": 243.9,
+      "accepted": 57,
+      "author": {
+        "urlAvatar": "https://avatars.leetcode.com/u/98765",
+        "username": "PowMaster"
+      },
+      "body": "Given two strings s and t of lengths m and n respectively, return the minimum window substring of s such that every character in t (including duplicates) is included in the window. If there is no such substring, return the empty string ''. The testcases will be generated such that the answer is unique.",
+      "constraints": [
+        "m == s.length",
+        "n == t.length",
+        "1 <= m, n <= 105",
+        "s and t consist of uppercase and lowercase English letters."
+      ],
+      "difficulty": "Hard",
+      "editorialAuthor": {
+        "urlAvatar": "https://avatars.leetcode.com/u/54321",
+        "username": "PowExpert"
+      },
+      "editorialBody": "",
+      "editorialRating": 4.5,
+      "editorialVotes": {
+        "1": 9,
+        "2": 1
+      },
+      "frequency": "High",
+      "hints": [],
+      "isPublished": true,
+      "isSubmitted": true,
+      "numLC": 76,
+      "similar": [],
+      "submissions": 428.2,
+      "testSuite": [
+        {
+          "output": "BANC",
+          "inputs": [
+            {
+              "name": "s",
+              "value": "ADOBECODEBANC"
+            },
+            {
+              "name": "t",
+              "value": "ABC"
+            }
+          ],
+          "explanation": "The entire string s is the minimum window."
+        },
+        {
+          "output": "a",
+          "inputs": [
+            {
+              "name": "s",
+              "value": "a"
+            },
+            {
+              "name": "t",
+              "value": "a"
+            }
+          ],
+          "explanation": "The minimum window substring 'BANC' includes 'A', 'B', and 'C' from string t."
+        },
+        {
+          "output": "",
+          "inputs": [
+            {
+              "name": "s",
+              "value": "a"
+            },
+            {
+              "name": "t",
+              "value": "aa"
+            }
+          ],
+          "explanation": "Both 'a's from t must be included in the window. Since the largest window of s only has one 'a', return empty string."
+        }
+      ],
+      "title": "Minimum Window Substring",
+      "topics": [
+        {
+          "name": "BFS"
+        },
+        {
+          "name": "Sliding Window"
+        }
+      ]
+    },
+    {
+      "acceptanceRate": 243.9,
+      "accepted": 57,
+      "author": {
+        "urlAvatar": "https://avatars.leetcode.com/u/98765",
+        "username": "PowMaster"
+      },
+      "body": "Given two strings s and t of lengths m and n respectively, return the minimum window substring of s such that every character in t (including duplicates) is included in the window. If there is no such substring, return the empty string ''. The testcases will be generated such that the answer is unique.",
+      "constraints": [
+        "m == s.length",
+        "n == t.length",
+        "1 <= m, n <= 105",
+        "s and t consist of uppercase and lowercase English letters."
+      ],
+      "difficulty": "Hard",
+      "editorialAuthor": {
+        "urlAvatar": "https://avatars.leetcode.com/u/54321",
+        "username": "PowExpert"
+      },
+      "editorialBody": "",
+      "editorialRating": 4.5,
+      "editorialVotes": {
+        "1": 9,
+        "2": 1
+      },
+      "frequency": "High",
+      "hints": [],
+      "isPublished": true,
+      "isSubmitted": true,
+      "numLC": 127,
+      "similar": [],
+      "submissions": 428.2,
+      "testSuite": [
+        {
+          "output": 5,
+          "inputs": [
+            {
+              "name": "beginWord",
+              "value": "hit"
+            },
+            {
+              "name": "endWord",
+              "value": "cog"
+            },
+            {
+              "name": "wordList",
+              "value": ["hot", "dot", "dog", "lot", "log", "cog"]
+            }
+          ],
+          "explanation": "One shortest transformation sequence is 'hit' -> 'hot' -> 'dot' -> 'dog' -> cog', which is 5 words long."
+        },
+        {
+          "output": 0,
+          "inputs": [
+            {
+              "name": "beginWord",
+              "value": "hit"
+            },
+            {
+              "name": "endWord",
+              "value": "cog"
+            },
+            {
+              "name": "wordList",
+              "value": [["hot", "dot", "dog", "lot", "log"]]
+            }
+          ],
+          "explanation": "The endWord 'cog' is not in wordList, therefore there is no valid transformation sequence."
+        }
+      ],
+      "title": "Word Ladder",
+      "topics": [
+        {
+          "name": "BFS"
+        },
+        {
+          "name": "Graph"
+        }
+      ]
+    },
+    {
+      "acceptanceRate": 243.9,
+      "accepted": 57,
+      "author": {
+        "urlAvatar": "https://avatars.leetcode.com/u/98765",
+        "username": "PowMaster"
+      },
+      "body": "You are given a string word. A letter is called special if it appears both in lowercase and uppercase in word. Return the number of special letters in word.",
+      "constraints": [""],
+      "difficulty": "Easy",
+      "editorialAuthor": {
+        "urlAvatar": "https://avatars.leetcode.com/u/54321",
+        "username": "PowExpert"
+      },
+      "editorialBody": "",
+      "editorialRating": 4.5,
+      "editorialVotes": {
+        "1": 9,
+        "2": 1
+      },
+      "frequency": "High",
+      "hints": [],
+      "isPublished": true,
+      "isSubmitted": true,
+      "numLC": 3120,
+      "similar": [],
+      "submissions": 428.2,
+      "testSuite": [
+        {
+          "output": 3,
+          "inputs": [
+            {
+              "name": "word",
+              "value": "aaAbcBC"
+            }
+          ],
+          "explanation": "The special characters in word are 'a', 'b', and 'c'."
+        },
+        {
+          "output": 0,
+          "inputs": [
+            {
+              "name": "word",
+              "value": "abc"
+            }
+          ],
+          "explanation": "No character in word appears in uppercase."
+        },
+        {
+          "output": 1,
+          "inputs": [
+            {
+              "name": "word",
+              "value": "abBCab"
+            }
+          ],
+          "explanation": "The only special character in word is 'b'."
+        }
+      ],
+      "title": "Count the Number of Special Characters I",
+      "topics": []
     }
   ]
 }

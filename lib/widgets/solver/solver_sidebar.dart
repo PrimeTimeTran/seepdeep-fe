@@ -63,6 +63,7 @@ class SolverSidebar extends StatefulWidget {
 
 class _SolverSidebarState extends State<SolverSidebar> {
   ScrollController controller = ScrollController();
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -71,69 +72,13 @@ class _SolverSidebarState extends State<SolverSidebar> {
       initialIndex: widget.submitted ? 3 : 0,
       animationDuration: Duration.zero,
       child: Scaffold(
-        appBar: AppBar(
-          automaticallyImplyLeading: false,
-          flexibleSpace: SafeArea(
-              child: SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: TabBar(
-              tabAlignment: TabAlignment.start,
-              isScrollable: true,
-              tabs: [
-                Row(
-                  children: [
-                    const Tab(
-                      icon: Icon(Icons.notes),
-                    ),
-                    Text(
-                      'Description',
-                      style: Theme.of(context).textTheme.bodySmall,
-                    )
-                  ],
-                ),
-                Row(
-                  children: [
-                    const Tab(
-                      icon: Icon(Icons.edit_note),
-                    ),
-                    Text(
-                      'Editorial',
-                      style: Theme.of(context).textTheme.bodySmall,
-                    )
-                  ],
-                ),
-                Row(
-                  children: [
-                    const Tab(
-                      icon: Icon(Icons.science_outlined),
-                    ),
-                    Text(
-                      'Solutions',
-                      style: Theme.of(context).textTheme.bodySmall,
-                    )
-                  ],
-                ),
-                Row(
-                  children: [
-                    const Tab(
-                      icon: Icon(Icons.history),
-                    ),
-                    Text(
-                      'Submissions',
-                      style: Theme.of(context).textTheme.bodySmall,
-                    )
-                  ],
-                ),
-              ],
-            ),
-          )),
-        ),
+        appBar: buildToolbar(context),
         body: Padding(
           padding: const EdgeInsets.all(8.0),
           child: TabBarView(
             physics: const NeverScrollableScrollPhysics(),
             children: [
-              buildTabProblem(context),
+              buildTabProblemDescription(context),
               buildTabEditorial(),
               buildTabSolutions(),
               const ui.SubmissionTable(),
@@ -207,7 +152,8 @@ class _SolverSidebarState extends State<SolverSidebar> {
     );
   }
 
-  ScrollConfiguration buildTabProblem(BuildContext context) {
+  buildTabProblemDescription(BuildContext context) {
+    // return MarkdownEditor(body: widget.problem.body!);
     return ScrollConfiguration(
       behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
       child: SingleChildScrollView(
@@ -282,5 +228,68 @@ class _SolverSidebarState extends State<SolverSidebar> {
         ),
       ),
     );
+  }
+
+  AppBar buildToolbar(BuildContext context) {
+    return AppBar(
+      automaticallyImplyLeading: false,
+      flexibleSpace: SafeArea(
+          child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: TabBar(
+          tabAlignment: TabAlignment.start,
+          isScrollable: true,
+          tabs: [
+            Row(
+              children: [
+                const Tab(
+                  icon: Icon(Icons.notes),
+                ),
+                Text(
+                  'Description',
+                  style: Theme.of(context).textTheme.bodySmall,
+                )
+              ],
+            ),
+            Row(
+              children: [
+                const Tab(
+                  icon: Icon(Icons.edit_note),
+                ),
+                Text(
+                  'Editorial',
+                  style: Theme.of(context).textTheme.bodySmall,
+                )
+              ],
+            ),
+            Row(
+              children: [
+                const Tab(icon: Icon(Icons.science_outlined)),
+                Text(
+                  'Solutions',
+                  style: Theme.of(context).textTheme.bodySmall,
+                )
+              ],
+            ),
+            Row(
+              children: [
+                const Tab(
+                  icon: Icon(Icons.history),
+                ),
+                Text(
+                  'Submissions',
+                  style: Theme.of(context).textTheme.bodySmall,
+                )
+              ],
+            ),
+          ],
+        ),
+      )),
+    );
+  }
+
+  @override
+  void initState() {
+    super.initState();
   }
 }

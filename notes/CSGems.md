@@ -2,8 +2,73 @@
 
 To become the Reddit/Leetcode/Notion/HackerNews/HackerRank/Brilliant/TechCrunch/LinkedIn of Computer Science
 
-- News
 
+Beginner, Novice, Apprentice, Intermediate, Proficient, Advanced, Expert, Master, Virtuoso, Guru
+
+- Anki for Code
+  - Questions are in 'Learned', 'Proficient', 'Mastered'
+    - Encountered: Solve once.
+    - Learned: Solve x3 in a row without error or references.
+    - Proficient: Solve x3 in a row without error or references.
+    - Mastered: Solve x3 in a row without error or references.
+  - Encountered questions are reminded every other day
+  - Learned problems are reminded every week.
+  - Proficient problems are reminded every month.
+  - Mastered problems are reminded every 2 months.
+
+```
+user.solvedProblems = {
+  # May look at submissions 
+  "encountered": [
+    {"id": 1, "name": "twoSum", "solveCount": "2", "dateReview": "04-25-24", "submissionId": "Id"},
+  ],
+  # May look at notes.
+  # If not solved without navigate away then dropped back into encountered.
+  "learned": [
+    {"id": 2, "name": "threeSum", "solveCount": "1", "dateReview": "04-30-24", "submissionId": "Id"},
+  ],
+  # May not look at references
+  # If look at notes dropped back into encountered.
+  # If not solved without navigate away then dropped back into learned.
+  "proficient": [
+    {"id": 3, "name": "validateSudoku", "solveCount": "1", "dateReview": "05-23-24", "submissionId": "Id"},
+  ],
+  # Drops to proficient when dateReview has passed. Must solve again to go back to mastered.
+  # If not solved without navigate away then dropped back into proficient.
+  "mastered": [
+    {"id": 4, "name": "containsDuplicate", "solveCount": "1", "dateReview": "04-30-24", "submissionId": "Id"},
+  ],
+}
+
+user.careerTopics = {
+  "graphs": [
+    {"id": 3, "name": "validateSudoku", "solveCount": "1", "dateReview": "05-23-24", "submissionId": "Id", level: 'mastery'},
+  ],
+}
+```
+
+- Career
+  - Attained learned level for 15 easy problems in that topic.
+  - Attained proficient level of 15 medium problems in that topic
+  - Attained mastery level of 15 hard problems in that topic
+
+
+- LeetCode
+  - Problems
+    - Solutions
+    - Submissions
+
+- Leaderboard
+  - Contests
+  - Solutions
+  - Articles
+
+- Developer Profiles
+  - Contest scores
+  - Submission scores
+  - Community score(tutorials, articles, forum)
+
+- News
   - AI
   - Tech
   - Business
@@ -13,33 +78,18 @@ To become the Reddit/Leetcode/Notion/HackerNews/HackerRank/Brilliant/TechCrunch/
     - [ ] Build Web Scraper to collect news
       - [ ] Should reformat using an AI
 
-- Articles
-- Tutorials
-
-- LeetCode
-
-  - Leaderboard
-    - Contests
-    - Solutions
-    - Articles
-
-- Developer Profiles
-
-  - Projects
-  - Score
-
+- Companies
 - Jobs
-
   - [ ] Scrape Jobs with weekly job
 
-- Companies
 
+- Articles
+- Tutorials
 - Store
-
   - Merchandise
   - TShirts
 
-- Curated Lists
+- Curated Lists of useful tech
   - AI
   - React
   - VueJS
