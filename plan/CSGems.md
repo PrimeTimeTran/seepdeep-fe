@@ -1,9 +1,11 @@
-## Goal
+# Intro
 
 To become the Reddit/Leetcode/Notion/HackerNews/HackerRank/Brilliant/TechCrunch/LinkedIn of Computer Science
 
-
+## Levels
 Beginner, Novice, Apprentice, Intermediate, Proficient, Advanced, Expert, Master, Virtuoso, Guru
+
+## Modules
 
 - Anki for Code
   - Questions are in 'Learned', 'Proficient', 'Mastered'
@@ -97,3 +99,16 @@ user.careerTopics = {
   - Flutter
   - Blockchain
   - Data Analytics
+
+
+# "Dont remember"
+
+- https://www.youtube.com/watch?v=-Bhl_jizoKM&t=746s
+  - "I dont remember"
+    - 4:43
+    - 5:00
+    - 5:22
+    - 
+    - 
+    - 
+    - 

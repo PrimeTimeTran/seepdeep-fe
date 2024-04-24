@@ -1,0 +1,71 @@
+{
+  "acceptanceRate": 243.9,
+  "accepted": 57.0,
+  "author": {
+    "urlAvatar": "https://avatars.leetcode.com/u/98765",
+    "username": "PowMaster"
+  },
+  "body": "You have a lock in front of you with 4 circular wheels. Each wheel has 10 slots: '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'. The wheels can rotate freely and wrap around: for example we can turn '9' to be '0', or '0' to be '9'. Each move consists of turning one wheel one slot. \n\nThe lock initially starts at '0000', a string representing the state of the 4 wheels.\n\nYou are given a list of deadends dead ends, meaning if the lock displays any of these codes, the wheels of the lock will stop turning and you will be unable to open it.\n\nGiven a target representing the value of the wheels that will unlock the lock, return the minimum total number of turns required to open the lock, or -1 if it is impossible.",
+  "constraints": [
+    "1 <= deadends.length <= 500",
+    "deadends[i].length == 4",
+    "target.length == 4",
+    "target will not be in the list deadends. ",
+    "target and deadends[i] consist of digits only.",
+  ],
+  "difficulty": "Medium",
+  "editorialAuthor": {
+    "urlAvatar": "https://avatars.leetcode.com/u/54321",
+    "username": "PowExpert"
+  },
+  "editorialBody": "The problem can be solved using recursion and divide-and-conquer approach. Keep dividing the problem into subproblems until n becomes 0.",
+  "editorialRating": 4.5,
+  "editorialVotes": { "1": 9, "2": 1 },
+  "frequency": "High",
+  "hints": [],
+  "isPublished": true,
+  "isSubmitted": true,
+  "numLC": 752,
+  "similar": [],
+  "submissions": 428.2,
+  "testSuite": [
+    {
+      "output": 6,
+      "inputs": [
+        { "name": "", "value": ["0201", "0101", "0102", "1212", "2002"] },
+        { "name": "", "value": "0202" }
+      ],
+      "explanation": ""
+    },
+    {
+      "output": 1,
+      "inputs": [
+        { "name": "", "value": "8888" },
+        { "name": "", "value": "0009" }
+      ],
+      "explanation": ""
+    },
+    {
+      "output": 0.25,
+      "inputs": [
+        {
+          "name": "",
+          "value": [
+            "8887",
+            "8889",
+            "8878",
+            "8898",
+            "8788",
+            "8988",
+            "7888",
+            "9888"
+          ]
+        },
+        { "name": "", "value": "8888" }
+      ],
+      "explanation": ""
+    }
+  ],
+  "title": "Open the Lock",
+  "topics": [{ "name": "Math" }, { "name": "Binary Search" }]
+}

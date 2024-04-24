@@ -11,7 +11,7 @@ buildGenericListView(
     width: width,
     color: color,
     child: ListView.builder(
-      itemCount: 30,
+      itemCount: 20,
       shrinkWrap: true,
       scrollDirection: direction,
       itemBuilder: (BuildContext context, int idx) {
