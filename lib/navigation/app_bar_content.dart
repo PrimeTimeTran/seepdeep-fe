@@ -48,6 +48,14 @@ class _AppBarContentState extends State<AppBarContent> {
                       onPressed: () {
                         GoRouter.of(context).go(AppScreens.explore.path);
                       },
+                      label: const Text('Mastery',
+                          style: TextStyle(color: Colors.white)),
+                      icon: const Icon(Icons.explore, color: Colors.white),
+                    ),
+                    TextButton.icon(
+                      onPressed: () {
+                        GoRouter.of(context).go(AppScreens.explore.path);
+                      },
                       label: const Text('Explore',
                           style: TextStyle(color: Colors.white)),
                       icon: const Icon(Icons.explore, color: Colors.white),

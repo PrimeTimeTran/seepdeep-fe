@@ -118,6 +118,11 @@ final routerConfig = GoRouter(
                 name: AppScreens.auth.name,
                 builder: (_, __) => const AuthScreen(),
               ),
+              GoRoute(
+                path: AppScreens.mastery.path,
+                name: AppScreens.mastery.name,
+                builder: (_, __) => const MasteryScreen(),
+              ),
             ],
           )
         ]),
@@ -170,6 +175,7 @@ enum AppScreens {
   search,
   streak,
   auth,
+  mastery
 }
 
 // ignore: must_be_immutable
@@ -337,6 +343,8 @@ extension AppPageX on AppScreens {
         return 'STREAK';
       case AppScreens.auth:
         return 'AUTH';
+      case AppScreens.mastery:
+        return 'MASTERY';
       default:
         return 'HOME';
     }
@@ -386,6 +394,8 @@ extension AppPageX on AppScreens {
         return '/jobs';
       case AppScreens.auth:
         return '/auth';
+      case AppScreens.mastery:
+        return '/mastery';
 
       default:
         return '/';
