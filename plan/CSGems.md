@@ -8,16 +8,18 @@ Beginner, Novice, Apprentice, Intermediate, Proficient, Advanced, Expert, Master
 ## Modules
 
 - Anki for Code
-  - Questions are in 'Learned', 'Proficient', 'Mastered'
     - Encountered: Solve once.
+    - Novice: Solve x3 in a row without error or references.
     - Learned: Solve x3 in a row without error or references.
     - Proficient: Solve x3 in a row without error or references.
+    - Advanced: Solve x3 in a row without error or references.
     - Mastered: Solve x3 in a row without error or references.
-  - Encountered questions are reminded every other day
+  - Encountered questions are reminded every day.
+  - Novice questions are reminded every other day.
   - Learned problems are reminded every week.
-  - Proficient problems are reminded every month.
+  - Proficient problems are reminded every other week.
+  - Advanced problems are reminded every month.
   - Mastered problems are reminded every 2 months.
-
 ```
 user.solvedProblems = {
   # May look at submissions 

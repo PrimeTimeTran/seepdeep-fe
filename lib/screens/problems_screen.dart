@@ -123,8 +123,8 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
       onTap: () {
         Provider.of<ProblemProvider>(context, listen: false)
             .setFocusedProblem(item);
-        GoRouter.of(context)
-            .go('${AppScreens.problem.path}?name=${item.title}');
+        GoRouter.of(context).go(
+            '${AppScreens.problem.path}/${item.title.replaceAll(' ', '-').toLowerCase()}');
       },
       child: Container(
         color: color,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:primer_progress_bar/primer_progress_bar.dart';
 
 const colors = [
@@ -68,7 +69,7 @@ class ProgressIndicator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 300,
+      height: 200,
       width: double.infinity,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
@@ -96,13 +97,40 @@ class ProgressIndicator extends StatelessWidget {
 class _MasteryScreenState extends State<MasteryScreen> {
   @override
   Widget build(BuildContext context) {
-    return const SingleChildScrollView(
+    return SingleChildScrollView(
       child: Padding(
-        padding: EdgeInsets.all(8.0),
+        padding: const EdgeInsets.symmetric(horizontal: 50.0, vertical: 50),
         child: Column(
-          children: [ProgressIndicator()],
+          children: [
+            const ProgressIndicator(),
+            Column(children: buildOverAllIndicators())
+          ],
         ),
       ),
     );
+  }
+
+  buildOverAllIndicators() {
+    int idx = 0;
+    return topics.map((e) {
+      final color = colors[idx % colors.length];
+      idx += 1;
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Gap(5),
+          Text(e),
+          LinearProgressIndicator(
+            value: 0.4,
+            color: color,
+            minHeight: 15,
+            semanticsValue: '40',
+            semanticsLabel: 'Linear progress indicator',
+            borderRadius: const BorderRadius.all(Radius.circular(10)),
+          ),
+          const Gap(5),
+        ],
+      );
+    }).toList();
   }
 }

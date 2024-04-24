@@ -50,6 +50,32 @@ class Note {
   }
 }
 
+class Solved {
+  User user;
+  String id;
+  SolveLVL level;
+  String problemId;
+  String problemTitle;
+  int numSolvedTotal;
+  int numSolvedLevel;
+  String submissionId;
+  DateTime dateChallenge;
+
+  Solved(
+    this.id,
+    this.user,
+    this.level,
+    this.problemId,
+    this.problemTitle,
+    this.numSolvedTotal,
+    this.numSolvedLevel,
+    this.dateChallenge,
+    this.submissionId,
+  );
+}
+
+enum SolveLVL { encountered, novice, learned, proficient, advanced, mastered }
+
 class User {
   int? rank;
   String? email;

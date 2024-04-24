@@ -29,7 +29,7 @@ final routerConfig = GoRouter(
                 builder: (_, __) => const ProblemsScreen(),
               ),
               GoRoute(
-                path: AppScreens.problem.path,
+                path: '${AppScreens.problem.path}/:name',
                 name: AppScreens.problem.name,
                 builder: (_, __) => const ProblemScreen(),
               ),

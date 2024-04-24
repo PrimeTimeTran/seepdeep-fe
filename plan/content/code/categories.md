@@ -17,7 +17,6 @@
 - Graph
     - Create an adjacency list
     - Loop nodes
-    - 
 - Union Find
 - DP
 - Interval
@@ -26,18 +25,11 @@
 - 2DP
 - Binary
 
-
-
 - Priority Queue
 - Abstract Syntax Tree
 - LLM Decision trees
 
-
 - BFS, DFS, Dikjstras
-- 
-
-
-
 
 asymptotic analysis
 asymptotic complexity
