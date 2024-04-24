@@ -23,19 +23,14 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
   List<CSTopic>? selectedTopicList = topicList;
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              buildLeft(),
-              const SizedBox(width: 10),
-              buildRight(),
-            ],
-          ),
+          buildLeft(),
+          const Gap(10),
+          buildRight(),
         ],
       ),
     );
@@ -65,14 +60,23 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
   }
 
   buildLeft() {
-    return Column(
-      children: [
-        buildStudyPlans(),
-        const SizedBox(height: 4),
-        buildProblemTopics(),
-        const SizedBox(height: 4),
-        buildProblemList(),
-      ],
+    return Expanded(
+      flex: 2,
+      child: ScrollConfiguration(
+        behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              buildStudyPlans(),
+              const Gap(5),
+              buildProblemTopics(),
+              const Gap(5),
+              buildProblemList()
+            ],
+          ),
+        ),
+      ),
     );
   }
 
@@ -127,7 +131,7 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
             '${AppScreens.problem.path}/${item.title.replaceAll(' ', '-').toLowerCase()}');
       },
       child: Container(
-        color: color,
+        color: odd ? color : null,
         child: ListTile(
           iconColor: Colors.white,
           leading: const Icon(Icons.abc),
@@ -157,24 +161,26 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
     );
   }
 
-  FutureBuilder<List<Problem>> buildProblemList() {
+  buildProblemList() {
     return FutureBuilder<List<Problem>>(
       future: problems,
       builder: (BuildContext context, snapshot) {
-        Widget children;
         if (snapshot.hasData) {
-          children = ListView.builder(
-            itemCount: snapshot.data?.length,
+          // return const Text('a');
+          return ListView.builder(
             shrinkWrap: true,
+            itemCount: snapshot.data?.length,
             itemBuilder: (BuildContext context, int idx) {
               if (idx == 0) {
                 return buildListHeader();
               }
+              // return const Text('sss');
               return buildListItem(snapshot.data?[idx], idx, context);
             },
           );
         } else if (snapshot.hasError) {
-          children = Column(
+          // return const Text('b');
+          return Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const Icon(
@@ -189,7 +195,8 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
             ],
           );
         } else {
-          children = const Column(
+          return const Text('c');
+          return const Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               CircularProgressIndicator(),
@@ -200,7 +207,6 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
             ],
           );
         }
-        return SizedBox(height: 1000, width: 1000, child: children);
       },
     );
   }
@@ -258,20 +264,22 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
   }
 
   buildRight() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        SizedBox(
-          width: 400,
-          height: 400,
-          child: TableCalendar(
-            focusedDay: DateTime.now(),
-            lastDay: DateTime.utc(2030, 3, 14),
-            firstDay: DateTime.utc(2010, 10, 16),
+    return Expanded(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          SizedBox(
+            width: 400,
+            height: 400,
+            child: TableCalendar(
+              focusedDay: DateTime.now(),
+              lastDay: DateTime.utc(2030, 3, 14),
+              firstDay: DateTime.utc(2010, 10, 16),
+            ),
           ),
-        ),
-        buildGenericListView('Companies', 400, Colors.grey),
-      ],
+          buildGenericListView('Companies', 400, Colors.grey),
+        ],
+      ),
     );
   }
 
@@ -281,6 +289,7 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
       children: [
         const Text('Study Plan'),
         Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             buildCard(
                 'System Design', 'System Design for Interviews and Beyond', 0),
@@ -292,8 +301,9 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
             buildCard('SQL 50', 'Crack SQL interview in 50 Qs', 2),
           ],
         ),
-        const SizedBox(height: 4),
+        const Gap(5),
         Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             buildCard('Intro To Pandas', 'Learn Basic Pandas in 15 Qs', 0),
             const SizedBox(
@@ -304,8 +314,9 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
                 'Practice 25 Recently seen problems from Amazon', 2),
           ],
         ),
-        const SizedBox(height: 4),
+        const Gap(5),
         Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             buildCard('Mastered', 'Review problems you\'ve mastered.', 0),
             const SizedBox(
