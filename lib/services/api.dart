@@ -36,7 +36,7 @@ class Api {
     try {
       final response = await client.post(
         _url(path),
-        body: body,
+        body: jsonEncode(body),
         headers: _headers(),
       );
       return _result(response);

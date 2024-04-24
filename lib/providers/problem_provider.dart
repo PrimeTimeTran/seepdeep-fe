@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 class ProblemProvider extends ChangeNotifier {
   Problem _focusedProblem = Problem.fromJson(
     {
+      "id": '325eb55b0eeca014fcededbe',
       "acceptanceRate": 52.4,
       "accepted": 12.9,
       "author": {

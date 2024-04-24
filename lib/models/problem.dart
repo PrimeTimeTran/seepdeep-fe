@@ -2,6 +2,7 @@ import 'package:app/models/topic.dart';
 import 'package:app/models/user.dart';
 
 class Problem {
+  String? id;
   String? title;
   String? body;
   String? frequency;
@@ -27,13 +28,11 @@ class Problem {
   double? accepted;
   double? submissions;
   double? acceptanceRate;
-
   // Map of language and their tests to test the problem.
   Map<String, String>? bodyTests;
-
   List<Map<String, dynamic>>? testSuite;
-
   Problem({
+    this.id,
     this.title,
     this.numLC,
     this.body,
@@ -56,62 +55,9 @@ class Problem {
     this.bodyTests,
     this.testSuite,
   });
-
-  // Problem.fromJson(Map<String, dynamic> json) {
-  //   // Debug statements
-  //   print('Title: $title');
-  //   print('NumLC: $numLC');
-  //   print('Body: $body');
-  //   print('Topics: $topics');
-  //   print('Is Published: $isPublished');
-  //   print('Is Submitted: $isSubmitted');
-  //   print('Author: $author');
-  //   print('Hints: $hints');
-  //   print('Constraints: $constraints');
-  //   print('Similar: $similar');
-  //   print('Editorial Body: $editorialBody');
-  //   print('Editorial Author: $editorialAuthor');
-  //   print('Editorial Rating: $editorialRating');
-  //   print('Editorial Votes: $editorialVotes');
-  //   print('Frequency: $frequency');
-  //   print('Difficulty: $difficulty');
-  //   print('Accepted: $accepted');
-  //   print('Submissions: $submissions');
-  //   print('Acceptance Rate: $acceptanceRate');
-  //   print('Body Tests: $bodyTests');
-  //   print('Test Suite: $testSuite');
-
-  //   print(json);
-
-  //   title = json['title'];
-  //   numLC = json['numLC'];
-  //   body = json['body'];
-  //   topics = (json['topics'] as List<dynamic>?)
-  //       ?.map((topicJson) => Topic.fromJson(topicJson))
-  //       .toList();
-  //   isPublished = json['isPublished'];
-  //   isSubmitted = json['isSubmitted'];
-  //   author = User.fromJson(json['author']);
-  //   hints = (json['hints'] as List<dynamic>?)?.cast<String>();
-  //   constraints = (json['constraints'] as List<dynamic>?)?.cast<String>();
-  //   similar = (json['similar'] as List<dynamic>?)?.cast<Map<String, String>>();
-  //   editorialBody = json['editorialBody'];
-  //   editorialAuthor = User.fromJson(json['editorialAuthor']);
-  //   editorialRating = json['editorialRating']?.toDouble();
-  //   editorialVotes = json['editorialVotes']?.cast<String, int>();
-  //   frequency = json['frequency']?.toDouble();
-  //   difficulty = json['difficulty'];
-  //   accepted = json['accepted'];
-  //   submissions = json['submissions'];
-  //   acceptanceRate = json['acceptanceRate']?.toDouble();
-  //   bodyTests = json['bodyTests']?.cast<String, String>();
-  //   testSuite =
-  //       (json['testSuite'] as List<dynamic>?)?.cast<Map<String, dynamic>>();
-  // }
-
-  // Named constructor for JSON initialization
   Problem.fromJson(Map<String, dynamic> json)
-      : title = json['title'],
+      : id = json['id'],
+        title = json['title'],
         numLC = json['numLC'],
         body = json['body'],
         topics = (json['topics'] as List<dynamic>?)
@@ -138,6 +84,7 @@ class Problem {
 
   Map<String, dynamic> toJson() {
     return {
+      'id': id,
       'title': title,
       'numLC': numLC,
       'body': body,

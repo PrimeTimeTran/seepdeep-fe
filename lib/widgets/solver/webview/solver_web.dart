@@ -255,18 +255,18 @@ class _SolverState extends State<Solver> {
     Glob.loadStart();
     // May need to redo this to send to server for processing.
     final dto = {
-      "body": submission,
       "lang": 'python',
-      "name": "twoSum",
-      "testCases": problem.testSuite
+      "body": submission,
+      "name": problem.title,
+      "problem": problem.id,
+      "testCases": problem.testSuite,
     };
-    postSubmission(submission);
-    webView.contentWindow?.postMessage(jsonEncode(dto), '*');
+    postSubmission(dto);
   }
 
   postSubmission(submission) async {
     try {
-      final response = await Api.post('submissions', {'body': submission});
+      final response = await Api.post('submissions', submission);
       // String url = "http://localhost:3000/api/submissions";
       // final response =
       //     await http.post(Uri.parse(url), body: {'data': submission});

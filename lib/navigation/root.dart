@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:app/all.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -156,7 +158,6 @@ class App extends StatefulWidget {
   State<App> createState() => _AppState();
 }
 
-// ignore: must_be_immutable
 class RootNavigator extends StatefulWidget {
   Widget screen;
   RootNavigator({super.key, required this.screen});
