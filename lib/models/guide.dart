@@ -1,4 +1,4 @@
-import 'package:app/models/topic.dart';
+import 'package:app/all.dart';
 
 class Guide {
   String? title;

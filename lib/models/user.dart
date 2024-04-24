@@ -1,7 +1,4 @@
-import 'package:app/models/badge.dart';
-import 'package:app/models/contest.dart';
-import 'package:app/models/problem.dart';
-import 'package:app/models/submission.dart';
+import 'package:app/all.dart';
 
 class LanguageScore {
   String? score;

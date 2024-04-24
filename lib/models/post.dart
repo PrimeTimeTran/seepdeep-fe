@@ -1,6 +1,4 @@
-import 'package:app/models/comment.dart';
-import 'package:app/models/topic.dart';
-import 'package:app/models/user.dart';
+import 'package:app/all.dart';
 
 class Post {
   User? user;

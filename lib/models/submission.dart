@@ -1,8 +1,4 @@
-import 'package:app/models/comment.dart';
-import 'package:app/models/contest.dart';
-import 'package:app/models/problem.dart';
-import 'package:app/models/topic.dart';
-import 'package:app/models/user.dart';
+import 'package:app/all.dart';
 
 class Submission {
   String? body;

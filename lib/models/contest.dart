@@ -1,7 +1,4 @@
-import 'package:app/models/company.dart';
-import 'package:app/models/problem.dart';
-import 'package:app/models/submission.dart';
-import 'package:app/models/user.dart';
+import 'package:app/all.dart';
 
 class Contest {
   String? body;

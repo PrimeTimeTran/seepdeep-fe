@@ -1,8 +1,4 @@
-import 'package:app/models/article.dart';
-import 'package:app/models/post.dart';
-import 'package:app/models/problem.dart';
-import 'package:app/models/submission.dart';
-import 'package:app/models/user.dart';
+import 'package:app/all.dart';
 
 class Comment {
   int? numVotes;

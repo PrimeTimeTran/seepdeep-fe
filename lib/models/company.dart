@@ -1,4 +1,4 @@
-import 'package:app/models/user.dart';
+import 'package:app/all.dart';
 
 class Company {
   String? name;
