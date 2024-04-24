@@ -21,58 +21,6 @@ class LanguageScore {
   }
 }
 
-class Note {
-  User? user;
-  String? body;
-  Problem? problem;
-
-  Note({
-    this.user,
-    this.body,
-    this.problem,
-  });
-
-  Note.fromJson(Map<String, dynamic> json)
-      : user = json['user'] != null ? User.fromJson(json['user']) : null,
-        body = json['body'],
-        problem =
-            json['problem'] != null ? Problem.fromJson(json['problem']) : null;
-
-  Map<String, dynamic> toJson() {
-    return {
-      'user': user?.toJson(),
-      'body': body,
-      'problem': problem?.toJson(),
-    };
-  }
-}
-
-class Solved {
-  User user;
-  String id;
-  SolveLVL level;
-  String problemId;
-  String problemTitle;
-  int numSolvedTotal;
-  int numSolvedLevel;
-  String submissionId;
-  DateTime dateChallenge;
-
-  Solved(
-    this.id,
-    this.user,
-    this.level,
-    this.problemId,
-    this.problemTitle,
-    this.numSolvedTotal,
-    this.numSolvedLevel,
-    this.dateChallenge,
-    this.submissionId,
-  );
-}
-
-enum SolveLVL { encountered, novice, learned, proficient, advanced, mastered }
-
 class User {
   int? rank;
   String? email;
@@ -111,7 +59,7 @@ class User {
 
   // Learnings
   List<Note>? notes;
-  List<Submission>? problemsSolved;
+  List<Solved>? solved;
   List<Submission>? submissions;
   List<LanguageScore>? languages;
 
@@ -153,7 +101,7 @@ class User {
     this.activity,
     this.contestRatings,
     this.notes,
-    this.problemsSolved,
+    this.solved,
     this.languages,
     this.submissions,
     this.numAcceptedProblems,
@@ -202,16 +150,16 @@ class User {
         notes = (json['notes'] as List<dynamic>?)
             ?.map((noteJson) => Note.fromJson(noteJson))
             .toList(),
-        problemsSolved = (json['problemsSolved'] as List<dynamic>?)
-            ?.map((submissionJson) => Submission.fromJson(submissionJson))
+        solved = (json['solved'] as List<dynamic>?)
+            ?.map((submissionJson) => Solved.fromJson(submissionJson))
             .toList(),
         languages = (json['languages'] as List<dynamic>?)
             ?.map((languageScoreJson) =>
                 LanguageScore.fromJson(languageScoreJson))
             .toList(),
-        submissions = (json['submissions'] as List<dynamic>?)
-            ?.map((submissionJson) => Submission.fromJson(submissionJson))
-            .toList(),
+        // submissions = (json['submissions'] as List<dynamic>?)
+        //     ?.map((submissionJson) => Submission.fromJson(submissionJson))
+        //     .toList(),
         numAcceptedProblems = json['numAcceptedProblems'],
         numSubmittedProblems = json['numSubmittedProblems'],
         numAcceptedSubmissions = json['numAcceptedSubmissions'],
@@ -250,8 +198,7 @@ class User {
       'activity': activity,
       'contestRatings': contestRatings,
       'notes': notes?.map((note) => note.toJson()).toList(),
-      'problemsSolved':
-          problemsSolved?.map((submission) => submission.toJson()).toList(),
+      'solved': solved?.map((sub) => sub.toJson()).toList(),
       'languages':
           languages?.map((languageScore) => languageScore.toJson()).toList(),
       'submissions':

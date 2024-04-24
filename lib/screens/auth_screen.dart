@@ -73,10 +73,10 @@ class _AuthScreenState extends State<AuthScreen> {
         ),
         const Gap(6),
         Consumer<AuthProvider>(
-          builder: (context, cart, child) {
-            return Text('isAuthenticated: ${cart.isAuthenticated}',
+          builder: (context, auth, child) {
+            return Text('isAuthenticated: ${auth.isAuthenticated}',
                 style: TextStyle(
-                    color: cart.isAuthenticated ? Colors.green : Colors.red));
+                    color: auth.isAuthenticated ? Colors.green : Colors.red));
           },
         )
       ],
@@ -87,7 +87,6 @@ class _AuthScreenState extends State<AuthScreen> {
     try {
       final result = await Api.post(
           'auth/authenticate', {'email': email, 'password': password});
-
       final user = User.fromJson(result['user']);
       Provider.of<AuthProvider>(context, listen: false).setUser(user);
     } catch (e) {

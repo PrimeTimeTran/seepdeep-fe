@@ -1,6 +1,10 @@
+// ignore_for_file: must_be_immutable
+
+import 'package:app/all.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:primer_progress_bar/primer_progress_bar.dart';
+import 'package:provider/provider.dart';
 
 const colors = [
   Colors.red,
@@ -44,6 +48,7 @@ const topics = [
   '2DP',
   'Binary',
 ];
+
 int idx = 0;
 final segments2 = topics.map((element) {
   final color = colors[idx % colors.length];
@@ -94,7 +99,33 @@ class ProgressIndicator extends StatelessWidget {
   }
 }
 
+enum Topics {
+  sorting,
+  string,
+  stack,
+  queue,
+  array,
+  twoPointers,
+  binarySearch,
+  slidingWindow,
+  linkedList,
+  trees,
+  backTracking,
+  heap,
+  graph,
+  unionFind,
+  dp,
+  interval,
+  greedy,
+  advancedGraph,
+  dp2,
+  binary,
+  math
+}
+
 class _MasteryScreenState extends State<MasteryScreen> {
+  Map<String, dynamic> mastery = {};
+  late User user = Provider.of<AuthProvider>(context, listen: false).user;
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -102,6 +133,7 @@ class _MasteryScreenState extends State<MasteryScreen> {
         padding: const EdgeInsets.symmetric(horizontal: 50.0, vertical: 50),
         child: Column(
           children: [
+            Text(user.email!),
             const ProgressIndicator(),
             Column(children: buildOverAllIndicators())
           ],
@@ -132,5 +164,15 @@ class _MasteryScreenState extends State<MasteryScreen> {
         ],
       );
     }).toList();
+  }
+
+  calculateMastery() {
+    Topics.values;
+    user.solved?.map((solved) {});
+  }
+
+  @override
+  void initState() {
+    super.initState();
   }
 }
