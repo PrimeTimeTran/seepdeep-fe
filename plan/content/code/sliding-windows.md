@@ -8,15 +8,11 @@ We'll often times need to get the size of the window and this can be done using 
 
 ```python
 class Solution:
-    def maxProfit(self, prices: List[int]) -> int:
-        res = 0
-        l, r = 0, 1
-        while r < len(prices):
-            res = max(res, prices[r] - prices[l])
-            if prices[l] > prices[r]:
-                l = r
-            else:
-                r += 1
+    def maxProfit(self, P: List[int]) -> int:
+        res, buy = 0, 0
+        for r, sell in enumerate(P):
+            res = max(res, sell - P[buy])
+            if sell < P[buy]: buy = r
         return res
 ```
 
@@ -25,14 +21,15 @@ class Solution:
 ```python
 class Solution:
     def lengthOfLongestSubstring(self, s: str) -> int:
-        l, res, seen = 0, 0, set()
+        ans, l, window = 0, 0, set()
         for r, c in enumerate(s):
-            while c in seen:
-                seen.remove(s[l])
-                l+=1
-            seen.add(c)
-            res = max(res, r - l + 1)
-        return res
+            if c in window:
+                while c in window:
+                    window.remove(s[l])
+                    l += 1
+            window.add(c)
+            ans = max(ans, r - l + 1)
+        return ans
 ```
 
 # 424. Longest Repeating Character Replacement
@@ -40,15 +37,14 @@ class Solution:
 ```python
 class Solution:
     def characterReplacement(self, s: str, k: int) -> int:
-        win, l = {}, 0
-        res, maxf = 0, 0
+        maxf, res, l, win = 0, 0, 0, {}
         for r, c in enumerate(s):
             win[c] = win.get(c, 0) + 1
             maxf = max(maxf, win[c])
             while (r - l + 1) - maxf > k:
                 win[s[l]] -= 1
                 l += 1
-            res = max(res, r - l + 1)
+            res = max(res, r-l+1)
         return res
 ```
 
@@ -57,8 +53,8 @@ class Solution:
 ```python
 class Solution:
     def checkInclusion(self, p: str, s: str) -> bool:
-        cnt = Counter(p)
-        l = 0
+        l, cnt = 0, Counter(p)
+        
         for r, c in enumerate(s):
             cnt[c] -= 1
             while cnt[c] < 0:
@@ -98,27 +94,37 @@ class Solution:
 class Solution:
     def minWindow(self, s: str, t: str) -> str:
         if len(t) == 0: return ""
-        count, wind = {}, {}
-        for char in t:
-            count[char] = count.get(char, 0) + 1
-
-        l, have, need = 0, 0, len(count)
-        res, reslen = [-1,-1], float('infinity')
-
-        for r, char in enumerate(s):
-            wind[char] = wind.get(char,0) + 1
-            if char in count and wind[char] == count[char]:
+        l, win, ct = 0, {}, {}
+        for c in t:
+            ct[c] = ct.get(c, 0) + 1
+        have, need = 0, len(ct)
+        res, reslen = [-1, -1], float("infinity")
+        # Expand window
+        for r, c in enumerate(s):
+            # Track chars in window
+            win[c] = win.get(c, 0) + 1
+            # Check if char in list of required chars. 
+            # Yes? Check if enough in bounds of window
+            if c in ct and win[c] == ct[c]:
+                # Update count of how many we have
                 have += 1
+                # While we can, shrink the window.
                 while have == need:
-                    if (r-l+1) < reslen:
-                        res = [l,r]
-                        reslen = r-l+1
-                    wind[s[l]] -= 1
-                    if s[l] in count and wind[s[l]] < count[s[l]]:
+                    # Update res vars
+                    if (r - l + 1) < reslen:
+                        res = [l, r]
+                        reslen = r - l + 1
+                    # Update count of window, removing farthest left char
+                    win[s[l]] -= 1
+                    # If left most window char in watch list & removing it means 
+                    # we no longer have enough of that char decrement our have.
+                    if s[l] in ct and win[s[l]] < ct[s[l]]:
                         have -= 1
-                    l+=1
+                    # Shrink window
+                    l += 1
         l, r = res
         return s[l:r+1] if reslen != float('infinity') else ""
+
 ```
 
 # 239. Sliding Window Maximum

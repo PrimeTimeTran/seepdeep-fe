@@ -39,14 +39,43 @@ class Solution:
               l += 1
       return res
 ```
-#
+
+# 11. Container With Most Water
+
 ```python
+class Solution:
+    def maxArea(self, H: List[int]) -> int:
+        res, l, r = 0, 0, len(H) - 1
+
+        while l < r:
+            x = r - l
+            y = min(H[l], H[r])
+            res = max(res, x * y)
+            if H[l] < H[r]:
+                l += 1
+            else:
+                r -= 1
+        return res
 ```
-#
+
+
+# 42. Trapping Rain Water
 ```python
-```
-#
-```python
+class Solution:
+    def trap(self, height: List[int]) -> int:
+        res, l, r = 0, 0, len(height) - 1
+        lMax, rMax = height[l], height[r]
+
+        while l < r:
+            if height[l] < height[r]:
+                l += 1
+                lMax = max(lMax, height[l])
+                res += lMax - height[l]
+            else:
+                r -= 1
+                rMax = max(rMax, height[r])
+                res += rMax - height[r]
+        return res
 ```
 #
 ```python
