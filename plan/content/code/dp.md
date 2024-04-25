@@ -18,7 +18,6 @@ To prepare for dynamic programming, it's essential to grasp some fundamental tec
 
 - Practice, Practice, Practice: Dynamic programming can be challenging to grasp initially, but like any skill, practice is key. Solve a variety of dynamic programming problems to familiarize yourself with different patterns and techniques.
 
-
 By mastering these fundamental techniques, you'll be well-prepared to tackle dynamic programming problems effectively. Start with simpler problems and gradually move on to more complex ones as you build your understanding and confidence.
 
 
@@ -78,3 +77,75 @@ This algorithm is a Python implementation of the Fibonacci sequence using memoiz
 4. Finally, the function returns the Fibonacci number corresponding to the input n.
 
 This approach effectively reduces redundant calculations by storing previously calculated Fibonacci numbers in the memo dictionary, thus improving the overall efficiency of the Fibonacci sequence calculation, especially for larger values of n.
+
+
+
+
+# 2370. Longest Ideal Subsequence
+```python
+# Fastest
+class Solution:
+    def longestIdealString(self, s: str, k: int) -> int:
+        l = [0] * 128
+        for c in s:
+            i = ord(c)
+            l[i] = max(l[i - k : i + k + 1]) + 1
+        return max(l)
+
+class Solution:
+    def longestIdealString(self, s: str, k: int) -> int:
+        bottom, dp = ord("a"), [0] * 26
+        for ch in s:
+            i = ord(ch) - bottom
+            dp[i] = 1 + max(dp[max(0, i - k) : min(26, i + k + 1)])
+        return max(dp)
+```
+
+# 
+```python
+```
+
+# 
+```python
+```
+
+# 
+```python
+```
+
+# 
+```python
+```
+
+# 
+```python
+```
+
+# 
+```python
+```
+
+# 
+```python
+```
+
+# 
+```python
+```
+
+# 
+```python
+```
+
+# 
+```python
+```
+
+# 
+```python
+```
+
+# 
+```python
+```
+

@@ -18,7 +18,29 @@ To effectively solve DSA (Data Structures and Algorithms) backtracking problems,
 By mastering these techniques and concepts, you'll be well-equipped to tackle a wide range of backtracking problems in DSA.
 
 
-# 78. Subsets
+## Key Concepts
+- Involve a decision tree. 
+- Involve removing a focused item from the candidate pool and continuing.
+- Involve building up a solution which adds to a total response.
+
+
+### 46. Permutations
+
+```python
+class Solution:
+    def permute(self, nums):
+        res = []
+        self.dfs(nums, [], res)
+        return res
+        
+    def dfs(self, nums, path, res):
+        if not nums:
+            res.append(path)
+        for i in range(len(nums)):
+            self.dfs(nums[:i]+nums[i+1:], path+[nums[i]], res)
+```
+
+### 78. Subsets
 
 ```python
 class Solution:
@@ -28,7 +50,7 @@ class Solution:
             res += [subset+[n] for subset in res]
         return res
 ```
-# 39. Combination Sum
+### 39. Combination Sum
 
 ```python
 class Solution:
@@ -48,3 +70,80 @@ class Solution:
         helper(0,[],0)
         return res
 ```
+
+
+### 39. Combination Sum
+
+```python
+class Solution:
+    def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
+        res = []
+        def dfs(i, cur, total):
+            if total == target:
+                res.append(cur.copy())
+                return
+            if i == len(candidates) or total > target:
+                return 0
+            dfs(i + 1, cur, total)
+            val = candidates[i]
+            dfs(i, cur + [val], total + val)
+
+        dfs(0, [], 0)
+        return res
+```
+
+###
+
+```python
+```
+
+###
+
+```python
+```
+
+###
+
+```python
+```
+
+###
+
+```python
+```
+
+###
+
+```python
+```
+
+###
+
+```python
+```
+
+###
+
+```python
+```
+
+###
+
+```python
+```
+
+###
+
+```python
+```
+
+###
+
+```python
+```
+
+###
+
+```python
+```
+
