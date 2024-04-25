@@ -1,2 +1,3 @@
-for i in range(0):
-  print(i)
+s = 'hello world'
+i = 3
+print(s[1:: -1])
