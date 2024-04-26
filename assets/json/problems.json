@@ -55,8 +55,8 @@
       "id": "325eb55b0eeca014fcededbe",
       "signature": {
         "parameters": [
-          { "type": "list", "name": "0" },
-          { "type": "int", "name": "1" }
+          { "type": "list", "name": "nums" },
+          { "type": "int", "name": "target" }
         ],
         "returnType": "list"
       }
@@ -119,8 +119,8 @@
       "id": "ebbfadbdc5b14df2099fab1a",
       "signature": {
         "parameters": [
-          { "type": "list", "name": "0" },
-          { "type": "list", "name": "1" }
+          { "type": "list", "name": "l1" },
+          { "type": "list", "name": "l2" }
         ],
         "returnType": "list"
       }
@@ -181,7 +181,7 @@
       ],
       "id": "0ecb7ca2ac88ab9faf7411bd",
       "signature": {
-        "parameters": [{ "type": "string", "name": "0" }],
+        "parameters": [{ "type": "string", "name": "s" }],
         "returnType": "int"
       }
     },
@@ -255,8 +255,8 @@
       "id": "dfeadf868fdb2fbabd5eaf2e",
       "signature": {
         "parameters": [
-          { "type": "list", "name": "0" },
-          { "type": "list", "name": "1" }
+          { "type": "list", "name": "nums1" },
+          { "type": "list", "name": "nums2" }
         ],
         "returnType": "int"
       }
@@ -313,7 +313,7 @@
       "topics": [{ "name": "String" }, { "name": "Dynamic Programming" }],
       "id": "650935503eb77cbf3fee0d57",
       "signature": {
-        "parameters": [{ "type": "string", "name": "0" }],
+        "parameters": [{ "type": "string", "name": "s" }],
         "returnType": "string"
       }
     },
@@ -379,8 +379,8 @@
       "id": "d53d7abad8a72e4c1152f9e8",
       "signature": {
         "parameters": [
-          { "type": "string", "name": "0" },
-          { "type": "int", "name": "1" }
+          { "type": "string", "name": "s" },
+          { "type": "int", "name": "numRows" }
         ],
         "returnType": "string"
       }
@@ -433,7 +433,7 @@
       "topics": [{ "name": "Math" }],
       "id": "3f7abbdd3fbb3defad4bb995",
       "signature": {
-        "parameters": [{ "type": "int", "name": "0" }],
+        "parameters": [{ "type": "int", "name": "x" }],
         "returnType": "int"
       }
     },
@@ -489,7 +489,7 @@
       "topics": [{ "name": "String" }],
       "id": "75e9eff1dda6f6bea070b658",
       "signature": {
-        "parameters": [{ "type": "string", "name": "0" }],
+        "parameters": [{ "type": "string", "name": "s" }],
         "returnType": "int"
       }
     },
@@ -541,8 +541,8 @@
       "topics": [{ "name": "Math" }],
       "id": "c43e757a6a6e71fedd75aa75",
       "signature": {
-        "parameters": [{ "type": "int", "name": "0" }],
-        "returnType": "unknown"
+        "parameters": [{ "type": "int", "name": "x" }],
+        "returnType": "bool"
       }
     },
     {
@@ -614,7 +614,7 @@
           { "type": "string", "name": "0" },
           { "type": "string", "name": "1" }
         ],
-        "returnType": "unknown"
+        "returnType": "bool"
       }
     },
     {
@@ -1205,7 +1205,7 @@
       "id": "df61ffdd156fa8e6ebc5bf7f",
       "signature": {
         "parameters": [{ "type": "string", "name": "0" }],
-        "returnType": "unknown"
+        "returnType": "bool"
       }
     },
     {
@@ -2280,7 +2280,7 @@
           { "type": "list", "name": "7" },
           { "type": "list", "name": "8" }
         ],
-        "returnType": "unknown"
+        "returnType": "bool"
       }
     },
     {
@@ -2791,7 +2791,7 @@
           { "type": "string", "name": "0" },
           { "type": "string", "name": "1" }
         ],
-        "returnType": "unknown"
+        "returnType": "bool"
       }
     },
     {

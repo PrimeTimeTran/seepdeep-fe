@@ -44,6 +44,7 @@ function addSignature() {
   function getParameterType(value) {
     if (typeof value === 'string') return 'string';
     if (typeof value === 'number') return Number.isInteger(value) ? 'int' : 'double';
+    if (typeof value === 'boolean') return 'bool'; // Check for boolean type
     if (Array.isArray(value)) return 'list';
     return 'unknown';
   }
@@ -51,9 +52,9 @@ function addSignature() {
   let data = readJsonFile(filePath);
   data = data.data.map((question, idx) => {
     if (question.testSuite && question.testSuite[0].inputs) {
-      const parameters = Object.entries(question.testSuite[0].inputs).map(([key, value]) => ({
+      const parameters = Object.entries(question.testSuite[0].inputs).map(([key, value], idx) => ({
         type: getParameterType(value.value),
-        name: key
+        name: question.signature.parameters[idx].name
       }));
   
       question.signature = {
