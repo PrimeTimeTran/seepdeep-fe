@@ -52,9 +52,9 @@ SELECT * FROM customers;
 """;
 getController(selectedLang) {
   switch (selectedLang) {
-    case Languages.python:
+    case Language.python:
       return pythonController;
-    case Languages.dart:
+    case Language.dart:
       return dartController;
     default:
       return sqlController;
@@ -63,7 +63,7 @@ getController(selectedLang) {
 
 getLanguage(selectedLang) {
   switch (selectedLang) {
-    case Languages.python:
+    case Language.python:
       return python;
     case 'dart':
       return dart;
@@ -72,4 +72,4 @@ getLanguage(selectedLang) {
   }
 }
 
-enum Languages { sql, python, dart }
+enum Language { python, cpp, js, ts, dart }

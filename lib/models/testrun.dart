@@ -1,8 +1,8 @@
 class TestRun {
   final int idx;
+  final bool passing;
   final String outputActual;
   final String outputExpected;
-  final bool passing;
 
   // Constructor
   TestRun({
@@ -16,9 +16,9 @@ class TestRun {
   factory TestRun.fromMap(Map<String, dynamic> map) {
     return TestRun(
       idx: map['idx'],
+      passing: map['passing'],
       outputActual: map['outputActual'],
       outputExpected: map['outputExpected'],
-      passing: map['passing'],
     );
   }
   factory TestRun.placeholder() {

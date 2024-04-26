@@ -28,8 +28,8 @@
         {
           "output": [0, 1],
           "inputs": [
-            { "name": "", "value": [2, 7, 11, 15] },
-            { "name": "", "value": 9 }
+            { "name": "", "value": [2, 7, 11, 15], "type": "Array" },
+            { "name": "", "value": 9, "type": "integer" }
           ],
           "explanation": ""
         },
@@ -52,61 +52,14 @@
       ],
       "title": "Two Sum",
       "topics": [{ "name": "Array" }, { "name": "Hash Table" }],
-      "id": "325eb55b0eeca014fcededbe"
-    },
-    {
-      "acceptanceRate": 52.4,
-      "accepted": 12.9,
-      "author": {
-        "urlAvatar": "https://avatars.leetcode.com/u/12345",
-        "username": "ExperiencedCoder"
-      },
-      "body": "Given an array of integers and a target value, determine if there are two numbers that add up to the target. You may assume that each input would have exactly one solution, and you may not use the same element twice.",
-      "constraints": [],
-      "difficulty": "Easy",
-      "editorialAuthor": {
-        "urlAvatar": "https://avatars.leetcode.com/u/9876",
-        "username": "LC_Solutions"
-      },
-      "editorialBody": "Solutions include a brute force approach, using a hash table for efficient lookups, or sorting with two pointers.",
-      "editorialRating": 4.5,
-      "editorialVotes": { "1": 5, "2": 4 },
-      "frequency": "High",
-      "hints": [],
-      "isPublished": true,
-      "isSubmitted": true,
-      "numLC": 1,
-      "similar": [{ "difficulty": "Medium", "id": 2, "title": "3 Sum" }],
-      "submissions": 24.6,
-      "testSuite": [
-        {
-          "output": [0, 1],
-          "inputs": [
-            { "name": "", "value": [2, 7, 11, 15] },
-            { "name": "", "value": 9 }
-          ],
-          "explanation": ""
-        },
-        {
-          "output": [1, 2],
-          "inputs": [
-            { "name": "", "value": [3, 2, 4] },
-            { "name": "", "value": 6 }
-          ],
-          "explanation": ""
-        },
-        {
-          "output": [0, 1],
-          "inputs": [
-            { "name": "", "value": [3, 3] },
-            { "name": "", "value": 6 }
-          ],
-          "explanation": ""
-        }
-      ],
-      "title": "Two Sum",
-      "topics": [{ "name": "Array" }, { "name": "Hash Table" }],
-      "id": "a43ee7feb87e8671cfc40d90"
+      "id": "325eb55b0eeca014fcededbe",
+      "signature": {
+        "parameters": [
+          { "type": "list", "name": "0" },
+          { "type": "int", "name": "1" }
+        ],
+        "returnType": "list"
+      }
     },
     {
       "acceptanceRate": 39.2,
@@ -163,7 +116,14 @@
       ],
       "title": "Add Two Numbers",
       "topics": [{ "name": "Linked List" }, { "name": "Math" }],
-      "id": "ebbfadbdc5b14df2099fab1a"
+      "id": "ebbfadbdc5b14df2099fab1a",
+      "signature": {
+        "parameters": [
+          { "type": "list", "name": "0" },
+          { "type": "list", "name": "1" }
+        ],
+        "returnType": "list"
+      }
     },
     {
       "acceptanceRate": 30.1,
@@ -219,7 +179,11 @@
         { "name": "Sliding Window" },
         { "name": "Hash Table" }
       ],
-      "id": "0ecb7ca2ac88ab9faf7411bd"
+      "id": "0ecb7ca2ac88ab9faf7411bd",
+      "signature": {
+        "parameters": [{ "type": "string", "name": "0" }],
+        "returnType": "int"
+      }
     },
     {
       "acceptanceRate": 31.6,
@@ -288,7 +252,14 @@
         { "name": "Binary Search" },
         { "name": "Divide and Conquer" }
       ],
-      "id": "dfeadf868fdb2fbabd5eaf2e"
+      "id": "dfeadf868fdb2fbabd5eaf2e",
+      "signature": {
+        "parameters": [
+          { "type": "list", "name": "0" },
+          { "type": "list", "name": "1" }
+        ],
+        "returnType": "int"
+      }
     },
     {
       "acceptanceRate": 28.5,
@@ -340,7 +311,11 @@
       ],
       "title": "Longest Palindromic Substring",
       "topics": [{ "name": "String" }, { "name": "Dynamic Programming" }],
-      "id": "650935503eb77cbf3fee0d57"
+      "id": "650935503eb77cbf3fee0d57",
+      "signature": {
+        "parameters": [{ "type": "string", "name": "0" }],
+        "returnType": "string"
+      }
     },
     {
       "acceptanceRate": 36.2,
@@ -365,7 +340,11 @@
       "isSubmitted": true,
       "numLC": 6,
       "similar": [
-        { "difficulty": "Medium", "id": 8, "title": "String to Integer (atoi)" },
+        {
+          "difficulty": "Medium",
+          "id": 8,
+          "title": "String to Integer (atoi)"
+        },
         { "difficulty": "Medium", "id": 38, "title": "Count and Say" }
       ],
       "submissions": 20.4,
@@ -397,7 +376,14 @@
       ],
       "title": "ZigZag Conversion",
       "topics": [{ "name": "String" }],
-      "id": "d53d7abad8a72e4c1152f9e8"
+      "id": "d53d7abad8a72e4c1152f9e8",
+      "signature": {
+        "parameters": [
+          { "type": "string", "name": "0" },
+          { "type": "int", "name": "1" }
+        ],
+        "returnType": "string"
+      }
     },
     {
       "acceptanceRate": 26.1,
@@ -445,7 +431,11 @@
       ],
       "title": "Reverse Integer",
       "topics": [{ "name": "Math" }],
-      "id": "3f7abbdd3fbb3defad4bb995"
+      "id": "3f7abbdd3fbb3defad4bb995",
+      "signature": {
+        "parameters": [{ "type": "int", "name": "0" }],
+        "returnType": "int"
+      }
     },
     {
       "acceptanceRate": 15.8,
@@ -497,7 +487,11 @@
       ],
       "title": "String to Integer (atoi)",
       "topics": [{ "name": "String" }],
-      "id": "75e9eff1dda6f6bea070b658"
+      "id": "75e9eff1dda6f6bea070b658",
+      "signature": {
+        "parameters": [{ "type": "string", "name": "0" }],
+        "returnType": "int"
+      }
     },
     {
       "acceptanceRate": 39.1,
@@ -545,7 +539,11 @@
       ],
       "title": "Palindrome Number",
       "topics": [{ "name": "Math" }],
-      "id": "c43e757a6a6e71fedd75aa75"
+      "id": "c43e757a6a6e71fedd75aa75",
+      "signature": {
+        "parameters": [{ "type": "int", "name": "0" }],
+        "returnType": "unknown"
+      }
     },
     {
       "acceptanceRate": 26.1,
@@ -571,7 +569,11 @@
       "numLC": 10,
       "similar": [
         { "difficulty": "Hard", "id": 44, "title": "Wildcard Matching" },
-        { "difficulty": "Hard", "id": 44, "title": "Regular Expression Matching" }
+        {
+          "difficulty": "Hard",
+          "id": 44,
+          "title": "Regular Expression Matching"
+        }
       ],
       "submissions": 23.7,
       "testSuite": [
@@ -606,7 +608,14 @@
         { "name": "Dynamic Programming" },
         { "name": "Backtracking" }
       ],
-      "id": "ba497ca59a0aabe6d37b0576"
+      "id": "ba497ca59a0aabe6d37b0576",
+      "signature": {
+        "parameters": [
+          { "type": "string", "name": "0" },
+          { "type": "string", "name": "1" }
+        ],
+        "returnType": "unknown"
+      }
     },
     {
       "acceptanceRate": 50.3,
@@ -632,7 +641,11 @@
       "numLC": 11,
       "similar": [
         { "difficulty": "Hard", "id": 42, "title": "Trapping Rain Water" },
-        { "difficulty": "Medium", "id": 42, "title": "Container With Most Water" }
+        {
+          "difficulty": "Medium",
+          "id": 42,
+          "title": "Container With Most Water"
+        }
       ],
       "submissions": 27.8,
       "testSuite": [
@@ -654,7 +667,11 @@
       ],
       "title": "Container With Most Water",
       "topics": [{ "name": "Array" }, { "name": "Two Pointers" }],
-      "id": "8802da8bf2c26a05fe0ae2aa"
+      "id": "8802da8bf2c26a05fe0ae2aa",
+      "signature": {
+        "parameters": [{ "type": "list", "name": "0" }],
+        "returnType": "int"
+      }
     },
     {
       "acceptanceRate": 56.8,
@@ -680,7 +697,11 @@
       "numLC": 12,
       "similar": [
         { "difficulty": "Medium", "id": 13, "title": "Roman to Integer" },
-        { "difficulty": "Medium", "id": 273, "title": "Integer to English Words" }
+        {
+          "difficulty": "Medium",
+          "id": 273,
+          "title": "Integer to English Words"
+        }
       ],
       "submissions": 23.4,
       "testSuite": [
@@ -702,7 +723,11 @@
       ],
       "title": "Integer to Roman",
       "topics": [{ "name": "Math" }, { "name": "String" }],
-      "id": "afac30438472dbbbbddea2e6"
+      "id": "afac30438472dbbbbddea2e6",
+      "signature": {
+        "parameters": [{ "type": "int", "name": "0" }],
+        "returnType": "string"
+      }
     },
     {
       "acceptanceRate": 55,
@@ -728,7 +753,11 @@
       "numLC": 13,
       "similar": [
         { "difficulty": "Medium", "id": 12, "title": "Integer to Roman" },
-        { "difficulty": "Medium", "id": 273, "title": "Integer to English Words" }
+        {
+          "difficulty": "Medium",
+          "id": 273,
+          "title": "Integer to English Words"
+        }
       ],
       "submissions": 24.9,
       "testSuite": [
@@ -750,7 +779,11 @@
       ],
       "title": "Roman to Integer",
       "topics": [{ "name": "Math" }, { "name": "String" }],
-      "id": "f021d267cedfd00bb2c94b7d"
+      "id": "f021d267cedfd00bb2c94b7d",
+      "signature": {
+        "parameters": [{ "type": "string", "name": "0" }],
+        "returnType": "int"
+      }
     },
     {
       "acceptanceRate": 36.6,
@@ -802,7 +835,11 @@
       ],
       "title": "Longest Common Prefix",
       "topics": [{ "name": "String" }],
-      "id": "3fcfafbcb0f4a76308af42bd"
+      "id": "3fcfafbcb0f4a76308af42bd",
+      "signature": {
+        "parameters": [{ "type": "list", "name": "0" }],
+        "returnType": "string"
+      }
     },
     {
       "acceptanceRate": 28.6,
@@ -828,7 +865,11 @@
       "numLC": 15,
       "similar": [
         { "difficulty": "Medium", "id": 1, "title": "Two Sum" },
-        { "difficulty": "Medium", "id": 11, "title": "Container With Most Water" }
+        {
+          "difficulty": "Medium",
+          "id": 11,
+          "title": "Container With Most Water"
+        }
       ],
       "submissions": 25.3,
       "testSuite": [
@@ -853,7 +894,11 @@
       ],
       "title": "3Sum",
       "topics": [{ "name": "Array" }, { "name": "Two Pointers" }],
-      "id": "0bbdf8b0fbab2645dbaa5de4"
+      "id": "0bbdf8b0fbab2645dbaa5de4",
+      "signature": {
+        "parameters": [{ "type": "list", "name": "0" }],
+        "returnType": "list"
+      }
     },
     {
       "acceptanceRate": 33.7,
@@ -910,7 +955,14 @@
       ],
       "title": "3Sum Closest",
       "topics": [{ "name": "Array" }, { "name": "Two Pointers" }],
-      "id": "51adcd8c87dd3e23caffa895"
+      "id": "51adcd8c87dd3e23caffa895",
+      "signature": {
+        "parameters": [
+          { "type": "list", "name": "0" },
+          { "type": "int", "name": "1" }
+        ],
+        "returnType": "int"
+      }
     },
     {
       "acceptanceRate": 48.7,
@@ -958,7 +1010,11 @@
       ],
       "title": "Letter Combinations of a Phone Number",
       "topics": [{ "name": "String" }, { "name": "Backtracking" }],
-      "id": "aa4098cebe79d12007ce64f7"
+      "id": "aa4098cebe79d12007ce64f7",
+      "signature": {
+        "parameters": [{ "type": "string", "name": "0" }],
+        "returnType": "list"
+      }
     },
     {
       "acceptanceRate": 31.2,
@@ -1019,7 +1075,14 @@
       ],
       "title": "4Sum",
       "topics": [{ "name": "Array" }, { "name": "Two Pointers" }],
-      "id": "cdb9d2161beccc4c1ed0efea"
+      "id": "cdb9d2161beccc4c1ed0efea",
+      "signature": {
+        "parameters": [
+          { "type": "list", "name": "0" },
+          { "type": "int", "name": "1" }
+        ],
+        "returnType": "list"
+      }
     },
     {
       "acceptanceRate": 38.6,
@@ -1080,7 +1143,14 @@
       ],
       "title": "Remove Nth Node From End of List",
       "topics": [{ "name": "Linked List" }, { "name": "Two Pointers" }],
-      "id": "9abbb91ee2b3361bc78c4c0e"
+      "id": "9abbb91ee2b3361bc78c4c0e",
+      "signature": {
+        "parameters": [
+          { "type": "list", "name": "0" },
+          { "type": "int", "name": "1" }
+        ],
+        "returnType": "list"
+      }
     },
     {
       "acceptanceRate": 41.9,
@@ -1106,7 +1176,11 @@
       "numLC": 20,
       "similar": [
         { "difficulty": "Easy", "id": 739, "title": "Daily Temperatures" },
-        { "difficulty": "Medium", "id": 946, "title": "Validate Stack Sequences" }
+        {
+          "difficulty": "Medium",
+          "id": 946,
+          "title": "Validate Stack Sequences"
+        }
       ],
       "submissions": 25.7,
       "testSuite": [
@@ -1128,7 +1202,11 @@
       ],
       "title": "Valid Parentheses",
       "topics": [{ "name": "String" }, { "name": "Stack" }],
-      "id": "df61ffdd156fa8e6ebc5bf7f"
+      "id": "df61ffdd156fa8e6ebc5bf7f",
+      "signature": {
+        "parameters": [{ "type": "string", "name": "0" }],
+        "returnType": "unknown"
+      }
     },
     {
       "acceptanceRate": 53.9,
@@ -1185,7 +1263,14 @@
       ],
       "title": "Merge Two Sorted Lists",
       "topics": [{ "name": "Linked List" }],
-      "id": "663f2af5946dfac7e94fab72"
+      "id": "663f2af5946dfac7e94fab72",
+      "signature": {
+        "parameters": [
+          { "type": "list", "name": "0" },
+          { "type": "list", "name": "1" }
+        ],
+        "returnType": "list"
+      }
     },
     {
       "acceptanceRate": 68.9,
@@ -1237,7 +1322,11 @@
       ],
       "title": "Generate Parentheses",
       "topics": [{ "name": "String" }, { "name": "Backtracking" }],
-      "id": "accbdb7992cbc4f9eecccb55"
+      "id": "accbdb7992cbc4f9eecccb55",
+      "signature": {
+        "parameters": [{ "type": "int", "name": "0" }],
+        "returnType": "list"
+      }
     },
     {
       "acceptanceRate": 39.5,
@@ -1302,7 +1391,11 @@
         { "name": "Divide and Conquer" },
         { "name": "Heap" }
       ],
-      "id": "ce749c77c0d3676aa1e814cd"
+      "id": "ce749c77c0d3676aa1e814cd",
+      "signature": {
+        "parameters": [{ "type": "list", "name": "0" }],
+        "returnType": "list"
+      }
     },
     {
       "acceptanceRate": 53.8,
@@ -1350,7 +1443,11 @@
       ],
       "title": "Swap Nodes in Pairs",
       "topics": [{ "name": "Linked List" }],
-      "id": "8fe5cbe30d6fe3fb273e1bbf"
+      "id": "8fe5cbe30d6fe3fb273e1bbf",
+      "signature": {
+        "parameters": [{ "type": "list", "name": "0" }],
+        "returnType": "list"
+      }
     },
     {
       "acceptanceRate": 43.6,
@@ -1407,7 +1504,14 @@
       ],
       "title": "Reverse Nodes in k-Group",
       "topics": [{ "name": "Linked List" }],
-      "id": "eb9ae379068ae05f76c5b8a4"
+      "id": "eb9ae379068ae05f76c5b8a4",
+      "signature": {
+        "parameters": [
+          { "type": "list", "name": "0" },
+          { "type": "int", "name": "1" }
+        ],
+        "returnType": "list"
+      }
     },
     {
       "acceptanceRate": 46.6,
@@ -1459,7 +1563,11 @@
       ],
       "title": "Remove Duplicates from Sorted Array",
       "topics": [{ "name": "Array" }, { "name": "Two Pointers" }],
-      "id": "b2f8f3def5ccfade33afd3fd"
+      "id": "b2f8f3def5ccfade33afd3fd",
+      "signature": {
+        "parameters": [{ "type": "list", "name": "0" }],
+        "returnType": "list"
+      }
     },
     {
       "acceptanceRate": 45.7,
@@ -1524,7 +1632,14 @@
       ],
       "title": "Remove Element",
       "topics": [{ "name": "Array" }, { "name": "Two Pointers" }],
-      "id": "0d7cf21b25fd091c43fbe901"
+      "id": "0d7cf21b25fd091c43fbe901",
+      "signature": {
+        "parameters": [
+          { "type": "list", "name": "0" },
+          { "type": "int", "name": "1" }
+        ],
+        "returnType": "list"
+      }
     },
     {
       "acceptanceRate": 33.9,
@@ -1585,7 +1700,14 @@
       ],
       "title": "Implement strStr()",
       "topics": [{ "name": "String" }, { "name": "Two Pointers" }],
-      "id": "0bbea0e1effa13e06bef13af"
+      "id": "0bbea0e1effa13e06bef13af",
+      "signature": {
+        "parameters": [
+          { "type": "string", "name": "0" },
+          { "type": "string", "name": "1" }
+        ],
+        "returnType": "int"
+      }
     },
     {
       "acceptanceRate": 17.2,
@@ -1642,7 +1764,14 @@
       ],
       "title": "Divide Two Integers",
       "topics": [{ "name": "Math" }, { "name": "Bit Manipulation" }],
-      "id": "efb3a4b2bca0ba5df07a35df"
+      "id": "efb3a4b2bca0ba5df07a35df",
+      "signature": {
+        "parameters": [
+          { "type": "int", "name": "0" },
+          { "type": "int", "name": "1" }
+        ],
+        "returnType": "int"
+      }
     },
     {
       "acceptanceRate": 26.6,
@@ -1703,7 +1832,14 @@
       ],
       "title": "Substring with Concatenation of All Words",
       "topics": [{ "name": "Hash Table" }, { "name": "Two Pointers" }],
-      "id": "b2008d6bcf6fc604d1dddb00"
+      "id": "b2008d6bcf6fc604d1dddb00",
+      "signature": {
+        "parameters": [
+          { "type": "string", "name": "0" },
+          { "type": "list", "name": "1" }
+        ],
+        "returnType": "list"
+      }
     },
     {
       "acceptanceRate": 34.7,
@@ -1751,7 +1887,11 @@
       ],
       "title": "Next Permutation",
       "topics": [{ "name": "Array" }, { "name": "Two Pointers" }],
-      "id": "f7efe6a10bebdc84ae0ee4b1"
+      "id": "f7efe6a10bebdc84ae0ee4b1",
+      "signature": {
+        "parameters": [{ "type": "list", "name": "0" }],
+        "returnType": "list"
+      }
     },
     {
       "acceptanceRate": 29.6,
@@ -1777,7 +1917,11 @@
       "numLC": 32,
       "similar": [
         { "difficulty": "Medium", "id": 20, "title": "Valid Parentheses" },
-        { "difficulty": "Hard", "id": 301, "title": "Remove Invalid Parentheses" }
+        {
+          "difficulty": "Hard",
+          "id": 301,
+          "title": "Remove Invalid Parentheses"
+        }
       ],
       "submissions": 25.1,
       "testSuite": [
@@ -1799,7 +1943,11 @@
       ],
       "title": "Longest Valid Parentheses",
       "topics": [{ "name": "String" }, { "name": "Dynamic Programming" }],
-      "id": "f3e6bee12bcd28bef06d3bbe"
+      "id": "f3e6bee12bcd28bef06d3bbe",
+      "signature": {
+        "parameters": [{ "type": "string", "name": "0" }],
+        "returnType": "int"
+      }
     },
     {
       "acceptanceRate": 35.9,
@@ -1864,7 +2012,14 @@
       ],
       "title": "Search in Rotated Sorted Array",
       "topics": [{ "name": "Array" }, { "name": "Binary Search" }],
-      "id": "e3cacab313b1ac3c348ea9b0"
+      "id": "e3cacab313b1ac3c348ea9b0",
+      "signature": {
+        "parameters": [
+          { "type": "list", "name": "0" },
+          { "type": "int", "name": "1" }
+        ],
+        "returnType": "int"
+      }
     },
     {
       "acceptanceRate": 37.8,
@@ -1921,7 +2076,14 @@
       ],
       "title": "Find First and Last Position of Element in Sorted Array",
       "topics": [{ "name": "Array" }, { "name": "Binary Search" }],
-      "id": "13e95e55e23ddd0e01721ed7"
+      "id": "13e95e55e23ddd0e01721ed7",
+      "signature": {
+        "parameters": [
+          { "type": "list", "name": "0" },
+          { "type": "int", "name": "1" }
+        ],
+        "returnType": "list"
+      }
     },
     {
       "acceptanceRate": 42.7,
@@ -1982,7 +2144,14 @@
       ],
       "title": "Search Insert Position",
       "topics": [{ "name": "Array" }, { "name": "Binary Search" }],
-      "id": "a98acc71bc6c46bb81bbcb76"
+      "id": "a98acc71bc6c46bb81bbcb76",
+      "signature": {
+        "parameters": [
+          { "type": "list", "name": "0" },
+          { "type": "int", "name": "1" }
+        ],
+        "returnType": "int"
+      }
     },
     {
       "acceptanceRate": 45.6,
@@ -2006,7 +2175,9 @@
       "isPublished": true,
       "isSubmitted": true,
       "numLC": 36,
-      "similar": [{ "difficulty": "Medium", "id": 37, "title": "Sudoku Solver" }],
+      "similar": [
+        { "difficulty": "Medium", "id": 37, "title": "Sudoku Solver" }
+      ],
       "submissions": 29.4,
       "testSuite": [
         {
@@ -2044,7 +2215,10 @@
               "name": "",
               "value": [".", ".", ".", "4", "1", "9", ".", ".", "5"]
             },
-            { "name": "", "value": [".", ".", ".", ".", "8", ".", ".", "7", "9"] }
+            {
+              "name": "",
+              "value": [".", ".", ".", ".", "8", ".", ".", "7", "9"]
+            }
           ],
           "explanation": ""
         },
@@ -2083,14 +2257,31 @@
               "name": "",
               "value": [".", ".", ".", "4", "1", "9", ".", ".", "5"]
             },
-            { "name": "", "value": [".", ".", ".", ".", "8", ".", ".", "7", "9"] }
+            {
+              "name": "",
+              "value": [".", ".", ".", ".", "8", ".", ".", "7", "9"]
+            }
           ],
           "explanation": ""
         }
       ],
       "title": "Valid Sudoku",
       "topics": [{ "name": "Array" }, { "name": "Hash Table" }],
-      "id": "d1a3af16ed771cbfcd5c1cca"
+      "id": "d1a3af16ed771cbfcd5c1cca",
+      "signature": {
+        "parameters": [
+          { "type": "list", "name": "0" },
+          { "type": "list", "name": "1" },
+          { "type": "list", "name": "2" },
+          { "type": "list", "name": "3" },
+          { "type": "list", "name": "4" },
+          { "type": "list", "name": "5" },
+          { "type": "list", "name": "6" },
+          { "type": "list", "name": "7" },
+          { "type": "list", "name": "8" }
+        ],
+        "returnType": "unknown"
+      }
     },
     {
       "acceptanceRate": 32.8,
@@ -2114,7 +2305,9 @@
       "isPublished": true,
       "isSubmitted": true,
       "numLC": 37,
-      "similar": [{ "difficulty": "Medium", "id": 36, "title": "Valid Sudoku" }],
+      "similar": [
+        { "difficulty": "Medium", "id": 36, "title": "Valid Sudoku" }
+      ],
       "submissions": 26.1,
       "testSuite": [
         {
@@ -2162,14 +2355,31 @@
               "name": "",
               "value": [".", ".", ".", "4", "1", "9", ".", ".", "5"]
             },
-            { "name": "", "value": [".", ".", ".", ".", "8", ".", ".", "7", "9"] }
+            {
+              "name": "",
+              "value": [".", ".", ".", ".", "8", ".", ".", "7", "9"]
+            }
           ],
           "explanation": ""
         }
       ],
       "title": "Sudoku Solver",
       "topics": [{ "name": "Array" }, { "name": "Backtracking" }],
-      "id": "6b3b031a58c7bb35539ad64c"
+      "id": "6b3b031a58c7bb35539ad64c",
+      "signature": {
+        "parameters": [
+          { "type": "list", "name": "0" },
+          { "type": "list", "name": "1" },
+          { "type": "list", "name": "2" },
+          { "type": "list", "name": "3" },
+          { "type": "list", "name": "4" },
+          { "type": "list", "name": "5" },
+          { "type": "list", "name": "6" },
+          { "type": "list", "name": "7" },
+          { "type": "list", "name": "8" }
+        ],
+        "returnType": "list"
+      }
     },
     {
       "acceptanceRate": 42.7,
@@ -2214,7 +2424,11 @@
       ],
       "title": "Count and Say",
       "topics": [{ "name": "String" }],
-      "id": "75c5d55dd19c4a7b1f33b7f5"
+      "id": "75c5d55dd19c4a7b1f33b7f5",
+      "signature": {
+        "parameters": [{ "type": "int", "name": "0" }],
+        "returnType": "string"
+      }
     },
     {
       "acceptanceRate": 50.2,
@@ -2275,7 +2489,14 @@
       ],
       "title": "Combination Sum",
       "topics": [{ "name": "Array" }, { "name": "Backtracking" }],
-      "id": "e13e0f85edece8aafeeb4eeb"
+      "id": "e13e0f85edece8aafeeb4eeb",
+      "signature": {
+        "parameters": [
+          { "type": "list", "name": "0" },
+          { "type": "int", "name": "1" }
+        ],
+        "returnType": "list"
+      }
     },
     {
       "acceptanceRate": 48.9,
@@ -2328,7 +2549,14 @@
       ],
       "title": "Combination Sum II",
       "topics": [{ "name": "Array" }, { "name": "Backtracking" }],
-      "id": "f2b2326b3e9afc75de7d07ae"
+      "id": "f2b2326b3e9afc75de7d07ae",
+      "signature": {
+        "parameters": [
+          { "type": "list", "name": "0" },
+          { "type": "int", "name": "1" }
+        ],
+        "returnType": "list"
+      }
     },
     {
       "acceptanceRate": 35.6,
@@ -2373,7 +2601,11 @@
       ],
       "title": "First Missing Positive",
       "topics": [{ "name": "Array" }],
-      "id": "dadd047e2ccd99b8f5e3ee0f"
+      "id": "dadd047e2ccd99b8f5e3ee0f",
+      "signature": {
+        "parameters": [{ "type": "list", "name": "0" }],
+        "returnType": "int"
+      }
     },
     {
       "acceptanceRate": 48.9,
@@ -2424,7 +2656,11 @@
         { "name": "Two Pointers" },
         { "name": "Stack" }
       ],
-      "id": "bdafd41a0cfabb65ba62f71a"
+      "id": "bdafd41a0cfabb65ba62f71a",
+      "signature": {
+        "parameters": [{ "type": "list", "name": "0" }],
+        "returnType": "int"
+      }
     },
     {
       "acceptanceRate": 35.6,
@@ -2478,7 +2714,14 @@
       ],
       "title": "Multiply Strings",
       "topics": [{ "name": "Math" }, { "name": "String" }],
-      "id": "fb7e3baf49b272b9fad1ecaa"
+      "id": "fb7e3baf49b272b9fad1ecaa",
+      "signature": {
+        "parameters": [
+          { "type": "string", "name": "0" },
+          { "type": "string", "name": "1" }
+        ],
+        "returnType": "string"
+      }
     },
     {
       "acceptanceRate": 25.5,
@@ -2503,7 +2746,11 @@
       "isSubmitted": true,
       "numLC": 44,
       "similar": [
-        { "difficulty": "Hard", "id": 10, "title": "Regular Expression Matching" }
+        {
+          "difficulty": "Hard",
+          "id": 10,
+          "title": "Regular Expression Matching"
+        }
       ],
       "submissions": 23.4,
       "testSuite": [
@@ -2538,7 +2785,14 @@
         { "name": "Dynamic Programming" },
         { "name": "Backtracking" }
       ],
-      "id": "ba739ab5f2b4bf9b74bba87b"
+      "id": "ba739ab5f2b4bf9b74bba87b",
+      "signature": {
+        "parameters": [
+          { "type": "string", "name": "0" },
+          { "type": "string", "name": "1" }
+        ],
+        "returnType": "unknown"
+      }
     },
     {
       "acceptanceRate": 32.9,
@@ -2583,7 +2837,11 @@
       ],
       "title": "Jump Game II",
       "topics": [{ "name": "Array" }, { "name": "Greedy" }],
-      "id": "e9530dc00dcb0c07a2891a0c"
+      "id": "e9530dc00dcb0c07a2891a0c",
+      "signature": {
+        "parameters": [{ "type": "list", "name": "0" }],
+        "returnType": "int"
+      }
     },
     {
       "acceptanceRate": 60.1,
@@ -2640,7 +2898,11 @@
       ],
       "title": "Permutations",
       "topics": [{ "name": "Backtracking" }],
-      "id": "bbcab2bfaf41a831eefed0d5"
+      "id": "bbcab2bfaf41a831eefed0d5",
+      "signature": {
+        "parameters": [{ "type": "list", "name": "0" }],
+        "returnType": "list"
+      }
     },
     {
       "acceptanceRate": 46.7,
@@ -2664,7 +2926,9 @@
       "isPublished": true,
       "isSubmitted": true,
       "numLC": 47,
-      "similar": [{ "difficulty": "Medium", "id": 46, "title": "Permutations" }],
+      "similar": [
+        { "difficulty": "Medium", "id": 46, "title": "Permutations" }
+      ],
       "submissions": 37.2,
       "testSuite": [
         {
@@ -2700,7 +2964,11 @@
       ],
       "title": "Permutations II",
       "topics": [{ "name": "Backtracking" }],
-      "id": "aa44efebadddff8da6ccdf3f"
+      "id": "aa44efebadddff8da6ccdf3f",
+      "signature": {
+        "parameters": [{ "type": "list", "name": "0" }],
+        "returnType": "list"
+      }
     },
     {
       "acceptanceRate": 56.4,
@@ -2773,7 +3041,11 @@
       ],
       "title": "Rotate Image",
       "topics": [{ "name": "Array" }, { "name": "Matrix" }],
-      "id": "81f3aedf96ab0f7da0767f33"
+      "id": "81f3aedf96ab0f7da0767f33",
+      "signature": {
+        "parameters": [{ "type": "list", "name": "0" }],
+        "returnType": "list"
+      }
     },
     {
       "acceptanceRate": 59.8,
@@ -2820,7 +3092,11 @@
       ],
       "title": "Group Anagrams",
       "topics": [{ "name": "Hash Table" }, { "name": "String" }],
-      "id": "dddac899c8de05db0e2e1fd6"
+      "id": "dddac899c8de05db0e2e1fd6",
+      "signature": {
+        "parameters": [{ "type": "list", "name": "0" }],
+        "returnType": "list"
+      }
     },
     {
       "acceptanceRate": 31.8,
@@ -2874,7 +3150,14 @@
       ],
       "title": "Pow(x, n)",
       "topics": [{ "name": "Math" }, { "name": "Binary Search" }],
-      "id": "8d322f46ce41dfb35c643ec4"
+      "id": "8d322f46ce41dfb35c643ec4",
+      "signature": {
+        "parameters": [
+          { "type": "int", "name": "0" },
+          { "type": "int", "name": "1" }
+        ],
+        "returnType": "int"
+      }
     },
     {
       "acceptanceRate": 243.9,
@@ -2946,7 +3229,14 @@
       ],
       "title": "Open the Lock",
       "topics": [{ "name": "Math" }, { "name": "Binary Search" }],
-      "id": "6ecbd3babb9a179559dccadb"
+      "id": "6ecbd3babb9a179559dccadb",
+      "signature": {
+        "parameters": [
+          { "type": "list", "name": "0" },
+          { "type": "string", "name": "1" }
+        ],
+        "returnType": "int"
+      }
     },
     {
       "acceptanceRate": 243.9,
@@ -2961,7 +3251,7 @@
         "n == t.length",
         "1 <= m, n <= 105",
         "s and t consist of uppercase and lowercase English letters."
-    ],
+      ],
       "difficulty": "Hard",
       "editorialAuthor": {
         "urlAvatar": "https://avatars.leetcode.com/u/54321",
@@ -3005,7 +3295,14 @@
       ],
       "title": "Minimum Window Substring",
       "topics": [{ "name": "BFS" }, { "name": "Sliding Window" }],
-      "id": "8d9f209d5bae710a43ad9aed"
+      "id": "8d9f209d5bae710a43ad9aed",
+      "signature": {
+        "parameters": [
+          { "type": "string", "name": "0" },
+          { "type": "string", "name": "1" }
+        ],
+        "returnType": "string"
+      }
     },
     {
       "acceptanceRate": 243.9,
@@ -3054,14 +3351,25 @@
           "inputs": [
             { "name": "beginWord", "value": "hit" },
             { "name": "endWord", "value": "cog" },
-            { "name": "wordList", "value": [["hot", "dot", "dog", "lot", "log"]] }
+            {
+              "name": "wordList",
+              "value": [["hot", "dot", "dog", "lot", "log"]]
+            }
           ],
           "explanation": "The endWord 'cog' is not in wordList, therefore there is no valid transformation sequence."
         }
       ],
       "title": "Word Ladder",
       "topics": [{ "name": "BFS" }, { "name": "Graph" }],
-      "id": "22c2cb9eebd13cbb7dafe65d"
+      "id": "22c2cb9eebd13cbb7dafe65d",
+      "signature": {
+        "parameters": [
+          { "type": "string", "name": "0" },
+          { "type": "string", "name": "1" },
+          { "type": "list", "name": "2" }
+        ],
+        "returnType": "int"
+      }
     },
     {
       "acceptanceRate": 243.9,
@@ -3106,7 +3414,11 @@
       ],
       "title": "Count the Number of Special Characters I",
       "topics": [],
-      "id": "e7b85ca05dabd7d43ebfd984"
+      "id": "e7b85ca05dabd7d43ebfd984",
+      "signature": {
+        "parameters": [{ "type": "string", "name": "0" }],
+        "returnType": "int"
+      }
     }
   ]
 }

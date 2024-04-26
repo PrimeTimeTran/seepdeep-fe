@@ -1,23 +1,33 @@
+// ignore_for_file: must_be_immutable, depend_on_referenced_packages
+
 import 'package:app/all.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_code_editor/flutter_code_editor.dart';
 import 'package:flutter_highlight/themes/vs.dart';
 
-// ignore: must_be_immutable
 class Editor extends StatefulWidget {
   Function onRun;
   Function onType;
-  // Languages selectedLang;
   Editor({super.key, required this.onRun, required this.onType});
 
   @override
   State<Editor> createState() => _EditorState();
 }
 
+// camelCase
+// C++, Java, Python, Python3, C, JS, TS, PHP, Swift, Kotlin, Dart, Go, Scala
+
+// snake_case
+// Ruby, Rust, Erlang, Elixir
+
+// TitleCase
+// C#,
+
 class _EditorState extends State<Editor> {
+  int step = 1;
+  Language selectedItem = Language.python;
   final GlobalKey _codeEditorKey = GlobalKey();
-  var step = 1;
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -28,15 +38,34 @@ class _EditorState extends State<Editor> {
             children: [
               Row(
                 children: [
-                  IconButton(
-                    icon: const Icon(
-                      Icons.code,
-                      size: 20,
+                  PopupMenuButton<Language>(
+                    initialValue: selectedItem,
+                    onSelected: (Language item) {
+                      setState(() {
+                        selectedItem = item;
+                      });
+                    },
+                    itemBuilder: (BuildContext context) =>
+                        <PopupMenuEntry<Language>>[
+                      buildMenuItem(
+                          'Python', Icons.keyboard, AppScreens.explore.path),
+                      buildMenuItem('JS', Icons.note_alt_outlined,
+                          AppScreens.featureRequests.path),
+                      buildMenuItem(
+                          'C++', Icons.bug_report, AppScreens.bugReports.path),
+                      buildMenuItem(
+                          'TS', Icons.bug_report, AppScreens.bugReports.path),
+                    ],
+                    child: TextButton.icon(
+                      onPressed: null,
+                      icon:
+                          const Icon(size: 20, Icons.code, color: Colors.green),
+                      label: const Text(
+                        'Code',
+                        style: TextStyle(color: Colors.black),
+                      ),
                     ),
-                    color: Colors.black54,
-                    onPressed: () {},
                   ),
-                  const Text('Code')
                 ],
               ),
               Row(
@@ -60,15 +89,12 @@ class _EditorState extends State<Editor> {
             onKey: (RawKeyEvent event) {
               // ignore: deprecated_member_use
               if (event is RawKeyDownEvent) {
-                // setState(() {
-                //   step = 2;
-                // });
                 // ignore: deprecated_member_use
                 if (event.isControlPressed &&
                     event.logicalKey == LogicalKeyboardKey.enter) {
                   onRun();
                 } else {
-                  widget.onType(getController(Languages.python).text);
+                  widget.onType(getController(Language.python).text);
                 }
               }
             },
@@ -76,7 +102,7 @@ class _EditorState extends State<Editor> {
               data: CodeThemeData(styles: vsTheme),
               child: CodeField(
                 key: _codeEditorKey,
-                controller: getController(Languages.python),
+                controller: getController(Language.python),
               ),
             ),
           ),
@@ -85,17 +111,30 @@ class _EditorState extends State<Editor> {
     );
   }
 
+  PopupMenuItem<Language> buildMenuItem(
+      String title, IconData icon, String route) {
+    return PopupMenuItem<Language>(
+      value: Language.python,
+      onTap: () {
+        // GoRouter.of(context).go(route);
+      },
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [Icon(icon), const SizedBox(width: 5.0), Text(title)],
+      ),
+    );
+  }
+
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     Future.delayed(Duration.zero, () {
-      widget.onType(getController(Languages.python).text);
+      widget.onType(getController(Language.python).text);
     });
   }
 
   onRun() {
-    String code = getController(Languages.python).text;
+    String code = getController(Language.python).text;
     widget.onRun(code);
   }
 
