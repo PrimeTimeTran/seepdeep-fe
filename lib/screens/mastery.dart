@@ -28,6 +28,7 @@ const colors = [
 
 const topics = [
   'Sorting',
+  'Array',
   'Strings',
   'Stack',
   'Queue',
@@ -47,6 +48,7 @@ const topics = [
   'Advanced Graph',
   '2DP',
   'Binary',
+  'Math',
 ];
 
 int idx = 0;
@@ -169,10 +171,5 @@ class _MasteryScreenState extends State<MasteryScreen> {
   calculateMastery() {
     Topics.values;
     user.solved?.map((solved) {});
-  }
-
-  @override
-  void initState() {
-    super.initState();
   }
 }

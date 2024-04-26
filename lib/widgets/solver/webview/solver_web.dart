@@ -253,7 +253,8 @@ class _SolverState extends State<Solver> {
 
   onRun(submission) {
     Glob.loadStart();
-    // May need to redo this to send to server for processing.
+    // TODO:
+    // 1. Add choose language
     final dto = {
       "lang": 'python',
       "body": submission,
@@ -265,6 +266,10 @@ class _SolverState extends State<Solver> {
   }
 
   postSubmission(submission) async {
+    // TODO:
+    // 1. Add loading status and block submit button
+    // 2. Return Submission from backend
+    // 3. Update UI with submission results
     try {
       final response = await Api.post('submissions', submission);
       // String url = "http://localhost:3000/api/submissions";

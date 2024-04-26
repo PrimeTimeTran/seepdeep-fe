@@ -1,3 +1,6 @@
-s = 'hello world'
-i = 3
-print(s[1:: -1])
+store = {}
+
+if store.get('s'):
+  print('s')
+elif store['a']:
+  print('else')

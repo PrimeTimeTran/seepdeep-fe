@@ -1,3 +1,5 @@
+import 'dart:js' as js;
+
 import 'package:app/all.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
@@ -81,6 +83,35 @@ class _AuthScreenState extends State<AuthScreen> {
         )
       ],
     );
+  }
+
+  void detectTabChange() {
+    try {
+      js.context['document'].addEventListener('visibilitychange',
+          (dynamic event) {
+        if (js.context['document'].visibilityState == 'visible') {
+          print('focused');
+        } else {
+          print('unfocused');
+        }
+      });
+    } catch (e) {
+      print('e $e');
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    // TODO...? Add reset on problem if the user navigates away.
+    // html.window.onBeforeUnload.listen((event) async {
+    //   print('onBeforeUnload');
+    // });
+    // html.window.onUnload.listen((event) {
+    //   print('onUnload');
+    // });
+
+    detectTabChange();
   }
 
   _authRequest() async {

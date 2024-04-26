@@ -239,6 +239,18 @@ class Solution:
 
         dfs(s, [])
         return res
+
+# Much faster
+class Solution(object):
+    @cache  # the memory trick can save some time
+    def partition(self, s):
+        if not s: return [[]]
+        ans = []
+        for i in range(1, len(s) + 1):
+            if s[:i] == s[:i][::-1]:  # prefix is a palindrome
+                for suf in self.partition(s[i:]):  # process suffix recursively
+                    ans.append([s[:i]] + suf)
+        return ans
 ```
 
 ### 17. Letter Combinations of a Phone Number
@@ -255,14 +267,65 @@ class Solution:
         return combs
 ```
 
-###
+### 51. N-Queens
 
 ```python
+class Solution:
+    def solveNQueens(self, N: int) -> List[List[str]]:
+        res, cols, negatives, positives = [], set(), set(), set()
+        board = [["."] * N for _ in range(N)]
+
+        def backtrack(r):
+            if r == N:
+                copy = ["".join(row) for row in board]
+                res.append(copy)
+                return
+
+            for c in range(N):
+                if c in cols or (r + c) in positives or (r - c) in negatives:
+                    continue
+                cols.add(c)
+                positives.add(r + c)
+                negatives.add(r - c)
+                board[r][c] = "Q"
+                backtrack(r + 1)
+                cols.remove(c)
+                positives.remove(r + c)
+                negatives.remove(r - c)
+                board[r][c] = "."
+
+        backtrack(0)
+        return res
 ```
 
-###
+### 52. N-Queens II
 
 ```python
+class Solution:
+    def totalNQueens(self, N: int) -> List[List[str]]:
+        res, cols, negatives, positives = [], set(), set(), set()
+        board = [["."] * N for _ in range(N)]
+
+        def backtrack(r):
+            if r == N:
+                copy = ["".join(row) for row in board]
+                res.append(copy)
+                return
+
+            for c in range(N):
+                if c in cols or (r + c) in positives or (r - c) in negatives:
+                    continue
+                cols.add(c)
+                positives.add(r + c)
+                negatives.add(r - c)
+                board[r][c] = "Q"
+                backtrack(r + 1)
+                cols.remove(c)
+                positives.remove(r + c)
+                negatives.remove(r - c)
+                board[r][c] = "."
+        backtrack(0)
+        return len(res)
 ```
 
 ###

@@ -3,26 +3,43 @@
 To become the Reddit/Leetcode/Notion/HackerNews/HackerRank/Brilliant/TechCrunch/LinkedIn of Computer Science
 
 ## Levels
+
 Beginner, Novice, Apprentice, Intermediate, Proficient, Advanced, Expert, Master, Virtuoso, Guru
 
 ## Modules
 
 - Anki for Code
-    - Encountered: Solve once.
-    - Novice: Solve x3 in a row without error or references.
-    - Learned: Solve x3 in a row without error or references.
-    - Proficient: Solve x3 in a row without error or references.
-    - Advanced: Solve x3 in a row without error or references.
-    - Mastered: Solve x3 in a row without error or references.
+
+  - Encountered: Solve once.
+  - Novice: Solve x3 in a row without error or references.
+  - Apprentice: Solve x3 in a row without error or references.
+  - Proficient: Solve x3 in a row without error or references.
+  - Intermediate: Solve x3 in a row without error or references.
+  - Advanced: Solve x3 in a row without error or references.
+  - Expert: Solve x3 in a row without error or references.
+
   - Encountered questions are reminded every day.
   - Novice questions are reminded every other day.
-  - Learned problems are reminded every week.
+  - Apprentice problems are reminded every week.
   - Proficient problems are reminded every other week.
-  - Advanced problems are reminded every month.
-  - Mastered problems are reminded every 2 months.
+  - Intermediate problems are reminded every month.
+  - Advanced problems are reminded every 2 months.
+  - Expert problems are reminded every 3 months.
+
+- Mastery
+  - Main section is percentage of their mastery skills.
+    - # Problems on Topic / Total # Problems Solved
+  - Topic:
+    - Topic Name
+    - Topic Level
+    - Progress for topic at current level
+      - Requires 10 problems to be solved at the current level to achieve the next level
+      - # of problems needed to advanced to the next level
+    - List of problems
+
 ```
 user.solvedProblems = {
-  # May look at submissions 
+  # May look at submissions
   "encountered": [
     {"id": 1, "name": "twoSum", "solveCount": "2", "dateReview": "04-25-24", "submissionId": "Id"},
   ],
@@ -52,27 +69,31 @@ user.careerTopics = {
 ```
 
 - Career
+
   - Attained learned level for 15 easy problems in that topic.
   - Attained proficient level of 15 medium problems in that topic
   - Attained mastery level of 15 hard problems in that topic
 
-
 - LeetCode
+
   - Problems
     - Solutions
     - Submissions
 
 - Leaderboard
+
   - Contests
   - Solutions
   - Articles
 
 - Developer Profiles
+
   - Contest scores
   - Submission scores
   - Community score(tutorials, articles, forum)
 
 - News
+
   - AI
   - Tech
   - Business
@@ -84,14 +105,15 @@ user.careerTopics = {
 
 - Companies
 - Jobs
-  - [ ] Scrape Jobs with weekly job
 
+  - [ ] Scrape Jobs with weekly job
 
 - Articles
 - Tutorials
 - Store
-  - Merchandise
+
   - TShirts
+  - Merchandise
 
 - Curated Lists of useful tech
   - AI
@@ -102,7 +124,6 @@ user.careerTopics = {
   - Blockchain
   - Data Analytics
 
-
 # "Dont remember"
 
 - https://www.youtube.com/watch?v=-Bhl_jizoKM&t=746s
@@ -110,7 +131,7 @@ user.careerTopics = {
     - 4:43
     - 5:00
     - 5:22
-    - 
-    - 
-    - 
-    - 
+    -
+    -
+    -
+    -
