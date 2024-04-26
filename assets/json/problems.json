@@ -611,8 +611,8 @@
       "id": "ba497ca59a0aabe6d37b0576",
       "signature": {
         "parameters": [
-          { "type": "string", "name": "0" },
-          { "type": "string", "name": "1" }
+          { "type": "string", "name": "s" },
+          { "type": "string", "name": "p" }
         ],
         "returnType": "bool"
       }
@@ -669,7 +669,7 @@
       "topics": [{ "name": "Array" }, { "name": "Two Pointers" }],
       "id": "8802da8bf2c26a05fe0ae2aa",
       "signature": {
-        "parameters": [{ "type": "list", "name": "0" }],
+        "parameters": [{ "type": "list", "name": "height" }],
         "returnType": "int"
       }
     },
@@ -725,7 +725,7 @@
       "topics": [{ "name": "Math" }, { "name": "String" }],
       "id": "afac30438472dbbbbddea2e6",
       "signature": {
-        "parameters": [{ "type": "int", "name": "0" }],
+        "parameters": [{ "type": "int", "name": "num" }],
         "returnType": "string"
       }
     },
@@ -781,7 +781,7 @@
       "topics": [{ "name": "Math" }, { "name": "String" }],
       "id": "f021d267cedfd00bb2c94b7d",
       "signature": {
-        "parameters": [{ "type": "string", "name": "0" }],
+        "parameters": [{ "type": "string", "name": "s" }],
         "returnType": "int"
       }
     },
@@ -837,7 +837,7 @@
       "topics": [{ "name": "String" }],
       "id": "3fcfafbcb0f4a76308af42bd",
       "signature": {
-        "parameters": [{ "type": "list", "name": "0" }],
+        "parameters": [{ "type": "list", "name": "strs" }],
         "returnType": "string"
       }
     },
@@ -896,7 +896,7 @@
       "topics": [{ "name": "Array" }, { "name": "Two Pointers" }],
       "id": "0bbdf8b0fbab2645dbaa5de4",
       "signature": {
-        "parameters": [{ "type": "list", "name": "0" }],
+        "parameters": [{ "type": "list", "name": "nums" }],
         "returnType": "list"
       }
     },
@@ -958,8 +958,8 @@
       "id": "51adcd8c87dd3e23caffa895",
       "signature": {
         "parameters": [
-          { "type": "list", "name": "0" },
-          { "type": "int", "name": "1" }
+          { "type": "list", "name": "nums" },
+          { "type": "int", "name": "target" }
         ],
         "returnType": "int"
       }
@@ -1012,7 +1012,7 @@
       "topics": [{ "name": "String" }, { "name": "Backtracking" }],
       "id": "aa4098cebe79d12007ce64f7",
       "signature": {
-        "parameters": [{ "type": "string", "name": "0" }],
+        "parameters": [{ "type": "string", "name": "digits" }],
         "returnType": "list"
       }
     },
@@ -1078,8 +1078,8 @@
       "id": "cdb9d2161beccc4c1ed0efea",
       "signature": {
         "parameters": [
-          { "type": "list", "name": "0" },
-          { "type": "int", "name": "1" }
+          { "type": "list", "name": "nums" },
+          { "type": "int", "name": "target" }
         ],
         "returnType": "list"
       }
@@ -1146,8 +1146,8 @@
       "id": "9abbb91ee2b3361bc78c4c0e",
       "signature": {
         "parameters": [
-          { "type": "list", "name": "0" },
-          { "type": "int", "name": "1" }
+          { "type": "list", "name": "head" },
+          { "type": "int", "name": "n" }
         ],
         "returnType": "list"
       }
@@ -1204,7 +1204,7 @@
       "topics": [{ "name": "String" }, { "name": "Stack" }],
       "id": "df61ffdd156fa8e6ebc5bf7f",
       "signature": {
-        "parameters": [{ "type": "string", "name": "0" }],
+        "parameters": [{ "type": "string", "name": "s" }],
         "returnType": "bool"
       }
     },
@@ -1266,10 +1266,10 @@
       "id": "663f2af5946dfac7e94fab72",
       "signature": {
         "parameters": [
-          { "type": "list", "name": "0" },
-          { "type": "list", "name": "1" }
+          { "type": "listnode", "name": "l1" },
+          { "type": "listnode", "name": "l2" }
         ],
-        "returnType": "list"
+        "returnType": "listnode"
       }
     },
     {
@@ -1324,7 +1324,7 @@
       "topics": [{ "name": "String" }, { "name": "Backtracking" }],
       "id": "accbdb7992cbc4f9eecccb55",
       "signature": {
-        "parameters": [{ "type": "int", "name": "0" }],
+        "parameters": [{ "type": "int", "name": "n" }],
         "returnType": "list"
       }
     },
@@ -1393,7 +1393,7 @@
       ],
       "id": "ce749c77c0d3676aa1e814cd",
       "signature": {
-        "parameters": [{ "type": "list", "name": "0" }],
+        "parameters": [{ "type": "list", "name": "lists" }],
         "returnType": "list"
       }
     },
@@ -1445,7 +1445,7 @@
       "topics": [{ "name": "Linked List" }],
       "id": "8fe5cbe30d6fe3fb273e1bbf",
       "signature": {
-        "parameters": [{ "type": "list", "name": "0" }],
+        "parameters": [{ "type": "list", "name": "head" }],
         "returnType": "list"
       }
     },
@@ -1507,8 +1507,8 @@
       "id": "eb9ae379068ae05f76c5b8a4",
       "signature": {
         "parameters": [
-          { "type": "list", "name": "0" },
-          { "type": "int", "name": "1" }
+          { "type": "list", "name": "head" },
+          { "type": "int", "name": "k" }
         ],
         "returnType": "list"
       }
@@ -1565,7 +1565,7 @@
       "topics": [{ "name": "Array" }, { "name": "Two Pointers" }],
       "id": "b2f8f3def5ccfade33afd3fd",
       "signature": {
-        "parameters": [{ "type": "list", "name": "0" }],
+        "parameters": [{ "type": "list", "name": "nums" }],
         "returnType": "list"
       }
     },
@@ -1635,8 +1635,8 @@
       "id": "0d7cf21b25fd091c43fbe901",
       "signature": {
         "parameters": [
-          { "type": "list", "name": "0" },
-          { "type": "int", "name": "1" }
+          { "type": "list", "name": "nums" },
+          { "type": "int", "name": "val" }
         ],
         "returnType": "list"
       }
@@ -1676,35 +1676,19 @@
         {
           "output": 2,
           "inputs": [
-            { "name": "", "value": "hello" },
-            { "name": "", "value": "ll" }
+            { "name": "", "value": "sadbutsad" },
+            { "name": "", "value": "sad" }
           ],
           "explanation": ""
         },
-        {
-          "output": -1,
-          "inputs": [
-            { "name": "", "value": "aaaaa" },
-            { "name": "", "value": "bba" }
-          ],
-          "explanation": ""
-        },
-        {
-          "output": 0,
-          "inputs": [
-            { "name": "", "value": "" },
-            { "name": "", "value": "" }
-          ],
-          "explanation": ""
-        }
       ],
-      "title": "Implement strStr()",
+      "title": "Find the Index of the First Occurrence in a String",
       "topics": [{ "name": "String" }, { "name": "Two Pointers" }],
       "id": "0bbea0e1effa13e06bef13af",
       "signature": {
         "parameters": [
-          { "type": "string", "name": "0" },
-          { "type": "string", "name": "1" }
+          { "type": "string", "name": "haystack" },
+          { "type": "string", "name": "needle" }
         ],
         "returnType": "int"
       }
@@ -1767,8 +1751,8 @@
       "id": "efb3a4b2bca0ba5df07a35df",
       "signature": {
         "parameters": [
-          { "type": "int", "name": "0" },
-          { "type": "int", "name": "1" }
+          { "type": "int", "name": "dividend" },
+          { "type": "int", "name": "divisor" }
         ],
         "returnType": "int"
       }
@@ -1835,8 +1819,8 @@
       "id": "b2008d6bcf6fc604d1dddb00",
       "signature": {
         "parameters": [
-          { "type": "string", "name": "0" },
-          { "type": "list", "name": "1" }
+          { "type": "string", "name": "s" },
+          { "type": "list", "name": "words" }
         ],
         "returnType": "list"
       }
@@ -1889,7 +1873,7 @@
       "topics": [{ "name": "Array" }, { "name": "Two Pointers" }],
       "id": "f7efe6a10bebdc84ae0ee4b1",
       "signature": {
-        "parameters": [{ "type": "list", "name": "0" }],
+        "parameters": [{ "type": "list", "name": "nums" }],
         "returnType": "list"
       }
     },
@@ -1945,7 +1929,7 @@
       "topics": [{ "name": "String" }, { "name": "Dynamic Programming" }],
       "id": "f3e6bee12bcd28bef06d3bbe",
       "signature": {
-        "parameters": [{ "type": "string", "name": "0" }],
+        "parameters": [{ "type": "string", "name": "s" }],
         "returnType": "int"
       }
     },
@@ -2015,8 +1999,8 @@
       "id": "e3cacab313b1ac3c348ea9b0",
       "signature": {
         "parameters": [
-          { "type": "list", "name": "0" },
-          { "type": "int", "name": "1" }
+          { "type": "list", "name": "nums" },
+          { "type": "int", "name": "target" }
         ],
         "returnType": "int"
       }
@@ -2079,8 +2063,8 @@
       "id": "13e95e55e23ddd0e01721ed7",
       "signature": {
         "parameters": [
-          { "type": "list", "name": "0" },
-          { "type": "int", "name": "1" }
+          { "type": "list", "name": "nums" },
+          { "type": "int", "name": "target" }
         ],
         "returnType": "list"
       }
@@ -2147,8 +2131,8 @@
       "id": "a98acc71bc6c46bb81bbcb76",
       "signature": {
         "parameters": [
-          { "type": "list", "name": "0" },
-          { "type": "int", "name": "1" }
+          { "type": "list", "name": "nums" },
+          { "type": "int", "name": "target" }
         ],
         "returnType": "int"
       }
@@ -2185,39 +2169,15 @@
           "inputs": [
             {
               "name": "",
-              "value": ["5", "3", ".", ".", "7", ".", ".", ".", "."]
-            },
-            {
-              "name": "",
-              "value": ["6", ".", ".", "1", "9", "5", ".", ".", "."]
-            },
-            {
-              "name": "",
-              "value": [".", "9", "8", ".", ".", ".", ".", "6", "."]
-            },
-            {
-              "name": "",
-              "value": ["8", ".", ".", ".", "6", ".", ".", ".", "3"]
-            },
-            {
-              "name": "",
-              "value": ["4", ".", ".", "8", ".", "3", ".", ".", "1"]
-            },
-            {
-              "name": "",
-              "value": ["7", ".", ".", ".", "2", ".", ".", ".", "6"]
-            },
-            {
-              "name": "",
-              "value": [".", "6", ".", ".", ".", ".", "2", "8", "."]
-            },
-            {
-              "name": "",
-              "value": [".", ".", ".", "4", "1", "9", ".", ".", "5"]
-            },
-            {
-              "name": "",
-              "value": [".", ".", ".", ".", "8", ".", ".", "7", "9"]
+              "value": [["5","3",".",".","7",".",".",".","."]
+              ,["6",".",".","1","9","5",".",".","."]
+              ,[".","9","8",".",".",".",".","6","."]
+              ,["8",".",".",".","6",".",".",".","3"]
+              ,["4",".",".","8",".","3",".",".","1"]
+              ,["7",".",".",".","2",".",".",".","6"]
+              ,[".","6",".",".",".",".","2","8","."]
+              ,[".",".",".","4","1","9",".",".","5"]
+              ,[".",".",".",".","8",".",".","7","9"]]
             }
           ],
           "explanation": ""
@@ -2227,39 +2187,15 @@
           "inputs": [
             {
               "name": "",
-              "value": ["8", "3", ".", ".", "7", ".", ".", ".", "."]
-            },
-            {
-              "name": "",
-              "value": ["6", ".", ".", "1", "9", "5", ".", ".", "."]
-            },
-            {
-              "name": "",
-              "value": [".", "9", "8", ".", ".", ".", ".", "6", "."]
-            },
-            {
-              "name": "",
-              "value": ["8", ".", ".", ".", "6", ".", ".", ".", "3"]
-            },
-            {
-              "name": "",
-              "value": ["4", ".", ".", "8", ".", "3", ".", ".", "1"]
-            },
-            {
-              "name": "",
-              "value": ["7", ".", ".", ".", "2", ".", ".", ".", "6"]
-            },
-            {
-              "name": "",
-              "value": [".", "6", ".", ".", ".", ".", "2", "8", "."]
-            },
-            {
-              "name": "",
-              "value": [".", ".", ".", "4", "1", "9", ".", ".", "5"]
-            },
-            {
-              "name": "",
-              "value": [".", ".", ".", ".", "8", ".", ".", "7", "9"]
+              "value": [["8","3",".",".","7",".",".",".","."]
+              ,["6",".",".","1","9","5",".",".","."]
+              ,[".","9","8",".",".",".",".","6","."]
+              ,["8",".",".",".","6",".",".",".","3"]
+              ,["4",".",".","8",".","3",".",".","1"]
+              ,["7",".",".",".","2",".",".",".","6"]
+              ,[".","6",".",".",".",".","2","8","."]
+              ,[".",".",".","4","1","9",".",".","5"]
+              ,[".",".",".",".","8",".",".","7","9"]]
             }
           ],
           "explanation": ""
@@ -2270,15 +2206,7 @@
       "id": "d1a3af16ed771cbfcd5c1cca",
       "signature": {
         "parameters": [
-          { "type": "list", "name": "0" },
-          { "type": "list", "name": "1" },
-          { "type": "list", "name": "2" },
-          { "type": "list", "name": "3" },
-          { "type": "list", "name": "4" },
-          { "type": "list", "name": "5" },
-          { "type": "list", "name": "6" },
-          { "type": "list", "name": "7" },
-          { "type": "list", "name": "8" }
+          { "type": "list", "name": "board" }
         ],
         "returnType": "bool"
       }
@@ -2311,53 +2239,11 @@
       "submissions": 26.1,
       "testSuite": [
         {
-          "output": [
-            ["5", "3", "4", "6", "7", "8", "9", "1", "2"],
-            ["6", "7", "2", "1", "9", "5", "3", "4", "8"],
-            ["1", "9", "8", "3", "4", "2", "5", "6", "7"],
-            ["8", "5", "9", "7", "6", "1", "4", "2", "3"],
-            ["4", "2", "6", "8", "5", "3", "7", "9", "1"],
-            ["7", "1", "3", "9", "2", "4", "8", "5", "6"],
-            ["9", "6", "1", "5", "3", "7", "2", "8", "4"],
-            ["2", "8", "7", "4", "1", "9", "6", "3", "5"],
-            ["3", "4", "5", "2", "8", "6", "1", "7", "9"]
-          ],
+          "output": [["5","3","4","6","7","8","9","1","2"],["6","7","2","1","9","5","3","4","8"],["1","9","8","3","4","2","5","6","7"],["8","5","9","7","6","1","4","2","3"],["4","2","6","8","5","3","7","9","1"],["7","1","3","9","2","4","8","5","6"],["9","6","1","5","3","7","2","8","4"],["2","8","7","4","1","9","6","3","5"],["3","4","5","2","8","6","1","7","9"]],
           "inputs": [
             {
               "name": "",
-              "value": ["5", "3", ".", ".", "7", ".", ".", ".", "."]
-            },
-            {
-              "name": "",
-              "value": ["6", ".", ".", "1", "9", "5", ".", ".", "."]
-            },
-            {
-              "name": "",
-              "value": [".", "9", "8", ".", ".", ".", ".", "6", "."]
-            },
-            {
-              "name": "",
-              "value": ["8", ".", ".", ".", "6", ".", ".", ".", "3"]
-            },
-            {
-              "name": "",
-              "value": ["4", ".", ".", "8", ".", "3", ".", ".", "1"]
-            },
-            {
-              "name": "",
-              "value": ["7", ".", ".", ".", "2", ".", ".", ".", "6"]
-            },
-            {
-              "name": "",
-              "value": [".", "6", ".", ".", ".", ".", "2", "8", "."]
-            },
-            {
-              "name": "",
-              "value": [".", ".", ".", "4", "1", "9", ".", ".", "5"]
-            },
-            {
-              "name": "",
-              "value": [".", ".", ".", ".", "8", ".", ".", "7", "9"]
+              "value": [["5","3",".",".","7",".",".",".","."],["6",".",".","1","9","5",".",".","."],[".","9","8",".",".",".",".","6","."],["8",".",".",".","6",".",".",".","3"],["4",".",".","8",".","3",".",".","1"],["7",".",".",".","2",".",".",".","6"],[".","6",".",".",".",".","2","8","."],[".",".",".","4","1","9",".",".","5"],[".",".",".",".","8",".",".","7","9"]]
             }
           ],
           "explanation": ""
@@ -2368,15 +2254,7 @@
       "id": "6b3b031a58c7bb35539ad64c",
       "signature": {
         "parameters": [
-          { "type": "list", "name": "0" },
-          { "type": "list", "name": "1" },
-          { "type": "list", "name": "2" },
-          { "type": "list", "name": "3" },
-          { "type": "list", "name": "4" },
-          { "type": "list", "name": "5" },
-          { "type": "list", "name": "6" },
-          { "type": "list", "name": "7" },
-          { "type": "list", "name": "8" }
+          { "type": "list", "name": "board" }
         ],
         "returnType": "list"
       }
@@ -2426,7 +2304,7 @@
       "topics": [{ "name": "String" }],
       "id": "75c5d55dd19c4a7b1f33b7f5",
       "signature": {
-        "parameters": [{ "type": "int", "name": "0" }],
+        "parameters": [{ "type": "int", "name": "n" }],
         "returnType": "string"
       }
     },
@@ -2492,8 +2370,8 @@
       "id": "e13e0f85edece8aafeeb4eeb",
       "signature": {
         "parameters": [
-          { "type": "list", "name": "0" },
-          { "type": "int", "name": "1" }
+          { "type": "list", "name": "candidates" },
+          { "type": "int", "name": "target" }
         ],
         "returnType": "list"
       }
@@ -2552,8 +2430,8 @@
       "id": "f2b2326b3e9afc75de7d07ae",
       "signature": {
         "parameters": [
-          { "type": "list", "name": "0" },
-          { "type": "int", "name": "1" }
+          { "type": "list", "name": "candidates" },
+          { "type": "int", "name": "target" }
         ],
         "returnType": "list"
       }
@@ -2603,7 +2481,7 @@
       "topics": [{ "name": "Array" }],
       "id": "dadd047e2ccd99b8f5e3ee0f",
       "signature": {
-        "parameters": [{ "type": "list", "name": "0" }],
+        "parameters": [{ "type": "list", "name": "nums" }],
         "returnType": "int"
       }
     },
@@ -2658,7 +2536,7 @@
       ],
       "id": "bdafd41a0cfabb65ba62f71a",
       "signature": {
-        "parameters": [{ "type": "list", "name": "0" }],
+        "parameters": [{ "type": "list", "name": "height" }],
         "returnType": "int"
       }
     },
@@ -2717,8 +2595,8 @@
       "id": "fb7e3baf49b272b9fad1ecaa",
       "signature": {
         "parameters": [
-          { "type": "string", "name": "0" },
-          { "type": "string", "name": "1" }
+          { "type": "string", "name": "num1" },
+          { "type": "string", "name": "num2" }
         ],
         "returnType": "string"
       }
@@ -2788,8 +2666,8 @@
       "id": "ba739ab5f2b4bf9b74bba87b",
       "signature": {
         "parameters": [
-          { "type": "string", "name": "0" },
-          { "type": "string", "name": "1" }
+          { "type": "string", "name": "s" },
+          { "type": "string", "name": "p" }
         ],
         "returnType": "bool"
       }
@@ -2839,7 +2717,7 @@
       "topics": [{ "name": "Array" }, { "name": "Greedy" }],
       "id": "e9530dc00dcb0c07a2891a0c",
       "signature": {
-        "parameters": [{ "type": "list", "name": "0" }],
+        "parameters": [{ "type": "list", "name": "nums" }],
         "returnType": "int"
       }
     },
@@ -2900,7 +2778,7 @@
       "topics": [{ "name": "Backtracking" }],
       "id": "bbcab2bfaf41a831eefed0d5",
       "signature": {
-        "parameters": [{ "type": "list", "name": "0" }],
+        "parameters": [{ "type": "list", "name": "nums" }],
         "returnType": "list"
       }
     },
@@ -2966,7 +2844,7 @@
       "topics": [{ "name": "Backtracking" }],
       "id": "aa44efebadddff8da6ccdf3f",
       "signature": {
-        "parameters": [{ "type": "list", "name": "0" }],
+        "parameters": [{ "type": "list", "name": "nums" }],
         "returnType": "list"
       }
     },
@@ -3043,7 +2921,7 @@
       "topics": [{ "name": "Array" }, { "name": "Matrix" }],
       "id": "81f3aedf96ab0f7da0767f33",
       "signature": {
-        "parameters": [{ "type": "list", "name": "0" }],
+        "parameters": [{ "type": "list", "name": "matrix" }],
         "returnType": "list"
       }
     },
@@ -3094,7 +2972,7 @@
       "topics": [{ "name": "Hash Table" }, { "name": "String" }],
       "id": "dddac899c8de05db0e2e1fd6",
       "signature": {
-        "parameters": [{ "type": "list", "name": "0" }],
+        "parameters": [{ "type": "list", "name": "strs" }],
         "returnType": "list"
       }
     },
@@ -3153,8 +3031,8 @@
       "id": "8d322f46ce41dfb35c643ec4",
       "signature": {
         "parameters": [
-          { "type": "int", "name": "0" },
-          { "type": "int", "name": "1" }
+          { "type": "int", "name": "x" },
+          { "type": "int", "name": "n" }
         ],
         "returnType": "int"
       }
@@ -3232,8 +3110,8 @@
       "id": "6ecbd3babb9a179559dccadb",
       "signature": {
         "parameters": [
-          { "type": "list", "name": "0" },
-          { "type": "string", "name": "1" }
+          { "type": "list", "name": "deadends" },
+          { "type": "string", "name": "target" }
         ],
         "returnType": "int"
       }
@@ -3298,8 +3176,8 @@
       "id": "8d9f209d5bae710a43ad9aed",
       "signature": {
         "parameters": [
-          { "type": "string", "name": "0" },
-          { "type": "string", "name": "1" }
+          { "type": "string", "name": "s" },
+          { "type": "string", "name": "t" }
         ],
         "returnType": "string"
       }
@@ -3364,9 +3242,9 @@
       "id": "22c2cb9eebd13cbb7dafe65d",
       "signature": {
         "parameters": [
-          { "type": "string", "name": "0" },
-          { "type": "string", "name": "1" },
-          { "type": "list", "name": "2" }
+          { "type": "string", "name": "beginWord" },
+          { "type": "string", "name": "endWord" },
+          { "type": "list", "name": "wordList" }
         ],
         "returnType": "int"
       }
@@ -3416,7 +3294,7 @@
       "topics": [],
       "id": "e7b85ca05dabd7d43ebfd984",
       "signature": {
-        "parameters": [{ "type": "string", "name": "0" }],
+        "parameters": [{ "type": "string", "name": "word" }],
         "returnType": "int"
       }
     }
