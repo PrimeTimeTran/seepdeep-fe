@@ -1,26 +1,24 @@
 # Dynamic Programming
 
-To prepare for dynamic programming, it's essential to grasp some fundamental techniques:
+To prepare for dynamic programming(dp), it's essential to grasp some fundamental techniques:
 
-- Understanding Recursion: Dynamic programming often involves breaking down a problem into smaller subproblems. Understanding recursion, how it works, and its implementation is crucial, as dynamic programming often builds upon recursive solutions.
+- Recursion: DP often involves breaking down a problem into smaller subproblems. Understanding recursion, how it works, and its implementation is crucial, as DP often builds upon recursive solutions.
 
-- Identifying Overlapping Subproblems: Dynamic programming relies on solving overlapping subproblems. Identifying these subproblems helps in applying dynamic programming techniques effectively.
+- Identifying Overlapping Subproblems: DP relies on solving overlapping subproblems. Identifying these subproblems helps in applying DP techniques effectively.
 
-- Memoization: This technique involves storing the results of expensive function calls and returning the cached result when the same inputs occur again. It's a top-down approach to dynamic programming and helps avoid redundant computations.
+- Memoization: This technique involves storing the results of expensive function calls and returning the cached result when the same inputs occur again. It's a top-down approach to DP and helps avoid redundant computations.
 
 - Bottom-Up (Tabulation) Approach: This involves solving the problem iteratively, starting from the smallest subproblems and building up to larger ones. It typically requires using arrays or tables to store intermediate results.
 
-- Understanding Optimal Substructure: Dynamic programming problems exhibit optimal substructure, meaning the optimal solution to a problem can be constructed from the optimal solutions of its subproblems. Recognizing and utilizing this property is essential.
+- Understanding Optimal Substructure: DP problems exhibit optimal substructure, meaning the optimal solution to a problem can be constructed from the optimal solutions of its subproblems. Recognizing and utilizing this property is essential.
 
-- State Representation: Formulating the problem in terms of states and transitions is crucial for dynamic programming. Each state represents a specific configuration of the problem, and transitions denote how the states are connected.
+- State Representation: Formulating the problem in terms of states and transitions is crucial for DP. Each state represents a specific configuration of the problem, and transitions denote how the states are connected.
 
-- Choosing the Right Data Structure: Depending on the problem, choosing the appropriate data structure for storing intermediate results can significantly impact the efficiency of dynamic programming solutions. Common data structures include arrays, matrices, hash maps, and trees.
+- Choosing the Right Data Structure: Depending on the problem, choosing the appropriate data structure for storing intermediate results can significantly impact the efficiency of DP solutions. Common data structures include arrays, matrices, hash maps, and trees.
 
-- Practice, Practice, Practice: Dynamic programming can be challenging to grasp initially, but like any skill, practice is key. Solve a variety of dynamic programming problems to familiarize yourself with different patterns and techniques.
+- Practice, Practice, Practice: DP can be challenging to grasp initially, but like any skill, practice is key. Solve a variety of DP problems to familiarize yourself with different patterns and techniques.
 
-By mastering these fundamental techniques, you'll be well-prepared to tackle dynamic programming problems effectively. Start with simpler problems and gradually move on to more complex ones as you build your understanding and confidence.
-
-
+By mastering these fundamental techniques, you'll be well-prepared to tackle DP problems effectively. Start with simpler problems and gradually move on to more complex ones as you build your understanding and confidence.
 
 # 70. Climbing Stairs
 
@@ -50,13 +48,200 @@ class Solution:
             dic[n] = self.helper(n-1, dic)+self.helper(n-2, dic)
         return dic[n]
 
-    # Top down + memorization (dictionary)  
+    # Top down + memorization (dictionary)
     def climbStairs(self, n, dic={1: 1, 2: 2}):
         if n not in dic:
             dic[n] = self.climbStairs(n - 1) + self.climbStairs(n - 2)
         return dic[n]
 ```
 
+# 746. Min Cost Climbing Stairs
+
+```python
+# Tabulation solution
+class Solution:
+    def minCostClimbingStairs(self, cost: List[int]) -> int:
+        dp = [0] * len(cost)
+        dp[0] = cost[0]
+        dp[1] = cost[1]
+
+        for i in range(2, len(cost)):
+            dp[i] = cost[i] + min(dp[i-1], dp[i-2])
+
+        return min(dp[-1], dp[-2])
+
+# Memoization solution
+class Solution:
+    def minCostClimbingStairs(self, cost: List[int]) -> int:
+        n, dic = len(cost), {0: cost[0], 1: cost[1]}
+
+        def helper(n):
+            if n in dic:
+                return dic[n]
+            dic[n] = cost[n] + min(helper(n - 1), helper(n - 2))
+            return dic[n]
+
+
+        return min(helper(n - 1), helper(n - 2))
+```
+
+# 198. House Robber
+
+```python
+# https://leetcode.com/problems/house-robber/solutions/4697858/top-down-dp-recursion-memoization
+# Top-Down Memo
+class Solution:
+    def rob(self, nums: List[int]) -> int:
+        memo, n = {}, len(nums)
+        def dfs(i):
+            if i >= n:
+                return 0
+            if i in memo:
+                return memo[i]
+            rob = nums[i] + dfs(i + 2)
+            skip = dfs(i + 1)
+            memo[i] = max(rob, skip)
+            return memo[i]
+        return dfs(0)
+```
+
+### 213. House Robber II
+
+```python
+# Top-Down Memo
+class Solution:
+    def rob(self, nums: List[int]) -> int:
+        if len(nums) == 1:
+            return nums[0]
+        return max(self.helper(nums[1:]), self.helper(nums[:-1]))
+
+    def helper(self, nums):
+        n, store = len(nums), {}
+        def dfs(i):
+            if i >= n:
+                return 0
+            if i in store:
+                return store[i]
+            rob = nums[i] + dfs(i + 2)
+            next_house = dfs(i + 1)
+            store[i] = max(rob, next_house)
+            return store[i]
+        return dfs(0)
+```
+
+### 5. Longest Palindromic Substring
+
+```python
+# Brute Force
+class Solution:
+    def longestPalindrome(self, s: str) -> str:
+        def helper(l, r, res):
+            while l >= 0 and r < len(s) and s[l] == s[r]:       # If inbounds & same_character
+                if (r - l + 1) > len(res):                      # If longer than previous longest
+                    res = s[l : r + 1]                          # Set new longest palindromic substring
+                l, r = l - 1, r + 1
+            return res
+
+        res = ""
+        for i in range(len(s)):
+            l, r = i, i
+            res = helper(l, r, res)
+            l, r = i, i + 1
+            res = helper(l, r, res)
+        return res
+
+
+# Tabulation
+class Solution:
+    def longestPalindrome(self, s):
+        def expand(l, r):
+            while l >= 0 and r < len(s) and s[l] == s[r]:
+                l -= 1
+                r += 1
+            return s[l+1:r]
+        result = ""
+        for i in range(len(s)):
+            sub1 = expand(i, i)
+            if len(sub1) > len(result):
+                result = sub1
+            sub2 = expand(i, i+1)
+            if len(sub2) > len(result):
+                result = sub2
+        return result
+
+
+# Bottom-Up DP 2D
+class Solution:
+    def longestPalindrome(self, s: str) -> str:
+        n = len(s)
+        ans, dp = "", [[False] * n for _ in range(n)]
+        for i in range(n):
+            ans, dp[i][i] = s[i], True
+        maxLen = 1
+        for start in range(n - 1, -1, -1):
+            for end in range(start + 1, n):
+                if s[start] == s[end]:
+                    if end - start == 1 or dp[start + 1][end - 1]:
+                        dp[start][end] = True
+                        if maxLen < end - start + 1:
+                            maxLen = end - start + 1
+                            ans = s[start : end + 1]
+        return ans
+```
+
+###
+
+```python
+
+```
+
+###
+
+```python
+
+```
+
+###
+
+```python
+
+```
+
+###
+
+```python
+
+```
+
+###
+
+```python
+
+```
+
+###
+
+```python
+
+```
+
+###
+
+```python
+
+```
+
+###
+
+```python
+
+```
+
+###
+
+```python
+
+```
 
 # Fibonacci
 
@@ -78,10 +263,8 @@ This algorithm is a Python implementation of the Fibonacci sequence using memoiz
 
 This approach effectively reduces redundant calculations by storing previously calculated Fibonacci numbers in the memo dictionary, thus improving the overall efficiency of the Fibonacci sequence calculation, especially for larger values of n.
 
-
-
-
 # 2370. Longest Ideal Subsequence
+
 ```python
 # Fastest
 class Solution:
@@ -101,51 +284,74 @@ class Solution:
         return max(dp)
 ```
 
-# 
+#
+
 ```python
+
 ```
 
-# 
+#
+
 ```python
+
 ```
 
-# 
+#
+
 ```python
+
 ```
 
-# 
+#
+
 ```python
+
 ```
 
-# 
+#
+
 ```python
+
 ```
 
-# 
+#
+
 ```python
+
 ```
 
-# 
+#
+
 ```python
+
 ```
 
-# 
+#
+
 ```python
+
 ```
 
-# 
+#
+
 ```python
+
 ```
 
-# 
+#
+
 ```python
+
 ```
 
-# 
+#
+
 ```python
+
 ```
 
-# 
-```python
-```
+#
 
+```python
+
+```
