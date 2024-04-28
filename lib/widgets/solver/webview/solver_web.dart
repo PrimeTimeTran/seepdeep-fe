@@ -1,6 +1,3 @@
-// ignore_for_file: avoid_web_libraries_in_flutter
-import 'dart:html';
-
 import 'package:app/all.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
@@ -24,7 +21,6 @@ class _SolverState extends State<Solver> {
   List<TestRun> testRuns = [];
   List<TestCase> testCases = [];
   late Toaster toaster = Toaster(context);
-  IFrameElement webView = IFrameElement();
   late Problem problem = Provider.of<ProblemProvider>(context).focusedProblem;
 
   @override
@@ -33,14 +29,6 @@ class _SolverState extends State<Solver> {
       color: Colors.white,
       child: Column(
         children: [
-          SizedBox(
-            height: 5,
-            width: 100,
-            child: HtmlElementView(
-              viewType: 'index',
-              onPlatformViewCreated: (int id) {},
-            ),
-          ),
           SizedBox(
             height: MediaQuery.of(context).size.height -
                 MediaQuery.of(context).padding.top -

@@ -120,7 +120,6 @@ class _MasteryScreenState extends State<MasteryScreen> {
     super.initState();
     user = Provider.of<AuthProvider>(context, listen: false).user;
     mastery = buildMastery();
-    print(mastery);
     setState(() {
       user = user;
       mastery = mastery;

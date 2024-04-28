@@ -1,6 +1,6 @@
 import 'package:app/all.dart';
 
-class Solved {
+class Solve {
   User user;
   String id;
   SolveLVL level;
@@ -12,7 +12,7 @@ class Solved {
   DateTime dateChallenge;
   List<Topic> topics;
 
-  Solved(
+  Solve(
     this.id,
     this.user,
     this.level,
@@ -24,13 +24,13 @@ class Solved {
     this.dateChallenge,
     this.submissionId,
   );
-  factory Solved.fromJson(Map<String, dynamic> json) {
+  factory Solve.fromJson(Map<String, dynamic> json) {
     List<dynamic> topicsJson = json['topics'] as List<dynamic>;
     List<Topic> topics = topicsJson
         .map((topicJson) => Topic.fromJson(topicJson as Map<String, dynamic>))
         .toList();
 
-    return Solved(
+    return Solve(
       json['id'] as String,
       User.fromJson(json['user'] as Map<String, dynamic>),
       _parseSolveLVL(json['level'] as String),
@@ -63,14 +63,22 @@ class Solved {
         return 'encountered';
       case SolveLVL.novice:
         return 'novice';
-      case SolveLVL.learned:
-        return 'learned';
+      case SolveLVL.apprentice:
+        return 'apprentice';
       case SolveLVL.proficient:
         return 'proficient';
+      case SolveLVL.intermediate:
+        return 'intermediate';
       case SolveLVL.advanced:
         return 'advanced';
+      case SolveLVL.expert:
+        return 'expert';
       case SolveLVL.mastered:
         return 'mastered';
+      case SolveLVL.guru:
+        return 'guru';
+      case SolveLVL.legend:
+        return 'legend';
       default:
         throw ArgumentError('Invalid SolveLVL value: $level');
     }
@@ -82,18 +90,37 @@ class Solved {
         return SolveLVL.encountered;
       case 'novice':
         return SolveLVL.novice;
-      case 'learned':
-        return SolveLVL.learned;
+      case 'apprentice':
+        return SolveLVL.apprentice;
       case 'proficient':
         return SolveLVL.proficient;
+      case 'intermediate':
+        return SolveLVL.intermediate;
       case 'advanced':
         return SolveLVL.advanced;
+      case 'expert':
+        return SolveLVL.expert;
       case 'mastered':
         return SolveLVL.mastered;
+      case 'guru':
+        return SolveLVL.guru;
+      case 'legend':
+        return SolveLVL.legend;
       default:
         throw ArgumentError('Invalid SolveLVL value: $value');
     }
   }
 }
 
-enum SolveLVL { encountered, novice, learned, proficient, advanced, mastered }
+enum SolveLVL {
+  encountered,
+  novice,
+  apprentice,
+  proficient,
+  intermediate,
+  advanced,
+  expert,
+  mastered,
+  guru,
+  legend
+}

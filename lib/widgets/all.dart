@@ -2,7 +2,7 @@ export 'card.dart';
 export 'cell.dart';
 export 'charts/all.dart';
 export 'editor/editor.dart';
-export 'editor/helpers.dart';
+export 'editor/editor.helpers.dart';
 export 'footer.dart';
 export 'indicator.dart';
 export 'markdown_editor/markdown_editor.dart';

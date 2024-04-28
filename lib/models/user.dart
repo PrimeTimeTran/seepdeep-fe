@@ -59,7 +59,7 @@ class User {
 
   // Learnings
   List<Note>? notes;
-  List<Solved>? solved;
+  List<Solve>? solved;
   List<Submission>? submissions;
   List<LanguageScore>? languages;
 
@@ -151,7 +151,7 @@ class User {
             ?.map((noteJson) => Note.fromJson(noteJson))
             .toList(),
         solved = (json['solved'] as List<dynamic>?)
-            ?.map((submissionJson) => Solved.fromJson(submissionJson))
+            ?.map((submissionJson) => Solve.fromJson(submissionJson))
             .toList(),
         languages = (json['languages'] as List<dynamic>?)
             ?.map((languageScoreJson) =>

@@ -1,3 +1,4 @@
+export 'solve.dart';
 export 'article.dart';
 export 'badge.dart';
 export 'board.dart';
@@ -11,7 +12,6 @@ export 'note.dart';
 export 'notification.dart';
 export 'post.dart';
 export 'problem.dart';
-export 'solved.dart';
 export 'submission.dart';
 export 'testrun.dart';
 export 'topic.dart';

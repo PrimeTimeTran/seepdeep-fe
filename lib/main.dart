@@ -9,8 +9,8 @@ void main() {
   runApp(
     stateProvider.MultiProvider(
       providers: [
-        stateProvider.ChangeNotifierProvider(create: (_) => ProblemProvider()),
         stateProvider.ChangeNotifierProvider(create: (_) => AuthProvider()),
+        stateProvider.ChangeNotifierProvider(create: (_) => ProblemProvider()),
       ],
       child: MyApp(),
     ),
