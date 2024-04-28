@@ -7,7 +7,7 @@ export 'feature_request_screen.dart';
 export 'jobs_screen.dart';
 export 'landing_screen.dart';
 export 'leaderboards_screen.dart';
-export 'mastery.dart';
+export 'mastery/mastery.dart';
 export 'maze_screen.dart';
 export 'news_screen.dart';
 export 'notification_screen.dart';

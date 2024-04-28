@@ -109,21 +109,37 @@ class Solution:
 ### 198. House Robber
 
 ```python
+# Bottom up
+class Solution:
+    def rob(self, nums: List[int]) -> int:
+        n = len(nums)
+        if n == 1:
+            return nums[0]
+
+        dp = [0] * n
+        dp[0] = nums[0]
+        dp[1] = max(nums[0], nums[1])
+        for i in range(2, n):
+            dp[i] = max(dp[i - 1], nums[i] + dp[i - 2])
+
+        return dp[-1]
+
 # https://leetcode.com/problems/house-robber/solutions/4697858/top-down-dp-recursion-memo
 # Top down memo
 class Solution:
     def rob(self, nums: List[int]) -> int:
-        memo, n = {}, len(nums)
-        def dfs(i):
+        n, store = len(nums), {}
+
+        def dp(i):
             if i >= n:
                 return 0
-            if i in memo:
-                return memo[i]
-            rob = nums[i] + dfs(i + 2)
-            skip = dfs(i + 1)
-            memo[i] = max(rob, skip)
-            return memo[i]
-        return dfs(0)
+            if i in store:
+                return store[i]
+            rob = nums[i] + dp(i + 2)
+            skip = dp(i + 1)
+            store[i] = max(rob, skip)
+            return store[i]
+        return dp(0)
 ```
 
 ### 213. House Robber II
@@ -328,7 +344,6 @@ class Solution:
                 if a - c >= 0:
                     dp[a] = min(dp[a], dp[a - c] + 1)
         return dp[amount] if dp[amount] != limit else -1
-
 
 # 1 [0, 1, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12]
 # 2 [0, 1, 2, 12, 12, 12, 12, 12, 12, 12, 12, 12]

@@ -1,7 +1,4 @@
+cur = 'abcdefghijk'
+i = 1
 
-def fib(n):
-            if n <= 2: return 1
-  return fib(n-1) + fib(n-2)
-
-result = fib(40)
-print(result)
+print(cur[:i][::-1])

@@ -2,7 +2,7 @@ import 'package:app/all.dart';
 import 'package:flutter/material.dart';
 
 class AuthProvider extends ChangeNotifier {
-  User? _user;
+  User? _user = User.fromMap({"email": "john@email.com"});
   bool _authenticated = false;
   get isAuthenticated => _authenticated;
   get user => _user;

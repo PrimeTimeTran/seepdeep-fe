@@ -167,6 +167,10 @@ class User {
         gender = json['gender'],
         avatar = json['avatar'];
 
+  factory User.fromMap(Map<String, dynamic> map) {
+    return User(solved: [], email: 'john@gmail.com');
+  }
+
   Map<String, dynamic> toJson() {
     return {
       'rank': rank,

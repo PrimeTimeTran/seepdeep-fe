@@ -2,12 +2,13 @@ Counter
 List
 Dict
 
-# Contains Duplicate
+### 217. Contains Duplicate
+
 ```python
+
 ```
 
-
-# 242. Valid Anagram
+### 242. Valid Anagram
 
 ```python
 class Solution:
@@ -43,12 +44,13 @@ class Solution:
         return True
 ```
 
+### 1. Two Sum
 
-# Two Sum
 ```python
+
 ```
 
-# 49. Group Anagrams
+### 49. Group Anagrams
 
 ```python
 class Solution:
@@ -58,7 +60,7 @@ class Solution:
       count = [0] * 26
       for c in s:
         count[ord(c) - ord('a')] += 1
-        
+
       res[tuple(count)].append(s)
     return res.values()
 ```
@@ -69,15 +71,15 @@ Better runtime
 class Solution:
     def groupAnagrams(self, strs):
         anagram_map = defaultdict(list)
-        
+
         for word in strs:
             sorted_word = ''.join(sorted(word))
             anagram_map[sorted_word].append(word)
-        
+
         return list(anagram_map.values())
 ```
 
-# 347. Top K Frequent Elements
+### 347. Top K Frequent Elements
 
 ```python
 class Solution:
@@ -86,11 +88,13 @@ class Solution:
         return [k[0] for k in c]
 ```
 
-# Product of Array Except Self
+### 238. Product of Array Except Self
+
 ```python
+
 ```
 
-# 36. Valid Sudoku
+### 36. Valid Sudoku
 
 ```python
 class Solution:
@@ -112,13 +116,13 @@ class Solution:
         return True
 ```
 
+### Encode and Decode Strings
 
-
-# Encode and Decode Strings
 ```python
+
 ```
 
-# 128. Longest Consecutive Sequence
+### 128. Longest Consecutive Sequence
 
 ```python
 class Solution:
@@ -134,7 +138,7 @@ class Solution:
     return res
 ```
 
-# 53. Maximum Subarray
+### 53. Maximum Sub array
 
 ```python
 class Solution:
@@ -149,7 +153,8 @@ class Solution:
         return res
 ```
 
+###
 
-# 
 ```python
+
 ```
