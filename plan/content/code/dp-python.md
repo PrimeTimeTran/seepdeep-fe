@@ -65,18 +65,20 @@ O(N) <= O(N) <= O(N)
 #### Memo
 
 ```python
+# def twoSum(a, b):
+#     return a + b
+
+# result = twoSum(1, 2)
+# print(result)
+
 def fib(n, store = {}):
     if n <= 2: return 1
     if store.get(n): return store[n]
     store[n] =  fib(n-1, store) + fib(n-2, store)
     return store[n]
 
-print(fib(1))
-print(fib(2))
-print(fib(6))
-print(fib(7))
-print(fib(8))
-print(fib(50))
+result = fib(50)
+print(result)
 ```
 
 ##### Time & Space Complexity

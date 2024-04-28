@@ -19,13 +19,18 @@ final pythonController = CodeController(
   language: python,
 );
 var pythonSort = """
-def twoSum(nums, target):
-  store = {}
-  for idx, n in enumerate(nums):
-    remainder = target - n
-    if store.get(remainder) != None:
-      return [store.get(remainder), idx]
-    store[n] = idx
+# def twoSum(a, b):
+#     return a + b
+
+# result = twoSum(1, 2)
+# print(result)
+
+def fib(n):
+    if n <= 2: return 1
+    return fib(n-1) + fib(n-2)
+
+result = fib(45)
+print(result)
 """;
 // var pythonSort = """
 // nums = [20, 13, 3, 3, 4, 5, 1, 2, 8, 7, 9, 0, 11]

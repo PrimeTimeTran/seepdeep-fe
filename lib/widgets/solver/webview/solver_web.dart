@@ -260,7 +260,7 @@ class _SolverState extends State<Solver> {
       "body": submission,
       "name": problem.title,
       "problem": problem.id,
-      "testCases": problem.testSuite,
+      // "testCases": problem.testSuite,
     };
     postSubmission(dto);
   }
