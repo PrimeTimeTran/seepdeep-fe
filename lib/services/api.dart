@@ -32,7 +32,7 @@ class Api {
   }
 
   static FutureOr<dynamic> post(String path, dynamic body) async {
-    Glob.loadStart();
+    // Glob.loadStart();
     try {
       final response = await client.post(
         _url(path),
@@ -43,7 +43,7 @@ class Api {
     } catch (e) {
       Glob.logI(e);
     } finally {
-      Glob.loadDone();
+      // Glob.loadDone();
     }
   }
 

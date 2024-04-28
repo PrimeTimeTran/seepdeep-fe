@@ -47,8 +47,8 @@ class ProgressIndicator extends StatelessWidget {
 }
 
 class _MasteryScreenState extends State<MasteryScreen> {
-  Map<String, dynamic> mastery = {};
   late User user;
+  Map<String, dynamic> mastery = {};
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -58,7 +58,13 @@ class _MasteryScreenState extends State<MasteryScreen> {
           children: [
             Text(user.email!),
             const ProgressIndicator(),
-            Column(children: buildOverAllIndicators())
+            Row(
+              children: [
+                Expanded(child: Column(children: buildOverAllIndicators())),
+                const Gap(10),
+                const Expanded(child: Column(children: [])),
+              ],
+            ),
           ],
         ),
       ),
@@ -67,26 +73,41 @@ class _MasteryScreenState extends State<MasteryScreen> {
 
   buildOverAllIndicators() {
     int idx = 0;
-    return topics.map((e) {
+    List<Column> items = [];
+    for (var topic in Topics.values) {
       final color = colors[idx % colors.length];
       idx += 1;
-      return Column(
+      items.add(Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Gap(5),
-          Text(e),
+          const Gap(25),
+          Row(
+            children: [
+              Text(topicName(topic), style: const TextStyle(fontSize: 20)),
+              const Spacer(),
+              Text('${mastery[topic.name]['level']} / 10',
+                  style: const TextStyle(fontSize: 20))
+            ],
+          ),
           LinearProgressIndicator(
-            value: 0.4,
+            value: mastery[topic.name]['level'],
             color: color,
             minHeight: 15,
             semanticsValue: '40',
             semanticsLabel: 'Linear progress indicator',
             borderRadius: const BorderRadius.all(Radius.circular(10)),
           ),
-          const Gap(5),
+          // Row(
+          //   children: [
+          //     Text(topic.name, style: const TextStyle(fontSize: 20)),
+          //     const Spacer(),
+          //   ],
+          // ),
+          const Gap(25),
         ],
-      );
-    }).toList();
+      ));
+    }
+    return items.toList();
   }
 
   calculateMastery() {
@@ -98,8 +119,11 @@ class _MasteryScreenState extends State<MasteryScreen> {
   void initState() {
     super.initState();
     user = Provider.of<AuthProvider>(context, listen: false).user;
+    mastery = buildMastery();
+    print(mastery);
     setState(() {
       user = user;
+      mastery = mastery;
     });
   }
 }

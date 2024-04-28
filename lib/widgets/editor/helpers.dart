@@ -29,7 +29,7 @@ def fib(n):
     if n <= 2: return 1
     return fib(n-1) + fib(n-2)
 
-result = fib(45)
+result = fib(40)
 print(result)
 """;
 // var pythonSort = """

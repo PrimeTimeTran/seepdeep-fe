@@ -29,6 +29,7 @@ class Problem {
   double? acceptanceRate;
   // Map of language and their tests to test the problem.
   Map<String, String>? bodyTests;
+  Map<String, String>? signature;
   List<Map<String, dynamic>>? testSuite;
   Problem({
     this.id,
@@ -53,6 +54,7 @@ class Problem {
     this.acceptanceRate,
     this.bodyTests,
     this.testSuite,
+    this.signature,
   });
   Problem.fromJson(Map<String, dynamic> json)
       : id = json['id'],
@@ -78,6 +80,7 @@ class Problem {
         accepted = json['accepted'],
         submissions = json['submissions'],
         acceptanceRate = json['acceptanceRate']?.toDouble(),
+        signature = json['signature']?.cast<Map<String, String>>(),
         testSuite =
             (json['testSuite'] as List<dynamic>?)?.cast<Map<String, dynamic>>();
 
@@ -105,6 +108,7 @@ class Problem {
       'acceptanceRate': acceptanceRate,
       'bodyTests': bodyTests,
       'testSuite': testSuite,
+      'signature': signature,
     };
   }
 }

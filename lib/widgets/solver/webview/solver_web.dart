@@ -1,7 +1,5 @@
 // ignore_for_file: avoid_web_libraries_in_flutter
-import 'dart:convert';
 import 'dart:html';
-import 'dart:ui_web' as ui;
 
 import 'package:app/all.dart';
 import 'package:flutter/material.dart';
@@ -22,16 +20,15 @@ class _SolverState extends State<Solver> {
   String result = '';
   bool passing = false;
   bool submitted = false;
+  bool processing = false;
   List<TestRun> testRuns = [];
+  List<TestCase> testCases = [];
   late Toaster toaster = Toaster(context);
   IFrameElement webView = IFrameElement();
   late Problem problem = Provider.of<ProblemProvider>(context).focusedProblem;
 
   @override
   Widget build(BuildContext context) {
-    // WIP: Fix multi load trigger not recognizing code input
-    //
-    setSubscription();
     return Container(
       color: Colors.white,
       child: Column(
@@ -96,9 +93,8 @@ class _SolverState extends State<Solver> {
     );
   }
 
-  buildTestCase(idx, TestRun testRun, height) {
-    final testCase = problem.testSuite![idx];
-    final inputs = testCase['inputs'];
+  buildTestCase(idx, TestCase testCase, height) {
+    final inputs = testCase.input;
     return SizedBox(
         height: height,
         width: double.infinity,
@@ -110,11 +106,11 @@ class _SolverState extends State<Solver> {
               child: ListView.builder(
                 itemCount: inputs.length,
                 itemBuilder: (BuildContext context, int idx) {
-                  final testInput = testCase['inputs'][idx]['value'];
+                  final input = inputs[idx];
                   return Column(
                     children: [
                       TextFormField(
-                        initialValue: '$testInput',
+                        initialValue: '$input',
                         decoration: const InputDecoration(
                           labelText: "Input",
                           border: OutlineInputBorder(),
@@ -128,7 +124,7 @@ class _SolverState extends State<Solver> {
             ),
             TextFormField(
               readOnly: true,
-              initialValue: testRun.outputActual,
+              initialValue: testCase.outputExpected,
               decoration: const InputDecoration(
                 labelText: "Output",
                 border: OutlineInputBorder(),
@@ -137,7 +133,7 @@ class _SolverState extends State<Solver> {
             const Gap(25),
             TextFormField(
               readOnly: true,
-              initialValue: testRun.outputExpected,
+              initialValue: testCase.outputExpected,
               decoration: const InputDecoration(
                 labelText: "Expected",
                 border: OutlineInputBorder(),
@@ -148,16 +144,16 @@ class _SolverState extends State<Solver> {
   }
 
   buildTestPanel(height) {
-    List<Widget> testTabs = [];
-    List<Widget> testRunResultViews = [];
-    if (testRuns.isNotEmpty) {
-      for (var entry in testRuns.asMap().entries) {
+    List<Widget> testCaseTabs = [];
+    List<Widget> testCaseViews = [];
+    if (testCases.isNotEmpty) {
+      for (var entry in testCases.asMap().entries) {
         int idx = entry.key;
-        final element = entry.value;
-        final tab = buildTab('Case $idx', element.passing);
-        testTabs.add(tab);
-        final view = buildTestRunResultView(idx, element, height);
-        testRunResultViews.add(view);
+        final item = entry.value;
+        final tab = buildTab('Case $idx', item.passing);
+        testCaseTabs.add(tab);
+        final view = buildTestRunResultView(idx, item, height);
+        testCaseViews.add(view);
       }
     }
     return Column(
@@ -170,22 +166,26 @@ class _SolverState extends State<Solver> {
                 flex: 3,
                 child: Row(
                   children: [
-                    GFButtonBadge(
-                      onPressed: () {},
-                      text: "Test Cases",
-                      textColor: Colors.black,
-                      position: GFPosition.start,
-                      color: Colors.grey.shade100,
-                      icon: const Icon(Icons.science_outlined),
-                      textStyle: const TextStyle(fontWeight: FontWeight.bold),
-                    ),
+                    TextButton.icon(
+                        style: TextButton.styleFrom(
+                            shape: const RoundedRectangleBorder(
+                                borderRadius: BorderRadius.all(Radius.zero))),
+                        onPressed: () {},
+                        icon: const Icon(Icons.science_outlined),
+                        label: const Text('Test Cases')),
                     const Gap(10),
-                    GFButtonBadge(
-                      text: "Results",
-                      onPressed: () {},
-                      color: Colors.grey.shade100,
-                      textStyle: const TextStyle(fontWeight: FontWeight.bold),
-                    ),
+                    TextButton.icon(
+                        style: TextButton.styleFrom(
+                            shape: const RoundedRectangleBorder(
+                                borderRadius: BorderRadius.all(Radius.zero))),
+                        onPressed: () {},
+                        icon: processing
+                            ? const SizedBox(
+                                height: 24,
+                                width: 24,
+                                child: CircularProgressIndicator())
+                            : const Icon(Icons.keyboard_double_arrow_right),
+                        label: const Text('Test Result')),
                   ],
                 ),
               ),
@@ -205,15 +205,15 @@ class _SolverState extends State<Solver> {
           height: height - 55,
           width: double.infinity,
           child: DefaultTabController(
-            length: testRuns.isNotEmpty ? testTabs.length : 3,
+            length: testRuns.isNotEmpty ? testCaseTabs.length : 3,
             animationDuration: Duration.zero,
             child: Scaffold(
               appBar: AppBar(
                 flexibleSpace: TabBar(
                   tabAlignment: TabAlignment.start,
                   isScrollable: true,
-                  tabs: testRuns.isNotEmpty
-                      ? testTabs
+                  tabs: testCases.isNotEmpty
+                      ? testCaseTabs
                       : [
                           buildTab('Case 1', false),
                           buildTab('Case 2', false),
@@ -222,8 +222,8 @@ class _SolverState extends State<Solver> {
                 ),
               ),
               body: TabBarView(
-                children: testRuns.isNotEmpty
-                    ? testRunResultViews
+                children: testCases.isNotEmpty
+                    ? testCaseViews
                     : [
                         const Icon(Icons.directions),
                         const Icon(Icons.directions_transit),
@@ -237,22 +237,32 @@ class _SolverState extends State<Solver> {
     );
   }
 
-  SingleChildScrollView buildTestRunResultView(idx, testRun, height) {
+  SingleChildScrollView buildTestRunResultView(idx, testCase, height) {
     return SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            buildTestCase(idx, testRun, height),
+            buildTestCase(idx, testCase, height),
           ],
         ),
       ),
     );
   }
 
+  @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      problem =
+          Provider.of<ProblemProvider>(context, listen: false).focusedProblem;
+      setupTestCases();
+    });
+  }
+
   onRun(submission) {
-    Glob.loadStart();
     // TODO:
     // 1. Add choose language
     final dto = {
@@ -260,7 +270,6 @@ class _SolverState extends State<Solver> {
       "body": submission,
       "name": problem.title,
       "problem": problem.id,
-      // "testCases": problem.testSuite,
     };
     postSubmission(dto);
   }
@@ -271,45 +280,35 @@ class _SolverState extends State<Solver> {
     // 2. Return Submission from backend
     // 3. Update UI with submission results
     try {
+      setState(() {
+        processing = true;
+      });
       final response = await Api.post('submissions', submission);
-      // String url = "http://localhost:3000/api/submissions";
-      // final response =
-      //     await http.post(Uri.parse(url), body: {'data': submission});
       Glob.logI(response);
     } catch (e) {
       print('Error: $e');
-
       return [];
+    } finally {
+      setState(() {
+        processing = false;
+      });
     }
   }
 
-  setSubscription() {
-    ui.platformViewRegistry.registerViewFactory('index', (int viewId) {
-      webView = IFrameElement()
-        ..src = 'assets/index.html'
-        ..style.border = 'none';
-      window.onMessage.listen((msg) {
-        Glob.loadDone();
-        if (msg.data?.startsWith("onMsg Success:")) {
-          passing = true;
-        } else {
-          passing = false;
-        }
-        List<dynamic> dataList = jsonDecode(msg.data);
-        testRuns = dataList.map((item) => TestRun.fromMap(item)).toList();
-        setState(() {
-          count = count! + 1;
-          result = msg.data;
-          passing = passing;
-          testRuns = testRuns;
-          submitted = true;
-        });
-      }, onError: (e) {
-        Glob.logI(e);
-      }, onDone: () {
-        Glob.logI('Done');
-      });
-      return webView;
-    }, isVisible: false);
+  setupTestCases() {
+    int index = 0;
+    for (var testCase in problem.testSuite!) {
+      testCases.add(TestCase.fromMap({
+        "idx": index,
+        "passing": false,
+        "input": testCase['input'],
+        "signature": problem.signature,
+        "outputExpected": testCase['output'].toString(),
+      }));
+    }
+    Glob.logI(testCases);
+    setState(() {
+      testCases = testCases;
+    });
   }
 }
