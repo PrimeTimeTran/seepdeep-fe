@@ -1,3 +1,4 @@
+import 'package:app/all.dart';
 import 'package:flutter/material.dart';
 
 class Comment extends StatelessWidget {
@@ -129,62 +130,23 @@ class Solution extends StatelessWidget {
   }
 }
 
-class Submission extends StatefulWidget {
-  const Submission({super.key});
+class SubmissionRow extends StatefulWidget {
+  // List<SubmissionRow> submissions
+  const SubmissionRow({super.key});
 
   @override
-  State<Submission> createState() => _SubmissionState();
+  State<SubmissionRow> createState() => _SubmissionState();
 }
 
-class SubmissionTable extends StatelessWidget {
-  const SubmissionTable({super.key});
+class SubmissionTable extends StatefulWidget {
+  List<Submission> submissions;
+  SubmissionTable({super.key, required this.submissions});
 
   @override
-  Widget build(BuildContext context) {
-    // Create a list of rows to display in the table
-    final rows = [
-      // Sample data for the table
-      const DataRow(
-        cells: [
-          DataCell(Text('Active')),
-          DataCell(Text('Dart')),
-          DataCell(Text('Flutter')),
-          DataCell(Text('32 MB')),
-          DataCell(Text('This is a note')),
-        ],
-      ),
-      const DataRow(
-        cells: [
-          DataCell(Text('Inactive')),
-          DataCell(Text('Java')),
-          DataCell(Text('Spring')),
-          DataCell(Text('64 MB')),
-          DataCell(Text('This is another note')),
-        ],
-      ),
-      // Add more rows as needed
-    ];
-
-    return ScrollConfiguration(
-      behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
-      child: SingleChildScrollView(
-        child: DataTable(
-          columns: const [
-            // Define the headers for each column
-            DataColumn(label: Text('Status')),
-            DataColumn(label: Text('Language')),
-            DataColumn(label: Text('Runtime')),
-            DataColumn(label: Text('Memory')),
-            DataColumn(label: Text('Notes')),
-          ],
-          rows: rows,
-        ),
-      ),
-    );
-  }
+  State<SubmissionTable> createState() => _SubmissionTableState();
 }
 
-class _SubmissionState extends State<Submission> {
+class _SubmissionState extends State<SubmissionRow> {
   @override
   Widget build(BuildContext context) {
     return ListTile(
@@ -240,6 +202,66 @@ class _SubmissionState extends State<Submission> {
             ),
           )
         ],
+      ),
+    );
+  }
+}
+
+class _SubmissionTableState extends State<SubmissionTable> {
+  @override
+  Widget build(BuildContext context) {
+    List<DataRow> rows = [];
+    for (var submission in widget.submissions) {
+      rows.add(
+        DataRow(
+          cells: [
+            DataCell(Text(submission.isAccepted.toString())),
+            DataCell(Text(submission.language.toString())),
+            const DataCell(Text('Flutter')),
+            DataCell(Text(submission.runTime.toString())),
+            const DataCell(Text('This is a note')),
+          ],
+        ),
+      );
+    }
+    // Create a list of rows to display in the table
+    // final rows = [
+    //   // Sample data for the table
+    //   const DataRow(
+    //     cells: [
+    //       DataCell(Text('Active')),
+    //       DataCell(Text('Dart')),
+    //       DataCell(Text('Flutter')),
+    //       DataCell(Text('32 MB')),
+    //       DataCell(Text('This is a note')),
+    //     ],
+    //   ),
+    //   const DataRow(
+    //     cells: [
+    //       DataCell(Text('Inactive')),
+    //       DataCell(Text('Java')),
+    //       DataCell(Text('Spring')),
+    //       DataCell(Text('64 MB')),
+    //       DataCell(Text('This is another note')),
+    //     ],
+    //   ),
+    //   // Add more rows as needed
+    // ];
+
+    return ScrollConfiguration(
+      behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
+      child: SingleChildScrollView(
+        child: DataTable(
+          columns: const [
+            // Define the headers for each column
+            DataColumn(label: Text('Status')),
+            DataColumn(label: Text('Language')),
+            DataColumn(label: Text('Runtime')),
+            DataColumn(label: Text('Memory')),
+            DataColumn(label: Text('Notes')),
+          ],
+          rows: rows,
+        ),
       ),
     );
   }

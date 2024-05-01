@@ -37,10 +37,10 @@ class _SolverState extends State<Solver> {
                 5,
             child: VerticalSplitView(
               left: SolverSidebar(
-                problem: problem,
-                passing: passing,
-                submitted: submitted,
-              ),
+                  problem: problem,
+                  passing: passing,
+                  submitted: submitted,
+                  submissions: submissions),
               right: buildRight(),
             ),
           ),
@@ -250,7 +250,9 @@ class _SolverState extends State<Solver> {
       for (var submission in response) {
         submissions.add(Submission.fromJson(submission));
       }
-      print(submissions.length);
+      setState(() {
+        submissions = submissions;
+      });
     } catch (e) {
       print('Error: $e');
       return [];

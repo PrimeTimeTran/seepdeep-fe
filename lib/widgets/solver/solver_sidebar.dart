@@ -50,11 +50,13 @@ class SolverSidebar extends StatefulWidget {
   bool passing;
   Problem problem;
   bool submitted;
+  List<Submission> submissions;
   SolverSidebar({
     super.key,
     required this.problem,
     required this.passing,
     required this.submitted,
+    required this.submissions,
   });
 
   @override
@@ -81,7 +83,7 @@ class _SolverSidebarState extends State<SolverSidebar> {
               buildTabProblemDescription(context),
               buildTabEditorial(),
               buildTabSolutions(),
-              const ui.SubmissionTable(),
+              ui.SubmissionTable(submissions: widget.submissions),
             ],
           ),
         ),
