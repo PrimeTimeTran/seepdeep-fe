@@ -1,4 +1,7 @@
-cur = 'abcdefghijk'
-i = 1
+from collections import Counter
 
-print(cur[:i][::-1])
+counter1 = Counter('abc')
+print(counter1['z'])
+
+counter2 = {}
+print(counter2['z'])

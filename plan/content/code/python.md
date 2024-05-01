@@ -35,3 +35,15 @@ print(list(items))
 ### groupby
 
 ## Counter
+
+Benefits
+
+- Doesn't error when searching for a key that doesn't exist.
+
+```python
+counter1 = Counter('abc')
+print(counter1['z'])
+
+counter2 = {}
+print(counter2['z'])
+```
