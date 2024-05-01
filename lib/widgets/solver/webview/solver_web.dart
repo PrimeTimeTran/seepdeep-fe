@@ -19,6 +19,7 @@ class _SolverState extends State<Solver> {
   bool submitted = false;
   bool processing = false;
   List<TestRun> testRuns = [];
+  List<Submission> submissions = [];
   List<TestCase> testCases = [];
   late Toaster toaster = Toaster(context);
   late Problem problem = Provider.of<ProblemProvider>(context).focusedProblem;
@@ -36,7 +37,10 @@ class _SolverState extends State<Solver> {
                 5,
             child: VerticalSplitView(
               left: SolverSidebar(
-                  problem: problem, passing: passing, submitted: submitted),
+                problem: problem,
+                passing: passing,
+                submitted: submitted,
+              ),
               right: buildRight(),
             ),
           ),
@@ -239,6 +243,20 @@ class _SolverState extends State<Solver> {
     );
   }
 
+  getSubmissions() async {
+    try {
+      final response =
+          await Api.get('submissions?problem=${problem.id}&user=true');
+      for (var submission in response) {
+        submissions.add(Submission.fromJson(submission));
+      }
+      print(submissions.length);
+    } catch (e) {
+      print('Error: $e');
+      return [];
+    } finally {}
+  }
+
   @override
   void initState() {
     super.initState();
@@ -247,6 +265,7 @@ class _SolverState extends State<Solver> {
       problem =
           Provider.of<ProblemProvider>(context, listen: false).focusedProblem;
       setupTestCases();
+      getSubmissions();
     });
   }
 
@@ -272,7 +291,10 @@ class _SolverState extends State<Solver> {
         processing = true;
       });
       final response = await Api.post('submissions', submission);
-      Glob.logI(response);
+
+      setState(() {
+        submitted = true;
+      });
     } catch (e) {
       print('Error: $e');
       return [];
@@ -294,7 +316,6 @@ class _SolverState extends State<Solver> {
         "outputExpected": testCase['output'].toString(),
       }));
     }
-    Glob.logI(testCases);
     setState(() {
       testCases = testCases;
     });

@@ -51,13 +51,12 @@ class Submission {
   });
 
   Submission.fromJson(Map<String, dynamic> json)
-      : user = json['user'] != null ? User.fromJson(json['user']) : null,
+      : user = _parseUser(json['user']),
         body = json['body'],
         submitted = json['submitted'] != null
             ? DateTime.parse(json['submitted'])
             : null,
-        problem =
-            json['problem'] != null ? Problem.fromJson(json['problem']) : null,
+        problem = _parseProblem(json['problem']),
         language = json['language'],
         isAccepted = json['isAccepted'],
         runTime = json['runTime']?.toDouble(),
@@ -67,14 +66,16 @@ class Submission {
         title = json['title'],
         explanation = json['explanation'],
         numVotes = json['numVotes'],
-        voterIds = (json['voterIds'] as List<dynamic>?)?.cast<int>(),
+        voterIds =
+            json['voterIds'] != null ? List<int>.from(json['voterIds']) : null,
         numComments = json['numComments'],
-        topics = (json['topics'] as List<dynamic>?)
-            ?.map((topicJson) => Topic.fromJson(topicJson))
-            .toList(),
-        comments = (json['comments'] as List<dynamic>?)
-            ?.map((commentJson) => Comment.fromJson(commentJson))
-            .toList(),
+        topics = json['topics'] != null
+            ? List<Topic>.from(json['topics'].map((x) => Topic.fromJson(x)))
+            : null,
+        comments = json['comments'] != null
+            ? List<Comment>.from(
+                json['comments'].map((x) => Comment.fromJson(x)))
+            : null,
         isContest = json['isContest'],
         contest =
             json['contest'] != null ? Contest.fromJson(json['contest']) : null,
@@ -104,4 +105,26 @@ class Submission {
       'penalty': penalty,
     };
   }
+
+  static Problem? _parseProblem(dynamic json) {
+    if (json == null) {
+      return null;
+    } else if (json is String) {
+      return Problem(id: json);
+    } else {
+      return Problem.fromJson(json);
+    }
+  }
+
+  static User? _parseUser(dynamic json) {
+    if (json == null) {
+      return null;
+    } else if (json is String) {
+      return User(id: json);
+    } else {
+      return User.fromJson(json);
+    }
+  }
 }
+
+class SubmissionBase {}

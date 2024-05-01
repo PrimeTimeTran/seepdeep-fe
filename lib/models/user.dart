@@ -23,6 +23,7 @@ class LanguageScore {
 
 class User {
   int? rank;
+  String? id;
   String? email;
   String? phone;
   String? username;
@@ -73,6 +74,7 @@ class User {
 
   User({
     this.rank,
+    this.id,
     this.email,
     this.phone,
     this.username,
@@ -115,6 +117,7 @@ class User {
   User.fromJson(Map<String, dynamic> json)
       : rank = json['rank'],
         email = json['email'],
+        id = json['id'],
         phone = json['phone'],
         username = json['username'],
         firstName = json['firstName'],
@@ -173,6 +176,7 @@ class User {
 
   Map<String, dynamic> toJson() {
     return {
+      'id': id,
       'rank': rank,
       'email': email,
       'phone': phone,
