@@ -82,8 +82,9 @@ class _SolverSidebarState extends State<SolverSidebar> {
             children: [
               buildTabProblemDescription(context),
               buildTabEditorial(),
-              buildTabSolutions(),
-              ui.SubmissionTable(submissions: widget.submissions),
+              // ignore: prefer_const_constructors
+              SolutionsTable(problem: widget.problem),
+              SubmissionTable(submissions: widget.submissions),
             ],
           ),
         ),
@@ -145,7 +146,7 @@ class _SolverSidebarState extends State<SolverSidebar> {
               shrinkWrap: true,
               itemCount: 10,
               itemBuilder: (BuildContext context, int idx) {
-                return const ui.Comment();
+                return const ui.CommentRow();
               },
             )
           ],
@@ -179,54 +180,6 @@ class _SolverSidebarState extends State<SolverSidebar> {
               SelectableText(widget.problem.testSuite![0]['output'].toString()),
             ],
           ),
-        ),
-      ),
-    );
-  }
-
-  ScrollConfiguration buildTabSolutions() {
-    return ScrollConfiguration(
-      behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
-      child: SingleChildScrollView(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const TextField(
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                hintText: 'Search',
-              ),
-            ),
-            SizedBox(
-              height: 50,
-              child: SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: 10,
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) {
-                    return TextButton(
-                      onPressed: () {},
-                      child: const Text('Python'),
-                    );
-                  },
-                ),
-              ),
-            ),
-            ListView.separated(
-              shrinkWrap: true,
-              itemCount: 10,
-              physics: const NeverScrollableScrollPhysics(),
-              separatorBuilder: (context, index) {
-                return const Divider(color: Colors.grey);
-              },
-              itemBuilder: (BuildContext context, int idx) {
-                return const ui.Solution();
-              },
-            ),
-          ],
         ),
       ),
     );

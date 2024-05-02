@@ -86,9 +86,6 @@ class _SolverState extends State<Solver> {
 
   buildTestCase(idx, TestCase testCase, height) {
     final inputs = testCase.input;
-    print(inputs);
-    print(testCase.outActual);
-    // print(testCase.outExpected);
     return SizedBox(
         height: height,
         width: double.infinity,
