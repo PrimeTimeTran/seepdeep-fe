@@ -211,43 +211,23 @@ class _SubmissionTableState extends State<SubmissionTable> {
   @override
   Widget build(BuildContext context) {
     List<DataRow> rows = [];
+    print(widget.submissions.length);
     for (var submission in widget.submissions) {
       rows.add(
         DataRow(
           cells: [
-            DataCell(Text(submission.isAccepted.toString())),
+            DataCell(submission.isAccepted!
+                ? const Icon(Icons.check_circle_outline_outlined,
+                    color: Colors.green)
+                : const Icon(Icons.cancel_outlined, color: Colors.red)),
             DataCell(Text(submission.language.toString())),
             DataCell(Text(submission.runTime.toString())),
-            DataCell(Text(submission.memoryUsage.toString())),
+            DataCell(Text(submission.memoryUsage!.toStringAsFixed(3))),
             const DataCell(Text('This is a note')),
           ],
         ),
       );
     }
-    // Create a list of rows to display in the table
-    // final rows = [
-    //   // Sample data for the table
-    //   const DataRow(
-    //     cells: [
-    //       DataCell(Text('Active')),
-    //       DataCell(Text('Dart')),
-    //       DataCell(Text('Flutter')),
-    //       DataCell(Text('32 MB')),
-    //       DataCell(Text('This is a note')),
-    //     ],
-    //   ),
-    //   const DataRow(
-    //     cells: [
-    //       DataCell(Text('Inactive')),
-    //       DataCell(Text('Java')),
-    //       DataCell(Text('Spring')),
-    //       DataCell(Text('64 MB')),
-    //       DataCell(Text('This is another note')),
-    //     ],
-    //   ),
-    //   // Add more rows as needed
-    // ];
-
     return ScrollConfiguration(
       behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
       child: SingleChildScrollView(

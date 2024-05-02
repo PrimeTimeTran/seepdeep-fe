@@ -23,7 +23,7 @@ class Submission {
   int? numVotes;
   int? numComments;
   double? runTime;
-  String? memoryUsage;
+  double? memoryUsage;
   double? beats;
 
   List<int>? voterIds;
@@ -62,9 +62,13 @@ class Submission {
             : null,
         problem = _parseProblem(json['problem']),
         language = json['language'],
-        isAccepted = json['passing'],
-        runTime = jsonDecode(json['runResult']['timeToComplete']),
-        memoryUsage = jsonDecode(json['runResult']['memoryUsedMB']).toString(),
+        isAccepted = json['passing'] ?? false,
+        runTime = json['runResult'] != null
+            ? jsonDecode(json['runResult']?['timeToComplete'] ?? 0.0)
+            : 0.0,
+        memoryUsage = json['runResult'] != null
+            ? jsonDecode(json['runResult']?['memoryUsedMB'] ?? 0.0)
+            : 0.0,
         beats = json['beats']?.toDouble(),
         notes = json['notes'],
         isShared = json['isShared'],
