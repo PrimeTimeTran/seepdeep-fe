@@ -18,7 +18,6 @@ class _SolverState extends State<Solver> {
   bool passing = false;
   bool submitted = false;
   bool processing = false;
-  List<TestRun> testRuns = [];
   List<Submission> submissions = [];
   List<TestCase> testCases = [];
   late Toaster toaster = Toaster(context);
@@ -64,7 +63,7 @@ class _SolverState extends State<Solver> {
   }
 
   buildTab(title, casePassing) {
-    final color = submitted && testRuns.isEmpty
+    final color = submitted && testCases.isEmpty
         ? Colors.grey
         : casePassing
             ? Colors.green
@@ -87,6 +86,9 @@ class _SolverState extends State<Solver> {
 
   buildTestCase(idx, TestCase testCase, height) {
     final inputs = testCase.input;
+    print(inputs);
+    print(testCase.outActual);
+    // print(testCase.outExpected);
     return SizedBox(
         height: height,
         width: double.infinity,
@@ -116,21 +118,22 @@ class _SolverState extends State<Solver> {
             ),
             TextFormField(
               readOnly: true,
-              initialValue: testCase.outputExpected,
+              initialValue: testCase.outExpected,
               decoration: const InputDecoration(
                 labelText: "Output",
                 border: OutlineInputBorder(),
               ),
             ),
             const Gap(25),
-            TextFormField(
-              readOnly: true,
-              initialValue: testCase.outputExpected,
-              decoration: const InputDecoration(
-                labelText: "Expected",
-                border: OutlineInputBorder(),
+            if (testCase.outActual != 'null')
+              TextFormField(
+                readOnly: true,
+                initialValue: testCase.outActual,
+                decoration: const InputDecoration(
+                  labelText: "Actual",
+                  border: OutlineInputBorder(),
+                ),
               ),
-            ),
           ],
         ));
   }
@@ -197,7 +200,7 @@ class _SolverState extends State<Solver> {
           height: height - 55,
           width: double.infinity,
           child: DefaultTabController(
-            length: testRuns.isNotEmpty ? testCaseTabs.length : 3,
+            length: testCases.isNotEmpty ? testCaseTabs.length : 3,
             animationDuration: Duration.zero,
             child: Scaffold(
               appBar: AppBar(
@@ -287,16 +290,17 @@ class _SolverState extends State<Solver> {
   // 1. Add loading status and block submit button
   // 2. Return Submission from backend
   // 3. Update UI with submission results
-  postSubmission(submission) async {
+  postSubmission(item) async {
     try {
       setState(() {
         processing = true;
       });
-      final response = await Api.post('submissions', submission);
-      submissions.add(Submission.fromJson(response['submission']));
+      final response = await Api.post('submissions', item);
+      final submission = Submission.fromJson(response['submission']);
+      submissions.insert(0, submission);
+      testCases = submission.testCases!;
       setState(() {
-        submitted = true;
-        processing = false;
+        testCases = testCases;
         submissions = submissions;
       });
     } catch (e) {
@@ -304,20 +308,19 @@ class _SolverState extends State<Solver> {
       return [];
     } finally {
       setState(() {
+        submitted = true;
         processing = false;
       });
     }
   }
 
   setupTestCases() {
-    int index = 0;
     for (var testCase in problem.testSuite!) {
       testCases.add(TestCase.fromMap({
-        "idx": index,
         "passing": false,
         "input": testCase['input'],
         "signature": problem.signature,
-        "outputExpected": testCase['output'].toString(),
+        "outExpected": testCase['output'].toString()
       }));
     }
     setState(() {

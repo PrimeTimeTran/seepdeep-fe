@@ -29,6 +29,7 @@ class Submission {
   List<int>? voterIds;
   List<Topic>? topics;
   List<Comment>? comments;
+  List<TestCase>? testCases;
 
   Submission({
     this.user,
@@ -52,6 +53,7 @@ class Submission {
     this.contest,
     this.penalty,
     this.memoryUsage,
+    this.testCases,
   });
 
   Submission.fromJson(Map<String, dynamic> json)
@@ -86,6 +88,10 @@ class Submission {
                 json['comments'].map((x) => Comment.fromJson(x)))
             : null,
         isContest = json['isContest'],
+        testCases = json['testCases'] != null
+            ? List<TestCase>.from(
+                json['testCases'].map((x) => TestCase.fromJSON(x)))
+            : [],
         contest =
             json['contest'] != null ? Contest.fromJson(json['contest']) : null,
         penalty = json['penalty'];
