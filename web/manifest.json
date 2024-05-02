@@ -1,7 +1,7 @@
 {
-    "name": "Seep Deep",
-    "short_name": "SeepDeep",
-    "start_url": ".",
+    "name": "Seep Deep - Automated spaced repetition so you can reap the benefits of learning for life.",
+    "short_name": "Seep Deep - Learn for life",
+    "start_url": "https://seepdeep.com",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
