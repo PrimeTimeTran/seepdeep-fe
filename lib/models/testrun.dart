@@ -9,11 +9,11 @@ class TestCase {
   // Constructor
   TestCase({
     required this.idx,
-    required this.passing,
     required this.input,
+    required this.passing,
+    required this.signature,
     required this.outputActual,
     required this.outputExpected,
-    required this.signature,
   });
 
   // Factory constructor to create an instance from a map

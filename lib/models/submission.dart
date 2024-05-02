@@ -64,10 +64,10 @@ class Submission {
         language = json['language'],
         isAccepted = json['passing'] ?? false,
         runTime = json['runResult'] != null
-            ? jsonDecode(json['runResult']?['timeToComplete'] ?? 0.0)
+            ? jsonDecode(json['runResult']['timeToComplete'])
             : 0.0,
         memoryUsage = json['runResult'] != null
-            ? jsonDecode(json['runResult']?['memoryUsedMB'] ?? 0.0)
+            ? jsonDecode(json['runResult']['memoryUsedMB'])
             : 0.0,
         beats = json['beats']?.toDouble(),
         notes = json['notes'],
@@ -135,5 +135,3 @@ class Submission {
     }
   }
 }
-
-class SubmissionBase {}

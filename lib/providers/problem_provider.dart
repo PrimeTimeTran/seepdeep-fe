@@ -59,7 +59,14 @@ class ProblemProvider extends ChangeNotifier {
       "topics": [
         {"name": "Array"},
         {"name": "Hash Table"}
-      ]
+      ],
+      "signature": {
+        "parameters": [
+          {"type": "list", "name": "nums"},
+          {"type": "int", "name": "target"}
+        ],
+        "returnType": "list"
+      }
     },
   );
   List<Problem> problems = [];

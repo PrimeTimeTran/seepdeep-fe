@@ -57,9 +57,9 @@ class Problem {
     this.signature,
   });
   Problem.fromJson(Map<String, dynamic> json) {
-    Map<String, String>? signature;
+    Map<String, dynamic>? signature;
     if (json.containsKey('signature') && json['signature'] != null) {
-      if (json['signature'] is Map<String, String>) {
+      if (json['signature'] is Map<String, dynamic>) {
         signature = json['signature'];
       } else {
         print(

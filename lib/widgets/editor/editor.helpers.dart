@@ -16,7 +16,10 @@ void main() {
 """;
 
 final pythonController = CodeController(
-    text: pythonSort, language: python, modifiers: [const TabModifier()]);
+  text: pythonSort,
+  language: python,
+  modifiers: [const TabModifier()],
+);
 
 // def add(a,b):
 //   return a + b

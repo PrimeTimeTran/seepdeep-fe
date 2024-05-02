@@ -1,4 +1,5 @@
 // ignore_for_file: must_be_immutable, depend_on_referenced_packages
+import 'dart:async';
 
 import 'package:app/all.dart';
 import 'package:flutter/material.dart';
@@ -28,6 +29,7 @@ class _EditorState extends State<Editor> {
   int step = 1;
   Language selectedItem = Language.python;
   final GlobalKey _codeEditorKey = GlobalKey();
+  CodeController _controller = pythonController;
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -78,6 +80,16 @@ class _EditorState extends State<Editor> {
                     color: Colors.black54,
                     onPressed: () {},
                   ),
+                  IconButton(
+                    icon: const Icon(
+                      Icons.format_align_center,
+                      size: 20,
+                    ),
+                    color: Colors.black54,
+                    onPressed: () {
+                      // _formatCode();
+                    },
+                  ),
                 ],
               ),
             ],
@@ -112,7 +124,7 @@ class _EditorState extends State<Editor> {
               data: CodeThemeData(styles: vsTheme),
               child: CodeField(
                 key: _codeEditorKey,
-                controller: getController(Language.python),
+                controller: _controller,
               ),
             ),
           ),
@@ -140,6 +152,7 @@ class _EditorState extends State<Editor> {
     super.initState();
     Future.delayed(Duration.zero, () {
       widget.onType(getController(Language.python).text);
+      _controller = getController(Language.python);
     });
   }
 
@@ -149,4 +162,5 @@ class _EditorState extends State<Editor> {
   }
 
   updateCode() {}
+  void _formatCode() async {}
 }

@@ -283,19 +283,21 @@ class _SolverState extends State<Solver> {
     postSubmission(dto);
   }
 
+  // TODO:
+  // 1. Add loading status and block submit button
+  // 2. Return Submission from backend
+  // 3. Update UI with submission results
   postSubmission(submission) async {
-    // TODO:
-    // 1. Add loading status and block submit button
-    // 2. Return Submission from backend
-    // 3. Update UI with submission results
     try {
       setState(() {
         processing = true;
       });
       final response = await Api.post('submissions', submission);
-
+      submissions.add(Submission.fromJson(response['submission']));
       setState(() {
         submitted = true;
+        processing = false;
+        submissions = submissions;
       });
     } catch (e) {
       print('Error: $e');
