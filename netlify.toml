@@ -1,4 +1,4 @@
 [build]
   base = "/"
   publish = "build/web"
-  command = "if cd flutter; then git pull && cd ..; else git clone https://github.com/flutter/flutter.git; fi && flutter/bin/flutter pub get && ./scripts/fix-dependency.sh && flutter/bin/flutter config --enable-web && flutter/bin/flutter build web --release"
+  command = "if cd flutter; then git pull && cd ..; else git clone https://github.com/flutter/flutter.git; fi && flutter/bin/flutter pub get && flutter/bin/flutter pub run build_runner build --delete-conflicting-outputs && ./scripts/fix-dependency.sh && flutter/bin/flutter config --enable-web && flutter/bin/flutter build web --release --dart-define=FLUTTER_BASE_HREF='https://seepdeep.com'"
