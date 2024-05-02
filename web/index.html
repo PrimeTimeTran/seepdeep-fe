@@ -21,6 +21,9 @@
       content="IE=Edge"
       http-equiv="X-UA-Compatible"
     />
+    <!-- 
+      Info: Check meta tags with https://metatags.io
+    -->
     <meta
       name="A one stop shop for deep learning"
       content="Master the skills you need in order to thrive in the 21st century. Learn advanced mathematics, data structures and more through spaces repetition."
@@ -61,6 +64,29 @@
       src="/assets/packages/flutter_inappwebview_web/assets/web/web_support.js"
       defer
     ></script>
+    <script type="module">
+      // Import the functions you need from the SDKs you need
+      import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js'
+      import { getAnalytics } from 'https://www.gstatic.com/firebasejs/10.11.1/firebase-analytics.js'
+      // TODO: Add SDKs for Firebase products that you want to use
+      // https://firebase.google.com/docs/web/setup#available-libraries
+
+      // Your web app's Firebase configuration
+      // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+      const firebaseConfig = {
+        apiKey: 'AIzaSyC_H8RdeUmT-5sms4ai23E6nLe_nvFghuA',
+        authDomain: 'seepdeep-dev.firebaseapp.com',
+        projectId: 'seepdeep-dev',
+        storageBucket: 'seepdeep-dev.appspot.com',
+        messagingSenderId: '870966333694',
+        appId: '1:870966333694:web:9d5168051bd506074155af',
+        measurementId: 'G-Y90JY37LDH',
+      }
+
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig)
+      const analytics = getAnalytics(app)
+    </script>
   </head>
   <body>
     <!-- This script installs service_worker.js to provide PWA functionality to
