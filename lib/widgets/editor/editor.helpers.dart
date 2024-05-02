@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_code_editor/flutter_code_editor.dart';
 import 'package:highlight/languages/dart.dart';
 import 'package:highlight/languages/python.dart';
@@ -15,9 +16,7 @@ void main() {
 """;
 
 final pythonController = CodeController(
-  text: pythonSort,
-  language: python,
-);
+    text: pythonSort, language: python, modifiers: [const TabModifier()]);
 
 // def add(a,b):
 //   return a + b
@@ -35,6 +34,7 @@ class Solution:
                 return [store.get(remainder), idx]
             store[n] = idx
 """;
+
 // var pythonSort = """
 // nums = [20, 13, 3, 3, 4, 5, 1, 2, 8, 7, 9, 0, 11]
 // def bubble_sort(nums, a):
@@ -81,3 +81,14 @@ getLanguage(selectedLang) {
 }
 
 enum Language { python, cpp, js, ts, dart }
+
+class TabModifier extends CodeModifier {
+  const TabModifier() : super('\t');
+
+  @override
+  TextEditingValue? updateString(
+      String text, TextSelection sel, EditorParams params) {
+    final tmp = replace(text, sel.start, sel.end, " " * params.tabSpaces);
+    return tmp;
+  }
+}

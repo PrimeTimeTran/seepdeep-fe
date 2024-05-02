@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:app/all.dart';
 import 'package:flutter/material.dart';
 
@@ -131,7 +133,6 @@ class Solution extends StatelessWidget {
 }
 
 class SubmissionRow extends StatefulWidget {
-  // List<SubmissionRow> submissions
   const SubmissionRow({super.key});
 
   @override
@@ -211,15 +212,14 @@ class _SubmissionTableState extends State<SubmissionTable> {
   @override
   Widget build(BuildContext context) {
     List<DataRow> rows = [];
-    print(widget.submissions.length);
     for (var submission in widget.submissions) {
+      final statusIcon = submission.isAccepted!
+          ? const Icon(Icons.check_circle_outline_outlined, color: Colors.green)
+          : const Icon(Icons.cancel_outlined, color: Colors.red);
       rows.add(
         DataRow(
           cells: [
-            DataCell(submission.isAccepted!
-                ? const Icon(Icons.check_circle_outline_outlined,
-                    color: Colors.green)
-                : const Icon(Icons.cancel_outlined, color: Colors.red)),
+            DataCell(statusIcon),
             DataCell(Text(submission.language.toString())),
             DataCell(Text(submission.runTime.toString())),
             DataCell(Text(submission.memoryUsage!.toStringAsFixed(3))),

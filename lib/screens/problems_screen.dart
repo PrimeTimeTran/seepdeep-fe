@@ -166,7 +166,6 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
       future: problems,
       builder: (BuildContext context, snapshot) {
         if (snapshot.hasData) {
-          // return const Text('a');
           return ListView.builder(
             shrinkWrap: true,
             itemCount: snapshot.data?.length,
@@ -174,12 +173,10 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
               if (idx == 0) {
                 return buildListHeader();
               }
-              // return const Text('sss');
               return buildListItem(snapshot.data?[idx], idx, context);
             },
           );
         } else if (snapshot.hasError) {
-          // return const Text('b');
           return Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -195,7 +192,6 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
             ],
           );
         } else {
-          return const Text('c');
           return const Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

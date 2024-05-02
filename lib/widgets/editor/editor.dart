@@ -85,18 +85,28 @@ class _EditorState extends State<Editor> {
           // ignore: deprecated_member_use
           RawKeyboardListener(
             focusNode: FocusNode(),
-            // ignore: deprecated_member_use
             onKey: (RawKeyEvent event) {
-              // ignore: deprecated_member_use
               if (event is RawKeyDownEvent) {
-                // ignore: deprecated_member_use
                 if (event.isControlPressed &&
                     event.logicalKey == LogicalKeyboardKey.enter) {
                   onRun();
+                } else if (event.logicalKey == LogicalKeyboardKey.tab) {
+                  final TextEditingValue value =
+                      getController(Language.python).value;
+                  final int start = value.selection.baseOffset;
+                  final int end = value.selection.extentOffset;
+                  final String newText =
+                      value.text.replaceRange(start, end, '  ');
+                  getController(Language.python).value = TextEditingValue(
+                    text: newText,
+                    selection: TextSelection.collapsed(offset: start + 2),
+                  );
+                  return;
                 } else {
                   widget.onType(getController(Language.python).text);
                 }
               }
+              return;
             },
             child: CodeTheme(
               data: CodeThemeData(styles: vsTheme),
