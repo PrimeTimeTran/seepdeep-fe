@@ -1,4 +1,4 @@
-// ignore_for_file: must_be_immutable, depend_on_referenced_packages
+// ignore_for_file: must_be_immutable, depend_on_referenced_packages, deprecated_member_use, duplicate_ignore
 import 'dart:async';
 
 import 'package:app/all.dart';
@@ -9,8 +9,14 @@ import 'package:flutter_highlight/themes/vs.dart';
 
 class Editor extends StatefulWidget {
   Function onRun;
+  Problem problem;
   Function onType;
-  Editor({super.key, required this.onRun, required this.onType});
+  Editor({
+    super.key,
+    required this.onRun,
+    required this.onType,
+    required this.problem,
+  });
 
   @override
   State<Editor> createState() => _EditorState();
@@ -29,7 +35,7 @@ class _EditorState extends State<Editor> {
   int step = 1;
   Language selectedItem = Language.python;
   final GlobalKey _codeEditorKey = GlobalKey();
-  CodeController _controller = pythonController;
+  late CodeController _controller = methodBuilder();
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -94,7 +100,6 @@ class _EditorState extends State<Editor> {
               ),
             ],
           ),
-          // ignore: deprecated_member_use
           RawKeyboardListener(
             focusNode: FocusNode(),
             onKey: (RawKeyEvent event) {
@@ -103,19 +108,18 @@ class _EditorState extends State<Editor> {
                     event.logicalKey == LogicalKeyboardKey.enter) {
                   onRun();
                 } else if (event.logicalKey == LogicalKeyboardKey.tab) {
-                  final TextEditingValue value =
-                      getController(Language.python).value;
+                  final TextEditingValue value = _controller.value;
                   final int start = value.selection.baseOffset;
                   final int end = value.selection.extentOffset;
                   final String newText =
                       value.text.replaceRange(start, end, '  ');
-                  getController(Language.python).value = TextEditingValue(
+                  _controller.value = TextEditingValue(
                     text: newText,
                     selection: TextSelection.collapsed(offset: start + 2),
                   );
                   return;
                 } else {
-                  widget.onType(getController(Language.python).text);
+                  widget.onType(_controller.text);
                 }
               }
               return;
@@ -151,16 +155,16 @@ class _EditorState extends State<Editor> {
   void initState() {
     super.initState();
     Future.delayed(Duration.zero, () {
-      widget.onType(getController(Language.python).text);
-      _controller = getController(Language.python);
+      _controller = methodBuilder(widget.problem);
+      widget.onType(_controller.text);
+      setState(() {
+        _controller = _controller;
+      });
     });
   }
 
   onRun() {
-    String code = getController(Language.python).text;
+    String code = _controller.text;
     widget.onRun(code);
   }
-
-  updateCode() {}
-  void _formatCode() async {}
 }

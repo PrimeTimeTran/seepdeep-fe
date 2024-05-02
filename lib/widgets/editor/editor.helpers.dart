@@ -1,3 +1,4 @@
+import 'package:app/all.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_code_editor/flutter_code_editor.dart';
 import 'package:highlight/languages/dart.dart';
@@ -15,56 +16,27 @@ void main() {
 }
 """;
 
-final pythonController = CodeController(
-  text: pythonSort,
-  language: python,
-  modifiers: [const TabModifier()],
-);
-
-// def add(a,b):
-//   return a + b
-
-// result = add(1,2)
-// print(result)
-
-var pythonSort = """
-class Solution:
-    def twoSum(self, nums: List[int], target: int) -> List[int]:
-        store = {}
-        for idx, n in enumerate(nums):
-            remainder = target - n
-            if store.get(remainder) != None:
-                return [store.get(remainder), idx]
-            store[n] = idx
-""";
-
-// var pythonSort = """
-// nums = [20, 13, 3, 3, 4, 5, 1, 2, 8, 7, 9, 0, 11]
-// def bubble_sort(nums, a):
-//   sorted = False
-
-//   while not sorted:
-//     sorted = True
-//     for i in range(len(nums) - 1):
-//       if nums[i] > nums[i + 1]:
-//         sorted = False
-//         nums[i], nums[i + 1] = nums[i + 1], nums[i]
-
-//   return nums
-// bubble_sort(nums)
-// """;
-
 final sqlController = CodeController(
   text: sqlQuery,
   language: sql,
 );
+
 var sqlQuery = """
 SELECT * FROM customers;
 """;
+
+String generateParameterString(Signature signature) {
+  List<String> params = [];
+  for (var parameter in signature.parameters) {
+    params.add(parsePythonType(parameter));
+  }
+  return params.join(", ");
+}
+
 getController(selectedLang) {
   switch (selectedLang) {
     case Language.python:
-      return pythonController;
+      return methodBuilder();
     case Language.dart:
       return dartController;
     default:
@@ -81,6 +53,37 @@ getLanguage(selectedLang) {
     default:
       return sql;
   }
+}
+
+CodeController methodBuilder([Problem? problem]) {
+  var pythonSort = """""";
+  if (problem != null) {
+    pythonSort = """
+class Solution:
+    def ${problem.title?.toCamelCase()}(self, ${generateParameterString(problem.signature!)}) -> ${parsePythonReturnType(problem.signature!.returnType)}:
+""";
+  }
+  return CodeController(
+    text: pythonSort,
+    language: python,
+    modifiers: [const TabModifier()],
+  );
+}
+
+parsePythonReturnType(type) {
+  if (type == 'string') {
+    type = 'str';
+  }
+  return "$type";
+}
+
+parsePythonType(parameter) {
+  String type = parameter['type'];
+  if (type == 'string') {
+    type = 'str';
+  }
+  String name = parameter['name'];
+  return "$name: $type";
 }
 
 enum Language { python, cpp, js, ts, dart }

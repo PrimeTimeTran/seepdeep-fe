@@ -18,6 +18,8 @@ class Problem {
 
   String? editorialBody;
   User? editorialAuthor;
+  Signature? signature;
+
   double? editorialRating;
   // id of Voter as key, their vote as value. Maximum of 5.
   // In this way we don't have to create a new table for just votes
@@ -29,7 +31,6 @@ class Problem {
   double? acceptanceRate;
   // Map of language and their tests to test the problem.
   Map<String, String>? bodyTests;
-  Map<String, String>? signature;
   List<Map<String, dynamic>>? testSuite;
   Problem({
     this.id,
@@ -57,18 +58,11 @@ class Problem {
     this.signature,
   });
   Problem.fromJson(Map<String, dynamic> json) {
-    Map<String, dynamic>? signature;
-    if (json.containsKey('signature') && json['signature'] != null) {
-      if (json['signature'] is Map<String, dynamic>) {
-        signature = json['signature'];
-      } else {
-        print(
-            'Error: The value associated with "signature" key is not a Map<String, String>.');
-      }
-    } else {
-      print('Error: The "signature" key is missing or its value is null.');
-    }
-
+    Map<String, dynamic> j = json['signature'];
+    Signature signature = Signature(
+      parameters: j['parameters'],
+      returnType: j['returnType'],
+    );
     id = json['id'];
     title = json['title'];
     numLC = json['numLC'];
@@ -91,37 +85,10 @@ class Problem {
     accepted = json['accepted'];
     submissions = json['submissions'];
     acceptanceRate = json['acceptanceRate']?.toDouble();
-    signature = signature;
+    this.signature = signature;
     testSuite =
         (json['testSuite'] as List<dynamic>?)?.cast<Map<String, dynamic>>();
   }
-  // Problem.fromJson(Map<String, dynamic> json)
-  //     : id = json['id'],
-  //       title = json['title'],
-  //       numLC = json['numLC'],
-  //       body = json['body'],
-  //       topics = (json['topics'] as List<dynamic>?)
-  //           ?.map((topicJson) => Topic.fromJson(topicJson))
-  //           .toList(),
-  //       isPublished = json['isPublished'],
-  //       isSubmitted = json['isSubmitted'],
-  //       author = User.fromJson(json['author']),
-  //       hints = (json['hints'] as List<dynamic>?)?.cast<String>(),
-  //       constraints = (json['constraints'] as List<dynamic>?)?.cast<String>(),
-  //       similar =
-  //           (json['similar'] as List<dynamic>?)?.cast<Map<String, String>>(),
-  //       editorialBody = json['editorialBody'],
-  //       editorialAuthor = User.fromJson(json['editorialAuthor']),
-  //       editorialRating = json['editorialRating'],
-  //       editorialVotes = json['editorialVotes']?.cast<String, int>(),
-  //       frequency = json['frequency'],
-  //       difficulty = json['difficulty'],
-  //       accepted = json['accepted'],
-  //       submissions = json['submissions'],
-  //       acceptanceRate = json['acceptanceRate']?.toDouble(),
-  //       signature = json['signature']?.cast<Map<String, String>>(),
-  //       testSuite =
-  //           (json['testSuite'] as List<dynamic>?)?.cast<Map<String, dynamic>>();
 
   Map<String, dynamic> toJson() {
     return {
@@ -148,6 +115,22 @@ class Problem {
       'bodyTests': bodyTests,
       'testSuite': testSuite,
       'signature': signature,
+    };
+  }
+}
+
+class Signature {
+  String returnType;
+  List<dynamic> parameters;
+  Signature({required this.parameters, required this.returnType});
+
+  factory Signature.placeHolder() {
+    return Signature(parameters: [], returnType: 'list');
+  }
+  Map<String, dynamic> toJson() {
+    return {
+      'returnType': returnType,
+      'parameters': parameters,
     };
   }
 }

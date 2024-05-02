@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:app/models/all.dart';
-import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class ProblemProvider extends ChangeNotifier {
   Problem _focusedProblem = Problem.fromJson(
@@ -62,22 +65,65 @@ class ProblemProvider extends ChangeNotifier {
       ],
       "signature": {
         "parameters": [
-          {"type": "list", "name": "nums"},
+          {"type": "List[int]", "name": "nums"},
           {"type": "int", "name": "target"}
         ],
-        "returnType": "list"
+        "returnType": "List[int]"
       }
     },
   );
   List<Problem> problems = [];
+  ProblemProvider();
+
   Problem get focusedProblem => _focusedProblem;
 
+  Future<Problem> checkUrl(context) async {
+    final Map<String, dynamic>? routeArgs =
+        ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>?;
+    final String? routeProblemName = routeArgs?['name'];
+    final defaultProblem =
+        _focusedProblem.title?.replaceAll(' ', '-').toLowerCase();
+    if (defaultProblem != routeProblemName) {
+      await setByRouteUrl(routeProblemName);
+    }
+    return _focusedProblem;
+  }
+
+  Future<Problem> findByRouteUrl(value) async {
+    problems = await setProblems();
+    final sought = problems.firstWhere((element) =>
+        element.title?.replaceAll(' ', '-').toLowerCase() == value);
+    return sought;
+  }
+
   Future<void> loadProblems() async {
+    problems = await setProblems();
+    notifyListeners();
+  }
+
+  sampleProblems() {
+    problems.shuffle();
+    _focusedProblem = problems[0];
+    notifyListeners();
+  }
+
+  setByRouteUrl(title) async {
+    _focusedProblem = await findByRouteUrl(title);
     notifyListeners();
   }
 
   void setFocusedProblem(Problem problem) {
     _focusedProblem = problem;
     notifyListeners();
+  }
+
+  Future<List<Problem>> setProblems() async {
+    final json = await rootBundle.loadString("json/problems.json");
+    final Map<String, dynamic> data = jsonDecode(json);
+    final List<dynamic> fetchedProblems = data['data'];
+    List<Problem> res =
+        fetchedProblems.map((item) => Problem.fromJson(item)).toList();
+    notifyListeners();
+    return res;
   }
 }

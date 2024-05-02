@@ -1,5 +1,5 @@
 export 'constants.dart';
-export 'extensions/extensions.dart';
+export 'extensions/all.dart';
 export 'global.dart';
 export 'models/all.dart';
 export 'navigation//all.dart';

@@ -59,7 +59,6 @@ function addSignature() {
           name: question.signature.parameters[idx].name,
         })
       )
-
       question.signature = {
         parameters,
         returnType: getParameterType(question.testSuite[0].output),
@@ -78,7 +77,7 @@ function changeInputType() {
     if (question.testSuite) {
       question.testSuite.forEach((testCase, idx) => {
         const inputs = testCase.inputs.map((input) => input.value)
-        question.testSuite[idx].input = inputs
+        delete question.testSuite[idx].inputs
       })
     }
     return question

@@ -51,6 +51,7 @@ dependencies:
   logger: ^2.2.0
   http: ^1.2.1
   primer_progress_bar: ^0.4.1
+  json_annotation: ^4.9.0
 
 dev_dependencies:
   flutter_test:

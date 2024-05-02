@@ -24,7 +24,7 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
       crossAxisAlignment:
           queried ? CrossAxisAlignment.start : CrossAxisAlignment.center,
       children: [
-        Editor(onRun: onRun, onType: () {}),
+        // Editor(onRun: onRun, onType: () {}, problem: Problem.),
         buildPrompts(),
         buildTable(),
         buildResults(),

@@ -25,43 +25,19 @@
       "similar": [{ "difficulty": "Medium", "id": 2, "title": "3 Sum" }],
       "submissions": 24.6,
       "testSuite": [
-        {
-          "output": [0, 1],
-          "inputs": [
-            { "name": "", "value": [2, 7, 11, 15], "type": "Array" },
-            { "name": "", "value": 9, "type": "integer" }
-          ],
-          "explanation": "",
-          "input": [[2, 7, 11, 15], 9]
-        },
-        {
-          "output": [1, 2],
-          "inputs": [
-            { "name": "", "value": [3, 2, 4] },
-            { "name": "", "value": 6 }
-          ],
-          "explanation": "",
-          "input": [[3, 2, 4], 6]
-        },
-        {
-          "output": [0, 1],
-          "inputs": [
-            { "name": "", "value": [3, 3] },
-            { "name": "", "value": 6 }
-          ],
-          "explanation": "",
-          "input": [[3, 3], 6]
-        }
+        { "output": [0, 1], "explanation": "", "input": [[2, 7, 11, 15], 9] },
+        { "output": [1, 2], "explanation": "", "input": [[3, 2, 4], 6] },
+        { "output": [0, 1], "explanation": "", "input": [[3, 3], 6] }
       ],
       "title": "Two Sum",
       "topics": [{ "name": "Array" }, { "name": "Hash Table" }],
       "id": "325eb55b0eeca014fcededbe",
       "signature": {
         "parameters": [
-          { "type": "list", "name": "nums" },
+          { "type": "List[int]", "name": "nums" },
           { "type": "int", "name": "target" }
         ],
-        "returnType": "list"
+        "returnType": "List[int]"
       }
     },
     {
@@ -89,43 +65,19 @@
       "similar": [{ "difficulty": "Medium", "id": 2, "title": "3 Sum" }],
       "submissions": 24.6,
       "testSuite": [
-        {
-          "output": [0, 1],
-          "inputs": [
-            { "name": "", "value": [2, 7, 11, 15], "type": "Array" },
-            { "name": "", "value": 9, "type": "integer" }
-          ],
-          "explanation": "",
-          "input": [[2, 7, 11, 15], 9]
-        },
-        {
-          "output": [1, 2],
-          "inputs": [
-            { "name": "", "value": [3, 2, 4] },
-            { "name": "", "value": 6 }
-          ],
-          "explanation": "",
-          "input": [[3, 2, 4], 6]
-        },
-        {
-          "output": [0, 1],
-          "inputs": [
-            { "name": "", "value": [3, 3] },
-            { "name": "", "value": 6 }
-          ],
-          "explanation": "",
-          "input": [[3, 3], 6]
-        }
+        { "output": [0, 1], "explanation": "", "input": [[2, 7, 11, 15], 9] },
+        { "output": [1, 2], "explanation": "", "input": [[3, 2, 4], 6] },
+        { "output": [0, 1], "explanation": "", "input": [[3, 3], 6] }
       ],
       "title": "Two Sum",
       "topics": [{ "name": "Array" }, { "name": "Hash Table" }],
       "id": "325eb55b0eeca014fcededbe",
       "signature": {
         "parameters": [
-          { "type": "list", "name": "nums" },
+          { "type": "List[int]", "name": "nums" },
           { "type": "int", "name": "target" }
         ],
-        "returnType": "list"
+        "returnType": "List[int]"
       }
     },
     {
@@ -158,31 +110,15 @@
       "testSuite": [
         {
           "output": [7, 0, 8],
-          "inputs": [
-            { "name": "", "value": [2, 4, 3] },
-            { "name": "", "value": [5, 6, 4] }
-          ],
           "explanation": "",
           "input": [
             [2, 4, 3],
             [5, 6, 4]
           ]
         },
-        {
-          "output": [0],
-          "inputs": [
-            { "name": "", "value": [0] },
-            { "name": "", "value": [0] }
-          ],
-          "explanation": "",
-          "input": [[0], [0]]
-        },
+        { "output": [0], "explanation": "", "input": [[0], [0]] },
         {
           "output": [8, 9, 9, 9, 0, 0, 0, 1],
-          "inputs": [
-            { "name": "", "value": [9, 9, 9, 9, 9, 9, 9] },
-            { "name": "", "value": [9, 9, 9, 9] }
-          ],
           "explanation": "",
           "input": [
             [9, 9, 9, 9, 9, 9, 9],
@@ -195,10 +131,10 @@
       "id": "ebbfadbdc5b14df2099fab1a",
       "signature": {
         "parameters": [
-          { "type": "list", "name": "l1" },
-          { "type": "list", "name": "l2" }
+          { "type": "List[int]", "name": "l1" },
+          { "type": "List[int]", "name": "l2" }
         ],
-        "returnType": "list"
+        "returnType": "List[int]"
       }
     },
     {
@@ -233,24 +169,9 @@
       ],
       "submissions": 26.4,
       "testSuite": [
-        {
-          "output": 3,
-          "inputs": [{ "name": "", "value": "abcabcbb" }],
-          "explanation": "",
-          "input": ["abcabcbb"]
-        },
-        {
-          "output": 1,
-          "inputs": [{ "name": "", "value": "bbbbb" }],
-          "explanation": "",
-          "input": ["bbbbb"]
-        },
-        {
-          "output": 3,
-          "inputs": [{ "name": "", "value": "pwwkew" }],
-          "explanation": "",
-          "input": ["pwwkew"]
-        }
+        { "output": 3, "explanation": "", "input": ["abcabcbb"] },
+        { "output": 1, "explanation": "", "input": ["bbbbb"] },
+        { "output": 3, "explanation": "", "input": ["pwwkew"] }
       ],
       "title": "Longest Substring Without Repeating Characters",
       "topics": [
@@ -300,21 +221,9 @@
       ],
       "submissions": 27.8,
       "testSuite": [
-        {
-          "output": 2,
-          "inputs": [
-            { "name": "", "value": [1, 3] },
-            { "name": "", "value": [2] }
-          ],
-          "explanation": "",
-          "input": [[1, 3], [2]]
-        },
+        { "output": 2, "explanation": "", "input": [[1, 3], [2]] },
         {
           "output": 2.5,
-          "inputs": [
-            { "name": "", "value": [1, 2] },
-            { "name": "", "value": [3, 4] }
-          ],
           "explanation": "",
           "input": [
             [1, 2],
@@ -323,10 +232,6 @@
         },
         {
           "output": 0,
-          "inputs": [
-            { "name": "", "value": [0, 0] },
-            { "name": "", "value": [0, 0] }
-          ],
           "explanation": "",
           "input": [
             [0, 0],
@@ -343,10 +248,10 @@
       "id": "dfeadf868fdb2fbabd5eaf2e",
       "signature": {
         "parameters": [
-          { "type": "list", "name": "nums1" },
-          { "type": "list", "name": "nums2" }
+          { "type": "List[int]", "name": "nums1" },
+          { "type": "List[int]", "name": "nums2" }
         ],
-        "returnType": "int"
+        "returnType": "float"
       }
     },
     {
@@ -381,24 +286,9 @@
       ],
       "submissions": 23.9,
       "testSuite": [
-        {
-          "output": "bab",
-          "inputs": [{ "name": "", "value": "babad" }],
-          "explanation": "",
-          "input": ["babad"]
-        },
-        {
-          "output": "bb",
-          "inputs": [{ "name": "", "value": "cbbd" }],
-          "explanation": "",
-          "input": ["cbbd"]
-        },
-        {
-          "output": "a",
-          "inputs": [{ "name": "", "value": "a" }],
-          "explanation": "",
-          "input": ["a"]
-        }
+        { "output": "bab", "explanation": "", "input": ["babad"] },
+        { "output": "bb", "explanation": "", "input": ["cbbd"] },
+        { "output": "a", "explanation": "", "input": ["a"] }
       ],
       "title": "Longest Palindromic Substring",
       "topics": [{ "name": "String" }, { "name": "Dynamic Programming" }],
@@ -442,31 +332,15 @@
       "testSuite": [
         {
           "output": "PAHNAPLSIIGYIR",
-          "inputs": [
-            { "name": "", "value": "PAYPALISHIRING" },
-            { "name": "", "value": 3 }
-          ],
           "explanation": "",
           "input": ["PAYPALISHIRING", 3]
         },
         {
           "output": "PINALSIGYAHRPI",
-          "inputs": [
-            { "name": "", "value": "PAYPALISHIRING" },
-            { "name": "", "value": 4 }
-          ],
           "explanation": "",
           "input": ["PAYPALISHIRING", 4]
         },
-        {
-          "output": "A",
-          "inputs": [
-            { "name": "", "value": "A" },
-            { "name": "", "value": 1 }
-          ],
-          "explanation": "",
-          "input": ["A", 1]
-        }
+        { "output": "A", "explanation": "", "input": ["A", 1] }
       ],
       "title": "ZigZag Conversion",
       "topics": [{ "name": "String" }],
@@ -507,24 +381,9 @@
       ],
       "submissions": 24.6,
       "testSuite": [
-        {
-          "output": 321,
-          "inputs": [{ "name": "", "value": 123 }],
-          "explanation": "",
-          "input": [123]
-        },
-        {
-          "output": -321,
-          "inputs": [{ "name": "", "value": -123 }],
-          "explanation": "",
-          "input": [-123]
-        },
-        {
-          "output": 21,
-          "inputs": [{ "name": "", "value": 120 }],
-          "explanation": "",
-          "input": [120]
-        }
+        { "output": 321, "explanation": "", "input": [123] },
+        { "output": -321, "explanation": "", "input": [-123] },
+        { "output": 21, "explanation": "", "input": [120] }
       ],
       "title": "Reverse Integer",
       "topics": [{ "name": "Math" }],
@@ -566,24 +425,9 @@
       ],
       "submissions": 22.3,
       "testSuite": [
-        {
-          "output": 42,
-          "inputs": [{ "name": "", "value": "42" }],
-          "explanation": "",
-          "input": ["42"]
-        },
-        {
-          "output": -42,
-          "inputs": [{ "name": "", "value": "   -42" }],
-          "explanation": "",
-          "input": ["   -42"]
-        },
-        {
-          "output": 4193,
-          "inputs": [{ "name": "", "value": "4193 with words" }],
-          "explanation": "",
-          "input": ["4193 with words"]
-        }
+        { "output": 42, "explanation": "", "input": ["42"] },
+        { "output": -42, "explanation": "", "input": ["   -42"] },
+        { "output": 4193, "explanation": "", "input": ["4193 with words"] }
       ],
       "title": "String to Integer (atoi)",
       "topics": [{ "name": "String" }],
@@ -621,24 +465,9 @@
       ],
       "submissions": 26.2,
       "testSuite": [
-        {
-          "output": true,
-          "inputs": [{ "name": "", "value": 121 }],
-          "explanation": "",
-          "input": [121]
-        },
-        {
-          "output": false,
-          "inputs": [{ "name": "", "value": -121 }],
-          "explanation": "",
-          "input": [-121]
-        },
-        {
-          "output": false,
-          "inputs": [{ "name": "", "value": 10 }],
-          "explanation": "",
-          "input": [10]
-        }
+        { "output": true, "explanation": "", "input": [121] },
+        { "output": false, "explanation": "", "input": [-121] },
+        { "output": false, "explanation": "", "input": [10] }
       ],
       "title": "Palindrome Number",
       "topics": [{ "name": "Math" }],
@@ -680,33 +509,9 @@
       ],
       "submissions": 23.7,
       "testSuite": [
-        {
-          "output": false,
-          "inputs": [
-            { "name": "", "value": "aa" },
-            { "name": "", "value": "a" }
-          ],
-          "explanation": "",
-          "input": ["aa", "a"]
-        },
-        {
-          "output": true,
-          "inputs": [
-            { "name": "", "value": "aa" },
-            { "name": "", "value": "a*" }
-          ],
-          "explanation": "",
-          "input": ["aa", "a*"]
-        },
-        {
-          "output": true,
-          "inputs": [
-            { "name": "", "value": "ab" },
-            { "name": "", "value": ".*" }
-          ],
-          "explanation": "",
-          "input": ["ab", ".*"]
-        }
+        { "output": false, "explanation": "", "input": ["aa", "a"] },
+        { "output": true, "explanation": "", "input": ["aa", "a*"] },
+        { "output": true, "explanation": "", "input": ["ab", ".*"] }
       ],
       "title": "Regular Expression Matching",
       "topics": [
@@ -757,22 +562,11 @@
       "testSuite": [
         {
           "output": 49,
-          "inputs": [{ "name": "", "value": [1, 8, 6, 2, 5, 4, 8, 3, 7] }],
           "explanation": "",
           "input": [[1, 8, 6, 2, 5, 4, 8, 3, 7]]
         },
-        {
-          "output": 1,
-          "inputs": [{ "name": "", "value": [1, 1] }],
-          "explanation": "",
-          "input": [[1, 1]]
-        },
-        {
-          "output": 16,
-          "inputs": [{ "name": "", "value": [4, 3, 2, 1, 4] }],
-          "explanation": "",
-          "input": [[4, 3, 2, 1, 4]]
-        }
+        { "output": 1, "explanation": "", "input": [[1, 1]] },
+        { "output": 16, "explanation": "", "input": [[4, 3, 2, 1, 4]] }
       ],
       "title": "Container With Most Water",
       "topics": [{ "name": "Array" }, { "name": "Two Pointers" }],
@@ -814,24 +608,9 @@
       ],
       "submissions": 23.4,
       "testSuite": [
-        {
-          "output": "III",
-          "inputs": [{ "name": "", "value": 3 }],
-          "explanation": "",
-          "input": [3]
-        },
-        {
-          "output": "IV",
-          "inputs": [{ "name": "", "value": 4 }],
-          "explanation": "",
-          "input": [4]
-        },
-        {
-          "output": "IX",
-          "inputs": [{ "name": "", "value": 9 }],
-          "explanation": "",
-          "input": [9]
-        }
+        { "output": "III", "explanation": "", "input": [3] },
+        { "output": "IV", "explanation": "", "input": [4] },
+        { "output": "IX", "explanation": "", "input": [9] }
       ],
       "title": "Integer to Roman",
       "topics": [{ "name": "Math" }, { "name": "String" }],
@@ -873,24 +652,9 @@
       ],
       "submissions": 24.9,
       "testSuite": [
-        {
-          "output": 3,
-          "inputs": [{ "name": "", "value": "III" }],
-          "explanation": "",
-          "input": ["III"]
-        },
-        {
-          "output": 4,
-          "inputs": [{ "name": "", "value": "IV" }],
-          "explanation": "",
-          "input": ["IV"]
-        },
-        {
-          "output": 9,
-          "inputs": [{ "name": "", "value": "IX" }],
-          "explanation": "",
-          "input": ["IX"]
-        }
+        { "output": 3, "explanation": "", "input": ["III"] },
+        { "output": 4, "explanation": "", "input": ["IV"] },
+        { "output": 9, "explanation": "", "input": ["IX"] }
       ],
       "title": "Roman to Integer",
       "topics": [{ "name": "Math" }, { "name": "String" }],
@@ -934,22 +698,15 @@
       "testSuite": [
         {
           "output": "fl",
-          "inputs": [{ "name": "", "value": ["flower", "flow", "flight"] }],
           "explanation": "",
           "input": [["flower", "flow", "flight"]]
         },
         {
           "output": "",
-          "inputs": [{ "name": "", "value": ["dog", "racecar", "car"] }],
           "explanation": "",
           "input": [["dog", "racecar", "car"]]
         },
-        {
-          "output": "c",
-          "inputs": [{ "name": "", "value": ["cir", "car"] }],
-          "explanation": "",
-          "input": [["cir", "car"]]
-        }
+        { "output": "c", "explanation": "", "input": [["cir", "car"]] }
       ],
       "title": "Longest Common Prefix",
       "topics": [{ "name": "String" }],
@@ -996,22 +753,11 @@
             [-1, -1, 2],
             [-1, 0, 1]
           ],
-          "inputs": [{ "name": "", "value": [-1, 0, 1, 2, -1, -4] }],
           "explanation": "",
           "input": [[-1, 0, 1, 2, -1, -4]]
         },
-        {
-          "output": [],
-          "inputs": [{ "name": "", "value": [] }],
-          "explanation": "",
-          "input": [[]]
-        },
-        {
-          "output": [],
-          "inputs": [{ "name": "", "value": [0] }],
-          "explanation": "",
-          "input": [[0]]
-        }
+        { "output": [], "explanation": "", "input": [[]] },
+        { "output": [], "explanation": "", "input": [[0]] }
       ],
       "title": "3Sum",
       "topics": [{ "name": "Array" }, { "name": "Two Pointers" }],
@@ -1049,33 +795,9 @@
       ],
       "submissions": 26.7,
       "testSuite": [
-        {
-          "output": 2,
-          "inputs": [
-            { "name": "", "value": [-1, 2, 1, -4] },
-            { "name": "", "value": 1 }
-          ],
-          "explanation": "",
-          "input": [[-1, 2, 1, -4], 1]
-        },
-        {
-          "output": 0,
-          "inputs": [
-            { "name": "", "value": [0, 0, 0] },
-            { "name": "", "value": 1 }
-          ],
-          "explanation": "",
-          "input": [[0, 0, 0], 1]
-        },
-        {
-          "output": 2,
-          "inputs": [
-            { "name": "", "value": [1, 1, 1, 0] },
-            { "name": "", "value": -100 }
-          ],
-          "explanation": "",
-          "input": [[1, 1, 1, 0], -100]
-        }
+        { "output": 2, "explanation": "", "input": [[-1, 2, 1, -4], 1] },
+        { "output": 0, "explanation": "", "input": [[0, 0, 0], 1] },
+        { "output": 2, "explanation": "", "input": [[1, 1, 1, 0], -100] }
       ],
       "title": "3Sum Closest",
       "topics": [{ "name": "Array" }, { "name": "Two Pointers" }],
@@ -1118,22 +840,11 @@
       "testSuite": [
         {
           "output": ["ad", "ae", "af", "bd", "be", "bf", "cd", "ce", "cf"],
-          "inputs": [{ "name": "", "value": "23" }],
           "explanation": "",
           "input": ["23"]
         },
-        {
-          "output": ["a", "b", "c"],
-          "inputs": [{ "name": "", "value": "2" }],
-          "explanation": "",
-          "input": ["2"]
-        },
-        {
-          "output": [],
-          "inputs": [{ "name": "", "value": "" }],
-          "explanation": "",
-          "input": [""]
-        }
+        { "output": ["a", "b", "c"], "explanation": "", "input": ["2"] },
+        { "output": [], "explanation": "", "input": [""] }
       ],
       "title": "Letter Combinations of a Phone Number",
       "topics": [{ "name": "String" }, { "name": "Backtracking" }],
@@ -1177,31 +888,15 @@
             [-2, 0, 0, 2],
             [-1, 0, 0, 1]
           ],
-          "inputs": [
-            { "name": "", "value": [1, 0, -1, 0, -2, 2] },
-            { "name": "", "value": 0 }
-          ],
           "explanation": "",
           "input": [[1, 0, -1, 0, -2, 2], 0]
         },
         {
           "output": [[2, 2, 2, 2]],
-          "inputs": [
-            { "name": "", "value": [2, 2, 2, 2, 2] },
-            { "name": "", "value": 8 }
-          ],
           "explanation": "",
           "input": [[2, 2, 2, 2, 2], 8]
         },
-        {
-          "output": [],
-          "inputs": [
-            { "name": "", "value": [] },
-            { "name": "", "value": 0 }
-          ],
-          "explanation": "",
-          "input": [[], 0]
-        }
+        { "output": [], "explanation": "", "input": [[], 0] }
       ],
       "title": "4Sum",
       "topics": [{ "name": "Array" }, { "name": "Two Pointers" }],
@@ -1248,31 +943,11 @@
       "testSuite": [
         {
           "output": [1, 2, 3, 5],
-          "inputs": [
-            { "name": "", "value": [1, 2, 3, 4, 5] },
-            { "name": "", "value": 2 }
-          ],
           "explanation": "",
           "input": [[1, 2, 3, 4, 5], 2]
         },
-        {
-          "output": [],
-          "inputs": [
-            { "name": "", "value": [1] },
-            { "name": "", "value": 1 }
-          ],
-          "explanation": "",
-          "input": [[1], 1]
-        },
-        {
-          "output": [1],
-          "inputs": [
-            { "name": "", "value": [1, 2] },
-            { "name": "", "value": 1 }
-          ],
-          "explanation": "",
-          "input": [[1, 2], 1]
-        }
+        { "output": [], "explanation": "", "input": [[1], 1] },
+        { "output": [1], "explanation": "", "input": [[1, 2], 1] }
       ],
       "title": "Remove Nth Node From End of List",
       "topics": [{ "name": "Linked List" }, { "name": "Two Pointers" }],
@@ -1317,24 +992,9 @@
       ],
       "submissions": 25.7,
       "testSuite": [
-        {
-          "output": true,
-          "inputs": [{ "name": "", "value": "()" }],
-          "explanation": "",
-          "input": ["()"]
-        },
-        {
-          "output": true,
-          "inputs": [{ "name": "", "value": "()[]{}" }],
-          "explanation": "",
-          "input": ["()[]{}"]
-        },
-        {
-          "output": false,
-          "inputs": [{ "name": "", "value": "(]" }],
-          "explanation": "",
-          "input": ["(]"]
-        }
+        { "output": true, "explanation": "", "input": ["()"] },
+        { "output": true, "explanation": "", "input": ["()[]{}"] },
+        { "output": false, "explanation": "", "input": ["(]"] }
       ],
       "title": "Valid Parentheses",
       "topics": [{ "name": "String" }, { "name": "Stack" }],
@@ -1374,34 +1034,14 @@
       "testSuite": [
         {
           "output": [1, 1, 2, 3, 4, 4],
-          "inputs": [
-            { "name": "", "value": [1, 2, 4] },
-            { "name": "", "value": [1, 3, 4] }
-          ],
           "explanation": "",
           "input": [
             [1, 2, 4],
             [1, 3, 4]
           ]
         },
-        {
-          "output": [],
-          "inputs": [
-            { "name": "", "value": [] },
-            { "name": "", "value": [] }
-          ],
-          "explanation": "",
-          "input": [[], []]
-        },
-        {
-          "output": [0],
-          "inputs": [
-            { "name": "", "value": [] },
-            { "name": "", "value": [0] }
-          ],
-          "explanation": "",
-          "input": [[], [0]]
-        }
+        { "output": [], "explanation": "", "input": [[], []] },
+        { "output": [0], "explanation": "", "input": [[], [0]] }
       ],
       "title": "Merge Two Sorted Lists",
       "topics": [{ "name": "Linked List" }],
@@ -1448,22 +1088,11 @@
       "testSuite": [
         {
           "output": ["((()))", "(()())", "(())()", "()(())", "()()()"],
-          "inputs": [{ "name": "", "value": 3 }],
           "explanation": "",
           "input": [3]
         },
-        {
-          "output": ["()"],
-          "inputs": [{ "name": "", "value": 1 }],
-          "explanation": "",
-          "input": [1]
-        },
-        {
-          "output": ["(())", "()()"],
-          "inputs": [{ "name": "", "value": 2 }],
-          "explanation": "",
-          "input": [2]
-        }
+        { "output": ["()"], "explanation": "", "input": [1] },
+        { "output": ["(())", "()()"], "explanation": "", "input": [2] }
       ],
       "title": "Generate Parentheses",
       "topics": [{ "name": "String" }, { "name": "Backtracking" }],
@@ -1507,16 +1136,6 @@
       "testSuite": [
         {
           "output": [1, 1, 2, 3, 4, 4, 5, 6],
-          "inputs": [
-            {
-              "name": "",
-              "value": [
-                [1, 4, 5],
-                [1, 3, 4],
-                [2, 6]
-              ]
-            }
-          ],
           "explanation": "",
           "input": [
             [
@@ -1526,18 +1145,8 @@
             ]
           ]
         },
-        {
-          "output": [],
-          "inputs": [{ "name": "", "value": [] }],
-          "explanation": "",
-          "input": [[]]
-        },
-        {
-          "output": [1],
-          "inputs": [{ "name": "", "value": [[1]] }],
-          "explanation": "",
-          "input": [[[1]]]
-        }
+        { "output": [], "explanation": "", "input": [[]] },
+        { "output": [1], "explanation": "", "input": [[[1]]] }
       ],
       "title": "Merge k Sorted Lists",
       "topics": [
@@ -1579,24 +1188,13 @@
       ],
       "submissions": 29.2,
       "testSuite": [
-        {
-          "output": [2, 1, 4, 3],
-          "inputs": [{ "name": "", "value": [1, 2, 3, 4] }],
-          "explanation": "",
-          "input": [[1, 2, 3, 4]]
-        },
+        { "output": [2, 1, 4, 3], "explanation": "", "input": [[1, 2, 3, 4]] },
         {
           "output": [2, 1, 4, 3, 5],
-          "inputs": [{ "name": "", "value": [1, 2, 3, 4, 5] }],
           "explanation": "",
           "input": [[1, 2, 3, 4, 5]]
         },
-        {
-          "output": [1],
-          "inputs": [{ "name": "", "value": [1] }],
-          "explanation": "",
-          "input": [[1]]
-        }
+        { "output": [1], "explanation": "", "input": [[1]] }
       ],
       "title": "Swap Nodes in Pairs",
       "topics": [{ "name": "Linked List" }],
@@ -1636,31 +1234,15 @@
       "testSuite": [
         {
           "output": [2, 1, 4, 3, 5],
-          "inputs": [
-            { "name": "", "value": [1, 2, 3, 4, 5] },
-            { "name": "", "value": 2 }
-          ],
           "explanation": "",
           "input": [[1, 2, 3, 4, 5], 2]
         },
         {
           "output": [3, 2, 1, 4, 5],
-          "inputs": [
-            { "name": "", "value": [1, 2, 3, 4, 5] },
-            { "name": "", "value": 3 }
-          ],
           "explanation": "",
           "input": [[1, 2, 3, 4, 5], 3]
         },
-        {
-          "output": [1],
-          "inputs": [
-            { "name": "", "value": [1] },
-            { "name": "", "value": 1 }
-          ],
-          "explanation": "",
-          "input": [[1], 1]
-        }
+        { "output": [1], "explanation": "", "input": [[1], 1] }
       ],
       "title": "Reverse Nodes in k-Group",
       "topics": [{ "name": "Linked List" }],
@@ -1705,24 +1287,13 @@
       ],
       "submissions": 27.9,
       "testSuite": [
-        {
-          "output": [1, 2],
-          "inputs": [{ "name": "", "value": [1, 1, 2] }],
-          "explanation": "",
-          "input": [[1, 1, 2]]
-        },
+        { "output": [1, 2], "explanation": "", "input": [[1, 1, 2]] },
         {
           "output": [0, 1, 2, 3, 4],
-          "inputs": [{ "name": "", "value": [0, 0, 1, 1, 1, 2, 2, 3, 3, 4] }],
           "explanation": "",
           "input": [[0, 0, 1, 1, 1, 2, 2, 3, 3, 4]]
         },
-        {
-          "output": [1],
-          "inputs": [{ "name": "", "value": [1] }],
-          "explanation": "",
-          "input": [[1]]
-        }
+        { "output": [1], "explanation": "", "input": [[1]] }
       ],
       "title": "Remove Duplicates from Sorted Array",
       "topics": [{ "name": "Array" }, { "name": "Two Pointers" }],
@@ -1768,33 +1339,13 @@
       ],
       "submissions": 27.3,
       "testSuite": [
-        {
-          "output": [2, 2],
-          "inputs": [
-            { "name": "", "value": [3, 2, 2, 3] },
-            { "name": "", "value": 3 }
-          ],
-          "explanation": "",
-          "input": [[3, 2, 2, 3], 3]
-        },
+        { "output": [2, 2], "explanation": "", "input": [[3, 2, 2, 3], 3] },
         {
           "output": [0, 1, 4, 0, 3],
-          "inputs": [
-            { "name": "", "value": [0, 1, 2, 2, 3, 0, 4, 2] },
-            { "name": "", "value": 2 }
-          ],
           "explanation": "",
           "input": [[0, 1, 2, 2, 3, 0, 4, 2], 2]
         },
-        {
-          "output": [],
-          "inputs": [
-            { "name": "", "value": [1] },
-            { "name": "", "value": 1 }
-          ],
-          "explanation": "",
-          "input": [[1], 1]
-        }
+        { "output": [], "explanation": "", "input": [[1], 1] }
       ],
       "title": "Remove Element",
       "topics": [{ "name": "Array" }, { "name": "Two Pointers" }],
@@ -1839,15 +1390,7 @@
       ],
       "submissions": 25.6,
       "testSuite": [
-        {
-          "output": 2,
-          "inputs": [
-            { "name": "", "value": "sadbutsad" },
-            { "name": "", "value": "sad" }
-          ],
-          "explanation": "",
-          "input": ["sadbutsad", "sad"]
-        }
+        { "output": 2, "explanation": "", "input": ["sadbutsad", "sad"] }
       ],
       "title": "Find the Index of the First Occurrence in a String",
       "topics": [{ "name": "String" }, { "name": "Two Pointers" }],
@@ -1888,33 +1431,9 @@
       ],
       "submissions": 24.8,
       "testSuite": [
-        {
-          "output": 3,
-          "inputs": [
-            { "name": "", "value": 10 },
-            { "name": "", "value": 3 }
-          ],
-          "explanation": "",
-          "input": [10, 3]
-        },
-        {
-          "output": -2,
-          "inputs": [
-            { "name": "", "value": 7 },
-            { "name": "", "value": -3 }
-          ],
-          "explanation": "",
-          "input": [7, -3]
-        },
-        {
-          "output": 0,
-          "inputs": [
-            { "name": "", "value": 0 },
-            { "name": "", "value": 1 }
-          ],
-          "explanation": "",
-          "input": [0, 1]
-        }
+        { "output": 3, "explanation": "", "input": [10, 3] },
+        { "output": -2, "explanation": "", "input": [7, -3] },
+        { "output": 0, "explanation": "", "input": [0, 1] }
       ],
       "title": "Divide Two Integers",
       "topics": [{ "name": "Math" }, { "name": "Bit Manipulation" }],
@@ -1961,19 +1480,11 @@
       "testSuite": [
         {
           "output": [0, 9],
-          "inputs": [
-            { "name": "", "value": "barfoothefoobarman" },
-            { "name": "", "value": ["foo", "bar"] }
-          ],
           "explanation": "",
           "input": ["barfoothefoobarman", ["foo", "bar"]]
         },
         {
           "output": [],
-          "inputs": [
-            { "name": "", "value": "wordgoodgoodgoodbestword" },
-            { "name": "", "value": ["word", "good", "best", "word"] }
-          ],
           "explanation": "",
           "input": [
             "wordgoodgoodgoodbestword",
@@ -1982,10 +1493,6 @@
         },
         {
           "output": [6, 9, 12],
-          "inputs": [
-            { "name": "", "value": "barfoofoobarthefoobarman" },
-            { "name": "", "value": ["bar", "foo", "the"] }
-          ],
           "explanation": "",
           "input": ["barfoofoobarthefoobarman", ["bar", "foo", "the"]]
         }
@@ -2029,24 +1536,9 @@
       ],
       "submissions": 26.3,
       "testSuite": [
-        {
-          "output": [1, 3, 2],
-          "inputs": [{ "name": "", "value": [1, 2, 3] }],
-          "explanation": "",
-          "input": [[1, 2, 3]]
-        },
-        {
-          "output": [1, 2, 3],
-          "inputs": [{ "name": "", "value": [3, 2, 1] }],
-          "explanation": "",
-          "input": [[3, 2, 1]]
-        },
-        {
-          "output": [1, 5, 1],
-          "inputs": [{ "name": "", "value": [1, 1, 5] }],
-          "explanation": "",
-          "input": [[1, 1, 5]]
-        }
+        { "output": [1, 3, 2], "explanation": "", "input": [[1, 2, 3]] },
+        { "output": [1, 2, 3], "explanation": "", "input": [[3, 2, 1]] },
+        { "output": [1, 5, 1], "explanation": "", "input": [[1, 1, 5]] }
       ],
       "title": "Next Permutation",
       "topics": [{ "name": "Array" }, { "name": "Two Pointers" }],
@@ -2088,24 +1580,9 @@
       ],
       "submissions": 25.1,
       "testSuite": [
-        {
-          "output": 2,
-          "inputs": [{ "name": "", "value": "(()" }],
-          "explanation": "",
-          "input": ["(()"]
-        },
-        {
-          "output": 4,
-          "inputs": [{ "name": "", "value": ")()())" }],
-          "explanation": "",
-          "input": [")()())"]
-        },
-        {
-          "output": 0,
-          "inputs": [{ "name": "", "value": "" }],
-          "explanation": "",
-          "input": [""]
-        }
+        { "output": 2, "explanation": "", "input": ["(()"] },
+        { "output": 4, "explanation": "", "input": [")()())"] },
+        { "output": 0, "explanation": "", "input": [""] }
       ],
       "title": "Longest Valid Parentheses",
       "topics": [{ "name": "String" }, { "name": "Dynamic Programming" }],
@@ -2151,33 +1628,13 @@
       ],
       "submissions": 26.4,
       "testSuite": [
-        {
-          "output": 4,
-          "inputs": [
-            { "name": "", "value": [4, 5, 6, 7, 0, 1, 2] },
-            { "name": "", "value": 0 }
-          ],
-          "explanation": "",
-          "input": [[4, 5, 6, 7, 0, 1, 2], 0]
-        },
+        { "output": 4, "explanation": "", "input": [[4, 5, 6, 7, 0, 1, 2], 0] },
         {
           "output": -1,
-          "inputs": [
-            { "name": "", "value": [4, 5, 6, 7, 0, 1, 2] },
-            { "name": "", "value": 3 }
-          ],
           "explanation": "",
           "input": [[4, 5, 6, 7, 0, 1, 2], 3]
         },
-        {
-          "output": -1,
-          "inputs": [
-            { "name": "", "value": [1] },
-            { "name": "", "value": 0 }
-          ],
-          "explanation": "",
-          "input": [[1], 0]
-        }
+        { "output": -1, "explanation": "", "input": [[1], 0] }
       ],
       "title": "Search in Rotated Sorted Array",
       "topics": [{ "name": "Array" }, { "name": "Binary Search" }],
@@ -2220,31 +1677,15 @@
       "testSuite": [
         {
           "output": [3, 4],
-          "inputs": [
-            { "name": "", "value": [5, 7, 7, 8, 8, 10] },
-            { "name": "", "value": 8 }
-          ],
           "explanation": "",
           "input": [[5, 7, 7, 8, 8, 10], 8]
         },
         {
           "output": [-1, -1],
-          "inputs": [
-            { "name": "", "value": [5, 7, 7, 8, 8, 10] },
-            { "name": "", "value": 6 }
-          ],
           "explanation": "",
           "input": [[5, 7, 7, 8, 8, 10], 6]
         },
-        {
-          "output": [-1, -1],
-          "inputs": [
-            { "name": "", "value": [] },
-            { "name": "", "value": 0 }
-          ],
-          "explanation": "",
-          "input": [[], 0]
-        }
+        { "output": [-1, -1], "explanation": "", "input": [[], 0] }
       ],
       "title": "Find First and Last Position of Element in Sorted Array",
       "topics": [{ "name": "Array" }, { "name": "Binary Search" }],
@@ -2289,33 +1730,9 @@
       ],
       "submissions": 28.6,
       "testSuite": [
-        {
-          "output": 2,
-          "inputs": [
-            { "name": "", "value": [1, 3, 5, 6] },
-            { "name": "", "value": 5 }
-          ],
-          "explanation": "",
-          "input": [[1, 3, 5, 6], 5]
-        },
-        {
-          "output": 1,
-          "inputs": [
-            { "name": "", "value": [1, 3, 5, 6] },
-            { "name": "", "value": 2 }
-          ],
-          "explanation": "",
-          "input": [[1, 3, 5, 6], 2]
-        },
-        {
-          "output": 4,
-          "inputs": [
-            { "name": "", "value": [1, 3, 5, 6] },
-            { "name": "", "value": 7 }
-          ],
-          "explanation": "",
-          "input": [[1, 3, 5, 6], 7]
-        }
+        { "output": 2, "explanation": "", "input": [[1, 3, 5, 6], 5] },
+        { "output": 1, "explanation": "", "input": [[1, 3, 5, 6], 2] },
+        { "output": 4, "explanation": "", "input": [[1, 3, 5, 6], 7] }
       ],
       "title": "Search Insert Position",
       "topics": [{ "name": "Array" }, { "name": "Binary Search" }],
@@ -2357,22 +1774,6 @@
       "testSuite": [
         {
           "output": true,
-          "inputs": [
-            {
-              "name": "",
-              "value": [
-                ["5", "3", ".", ".", "7", ".", ".", ".", "."],
-                ["6", ".", ".", "1", "9", "5", ".", ".", "."],
-                [".", "9", "8", ".", ".", ".", ".", "6", "."],
-                ["8", ".", ".", ".", "6", ".", ".", ".", "3"],
-                ["4", ".", ".", "8", ".", "3", ".", ".", "1"],
-                ["7", ".", ".", ".", "2", ".", ".", ".", "6"],
-                [".", "6", ".", ".", ".", ".", "2", "8", "."],
-                [".", ".", ".", "4", "1", "9", ".", ".", "5"],
-                [".", ".", ".", ".", "8", ".", ".", "7", "9"]
-              ]
-            }
-          ],
           "explanation": "",
           "input": [
             [
@@ -2390,22 +1791,6 @@
         },
         {
           "output": false,
-          "inputs": [
-            {
-              "name": "",
-              "value": [
-                ["8", "3", ".", ".", "7", ".", ".", ".", "."],
-                ["6", ".", ".", "1", "9", "5", ".", ".", "."],
-                [".", "9", "8", ".", ".", ".", ".", "6", "."],
-                ["8", ".", ".", ".", "6", ".", ".", ".", "3"],
-                ["4", ".", ".", "8", ".", "3", ".", ".", "1"],
-                ["7", ".", ".", ".", "2", ".", ".", ".", "6"],
-                [".", "6", ".", ".", ".", ".", "2", "8", "."],
-                [".", ".", ".", "4", "1", "9", ".", ".", "5"],
-                [".", ".", ".", ".", "8", ".", ".", "7", "9"]
-              ]
-            }
-          ],
           "explanation": "",
           "input": [
             [
@@ -2469,22 +1854,6 @@
             ["2", "8", "7", "4", "1", "9", "6", "3", "5"],
             ["3", "4", "5", "2", "8", "6", "1", "7", "9"]
           ],
-          "inputs": [
-            {
-              "name": "",
-              "value": [
-                ["5", "3", ".", ".", "7", ".", ".", ".", "."],
-                ["6", ".", ".", "1", "9", "5", ".", ".", "."],
-                [".", "9", "8", ".", ".", ".", ".", "6", "."],
-                ["8", ".", ".", ".", "6", ".", ".", ".", "3"],
-                ["4", ".", ".", "8", ".", "3", ".", ".", "1"],
-                ["7", ".", ".", ".", "2", ".", ".", ".", "6"],
-                [".", "6", ".", ".", ".", ".", "2", "8", "."],
-                [".", ".", ".", "4", "1", "9", ".", ".", "5"],
-                [".", ".", ".", ".", "8", ".", ".", "7", "9"]
-              ]
-            }
-          ],
           "explanation": "",
           "input": [
             [
@@ -2534,24 +1903,9 @@
       "similar": [],
       "submissions": 28.6,
       "testSuite": [
-        {
-          "output": "1",
-          "inputs": [{ "name": "", "value": 1 }],
-          "explanation": "",
-          "input": [1]
-        },
-        {
-          "output": "1211",
-          "inputs": [{ "name": "", "value": 4 }],
-          "explanation": "",
-          "input": [4]
-        },
-        {
-          "output": "111221",
-          "inputs": [{ "name": "", "value": 5 }],
-          "explanation": "",
-          "input": [5]
-        }
+        { "output": "1", "explanation": "", "input": [1] },
+        { "output": "1211", "explanation": "", "input": [4] },
+        { "output": "111221", "explanation": "", "input": [5] }
       ],
       "title": "Count and Say",
       "topics": [{ "name": "String" }],
@@ -2591,10 +1945,6 @@
       "testSuite": [
         {
           "output": [[2, 2, 3], [7]],
-          "inputs": [
-            { "name": "", "value": [2, 3, 6, 7] },
-            { "name": "", "value": 7 }
-          ],
           "explanation": "",
           "input": [[2, 3, 6, 7], 7]
         },
@@ -2604,22 +1954,10 @@
             [2, 3, 3],
             [3, 5]
           ],
-          "inputs": [
-            { "name": "", "value": [2, 3, 5] },
-            { "name": "", "value": 8 }
-          ],
           "explanation": "",
           "input": [[2, 3, 5], 8]
         },
-        {
-          "output": [],
-          "inputs": [
-            { "name": "", "value": [2] },
-            { "name": "", "value": 1 }
-          ],
-          "explanation": "",
-          "input": [[2], 1]
-        }
+        { "output": [], "explanation": "", "input": [[2], 1] }
       ],
       "title": "Combination Sum",
       "topics": [{ "name": "Array" }, { "name": "Backtracking" }],
@@ -2666,19 +2004,11 @@
             [1, 7],
             [2, 6]
           ],
-          "inputs": [
-            { "name": "", "value": [10, 1, 2, 7, 6, 1, 5] },
-            { "name": "", "value": 8 }
-          ],
           "explanation": "",
           "input": [[10, 1, 2, 7, 6, 1, 5], 8]
         },
         {
           "output": [[1, 2, 2], [5]],
-          "inputs": [
-            { "name": "", "value": [2, 5, 2, 1, 2] },
-            { "name": "", "value": 5 }
-          ],
           "explanation": "",
           "input": [[2, 5, 2, 1, 2], 5]
         }
@@ -2719,24 +2049,9 @@
       "similar": [],
       "submissions": 27.8,
       "testSuite": [
-        {
-          "output": 3,
-          "inputs": [{ "name": "", "value": [1, 2, 0] }],
-          "explanation": "",
-          "input": [[1, 2, 0]]
-        },
-        {
-          "output": 2,
-          "inputs": [{ "name": "", "value": [3, 4, -1, 1] }],
-          "explanation": "",
-          "input": [[3, 4, -1, 1]]
-        },
-        {
-          "output": 1,
-          "inputs": [{ "name": "", "value": [7, 8, 9, 11, 12] }],
-          "explanation": "",
-          "input": [[7, 8, 9, 11, 12]]
-        }
+        { "output": 3, "explanation": "", "input": [[1, 2, 0]] },
+        { "output": 2, "explanation": "", "input": [[3, 4, -1, 1]] },
+        { "output": 1, "explanation": "", "input": [[7, 8, 9, 11, 12]] }
       ],
       "title": "First Missing Positive",
       "topics": [{ "name": "Array" }],
@@ -2773,24 +2088,11 @@
       "testSuite": [
         {
           "output": 6,
-          "inputs": [
-            { "name": "", "value": [0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1] }
-          ],
           "explanation": "",
           "input": [[0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1]]
         },
-        {
-          "output": 9,
-          "inputs": [{ "name": "", "value": [4, 2, 0, 3, 2, 5] }],
-          "explanation": "",
-          "input": [[4, 2, 0, 3, 2, 5]]
-        },
-        {
-          "output": 0,
-          "inputs": [{ "name": "", "value": [1, 2, 3, 4, 5] }],
-          "explanation": "",
-          "input": [[1, 2, 3, 4, 5]]
-        }
+        { "output": 9, "explanation": "", "input": [[4, 2, 0, 3, 2, 5]] },
+        { "output": 0, "explanation": "", "input": [[1, 2, 3, 4, 5]] }
       ],
       "title": "Trapping Rain Water",
       "topics": [
@@ -2829,33 +2131,9 @@
       "similar": [],
       "submissions": 27.8,
       "testSuite": [
-        {
-          "output": "6",
-          "inputs": [
-            { "name": "", "value": "2" },
-            { "name": "", "value": "3" }
-          ],
-          "explanation": "",
-          "input": ["2", "3"]
-        },
-        {
-          "output": "56088",
-          "inputs": [
-            { "name": "", "value": "123" },
-            { "name": "", "value": "456" }
-          ],
-          "explanation": "",
-          "input": ["123", "456"]
-        },
-        {
-          "output": "891",
-          "inputs": [
-            { "name": "", "value": "9" },
-            { "name": "", "value": "99" }
-          ],
-          "explanation": "",
-          "input": ["9", "99"]
-        }
+        { "output": "6", "explanation": "", "input": ["2", "3"] },
+        { "output": "56088", "explanation": "", "input": ["123", "456"] },
+        { "output": "891", "explanation": "", "input": ["9", "99"] }
       ],
       "title": "Multiply Strings",
       "topics": [{ "name": "Math" }, { "name": "String" }],
@@ -2899,33 +2177,9 @@
       ],
       "submissions": 23.4,
       "testSuite": [
-        {
-          "output": false,
-          "inputs": [
-            { "name": "", "value": "aa" },
-            { "name": "", "value": "a" }
-          ],
-          "explanation": "",
-          "input": ["aa", "a"]
-        },
-        {
-          "output": true,
-          "inputs": [
-            { "name": "", "value": "aa" },
-            { "name": "", "value": "*" }
-          ],
-          "explanation": "",
-          "input": ["aa", "*"]
-        },
-        {
-          "output": false,
-          "inputs": [
-            { "name": "", "value": "cb" },
-            { "name": "", "value": "?a" }
-          ],
-          "explanation": "",
-          "input": ["cb", "?a"]
-        }
+        { "output": false, "explanation": "", "input": ["aa", "a"] },
+        { "output": true, "explanation": "", "input": ["aa", "*"] },
+        { "output": false, "explanation": "", "input": ["cb", "?a"] }
       ],
       "title": "Wildcard Matching",
       "topics": [
@@ -2967,24 +2221,9 @@
       "similar": [],
       "submissions": 31.2,
       "testSuite": [
-        {
-          "output": 2,
-          "inputs": [{ "name": "", "value": [2, 3, 1, 1, 4] }],
-          "explanation": "",
-          "input": [[2, 3, 1, 1, 4]]
-        },
-        {
-          "output": 2,
-          "inputs": [{ "name": "", "value": [2, 3, 0, 1, 4] }],
-          "explanation": "",
-          "input": [[2, 3, 0, 1, 4]]
-        },
-        {
-          "output": 0,
-          "inputs": [{ "name": "", "value": [1] }],
-          "explanation": "",
-          "input": [[1]]
-        }
+        { "output": 2, "explanation": "", "input": [[2, 3, 1, 1, 4]] },
+        { "output": 2, "explanation": "", "input": [[2, 3, 0, 1, 4]] },
+        { "output": 0, "explanation": "", "input": [[1]] }
       ],
       "title": "Jump Game II",
       "topics": [{ "name": "Array" }, { "name": "Greedy" }],
@@ -3030,7 +2269,6 @@
             [3, 1, 2],
             [3, 2, 1]
           ],
-          "inputs": [{ "name": "", "value": [1, 2, 3] }],
           "explanation": "",
           "input": [[1, 2, 3]]
         },
@@ -3039,16 +2277,10 @@
             [0, 1],
             [1, 0]
           ],
-          "inputs": [{ "name": "", "value": [0, 1] }],
           "explanation": "",
           "input": [[0, 1]]
         },
-        {
-          "output": [[1]],
-          "inputs": [{ "name": "", "value": [1] }],
-          "explanation": "",
-          "input": [[1]]
-        }
+        { "output": [[1]], "explanation": "", "input": [[1]] }
       ],
       "title": "Permutations",
       "topics": [{ "name": "Backtracking" }],
@@ -3091,7 +2323,6 @@
             [1, 2, 1],
             [2, 1, 1]
           ],
-          "inputs": [{ "name": "", "value": [1, 1, 2] }],
           "explanation": "",
           "input": [[1, 1, 2]]
         },
@@ -3104,7 +2335,6 @@
             [3, 1, 2],
             [3, 2, 1]
           ],
-          "inputs": [{ "name": "", "value": [1, 2, 3] }],
           "explanation": "",
           "input": [[1, 2, 3]]
         },
@@ -3114,7 +2344,6 @@
             [1, 2, 1],
             [2, 1, 1]
           ],
-          "inputs": [{ "name": "", "value": [1, 2, 1] }],
           "explanation": "",
           "input": [[1, 2, 1]]
         }
@@ -3158,16 +2387,6 @@
             [8, 5, 2],
             [9, 6, 3]
           ],
-          "inputs": [
-            {
-              "name": "",
-              "value": [
-                [1, 2, 3],
-                [4, 5, 6],
-                [7, 8, 9]
-              ]
-            }
-          ],
           "explanation": "",
           "input": [
             [
@@ -3184,17 +2403,6 @@
             [12, 6, 8, 9],
             [16, 7, 10, 11]
           ],
-          "inputs": [
-            {
-              "name": "",
-              "value": [
-                [5, 1, 9, 11],
-                [2, 4, 8, 10],
-                [13, 3, 6, 7],
-                [15, 14, 12, 16]
-              ]
-            }
-          ],
           "explanation": "",
           "input": [
             [
@@ -3205,12 +2413,7 @@
             ]
           ]
         },
-        {
-          "output": [[1]],
-          "inputs": [{ "name": "", "value": [[1]] }],
-          "explanation": "",
-          "input": [[[1]]]
-        }
+        { "output": [[1]], "explanation": "", "input": [[[1]]] }
       ],
       "title": "Rotate Image",
       "topics": [{ "name": "Array" }, { "name": "Matrix" }],
@@ -3247,24 +2450,11 @@
       "testSuite": [
         {
           "output": [["bat"], ["nat", "tan"], ["ate", "eat", "tea"]],
-          "inputs": [
-            { "name": "", "value": ["eat", "tea", "tan", "ate", "nat", "bat"] }
-          ],
           "explanation": "",
           "input": [["eat", "tea", "tan", "ate", "nat", "bat"]]
         },
-        {
-          "output": [[""]],
-          "inputs": [{ "name": "", "value": [""] }],
-          "explanation": "",
-          "input": [[""]]
-        },
-        {
-          "output": [["a"]],
-          "inputs": [{ "name": "", "value": ["a"] }],
-          "explanation": "",
-          "input": [["a"]]
-        }
+        { "output": [[""]], "explanation": "", "input": [[""]] },
+        { "output": [["a"]], "explanation": "", "input": [["a"]] }
       ],
       "title": "Group Anagrams",
       "topics": [{ "name": "Hash Table" }, { "name": "String" }],
@@ -3299,33 +2489,9 @@
       "similar": [],
       "submissions": 38.2,
       "testSuite": [
-        {
-          "output": 1024,
-          "inputs": [
-            { "name": "", "value": 2 },
-            { "name": "", "value": 10 }
-          ],
-          "explanation": "",
-          "input": [2, 10]
-        },
-        {
-          "output": 9.261,
-          "inputs": [
-            { "name": "", "value": 2.1 },
-            { "name": "", "value": 3 }
-          ],
-          "explanation": "",
-          "input": [2.1, 3]
-        },
-        {
-          "output": 0.25,
-          "inputs": [
-            { "name": "", "value": 2 },
-            { "name": "", "value": -2 }
-          ],
-          "explanation": "",
-          "input": [2, -2]
-        }
+        { "output": 1024, "explanation": "", "input": [2, 10] },
+        { "output": 9.261, "explanation": "", "input": [2.1, 3] },
+        { "output": 0.25, "explanation": "", "input": [2, -2] }
       ],
       "title": "Pow(x, n)",
       "topics": [{ "name": "Math" }, { "name": "Binary Search" }],
@@ -3371,40 +2537,16 @@
       "testSuite": [
         {
           "output": 6,
-          "inputs": [
-            { "name": "", "value": ["0201", "0101", "0102", "1212", "2002"] },
-            { "name": "", "value": "0202" }
-          ],
           "explanation": "A sequence of valid moves would be '0000' -> '1000' -> '1100' -> '1200' -> '1201' -> '1202' -> '0202'. Note that a sequence like '0000' -> '0001' -> '0002' -> '0102' -> '0202' would be invalid, because the wheels of the lock become stuck after the display becomes the dead end '0102'.",
           "input": [["0201", "0101", "0102", "1212", "2002"], "0202"]
         },
         {
           "output": 1,
-          "inputs": [
-            { "name": "", "value": "8888" },
-            { "name": "", "value": "0009" }
-          ],
           "explanation": "We can turn the last wheel in reverse to move from '0000' -> '0009'.",
           "input": ["8888", "0009"]
         },
         {
           "output": -1,
-          "inputs": [
-            {
-              "name": "",
-              "value": [
-                "8887",
-                "8889",
-                "8878",
-                "8898",
-                "8788",
-                "8988",
-                "7888",
-                "9888"
-              ]
-            },
-            { "name": "", "value": "8888" }
-          ],
           "explanation": "We cannot reach the target without getting stuck.",
           "input": [
             ["8887", "8889", "8878", "8898", "8788", "8988", "7888", "9888"],
@@ -3455,28 +2597,16 @@
       "testSuite": [
         {
           "output": "BANC",
-          "inputs": [
-            { "name": "s", "value": "ADOBECODEBANC" },
-            { "name": "t", "value": "ABC" }
-          ],
           "explanation": "The entire string s is the minimum window.",
           "input": ["ADOBECODEBANC", "ABC"]
         },
         {
           "output": "a",
-          "inputs": [
-            { "name": "s", "value": "a" },
-            { "name": "t", "value": "a" }
-          ],
           "explanation": "The minimum window substring 'BANC' includes 'A', 'B', and 'C' from string t.",
           "input": ["a", "a"]
         },
         {
           "output": "",
-          "inputs": [
-            { "name": "s", "value": "a" },
-            { "name": "t", "value": "aa" }
-          ],
           "explanation": "Both 'a's from t must be included in the window. Since the largest window of s only has one 'a', return empty string.",
           "input": ["a", "aa"]
         }
@@ -3524,27 +2654,11 @@
       "testSuite": [
         {
           "output": 5,
-          "inputs": [
-            { "name": "beginWord", "value": "hit" },
-            { "name": "endWord", "value": "cog" },
-            {
-              "name": "wordList",
-              "value": ["hot", "dot", "dog", "lot", "log", "cog"]
-            }
-          ],
           "explanation": "One shortest transformation sequence is 'hit' -> 'hot' -> 'dot' -> 'dog' -> cog', which is 5 words long.",
           "input": ["hit", "cog", ["hot", "dot", "dog", "lot", "log", "cog"]]
         },
         {
           "output": 0,
-          "inputs": [
-            { "name": "beginWord", "value": "hit" },
-            { "name": "endWord", "value": "cog" },
-            {
-              "name": "wordList",
-              "value": [["hot", "dot", "dog", "lot", "log"]]
-            }
-          ],
           "explanation": "The endWord 'cog' is not in wordList, therefore there is no valid transformation sequence.",
           "input": ["hit", "cog", [["hot", "dot", "dog", "lot", "log"]]]
         }
@@ -3588,19 +2702,16 @@
       "testSuite": [
         {
           "output": 3,
-          "inputs": [{ "name": "word", "value": "aaAbcBC" }],
           "explanation": "The special characters in word are 'a', 'b', and 'c'.",
           "input": ["aaAbcBC"]
         },
         {
           "output": 0,
-          "inputs": [{ "name": "word", "value": "abc" }],
           "explanation": "No character in word appears in uppercase.",
           "input": ["abc"]
         },
         {
           "output": 1,
-          "inputs": [{ "name": "word", "value": "abBCab" }],
           "explanation": "The only special character in word is 'b'.",
           "input": ["abBCab"]
         }

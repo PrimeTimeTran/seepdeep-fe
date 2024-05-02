@@ -18,47 +18,54 @@ class _SolverState extends State<Solver> {
   String code = '';
   String result = '';
   bool passing = false;
+  Problem? problem;
   bool submitted = false;
   bool processing = false;
   List<TestCase> testCases = [];
   List<Submission> submissions = [];
   late Toaster toaster = Toaster(context);
-  late Problem problem = Provider.of<ProblemProvider>(context).focusedProblem;
   final StreamController<Submission> _submissionStreamController =
       StreamController<Submission>();
-
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.white,
-      child: Column(
-        children: [
-          SizedBox(
-            height: MediaQuery.of(context).size.height -
-                MediaQuery.of(context).padding.top -
-                kToolbarHeight -
-                5,
-            child: VerticalSplitView(
-              left: SolverSidebar(
-                problem: problem,
-                passing: passing,
-                submitted: submitted,
-                submissions: submissions,
-                submissionStream: _submissionStreamController.stream,
+    return Consumer<ProblemProvider>(
+      builder: (context, problemProvider, _) {
+        var problem = problemProvider.focusedProblem;
+        return Container(
+          color: Colors.white,
+          child: Column(
+            children: [
+              SizedBox(
+                height: MediaQuery.of(context).size.height -
+                    MediaQuery.of(context).padding.top -
+                    kToolbarHeight -
+                    5,
+                child: VerticalSplitView(
+                  left: SolverSidebar(
+                    problem: problem,
+                    passing: passing,
+                    submitted: submitted,
+                    submissions: submissions,
+                    submissionStream: _submissionStreamController.stream,
+                  ),
+                  right: buildRight(problem),
+                ),
               ),
-              right: buildRight(),
-            ),
+            ],
           ),
-        ],
-      ),
+        );
+      },
     );
   }
 
-  HorizontalSplitView buildRight() {
+  HorizontalSplitView buildRight(Problem p) {
     return HorizontalSplitView(
       top: Editor(
-          onRun: (code) => onRun(code),
-          onType: (c) => setState(() => code = c)),
+        problem: p,
+        key: ValueKey(p),
+        onRun: (code) => onRun(code),
+        onType: (c) => setState(() => code = c),
+      ),
       bottom: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
           double parentHeight = constraints.maxHeight;
@@ -255,15 +262,22 @@ class _SolverState extends State<Solver> {
     super.dispose();
   }
 
+  void initializeProblem() {
+    var provider = Provider.of<ProblemProvider>(context, listen: false);
+    Future.delayed(Duration.zero, () async {
+      problem = await provider.checkUrl(context);
+      testCases = setupTestCases(problem);
+      setState(() {
+        problem = problem;
+        testCases = testCases;
+      });
+    });
+  }
+
   @override
   void initState() {
     super.initState();
-
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
-      problem =
-          Provider.of<ProblemProvider>(context, listen: false).focusedProblem;
-      setupTestCases();
-    });
+    initializeProblem();
   }
 
   onRun(submission) {
@@ -272,8 +286,8 @@ class _SolverState extends State<Solver> {
     final dto = {
       "lang": 'python',
       "body": submission,
-      "name": problem.title,
-      "problem": problem.id,
+      "name": problem!.title,
+      "problem": problem!.id,
     };
     postSubmission(dto);
   }
@@ -306,17 +320,15 @@ class _SolverState extends State<Solver> {
     }
   }
 
-  setupTestCases() {
-    for (var testCase in problem.testSuite!) {
+  setupTestCases(problem) {
+    testCases = [];
+    for (var testCase in problem.testSuite) {
       testCases.add(TestCase.fromMap({
         "passing": false,
         "input": testCase['input'],
-        "signature": problem.signature,
         "outExpected": testCase['output'].toString()
       }));
     }
-    setState(() {
-      testCases = testCases;
-    });
+    return testCases;
   }
 }
