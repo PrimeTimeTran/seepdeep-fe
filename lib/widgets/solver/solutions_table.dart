@@ -80,8 +80,7 @@ class SolutionsTable extends StatefulWidget {
 }
 
 class _SolutionsTableState extends State<SolutionsTable> {
-  List<Submission> solutions = [];
-
+  late Future<List<Submission>> _solutionsFuture;
   @override
   Widget build(BuildContext context) {
     return ScrollConfiguration(
@@ -114,16 +113,51 @@ class _SolutionsTableState extends State<SolutionsTable> {
                 ),
               ),
             ),
-            ListView.separated(
-              shrinkWrap: true,
-              itemCount: solutions.length,
-              physics: const NeverScrollableScrollPhysics(),
-              separatorBuilder: (context, index) {
-                return const Divider(color: Colors.grey);
-              },
-              itemBuilder: (BuildContext context, int idx) {
-                final item = solutions[idx];
-                return SolutionRow(solution: item);
+            FutureBuilder<List<Submission>>(
+              future: _solutionsFuture,
+              builder: (BuildContext context, snapshot) {
+                if (snapshot.hasData) {
+                  List<Submission> solutions = snapshot.data!;
+
+                  return ListView.separated(
+                    shrinkWrap: true,
+                    itemCount: solutions.length,
+                    physics: const NeverScrollableScrollPhysics(),
+                    separatorBuilder: (context, index) {
+                      return const Divider(color: Colors.grey);
+                    },
+                    itemBuilder: (BuildContext context, int idx) {
+                      Submission item = solutions[idx];
+                      return SolutionRow(solution: item);
+                    },
+                  );
+                } else if (snapshot.hasError) {
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Icon(
+                        Icons.error_outline,
+                        color: Colors.red,
+                        size: 60,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 16),
+                        child: Text('Error: ${snapshot.error}'),
+                      ),
+                    ],
+                  );
+                } else {
+                  return const Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      CircularProgressIndicator(),
+                      Padding(
+                        padding: EdgeInsets.only(top: 16),
+                        child: Text('Awaiting result...'),
+                      ),
+                    ],
+                  );
+                }
               },
             ),
           ],
@@ -132,26 +166,27 @@ class _SolutionsTableState extends State<SolutionsTable> {
     );
   }
 
-  getSolutions() async {
+  @override
+  void initState() {
+    super.initState();
+    _solutionsFuture = _getSolutions();
+  }
+
+  Future<List<Submission>> _getSolutions() async {
     try {
       final response = await Api.get('solutions?problem=${widget.problem.id}');
-      print(response);
-      for (var solution in response) {
+      List<Submission> solutions = [];
+      List<dynamic> data = response.toList();
+      for (var solution in data) {
         solutions.add(Submission.fromJson(solution));
       }
       setState(() {
         solutions = solutions;
       });
+      return solutions;
     } catch (e) {
       print('Error: $e');
       return [];
     } finally {}
-  }
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    getSolutions();
   }
 }

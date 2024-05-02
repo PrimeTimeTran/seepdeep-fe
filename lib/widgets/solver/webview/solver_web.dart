@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:app/all.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
@@ -18,10 +20,12 @@ class _SolverState extends State<Solver> {
   bool passing = false;
   bool submitted = false;
   bool processing = false;
-  List<Submission> submissions = [];
   List<TestCase> testCases = [];
+  List<Submission> submissions = [];
   late Toaster toaster = Toaster(context);
   late Problem problem = Provider.of<ProblemProvider>(context).focusedProblem;
+  final StreamController<Submission> _submissionStreamController =
+      StreamController<Submission>();
 
   @override
   Widget build(BuildContext context) {
@@ -36,10 +40,12 @@ class _SolverState extends State<Solver> {
                 5,
             child: VerticalSplitView(
               left: SolverSidebar(
-                  problem: problem,
-                  passing: passing,
-                  submitted: submitted,
-                  submissions: submissions),
+                problem: problem,
+                passing: passing,
+                submitted: submitted,
+                submissions: submissions,
+                submissionStream: _submissionStreamController.stream,
+              ),
               right: buildRight(),
             ),
           ),
@@ -243,20 +249,10 @@ class _SolverState extends State<Solver> {
     );
   }
 
-  getSubmissions() async {
-    try {
-      final response =
-          await Api.get('submissions?problem=${problem.id}&user=true');
-      for (var submission in response) {
-        submissions.add(Submission.fromJson(submission));
-      }
-      setState(() {
-        submissions = submissions;
-      });
-    } catch (e) {
-      print('Error: $e');
-      return [];
-    } finally {}
+  @override
+  void dispose() {
+    _submissionStreamController.close();
+    super.dispose();
   }
 
   @override
@@ -267,7 +263,6 @@ class _SolverState extends State<Solver> {
       problem =
           Provider.of<ProblemProvider>(context, listen: false).focusedProblem;
       setupTestCases();
-      getSubmissions();
     });
   }
 
@@ -298,8 +293,8 @@ class _SolverState extends State<Solver> {
       testCases = submission.testCases!;
       setState(() {
         testCases = testCases;
-        submissions = submissions;
       });
+      _submissionStreamController.add(submission);
     } catch (e) {
       print('Error: $e');
       return [];

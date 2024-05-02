@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:app/all.dart';
 import 'package:app/widgets/solver/comment.dart' as ui;
 import 'package:flutter/material.dart';
@@ -48,15 +50,17 @@ class CodeElementBuilder extends MarkdownElementBuilder {
 // ignore: must_be_immutable
 class SolverSidebar extends StatefulWidget {
   bool passing;
-  Problem problem;
   bool submitted;
+  Problem problem;
   List<Submission> submissions;
+  final Stream<Submission> submissionStream;
   SolverSidebar({
     super.key,
     required this.problem,
     required this.passing,
     required this.submitted,
     required this.submissions,
+    required this.submissionStream,
   });
 
   @override
@@ -65,6 +69,10 @@ class SolverSidebar extends StatefulWidget {
 
 class _SolverSidebarState extends State<SolverSidebar> {
   ScrollController controller = ScrollController();
+  late Future<List<Submission>> _submissionsFuture;
+  late StreamSubscription<Submission> _streamSubscription;
+
+  List<Submission> _submissions = [];
 
   @override
   Widget build(BuildContext context) {
@@ -84,7 +92,11 @@ class _SolverSidebarState extends State<SolverSidebar> {
               buildTabEditorial(),
               // ignore: prefer_const_constructors
               SolutionsTable(problem: widget.problem),
-              SubmissionTable(submissions: widget.submissions),
+              SubmissionTable(
+                problem: widget.problem,
+                submissions: _submissions,
+                submissionsFuture: _submissionsFuture,
+              ),
             ],
           ),
         ),
@@ -244,7 +256,38 @@ class _SolverSidebarState extends State<SolverSidebar> {
   }
 
   @override
+  void dispose() {
+    _streamSubscription.cancel();
+    super.dispose();
+  }
+
+  Future<List<Submission>> getSubmissions() async {
+    try {
+      final response =
+          await Api.get('submissions?problem=${widget.problem.id}&user=true');
+      List<Submission> submissions = [];
+      for (var submission in response) {
+        submissions.add(Submission.fromJson(submission));
+      }
+      setState(() {
+        _submissions = submissions;
+      });
+      return submissions;
+    } catch (e) {
+      print('Error: $e');
+      return [];
+    } finally {}
+  }
+
+  @override
   void initState() {
     super.initState();
+    _submissionsFuture = getSubmissions();
+    _streamSubscription = widget.submissionStream.listen((submission) {
+      _submissions.insert(0, submission);
+      setState(() {
+        _submissions = _submissions;
+      });
+    });
   }
 }
