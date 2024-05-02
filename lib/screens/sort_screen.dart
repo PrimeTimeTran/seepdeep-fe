@@ -197,7 +197,7 @@ class _SortScreenState extends State<SortScreen>
   }
 
   String buildSortLabel(type) {
-    return capitalize(type.toString().split('.')[1].split('Sort')[0]);
+    return type.toString().split('.')[1].split('Sort')[0].capitalize();
   }
 
   Expanded buildSortPanel() {
@@ -253,7 +253,6 @@ class _SortScreenState extends State<SortScreen>
       },
     );
     var needsShuffle = nums[0] > 18 || nums[1] > 18 || nums[2] > 18;
-    print('needsShuffle $needsShuffle');
     while (needsShuffle) {
       nums.shuffle();
       needsShuffle = nums[0] > 18 || nums[1] > 18 || nums[2] > 18;

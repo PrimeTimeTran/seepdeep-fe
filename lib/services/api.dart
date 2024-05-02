@@ -4,10 +4,6 @@ import 'dart:convert';
 import 'package:app/all.dart';
 import 'package:http/http.dart' as http;
 
-bool isArray(dynamic data) {
-  return data is List;
-}
-
 class Api {
   static const base = 'http://localhost:3000/api/';
   static http.Client client = http.Client();
