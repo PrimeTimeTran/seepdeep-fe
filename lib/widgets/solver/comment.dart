@@ -217,8 +217,8 @@ class _SubmissionTableState extends State<SubmissionTable> {
           cells: [
             DataCell(Text(submission.isAccepted.toString())),
             DataCell(Text(submission.language.toString())),
-            const DataCell(Text('Flutter')),
             DataCell(Text(submission.runTime.toString())),
+            DataCell(Text(submission.memoryUsage.toString())),
             const DataCell(Text('This is a note')),
           ],
         ),

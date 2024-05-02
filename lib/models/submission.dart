@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:app/all.dart';
 
 class Submission {
@@ -21,6 +23,7 @@ class Submission {
   int? numVotes;
   int? numComments;
   double? runTime;
+  String? memoryUsage;
   double? beats;
 
   List<int>? voterIds;
@@ -48,6 +51,7 @@ class Submission {
     this.isContest,
     this.contest,
     this.penalty,
+    this.memoryUsage,
   });
 
   Submission.fromJson(Map<String, dynamic> json)
@@ -58,8 +62,9 @@ class Submission {
             : null,
         problem = _parseProblem(json['problem']),
         language = json['language'],
-        isAccepted = json['isAccepted'],
-        runTime = json['runTime']?.toDouble(),
+        isAccepted = json['passing'],
+        runTime = jsonDecode(json['runResult']['timeToComplete']),
+        memoryUsage = jsonDecode(json['runResult']['memoryUsedMB']).toString(),
         beats = json['beats']?.toDouble(),
         notes = json['notes'],
         isShared = json['isShared'],
