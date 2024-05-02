@@ -20,7 +20,8 @@ enum AppScreens {
   search,
   streak,
   auth,
-  mastery
+  mastery,
+  math,
 }
 
 extension AppPageX on AppScreens {
@@ -68,6 +69,8 @@ extension AppPageX on AppScreens {
         return 'AUTH';
       case AppScreens.mastery:
         return 'MASTERY';
+      case AppScreens.math:
+        return 'MATH';
       default:
         return 'HOME';
     }
@@ -117,6 +120,8 @@ extension AppPageX on AppScreens {
         return '/jobs';
       case AppScreens.auth:
         return '/auth';
+      case AppScreens.math:
+        return '/math';
       case AppScreens.mastery:
         return '/mastery';
 

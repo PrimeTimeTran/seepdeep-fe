@@ -146,6 +146,11 @@ final routes = [
         name: AppScreens.mastery.name,
         builder: (_, __) => const MasteryScreen(),
       ),
+      GoRoute(
+        path: AppScreens.math.path,
+        name: AppScreens.math.name,
+        builder: (_, __) => const MathScreen(),
+      ),
     ],
   )
 ];

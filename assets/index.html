@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://www.desmos.com/api/v1.5/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6"></script>
+</head>
+<body>
+  <div id="calculator" style="width: 1000px; height: 600px;"></div>
+  <script>
+    var elt = document.getElementById('calculator');
+    var calculator = Desmos.GraphingCalculator(elt);
+    calculator.setExpression({ id: 'graph1', latex: 'y=x^2' });
+    const logo = document.getElementsByClassName('dcg-expressions-branding')[0]
+    logo.remove()
+  </script>
+
+  <script>
+    async function runner() {
+      sendMessageToFlutter(JSON.stringify({spam: 'ham', foo: 1, no: {more: true}}))
+    }
+    function sendMessageToFlutter(message) {
+        window.parent.postMessage(message, '*')
+      }
+      window.addEventListener('message', (message) => {
+        runner()
+      })
+  </script>
+</body>
+</html>

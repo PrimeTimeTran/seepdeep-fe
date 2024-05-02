@@ -1,5 +1,6 @@
 import 'package:app/all.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 
 void openDrawer() {
@@ -30,12 +31,13 @@ class _AppBarContentState extends State<AppBarContent> {
             children: <Widget>[
               TextButton.icon(
                 onPressed: () => GoRouter.of(context).go(AppScreens.home.path),
-                icon: const Icon(
-                  Icons.home,
-                  color: Colors.white,
+                icon: SvgPicture.asset(
+                  'assets/icons/favicon.svg',
+                  width: 48,
+                  height: 48,
                 ),
                 label: const Text(
-                  'CSGems',
+                  'SDeep',
                   style: TextStyle(color: Colors.white, fontSize: 15),
                 ),
               ),
