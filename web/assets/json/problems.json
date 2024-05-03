@@ -181,7 +181,7 @@
       ],
       "id": "0ecb7ca2ac88ab9faf7411bd",
       "signature": {
-        "parameters": [{ "type": "string", "name": "s" }],
+        "parameters": [{ "type": "str", "name": "s" }],
         "returnType": "int"
       }
     },
@@ -294,8 +294,8 @@
       "topics": [{ "name": "String" }, { "name": "Dynamic Programming" }],
       "id": "650935503eb77cbf3fee0d57",
       "signature": {
-        "parameters": [{ "type": "string", "name": "s" }],
-        "returnType": "string"
+        "parameters": [{ "type": "str", "name": "s" }],
+        "returnType": "str"
       }
     },
     {
@@ -347,10 +347,10 @@
       "id": "d53d7abad8a72e4c1152f9e8",
       "signature": {
         "parameters": [
-          { "type": "string", "name": "s" },
+          { "type": "str", "name": "s" },
           { "type": "int", "name": "numRows" }
         ],
-        "returnType": "string"
+        "returnType": "str"
       }
     },
     {
@@ -433,7 +433,7 @@
       "topics": [{ "name": "String" }],
       "id": "75e9eff1dda6f6bea070b658",
       "signature": {
-        "parameters": [{ "type": "string", "name": "s" }],
+        "parameters": [{ "type": "str", "name": "s" }],
         "returnType": "int"
       }
     },
@@ -522,8 +522,8 @@
       "id": "ba497ca59a0aabe6d37b0576",
       "signature": {
         "parameters": [
-          { "type": "string", "name": "s" },
-          { "type": "string", "name": "p" }
+          { "type": "str", "name": "s" },
+          { "type": "str", "name": "p" }
         ],
         "returnType": "bool"
       }
@@ -572,7 +572,7 @@
       "topics": [{ "name": "Array" }, { "name": "Two Pointers" }],
       "id": "8802da8bf2c26a05fe0ae2aa",
       "signature": {
-        "parameters": [{ "type": "list", "name": "height" }],
+        "parameters": [{ "type": "List[int]", "name": "height" }],
         "returnType": "int"
       }
     },
@@ -617,7 +617,7 @@
       "id": "afac30438472dbbbbddea2e6",
       "signature": {
         "parameters": [{ "type": "int", "name": "num" }],
-        "returnType": "string"
+        "returnType": "str"
       }
     },
     {
@@ -660,7 +660,7 @@
       "topics": [{ "name": "Math" }, { "name": "String" }],
       "id": "f021d267cedfd00bb2c94b7d",
       "signature": {
-        "parameters": [{ "type": "string", "name": "s" }],
+        "parameters": [{ "type": "str", "name": "s" }],
         "returnType": "int"
       }
     },
@@ -712,8 +712,8 @@
       "topics": [{ "name": "String" }],
       "id": "3fcfafbcb0f4a76308af42bd",
       "signature": {
-        "parameters": [{ "type": "list", "name": "strs" }],
-        "returnType": "string"
+        "parameters": [{ "type": "List[str]", "name": "strs" }],
+        "returnType": "str"
       }
     },
     {
@@ -763,8 +763,8 @@
       "topics": [{ "name": "Array" }, { "name": "Two Pointers" }],
       "id": "0bbdf8b0fbab2645dbaa5de4",
       "signature": {
-        "parameters": [{ "type": "list", "name": "nums" }],
-        "returnType": "list"
+        "parameters": [{ "type": "List[int]", "name": "nums" }],
+        "returnType": "List[List[int]]"
       }
     },
     {
@@ -804,7 +804,7 @@
       "id": "51adcd8c87dd3e23caffa895",
       "signature": {
         "parameters": [
-          { "type": "list", "name": "nums" },
+          { "type": "List[int]", "name": "nums" },
           { "type": "int", "name": "target" }
         ],
         "returnType": "int"
@@ -850,8 +850,8 @@
       "topics": [{ "name": "String" }, { "name": "Backtracking" }],
       "id": "aa4098cebe79d12007ce64f7",
       "signature": {
-        "parameters": [{ "type": "string", "name": "digits" }],
-        "returnType": "list"
+        "parameters": [{ "type": "str", "name": "digits" }],
+        "returnType": "List[str]"
       }
     },
     {
@@ -903,10 +903,10 @@
       "id": "cdb9d2161beccc4c1ed0efea",
       "signature": {
         "parameters": [
-          { "type": "list", "name": "nums" },
+          { "type": "List[int]", "name": "nums" },
           { "type": "int", "name": "target" }
         ],
-        "returnType": "list"
+        "returnType": "List[int]"
       }
     },
     {
@@ -954,10 +954,10 @@
       "id": "9abbb91ee2b3361bc78c4c0e",
       "signature": {
         "parameters": [
-          { "type": "list", "name": "head" },
+          { "type": "Optional[ListNode]", "name": "head" },
           { "type": "int", "name": "n" }
         ],
-        "returnType": "list"
+        "returnType": "Optional[ListNode]"
       }
     },
     {
@@ -1000,7 +1000,7 @@
       "topics": [{ "name": "String" }, { "name": "Stack" }],
       "id": "df61ffdd156fa8e6ebc5bf7f",
       "signature": {
-        "parameters": [{ "type": "string", "name": "s" }],
+        "parameters": [{ "type": "str", "name": "s" }],
         "returnType": "bool"
       }
     },
@@ -1048,10 +1048,10 @@
       "id": "663f2af5946dfac7e94fab72",
       "signature": {
         "parameters": [
-          { "type": "listnode", "name": "l1" },
-          { "type": "listnode", "name": "l2" }
+          { "type": "Optional[ListNode]", "name": "l1" },
+          { "type": "Optional[ListNode]", "name": "l2" }
         ],
-        "returnType": "listnode"
+        "returnType": "Optional[ListNode]"
       }
     },
     {
@@ -1099,7 +1099,7 @@
       "id": "accbdb7992cbc4f9eecccb55",
       "signature": {
         "parameters": [{ "type": "int", "name": "n" }],
-        "returnType": "list"
+        "returnType": "List[str]"
       }
     },
     {
@@ -1156,8 +1156,8 @@
       ],
       "id": "ce749c77c0d3676aa1e814cd",
       "signature": {
-        "parameters": [{ "type": "list", "name": "lists" }],
-        "returnType": "list"
+        "parameters": [{ "type": "List[Optional[ListNode]]", "name": "lists" }],
+        "returnType": "Optional[ListNode]"
       }
     },
     {
@@ -1200,8 +1200,8 @@
       "topics": [{ "name": "Linked List" }],
       "id": "8fe5cbe30d6fe3fb273e1bbf",
       "signature": {
-        "parameters": [{ "type": "list", "name": "head" }],
-        "returnType": "list"
+        "parameters": [{ "type": "Optional[ListNode]", "name": "head" }],
+        "returnType": "Optional[ListNode]"
       }
     },
     {
@@ -1249,10 +1249,10 @@
       "id": "eb9ae379068ae05f76c5b8a4",
       "signature": {
         "parameters": [
-          { "type": "list", "name": "head" },
+          { "type": "Optional[ListNode]", "name": "head" },
           { "type": "int", "name": "k" }
         ],
-        "returnType": "list"
+        "returnType": "Optional[ListNode]"
       }
     },
     {
@@ -1299,8 +1299,8 @@
       "topics": [{ "name": "Array" }, { "name": "Two Pointers" }],
       "id": "b2f8f3def5ccfade33afd3fd",
       "signature": {
-        "parameters": [{ "type": "list", "name": "nums" }],
-        "returnType": "list"
+        "parameters": [{ "type": "List[int]", "name": "nums" }],
+        "returnType": "int"
       }
     },
     {
@@ -1352,10 +1352,10 @@
       "id": "0d7cf21b25fd091c43fbe901",
       "signature": {
         "parameters": [
-          { "type": "list", "name": "nums" },
+          { "type": "List[int]", "name": "nums" },
           { "type": "int", "name": "val" }
         ],
-        "returnType": "list"
+        "returnType": "int"
       }
     },
     {
@@ -1397,8 +1397,8 @@
       "id": "0bbea0e1effa13e06bef13af",
       "signature": {
         "parameters": [
-          { "type": "string", "name": "haystack" },
-          { "type": "string", "name": "needle" }
+          { "type": "str", "name": "haystack" },
+          { "type": "str", "name": "needle" }
         ],
         "returnType": "int"
       }
@@ -1502,10 +1502,10 @@
       "id": "b2008d6bcf6fc604d1dddb00",
       "signature": {
         "parameters": [
-          { "type": "string", "name": "s" },
-          { "type": "list", "name": "words" }
+          { "type": "str", "name": "s" },
+          { "type": "List[str]", "name": "words" }
         ],
-        "returnType": "list"
+        "returnType": "List[int]"
       }
     },
     {
@@ -1544,8 +1544,8 @@
       "topics": [{ "name": "Array" }, { "name": "Two Pointers" }],
       "id": "f7efe6a10bebdc84ae0ee4b1",
       "signature": {
-        "parameters": [{ "type": "list", "name": "nums" }],
-        "returnType": "list"
+        "parameters": [{ "type": "List[int]", "name": "nums" }],
+        "returnType": "None"
       }
     },
     {
@@ -1588,7 +1588,7 @@
       "topics": [{ "name": "String" }, { "name": "Dynamic Programming" }],
       "id": "f3e6bee12bcd28bef06d3bbe",
       "signature": {
-        "parameters": [{ "type": "string", "name": "s" }],
+        "parameters": [{ "type": "str", "name": "s" }],
         "returnType": "int"
       }
     },
@@ -1641,7 +1641,7 @@
       "id": "e3cacab313b1ac3c348ea9b0",
       "signature": {
         "parameters": [
-          { "type": "list", "name": "nums" },
+          { "type": "List[int]", "name": "nums" },
           { "type": "int", "name": "target" }
         ],
         "returnType": "int"
@@ -1692,10 +1692,10 @@
       "id": "13e95e55e23ddd0e01721ed7",
       "signature": {
         "parameters": [
-          { "type": "list", "name": "nums" },
+          { "type": "List[int]", "name": "nums" },
           { "type": "int", "name": "target" }
         ],
-        "returnType": "list"
+        "returnType": "List[int]"
       }
     },
     {
@@ -1739,7 +1739,7 @@
       "id": "a98acc71bc6c46bb81bbcb76",
       "signature": {
         "parameters": [
-          { "type": "list", "name": "nums" },
+          { "type": "List[int]", "name": "nums" },
           { "type": "int", "name": "target" }
         ],
         "returnType": "int"
@@ -1811,7 +1811,7 @@
       "topics": [{ "name": "Array" }, { "name": "Hash Table" }],
       "id": "d1a3af16ed771cbfcd5c1cca",
       "signature": {
-        "parameters": [{ "type": "list", "name": "board" }],
+        "parameters": [{ "type": "List[List[str]]", "name": "board" }],
         "returnType": "bool"
       }
     },
@@ -1874,8 +1874,8 @@
       "topics": [{ "name": "Array" }, { "name": "Backtracking" }],
       "id": "6b3b031a58c7bb35539ad64c",
       "signature": {
-        "parameters": [{ "type": "list", "name": "board" }],
-        "returnType": "list"
+        "parameters": [{ "type": "List[List[str]]", "name": "board" }],
+        "returnType": "None"
       }
     },
     {
@@ -1912,7 +1912,7 @@
       "id": "75c5d55dd19c4a7b1f33b7f5",
       "signature": {
         "parameters": [{ "type": "int", "name": "n" }],
-        "returnType": "string"
+        "returnType": "str"
       }
     },
     {
@@ -1964,10 +1964,10 @@
       "id": "e13e0f85edece8aafeeb4eeb",
       "signature": {
         "parameters": [
-          { "type": "list", "name": "candidates" },
+          { "type": "List[int]", "name": "candidates" },
           { "type": "int", "name": "target" }
         ],
-        "returnType": "list"
+        "returnType": "List[List[int]]"
       }
     },
     {
@@ -2018,10 +2018,10 @@
       "id": "f2b2326b3e9afc75de7d07ae",
       "signature": {
         "parameters": [
-          { "type": "list", "name": "candidates" },
+          { "type": "List[int]", "name": "candidates" },
           { "type": "int", "name": "target" }
         ],
-        "returnType": "list"
+        "returnType": "List[List[int]]"
       }
     },
     {
@@ -2057,7 +2057,7 @@
       "topics": [{ "name": "Array" }],
       "id": "dadd047e2ccd99b8f5e3ee0f",
       "signature": {
-        "parameters": [{ "type": "list", "name": "nums" }],
+        "parameters": [{ "type": "List[int]", "name": "nums" }],
         "returnType": "int"
       }
     },
@@ -2102,7 +2102,7 @@
       ],
       "id": "bdafd41a0cfabb65ba62f71a",
       "signature": {
-        "parameters": [{ "type": "list", "name": "height" }],
+        "parameters": [{ "type": "List[int]", "name": "height" }],
         "returnType": "int"
       }
     },
@@ -2140,10 +2140,10 @@
       "id": "fb7e3baf49b272b9fad1ecaa",
       "signature": {
         "parameters": [
-          { "type": "string", "name": "num1" },
-          { "type": "string", "name": "num2" }
+          { "type": "str", "name": "num1" },
+          { "type": "str", "name": "num2" }
         ],
-        "returnType": "string"
+        "returnType": "str"
       }
     },
     {
@@ -2190,8 +2190,8 @@
       "id": "ba739ab5f2b4bf9b74bba87b",
       "signature": {
         "parameters": [
-          { "type": "string", "name": "s" },
-          { "type": "string", "name": "p" }
+          { "type": "str", "name": "s" },
+          { "type": "str", "name": "p" }
         ],
         "returnType": "bool"
       }
@@ -2229,7 +2229,7 @@
       "topics": [{ "name": "Array" }, { "name": "Greedy" }],
       "id": "e9530dc00dcb0c07a2891a0c",
       "signature": {
-        "parameters": [{ "type": "list", "name": "nums" }],
+        "parameters": [{ "type": "List[int]", "name": "nums" }],
         "returnType": "int"
       }
     },
@@ -2286,8 +2286,8 @@
       "topics": [{ "name": "Backtracking" }],
       "id": "bbcab2bfaf41a831eefed0d5",
       "signature": {
-        "parameters": [{ "type": "list", "name": "nums" }],
-        "returnType": "list"
+        "parameters": [{ "type": "List[int]", "name": "nums" }],
+        "returnType": "List[List[int]]"
       }
     },
     {
@@ -2352,8 +2352,8 @@
       "topics": [{ "name": "Backtracking" }],
       "id": "aa44efebadddff8da6ccdf3f",
       "signature": {
-        "parameters": [{ "type": "list", "name": "nums" }],
-        "returnType": "list"
+        "parameters": [{ "type": "List[int]", "name": "nums" }],
+        "returnType": "List[List[int]]"
       }
     },
     {
@@ -2419,8 +2419,8 @@
       "topics": [{ "name": "Array" }, { "name": "Matrix" }],
       "id": "81f3aedf96ab0f7da0767f33",
       "signature": {
-        "parameters": [{ "type": "list", "name": "matrix" }],
-        "returnType": "list"
+        "parameters": [{ "type": "List[List[int]]", "name": "matrix" }],
+        "returnType": "None"
       }
     },
     {
@@ -2460,8 +2460,8 @@
       "topics": [{ "name": "Hash Table" }, { "name": "String" }],
       "id": "dddac899c8de05db0e2e1fd6",
       "signature": {
-        "parameters": [{ "type": "list", "name": "strs" }],
-        "returnType": "list"
+        "parameters": [{ "type": "List[str]", "name": "strs" }],
+        "returnType": "List[List[str]]"
       }
     },
     {
@@ -2498,10 +2498,10 @@
       "id": "8d322f46ce41dfb35c643ec4",
       "signature": {
         "parameters": [
-          { "type": "int", "name": "x" },
+          { "type": "float", "name": "x" },
           { "type": "int", "name": "n" }
         ],
-        "returnType": "int"
+        "returnType": "float"
       }
     },
     {
