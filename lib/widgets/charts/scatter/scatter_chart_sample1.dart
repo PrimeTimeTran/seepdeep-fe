@@ -1,9 +1,8 @@
 import 'dart:math';
 
+import 'package:app/all.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-
-import '../utils.dart';
 
 class ScatterChartSample1 extends StatefulWidget {
   final blue1 = AppColors.contentColorBlue.withOpacity(0.5);

@@ -1,0 +1,16 @@
+- [ ] Add SEO
+- Product Hunt
+- Facebook Groups
+- YouTube Videos(tutorials)
+- LinkedIn Posts
+- Reddit Threads
+- Glass Door Threads
+- Blind Threads
+- Job Posts(Github Awesome Jobs)
+- Inbound Marketing(Content Marketing)
+
+  - Write top 10 of something
+  - Write detailed explanations of DSA
+  - Write detailed explanations of Calculus
+  - Write detailed explanations of Trigonometry
+  - Write detailed explanations of Trigonometry

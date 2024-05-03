@@ -3,6 +3,7 @@ import 'dart:math' as math;
 import 'dart:math';
 import 'dart:ui' as ui;
 
+import 'package:app/all.dart';
 import 'package:app/extensions/extensions.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
