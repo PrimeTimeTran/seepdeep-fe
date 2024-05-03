@@ -25,6 +25,8 @@ class Editor extends StatefulWidget {
 
 class _EditorState extends State<Editor> {
   int step = 1;
+  FocusNode focusNode = FocusNode();
+
   Language selectedLang = Language.python;
   final GlobalKey _codeEditorKey = GlobalKey();
   late CodeController _controller = methodBuilder();
@@ -87,7 +89,9 @@ class _EditorState extends State<Editor> {
                       size: 20,
                     ),
                     color: Colors.black54,
-                    onPressed: () {},
+                    onPressed: () {
+                      setController();
+                    },
                   ),
                   // Todo: Shortcut Prompt
                   IconButton(
@@ -111,18 +115,17 @@ class _EditorState extends State<Editor> {
             ],
           ),
           RawKeyboardListener(
-            focusNode: FocusNode(),
+            focusNode: focusNode,
             onKey: (RawKeyEvent event) {
               if (event is RawKeyDownEvent) {
                 if (event.isControlPressed &&
                     event.logicalKey == LogicalKeyboardKey.enter) {
                   onRun();
                 } else if (event.logicalKey == LogicalKeyboardKey.tab) {
-                  final TextEditingValue value = _controller.value;
-                  final int start = value.selection.baseOffset;
-                  final int end = value.selection.extentOffset;
-                  final String newText =
-                      value.text.replaceRange(start, end, '  ');
+                  TextEditingValue value = _controller.value;
+                  int start = value.selection.baseOffset;
+                  int end = value.selection.extentOffset;
+                  String newText = value.text.replaceRange(start, end, '    ');
                   _controller.value = TextEditingValue(
                     text: newText,
                     selection: TextSelection.collapsed(offset: start + 2),
@@ -136,6 +139,8 @@ class _EditorState extends State<Editor> {
             },
             child: CodeTheme(
               data: CodeThemeData(
+                // Info: Themes
+                // https://github.com/git-touch/highlight.dart/tree/master/flutter_highlight/lib/themes
                 styles: Style.currentTheme(context) == Brightness.light
                     ? vsTheme
                     : atelierCaveDarkTheme,
@@ -155,7 +160,10 @@ class _EditorState extends State<Editor> {
                 height: 900,
                 width: double.infinity,
                 child: CodeField(
-                  expands: true,
+                  textStyle: const TextStyle(
+                      height: 1.5,
+                      // decoration: TextDecoration.underline,
+                      leadingDistribution: TextLeadingDistribution.even),
                   key: _codeEditorKey,
                   controller: _controller,
                 ),
