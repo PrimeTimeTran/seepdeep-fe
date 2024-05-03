@@ -54,6 +54,7 @@ dependencies:
   json_annotation: ^4.9.0
   url_strategy: ^0.2.0
   flutter_animate: ^4.5.0
+  flutter_markdown_latex: ^0.3.2
 
 dev_dependencies:
   flutter_test:
