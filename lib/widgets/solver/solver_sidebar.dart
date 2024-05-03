@@ -164,11 +164,13 @@ class _SolverSidebarState extends State<SolverSidebar> {
             children: [
               SelectableText(
                 widget.problem.title!,
-                style:
-                    const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                style: Style.titleL.copyWith(color: Style.headingColor),
               ),
               const SizedBox(height: 10),
-              SelectableText(widget.problem.body!),
+              SelectableText(
+                widget.problem.body!,
+                style: Style.bodyL.copyWith(color: Style.textColor),
+              ),
               const SizedBox(height: 10),
               SizedBox(
                 height: 400,
@@ -185,32 +187,48 @@ class _SolverSidebarState extends State<SolverSidebar> {
                         children: [
                           Text(
                             "Example ${idx + 1}",
-                            style: const TextStyle(fontWeight: FontWeight.bold),
+                            style: Style.titleM.copyWith(
+                                fontWeight: FontWeight.bold,
+                                color: Style.textColor),
                           ),
                           const SizedBox(height: 5),
                           // TODO: Seperate parameters and add names
                           Row(
                             children: [
-                              const Text(
+                              Text(
                                 'Input:',
-                                style: TextStyle(fontWeight: FontWeight.bold),
+                                style: Style.labelL.copyWith(
+                                    fontWeight: FontWeight.bold,
+                                    color: Style.textColor),
                               ),
-                              const Gap(5),
-                              SelectableText(testCase.input.toString()),
+                              const Gap(10),
+                              SelectableText(
+                                testCase.input.toString(),
+                                style: Style.bodyL.copyWith(
+                                  color: Style.textColor,
+                                ),
+                              ),
                             ],
                           ),
                           const SizedBox(height: 5),
                           Row(
                             children: [
-                              const Text(
+                              Text(
                                 'Output:',
-                                style: TextStyle(fontWeight: FontWeight.bold),
+                                style: Style.labelL.copyWith(
+                                    fontWeight: FontWeight.bold,
+                                    color: Style.textColor),
                               ),
-                              const Gap(5),
-                              SelectableText(testCase.outExpected.toString()),
+                              const Gap(10),
+                              SelectableText(
+                                testCase.outExpected.toString(),
+                                style: Style.bodyL.copyWith(
+                                  color: Style.textColor,
+                                ),
+                              ),
                             ],
                           ),
-                          const SizedBox(height: 20),
+                          const SizedBox(height: 40),
                         ],
                       );
                     }),

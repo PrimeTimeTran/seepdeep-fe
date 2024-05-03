@@ -141,7 +141,10 @@ class _NewsScreenState extends State<NewsScreen> {
         final item = articles[idx];
         return ListTile(
           contentPadding: const EdgeInsets.all(50),
-          title: Text(item.title, style: const TextStyle(fontSize: 30)),
+          title: Text(
+            item.title,
+            style: Style.titleL,
+          ),
           subtitle: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [

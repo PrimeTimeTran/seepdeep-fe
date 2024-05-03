@@ -25,9 +25,11 @@ class Style {
   static get bodyL => _instance._bodyLarge;
   static get bodyM => _instance._bodyMedium;
   static get bodyS => _instance._bodySmall;
+  static get darkTheme => _instance._darkTheme;
   static get displayL => _instance._displayLarge;
   static get displayM => _instance._displayMedium;
   static get displayS => _instance._displaySmall;
+  static get headingColor => _instance._headingColor;
   static get headlineL => _instance._headlineLarge;
   static get headlineM => _instance._headlineMedium;
   static get headlineS => _instance._headlineSmall;
@@ -35,10 +37,16 @@ class Style {
   static get labelL => _instance._labelLarge;
   static get labelM => _instance._labelMedium;
   static get labelS => _instance._labelSmall;
+  static get lightTheme => _instance._lightTheme;
+  static get textColor => _instance._textColor;
   static get titleL => _instance._titleLarge;
   static get titleM => _instance._titleMedium;
   static get titleS => _instance._titleSmall;
   late BuildContext _context;
+  late Color _textColor;
+  late Color _headingColor;
+  late ThemeData _lightTheme;
+  late ThemeData _darkTheme;
   late TextStyle _displaySmall;
   late TextStyle _displayMedium;
   late TextStyle _displayLarge;
@@ -55,7 +63,6 @@ class Style {
   late TextStyle _bodyMedium;
   late TextStyle _bodyLarge;
   Style._privateConstructor();
-
   // Info: How we can define styles in one place and reuse them elsewhere more easily.
   // See ./lib/navigation/root.dart
 
@@ -74,10 +81,8 @@ class Style {
     _headlineLarge = Theme.of(context).textTheme.headlineLarge!;
     _titleSmall = Theme.of(context).textTheme.titleSmall!;
     _titleMedium = Theme.of(context).textTheme.titleMedium!;
-    _titleLarge = Theme.of(context)
-        .textTheme
-        .titleLarge!
-        .copyWith(fontSize: 30, color: Colors.blue);
+    _titleLarge = Theme.of(context).textTheme.titleLarge!.copyWith(
+        fontSize: 30, color: Colors.blue, fontWeight: FontWeight.bold);
 
     _labelSmall = Theme.of(context).textTheme.labelSmall!;
     _labelMedium = Theme.of(context).textTheme.labelMedium!;
@@ -86,5 +91,27 @@ class Style {
     // _bodyMedium = Theme.of(context).textTheme.bodyMedium!;
     _bodyMedium = GoogleFonts.merriweather();
     _bodyLarge = Theme.of(context).textTheme.bodyLarge!;
+
+    final Brightness brightness = Theme.of(_context).brightness;
+    _textColor = brightness == Brightness.light ? Colors.black : Colors.grey;
+    _headingColor =
+        brightness == Brightness.light ? Colors.blue : Colors.lightBlue;
+
+    _lightTheme = ThemeData(
+      brightness: Brightness.light,
+    );
+    _darkTheme = ThemeData(
+      brightness: Brightness.dark,
+    );
+  }
+
+  void updateBrightness(Brightness brightness) {
+    _textColor = brightness == Brightness.light ? Colors.black : Colors.grey;
+    _headingColor =
+        brightness == Brightness.light ? Colors.blue : Colors.lightBlue;
+  }
+
+  static ThemeData currentTheme(BuildContext context) {
+    return Theme.of(context);
   }
 }

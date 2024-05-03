@@ -4,7 +4,6 @@ import 'package:app/all.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:go_router/go_router.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 final navigatorKeyA = GlobalKey<NavigatorState>(debugLabel: 'shellA');
 final navigatorKeyB = GlobalKey<NavigatorState>(debugLabel: 'shellB');
@@ -162,8 +161,8 @@ final routes = [
 ];
 
 class App extends StatefulWidget {
-  final StatefulNavigationShell? shell;
   final Widget? screen;
+  final StatefulNavigationShell? shell;
   const App({super.key, this.shell, this.screen});
   @override
   State<App> createState() => _AppState();
@@ -178,30 +177,15 @@ class RootNavigator extends StatefulWidget {
 }
 
 class _AppState extends State<App> {
+  bool _isDarkMode = false;
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData.from(
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.lightBlue.shade600,
-        ),
-        textTheme: TextTheme(
-          displaySmall: GoogleFonts.pacifico(),
-          displayLarge: const TextStyle(
-            fontSize: 72,
-            fontWeight: FontWeight.bold,
-          ),
-          titleLarge: GoogleFonts.oswald(
-            fontSize: 30,
-            fontStyle: FontStyle.italic,
-          ),
-          bodyMedium: GoogleFonts.merriweather(),
-        ),
-      ).copyWith(
-          // textButtonTheme: TextButtonThemeData(style: flatButtonStyle),
-          // elevatedButtonTheme: ElevatedButtonThemeData(style: raisedButtonStyle),
-          ),
+      themeMode: _isDarkMode ? ThemeMode.dark : ThemeMode.light,
+      theme: Style.lightTheme,
+      darkTheme: Style.darkTheme,
       builder: EasyLoading.init(),
       home: Scaffold(
         key: drawerKey,
@@ -224,12 +208,20 @@ class _AppState extends State<App> {
                   colors: <Color>[Colors.blue[900]!, Colors.lightBlue],
                 ),
               ),
-              child: const AppBarContent(),
+              child: AppBarContent(toggleTheme: toggleTheme),
             ),
           ),
         ),
       ),
     );
+  }
+
+  void toggleTheme() {
+    setState(() {
+      _isDarkMode = !_isDarkMode;
+    });
+    Brightness newBrightness = _isDarkMode ? Brightness.dark : Brightness.light;
+    Style.instance.updateBrightness(newBrightness);
   }
 }
 

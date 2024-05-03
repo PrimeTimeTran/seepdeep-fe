@@ -8,7 +8,8 @@ void openDrawer() {
 }
 
 class AppBarContent extends StatefulWidget {
-  const AppBarContent({super.key});
+  Function toggleTheme;
+  AppBarContent({super.key, required this.toggleTheme});
 
   @override
   State<AppBarContent> createState() => _AppBarContentState();
@@ -18,6 +19,7 @@ enum SampleItem { itemOne, itemTwo, itemThree }
 
 class _AppBarContentState extends State<AppBarContent> {
   SampleItem? selectedItem;
+  bool _isDarkMode = false;
 
   @override
   Widget build(BuildContext context) {
@@ -148,6 +150,10 @@ class _AppBarContentState extends State<AppBarContent> {
                   GoRouter.of(context).go(AppScreens.streak.path);
                 },
               ),
+              ElevatedButton(
+                onPressed: () => widget.toggleTheme(),
+                child: const Text('Toggle Theme'),
+              ),
               IconButton(
                 icon: const Icon(
                   Icons.notifications_active,
@@ -223,5 +229,11 @@ class _AppBarContentState extends State<AppBarContent> {
         children: [Icon(icon), const SizedBox(width: 5.0), Text(title)],
       ),
     );
+  }
+
+  void _toggleTheme() {
+    setState(() {
+      _isDarkMode = !_isDarkMode;
+    });
   }
 }
