@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_code_editor/flutter_code_editor.dart';
 import 'package:flutter_highlight/themes/vs.dart';
+import 'package:flutter_highlighter/themes/atelier-cave-dark.dart';
 
 class Editor extends StatefulWidget {
   Function onRun;
@@ -92,9 +93,7 @@ class _EditorState extends State<Editor> {
                       size: 20,
                     ),
                     color: Colors.black54,
-                    onPressed: () {
-                      // _formatCode();
-                    },
+                    onPressed: () {},
                   ),
                 ],
               ),
@@ -125,7 +124,22 @@ class _EditorState extends State<Editor> {
               return;
             },
             child: CodeTheme(
-              data: CodeThemeData(styles: vsTheme),
+              data: CodeThemeData(
+                styles: Style.currentTheme(context) == Brightness.light
+                    ? vsTheme
+                    : atelierCaveDarkTheme,
+                // : vs2015Theme,
+                // : a11yDarkTheme,
+                // : atelierEstuaryDarkTheme,
+                // : atelierForestDarkTheme,
+                // : atelierSeasideDarkTheme,
+                // : kimbieDarkTheme,
+                // : obsidianTheme,
+                // : schoolBookTheme,
+                // : solarizedDarkTheme,
+                // : paraisoDarkTheme,
+                // : darkTheme,
+              ),
               child: CodeField(
                 key: _codeEditorKey,
                 controller: _controller,
@@ -141,9 +155,7 @@ class _EditorState extends State<Editor> {
       String title, IconData icon, String route) {
     return PopupMenuItem<Language>(
       value: Language.python,
-      onTap: () {
-        // GoRouter.of(context).go(route);
-      },
+      onTap: () {},
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [Icon(icon), const SizedBox(width: 5.0), Text(title)],

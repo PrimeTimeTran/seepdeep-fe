@@ -7,6 +7,20 @@ void openDrawer() {
   drawerKey.currentState?.openDrawer();
 }
 
+class AnimatedSwitch extends StatefulWidget {
+  final bool value;
+  final ValueChanged<bool>? onChanged;
+
+  const AnimatedSwitch({
+    super.key,
+    required this.value,
+    required this.onChanged,
+  });
+
+  @override
+  _AnimatedSwitchState createState() => _AnimatedSwitchState();
+}
+
 class AppBarContent extends StatefulWidget {
   Function toggleTheme;
   AppBarContent({super.key, required this.toggleTheme});
@@ -17,9 +31,66 @@ class AppBarContent extends StatefulWidget {
 
 enum SampleItem { itemOne, itemTwo, itemThree }
 
+class _AnimatedSwitchState extends State<AnimatedSwitch> {
+  late bool _value;
+
+  final MaterialStateProperty<Icon?> thumbIcon =
+      MaterialStateProperty.resolveWith<Icon?>(
+    (Set<MaterialState> states) {
+      if (states.contains(MaterialState.selected)) {
+        return const Icon(Icons.wb_sunny_outlined);
+      }
+      return const Icon(Icons.nightlight_outlined);
+    },
+  );
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedSwitcher(
+      duration: const Duration(milliseconds: 300),
+      child: Switch(
+        value: _value,
+        activeTrackColor: Colors.yellowAccent.shade100,
+        thumbIcon: thumbIcon,
+        onChanged: (bool newValue) {
+          setState(() {
+            _value = newValue;
+          });
+          if (widget.onChanged != null) {
+            widget.onChanged!(newValue);
+          }
+        },
+      ),
+    );
+  }
+
+  @override
+  void didUpdateWidget(covariant AnimatedSwitch oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    _value = widget.value;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _value = widget.value;
+  }
+}
+
 class _AppBarContentState extends State<AppBarContent> {
   SampleItem? selectedItem;
-  bool _isDarkMode = false;
+
+  final MaterialStateProperty<Icon?> thumbIcon =
+      MaterialStateProperty.resolveWith<Icon?>(
+    (Set<MaterialState> states) {
+      if (states.contains(MaterialState.selected)) {
+        return const Icon(Icons.wb_sunny_outlined);
+      }
+      return const Icon(Icons.nightlight_outlined);
+    },
+  );
+
+  bool light1 = true;
 
   @override
   Widget build(BuildContext context) {
@@ -38,9 +109,10 @@ class _AppBarContentState extends State<AppBarContent> {
                   width: 48,
                   height: 48,
                 ),
-                label: const Text(
+                label: Text(
                   'SDeep',
-                  style: TextStyle(color: Colors.white, fontSize: 15),
+                  style: Style.bodyL.copyWith(
+                      color: Colors.white, fontWeight: FontWeight.bold),
                 ),
               ),
               const SizedBox(width: 10),
@@ -150,10 +222,6 @@ class _AppBarContentState extends State<AppBarContent> {
                   GoRouter.of(context).go(AppScreens.streak.path);
                 },
               ),
-              ElevatedButton(
-                onPressed: () => widget.toggleTheme(),
-                child: const Text('Toggle Theme'),
-              ),
               IconButton(
                 icon: const Icon(
                   Icons.notifications_active,
@@ -206,6 +274,21 @@ class _AppBarContentState extends State<AppBarContent> {
                       'Settings', Icons.settings, AppScreens.settings.path),
                   buildMenuItem('Report Bug', Icons.bug_report,
                       AppScreens.bugReports.path),
+                  PopupMenuItem<SampleItem>(
+                    value: SampleItem.itemOne,
+                    child: InkWell(
+                      onTap: () {},
+                      child: AnimatedSwitch(
+                        value: light1,
+                        onChanged: (bool? value) {
+                          widget.toggleTheme();
+                          setState(() {
+                            light1 = value!;
+                          });
+                        },
+                      ),
+                    ),
+                  ),
                   buildMenuItem(
                       'Logout', Icons.exit_to_app, AppScreens.bugReports.path),
                 ],
@@ -229,11 +312,5 @@ class _AppBarContentState extends State<AppBarContent> {
         children: [Icon(icon), const SizedBox(width: 5.0), Text(title)],
       ),
     );
-  }
-
-  void _toggleTheme() {
-    setState(() {
-      _isDarkMode = !_isDarkMode;
-    });
   }
 }

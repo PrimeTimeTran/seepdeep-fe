@@ -31,29 +31,26 @@ class _SolverState extends State<Solver> {
     return Consumer<ProblemProvider>(
       builder: (context, problemProvider, _) {
         var problem = problemProvider.focusedProblem;
-        return Container(
-          color: Colors.white,
-          child: Column(
-            children: [
-              SizedBox(
-                height: MediaQuery.of(context).size.height -
-                    MediaQuery.of(context).padding.top -
-                    kToolbarHeight -
-                    5,
-                child: VerticalSplitView(
-                  left: SolverSidebar(
-                    problem: problem,
-                    passing: passing,
-                    testCases: testCases,
-                    submitted: submitted,
-                    submissions: submissions,
-                    submissionStream: _submissionStreamController.stream,
-                  ),
-                  right: buildRight(problem),
+        return Column(
+          children: [
+            SizedBox(
+              height: MediaQuery.of(context).size.height -
+                  MediaQuery.of(context).padding.top -
+                  kToolbarHeight -
+                  5,
+              child: VerticalSplitView(
+                left: SolverSidebar(
+                  problem: problem,
+                  passing: passing,
+                  testCases: testCases,
+                  submitted: submitted,
+                  submissions: submissions,
+                  submissionStream: _submissionStreamController.stream,
                 ),
+                right: buildRight(problem),
               ),
-            ],
-          ),
+            ),
+          ],
         );
       },
     );

@@ -117,7 +117,7 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
   GestureDetector buildListItem(item, idx, BuildContext context) {
     idx -= 1;
     bool odd = idx % 2 == 0;
-    Color color = odd ? Colors.grey.shade500 : Colors.grey.shade600;
+    Color color = odd ? Colors.grey.shade200 : Colors.grey.shade400;
     Color difficultyColor = item.difficulty == 'Hard'
         ? Colors.red
         : item.difficulty == 'Medium'
@@ -133,9 +133,9 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
       child: Container(
         color: odd ? color : null,
         child: ListTile(
-          iconColor: Colors.white,
+          iconColor: Colors.grey,
+          textColor: Style.textColor,
           leading: const Icon(Icons.abc),
-          textColor: Colors.white,
           title: Row(
             children: [
               Expanded(flex: 10, child: Text('${item.numLC}. ${item.title}')),

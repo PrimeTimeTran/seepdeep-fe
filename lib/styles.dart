@@ -111,7 +111,7 @@ class Style {
         brightness == Brightness.light ? Colors.blue : Colors.lightBlue;
   }
 
-  static ThemeData currentTheme(BuildContext context) {
-    return Theme.of(context);
+  static Brightness currentTheme(BuildContext context) {
+    return Theme.of(context).brightness;
   }
 }
