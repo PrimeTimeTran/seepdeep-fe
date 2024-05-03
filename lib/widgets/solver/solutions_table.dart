@@ -90,9 +90,20 @@ class _SolutionsTableState extends State<SolutionsTable> {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const TextField(
+            TextField(
               decoration: InputDecoration(
-                border: OutlineInputBorder(),
+                prefixIcon: const Icon(Icons.search),
+                suffixIcon: GestureDetector(
+                  onTap: () {
+                    print('Suffix tap');
+                  },
+                  child: const Icon(Icons.sort),
+                ),
+                suffixText: 'Votes',
+                // border: OutlineInputBorder(),
+                isDense: true,
+                contentPadding:
+                    const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
                 hintText: 'Search',
               ),
             ),

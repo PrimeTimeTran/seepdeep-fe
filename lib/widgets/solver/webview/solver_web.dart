@@ -44,6 +44,7 @@ class _SolverState extends State<Solver> {
                   left: SolverSidebar(
                     problem: problem,
                     passing: passing,
+                    testCases: testCases,
                     submitted: submitted,
                     submissions: submissions,
                     submissionStream: _submissionStreamController.stream,
@@ -176,8 +177,10 @@ class _SolverState extends State<Solver> {
                             shape: const RoundedRectangleBorder(
                                 borderRadius: BorderRadius.all(Radius.zero))),
                         onPressed: () {},
-                        icon: const Icon(Icons.science_outlined),
-                        label: const Text('Test Cases')),
+                        icon: const Icon(Icons.science_outlined,
+                            color: Colors.green),
+                        label: const Text('Test Cases',
+                            style: TextStyle(color: Colors.black))),
                     const Gap(10),
                     TextButton.icon(
                         style: TextButton.styleFrom(
@@ -189,18 +192,20 @@ class _SolverState extends State<Solver> {
                                 height: 24,
                                 width: 24,
                                 child: CircularProgressIndicator())
-                            : const Icon(Icons.keyboard_double_arrow_right),
-                        label: const Text('Test Result')),
+                            : const Icon(Icons.keyboard_double_arrow_right,
+                                color: Colors.green),
+                        label: const Text('Test Result',
+                            style: TextStyle(color: Colors.black))),
                   ],
                 ),
               ),
               Expanded(
                 child: GFButtonBadge(
                   color: Colors.green.shade600,
-                  onPressed: () => onRun(code),
+                  onPressed: processing ? null : () => onRun(code),
                   textStyle: const TextStyle(
                       fontWeight: FontWeight.bold, color: Colors.white),
-                  text: "Run",
+                  text: processing ? "Processing" : "Run",
                 ),
               )
             ],
@@ -294,8 +299,6 @@ class _SolverState extends State<Solver> {
 
   // TODO:
   // 1. Add loading status and block submit button
-  // 2. Return Submission from backend
-  // 3. Update UI with submission results
   postSubmission(item) async {
     try {
       setState(() {

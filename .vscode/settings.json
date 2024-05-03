@@ -1,0 +1,29 @@
+{
+  "cSpell.words": [
+  ],
+  "dart.analysisExcludedFolders": [
+  ],
+  "editor.codeActionsOnSave": {
+    "quickfix.insertSemicolon": "explicit"
+  },
+  "files.exclude": {
+    ".dart_tool": true,
+    ".git": true,
+    ".netlify": true,
+    "analysis_options.yaml": true,
+    "android": true,
+    "build": true,
+    "devtools_options.yaml": true,
+    "drift_schemas": true,
+    "ios": true,
+    "macos": true,
+    "tool": true
+  },
+  "workbench.colorCustomizations": {
+    "titleBar.activeBackground": "#41b883",
+    "titleBar.activeForeground": "#000",
+    "titleBar.inactiveBackground": "#3b8070",
+    "titleBar.inactiveForeground": "#000000CC"
+  },
+  "workbench.iconTheme": "vscode-icons"
+}

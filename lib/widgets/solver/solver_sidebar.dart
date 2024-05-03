@@ -7,6 +7,7 @@ import 'package:flutter_highlighter/flutter_highlighter.dart';
 import 'package:flutter_highlighter/themes/atom-one-dark.dart';
 import 'package:flutter_highlighter/themes/atom-one-light.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 // ignore: depend_on_referenced_packages
 import 'package:markdown/markdown.dart' as md;
@@ -52,6 +53,7 @@ class SolverSidebar extends StatefulWidget {
   bool passing;
   bool submitted;
   Problem problem;
+  List<TestCase> testCases;
   List<Submission> submissions;
   final Stream<Submission> submissionStream;
   SolverSidebar({
@@ -61,6 +63,7 @@ class SolverSidebar extends StatefulWidget {
     required this.submitted,
     required this.submissions,
     required this.submissionStream,
+    required this.testCases,
   });
 
   @override
@@ -83,40 +86,21 @@ class _SolverSidebarState extends State<SolverSidebar> {
       animationDuration: Duration.zero,
       child: Scaffold(
         appBar: buildToolbar(context),
-        body: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: TabBarView(
-            physics: const NeverScrollableScrollPhysics(),
-            children: [
-              buildTabProblemDescription(context),
-              buildTabEditorial(),
-              // ignore: prefer_const_constructors
-              SolutionsTable(problem: widget.problem),
-              SubmissionTable(
-                problem: widget.problem,
-                submissions: _submissions,
-                submissionsFuture: _submissionsFuture,
-              ),
-            ],
-          ),
+        body: TabBarView(
+          physics: const NeverScrollableScrollPhysics(),
+          children: [
+            buildTabProblemDescription(context),
+            buildTabEditorial(),
+            // ignore: prefer_const_constructors
+            SolutionsTable(problem: widget.problem),
+            SubmissionTable(
+              problem: widget.problem,
+              submissions: _submissions,
+              submissionsFuture: _submissionsFuture,
+            ),
+          ],
         ),
       ),
-    );
-  }
-
-  buildExamples(Problem problem) {
-    return ListView.builder(
-      itemCount: problem.testSuite!.length,
-      itemBuilder: (BuildContext context, int idx) {
-        final item = problem.testSuite![idx];
-        return Column(children: [
-          const SelectableText("Example 1"),
-          const SizedBox(height: 10),
-          SelectableText(item['inputs'][0].toString()),
-          const SizedBox(height: 10),
-          SelectableText(item['output'].toString()),
-        ]);
-      },
     );
   }
 
@@ -168,6 +152,7 @@ class _SolverSidebarState extends State<SolverSidebar> {
   }
 
   buildTabProblemDescription(BuildContext context) {
+    // Add edit problem
     // return MarkdownEditor(body: widget.problem.body!);
     return ScrollConfiguration(
       behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
@@ -185,11 +170,51 @@ class _SolverSidebarState extends State<SolverSidebar> {
               const SizedBox(height: 10),
               SelectableText(widget.problem.body!),
               const SizedBox(height: 10),
-              const SelectableText("Example 1"),
-              const SizedBox(height: 10),
-              SelectableText(widget.problem.testSuite![0]['input'].toString()),
-              const SizedBox(height: 10),
-              SelectableText(widget.problem.testSuite![0]['output'].toString()),
+              SizedBox(
+                height: 400,
+                width: double.infinity,
+                child: ListView.builder(
+                    itemCount: widget.testCases.length,
+                    itemBuilder: (
+                      BuildContext context,
+                      int idx,
+                    ) {
+                      final testCase = widget.testCases[idx];
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Example ${idx + 1}",
+                            style: const TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          const SizedBox(height: 5),
+                          // TODO: Seperate parameters and add names
+                          Row(
+                            children: [
+                              const Text(
+                                'Input:',
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                              const Gap(5),
+                              SelectableText(testCase.input.toString()),
+                            ],
+                          ),
+                          const SizedBox(height: 5),
+                          Row(
+                            children: [
+                              const Text(
+                                'Output:',
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                              const Gap(5),
+                              SelectableText(testCase.outExpected.toString()),
+                            ],
+                          ),
+                          const SizedBox(height: 20),
+                        ],
+                      );
+                    }),
+              ),
             ],
           ),
         ),

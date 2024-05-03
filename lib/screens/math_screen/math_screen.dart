@@ -22,7 +22,7 @@ class _MathScreenState extends State<MathScreen> {
       children: [
         SizedBox(
           height: 1000,
-          width: 1000,
+          width: 1500,
           child: HtmlElementView(
             viewType: 'index',
             onPlatformViewCreated: (int id) {},
@@ -38,7 +38,6 @@ class _MathScreenState extends State<MathScreen> {
         ..src = 'assets/index.html'
         ..style.border = 'none';
       window.onMessage.listen((msg) {
-        print('Hi!');
         if (msg.data?.startsWith("onMsg Success:")) {
         } else {}
       }, onError: (e) {

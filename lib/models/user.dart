@@ -36,7 +36,7 @@ class User {
   String? urlLinkedIn;
   String? urlPortfolio;
   String? urlCSProfile;
-  Badge? activeBadge;
+  // Badge? activeBadge;
   List<String>? siteUrls;
 
   // Community
@@ -54,7 +54,7 @@ class User {
 
   double? top;
 
-  List<Badge>? badges;
+  // List<Badge>? badges;
   List<String>? activity;
   List<String>? contestRatings;
 
@@ -88,7 +88,7 @@ class User {
     this.urlPortfolio,
     this.urlCSProfile,
     this.siteUrls,
-    this.activeBadge,
+    // this.activeBadge,
     this.views,
     this.discuss,
     this.solutions,
@@ -99,7 +99,7 @@ class User {
     this.contests,
     this.startYear,
     this.top,
-    this.badges,
+    // this.badges,
     this.activity,
     this.contestRatings,
     this.notes,
@@ -130,9 +130,9 @@ class User {
         urlPortfolio = json['urlPortfolio'],
         urlCSProfile = json['urlCSProfile'],
         siteUrls = json['siteUrls']?.cast<String>(),
-        activeBadge = json['activeBadge'] != null
-            ? Badge.fromJson(json['activeBadge'])
-            : null,
+        // activeBadge = json['activeBadge'] != null
+        //     ? Badge.fromJson(json['activeBadge'])
+        //     : null,
         views = json['views'],
         discuss = json['discuss'],
         solutions = json['solutions'],
@@ -145,9 +145,9 @@ class User {
             .toList(),
         startYear = json['startYear'],
         top = json['top'],
-        badges = (json['badges'] as List<dynamic>?)
-            ?.map((badgeJson) => Badge.fromJson(badgeJson))
-            .toList(),
+        // badges = (json['badges'] as List<dynamic>?)
+        //     ?.map((badgeJson) => Badge.fromJson(badgeJson))
+        //     .toList(),
         activity = json['activity']?.cast<String>(),
         contestRatings = json['contestRatings']?.cast<String>(),
         notes = (json['notes'] as List<dynamic>?)
@@ -191,7 +191,7 @@ class User {
       'urlPortfolio': urlPortfolio,
       'urlCSProfile': urlCSProfile,
       'siteUrls': siteUrls,
-      'activeBadge': activeBadge?.toJson(),
+      // 'activeBadge': activeBadge?.toJson(),
       'views': views,
       'discuss': discuss,
       'solutions': solutions,
@@ -202,7 +202,7 @@ class User {
       'contests': contests?.map((contest) => contest.toJson()).toList(),
       'startYear': startYear,
       'top': top,
-      'badges': badges?.map((badge) => badge.toJson()).toList(),
+      // 'badges': badges?.map((badge) => badge.toJson()).toList(),
       'activity': activity,
       'contestRatings': contestRatings,
       'notes': notes?.map((note) => note.toJson()).toList(),

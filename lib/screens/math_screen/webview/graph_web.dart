@@ -45,6 +45,7 @@ class _SolverState extends State<Solver> {
                     problem: problem,
                     passing: passing,
                     submitted: submitted,
+                    testCases: testCases,
                     submissions: submissions,
                     submissionStream: _submissionStreamController.stream,
                   ),

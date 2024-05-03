@@ -2,6 +2,7 @@ export 'auth_screen.dart';
 export 'bug_report_screen.dart';
 export 'community_screen.dart';
 export 'contests_screen.dart';
+export 'designkit_screen.dart';
 export 'explore_screen.dart';
 export 'feature_request_screen.dart';
 export 'jobs_screen.dart';

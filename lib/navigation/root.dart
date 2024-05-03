@@ -4,6 +4,7 @@ import 'package:app/all.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:go_router/go_router.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 final navigatorKeyA = GlobalKey<NavigatorState>(debugLabel: 'shellA');
 final navigatorKeyB = GlobalKey<NavigatorState>(debugLabel: 'shellB');
@@ -151,6 +152,11 @@ final routes = [
         name: AppScreens.math.name,
         builder: (_, __) => const MathScreen(),
       ),
+      GoRoute(
+        path: AppScreens.designKit.path,
+        name: AppScreens.designKit.name,
+        builder: (_, __) => const DesignKitScreen(),
+      ),
     ],
   )
 ];
@@ -176,6 +182,26 @@ class _AppState extends State<App> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      theme: ThemeData.from(
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Colors.lightBlue.shade600,
+        ),
+        textTheme: TextTheme(
+          displaySmall: GoogleFonts.pacifico(),
+          displayLarge: const TextStyle(
+            fontSize: 72,
+            fontWeight: FontWeight.bold,
+          ),
+          titleLarge: GoogleFonts.oswald(
+            fontSize: 30,
+            fontStyle: FontStyle.italic,
+          ),
+          bodyMedium: GoogleFonts.merriweather(),
+        ),
+      ).copyWith(
+          // textButtonTheme: TextButtonThemeData(style: flatButtonStyle),
+          // elevatedButtonTheme: ElevatedButtonThemeData(style: raisedButtonStyle),
+          ),
       builder: EasyLoading.init(),
       home: Scaffold(
         key: drawerKey,

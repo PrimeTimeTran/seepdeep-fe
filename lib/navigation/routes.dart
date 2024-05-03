@@ -22,6 +22,7 @@ enum AppScreens {
   auth,
   mastery,
   math,
+  designKit,
 }
 
 extension AppPageX on AppScreens {
@@ -71,6 +72,8 @@ extension AppPageX on AppScreens {
         return 'MASTERY';
       case AppScreens.math:
         return 'MATH';
+      case AppScreens.designKit:
+        return 'DESIGN_KIT';
       default:
         return 'HOME';
     }
@@ -124,7 +127,8 @@ extension AppPageX on AppScreens {
         return '/math';
       case AppScreens.mastery:
         return '/mastery';
-
+      case AppScreens.designKit:
+        return '/design-kit';
       default:
         return '/';
     }

@@ -35,10 +35,6 @@ class MyApp extends StatelessWidget
             title: 'CSGems',
             routerConfig: routerConfig,
             debugShowCheckedModeBanner: false,
-            theme: ThemeData(
-              useMaterial3: true,
-              colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
-            ),
           );
         },
       ),
