@@ -1,4 +1,5 @@
 export 'constants.dart';
+export 'enums.dart';
 export 'extensions/all.dart';
 export 'global.dart';
 export 'models/all.dart';

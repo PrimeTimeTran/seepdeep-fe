@@ -1,10 +1,5 @@
+import 'package:app/all.dart';
 import 'package:flutter/material.dart';
-
-import '../models/board.dart';
-import '../models/node.dart';
-import '../widgets/cell.dart';
-import '../widgets/modals.dart';
-import '../widgets/toasts.dart';
 
 var greenButton = const ButtonStyle(
   foregroundColor: MaterialStatePropertyAll(Colors.white),
@@ -17,8 +12,6 @@ class MazeScreen extends StatefulWidget {
   @override
   State<MazeScreen> createState() => _MazeScreenState();
 }
-
-enum Speeds { fast, faster, fastest }
 
 class _MazeScreenState extends State<MazeScreen> {
   late Board board;

@@ -1,15 +1,8 @@
 import 'dart:math';
 
+import 'package:app/all.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-
-import '../utils.dart';
-
-enum PainterType {
-  circle,
-  square,
-  cross,
-}
 
 class ScatterChartSample2 extends StatefulWidget {
   const ScatterChartSample2({super.key});

@@ -1,3 +1,4 @@
+import 'package:app/all.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:giffy_dialog/giffy_dialog.dart';
@@ -131,27 +132,6 @@ class GiffyModel {
         ),
       ],
     );
-  }
-}
-
-enum GiffyType {
-  image,
-  rive,
-  lottie;
-
-  Widget when({
-    required Widget Function() image,
-    required Widget Function() rive,
-    required Widget Function() lottie,
-  }) {
-    switch (this) {
-      case GiffyType.image:
-        return image();
-      case GiffyType.rive:
-        return rive();
-      case GiffyType.lottie:
-        return lottie();
-    }
   }
 }
 

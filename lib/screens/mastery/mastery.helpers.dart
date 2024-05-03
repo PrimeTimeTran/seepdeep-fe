@@ -1,3 +1,4 @@
+import 'package:app/all.dart';
 import 'package:flutter/material.dart';
 import 'package:primer_progress_bar/primer_progress_bar.dart';
 
@@ -114,28 +115,4 @@ topicName(value) {
     default:
       return "Math";
   }
-}
-
-enum Topics {
-  sorting,
-  string,
-  stack,
-  queue,
-  array,
-  twoPointers,
-  binarySearch,
-  slidingWindow,
-  linkedList,
-  trees,
-  backTracking,
-  heap,
-  graph,
-  unionFind,
-  dp,
-  interval,
-  greedy,
-  advancedGraph,
-  dp2,
-  binary,
-  math
 }

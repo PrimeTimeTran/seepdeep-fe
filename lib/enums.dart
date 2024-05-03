@@ -1,0 +1,84 @@
+import 'package:flutter/material.dart';
+
+enum Calendar { day, week, month, year }
+
+enum ContentLineType {
+  twoLines,
+  threeLines,
+}
+
+enum GiffyType {
+  image,
+  rive,
+  lottie;
+
+  Widget when({
+    required Widget Function() image,
+    required Widget Function() rive,
+    required Widget Function() lottie,
+  }) {
+    switch (this) {
+      case GiffyType.image:
+        return image();
+      case GiffyType.rive:
+        return rive();
+      case GiffyType.lottie:
+        return lottie();
+    }
+  }
+}
+
+enum Language { python, js, ts, dart, cpp, java, sql }
+
+enum PainterType {
+  circle,
+  square,
+  cross,
+}
+
+enum SampleItem { itemOne, itemTwo, itemThree }
+
+enum Sizes { extraSmall, small, medium, large, extraLarge }
+
+enum SolveLVL {
+  encountered,
+  novice,
+  apprentice,
+  proficient,
+  intermediate,
+  advanced,
+  expert,
+  mastered,
+  guru,
+  legend
+}
+
+enum SortOption { bubble, selection, insertion, merge }
+
+enum Speeds { fast, faster, fastest }
+
+enum ToastType { info }
+
+enum Topics {
+  sorting,
+  string,
+  stack,
+  queue,
+  array,
+  twoPointers,
+  binarySearch,
+  slidingWindow,
+  linkedList,
+  trees,
+  backTracking,
+  heap,
+  graph,
+  unionFind,
+  dp,
+  interval,
+  greedy,
+  advancedGraph,
+  dp2,
+  binary,
+  math
+}

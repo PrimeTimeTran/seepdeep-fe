@@ -22,8 +22,6 @@ class SortItem {
   });
 }
 
-enum SortOption { bubble, selection, insertion, merge }
-
 class SortScreen extends StatefulWidget {
   const SortScreen({super.key});
 

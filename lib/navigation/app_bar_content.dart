@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable, library_private_types_in_public_api
+
 import 'package:app/all.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -28,8 +30,6 @@ class AppBarContent extends StatefulWidget {
   @override
   State<AppBarContent> createState() => _AppBarContentState();
 }
-
-enum SampleItem { itemOne, itemTwo, itemThree }
 
 class _AnimatedSwitchState extends State<AnimatedSwitch> {
   late bool _value;

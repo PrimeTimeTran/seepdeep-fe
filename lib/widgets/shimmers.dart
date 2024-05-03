@@ -1,9 +1,5 @@
+import 'package:app/all.dart';
 import 'package:flutter/material.dart';
-
-enum ContentLineType {
-  twoLines,
-  threeLines,
-}
 
 class ContentPlaceholder extends StatelessWidget {
   final ContentLineType lineType;

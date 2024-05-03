@@ -10,6 +10,53 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:gap/gap.dart';
 
+class CurveClipper extends CustomClipper<Path> {
+  final double animationValue;
+
+  CurveClipper(this.animationValue);
+
+  // @override
+  // Path getClip(Size size) {
+  //   final path = Path();
+  //   final curveHeight =
+  //       size.height * 5; // Adjust this value for the desired curve height
+  //   final curveTop = (1.0 - animationValue) *
+  //       size.height; // Calculate the top position of the curve
+
+  //   path.lineTo(0, size.height);
+  //   path.quadraticBezierTo(size.width / 2, curveTop, size.width, size.height);
+  //   path.lineTo(size.width, 0);
+  //   path.close();
+  //   return path;
+  // }
+
+  @override
+  Path getClip(Size size) {
+    final path = Path();
+    path.lineTo(0, size.height);
+    path.quadraticBezierTo(size.width / 2, size.height,
+        size.width * animationValue * 2, size.height);
+    path.lineTo(size.width, 0);
+    path.close();
+    return path;
+  }
+
+  // Starts as triangle then moves to bottom right and disappears.
+  // @override
+  // Path getClip(Size size) {
+  //   final path = Path();
+  //   path.lineTo(0, size.height);
+  //   path.quadraticBezierTo(size.width / 2, size.height,
+  //       size.width * animationValue * 2, size.height);
+  //   path.lineTo(size.width, 0);
+  //   path.close();
+  //   return path;
+  // }
+
+  @override
+  bool shouldReclip(covariant CustomClipper<Path> oldClipper) => true;
+}
+
 class LandingScreen extends StatefulWidget {
   const LandingScreen({super.key});
 
@@ -150,6 +197,13 @@ class StaggerDemo extends StatefulWidget {
   State<StaggerDemo> createState() => _StaggerDemoState();
 }
 
+class SwipeUpAnimation extends StatefulWidget {
+  const SwipeUpAnimation({super.key});
+
+  @override
+  _SwipeUpAnimationState createState() => _SwipeUpAnimationState();
+}
+
 class _LandingScreenState extends State<LandingScreen>
     with TickerProviderStateMixin {
   final enterAnimationMinHeight = 100.0;
@@ -176,7 +230,8 @@ class _LandingScreenState extends State<LandingScreen>
     final boxPosition2 = Tween(begin: const Offset(1.0, 0.0), end: Offset.zero)
         .animate(animatedBoxEnterAnimationController2);
 
-    return StaggerDemo();
+    return const SwipeUpAnimation();
+    return const StaggerDemo();
 
     return Scaffold(
       appBar: AppBar(
@@ -548,5 +603,61 @@ class _StaggerDemoState extends State<StaggerDemo>
     } on TickerCanceled {
       // The animation got canceled, probably because we were disposed.
     }
+  }
+}
+
+class _SwipeUpAnimationState extends State<SwipeUpAnimation>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<double> _animation;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: AnimatedBuilder(
+        animation: _animation,
+        builder: (context, child) {
+          return Stack(
+            children: [
+              Container(
+                color: Colors.blue,
+              ),
+              const Positioned(bottom: 0, right: 0, child: Text('sosos')),
+              ClipPath(
+                clipper: CurveClipper(_animation.value),
+                child: Container(
+                    color: Colors.green, // Color behind the curve
+                    height: MediaQuery.of(context).size.height,
+                    width: double.infinity,
+                    child: const Expanded(
+                      flex: 1,
+                      child:
+                          Positioned(bottom: 0, right: 0, child: Text('sosos')),
+                    )),
+              ),
+              const Positioned(bottom: 0, right: 0, child: Text('sosos')),
+            ],
+          );
+        },
+      ),
+    );
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      duration: const Duration(seconds: 5),
+      vsync: this,
+    );
+
+    _animation = CurvedAnimation(parent: _controller, curve: Curves.easeInOut);
+    _controller.forward();
   }
 }

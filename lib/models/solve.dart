@@ -111,16 +111,3 @@ class Solve {
     }
   }
 }
-
-enum SolveLVL {
-  encountered,
-  novice,
-  apprentice,
-  proficient,
-  intermediate,
-  advanced,
-  expert,
-  mastered,
-  guru,
-  legend
-}

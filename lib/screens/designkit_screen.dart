@@ -1,9 +1,8 @@
 import 'package:app/all.dart' as prefix;
+import 'package:app/enums.dart';
 import 'package:app/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-
-enum Calendar { day, week, month, year }
 
 class DesignKitScreen extends StatefulWidget {
   const DesignKitScreen({super.key});
@@ -11,8 +10,6 @@ class DesignKitScreen extends StatefulWidget {
   @override
   State<DesignKitScreen> createState() => _DesignKitScreenState();
 }
-
-enum Sizes { extraSmall, small, medium, large, extraLarge }
 
 class _DesignKitScreenState extends State<DesignKitScreen> {
   Calendar calendarView = Calendar.day;

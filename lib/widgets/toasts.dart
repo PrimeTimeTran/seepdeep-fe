@@ -223,5 +223,3 @@ class Toaster {
     );
   }
 }
-
-enum ToastType { info }
