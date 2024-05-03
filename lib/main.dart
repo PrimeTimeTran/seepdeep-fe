@@ -27,6 +27,7 @@ class MyApp extends StatelessWidget
 
   @override
   Widget build(BuildContext context) {
+    Style.instance.initialize(context);
     return ProviderScope(
       child: ValueListenableBuilder<bool>(
         valueListenable: material3Notifier,

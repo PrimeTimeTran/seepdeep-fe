@@ -1,4 +1,5 @@
 import 'package:app/all.dart' as prefix;
+import 'package:app/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
@@ -52,9 +53,9 @@ class _DesignKitScreenState extends State<DesignKitScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
+                  Text(
                     'Buttons',
-                    style: TextStyle(fontSize: 30),
+                    style: Style.titleL,
                   ),
                   buildDefaultButtons(),
                   buildCustomStyledButtons(outlineButtonStyle),
@@ -67,9 +68,9 @@ class _DesignKitScreenState extends State<DesignKitScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
+                Text(
                   'Icons',
-                  style: TextStyle(fontSize: 30),
+                  style: Style.titleL,
                 ),
                 buildIconButtons(),
                 buildSegmentedButtons(),
@@ -349,89 +350,89 @@ class _DesignKitScreenState extends State<DesignKitScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
+        Text(
           'Display',
-          style: TextStyle(fontSize: 30),
+          style: Style.titleL,
         ),
         Text(
           'displaySmall',
-          style: Theme.of(context).textTheme.displaySmall!,
+          style: Style.displayS,
         ),
         Text(
           'displayMedium',
-          style: Theme.of(context).textTheme.displayMedium!,
+          style: Style.displayM,
         ),
         Text(
           'displayLarge',
-          style: Theme.of(context).textTheme.displayLarge!,
+          style: Style.displayL,
         ),
         const Gap(30),
-        const Text(
+        Text(
           'Headline',
-          style: TextStyle(fontSize: 30),
+          style: Style.titleL,
         ),
         Text(
           'headlineSmall',
-          style: Theme.of(context).textTheme.headlineSmall!,
+          style: Style.headlineS,
         ),
         Text(
           'headlineMedium',
-          style: Theme.of(context).textTheme.headlineMedium!,
+          style: Style.headlineM,
         ),
         Text(
           'headlineLarge',
-          style: Theme.of(context).textTheme.headlineLarge!,
+          style: Style.headlineL,
         ),
         const Gap(30),
-        const Text(
+        Text(
           'Title',
-          style: TextStyle(fontSize: 30),
+          style: Style.titleL,
         ),
         Text(
           'titleSmall',
-          style: Theme.of(context).textTheme.titleSmall!,
+          style: Style.titleS,
         ),
         Text(
           'titleMedium',
-          style: Theme.of(context).textTheme.titleMedium!,
+          style: Style.titleM,
         ),
         Text(
           'titleLarge',
-          style: Theme.of(context).textTheme.titleLarge!,
+          style: Style.titleL,
         ),
         const Gap(30),
-        const Text(
+        Text(
           'Label',
-          style: TextStyle(fontSize: 30),
+          style: Style.titleL,
         ),
         Text(
           'labelSmall',
-          style: Theme.of(context).textTheme.labelSmall!,
+          style: Style.labelS,
         ),
         Text(
           'labelMedium',
-          style: Theme.of(context).textTheme.labelMedium!,
+          style: Style.labelM,
         ),
         Text(
           'labelLarge',
-          style: Theme.of(context).textTheme.labelLarge!,
+          style: Style.labelL,
         ),
         const Gap(30),
-        const Text(
+        Text(
           'Body',
-          style: TextStyle(fontSize: 30),
+          style: Style.titleL,
         ),
         Text(
           'bodySmall',
-          style: Theme.of(context).textTheme.bodySmall!,
+          style: Style.bodyS,
         ),
         Text(
           'bodyMedium',
-          style: Theme.of(context).textTheme.bodyMedium!,
+          style: Style.bodyM,
         ),
         Text(
           'bodyLarge',
-          style: Theme.of(context).textTheme.bodyLarge!,
+          style: Style.bodyL,
         ),
       ],
     );

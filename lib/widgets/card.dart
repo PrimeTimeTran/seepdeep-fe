@@ -78,7 +78,7 @@ class GradientCard extends StatelessWidget {
       padding: const EdgeInsets.all(4),
       child: SizedBox(
         height: 100,
-        width: 300,
+        width: 350,
         child: Container(
           decoration: BoxDecoration(
             borderRadius: const BorderRadius.all(Radius.circular(10)),

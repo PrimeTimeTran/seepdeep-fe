@@ -283,43 +283,43 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text('Study Plan'),
+        Text(
+          'Study Plan',
+          style: Style.titleL,
+        ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             buildCard(
                 'System Design', 'System Design for Interviews and Beyond', 0),
-            const SizedBox(
-              width: 10,
-            ),
+            const Gap(10),
             buildCard('Data Structures & Algorithms',
                 'Data Structures & Algorithms', 1),
+            const Gap(10),
             buildCard('SQL 50', 'Crack SQL interview in 50 Qs', 2),
           ],
         ),
-        const Gap(5),
+        const Gap(10),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             buildCard('Intro To Pandas', 'Learn Basic Pandas in 15 Qs', 0),
-            const SizedBox(
-              width: 10,
-            ),
+            const Gap(10),
             buildCard('30 Days of JS', 'Learn JS Basics with 30 Qs', 1),
+            const Gap(10),
             buildCard('Amazon Spring \'23 High Frequency',
                 'Practice 25 Recently seen problems from Amazon', 2),
           ],
         ),
-        const Gap(5),
+        const Gap(10),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             buildCard('Mastered', 'Review problems you\'ve mastered.', 0),
-            const SizedBox(
-              width: 10,
-            ),
+            const Gap(10),
             buildCard(
                 'Focus', 'Focus on problems you\'re currently learning.', 1),
+            const Gap(10),
             buildCard('Repetition',
                 'Spaced repetition for problems you\'re struggling on.', 2),
           ],
