@@ -10,6 +10,15 @@ import 'package:highlight/languages/python.dart';
 import 'package:highlight/languages/sql.dart';
 import 'package:highlight/languages/typescript.dart';
 
+// camelCase
+// C++, Java, Python, Python3, C, JS, TS, PHP, Swift, Kotlin, Dart, Go, Scala
+
+// snake_case
+// Ruby, Rust, Erlang, Elixir
+
+// TitleCase
+// C#,
+
 String generateParameterString(Signature signature) {
   List<String> params = [];
   for (var parameter in signature.parameters) {
@@ -53,6 +62,27 @@ CodeController selectCodeController(Language lang, Problem problem) {
   );
 }
 
+String selectedLanguageName(Language lang) {
+  switch (lang) {
+    case Language.python:
+      return "Python";
+    case Language.js:
+      return "Javascript";
+    case Language.ts:
+      return "Typescript";
+    case Language.dart:
+      return "Dart";
+    case Language.cpp:
+      return "C++";
+    case Language.java:
+      return "Java";
+    case Language.sql:
+      return "SQL";
+    default:
+      return "SQL";
+  }
+}
+
 String selectInitialCode(Language lang, Problem problem) {
   final functionName = problem.title?.toCamelCase();
   final returnType = parsePythonReturnType(problem.signature!.returnType);
@@ -62,7 +92,7 @@ String selectInitialCode(Language lang, Problem problem) {
       return """
 class Solution:
     def $functionName(self, ${generateParameterString(problem.signature!)}) -> $returnType:
-
+${'\n' * 20}
 """;
     case Language.js:
       return """
@@ -74,12 +104,14 @@ class Solution:
 var $functionName = function(version1, version2) {
 
 };
+${'\n' * 20}
 """;
     case Language.ts:
       return """
 function $functionName(version1: string, version2: string): $returnType {
     
 };
+${'\n' * 20}
 """;
     case Language.dart:
       return """
@@ -88,6 +120,7 @@ class Solution {
     
   }
 }
+${'\n' * 20}
 """;
     case Language.cpp:
       return """
@@ -97,6 +130,7 @@ public:
         
     }
 };
+${'\n' * 20}
 """;
     case Language.java:
       return """
@@ -105,6 +139,7 @@ class Solution {
         
     }
 }
+${'\n' * 20}
 """;
     case Language.sql:
       return "";

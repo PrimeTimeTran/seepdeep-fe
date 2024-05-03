@@ -1,5 +1,6 @@
-// ignore_for_file: library_private_types_in_public_api
+// ignore_for_file: library_private_types_in_public_api, prefer_typing_uninitialized_variables
 
+import 'package:app/all.dart';
 import 'package:flutter/material.dart';
 
 class HorizontalSplitView extends StatefulWidget {
@@ -17,6 +18,18 @@ class HorizontalSplitView extends StatefulWidget {
 
   @override
   _HorizontalSplitViewState createState() => _HorizontalSplitViewState();
+}
+
+class HoverableContainer extends StatefulWidget {
+  final Widget child;
+  final width;
+  final height;
+
+  const HoverableContainer(
+      {super.key, required this.child, this.width, this.height});
+
+  @override
+  _HoverableContainerState createState() => _HoverableContainerState();
 }
 
 class VerticalSplitView extends StatefulWidget {
@@ -51,37 +64,45 @@ class _HorizontalSplitViewState extends State<HorizontalSplitView> {
         }
 
         return Container(
-          decoration: BoxDecoration(border: Border.all()),
+          decoration: const BoxDecoration(
+            border: Border(
+              left: BorderSide(
+                width: 1,
+              ),
+            ),
+          ),
           child: SizedBox(
-            height: constraints.maxHeight,
+            height: constraints.maxHeight + 33,
             child: Column(
               children: <Widget>[
                 SizedBox(
                   height: _height1,
                   child: widget.top,
                 ),
-                GestureDetector(
-                  behavior: HitTestBehavior.translucent,
-                  child: Padding(
-                    padding: const EdgeInsets.only(bottom: 4.0),
-                    child: SizedBox(
-                      height: _dividerHeight,
-                      child: const Icon(Icons.drag_handle),
+                HoverableContainer(
+                  child: GestureDetector(
+                    behavior: HitTestBehavior.translucent,
+                    child: Padding(
+                      padding: const EdgeInsets.only(bottom: 4.0),
+                      child: SizedBox(
+                        height: _dividerHeight,
+                        child: const Icon(Icons.drag_handle),
+                      ),
                     ),
+                    onPanUpdate: (DragUpdateDetails details) {
+                      setState(() {
+                        _ratio += details.delta.dy / _maxHeight;
+                        if (_ratio > 1) {
+                          _ratio = 1;
+                        } else if (_ratio < 0.0) {
+                          _ratio = 0.0;
+                        }
+                      });
+                    },
                   ),
-                  onPanUpdate: (DragUpdateDetails details) {
-                    setState(() {
-                      _ratio += details.delta.dy / _maxHeight;
-                      if (_ratio > 1) {
-                        _ratio = 1;
-                      } else if (_ratio < 0.0) {
-                        _ratio = 0.0;
-                      }
-                    });
-                  },
                 ),
                 SizedBox(
-                  height: _height2 - 50,
+                  height: _height2,
                   width: double.infinity,
                   child: Container(
                     decoration: const BoxDecoration(
@@ -109,6 +130,34 @@ class _HorizontalSplitViewState extends State<HorizontalSplitView> {
   }
 }
 
+class _HoverableContainerState extends State<HoverableContainer> {
+  bool _isHovered = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return MouseRegion(
+      onEnter: (_) {
+        setState(() {
+          _isHovered = true;
+        });
+      },
+      onExit: (_) {
+        setState(() {
+          _isHovered = false;
+        });
+      },
+      child: Container(
+        width: widget.width ?? double.infinity,
+        height: widget.height ?? 5,
+        decoration: BoxDecoration(
+          color: _isHovered ? Colors.grey.lighten(80) : null,
+        ),
+        child: widget.child,
+      ),
+    );
+  }
+}
+
 class _VerticalSplitViewState extends State<VerticalSplitView> {
   double _ratio = 1;
   double _maxWidth = 100;
@@ -124,7 +173,6 @@ class _VerticalSplitViewState extends State<VerticalSplitView> {
       if (_maxWidth != constraints.maxWidth) {
         _maxWidth = constraints.maxWidth - _dividerWidth;
       }
-
       return SizedBox(
         width: constraints.maxWidth,
         child: Row(
@@ -133,24 +181,31 @@ class _VerticalSplitViewState extends State<VerticalSplitView> {
               width: _width1,
               child: widget.left,
             ),
-            GestureDetector(
-              behavior: HitTestBehavior.translucent,
-              child: SizedBox(
-                width: _dividerWidth,
-                height: constraints.maxHeight,
-                child: const RotationTransition(
-                  turns: AlwaysStoppedAnimation(0.25),
-                  child: Icon(Icons.drag_handle),
+            HoverableContainer(
+              width: _dividerWidth,
+              height: constraints.maxHeight,
+              child: GestureDetector(
+                behavior: HitTestBehavior.translucent,
+                child: Padding(
+                  padding: const EdgeInsets.only(bottom: 4.0),
+                  child: SizedBox(
+                    width: _dividerWidth,
+                    height: constraints.maxHeight,
+                    child: const RotationTransition(
+                      turns: AlwaysStoppedAnimation(0.25),
+                      child: Icon(Icons.drag_handle),
+                    ),
+                  ),
                 ),
+                onPanUpdate: (DragUpdateDetails details) {
+                  setState(() {
+                    _ratio += details.delta.dx / _maxWidth;
+                    if (_ratio > 1) {
+                      _ratio = 1;
+                    } else if (_ratio < 0.0) _ratio = 0.0;
+                  });
+                },
               ),
-              onPanUpdate: (DragUpdateDetails details) {
-                setState(() {
-                  _ratio += details.delta.dx / _maxWidth;
-                  if (_ratio > 1) {
-                    _ratio = 1;
-                  } else if (_ratio < 0.0) _ratio = 0.0;
-                });
-              },
             ),
             SizedBox(width: _width2, child: widget.right),
           ],

@@ -110,7 +110,7 @@ class _AppBarContentState extends State<AppBarContent> {
                   height: 48,
                 ),
                 label: Text(
-                  'SDeep',
+                  'SeepDeep',
                   style: Style.bodyL.copyWith(
                       color: Colors.white, fontWeight: FontWeight.bold),
                 ),

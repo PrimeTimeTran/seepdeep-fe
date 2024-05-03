@@ -36,8 +36,7 @@ class _SolverState extends State<Solver> {
             SizedBox(
               height: MediaQuery.of(context).size.height -
                   MediaQuery.of(context).padding.top -
-                  kToolbarHeight -
-                  5,
+                  kToolbarHeight,
               child: VerticalSplitView(
                 left: SolverSidebar(
                   problem: problem,
@@ -57,7 +56,7 @@ class _SolverState extends State<Solver> {
   }
 
   // Todo: Add bg color change when slider is hovered
-  HorizontalSplitView buildRight(Problem p) {
+  buildRight(Problem p) {
     return HorizontalSplitView(
       top: Editor(
         problem: p,
@@ -160,6 +159,7 @@ class _SolverState extends State<Solver> {
         testCaseViews.add(view);
       }
     }
+
     return Column(
       children: [
         Padding(
@@ -171,29 +171,31 @@ class _SolverState extends State<Solver> {
                 child: Row(
                   children: [
                     TextButton.icon(
-                        style: TextButton.styleFrom(
-                            shape: const RoundedRectangleBorder(
-                                borderRadius: BorderRadius.all(Radius.zero))),
-                        onPressed: () {},
-                        icon: const Icon(Icons.science_outlined,
-                            color: Colors.green),
-                        label: const Text('Test Cases',
-                            style: TextStyle(color: Colors.black))),
+                      style: TextButton.styleFrom(
+                          shape: const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.all(Radius.zero))),
+                      onPressed: () {},
+                      icon: const Icon(Icons.science_outlined,
+                          color: Colors.green),
+                      label: Text('Test Cases',
+                          style: Style.bodyS.copyWith(color: Style.textColor)),
+                    ),
                     const Gap(10),
                     TextButton.icon(
-                        style: TextButton.styleFrom(
-                            shape: const RoundedRectangleBorder(
-                                borderRadius: BorderRadius.all(Radius.zero))),
-                        onPressed: () {},
-                        icon: processing
-                            ? const SizedBox(
-                                height: 24,
-                                width: 24,
-                                child: CircularProgressIndicator())
-                            : const Icon(Icons.keyboard_double_arrow_right,
-                                color: Colors.green),
-                        label: const Text('Test Result',
-                            style: TextStyle(color: Colors.black))),
+                      style: TextButton.styleFrom(
+                          shape: const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.all(Radius.zero))),
+                      onPressed: () {},
+                      icon: processing
+                          ? const SizedBox(
+                              height: 24,
+                              width: 24,
+                              child: CircularProgressIndicator())
+                          : const Icon(Icons.keyboard_double_arrow_right,
+                              color: Colors.green),
+                      label: Text('Test Result',
+                          style: Style.bodyS.copyWith(color: Style.textColor)),
+                    )
                   ],
                 ),
               ),
@@ -209,9 +211,7 @@ class _SolverState extends State<Solver> {
             ],
           ),
         ),
-        SizedBox(
-          height: height - 55,
-          width: double.infinity,
+        Expanded(
           child: DefaultTabController(
             length: testCases.isNotEmpty ? testCaseTabs.length : 3,
             animationDuration: Duration.zero,
@@ -248,7 +248,7 @@ class _SolverState extends State<Solver> {
   SingleChildScrollView buildTestRunResultView(idx, testCase, height) {
     return SingleChildScrollView(
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(6.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [

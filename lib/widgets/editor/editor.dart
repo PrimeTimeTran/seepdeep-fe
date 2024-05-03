@@ -23,18 +23,9 @@ class Editor extends StatefulWidget {
   State<Editor> createState() => _EditorState();
 }
 
-// camelCase
-// C++, Java, Python, Python3, C, JS, TS, PHP, Swift, Kotlin, Dart, Go, Scala
-
-// snake_case
-// Ruby, Rust, Erlang, Elixir
-
-// TitleCase
-// C#,
-
 class _EditorState extends State<Editor> {
   int step = 1;
-  Language selectedItem = Language.python;
+  Language selectedLang = Language.python;
   final GlobalKey _codeEditorKey = GlobalKey();
   late CodeController _controller = methodBuilder();
   @override
@@ -48,30 +39,31 @@ class _EditorState extends State<Editor> {
               Row(
                 children: [
                   PopupMenuButton<Language>(
-                    initialValue: selectedItem,
+                    initialValue: selectedLang,
                     onSelected: (Language item) {
                       setState(() {
-                        selectedItem = item;
+                        selectedLang = item;
                       });
                     },
                     itemBuilder: (BuildContext context) =>
                         <PopupMenuEntry<Language>>[
+                      buildMenuItem('Python', Icons.keyboard, Language.python),
                       buildMenuItem(
-                          'Python', Icons.keyboard, AppScreens.explore.path),
-                      buildMenuItem('JS', Icons.note_alt_outlined,
-                          AppScreens.featureRequests.path),
+                          'Javascript', Icons.note_alt_outlined, Language.js),
                       buildMenuItem(
-                          'C++', Icons.bug_report, AppScreens.bugReports.path),
-                      buildMenuItem(
-                          'TS', Icons.bug_report, AppScreens.bugReports.path),
+                          'Typescript', Icons.bug_report, Language.ts),
+                      buildMenuItem('Dart', Icons.bug_report, Language.dart),
+                      buildMenuItem('C++', Icons.bug_report, Language.cpp),
+                      buildMenuItem('Java', Icons.bug_report, Language.java),
+                      buildMenuItem('TS', Icons.bug_report, Language.ts),
                     ],
                     child: TextButton.icon(
                       onPressed: null,
                       icon:
                           const Icon(size: 20, Icons.code, color: Colors.green),
-                      label: const Text(
-                        'Code',
-                        style: TextStyle(color: Colors.black),
+                      label: Text(
+                        selectedLanguageName(selectedLang),
+                        style: Style.bodyS.copyWith(color: Style.textColor),
                       ),
                     ),
                   ),
@@ -79,6 +71,25 @@ class _EditorState extends State<Editor> {
               ),
               Row(
                 children: [
+                  // Todo: Format code
+                  IconButton(
+                    icon: const Icon(
+                      Icons.format_indent_increase,
+                      size: 20,
+                    ),
+                    color: Colors.black54,
+                    onPressed: () {},
+                  ),
+                  // Todo: Reset
+                  IconButton(
+                    icon: const Icon(
+                      Icons.restart_alt_rounded,
+                      size: 20,
+                    ),
+                    color: Colors.black54,
+                    onPressed: () {},
+                  ),
+                  // Todo: Shortcut Prompt
                   IconButton(
                     icon: const Icon(
                       Icons.keyboard,
@@ -140,9 +151,14 @@ class _EditorState extends State<Editor> {
                 // : paraisoDarkTheme,
                 // : darkTheme,
               ),
-              child: CodeField(
-                key: _codeEditorKey,
-                controller: _controller,
+              child: SizedBox(
+                height: 900,
+                width: double.infinity,
+                child: CodeField(
+                  expands: true,
+                  key: _codeEditorKey,
+                  controller: _controller,
+                ),
               ),
             ),
           ),
@@ -152,10 +168,12 @@ class _EditorState extends State<Editor> {
   }
 
   PopupMenuItem<Language> buildMenuItem(
-      String title, IconData icon, String route) {
+      String title, IconData icon, Language lang) {
     return PopupMenuItem<Language>(
-      value: Language.python,
-      onTap: () {},
+      value: lang,
+      onTap: () {
+        setController(lang);
+      },
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [Icon(icon), const SizedBox(width: 5.0), Text(title)],
@@ -166,17 +184,19 @@ class _EditorState extends State<Editor> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(Duration.zero, () {
-      _controller = methodBuilder(widget.problem);
-      widget.onType(_controller.text);
-      setState(() {
-        _controller = _controller;
-      });
-    });
+    Future.delayed(Duration.zero, setController);
   }
 
   onRun() {
     String code = _controller.text;
     widget.onRun(code);
+  }
+
+  setController([Language? lang]) {
+    _controller = selectCodeController(lang ?? selectedLang, widget.problem);
+    widget.onType(_controller.text);
+    setState(() {
+      _controller = _controller;
+    });
   }
 }
