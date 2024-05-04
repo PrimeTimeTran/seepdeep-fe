@@ -323,7 +323,7 @@ class _SolverState extends State<Solver> {
 
   setupTestCases(problem) {
     testCases = [];
-    for (var testCase in problem.testSuite) {
+    for (var testCase in problem.testCases) {
       testCases.add(TestCase.fromMap({
         "passing": false,
         "input": testCase['input'],

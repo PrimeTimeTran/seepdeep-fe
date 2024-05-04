@@ -26,7 +26,7 @@ function getParameterType(value) {
 function updateTestSuiteObjects() {
   let data = readJsonFile(filePath)
   data = data.data.map((question) => {
-    question.testSuite = question.testSuite.map((t) => {
+    question.testCases = question.testCases.map((t) => {
       const inputs = t.input.map((i) => {
         return {
           name: '',
@@ -52,8 +52,8 @@ function addId() {
 function addSignature() {
   let data = readJsonFile(filePath)
   data = data.data.map((question, idx) => {
-    if (question.testSuite && question.testSuite[0].inputs) {
-      const parameters = Object.entries(question.testSuite[0].inputs).map(
+    if (question.testCases && question.testCases[0].inputs) {
+      const parameters = Object.entries(question.testCases[0].inputs).map(
         ([key, value], idx) => ({
           type: getParameterType(value.value),
           name: question.signature.parameters[idx].name,
@@ -61,7 +61,7 @@ function addSignature() {
       )
       question.signature = {
         parameters,
-        returnType: getParameterType(question.testSuite[0].output),
+        returnType: getParameterType(question.testCases[0].output),
       }
     }
     return question
@@ -74,10 +74,10 @@ function addSignature() {
 function changeInputType() {
   let data = readJsonFile(filePath)
   data = data.data.map((question) => {
-    if (question.testSuite) {
-      question.testSuite.forEach((testCase, idx) => {
+    if (question.testCases) {
+      question.testCases.forEach((testCase, idx) => {
         const inputs = testCase.inputs.map((input) => input.value)
-        delete question.testSuite[idx].inputs
+        delete question.testCases[idx].inputs
       })
     }
     return question

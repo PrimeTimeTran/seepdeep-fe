@@ -7,7 +7,7 @@ import 'package:flutter/services.dart';
 class ProblemProvider extends ChangeNotifier {
   Problem _focusedProblem = Problem.fromJson(
     {
-      "id": '325eb55b0eeca014fcededbe',
+      "id": '66365afe499de034006863c3',
       "acceptanceRate": 52.4,
       "accepted": 12.9,
       "author": {
@@ -35,7 +35,7 @@ class ProblemProvider extends ChangeNotifier {
         {"difficulty": "Medium", "id": 2, "title": "3 Sum"}
       ],
       "submissions": 24.6,
-      "testSuite": [
+      "testCases": [
         {
           "input": [
             [2, 7, 11, 15],

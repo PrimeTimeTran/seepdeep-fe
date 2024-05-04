@@ -16,7 +16,7 @@ function updateTestSuiteObjects() {
 
   let data = readJsonFile(filePath)
   data = data.data.map((question) => {
-    question.testSuite = question.testSuite.map((t) => {
+    question.testCases = question.testCases.map((t) => {
       const inputs = t.input.map((i) => {
         return {
           name: '',
