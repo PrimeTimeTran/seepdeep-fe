@@ -1,4 +1,5 @@
-// ignore_for_file: avoid_web_libraries_in_flutter
+// ignore_for_file: avoid_web_libraries_in_flutter, must_be_immutable
+import 'dart:async';
 import 'dart:html';
 import 'dart:ui_web' as ui;
 
@@ -43,7 +44,9 @@ class MathScreen extends StatefulWidget {
 }
 
 class StepperDemo extends StatefulWidget {
-  const StepperDemo({super.key});
+  Stream<int> problemStream;
+  Function setStep;
+  StepperDemo({super.key, required this.problemStream, required this.setStep});
 
   @override
   State<StepperDemo> createState() => _StepperDemoState();
@@ -51,6 +54,9 @@ class StepperDemo extends StatefulWidget {
 
 class _MathScreenState extends State<MathScreen> {
   IFrameElement webView = IFrameElement();
+  final StreamController<int> _problemStreamController = StreamController();
+  int index = 1;
+
   @override
   Widget build(BuildContext context) {
     setSubscription();
@@ -95,7 +101,29 @@ class _MathScreenState extends State<MathScreen> {
                     decoration: InputDecoration(
                       hintText: '5',
                     ),
-                  )
+                  ),
+                  Row(
+                    children: [
+                      IconButton(
+                          onPressed: () {
+                            if (index <= 1) return;
+                            _problemStreamController.add(index - 1);
+                            setState(() {
+                              index = index - 1;
+                            });
+                          },
+                          icon: const Icon(Icons.navigate_before_outlined)),
+                      IconButton(
+                          onPressed: () {
+                            if (index >= 10) return;
+                            _problemStreamController.add(index + 1);
+                            setState(() {
+                              index = index + 1;
+                            });
+                          },
+                          icon: const Icon(Icons.navigate_next_outlined))
+                    ],
+                  ),
                 ],
               ),
             ),
@@ -115,9 +143,17 @@ class _MathScreenState extends State<MathScreen> {
             ),
           ],
         ),
-        const StepperDemo()
+        const Spacer(),
+        StepperDemo(
+            problemStream: _problemStreamController.stream, setStep: setStep)
       ],
     );
+  }
+
+  setStep(idx) {
+    setState(() {
+      index = idx;
+    });
   }
 
   setSubscription() {
@@ -139,142 +175,87 @@ class _MathScreenState extends State<MathScreen> {
 }
 
 class _StepperDemoState extends State<StepperDemo> {
-  int activeStep = 0;
-  int activeStep2 = 0;
-  int reachedStep = 0;
-  int upperBound = 5;
-  double progress = 0.2;
-  Set<int> reachedSteps = <int>{0, 2, 4, 5};
-  final dashImages = [
-    'assets/librarian-svgrepo-com.svg',
-    'assets/2.png',
-    'assets/3.png',
-    'assets/4.png',
-    'assets/5.png',
-  ];
-
+  int activeStep = 1;
+  late StreamSubscription<int> _streamSubscription;
   @override
   Widget build(BuildContext context) {
     return EasyStepper(
       activeStep: activeStep,
       lineStyle: const LineStyle(
-        lineLength: 50,
-        lineType: LineType.normal,
-        lineThickness: 3,
         lineSpace: 1,
         lineWidth: 10,
+        lineLength: 50,
+        lineThickness: 3,
+        lineType: LineType.normal,
         unreachedLineType: LineType.dashed,
       ),
-      stepShape: StepShape.rRectangle,
-      stepBorderRadius: 15,
       borderThickness: 2,
       internalPadding: 10,
+      stepBorderRadius: 15,
+      stepShape: StepShape.rRectangle,
       padding: const EdgeInsetsDirectional.symmetric(
-        horizontal: 30,
-        vertical: 20,
+        vertical: 10,
+        horizontal: 15,
       ),
       stepRadius: 28,
-      finishedStepBorderColor: Colors.deepOrange,
-      finishedStepTextColor: Colors.deepOrange,
-      finishedStepBackgroundColor: Colors.deepOrange,
-      activeStepIconColor: Colors.deepOrange,
       showLoadingAnimation: false,
-      steps: [
-        EasyStep(
-          customStep: ClipRRect(
-            borderRadius: BorderRadius.circular(15),
-            child: Opacity(
-              opacity: activeStep >= 0 ? 1 : 0.3,
-              child: SvgPicture.asset(
-                'assets/icons/ic_scatter_chart.svg',
-                width: 48,
-                height: 48,
-              ),
-            ),
-          ),
-          customTitle: const Text(
-            'Problem 1',
-            textAlign: TextAlign.center,
-          ),
-        ),
-        EasyStep(
-          customStep: ClipRRect(
-            borderRadius: BorderRadius.circular(15),
-            child: Opacity(
-              opacity: activeStep >= 1 ? 1 : 0.3,
-              child: SvgPicture.asset(
-                'assets/icons/ic_bar_chart.svg',
-                width: 48,
-                height: 48,
-              ),
-            ),
-          ),
-          customTitle: const Text(
-            'Problem 2',
-            textAlign: TextAlign.center,
-          ),
-        ),
-        EasyStep(
-          customStep: ClipRRect(
-            borderRadius: BorderRadius.circular(15),
-            child: Opacity(
-              opacity: activeStep >= 2 ? 1 : 0.3,
-              child: SvgPicture.asset(
-                'assets/icons/ic_line_chart.svg',
-                width: 48,
-                height: 48,
-              ),
-            ),
-          ),
-          customTitle: const Text(
-            'Problem 3',
-            textAlign: TextAlign.center,
-          ),
-        ),
-        EasyStep(
-          customStep: ClipRRect(
-            borderRadius: BorderRadius.circular(15),
-            child: Opacity(
-              opacity: activeStep >= 3 ? 1 : 0.3,
-              child: SvgPicture.asset(
-                'assets/icons/ic_pie_chart.svg',
-                width: 48,
-                height: 48,
-              ),
-            ),
-          ),
-          customTitle: const Text(
-            'Problem 4',
-            textAlign: TextAlign.center,
-          ),
-        ),
-        EasyStep(
-          customStep: ClipRRect(
-            borderRadius: BorderRadius.circular(15),
-            child: Opacity(
-              opacity: activeStep >= 4 ? 1 : 0.3,
-              child: SvgPicture.asset(
-                'assets/icons/ic_radar_chart.svg',
-                width: 48,
-                height: 48,
-              ),
-            ),
-          ),
-          customTitle: const Text(
-            'Problem 5',
-            textAlign: TextAlign.center,
-          ),
-        ),
-      ],
-      onStepReached: (index) => setState(() => activeStep = index),
+      activeStepIconColor: Colors.greenAccent,
+      finishedStepTextColor: Colors.greenAccent,
+      finishedStepBorderColor: Colors.greenAccent,
+      finishedStepBackgroundColor: Colors.greenAccent,
+      steps: buildSteps(),
+      onStepReached: (index) {
+        print(index);
+        widget.setStep(index + 1);
+        setState(() => activeStep = index + 1);
+      },
     );
   }
 
-  void increaseProgress() {
-    if (progress < 1) {
-      setState(() => progress += 0.2);
-    } else {
-      setState(() => progress = 0);
+  buildSteps() {
+    final images = [
+      'ic_bar_chart',
+      'ic_line_chart',
+      'ic_pie_chart',
+      'ic_radar_chart',
+      'ic_scatter_chart',
+    ];
+    List<EasyStep> vals = [];
+    for (var i = 1; i <= 10; i++) {
+      vals.add(EasyStep(
+        customStep: ClipRRect(
+          borderRadius: BorderRadius.circular(15),
+          child: Opacity(
+            opacity: activeStep >= 0 ? 1 : 0.3,
+            child: SvgPicture.asset(
+              'assets/icons/${images[i % images.length]}.svg',
+              width: 48,
+              height: 48,
+            ),
+          ),
+        ),
+        customTitle: Text(
+          'Problem $i',
+          textAlign: TextAlign.center,
+        ),
+      ));
     }
+    return vals.toList();
+  }
+
+  @override
+  void dispose() {
+    _streamSubscription.cancel();
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _streamSubscription = widget.problemStream.listen((index) {
+      setState(() {
+        activeStep = index;
+      });
+    });
   }
 }
