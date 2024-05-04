@@ -20,13 +20,15 @@ typedef UpdateCallback = void Function();
 
 class Board {
   int speed = 300;
+  int rows = ROWS;
+  int cols = COLS;
   List stack = [];
   List<Node> nodes = [];
   List<Future> futures = [];
-  late String endId = END_NODE;
+  String endId = '${ROWS ~/ 2},${COLS - 5}';
   late String startId = START_NODE;
   late UpdateCallback updateCallback;
-  bool instantSearch = true;
+  bool instantSearch = false;
 
   late List<List<Node>> board;
   Board() {
@@ -34,12 +36,12 @@ class Board {
   }
 
   get endNode {
-    var keys = endId.split(',');
+    final keys = endId.split(',');
     return board[int.parse(keys[0])][int.parse(keys[1])];
   }
 
   get startNode {
-    var keys = startId.split(',');
+    final keys = startId.split(',');
     return board[int.parse(keys[0])][int.parse(keys[1])];
   }
 
@@ -73,10 +75,10 @@ class Board {
 
   List<List<Node>> generateBoard() {
     List<List<Node>> board = [];
-    for (int r = 0; r < ROWS; r++) {
+    for (int r = 0; r < rows; r++) {
       List<Node> items = [];
       board.add(items);
-      for (int c = 0; c < COLS; c++) {
+      for (int c = 0; c < cols; c++) {
         String rc = '$r,$c';
         Node cur = Node(id: rc, row: r, col: c);
         board[r].add(cur);
@@ -119,13 +121,13 @@ class Board {
   }
 
   bool inBounds(int r, int c) {
-    return r >= 0 && r < ROWS && c >= 0 && c < COLS;
+    return r >= 0 && r < rows && c >= 0 && c < cols;
   }
 
   void makeHoles() {
     clearWallChance.shuffle();
-    for (int r = 0; r < ROWS; r++) {
-      for (int c = 0; c < COLS; c++) {
+    for (int r = 0; r < rows; r++) {
+      for (int c = 0; c < cols; c++) {
         if (inBounds(r, c)) {
           Node node = board[r][c];
           clearWallChance.shuffle();
@@ -158,7 +160,7 @@ class Board {
           var leftNeighbor = board[next.row! - 1][next.col!];
           neighbors.add(leftNeighbor);
         }
-        if (next.row! + 1 < ROWS) {
+        if (next.row! + 1 < rows) {
           var right = board[next.row! + 1][next.col!];
           neighbors.add(right);
         }
@@ -166,7 +168,7 @@ class Board {
           var top = board[next.row!][next.col! - 1];
           neighbors.add(top);
         }
-        if (next.col! + 1 < COLS) {
+        if (next.col! + 1 < cols) {
           var bot = board[next.row!][next.col! + 1];
           neighbors.add(bot);
         }
@@ -175,16 +177,15 @@ class Board {
     }
   }
 
-  node(r, c) {
-    return board[r][c];
-  }
+  node(r, c) => board[r][c];
 
   randomize() {
     futures.clear();
     board[endNode.row][endNode.col].isEnd = false;
-    int r = sample(ROWS - 1, 1)[0];
-    int c = sample(COLS - 1, 1)[0];
+    int r = sample(rows - 1, 1)[0];
+    int c = sample(cols - 1, 1)[0];
     endId = '$r,$c';
+
     board[r][c].isEnd = true;
     board[r][c].wall = false;
   }
@@ -200,12 +201,13 @@ class Board {
     futures.clear();
     // WIP: Remove old animations
     // Animations continue still
-    for (int r = 0; r < ROWS; r++) {
-      for (int c = 0; c < COLS; c++) {
+    for (int r = 0; r < rows; r++) {
+      for (int c = 0; c < cols; c++) {
         var node = board[r][c];
         node.layer = 0;
         node.wall = false;
         node.visited = false;
+        node.isEnd = false;
         node.path = false;
       }
     }
@@ -216,6 +218,14 @@ class Board {
     endNode.wall = false;
     endNode.isEnd = true;
     endNode.visited = false;
+  }
+
+  resizeBoard(newRows, newCols) {
+    rows = newRows;
+    cols = newCols;
+    endId = '${newRows ~/ 2},${newCols - 5}';
+    board = generateBoard();
+    makeMaze();
   }
 
   searchBFS() async {
@@ -236,7 +246,8 @@ class Board {
           cur.setVisited(true);
           updateCallback();
         } else {
-          var delayedFuture = Future.delayed(Duration(microseconds: speed), () {
+          final delayedFuture =
+              Future.delayed(Duration(microseconds: speed), () {
             cur.setVisited(true);
             updateCallback();
           });

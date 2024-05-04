@@ -56,7 +56,6 @@ class _MasteryScreenState extends State<MasteryScreen> {
         padding: const EdgeInsets.symmetric(horizontal: 50.0, vertical: 50),
         child: Column(
           children: [
-            Text(user.email!),
             const ProgressIndicator(),
             Row(
               children: [

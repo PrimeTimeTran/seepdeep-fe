@@ -17,7 +17,10 @@ class _MazeScreenState extends State<MazeScreen> {
   late Board board;
   bool play = false;
   late Toaster toaster;
+  int countVertical = 0;
+  int countHorizontal = 0;
   Speeds speedView = Speeds.fast;
+
   @override
   Widget build(BuildContext context) {
     toaster = Toaster(context);
@@ -27,7 +30,27 @@ class _MazeScreenState extends State<MazeScreen> {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           buildPanel(),
-          ..._buildMatrix(),
+          Expanded(
+            child: LayoutBuilder(
+              builder: (BuildContext context, BoxConstraints constraints) {
+                final height = constraints.maxHeight;
+                final width = constraints.maxWidth;
+                final newCountHorizontal = width ~/ 20;
+                final newCountVertical = height ~/ 20;
+
+                // Update state if values have changed
+                if (newCountHorizontal != countHorizontal ||
+                    newCountVertical != countVertical) {
+                  WidgetsBinding.instance.addPostFrameCallback((_) {
+                    updateBoard(newCountHorizontal, newCountVertical);
+                  });
+                }
+                return Column(
+                  children: [..._buildMatrix()],
+                );
+              },
+            ),
+          )
         ],
       ),
     );
@@ -293,8 +316,12 @@ class _MazeScreenState extends State<MazeScreen> {
 
   @override
   void initState() {
-    board = Board();
     super.initState();
+    makeBoard();
+  }
+
+  makeBoard() {
+    board = Board();
     board.updateCallback = () {
       if (!play) {
         setState(() {});
@@ -303,7 +330,13 @@ class _MazeScreenState extends State<MazeScreen> {
     board.makeMaze();
   }
 
-  setupCallback() {}
+  updateBoard(cols, rows) {
+    setState(() {
+      countHorizontal = cols;
+      countVertical = rows;
+    });
+    board.resizeBoard(rows, cols);
+  }
 
   _buildCell(r, c) {
     Node node = board.node(r, c);

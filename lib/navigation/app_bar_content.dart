@@ -136,14 +136,14 @@ class _AppBarContentState extends State<AppBarContent> {
                           style: TextStyle(color: Colors.white)),
                       icon: const Icon(Icons.terrain, color: Colors.white),
                     ),
-                    TextButton.icon(
-                      onPressed: () {
-                        GoRouter.of(context).go(AppScreens.explore.path);
-                      },
-                      label: const Text('Explore',
-                          style: TextStyle(color: Colors.white)),
-                      icon: const Icon(Icons.explore, color: Colors.white),
-                    ),
+                    // TextButton.icon(
+                    //   onPressed: () {
+                    //     GoRouter.of(context).go(AppScreens.explore.path);
+                    //   },
+                    //   label: const Text('Explore',
+                    //       style: TextStyle(color: Colors.white)),
+                    //   icon: const Icon(Icons.explore, color: Colors.white),
+                    // ),
                     TextButton.icon(
                       onPressed: () {
                         GoRouter.of(context).go(AppScreens.problems.path);
@@ -163,15 +163,15 @@ class _AppBarContentState extends State<AppBarContent> {
                     //   icon: const Icon(Icons.groups_2_outlined,
                     //       color: Colors.white),
                     // ),
-                    TextButton.icon(
-                      onPressed: () {
-                        GoRouter.of(context).go(AppScreens.contests.path);
-                      },
-                      label: const Text('Contests',
-                          style: TextStyle(color: Colors.white)),
-                      icon: const Icon(Icons.sports_score_outlined,
-                          color: Colors.white),
-                    ),
+                    // TextButton.icon(
+                    //   onPressed: () {
+                    //     GoRouter.of(context).go(AppScreens.contests.path);
+                    //   },
+                    //   label: const Text('Contests',
+                    //       style: TextStyle(color: Colors.white)),
+                    //   icon: const Icon(Icons.sports_score_outlined,
+                    //       color: Colors.white),
+                    // ),
                     // TextButton.icon(
                     //   onPressed: () {
                     //     GoRouter.of(context).go(AppScreens.leaderboards.path);
@@ -181,14 +181,14 @@ class _AppBarContentState extends State<AppBarContent> {
                     //   icon: const Icon(Icons.leaderboard_outlined,
                     //       color: Colors.white),
                     // ),
-                    TextButton.icon(
-                      onPressed: () {
-                        GoRouter.of(context).go(AppScreens.news.path);
-                      },
-                      label: const Text('News',
-                          style: TextStyle(color: Colors.white)),
-                      icon: const Icon(Icons.newspaper, color: Colors.white),
-                    ),
+                    // TextButton.icon(
+                    //   onPressed: () {
+                    //     GoRouter.of(context).go(AppScreens.news.path);
+                    //   },
+                    //   label: const Text('News',
+                    //       style: TextStyle(color: Colors.white)),
+                    //   icon: const Icon(Icons.newspaper, color: Colors.white),
+                    // ),
                     // TextButton.icon(
                     //   onPressed: () {
                     //     GoRouter.of(context).go(AppScreens.jobs.path);
@@ -198,15 +198,15 @@ class _AppBarContentState extends State<AppBarContent> {
                     //   icon: const Icon(Icons.work_outline_outlined,
                     //       color: Colors.white),
                     // ),
-                    TextButton.icon(
-                      onPressed: () {
-                        GoRouter.of(context).go(AppScreens.auth.path);
-                      },
-                      label: const Text('Auth',
-                          style: TextStyle(color: Colors.white)),
-                      icon: const Icon(Icons.work_outline_outlined,
-                          color: Colors.white),
-                    ),
+                    // TextButton.icon(
+                    //   onPressed: () {
+                    //     GoRouter.of(context).go(AppScreens.auth.path);
+                    //   },
+                    //   label: const Text('Auth',
+                    //       style: TextStyle(color: Colors.white)),
+                    //   icon: const Icon(Icons.work_outline_outlined,
+                    //       color: Colors.white),
+                    // ),
                   ],
                 ),
               ),
