@@ -3,37 +3,13 @@ import 'dart:html';
 import 'dart:ui_web' as ui;
 
 import 'package:app/all.dart';
+import 'package:easy_stepper/easy_stepper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter_markdown_latex/flutter_markdown_latex.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:gap/gap.dart';
 import 'package:markdown/markdown.dart' as md;
-
-const _text = r"""
-This is inline latex: $f(x) = \sum_{i=0}^{n} \frac{a_i}{1+x}$
-
-This is block level latex:
-
-$$
-c = \pm\sqrt{a^2 + b^2}
-$$
-
-This is inline latex with displayMode: $$f(x) = \sum_{i=0}^{n} \frac{a_i}{1+x}$$
-
-The relationship between the height and the side length of an equilateral triangle is:
-
-\[ \text{Height} = \frac{\sqrt{3}}{2} \times \text{Side Length} \]
-
-\[ \text{X} = \frac{1}{2} \times \text{Y} \times \text{Z} = \frac{1}{2} \times 9 \times \frac{\sqrt{3}}{2} \times 9 = \frac{81\sqrt{3}}{4} \]
-
-The basic form of the Taylor series is:
-
-\[f(x) = f(a) + f'(a)(x-a) + \frac{f''(a)}{2!}(x-a)^2 + \frac{f'''(a)}{3!}(x-a)^3 + \cdots\]
-
-where \(f(x)\) is the function to be expanded, \(a\) is the expansion point, \(f'(a)\), \(f''(a)\), \(f'''(a)\), etc., are the first, second, third, and so on derivatives of the function at point \(a\), and \(n!\) denotes the factorial of \(n\).
-
-In particular, when \(a=0\), this expansion is called the Maclaurin series.
-
-""";
 
 final questions = [
   {
@@ -66,6 +42,13 @@ class MathScreen extends StatefulWidget {
   State<MathScreen> createState() => _MathScreenState();
 }
 
+class StepperDemo extends StatefulWidget {
+  const StepperDemo({super.key});
+
+  @override
+  State<StepperDemo> createState() => _StepperDemoState();
+}
+
 class _MathScreenState extends State<MathScreen> {
   IFrameElement webView = IFrameElement();
   @override
@@ -84,6 +67,7 @@ class _MathScreenState extends State<MathScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(questions[0]["title"]!, style: Style.displayM),
+                  const Gap(5),
                   Text(questions[0]["body"]!, style: Style.bodyL),
                   SizedBox(
                     height: 300,
@@ -107,6 +91,11 @@ class _MathScreenState extends State<MathScreen> {
                     ),
                   ),
                   Text(questions[0]["prompt"]!, style: Style.bodyL),
+                  const TextField(
+                    decoration: InputDecoration(
+                      hintText: '5',
+                    ),
+                  )
                 ],
               ),
             ),
@@ -126,6 +115,7 @@ class _MathScreenState extends State<MathScreen> {
             ),
           ],
         ),
+        const StepperDemo()
       ],
     );
   }
@@ -145,5 +135,146 @@ class _MathScreenState extends State<MathScreen> {
       });
       return webView;
     }, isVisible: false);
+  }
+}
+
+class _StepperDemoState extends State<StepperDemo> {
+  int activeStep = 0;
+  int activeStep2 = 0;
+  int reachedStep = 0;
+  int upperBound = 5;
+  double progress = 0.2;
+  Set<int> reachedSteps = <int>{0, 2, 4, 5};
+  final dashImages = [
+    'assets/librarian-svgrepo-com.svg',
+    'assets/2.png',
+    'assets/3.png',
+    'assets/4.png',
+    'assets/5.png',
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return EasyStepper(
+      activeStep: activeStep,
+      lineStyle: const LineStyle(
+        lineLength: 50,
+        lineType: LineType.normal,
+        lineThickness: 3,
+        lineSpace: 1,
+        lineWidth: 10,
+        unreachedLineType: LineType.dashed,
+      ),
+      stepShape: StepShape.rRectangle,
+      stepBorderRadius: 15,
+      borderThickness: 2,
+      internalPadding: 10,
+      padding: const EdgeInsetsDirectional.symmetric(
+        horizontal: 30,
+        vertical: 20,
+      ),
+      stepRadius: 28,
+      finishedStepBorderColor: Colors.deepOrange,
+      finishedStepTextColor: Colors.deepOrange,
+      finishedStepBackgroundColor: Colors.deepOrange,
+      activeStepIconColor: Colors.deepOrange,
+      showLoadingAnimation: false,
+      steps: [
+        EasyStep(
+          customStep: ClipRRect(
+            borderRadius: BorderRadius.circular(15),
+            child: Opacity(
+              opacity: activeStep >= 0 ? 1 : 0.3,
+              child: SvgPicture.asset(
+                'assets/icons/ic_scatter_chart.svg',
+                width: 48,
+                height: 48,
+              ),
+            ),
+          ),
+          customTitle: const Text(
+            'Problem 1',
+            textAlign: TextAlign.center,
+          ),
+        ),
+        EasyStep(
+          customStep: ClipRRect(
+            borderRadius: BorderRadius.circular(15),
+            child: Opacity(
+              opacity: activeStep >= 1 ? 1 : 0.3,
+              child: SvgPicture.asset(
+                'assets/icons/ic_bar_chart.svg',
+                width: 48,
+                height: 48,
+              ),
+            ),
+          ),
+          customTitle: const Text(
+            'Problem 2',
+            textAlign: TextAlign.center,
+          ),
+        ),
+        EasyStep(
+          customStep: ClipRRect(
+            borderRadius: BorderRadius.circular(15),
+            child: Opacity(
+              opacity: activeStep >= 2 ? 1 : 0.3,
+              child: SvgPicture.asset(
+                'assets/icons/ic_line_chart.svg',
+                width: 48,
+                height: 48,
+              ),
+            ),
+          ),
+          customTitle: const Text(
+            'Problem 3',
+            textAlign: TextAlign.center,
+          ),
+        ),
+        EasyStep(
+          customStep: ClipRRect(
+            borderRadius: BorderRadius.circular(15),
+            child: Opacity(
+              opacity: activeStep >= 3 ? 1 : 0.3,
+              child: SvgPicture.asset(
+                'assets/icons/ic_pie_chart.svg',
+                width: 48,
+                height: 48,
+              ),
+            ),
+          ),
+          customTitle: const Text(
+            'Problem 4',
+            textAlign: TextAlign.center,
+          ),
+        ),
+        EasyStep(
+          customStep: ClipRRect(
+            borderRadius: BorderRadius.circular(15),
+            child: Opacity(
+              opacity: activeStep >= 4 ? 1 : 0.3,
+              child: SvgPicture.asset(
+                'assets/icons/ic_radar_chart.svg',
+                width: 48,
+                height: 48,
+              ),
+            ),
+          ),
+          customTitle: const Text(
+            'Problem 5',
+            textAlign: TextAlign.center,
+          ),
+        ),
+      ],
+      onStepReached: (index) => setState(() => activeStep = index),
+    );
+  }
+
+  void increaseProgress() {
+    if (progress < 1) {
+      setState(() => progress += 0.2);
+    } else {
+      setState(() => progress = 0);
+    }
   }
 }
