@@ -1,40 +1,17 @@
 // ignore_for_file: avoid_web_libraries_in_flutter, must_be_immutable
 import 'dart:async';
+import 'dart:convert';
 import 'dart:html';
 import 'dart:ui_web' as ui;
 
 import 'package:app/all.dart';
-import 'package:easy_stepper/easy_stepper.dart';
+import 'package:app/screens/math_screen/stepper.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter_markdown_latex/flutter_markdown_latex.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:markdown/markdown.dart' as md;
-
-final questions = [
-  {
-    "title": "Problem 1.",
-    "body":
-        "An apartment complex has 250 apartments to rent. If they rent x apartments then their monthly profit, in dollars, is given by,",
-    "equation": "P(x) = −8x^{2} + 3200x − 80,000",
-    "prompt":
-        "How many apartments should they rent in order to maximize their profit?",
-    "solution": """
-All that we’re really being asked to do here is to maximize the profit subject to the constraint that x must be in the range 0 ≤ x ≤ 250.
-
-First, we’ll need the derivative and the critical point(s) that fall in the range 0 ≤ x ≤ 250.
-
-P′(x)=−16x+3200⇒3200−16x=0,⇒x=320016=200
-
-Since the profit function is continuous and we have an interval with finite bounds we can find the maximum value by simply plugging in the only critical point that we have (which nicely enough in the range of acceptable answers) and the end points of the range.
-
-P(0)=−80,000P(200)=240,000P(250)=220,000
-
-So, it looks like they will generate the most profit if they only rent out 200 of the apartments instead of all 250 of them.
-"""
-  }
-];
 
 class MathScreen extends StatefulWidget {
   const MathScreen({super.key});
@@ -43,23 +20,121 @@ class MathScreen extends StatefulWidget {
   State<MathScreen> createState() => _MathScreenState();
 }
 
-class StepperDemo extends StatefulWidget {
-  Stream<int> problemStream;
-  Function setStep;
-  StepperDemo({super.key, required this.problemStream, required this.setStep});
+class Optimization {
+  String? hint;
+  String? body;
+  String? title;
+  String? prompt;
+  String? equation;
+  String? solution;
+  List<String>? imgUrls;
+  List<String>? formulas;
 
-  @override
-  State<StepperDemo> createState() => _StepperDemoState();
+  String? type;
+
+  // Question Types:
+  // - Multiple Choice, Free Response, Checkbox, Fill in the blank, Matching, Short Answer, True/False
+  // - Acronyms: MC, FR, CB, FB, M, SA, TF
+
+  // Potential domains...?
+  // Arithmetic, Algebra, Geometry, Trigonometry, Statistics, Number Theory, Calculus, Word Problems, Finance
+
+  // Examples:
+  //    1. Multiple Choice or :MC:
+  //    Question.     What's Flutter primarily written in?
+  //    Choices.      [Python, Ruby, C, C++]
+  //    Answer.       Dart
+
+  //    2. Free Response or :FR:
+  //    Question.     What's 4 squared?
+  //    Choices.      null
+  //    Answer.       16
+
+  //    3. Checkbox or :CB:
+  //    Question.     Which are prime numbers?
+  //    Choices.      [1, 2, 3, 5, 7, 11, 13, 15]
+  //    Answer.       [2, 3, 5, 7, 11, 13]
+
+  //    4. Fill in the blank or :FB:
+  //    Question.     Calculus is the study of _____?
+  //    Choices.      [Math, Derivatives, Equations, Change]
+  //    Answer.       Change
+
+  //    5. Matching: :M:
+  //    Question.     Match the term to it's definition.
+  //    Term.         Asymptote, Derivative
+  //    Definitions.  ["a line that continually approaches a given curve but does not meet it at any finite distance.", "(of a financial product) having a value deriving from an underlying variable asset."]
+  //    Answer.       [[Asymptote, "a line that continually approaches a given curve but does not meet it at any finite distance."], [Derivative,"(of a financial product) having a value deriving from an underlying variable asset."]]
+
+  //    6. Short Answer or :SA:
+  //    Question.     If you invest $1000 at an annual interest rate of 5% for 2 years, how much will you have at the end? How about after 10 years?
+  //    Answer.       "After 2 years, $1102.5, then $1628.89 for 10"
+
+  //    7. True/False or :TF:
+  //    Question.     Studying math is good for you,
+  //    Answer.       "After 2 years, $1102.5, then $1628.89 for 10"
+
+  Optimization({
+    this.body,
+    this.title,
+    this.type,
+    this.hint,
+    this.prompt,
+    this.solution,
+    this.imgUrls,
+    this.formulas,
+    this.equation,
+  });
 }
 
 class _MathScreenState extends State<MathScreen> {
   IFrameElement webView = IFrameElement();
   final StreamController<int> _problemStreamController = StreamController();
   int index = 1;
+  List questions = [];
 
   @override
   Widget build(BuildContext context) {
     setSubscription();
+    return FutureBuilder<List<Optimization>>(
+      future: fetchProblems(),
+      builder: (BuildContext context, snapshot) {
+        if (snapshot.hasData) {
+          List<Optimization> problems = snapshot.data!;
+          return buildProblemUI(problems);
+        } else if (snapshot.hasError) {
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Icon(
+                Icons.error_outline,
+                color: Colors.red,
+                size: 60,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 16),
+                child: Text('Error: ${snapshot.error}'),
+              ),
+            ],
+          );
+        } else {
+          return const Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              CircularProgressIndicator(),
+              Padding(
+                padding: EdgeInsets.only(top: 16),
+                child: Text('Awaiting result...'),
+              ),
+            ],
+          );
+        }
+      },
+    );
+  }
+
+  buildProblemUI(problems) {
+    final question = problems[index - 1];
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -72,15 +147,15 @@ class _MathScreenState extends State<MathScreen> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(questions[0]["title"]!, style: Style.displayM),
+                  Text(question.title!, style: Style.displayM),
                   const Gap(5),
-                  Text(questions[0]["body"]!, style: Style.bodyL),
+                  Text(question.body!, style: Style.bodyL),
                   SizedBox(
                     height: 300,
                     width: double.infinity,
                     child: Markdown(
                       selectable: true,
-                      data: questions[0]["equation"]!,
+                      data: question.equation,
                       builders: {
                         'latex': LatexElementBuilder(
                           textStyle: const TextStyle(
@@ -96,7 +171,7 @@ class _MathScreenState extends State<MathScreen> {
                       ),
                     ),
                   ),
-                  Text(questions[0]["prompt"]!, style: Style.bodyL),
+                  Text(question.prompt!, style: Style.bodyL),
                   const TextField(
                     decoration: InputDecoration(
                       hintText: '5',
@@ -150,6 +225,28 @@ class _MathScreenState extends State<MathScreen> {
     );
   }
 
+  Future<List<Optimization>> fetchProblems() async {
+    Glob.logE('Fetching Optimizations');
+    final json = await rootBundle.loadString("json/optimization.json");
+    final Map<String, dynamic> data = jsonDecode(json);
+    List<Optimization> values = [];
+    for (var question in data['data']) {
+      values.add(Optimization(
+        title: question['title'],
+        body: question['body'],
+        equation: question['equation'],
+        prompt: question['prompt'],
+        solution: question['solution'],
+      ));
+    }
+    return Future.value(values);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   setStep(idx) {
     setState(() {
       index = idx;
@@ -171,91 +268,5 @@ class _MathScreenState extends State<MathScreen> {
       });
       return webView;
     }, isVisible: false);
-  }
-}
-
-class _StepperDemoState extends State<StepperDemo> {
-  int activeStep = 1;
-  late StreamSubscription<int> _streamSubscription;
-  @override
-  Widget build(BuildContext context) {
-    return EasyStepper(
-      activeStep: activeStep,
-      lineStyle: const LineStyle(
-        lineSpace: 1,
-        lineWidth: 10,
-        lineLength: 50,
-        lineThickness: 3,
-        lineType: LineType.normal,
-        unreachedLineType: LineType.dashed,
-      ),
-      borderThickness: 2,
-      internalPadding: 10,
-      stepBorderRadius: 15,
-      stepShape: StepShape.rRectangle,
-      padding: const EdgeInsetsDirectional.symmetric(
-        vertical: 10,
-        horizontal: 15,
-      ),
-      stepRadius: 28,
-      showLoadingAnimation: false,
-      activeStepIconColor: Colors.greenAccent,
-      finishedStepTextColor: Colors.greenAccent,
-      finishedStepBorderColor: Colors.greenAccent,
-      finishedStepBackgroundColor: Colors.greenAccent,
-      steps: buildSteps(),
-      onStepReached: (index) {
-        print(index);
-        widget.setStep(index + 1);
-        setState(() => activeStep = index + 1);
-      },
-    );
-  }
-
-  buildSteps() {
-    final images = [
-      'ic_bar_chart',
-      'ic_line_chart',
-      'ic_pie_chart',
-      'ic_radar_chart',
-      'ic_scatter_chart',
-    ];
-    List<EasyStep> vals = [];
-    for (var i = 1; i <= 10; i++) {
-      vals.add(EasyStep(
-        customStep: ClipRRect(
-          borderRadius: BorderRadius.circular(15),
-          child: Opacity(
-            opacity: activeStep >= 0 ? 1 : 0.3,
-            child: SvgPicture.asset(
-              'assets/icons/${images[i % images.length]}.svg',
-              width: 48,
-              height: 48,
-            ),
-          ),
-        ),
-        customTitle: Text(
-          'Problem $i',
-          textAlign: TextAlign.center,
-        ),
-      ));
-    }
-    return vals.toList();
-  }
-
-  @override
-  void dispose() {
-    _streamSubscription.cancel();
-    super.dispose();
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _streamSubscription = widget.problemStream.listen((index) {
-      setState(() {
-        activeStep = index;
-      });
-    });
   }
 }
