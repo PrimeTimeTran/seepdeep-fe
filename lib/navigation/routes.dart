@@ -125,6 +125,11 @@ final routes = [
         name: AppScreens.designKit.name,
         builder: (_, __) => const DesignKitScreen(),
       ),
+      GoRoute(
+        path: AppScreens.test.path,
+        name: AppScreens.test.name,
+        builder: (_, __) => const TestScreen(),
+      ),
     ],
   )
 ];
@@ -154,6 +159,7 @@ enum AppScreens {
   mastery,
   math,
   designKit,
+  test
 }
 
 extension AppPageX on AppScreens {
@@ -205,6 +211,8 @@ extension AppPageX on AppScreens {
         return 'MATH';
       case AppScreens.designKit:
         return 'DESIGN_KIT';
+      case AppScreens.test:
+        return 'TEST';
       default:
         return 'HOME';
     }
@@ -260,6 +268,8 @@ extension AppPageX on AppScreens {
         return '/mastery';
       case AppScreens.designKit:
         return '/design-kit';
+      case AppScreens.test:
+        return '/test';
       default:
         return '/';
     }

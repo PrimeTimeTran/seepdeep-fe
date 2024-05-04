@@ -55,19 +55,25 @@ class _AppState extends State<App> {
 
   @override
   Widget build(BuildContext context) {
+    final themeMode = _isDarkMode ? ThemeMode.dark : ThemeMode.light;
+    final height = MediaQuery.of(context).size.height -
+        MediaQuery.of(context).padding.top -
+        kToolbarHeight;
+    final colors = _isDarkMode
+        ? <Color>[Colors.black, Colors.black87]
+        : <Color>[Colors.blue[900]!, Colors.lightBlue];
+
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      themeMode: _isDarkMode ? ThemeMode.dark : ThemeMode.light,
+      themeMode: themeMode,
       theme: Style.lightTheme,
       darkTheme: Style.darkTheme,
       builder: EasyLoading.init(),
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         key: drawerKey,
         body: RootNavigator(
           screen: SizedBox(
-            height: MediaQuery.of(context).size.height -
-                MediaQuery.of(context).padding.top -
-                kToolbarHeight,
+            height: height,
             child: widget.screen ?? widget.shell,
           ),
         ),
@@ -77,11 +83,7 @@ class _AppState extends State<App> {
           child: SizedBox(
             child: Container(
               decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: _isDarkMode
-                      ? <Color>[Colors.black, Colors.black87]
-                      : <Color>[Colors.blue[900]!, Colors.lightBlue],
-                ),
+                gradient: LinearGradient(colors: colors),
               ),
               child: AppBarContent(toggleTheme: toggleTheme),
             ),
