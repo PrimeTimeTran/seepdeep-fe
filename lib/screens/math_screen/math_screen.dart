@@ -29,6 +29,7 @@ class Optimization {
   String? solution;
   List<String>? imgUrls;
   List<String>? formulas;
+  List<String>? explanation;
 
   String? type;
 

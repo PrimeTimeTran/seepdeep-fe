@@ -3,44 +3,53 @@
     {
       "title": "Problem 1.",
       "body": "An apartment complex has 250 apartments to rent. If they rent x apartments then their monthly profit, in dollars, is given by,",
-      "equation": "P(x) = -8x^{2} + 3200x - 80,000",
+      "equation": "\\[ P(x) = -8x^{2} + 3200x - 80,000 \\]",
       "prompt": "How many apartments should they rent in order to maximize their profit?",
-      "solution": "All that we're really being asked to do here is to maximize the profit subject to the constraint that x must be in the range 0 ≤ x ≤ 250.\nFirst, we'll need the derivative and the critical point(s) that fall in the range 0 ≤ x ≤ 250.\nP'(x)=-16x+3200⇒3200-16x=0,⇒x=320016=200\nSince the profit function is continuous and we have an interval with finite bounds we can find the maximum value by simply plugging in the only critical point that we have (which nicely enough in the range of acceptable answers) and the end points of the range.\nP(0)=-80,000P(200)=240,000P(250)=220,000\n\nSo, it looks like they will generate the most profit if they only rent out 200 of the apartments instead of all 250 of them."
+      "answer": "",
+      "explanation": "All that we're really being asked to do here is to maximize the profit subject to the constraint that x must be in the range 0 ≤ x ≤ 250.\nFirst, we'll need the derivative and the critical point(s) that fall in the range 0 ≤ x ≤ 250.\nP'(x)=-16x+3200⇒3200-16x=0,⇒x=320016=200\nSince the profit function is continuous and we have an interval with finite bounds we can find the maximum value by simply plugging in the only critical point that we have (which nicely enough in the range of acceptable answers) and the end points of the range.\nP(0)=-80,000P(200)=240,000P(250)=220,000\n\nSo, it looks like they will generate the most profit if they only rent out 200 of the apartments instead of all 250 of them."
     },
     {
       "title": "Problem 2.",
       "body": "A production facility is capable of producing 60,000 widgets in a day and the total daily cost of producing x widgets in a day is given by,",
-      "equation": "C(x) = 250,000 + 0.08x + \frac{200,000,000}{x}",
+      "equation": "\\[ C(x) = 250,000 + 0.08x + \\frac{200,000,000}{x} \\]",
       "prompt": "How many widgets per day should they produce in order to minimize production costs?",
-      "solution": "Here we need to minimize the cost subject to the constraint that x must be in the range  0≤x≤60,000\n. Note that in this case the cost function is not continuous at the left endpoint and so we won't be able to just plug critical points and endpoints into the cost function to find the minimum value.\n\nLet's get the first couple of derivatives of the cost function.\n\nC′(x)=0.08−200,000,000x2C′′(x)=400,000,000x3\nThe critical points of the cost function are,\n\n0.08−200,000,000x2=00.08x2=200,000,000x2=2,500,000,000⇒x=±√2,500,000,000=±50,000\n\nNow, clearly the negative value doesn't make any sense in this setting and so we have a single critical point in the range of possible solutions : 50,000.\n\nNow, as long as x > 0 the second derivative is positive and so, in the range of possible solutions the function is always concave up and so producing 50,000 widgets will yield the absolute minimum production cost.\n\nRecall from the Optimization section we discussed how we can use the second derivative to identity the absolute extrema even though all we really get from it is relative extrema."
+      "answer": "",
+      "explanation": "Here we need to minimize the cost subject to the constraint that x must be in the range  0≤x≤60,000\n. Note that in this case the cost function is not continuous at the left endpoint and so we won't be able to just plug critical points and endpoints into the cost function to find the minimum value.\n\nLet's get the first couple of derivatives of the cost function.\n\nC′(x)=0.08−200,000,000x2C′′(x)=400,000,000x3\nThe critical points of the cost function are,\n\n0.08−200,000,000x2=00.08x2=200,000,000x2=2,500,000,000⇒x=±√2,500,000,000=±50,000\n\nNow, clearly the negative value doesn't make any sense in this setting and so we have a single critical point in the range of possible solutions : 50,000.\n\nNow, as long as x > 0 the second derivative is positive and so, in the range of possible solutions the function is always concave up and so producing 50,000 widgets will yield the absolute minimum production cost.\n\nRecall from the Optimization section we discussed how we can use the second derivative to identity the absolute extrema even though all we really get from it is relative extrema."
     },
     {
       "title": "Problem 3.",
       "body": "The production costs per week for producing x widgets is given by,",
-      "equation": "C(x) = 500 + 350 x - 0.09x^{2}, 0 ≤ x ≤ 1000",
+      "equation": "\\[ C(x) = 500 + 350 x - 0.09x^{2} \\; 0 ≤ x ≤ 1000 \\]",
       "prompt": "What is the cost to produce the 301st widget?",
-      "solution": "So, the cost of producing the 301st widget is $295.91."
+      "answer": "",
+      "explanation": "So, the cost of producing the 301st widget is $295.91."
     },
     {
       "title": "Problem 4.",
       "body": "The production costs per week for producing x widgets is given by,",
-      "equation": "C(x) = 500 + 350x - \frac{0.09x^{2}}, 0 ≤ x ≤ 1000",
+      "equation": "\\[ C(x) = 500 + 350x - 0.09x^{2} \\; 0 ≤ x ≤ 1000 \\]",
       "prompt": "What is the rate of change of the cost at x = 300 ?",
-      "solution": "C'(x) = 350 - 0.18x ⇒ C'(300) = 296.00"
+      "answer": "",
+      "explanation": "C'(x) = 350 - 0.18x ⇒ C'(300) = 296.00"
     },
     {
       "title": "Problem 5.",
-      "body": "",
-      "equation": "",
-      "prompt": "",
-      "solution": ""
+      "body": "The production costs per day for some widget is given by,",
+      "equation": "\\[ C(x) = 2500 - 10x - 0.01x^{2} + 0.0002x^{33} \\]",
+      "prompt": "What is the marginal cost when x = 200 , x = 300 and x = 400 ?",
+      "answer": "10, 38, 78",
+      "explanation": "So, in order to produce the 201st widget it will cost approximately $10. To produce the 301st widget will cost around $38. Finally, to product the 401st widget it will cost approximately $78."
+      
     },
     {
       "title": "Problem 6.",
-      "body": "",
-      "equation": "",
-      "prompt": "",
-      "solution": ""
+      "body": "The weekly cost to produce x widgets is given by",
+      "equation": "\\[ C(x) = 75,000 + 100x - 0.03x^{2} + 0.000004x \\; 30 ≤ x ≤ 10000 \\]",
+      "body2": "and the demand function for the widgets is given by,",
+      "equation": "p(x) = 200 - 0.005x \\; 0 ≤ x ≤ 10000",
+      "prompt": "Determine the marginal cost, marginal revenue and marginal profit when 2500 widgets are sold and when 7500 widgets are sold. Assume that the company sells exactly what they produce.",
+      "answer": "",
+      "explanation": "So, upon producing and selling the 2501st widget it will cost the company approximately $25 to produce the widget and they will see an added $175 in revenue and $150 in profit. \n\nOn the other hand, when they produce and sell the 7501st widget it will cost an additional $325 and they will receive an extra $125 in revenue, but lose $200 in profit."
     },
     {
       "title": "Problem 7.",
