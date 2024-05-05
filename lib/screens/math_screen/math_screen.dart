@@ -159,7 +159,7 @@ class _MathScreenState extends State<MathScreen> {
                         constraints: const BoxConstraints(
                           minWidth: 200,
                           maxWidth: 1000,
-                          minHeight: 100,
+                          minHeight: 10,
                           maxHeight: 150,
                         ),
                         child: Text(question.title!, style: Style.displayM),
@@ -189,7 +189,6 @@ class _MathScreenState extends State<MathScreen> {
                               'latex': LatexElementBuilder(
                                 textStyle: const TextStyle(
                                     fontWeight: FontWeight.w100, fontSize: 25),
-                                textScaleFactor: 1.2,
                               ),
                             },
                             extensionSet: md.ExtensionSet(
@@ -232,28 +231,30 @@ class _MathScreenState extends State<MathScreen> {
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: <Widget>[
                                 OutlinedButton.icon(
-                                    label: const Text('Back'),
-                                    onPressed: () {
-                                      if (index <= 1) return;
-                                      _problemStreamController.add(index - 1);
-                                      setState(() {
-                                        index = index - 1;
-                                      });
-                                    },
-                                    icon: const Icon(
-                                        Icons.navigate_before_outlined)),
+                                  label: const Text('Back'),
+                                  onPressed: () {
+                                    if (index <= 1) return;
+                                    _problemStreamController.add(index - 1);
+                                    setState(() {
+                                      index = index - 1;
+                                    });
+                                  },
+                                  icon: const Icon(
+                                      Icons.navigate_before_outlined),
+                                ),
                                 const Gap(10),
                                 OutlinedButton.icon(
-                                    label: const Text('Next'),
-                                    onPressed: () {
-                                      if (index >= 10) return;
-                                      _problemStreamController.add(index + 1);
-                                      setState(() {
-                                        index = index + 1;
-                                      });
-                                    },
-                                    icon: const Icon(
-                                        Icons.navigate_next_outlined)),
+                                  label: const Text('Next'),
+                                  onPressed: () {
+                                    if (index >= 10) return;
+                                    _problemStreamController.add(index + 1);
+                                    setState(() {
+                                      index = index + 1;
+                                    });
+                                  },
+                                  icon:
+                                      const Icon(Icons.navigate_next_outlined),
+                                ),
                                 const Gap(10),
                               ],
                             ),
