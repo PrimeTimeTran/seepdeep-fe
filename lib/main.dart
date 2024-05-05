@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:provider/provider.dart' as provider;
+import 'package:seo/seo.dart';
 import 'package:url_strategy/url_strategy.dart';
 
 void main() {
@@ -38,10 +39,14 @@ class _MyAppState extends State<MyApp> {
       child: ValueListenableBuilder<bool>(
         valueListenable: material3Notifier,
         builder: (BuildContext context, bool value, Widget? child) {
-          return MaterialApp.router(
-            title: 'CSGems',
-            routerConfig: routerConfig,
-            debugShowCheckedModeBanner: false,
+          return SeoController(
+            enabled: true,
+            tree: WidgetTree(context: context),
+            child: MaterialApp.router(
+              title: 'CSGems',
+              routerConfig: routerConfig,
+              debugShowCheckedModeBanner: false,
+            ),
           );
         },
       ),

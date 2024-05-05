@@ -163,9 +163,8 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
           ),
         ],
       );
-    } else {
-      return const SizedBox();
     }
+    return const SizedBox();
   }
 
   buildResults() {
@@ -207,9 +206,8 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
           )
         ],
       );
-    } else {
-      return const SizedBox();
     }
+    return const SizedBox();
   }
 
   buildTable() {
@@ -273,9 +271,8 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
       //             child: const Text('Salary'))),
       //   ],
       // );
-    } else {
-      return const SizedBox();
     }
+    return const SizedBox();
   }
 
   List<Employee> getEmployeeData() {

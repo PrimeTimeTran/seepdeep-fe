@@ -13,29 +13,34 @@ class LandingScreen extends StatefulWidget {
 class _LandingScreenState extends State<LandingScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        actions: [
-          const Gap(150),
-          SvgPicture.asset(
-            'assets/icons/favicon.svg',
-            width: 48,
-            height: 48,
-          ),
-          const Spacer(),
-          const Text('Our mission'),
-          const Gap(150),
-          const Text('Our Approach'),
-          const Gap(150),
-          const Text('Testimonials'),
-          const Gap(150),
-          const Text('FAQs'),
-          const Gap(150),
-          const Text('Blog'),
-          const Gap(150),
-        ],
+    return AppHead(
+      title: "Seep Deep - Your one stop shop for skills acquisition",
+      description:
+          "Mastery skills crucial to success in the information age. Develop real mastery with spaced repetition, games, curated content & and more.",
+      child: Scaffold(
+        appBar: AppBar(
+          actions: [
+            const Gap(150),
+            SvgPicture.asset(
+              'assets/icons/favicon.svg',
+              width: 48,
+              height: 48,
+            ),
+            const Spacer(),
+            const Text('Our mission'),
+            const Gap(150),
+            const Text('Our Approach'),
+            const Gap(150),
+            const Text('Testimonials'),
+            const Gap(150),
+            const Text('FAQs'),
+            const Gap(150),
+            const Text('Blog'),
+            const Gap(150),
+          ],
+        ),
+        body: buildDesktop(),
       ),
-      body: buildDesktop(),
     );
   }
 
