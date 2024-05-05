@@ -17,71 +17,83 @@ class _AuthScreenState extends State<AuthScreen> {
   String password = 'asdf!123';
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        TextField(
-          onChanged: (val) {
-            setState(() {
-              email = val;
-            });
-          },
-          decoration: const InputDecoration(
-            border: OutlineInputBorder(),
-            hintText: 'Email',
-          ),
-        ),
-        TextField(
-          onChanged: (val) {
-            setState(() {
-              password = val;
-            });
-          },
-          decoration: const InputDecoration(
-            border: OutlineInputBorder(),
-            hintText: 'Password',
-          ),
-        ),
-        ElevatedButton(
-          onPressed: () {
-            _authRequest();
-          },
-          child: const Text('authRequest'),
-        ),
-        const Gap(6),
-        ElevatedButton(
-          onPressed: () {
-            _getData('');
-          },
-          child: const Text('get index'),
-        ),
-        const Gap(6),
-        ElevatedButton(
-          onPressed: () {
-            _getData('users');
-          },
-          child: const Text('get Users'),
-        ),
-        const Gap(6),
-        ElevatedButton(
-          onPressed: () {
-            _getData('wizards');
-          },
-          child: const Text(' get Wizards'),
-        ),
-        const Gap(6),
-        ElevatedButton(
-          onPressed: () {},
-          child: const Text('Toggle Auth State'),
-        ),
-        const Gap(6),
-        Consumer<AuthProvider>(
-          builder: (context, auth, child) {
-            return Text('isAuthenticated: ${auth.isAuthenticated}',
-                style: TextStyle(
-                    color: auth.isAuthenticated ? Colors.green : Colors.red));
-          },
-        )
-      ],
+    return SingleChildScrollView(
+      child: SizedBox(
+          height: getHeight(),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 300),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                TextField(
+                  onChanged: (val) {
+                    setState(() {
+                      email = val;
+                    });
+                  },
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    hintText: 'Email',
+                  ),
+                ),
+                const Gap(25),
+                TextField(
+                  onChanged: (val) {
+                    setState(() {
+                      password = val;
+                    });
+                  },
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    hintText: 'Password',
+                  ),
+                ),
+                const Gap(50),
+                ElevatedButton(
+                  onPressed: () {
+                    _authRequest();
+                  },
+                  child: const Text('authRequest'),
+                ),
+                const Gap(50),
+                ElevatedButton(
+                  onPressed: () {
+                    _getData('');
+                  },
+                  child: const Text('get index'),
+                ),
+                const Gap(50),
+                ElevatedButton(
+                  onPressed: () {
+                    _getData('users');
+                  },
+                  child: const Text('get Users'),
+                ),
+                const Gap(50),
+                ElevatedButton(
+                  onPressed: () {
+                    _getData('wizards');
+                  },
+                  child: const Text(' get Wizards'),
+                ),
+                const Gap(50),
+                ElevatedButton(
+                  onPressed: () {},
+                  child: const Text('Toggle Auth State'),
+                ),
+                const Gap(50),
+                Consumer<AuthProvider>(
+                  builder: (context, auth, child) {
+                    return Text('isAuthenticated: ${auth.isAuthenticated}',
+                        style: TextStyle(
+                            color: auth.isAuthenticated
+                                ? Colors.green
+                                : Colors.red));
+                  },
+                )
+              ],
+            ),
+          )),
     );
   }
 
