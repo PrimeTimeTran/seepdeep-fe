@@ -101,6 +101,51 @@ final users = [
   },
 ];
 
+final zKeyPoints = [
+  {
+    "title": "Spaced Repetition",
+    "description":
+        "Time-tested educational practice, supported by over 80 years of research data.",
+    "source": "",
+    "icon": ""
+  },
+  {
+    "title": "Problem Library",
+    "description": "A collection of the industries most popular problems",
+    "icon": "",
+    "source": "",
+  },
+  {
+    "title": "Guided Learning",
+    "description":
+        "A roadmap on what to focus on and how much time to spend on it.",
+    "icon": "",
+    "source": "",
+  },
+  {
+    "title": "Industry Insiders",
+    "description": "Created by Silicon Valley insiders so you know it works.",
+    "icon": "",
+    "source": "",
+  },
+  {
+    "title": "Curated Content",
+    "description":
+        "Quality material instead of the hit or miss nature of social media & fan pages",
+    "icon": "",
+    "source": "",
+  },
+
+  // We'll collect their submissions and then submit to AI and ask for room for improvement.
+  {
+    "title": "AI Enabled",
+    "description":
+        "Leveraging state of the art technology for feedback on your work.",
+    "icon": "",
+    "source": "",
+  },
+];
+
 class LandingScreen extends StatefulWidget {
   const LandingScreen({super.key});
 
@@ -142,15 +187,24 @@ class _LandingScreenState extends State<LandingScreen> {
     );
   }
 
-  buildBox(title) {
+  buildBox(point) {
     return ConstrainedBox(
       constraints: const BoxConstraints(
-        minWidth: 450,
-        maxWidth: 450,
+        minWidth: 400,
+        maxWidth: 400,
         minHeight: 250,
         maxHeight: 250,
       ),
-      child: Text(title, style: Style.headlineS),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            point['title'],
+            style: Style.headlineL,
+          ),
+          Text(point['description'], style: Style.headlineS),
+        ],
+      ),
     );
   }
 
@@ -338,23 +392,23 @@ class _LandingScreenState extends State<LandingScreen> {
                     children: [
                       Column(
                         children: [
-                          buildBox('Spaced Repetition'),
+                          buildBox(zKeyPoints[0]),
                           const Gap(150),
-                          buildBox('Problem Library'),
+                          buildBox(zKeyPoints[1]),
                         ],
                       ),
                       Column(
                         children: [
-                          buildBox('Guided Learning'),
+                          buildBox(zKeyPoints[2]),
                           const Gap(150),
-                          buildBox('Industry Insiders'),
+                          buildBox(zKeyPoints[3]),
                         ],
                       ),
                       Column(
                         children: [
-                          buildBox('Curated Content'),
+                          buildBox(zKeyPoints[4]),
                           const Gap(150),
-                          buildBox('AI Enabled'),
+                          buildBox(zKeyPoints[5]),
                         ],
                       ),
                       const Gap(50),
