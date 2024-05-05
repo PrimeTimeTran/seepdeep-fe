@@ -69,6 +69,7 @@ class _AppState extends State<App> {
         : <Color>[Colors.blue[900]!, Colors.lightBlue];
 
     return MaterialApp(
+      scaffoldMessengerKey: snackKey,
       themeMode: themeMode,
       theme: Style.lightTheme,
       darkTheme: Style.darkTheme,

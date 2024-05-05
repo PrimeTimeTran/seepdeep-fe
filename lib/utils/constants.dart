@@ -9,8 +9,7 @@ const ROWS = 40;
 
 const START_NODE = '20,5';
 
-final GlobalKey<ScaffoldState> drawerKey = GlobalKey();
-
+final GlobalKey<ScaffoldState> drawerKey = GlobalKey<ScaffoldState>();
 final material3Notifier = ValueNotifier<bool>(true);
 
 List<NewsTopic> newsTopics = [
@@ -27,6 +26,9 @@ List<NewsTopic> newsTopics = [
   NewsTopic(name: "Entertainment", avatar: "NewsTopic.png"),
   NewsTopic(name: "Technology", avatar: "NewsTopic.png"),
 ];
+
+final GlobalKey<ScaffoldMessengerState> snackKey =
+    GlobalKey<ScaffoldMessengerState>();
 
 List<CSTopic> topicList = [
   CSTopic(name: "Python", avatar: "CSTopic.png"),

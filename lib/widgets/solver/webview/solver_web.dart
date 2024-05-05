@@ -287,19 +287,14 @@ class _SolverState extends State<Solver> {
   }
 
   onRun(submission) {
-    // TODO:
-    // 1. Add choose language
-    final dto = {
+    postSubmission({
       "lang": 'python',
       "body": submission,
       "name": problem!.title,
       "problem": problem!.id,
-    };
-    postSubmission(dto);
+    });
   }
 
-  // TODO:
-  // 1. Add loading status and block submit button
   postSubmission(item) async {
     try {
       setState(() {
@@ -313,6 +308,9 @@ class _SolverState extends State<Solver> {
         testCases = testCases;
       });
       _submissionStreamController.add(submission);
+      if (submission.isAccepted == true) {
+        Glob.showSnack('Success!');
+      }
     } catch (e) {
       print('Error: $e');
       return [];

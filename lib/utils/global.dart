@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:app/all.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:logger/logger.dart';
 
@@ -39,4 +41,6 @@ class Glob {
   // Glob.logIObj(jsonEncode(res[0]));
   // print(jsonEncode(res[0]));
   static logIObj(msg) => loggerNoStack.t(jsonDecode(msg));
+  static showSnack(msg) =>
+      snackKey.currentState!.showSnackBar(SnackBar(content: Text(msg)));
 }

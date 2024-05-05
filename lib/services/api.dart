@@ -34,10 +34,13 @@ class Api {
         body: jsonEncode(body),
         headers: _headers(),
       );
+      if (response.statusCode == 408) {
+        Glob.showSnack('Submission failed. Are you connected to the internet?');
+      }
       return _result(response);
     } catch (e) {
       Glob.logI(e);
-    } finally {}
+    }
   }
 
   static void setAuthToken(String token) => authToken = token;
