@@ -90,6 +90,15 @@ class _AuthScreenState extends State<AuthScreen> {
                                 ? Colors.green
                                 : Colors.red));
                   },
+                ),
+                Consumer<AuthProvider>(
+                  builder: (context, auth, child) {
+                    return Text('isAuthenticated: ${auth.user.email}',
+                        style: TextStyle(
+                            color: auth.isAuthenticated
+                                ? Colors.green
+                                : Colors.red));
+                  },
                 )
               ],
             ),

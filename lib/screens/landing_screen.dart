@@ -2,6 +2,104 @@ import 'package:app/all.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
+
+// Emma
+// Olivia
+// Sophia
+// Ava
+// Isabella
+// Mia
+// Amelia
+// Charlotte
+// Harper
+// Ella
+
+// Liam
+// Noah
+// James
+// Elijah
+// Oliver
+// Benjamin
+// Lucas
+// William
+// Ethan
+// Alexander
+
+final users = [
+  {
+    'name': 'Emma',
+    'caption': '',
+    'quote': '',
+    'title': '',
+    'url': '',
+    'file': 'headshots/female-2.jpeg',
+  },
+  {
+    'name': 'Liam',
+    'caption': '',
+    'quote': '',
+    'title': '',
+    'url': '',
+    'file': 'headshots/male-1.jpeg',
+  },
+  {
+    'name': 'Olivia',
+    'caption': '',
+    'quote': '',
+    'title': '',
+    'url': '',
+    'file': 'headshots/female-3.jpeg',
+  },
+  {
+    'name': 'Noah',
+    'caption': '',
+    'quote': '',
+    'title': '',
+    'url': '',
+    'file': 'headshots/male-2.jpeg',
+  },
+  {
+    'name': 'Sophia',
+    'caption': '',
+    'quote': '',
+    'title': '',
+    'url': '',
+    'file': 'headshots/female-4.jpeg',
+  },
+  {
+    'name': 'James',
+    'caption': '',
+    'quote': '',
+    'title': '',
+    'url': '',
+    'file': 'headshots/male-3.jpeg',
+  },
+  {
+    'name': 'Ava',
+    'caption': '',
+    'quote': '',
+    'title': '',
+    'url': '',
+    'file': 'headshots/female-5.jpeg',
+  },
+  {
+    'name': 'Isabella',
+    'caption': '',
+    'quote': '',
+    'title': '',
+    'url': '',
+    'file': 'headshots/female-6.jpeg',
+  },
+  {
+    'name': 'Charlotte',
+    'caption': '',
+    'quote': '',
+    'title': '',
+    'url': '',
+    'file': 'headshots/female-7.jpeg',
+  },
+];
 
 class LandingScreen extends StatefulWidget {
   const LandingScreen({super.key});
@@ -61,22 +159,52 @@ class _LandingScreenState extends State<LandingScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Container(
+          SizedBox(
             height: getHeight(),
-            color: Colors.white,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+            child: Stack(
               children: [
-                Text('Wanna be a better you?', style: Style.headlineL),
-                Text(
-                  'Seeking the skills \nto compete with the \nworld\'s best?',
-                  style: Style.displayL,
-                  textAlign: TextAlign.center,
+                Container(
+                  width: double.infinity,
+                  height: getHeight(),
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: const AssetImage('img/landing-cover.jpg'),
+                      fit: BoxFit.cover,
+                      colorFilter: ColorFilter.mode(
+                        Colors.white.withOpacity(0.1),
+                        BlendMode.srcATop,
+                      ),
+                    ),
+                  ),
                 ),
-                Text(
-                  'See why youre at the right place',
-                  style: Style.headlineS,
-                  textAlign: TextAlign.center,
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 200),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text('Dont fly solo', style: Style.headlineS),
+                      const Gap(50),
+                      Text(
+                        'Money back guarantee.\n\nA fresh take on learning.\n\nnGain 21st century skills more \neasily with us',
+                        style: Style.displayM,
+                        textAlign: TextAlign.center,
+                      ),
+                      const Gap(50),
+                      SizedBox(
+                        height: 75,
+                        width: 300,
+                        child: OutlinedButton(
+                            onPressed: () {
+                              GoRouter.of(context).go(AppScreens.auth.path);
+                            },
+                            child: Text(
+                              'Create Account',
+                              style: Style.headlineS,
+                              textAlign: TextAlign.center,
+                            )),
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
@@ -107,6 +235,7 @@ class _LandingScreenState extends State<LandingScreen> {
                   Container(
                     height: 600,
                     width: 600,
+                    child: getImg('headshots/female-1.jpeg', 500, true, true),
                     decoration: BoxDecoration(
                       color: Colors.blue[300]!,
                       border: Border.all(),
@@ -167,25 +296,23 @@ class _LandingScreenState extends State<LandingScreen> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Gap(50),
-                      buildPhotoBox('Students', 400),
-                      const Gap(50),
-                      buildPhotoBox('Professionals', 400),
-                      const Gap(50),
-                      buildPhotoBox('Knowledge Geeks', 400),
-                      const Gap(50),
-                      buildPhotoBox('Knowledge Geeks', 400),
-                      const Gap(50),
-                      buildPhotoBox('Knowledge Geeks', 400),
-                      const Gap(50),
-                      buildPhotoBox('Knowledge Geeks', 400),
-                      const Gap(50),
-                      buildPhotoBox('Knowledge Geeks', 400),
-                      const Gap(50),
-                      buildPhotoBox('Knowledge Geeks', 400),
-                      const Gap(50),
-                      buildPhotoBox('Knowledge Geeks', 400),
-                      const Gap(50),
+                      ConstrainedBox(
+                        constraints: BoxConstraints(
+                          minWidth: getWidth(),
+                          maxWidth: getWidth(),
+                          minHeight: 500,
+                          maxHeight: 500,
+                        ),
+                        child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: users.length,
+                          itemExtentBuilder: (index, dimensions) => 600,
+                          itemBuilder: (BuildContext context, int idx) {
+                            final u = users[idx];
+                            return buildPhotoBox('Students', 400, u, true);
+                          },
+                        ),
+                      ),
                     ],
                   ),
                 )
@@ -286,19 +413,19 @@ class _LandingScreenState extends State<LandingScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     const Gap(50),
-                    buildLogo('cpp-favicon.svg'),
+                    getImg('logos/cpp-favicon.svg'),
                     const Gap(50),
-                    buildLogo('dart-favicon.svg'),
+                    getImg('logos/dart-favicon.svg'),
                     const Gap(50),
-                    buildLogo('java-favicon.svg'),
+                    getImg('logos/java-favicon.svg'),
                     const Gap(50),
-                    buildLogo('js-favicon.svg'),
+                    getImg('logos/js-favicon.svg'),
                     const Gap(50),
-                    buildLogo('python-favicon.svg'),
+                    getImg('logos/python-favicon.svg'),
                     const Gap(50),
-                    buildLogo('sql-favicon.svg'),
+                    getImg('logos/sql-favicon.svg'),
                     const Gap(50),
-                    buildLogo('ts-favicon.svg'),
+                    getImg('logos/ts-favicon.svg'),
                     const Gap(50),
                   ],
                 )
@@ -408,11 +535,11 @@ class _LandingScreenState extends State<LandingScreen> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     const Gap(50),
-                    buildLogo('scanlab-favicon.jpg', 200),
+                    getImg('logos/scanlab-favicon.jpg', 200),
                     const Gap(100),
-                    buildLogo('data-annotation-favicon.svg'),
+                    getImg('logos/data-annotation-favicon.svg'),
                     const Gap(100),
-                    buildLogo('adapt-health-favicon.png'),
+                    getImg('logos/adapt-health-favicon.png'),
                     const Gap(50),
                   ],
                 )
@@ -481,38 +608,50 @@ class _LandingScreenState extends State<LandingScreen> {
     );
   }
 
-  buildLogo(title, [size = 300]) {
-    List<String> parts = title.split('.');
-    String lastElement = parts.last;
-    switch (lastElement) {
-      case 'svg':
-        return SvgPicture.asset(
-          'assets/icons/logos/$title',
-          width: 48,
-          height: 48,
-        );
-      default:
-        return Image.asset(
-          'assets/icons/logos/$title',
-          width: size,
-          height: size,
-        );
-    }
-  }
-
-  buildPhotoBox(title, size) {
+  buildPhotoBox(title, size, [u, cover]) {
     return Column(
       children: [
-        Text(title, style: Style.headlineS),
+        Text(u != null ? u['name'] : title, style: Style.headlineS),
         Container(
           height: size,
           width: size,
+          child: u != null ? getImg(u['file'], 500, true, true) : null,
           decoration: BoxDecoration(
-              color: Colors.blue[300]!,
+              // color: Colors.blue[300]!,
               border: Border.all(),
               borderRadius: const BorderRadius.all(Radius.elliptical(20, 20))),
-        )
+        ),
       ],
     );
+  }
+
+  getImg(path, [size = 300, cover, borderRadius]) {
+    List<String> parts = path.split('.');
+    String lastElement = parts.last;
+    Widget imageWidget;
+
+    switch (lastElement) {
+      case 'svg':
+        imageWidget = SvgPicture.asset(
+          'assets/img/$path',
+          width: 48,
+          height: 48,
+        );
+        break;
+      default:
+        imageWidget = Image.asset(
+          'assets/img/$path',
+          width: size,
+          height: size,
+          fit: cover != null ? BoxFit.cover : null,
+        );
+    }
+    if (borderRadius != null) {
+      return ClipRRect(
+        borderRadius: BorderRadius.circular(20),
+        child: imageWidget,
+      );
+    }
+    return imageWidget;
   }
 }

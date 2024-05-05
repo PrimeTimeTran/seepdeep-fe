@@ -1,5 +1,9 @@
 import 'package:app/all.dart';
 
+buildStreak() {
+  // DateTime(2024, 1, 1): 30
+}
+
 class LanguageScore {
   String? score;
   String? language;
@@ -71,6 +75,7 @@ class User {
 
   String? gender;
   String? avatar;
+  Map<String, dynamic>? streak;
 
   User({
     this.rank,
@@ -112,6 +117,7 @@ class User {
     this.numSubmissions,
     this.gender,
     this.avatar,
+    this.streak,
   });
 
   User.fromJson(Map<String, dynamic> json)
@@ -134,6 +140,7 @@ class User {
         //     ? Badge.fromJson(json['activeBadge'])
         //     : null,
         views = json['views'],
+        streak = json['streak'],
         discuss = json['discuss'],
         solutions = json['solutions'],
         reputation = json['reputation'],
@@ -191,6 +198,7 @@ class User {
       'urlPortfolio': urlPortfolio,
       'urlCSProfile': urlCSProfile,
       'siteUrls': siteUrls,
+      'streak': streak,
       // 'activeBadge': activeBadge?.toJson(),
       'views': views,
       'discuss': discuss,

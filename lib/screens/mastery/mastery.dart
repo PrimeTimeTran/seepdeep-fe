@@ -2,6 +2,7 @@
 
 import 'package:app/all.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_heatmap_calendar/flutter_heatmap_calendar.dart';
 import 'package:gap/gap.dart';
 import 'package:primer_progress_bar/primer_progress_bar.dart';
 import 'package:provider/provider.dart';
@@ -21,24 +22,53 @@ class ProgressIndicator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 200,
       width: double.infinity,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
-        border: Border.all(
-            // color: Colors.red,
-            ),
+        border: Border.all(),
       ),
       child: Padding(
         padding: const EdgeInsets.all(30),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            Consumer<AuthProvider>(
+              builder: (context, auth, child) {
+                return Text('isAuthenticated: ${auth.user.email}',
+                    style: TextStyle(
+                        color:
+                            auth.isAuthenticated ? Colors.green : Colors.red));
+              },
+            ),
             const Text('Progress'),
             const Text(
               'Topics covered',
             ),
-            PrimerProgressBar(segments: segments2.toList())
+            PrimerProgressBar(segments: segments2.toList()),
+            ColoredCard(
+              padding: 40,
+              child: HeatMap(
+                datasets: {
+                  DateTime(2024, 1, 1): 30,
+                  DateTime(2024, 2, 2): 30,
+                  DateTime(2024, 3, 3): 30,
+                  DateTime(2024, 4, 4): 30,
+                },
+                colorMode: ColorMode.opacity,
+                showText: false,
+                scrollable: true,
+                colorsets: const {
+                  1: Colors.red,
+                  3: Colors.orange,
+                  5: Colors.yellow,
+                  7: Colors.green,
+                  9: Colors.blue,
+                  11: Colors.indigo,
+                  13: Colors.purple,
+                },
+                onClick: (value) {},
+              ),
+            ),
           ],
         ),
       ),
@@ -53,7 +83,7 @@ class _MasteryScreenState extends State<MasteryScreen> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 50.0, vertical: 50),
+        padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 50),
         child: Column(
           children: [
             const ProgressIndicator(),
@@ -96,12 +126,6 @@ class _MasteryScreenState extends State<MasteryScreen> {
             semanticsLabel: 'Linear progress indicator',
             borderRadius: const BorderRadius.all(Radius.circular(10)),
           ),
-          // Row(
-          //   children: [
-          //     Text(topic.name, style: const TextStyle(fontSize: 20)),
-          //     const Spacer(),
-          //   ],
-          // ),
           const Gap(25),
         ],
       ));
@@ -114,14 +138,22 @@ class _MasteryScreenState extends State<MasteryScreen> {
     user.solved?.map((solved) {});
   }
 
+  fetchSolves() async {
+    final resp = await Api.get('solves');
+    print(resp);
+  }
+
   @override
   void initState() {
     super.initState();
     user = Provider.of<AuthProvider>(context, listen: false).user;
+    print(user);
+    Glob.logI(user.toJson().toString());
     mastery = buildMastery();
     setState(() {
       user = user;
       mastery = mastery;
     });
+    fetchSolves();
   }
 }

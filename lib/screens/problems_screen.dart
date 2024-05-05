@@ -182,8 +182,8 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
             children: [
               const Icon(
                 Icons.error_outline,
-                color: Colors.red,
                 size: 60,
+                color: Colors.red,
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 16),
@@ -387,18 +387,11 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
   void initState() {
     super.initState();
     fetchProblems();
-    // Future.delayed(const Duration(seconds: 1), () {
-    //   Toaster.simpleToast('Hello sss');
-    //   ScaffoldMessenger.of(context)
-    //       .showSnackBar(const SnackBar(content: Text('snack')));
-    //   Toaster(context).displayCustomMotionToast();
-    // });
   }
 
   setProblems(Map<String, dynamic> data) {
-    final List<dynamic> fetchedProblems = data['data'];
-    List<Problem> res =
-        fetchedProblems.map((item) => Problem.fromJson(item)).toList();
+    final List<dynamic> fetched = data['data'];
+    List<Problem> res = fetched.map((i) => Problem.fromJson(i)).toList();
     setState(() {
       problems = Future.value(res);
     });

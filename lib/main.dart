@@ -53,18 +53,8 @@ class _MyAppState extends State<MyApp> {
     );
   }
 
-  gogogogo() async {
-    var go = await Storage.instance.count;
-    print('1st count: $go');
-    await Storage.instance.increment();
-    go = await Storage.instance.count;
-    print('2nd count: $go');
-  }
-
   @override
   void initState() {
     super.initState();
-    gogogogo();
-    gogogogo();
   }
 }
