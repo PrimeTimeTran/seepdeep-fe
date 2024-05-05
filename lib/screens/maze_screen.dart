@@ -176,7 +176,7 @@ class _MazeScreenState extends State<MazeScreen> {
             ElevatedButton(
               onPressed: () {
                 board.makeMaze();
-                toaster.displayInfoMotionToast('New maze created.');
+                toaster.displayCustomMotionToast('New maze created.');
               },
               child: const Text('New Maze'),
             ),
@@ -184,7 +184,7 @@ class _MazeScreenState extends State<MazeScreen> {
             ElevatedButton(
               onPressed: () {
                 board.randomize();
-                toaster.displayInfoMotionToast('New goal success.');
+                toaster.displayCustomMotionToast('New goal success.');
                 board.updateCallback();
               },
               child: const Text('Move Goal Cell'),
@@ -229,7 +229,7 @@ class _MazeScreenState extends State<MazeScreen> {
                 speedView = newSelection.first;
                 board.speed = speed;
                 toaster
-                    .displayInfoMotionToast('Speed now $speed microseconds.');
+                    .displayCustomMotionToast('Speed now $speed microseconds.');
                 setState(() {});
               },
             ),
@@ -291,7 +291,7 @@ class _MazeScreenState extends State<MazeScreen> {
                   ),
                   onPressed: () {
                     board.reset();
-                    toaster.displayInfoMotionToast('Path cleared');
+                    toaster.displayCustomMotionToast('Path cleared');
                   },
                 ),
               ],

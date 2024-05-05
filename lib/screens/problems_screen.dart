@@ -387,6 +387,12 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
   void initState() {
     super.initState();
     fetchProblems();
+    // Future.delayed(const Duration(seconds: 1), () {
+    //   Toaster.simpleToast('Hello sss');
+    //   ScaffoldMessenger.of(context)
+    //       .showSnackBar(const SnackBar(content: Text('snack')));
+    //   Toaster(context).displayCustomMotionToast();
+    // });
   }
 
   setProblems(Map<String, dynamic> data) {

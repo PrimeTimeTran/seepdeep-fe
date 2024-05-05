@@ -23,7 +23,6 @@ class _SolverState extends State<Solver> {
   bool processing = false;
   List<TestCase> testCases = [];
   List<Submission> submissions = [];
-  late Toaster toaster = Toaster(context);
   final StreamController<Submission> _submissionStreamController =
       StreamController<Submission>();
   @override
