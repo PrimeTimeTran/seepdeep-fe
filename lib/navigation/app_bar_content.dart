@@ -130,11 +130,30 @@ class _AppBarContentState extends State<AppBarContent> {
                     ),
                     TextButton.icon(
                       onPressed: () {
+                        GoRouter.of(context).go(AppScreens.problems.path);
+                        // openDrawer();
+                      },
+                      label: const Text('Data Structures',
+                          style: TextStyle(color: Colors.white)),
+                      icon: const Icon(Icons.data_object, color: Colors.white),
+                    ),
+                    TextButton.icon(
+                      onPressed: () {
+                        GoRouter.of(context).go(AppScreens.sql.path);
+                      },
+                      label: const Text('Databases',
+                          style: TextStyle(color: Colors.white)),
+                      icon: const Icon(Icons.table_chart_outlined,
+                          color: Colors.white),
+                    ),
+                    TextButton.icon(
+                      onPressed: () {
                         GoRouter.of(context).go(AppScreens.mastery.path);
                       },
                       label: const Text('Mastery',
                           style: TextStyle(color: Colors.white)),
-                      icon: const Icon(Icons.terrain, color: Colors.white),
+                      icon: const Icon(Icons.auto_graph_outlined,
+                          color: Colors.white),
                     ),
                     // TextButton.icon(
                     //   onPressed: () {
@@ -144,16 +163,7 @@ class _AppBarContentState extends State<AppBarContent> {
                     //       style: TextStyle(color: Colors.white)),
                     //   icon: const Icon(Icons.explore, color: Colors.white),
                     // ),
-                    TextButton.icon(
-                      onPressed: () {
-                        GoRouter.of(context).go(AppScreens.problems.path);
-                        // openDrawer();
-                      },
-                      label: const Text('Problems',
-                          style: TextStyle(color: Colors.white)),
-                      icon: const Icon(Icons.school_outlined,
-                          color: Colors.white),
-                    ),
+
                     // TextButton.icon(
                     //   onPressed: () {
                     //     GoRouter.of(context).go(AppScreens.community.path);

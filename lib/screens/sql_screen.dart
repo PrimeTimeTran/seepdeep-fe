@@ -144,7 +144,7 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
   }
 
   buildLesson() {
-    return Text('Learn SQL with out custom query tool', style: Style.bodyL);
+    return Text('Learn SQL with our custom query tool', style: Style.bodyL);
   }
 
   buildPrompts() {
@@ -233,29 +233,6 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
                   }).toList(),
                 );
               }).toList(),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const SizedBox(height: 10),
-                  Text(
-                    'Query Results: ${records.length} records.',
-                    style: Theme.of(context).textTheme.bodyMedium,
-                  ),
-                  const SizedBox(height: 30),
-                  Text(
-                    'DatabaseTables:',
-                    style: Theme.of(context).textTheme.bodySmall,
-                  ),
-                  const SizedBox(height: 5),
-                  Text(
-                    'Customers, Employees, Invoices, Invoice_Items, Albums, Playlists, Playlist_Track, Tracks, Artists, Genres, Media_Types',
-                    style: Theme.of(context).textTheme.bodySmall,
-                  ),
-                ],
-              ),
             ),
           ],
         ),
