@@ -57,6 +57,7 @@ dependencies:
   flutter_markdown_latex: ^0.3.2
   easy_stepper: ^0.8.4
   syncfusion_flutter_datagrid: ^25.1.42
+  shared_preferences: ^2.2.3
 
 dev_dependencies:
   flutter_test:

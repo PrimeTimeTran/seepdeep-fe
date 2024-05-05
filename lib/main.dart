@@ -2,7 +2,7 @@ import 'package:app/all.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:provider/provider.dart' as stateProvider;
+import 'package:provider/provider.dart' as provider;
 import 'package:url_strategy/url_strategy.dart';
 
 void main() {
@@ -10,10 +10,10 @@ void main() {
   setPathUrlStrategy();
 
   runApp(
-    stateProvider.MultiProvider(
+    provider.MultiProvider(
       providers: [
-        stateProvider.ChangeNotifierProvider(create: (_) => AuthProvider()),
-        stateProvider.ChangeNotifierProvider(create: (_) => ProblemProvider()),
+        provider.ChangeNotifierProvider(create: (_) => AuthProvider()),
+        provider.ChangeNotifierProvider(create: (_) => ProblemProvider()),
       ],
       child: MyApp(),
     ),
@@ -21,13 +21,19 @@ void main() {
 }
 
 // ignore: must_be_immutable
-class MyApp extends StatelessWidget
+class MyApp extends StatefulWidget
     with ChangeNotifier, DiagnosticableTreeMixin {
   MyApp({super.key});
 
   @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
   Widget build(BuildContext context) {
     Style.instance.initialize(context);
+
     return ProviderScope(
       child: ValueListenableBuilder<bool>(
         valueListenable: material3Notifier,
@@ -40,5 +46,20 @@ class MyApp extends StatelessWidget
         },
       ),
     );
+  }
+
+  gogogogo() async {
+    var go = await Storage.instance.count;
+    print('1st count: $go');
+    await Storage.instance.increment();
+    go = await Storage.instance.count;
+    print('2nd count: $go');
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    gogogogo();
+    gogogogo();
   }
 }

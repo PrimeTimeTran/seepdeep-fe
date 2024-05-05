@@ -5,8 +5,8 @@ import 'package:app/all.dart';
 import 'package:http/http.dart' as http;
 
 class Api {
-  static const base = 'http://localhost:3000/api/';
   static http.Client client = http.Client();
+  static const base = 'http://localhost:3000/api/';
   static String authToken =
       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWNkMmY0YzAyNjAwNDZhNDQzNTExYTIiLCJpYXQiOjE3MTM2NDg2NzgsImV4cCI6MjAyOTAwODY3OH0.HnX3iDxGkKdcgaxpZSAR34jXq5T1pASW6vaeEjuJ6EM';
 
@@ -28,7 +28,6 @@ class Api {
   }
 
   static FutureOr<dynamic> post(String path, dynamic body) async {
-    // Glob.loadStart();
     try {
       final response = await client.post(
         _url(path),
@@ -38,14 +37,10 @@ class Api {
       return _result(response);
     } catch (e) {
       Glob.logI(e);
-    } finally {
-      // Glob.loadDone();
-    }
+    } finally {}
   }
 
-  static void setAuthToken(String token) {
-    authToken = token;
-  }
+  static void setAuthToken(String token) => authToken = token;
 
   static _headers() {
     final headers = <String, String>{};
@@ -69,7 +64,5 @@ class Api {
     return data;
   }
 
-  static _url(path) {
-    return Uri.parse(base + path);
-  }
+  static _url(path) => Uri.parse(base + path);
 }

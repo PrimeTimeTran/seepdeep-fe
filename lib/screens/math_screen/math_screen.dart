@@ -90,10 +90,10 @@ class Optimization {
 }
 
 class _MathScreenState extends State<MathScreen> {
-  IFrameElement webView = IFrameElement();
-  final StreamController<int> _problemStreamController = StreamController();
   int index = 1;
   List questions = [];
+  IFrameElement webView = IFrameElement();
+  final StreamController<int> _problemStreamController = StreamController();
 
   @override
   Widget build(BuildContext context) {
@@ -280,15 +280,14 @@ class _MathScreenState extends State<MathScreen> {
                 alignment: Alignment.centerRight,
                 child: LayoutBuilder(
                   builder: (BuildContext context, BoxConstraints constraints) {
-                    final availableWidth = constraints.maxWidth;
-                    const aspectRatio = 1025 / 750;
-                    final desiredHeight = availableWidth / aspectRatio;
+                    const ratio = 1025 / 750;
+                    final width = constraints.maxWidth;
+                    final height = width / ratio;
                     return SizedBox(
-                      width: availableWidth,
-                      height: desiredHeight,
-                      child: HtmlElementView(
+                      width: width,
+                      height: height,
+                      child: const HtmlElementView(
                         viewType: 'index',
-                        onPlatformViewCreated: (int id) {},
                       ),
                     );
                   },
@@ -302,7 +301,6 @@ class _MathScreenState extends State<MathScreen> {
   }
 
   Future<List<Optimization>> fetchProblems() async {
-    Glob.logE('Fetching Optimizations');
     final json = await rootBundle.loadString("json/optimization.json");
     final Map<String, dynamic> data = jsonDecode(json);
     List<Optimization> values = [];
@@ -336,7 +334,10 @@ class _MathScreenState extends State<MathScreen> {
         ..style.border = 'none';
       window.onMessage.listen((msg) {
         if (msg.data?.startsWith("onMsg Success:")) {
-        } else {}
+          Glob.logI('onMsg Success');
+        } else {
+          Glob.logI('onMsg not success');
+        }
       }, onError: (e) {
         Glob.logI(e);
       }, onDone: () {
