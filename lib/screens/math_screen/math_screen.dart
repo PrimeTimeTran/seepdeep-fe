@@ -29,6 +29,7 @@ class Optimization {
   String? solution;
   List<String>? imgUrls;
   List<String>? formulas;
+  String? answerPlaceholder;
   List<String>? explanation;
 
   String? type;
@@ -139,89 +140,162 @@ class _MathScreenState extends State<MathScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        StepperDemo(
+            problemStream: _problemStreamController.stream, setStep: setStep),
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Expanded(
               flex: 3,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(question.title!, style: Style.displayM),
-                  const Gap(5),
-                  Text(question.body!, style: Style.bodyL),
-                  SizedBox(
-                    height: 300,
-                    width: double.infinity,
-                    child: Markdown(
-                      selectable: true,
-                      data: question.equation,
-                      builders: {
-                        'latex': LatexElementBuilder(
-                          textStyle: const TextStyle(
-                            // color: Colors.blue,
-                            fontWeight: FontWeight.w100,
-                          ),
-                          textScaleFactor: 1.2,
-                        ),
-                      },
-                      extensionSet: md.ExtensionSet(
-                        [LatexBlockSyntax()],
-                        [LatexInlineSyntax()],
-                      ),
-                    ),
-                  ),
-                  Text(question.prompt!, style: Style.bodyL),
-                  const TextField(
-                    decoration: InputDecoration(
-                      hintText: '5',
-                    ),
-                  ),
-                  Row(
+              child: Card(
+                semanticContainer: true,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      IconButton(
-                          onPressed: () {
-                            if (index <= 1) return;
-                            _problemStreamController.add(index - 1);
-                            setState(() {
-                              index = index - 1;
-                            });
-                          },
-                          icon: const Icon(Icons.navigate_before_outlined)),
-                      IconButton(
-                          onPressed: () {
-                            if (index >= 10) return;
-                            _problemStreamController.add(index + 1);
-                            setState(() {
-                              index = index + 1;
-                            });
-                          },
-                          icon: const Icon(Icons.navigate_next_outlined))
+                      ConstrainedBox(
+                        constraints: const BoxConstraints(
+                          minWidth: 200,
+                          maxWidth: 1000,
+                          minHeight: 100,
+                          maxHeight: 150,
+                        ),
+                        child: Text(question.title!, style: Style.displayM),
+                      ),
+                      const Gap(10),
+                      ConstrainedBox(
+                        constraints: const BoxConstraints(
+                          minWidth: 200,
+                          maxWidth: 1000,
+                          minHeight: 100,
+                          maxHeight: 150,
+                        ),
+                        child: Text(question.body!, style: Style.headlineS),
+                      ),
+                      const Gap(10),
+                      ConstrainedBox(
+                          constraints: const BoxConstraints(
+                            minWidth: 200,
+                            maxWidth: 1000,
+                            minHeight: 100,
+                            maxHeight: 150,
+                          ),
+                          child: Markdown(
+                            selectable: true,
+                            data: question.equation,
+                            builders: {
+                              'latex': LatexElementBuilder(
+                                textStyle: const TextStyle(
+                                    fontWeight: FontWeight.w100, fontSize: 25),
+                                textScaleFactor: 1.2,
+                              ),
+                            },
+                            extensionSet: md.ExtensionSet(
+                              [LatexBlockSyntax()],
+                              [LatexInlineSyntax()],
+                            ),
+                          )),
+                      const Gap(10),
+                      ConstrainedBox(
+                        constraints: const BoxConstraints(
+                          minWidth: 200,
+                          maxWidth: 1000,
+                          minHeight: 100,
+                          maxHeight: 150,
+                        ),
+                        child: Text(question.prompt!, style: Style.headlineS),
+                      ),
+                      const Gap(10),
+                      Card.outlined(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: <Widget>[
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                left: 100.0,
+                                right: 50,
+                                top: 50,
+                                bottom: 50,
+                              ),
+                              child: TextFormField(
+                                autofocus: true,
+                                decoration: const InputDecoration(
+                                  labelText: 'Answer',
+                                  hintText: 'Enter answer here',
+                                ),
+                              ),
+                            ),
+                            const Gap(10),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: <Widget>[
+                                OutlinedButton.icon(
+                                    label: const Text('Back'),
+                                    onPressed: () {
+                                      if (index <= 1) return;
+                                      _problemStreamController.add(index - 1);
+                                      setState(() {
+                                        index = index - 1;
+                                      });
+                                    },
+                                    icon: const Icon(
+                                        Icons.navigate_before_outlined)),
+                                const Gap(10),
+                                OutlinedButton.icon(
+                                    label: const Text('Next'),
+                                    onPressed: () {
+                                      if (index >= 10) return;
+                                      _problemStreamController.add(index + 1);
+                                      setState(() {
+                                        index = index + 1;
+                                      });
+                                    },
+                                    icon: const Icon(
+                                        Icons.navigate_next_outlined)),
+                                const Gap(10),
+                              ],
+                            ),
+                            const Gap(10),
+                          ],
+                        ),
+                      ),
+                      const Gap(10),
+                      const Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Gap(10),
+                        ],
+                      ),
                     ],
                   ),
-                ],
+                ),
               ),
             ),
             Expanded(
               flex: 4,
               child: Align(
                 alignment: Alignment.centerRight,
-                child: SizedBox(
-                  height: 750,
-                  width: 1025,
-                  child: HtmlElementView(
-                    viewType: 'index',
-                    onPlatformViewCreated: (int id) {},
-                  ),
+                child: LayoutBuilder(
+                  builder: (BuildContext context, BoxConstraints constraints) {
+                    final availableWidth = constraints.maxWidth;
+                    const aspectRatio = 1025 / 750;
+                    final desiredHeight = availableWidth / aspectRatio;
+                    return SizedBox(
+                      width: availableWidth,
+                      height: desiredHeight,
+                      child: HtmlElementView(
+                        viewType: 'index',
+                        onPlatformViewCreated: (int id) {},
+                      ),
+                    );
+                  },
                 ),
               ),
-            ),
+            )
           ],
         ),
-        const Spacer(),
-        StepperDemo(
-            problemStream: _problemStreamController.stream, setStep: setStep)
       ],
     );
   }

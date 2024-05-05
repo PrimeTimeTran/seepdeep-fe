@@ -30,14 +30,14 @@ class _StepperDemoState extends State<StepperDemo> {
         unreachedLineType: LineType.dashed,
       ),
       borderThickness: 2,
-      internalPadding: 10,
+      // internalPadding: 10,
       stepBorderRadius: 15,
-      stepShape: StepShape.rRectangle,
+      stepShape: StepShape.circle,
       padding: const EdgeInsetsDirectional.symmetric(
         vertical: 10,
         horizontal: 15,
       ),
-      stepRadius: 28,
+      stepRadius: 14,
       showLoadingAnimation: false,
       activeStepIconColor: Colors.greenAccent,
       finishedStepTextColor: Colors.greenAccent,
@@ -45,7 +45,6 @@ class _StepperDemoState extends State<StepperDemo> {
       finishedStepBackgroundColor: Colors.greenAccent,
       steps: buildSteps(),
       onStepReached: (index) {
-        print(index);
         widget.setStep(index + 1);
         setState(() => activeStep = index + 1);
       },

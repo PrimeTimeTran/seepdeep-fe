@@ -22,6 +22,8 @@ final ButtonStyle raisedButtonStyle = ElevatedButton.styleFrom(
 
 class Style {
   static final Style _instance = Style._privateConstructor();
+  // Largest to smallest
+  // Display, Headline, Title, Label, Body
   static get bodyL => _instance._bodyLarge;
   static get bodyM => _instance._bodyMedium;
   static get bodyS => _instance._bodySmall;
