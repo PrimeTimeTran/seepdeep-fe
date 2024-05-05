@@ -1,4 +1,4 @@
-import 'package:app/utils.dart';
+import 'package:app/utils/utils.dart';
 import 'package:flutter/material.dart';
 
 class Footer extends StatelessWidget {

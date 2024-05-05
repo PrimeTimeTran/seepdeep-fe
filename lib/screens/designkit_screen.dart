@@ -1,6 +1,6 @@
 import 'package:app/all.dart' as prefix;
-import 'package:app/enums.dart';
-import 'package:app/styles.dart';
+import 'package:app/utils/enums.dart';
+import 'package:app/utils/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 

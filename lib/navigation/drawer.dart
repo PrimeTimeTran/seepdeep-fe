@@ -1,5 +1,5 @@
 import 'package:animated_tree_view/animated_tree_view.dart';
-import 'package:app/utils.dart';
+import 'package:app/utils/utils.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 

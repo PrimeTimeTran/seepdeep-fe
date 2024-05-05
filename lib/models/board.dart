@@ -2,8 +2,8 @@ import 'dart:async';
 import 'dart:collection';
 import 'dart:math';
 
-import '../constants.dart';
-import '../utils.dart';
+import '../utils/constants.dart';
+import '../utils/utils.dart';
 import 'node.dart';
 
 List<bool> clearWallChance = [
