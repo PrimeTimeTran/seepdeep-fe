@@ -12,11 +12,13 @@ class Editor extends StatefulWidget {
   Function onRun;
   Problem problem;
   Function onType;
+  Language? lang;
   Editor({
     super.key,
     required this.onRun,
     required this.onType,
     required this.problem,
+    this.lang,
   });
 
   @override
@@ -26,7 +28,6 @@ class Editor extends StatefulWidget {
 class _EditorState extends State<Editor> {
   int step = 1;
   FocusNode focusNode = FocusNode();
-
   Language selectedLang = Language.python;
   final GlobalKey _codeEditorKey = GlobalKey();
   late CodeController _controller = methodBuilder();
@@ -58,6 +59,7 @@ class _EditorState extends State<Editor> {
                       buildMenuItem('C++', Icons.bug_report, Language.cpp),
                       buildMenuItem('Java', Icons.bug_report, Language.java),
                       buildMenuItem('TS', Icons.bug_report, Language.ts),
+                      buildMenuItem('SQL', Icons.bug_report, Language.sql),
                     ],
                     child: TextButton.icon(
                       onPressed: null,
@@ -144,6 +146,7 @@ class _EditorState extends State<Editor> {
                 styles: Style.currentTheme(context) == Brightness.light
                     ? vsTheme
                     : atelierCaveDarkTheme,
+                // Not so great
                 // : vs2015Theme,
                 // : a11yDarkTheme,
                 // : atelierEstuaryDarkTheme,
@@ -157,13 +160,13 @@ class _EditorState extends State<Editor> {
                 // : darkTheme,
               ),
               child: SizedBox(
-                height: 900,
+                height: widget.lang != null ? 300 : 900,
                 width: double.infinity,
                 child: CodeField(
                   textStyle: const TextStyle(
-                      height: 1.5,
-                      // decoration: TextDecoration.underline,
-                      leadingDistribution: TextLeadingDistribution.even),
+                    height: 1.5,
+                    leadingDistribution: TextLeadingDistribution.even,
+                  ),
                   key: _codeEditorKey,
                   controller: _controller,
                 ),
@@ -192,7 +195,14 @@ class _EditorState extends State<Editor> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(Duration.zero, setController);
+    if (widget.lang != null) {
+      Future.delayed(Duration.zero, () => setController(Language.sql));
+      setState(() {
+        selectedLang = Language.sql;
+      });
+    } else {
+      Future.delayed(Duration.zero, setController);
+    }
   }
 
   onRun() {
