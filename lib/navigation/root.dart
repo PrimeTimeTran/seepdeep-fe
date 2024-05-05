@@ -9,28 +9,33 @@ final routerConfig = GoRouter(
   initialLocation: '/',
   debugLogDiagnostics: true,
   routes: [
+    GoRoute(
+      path: '/landing',
+      name: AppScreens.landing.toString(),
+      builder: (_, __) => const LandingScreen(),
+    ),
     StatefulShellRoute.indexedStack(
       builder: (context, state, shell) {
         return App(shell: shell);
       },
       branches: routes,
     ),
-    StatefulShellRoute.indexedStack(
-        builder: (context, state, shell) {
-          return App(shell: shell);
-        },
-        branches: [
-          StatefulShellBranch(
-            navigatorKey: navigatorKeyB,
-            routes: [
-              GoRoute(
-                path: '/landing',
-                name: AppScreens.landing.toString(),
-                builder: (_, __) => const LandingScreen(),
-              ),
-            ],
-          )
-        ]),
+    // StatefulShellRoute.indexedStack(
+    //     builder: (context, state, shell) {
+    //       return App(shell: shell);
+    //     },
+    //     branches: [
+    //       StatefulShellBranch(
+    //         navigatorKey: navigatorKeyB,
+    //         routes: [
+    //           GoRoute(
+    //             path: '/landing',
+    //             name: AppScreens.landing.toString(),
+    //             builder: (_, __) => const LandingScreen(),
+    //           ),
+    //         ],
+    //       )
+    //     ]),
   ],
 );
 

@@ -1,61 +1,6 @@
-// Copyright 2017 The Chromium Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style license that
-// can be found in the LICENSE file.
-
-import 'dart:async';
-
 import 'package:app/all.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import 'package:gap/gap.dart';
-
-class CurveClipper extends CustomClipper<Path> {
-  final double animationValue;
-
-  CurveClipper(this.animationValue);
-
-  // @override
-  // Path getClip(Size size) {
-  //   final path = Path();
-  //   final curveHeight =
-  //       size.height * 5; // Adjust this value for the desired curve height
-  //   final curveTop = (1.0 - animationValue) *
-  //       size.height; // Calculate the top position of the curve
-
-  //   path.lineTo(0, size.height);
-  //   path.quadraticBezierTo(size.width / 2, curveTop, size.width, size.height);
-  //   path.lineTo(size.width, 0);
-  //   path.close();
-  //   return path;
-  // }
-
-  @override
-  Path getClip(Size size) {
-    final path = Path();
-    path.lineTo(0, size.height);
-    path.quadraticBezierTo(size.width / 2, size.height,
-        size.width * animationValue * 2, size.height);
-    path.lineTo(size.width, 0);
-    path.close();
-    return path;
-  }
-
-  // Starts as triangle then moves to bottom right and disappears.
-  // @override
-  // Path getClip(Size size) {
-  //   final path = Path();
-  //   path.lineTo(0, size.height);
-  //   path.quadraticBezierTo(size.width / 2, size.height,
-  //       size.width * animationValue * 2, size.height);
-  //   path.lineTo(size.width, 0);
-  //   path.close();
-  //   return path;
-  // }
-
-  @override
-  bool shouldReclip(covariant CustomClipper<Path> oldClipper) => true;
-}
 
 class LandingScreen extends StatefulWidget {
   const LandingScreen({super.key});
@@ -64,600 +9,376 @@ class LandingScreen extends StatefulWidget {
   State<LandingScreen> createState() => _LandingScreenState();
 }
 
-class StaggerAnimation extends StatelessWidget {
-  final Animation<Color?> color;
-  final Animation<double> width;
-  final Animation<double> height;
-  final Animation<double> opacity;
-  final Animation<double> controller;
-  final Animation<EdgeInsets> padding;
-  final Animation<BorderRadius?> borderRadius;
-  StaggerAnimation({super.key, required this.controller})
-      :
-
-        // Each animation defined here transforms its value during the subset
-        // of the controller's duration defined by the animation's interval.
-        // For example the opacity animation transforms its value during
-        // the first 10% of the controller's duration.
-
-        opacity = Tween<double>(
-          begin: 0.0,
-          end: 1.0,
-        ).animate(
-          CurvedAnimation(
-            parent: controller,
-            curve: const Interval(
-              0.0,
-              0.100,
-              curve: Curves.ease,
-            ),
-          ),
-        ),
-        width = Tween<double>(
-          begin: 50.0,
-          end: 150.0,
-        ).animate(
-          CurvedAnimation(
-            parent: controller,
-            curve: const Interval(
-              0.125,
-              0.250,
-              curve: Curves.ease,
-            ),
-          ),
-        ),
-        height = Tween<double>(begin: 50.0, end: 150.0).animate(
-          CurvedAnimation(
-            parent: controller,
-            curve: const Interval(
-              0.250,
-              0.375,
-              curve: Curves.ease,
-            ),
-          ),
-        ),
-        padding = EdgeInsetsTween(
-          begin: const EdgeInsets.only(bottom: 16),
-          end: const EdgeInsets.only(bottom: 75),
-        ).animate(
-          CurvedAnimation(
-            parent: controller,
-            curve: const Interval(
-              0.250,
-              0.375,
-              curve: Curves.ease,
-            ),
-          ),
-        ),
-        borderRadius = BorderRadiusTween(
-          begin: BorderRadius.circular(4),
-          end: BorderRadius.circular(75),
-        ).animate(
-          CurvedAnimation(
-            parent: controller,
-            curve: const Interval(
-              0.375,
-              0.500,
-              curve: Curves.ease,
-            ),
-          ),
-        ),
-        color = ColorTween(
-          begin: Colors.indigo[100],
-          end: Colors.orange[400],
-        ).animate(
-          CurvedAnimation(
-            parent: controller,
-            curve: const Interval(
-              0.500,
-              0.750,
-              curve: Curves.ease,
-            ),
-          ),
-        );
-
+class _LandingScreenState extends State<LandingScreen> {
   @override
   Widget build(BuildContext context) {
-    return AnimatedBuilder(
-      builder: _buildAnimation,
-      animation: controller,
-    );
-  }
-
-  // This function is called each time the controller "ticks" a new frame.
-  // When it runs, all of the animation's values will have been
-  // updated to reflect the controller's current value.
-  Widget _buildAnimation(BuildContext context, Widget? child) {
-    return Container(
-      padding: padding.value,
-      alignment: Alignment.bottomCenter,
-      child: Opacity(
-        opacity: opacity.value,
-        child: Container(
-          width: width.value,
-          height: height.value,
-          decoration: BoxDecoration(
-            color: color.value,
-            border: Border.all(
-              color: Colors.indigo[300]!,
-              width: 3,
-            ),
-            borderRadius: borderRadius.value,
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class StaggerDemo extends StatefulWidget {
-  const StaggerDemo({super.key});
-
-  @override
-  State<StaggerDemo> createState() => _StaggerDemoState();
-}
-
-class SwipeUpAnimation extends StatefulWidget {
-  const SwipeUpAnimation({super.key});
-
-  @override
-  _SwipeUpAnimationState createState() => _SwipeUpAnimationState();
-}
-
-class _LandingScreenState extends State<LandingScreen>
-    with TickerProviderStateMixin {
-  final enterAnimationMinHeight = 100.0;
-
-  late ScrollController _scrollController;
-  final listViewKey = GlobalKey();
-  final animatedBoxKey = GlobalKey();
-  final animatedBoxKey2 = GlobalKey();
-
-  final scrollController = ScrollController();
-
-  late AnimationController animatedBoxEnterAnimationController;
-  late AnimationController animatedBoxEnterAnimationController2;
-
-  @override
-  Widget build(BuildContext context) {
-    final boxOpacity = CurveTween(curve: Curves.easeOut)
-        .animate(animatedBoxEnterAnimationController);
-    final boxOpacity2 = CurveTween(curve: Curves.easeOut)
-        .animate(animatedBoxEnterAnimationController2);
-
-    final boxPosition = Tween(begin: const Offset(-1.0, 0.0), end: Offset.zero)
-        .animate(animatedBoxEnterAnimationController);
-    final boxPosition2 = Tween(begin: const Offset(1.0, 0.0), end: Offset.zero)
-        .animate(animatedBoxEnterAnimationController2);
-
-    return const SwipeUpAnimation();
-    return const StaggerDemo();
-
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Flutter Playground'),
-      ),
-      body: ListView(
-        key: listViewKey,
-        controller: scrollController,
-        children: <Widget>[
-          SizedBox(
-            height: getHeight() / 2,
-            child: Container(
-              padding: const EdgeInsets.all(16.0),
-              child: const Text(
-                'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.',
-                style: TextStyle(fontSize: 24.0),
-              ),
-            ),
-          ),
-          Container(
-            color: Colors.amber,
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(
-                  child: FadeTransition(
-                    opacity: boxOpacity,
-                    child: SlideTransition(
-                      position: boxPosition,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                            key: animatedBoxKey,
-                            height: 300.0,
-                            color: Colors.green,
-                            padding: const EdgeInsets.all(16.0),
-                            child: const Text('Animated Box'),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                Expanded(
-                    child: Container(
-                  color: Colors.red,
-                  child: const Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text('sososos'),
-                    ],
-                  ),
-                ))
-              ],
-            ),
-          ),
-          const Gap(500),
-          Container(
-            color: Colors.amber,
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(
-                    child: Container(
-                  color: Colors.red,
-                  child: const Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text('sososos'),
-                    ],
-                  ),
-                )),
-                Expanded(
-                  child: FadeTransition(
-                    opacity: boxOpacity2,
-                    child: SlideTransition(
-                      position: boxPosition2,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                            key: animatedBoxKey2,
-                            height: 300.0,
-                            color: Colors.green,
-                            padding: const EdgeInsets.all(16.0),
-                            child: const Text('Animated Box'),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          SizedBox(
-            height: 1000,
-            child: Container(
-              padding: const EdgeInsets.all(16.0),
-              child: const Text(
-                'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.',
-                style: TextStyle(fontSize: 24.0),
-              ),
-            ),
-          ),
-          OutlinedButton(
-            onPressed: () {
-              scrollController.jumpTo(0.0);
-              animatedBoxEnterAnimationController.reset();
-            },
-            child: const Text('Reset'),
-          )
+        actions: const [
+          Gap(150),
+          Text('Our mission'),
+          Spacer(),
+          Text('Our mission'),
+          Gap(150),
+          Text('Our Approach'),
+          Gap(150),
+          Text('Testimonials'),
+          Gap(150),
+          Text('FAQs'),
+          Gap(150),
+          Text('Blog'),
+          Gap(150),
         ],
       ),
-    );
-  }
-
-  buildSideAnimations() {
-    return Column(
-      children: [
-        SizedBox(
-          height: getHeight(),
-          width: 1000,
-          child: ListView(
-            key: listViewKey,
-            controller: _scrollController,
-            children: [
-              SizedBox(
-                height: getHeight() / 2,
-                child: Container(
-                  color: Colors.red,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Text('The real deal',
-                              style: Style.displayL.copyWith(
-                                fontWeight: FontWeight.bold,
-                              ))
-                          .animate()
-                          .fadeIn(duration: 3000.ms)
-                          .slide(
-                              begin: const Offset(-1, 0),
-                              end: const Offset(0, 0)),
-                      const Text('hi yo')
-                    ],
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Container(
+              height: getHeight(),
+              color: Colors.red,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text('Wanna be a better you?', style: Style.headlineL),
+                  Text(
+                    'Seeking the skills \nto compete with the \nworld\'s best?',
+                    style: Style.displayL,
+                    textAlign: TextAlign.center,
                   ),
-                ),
-              ),
-              SizedBox(
-                height: getHeight() / 2,
-                child: Container(
-                  color: Colors.blue,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      const Text('hi yo'),
-                      Text('The real deal',
-                              style: Style.displayL.copyWith(
-                                fontWeight: FontWeight.bold,
-                              ))
-                          .animate()
-                          .fadeIn(duration: 3000.ms)
-                          .slide(
-                              begin: const Offset(1, 0),
-                              end: const Offset(0, 0)),
-                    ],
+                  Text(
+                    'See why youre at the right place',
+                    style: Style.bodyL,
+                    textAlign: TextAlign.center,
                   ),
-                ),
-              ),
-              SizedBox(
-                height: getHeight() / 2,
-                child: Container(
-                  color: Colors.red,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Text('The real deal',
-                              style: Style.displayL.copyWith(
-                                fontWeight: FontWeight.bold,
-                              ))
-                          .animate()
-                          .fadeIn(duration: 3000.ms)
-                          .slide(
-                              begin: const Offset(-1, 0),
-                              end: const Offset(0, 0)),
-                      const Text('hi yo')
-                    ],
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: getHeight() / 2,
-                child: Container(
-                  color: Colors.blue,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      const Text('hi yo'),
-                      Text('The real deal',
-                              style: Style.displayL.copyWith(
-                                fontWeight: FontWeight.bold,
-                              ))
-                          .animate()
-                          .fadeIn(duration: 3000.ms)
-                          .slide(
-                              begin: const Offset(1, 0),
-                              end: const Offset(0, 0)),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
-        )
-      ],
-    );
-  }
-
-  // @override
-  // Widget build(BuildContext context) {
-  //   final boxOpacity = CurveTween(curve: Curves.easeOut)
-  //       .animate(animatedBoxEnterAnimationController);
-
-  //   final boxPosition = Tween(begin: const Offset(-1.0, 0.0), end: Offset.zero)
-  //       .chain(CurveTween(curve: Curves.elasticOut))
-  //       .animate(animatedBoxEnterAnimationController);
-  //   return SingleChildScrollView(
-  //     child: Column(
-  //       children: [
-  //         // Column(
-  //         //   children: [
-  //         //     const Text("Hello"),
-  //         //     const Text("World"),
-  //         //     const Text("Goodbye")
-  //         //   ].animate(interval: 400.ms).fade(duration: 300.ms),
-  //         // ),
-  //         Text(
-  //           'The real deal',
-  //           style: Style.displayL.copyWith(
-  //             fontWeight: FontWeight.bold,
-  //           ),
-  //         ),
-  //         buildSideAnimations(),
-  //       ],
-  //     ),
-  //   );
-  // }
-
-  @override
-  void dispose() {
-    animatedBoxEnterAnimationController.dispose();
-    animatedBoxEnterAnimationController2.dispose();
-    scrollController.dispose();
-    super.dispose();
-  }
-
-  @override
-  void initState() {
-    super.initState();
-
-    animatedBoxEnterAnimationController = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 2000),
-    );
-
-    animatedBoxEnterAnimationController2 = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 2000),
-    );
-
-    scrollController.addListener(() {
-      _updateAnimatedBoxEnterAnimation();
-    });
-  }
-
-  _updateAnimatedBoxEnterAnimation() {
-    if (animatedBoxEnterAnimationController.status !=
-            AnimationStatus.dismissed &&
-        animatedBoxEnterAnimationController2.status !=
-            AnimationStatus.dismissed) {
-      return; // animation already in progress/finished
-    }
-
-    RenderObject? listViewObject =
-        listViewKey.currentContext!.findRenderObject();
-    RenderObject? animatedBoxObject1 =
-        animatedBoxKey.currentContext!.findRenderObject();
-    RenderObject? animatedBoxObject2 =
-        animatedBoxKey2.currentContext!.findRenderObject();
-
-    final listViewHeight = listViewObject?.paintBounds.height;
-    final animatedObjectTop1 =
-        animatedBoxObject1?.getTransformTo(listViewObject).getTranslation().y;
-    final animatedObjectTop2 =
-        animatedBoxObject2?.getTransformTo(listViewObject).getTranslation().y;
-
-    final animatedBoxVisible1 =
-        (animatedObjectTop1! + enterAnimationMinHeight < listViewHeight!);
-    final animatedBoxVisible2 =
-        (animatedObjectTop2! + enterAnimationMinHeight < listViewHeight);
-
-    if (animatedBoxVisible1) {
-      animatedBoxEnterAnimationController.forward();
-    }
-    if (animatedBoxVisible2) {
-      animatedBoxEnterAnimationController2.forward();
-    }
-  }
-}
-
-class _StaggerDemoState extends State<StaggerDemo>
-    with TickerProviderStateMixin {
-  late AnimationController _controller;
-
-  @override
-  Widget build(BuildContext context) {
-    timeDilation = 10.0; // 1.0 is normal animation speed.
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Staggered Animation'),
-      ),
-      body: GestureDetector(
-        behavior: HitTestBehavior.opaque,
-        onTap: () {
-          _playAnimation();
-        },
-        child: Center(
-          child: Container(
-            width: 300,
-            height: 300,
-            decoration: BoxDecoration(
-              color: Colors.black.withOpacity(0.1),
-              border: Border.all(
-                color: Colors.black.withOpacity(0.5),
+                ],
               ),
             ),
-            child: StaggerAnimation(controller: _controller.view),
-          ),
+            Container(
+              height: getHeight(),
+              color: Colors.blue,
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 200, vertical: 200),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('Our Mission', style: Style.headlineS),
+                        const Gap(50),
+                        Text('Helping you master yourself',
+                            style: Style.headlineL),
+                        const Gap(50),
+                        Text(
+                            'Were about helping people become \nthe best version of themselves. \nWe\'re about enabling',
+                            style: Style.headlineL),
+                      ],
+                    ),
+                    const Gap(50),
+                    Container(color: Colors.green, height: 600, width: 500)
+                  ],
+                ),
+              ),
+            ),
+            Container(
+              height: getHeight(),
+              color: Colors.green,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 200),
+                child: Column(
+                  children: [
+                    Text('Who should join us?', style: Style.headlineS),
+                    const Gap(50),
+                    Text(
+                        'We want to make sure you know \nwhat you wanna do with your life',
+                        style: Style.displayM),
+                    const Gap(100),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Gap(100),
+                        Column(
+                          children: [Text('Students', style: Style.headlineL)],
+                        ),
+                        const Gap(300),
+                        Column(
+                          children: [
+                            Text('Professionals', style: Style.headlineL)
+                          ],
+                        ),
+                        const Gap(300),
+                        Column(
+                          children: [
+                            Text('Knowledge geeks', style: Style.headlineL)
+                          ],
+                        ),
+                        const Gap(100),
+                      ],
+                    )
+                  ],
+                ),
+              ),
+            ),
+            Container(
+              height: getHeight(),
+              color: Colors.orange,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Gap(50),
+                  Text('Who has already joined us?', style: Style.headlineS),
+                  const Gap(50),
+                  Text('You\'ve found the right spot. These people know it',
+                      style: Style.headlineL),
+                  const Gap(100),
+                  const Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Gap(50),
+                      Column(
+                        children: [Text('Students')],
+                      ),
+                      Gap(50),
+                      Column(
+                        children: [Text('Professionals')],
+                      ),
+                      Gap(50),
+                      Column(
+                        children: [Text('Knowledge geeks')],
+                      ),
+                      Gap(50),
+                    ],
+                  )
+                ],
+              ),
+            ),
+            Container(
+              height: getHeight(),
+              color: Colors.yellow,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 200),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Gap(50),
+                    Text('Our approach', style: Style.headlineS),
+                    const Gap(50),
+                    Text('The Seep Deep Meaning', style: Style.displayM),
+                    const Gap(100),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Column(
+                          children: [
+                            buildBox('Spaced Repetition'),
+                            const Gap(150),
+                            buildBox('Problem Library'),
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            buildBox('Guided Learning'),
+                            const Gap(150),
+                            buildBox('Industry Insiders'),
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            buildBox('Curated Content'),
+                            const Gap(150),
+                            buildBox('AI Enabled'),
+                          ],
+                        ),
+                        const Gap(50),
+                      ],
+                    )
+                  ],
+                ),
+              ),
+            ),
+            Container(
+              height: getHeight(),
+              color: Colors.orange,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Gap(50),
+                  Text('Heres what they have to say', style: Style.headlineS),
+                  const Gap(50),
+                  Text('Incredible', style: Style.displayM),
+                  const Gap(100),
+                  const Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Gap(50),
+                      Column(
+                        children: [Text('Students')],
+                      ),
+                      Gap(50),
+                      Column(
+                        children: [Text('Professionals')],
+                      ),
+                      Gap(50),
+                      Column(
+                        children: [Text('Knowledge geeks')],
+                      ),
+                      Gap(50),
+                    ],
+                  )
+                ],
+              ),
+            ),
+            Container(
+              height: getHeight(),
+              color: Colors.indigo,
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 200, vertical: 200),
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Gap(25),
+                              Text('FAQ\'S', style: Style.headlineS),
+                              const Gap(25),
+                              Text('Frequently \nAsked Questions',
+                                  style: Style.displayM),
+                            ],
+                          ),
+                        ),
+                        Expanded(
+                          child: SizedBox(
+                            height: getHeight() / 2,
+                            width: getWidth(),
+                            child: const Column(
+                              children: [
+                                ExpansionTile(
+                                  title: Text('Is Seep Deep free?'),
+                                  subtitle:
+                                      Text('Trailing expansion arrow icon'),
+                                  children: <Widget>[
+                                    ListTile(
+                                        title: Text('This is tile number 1')),
+                                  ],
+                                ),
+                                ExpansionTile(
+                                  title: Text('Will my profile be public?'),
+                                  subtitle:
+                                      Text('Trailing expansion arrow icon'),
+                                  children: <Widget>[
+                                    ListTile(
+                                        title: Text('This is tile number 1')),
+                                  ],
+                                ),
+                                ExpansionTile(
+                                  title: Text(
+                                      'Im not a programmer, is it ok for me?'),
+                                  subtitle:
+                                      Text('Trailing expansion arrow icon'),
+                                  children: <Widget>[
+                                    ListTile(
+                                        title: Text('This is tile number 1')),
+                                  ],
+                                ),
+                                ExpansionTile(
+                                  title: Text(
+                                      'Can I use Seep Deep to train my students?'),
+                                  subtitle:
+                                      Text('Trailing expansion arrow icon'),
+                                  children: <Widget>[
+                                    ListTile(
+                                        title: Text('This is tile number 1')),
+                                  ],
+                                ),
+                                ExpansionTile(
+                                  title: Text(
+                                      'Can I use Seep Deep for my company?'),
+                                  subtitle:
+                                      Text('Trailing expansion arrow icon'),
+                                  children: <Widget>[
+                                    ListTile(
+                                        title: Text('This is tile number 1')),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        )
+                      ],
+                    )
+                  ],
+                ),
+              ),
+            ),
+            Container(
+              height: 500,
+              color: Colors.yellow,
+              child: const Padding(
+                padding: EdgeInsets.only(top: 40, left: 200, right: 200),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Column(
+                          children: [
+                            Text('sososo'),
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            Text('sososo'),
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            Text('sososo'),
+                          ],
+                        ),
+                        Gap(50),
+                      ],
+                    ),
+                    Gap(250),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Text('sososo'),
+                        Text('sososo'),
+                        Text('sososo'),
+                      ],
+                    )
+                  ],
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );
   }
 
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
-  @override
-  void initState() {
-    super.initState();
-
-    _controller = AnimationController(
-      duration: const Duration(milliseconds: 2000),
-      vsync: this,
-    );
-  }
-
-  Future<void> _playAnimation() async {
-    try {
-      await _controller.forward().orCancel;
-      await _controller.reverse().orCancel;
-    } on TickerCanceled {
-      // The animation got canceled, probably because we were disposed.
-    }
-  }
-}
-
-class _SwipeUpAnimationState extends State<SwipeUpAnimation>
-    with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
-  late Animation<double> _animation;
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: AnimatedBuilder(
-        animation: _animation,
-        builder: (context, child) {
-          return Stack(
-            children: [
-              Container(
-                color: Colors.blue,
-              ),
-              const Positioned(bottom: 0, right: 0, child: Text('sosos')),
-              ClipPath(
-                clipper: CurveClipper(_animation.value),
-                child: Container(
-                    color: Colors.green, // Color behind the curve
-                    height: MediaQuery.of(context).size.height,
-                    width: double.infinity,
-                    child: const Expanded(
-                      flex: 1,
-                      child:
-                          Positioned(bottom: 0, right: 0, child: Text('sosos')),
-                    )),
-              ),
-              const Positioned(bottom: 0, right: 0, child: Text('sosos')),
-            ],
-          );
-        },
+  buildBox(title) {
+    return ConstrainedBox(
+      constraints: const BoxConstraints(
+        minWidth: 450,
+        maxWidth: 450,
+        minHeight: 250,
+        maxHeight: 250,
       ),
+      child: Text(title, style: Style.bodyL),
     );
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = AnimationController(
-      duration: const Duration(seconds: 5),
-      vsync: this,
-    );
-
-    _animation = CurvedAnimation(parent: _controller, curve: Curves.easeInOut);
-    _controller.forward();
   }
 }
