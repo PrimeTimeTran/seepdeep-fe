@@ -49,3 +49,4 @@ app.*.map.json
 .netlify
 notes/
 node_modules
+scripts/databases/venv
