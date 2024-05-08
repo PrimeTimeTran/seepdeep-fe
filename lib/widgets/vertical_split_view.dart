@@ -78,6 +78,7 @@ class _HorizontalSplitViewState extends State<HorizontalSplitView> {
           child: SizedBox(
             height: constraints.maxHeight + 33,
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 SizedBox(
                   height: _height1,

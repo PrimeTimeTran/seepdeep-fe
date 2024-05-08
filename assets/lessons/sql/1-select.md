@@ -10,18 +10,15 @@ It's helpful to think of a table in SQL as a specific type of entity. Each row i
 
 For example on the right we have the table `Movies`. Each movie has the same properties, `title`, `director`, `year` etc, but their properties have different values, `Toy Story`, `A Bug's Life`, etc.
 
-The syntax for selecting data from our table [Go](https://www.google.com) follows:
-
-[Go](https://www.google.com)
+The syntax for selecting data from our table follows:
 
 ```sql
 SELECT column, another_column, …
 FROM mytable;
 ```
 
-So if we wanted to select the title of all our movies in our database we would write
+So if we wanted to select the titles of our movies in our database we would write:
 
 ```sql
-SELECT title
-FROM movies;
+SELECT title FROM movies;
 ```

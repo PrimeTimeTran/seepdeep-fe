@@ -5,18 +5,8 @@ class Storage {
   static Storage get instance => _instance;
 
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
-  int? _cachedCount;
   String? _cachedToken;
   Storage._privateConstructor();
-
-  Future<int> get count async {
-    if (_cachedCount != null) {
-      return _cachedCount!;
-    }
-    final prefs = await _prefs;
-    _cachedCount = prefs.getInt('counter') ?? 0;
-    return _cachedCount!;
-  }
 
   Future<String> get token async {
     if (_cachedToken != null) {
@@ -32,16 +22,21 @@ class Storage {
     return prefs.getString('problemId-$lang-$problemId');
   }
 
-  Future<void> increment() async {
+  Future<String?> getSqlStep() async {
     final prefs = await _prefs;
-    final int counter = (prefs.getInt('counter') ?? 0) + 1;
-    await prefs.setInt('counter', counter);
-    _cachedCount = counter;
+    return prefs.getString('sql-step');
   }
 
   Future<void> setProblemCode(problemId, lang, code) async {
     final prefs = await _prefs;
     await prefs.setString('problemId-$lang-$problemId', code);
+  }
+
+  Future<void> setSqlStep(String step) async {
+    // 1.1?
+    //
+    final prefs = await _prefs;
+    prefs.setString('sql-step', step);
   }
 
   Future<void> setToken(authToken) async {

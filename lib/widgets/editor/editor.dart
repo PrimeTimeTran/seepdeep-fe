@@ -3,6 +3,7 @@ import 'dart:async';
 
 import 'package:app/all.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_code_editor/flutter_code_editor.dart';
 import 'package:flutter_highlight/themes/vs.dart';
 import 'package:flutter_highlighter/themes/atelier-cave-dark.dart';
@@ -117,27 +118,27 @@ class _EditorState extends State<Editor> {
           ),
           RawKeyboardListener(
             focusNode: focusNode,
-            onKey: (RawKeyEvent event) {},
-            //   if (event is RawKeyDownEvent) {
-            //     if (event.isControlPressed &&
-            //         event.logicalKey == LogicalKeyboardKey.enter) {
-            //       onRun();
-            //     } else if (event.logicalKey == LogicalKeyboardKey.tab) {
-            //       TextEditingValue value = _controller.value;
-            //       int start = value.selection.baseOffset;
-            //       int end = value.selection.extentOffset;
-            //       String newText = value.text.replaceRange(start, end, '    ');
-            //       _controller.value = TextEditingValue(
-            //         text: newText,
-            //         selection: TextSelection.collapsed(offset: start + 2),
-            //       );
-            //       return;
-            //     } else {
-            //       widget.onType(_controller.text);
-            //     }
-            //   }
-            //   return;
-            // },
+            onKey: (RawKeyEvent event) {
+              if (event is RawKeyDownEvent) {
+                if (event.isControlPressed &&
+                    event.logicalKey == LogicalKeyboardKey.enter) {
+                  onRun();
+                } else if (event.logicalKey == LogicalKeyboardKey.tab) {
+                  TextEditingValue value = _controller.value;
+                  int start = value.selection.baseOffset;
+                  int end = value.selection.extentOffset;
+                  String newText = value.text.replaceRange(start, end, '    ');
+                  _controller.value = TextEditingValue(
+                    text: newText,
+                    selection: TextSelection.collapsed(offset: start + 2),
+                  );
+                  return;
+                } else {
+                  widget.onType(_controller.text);
+                }
+              }
+              return;
+            },
             child: CodeTheme(
               data: CodeThemeData(
                 // Info: Themes

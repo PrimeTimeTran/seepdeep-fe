@@ -1,8 +1,7 @@
 import 'package:app/all.dart';
+import 'package:app/screens/sql/lesson.dart';
 import 'package:drift/drift.dart' hide Column;
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:provider/provider.dart' as provider;
 
@@ -16,6 +15,7 @@ class SQLScreen extends ConsumerStatefulWidget {
 }
 
 class _SQLScreenState extends ConsumerState<SQLScreen> {
+  String code = '';
   bool queried = false;
   bool queryFinished = false;
   Iterable<String> columnNames = [];
@@ -29,7 +29,7 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
         return Row(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Expanded(
+            const Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
@@ -38,19 +38,23 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
                       child: SingleChildScrollView(
                         child: Column(
                           children: [
-                            buildLesson(),
+                            LessonMarkDown(),
                           ],
                         ),
                       ),
                     ),
                   ),
-                  const Expanded(
+                  Expanded(
                     child: Card.outlined(
                       child: SingleChildScrollView(
-                        child: Column(
-                          children: [
-                            Text('Queries'),
-                          ],
+                        child: Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text('Select id, title & '),
+                            ],
+                          ),
                         ),
                       ),
                     ),
@@ -80,13 +84,14 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
                           ),
                           const SizedBox(height: 5),
                           Text(
-                            'Customers, Employees, Invoices, Invoice_Items, Albums, Playlists, Playlist_Track, Tracks, Artists, Genres, Media_Types',
+                            'studios, directors, movies, movie_directors, customers, employees, invoices, invoice_items, albums, playlists, playlist_track, tracks, artists, genres, media_types',
                             style: Theme.of(context).textTheme.bodySmall,
                           ),
                         ],
                       ),
                       Expanded(
                         child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             SizedBox(
                               height: getHeight() - 200,
@@ -104,7 +109,7 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
                                   children: [
                                     Editor(
                                       onRun: onRun,
-                                      onType: () {},
+                                      onType: (c) => setState(() => code = c),
                                       problem: problem,
                                       lang: Language.sql,
                                     ),
@@ -121,6 +126,11 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
                                           ),
                                           Button(
                                             title: 'Reset',
+                                            onPress: () {},
+                                            outlined: true,
+                                          ),
+                                          Button(
+                                            title: 'Hint',
                                             onPress: () {},
                                             outlined: true,
                                           ),
@@ -148,44 +158,6 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
         );
       },
     );
-  }
-
-  buildLesson() {
-    return SizedBox(
-      height: getHeight() / 2,
-      width: double.infinity,
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: FutureBuilder<String>(
-          future: loadMarkdownContent(),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(child: CircularProgressIndicator());
-            } else if (snapshot.hasError) {
-              return const Center(
-                  child: Text('Error loading Markdown content.'));
-            } else {
-              return Markdown(data: snapshot.data ?? '');
-            }
-          },
-        ),
-      ),
-    );
-    // Syntax highlighting but not perfect. Single backticks, `, are all new lines.
-    // return SizedBox(
-    //   height: 1000,
-    //   width: 1000,
-    //   child: Padding(
-    //       padding: const EdgeInsets.all(8.0),
-    //       child: Markdown(
-    //           key: const Key("defaultmarkdownformatter"),
-    //           data: go,
-    //           selectable: true,
-    //           padding: const EdgeInsets.all(10),
-    //           builders: {
-    //             'code': CodeElementBuilder(),
-    //           },),),
-    // );
   }
 
   buildPrompts() {
@@ -256,7 +228,6 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
       return SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             DataTable(
               columns: columnNames.map<DataColumn>((String columnName) {
@@ -268,7 +239,8 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
                 return DataRow(
                   cells: columnNames.map<DataCell>((String columnName) {
                     return DataCell(
-                        Text(cellMap[columnName]?.toString() ?? ''));
+                      SelectableText(cellMap[columnName]?.toString() ?? ''),
+                    );
                   }).toList(),
                 );
               }).toList(),
@@ -283,28 +255,20 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
   @override
   void initState() {
     super.initState();
-    onRun('');
+    // onRun("SELECT * FROM films as f WHERE f.title LIKE '% and %';");
+    // onRun("SELECT * FROM films as f WHERE f.title LIKE '%Harry%';");
+    onRun("SELECT * FROM films limit 50; ");
   }
 
-  Future<String> loadMarkdownContent() async {
-    try {
-      final data =
-          await rootBundle.loadString('assets/lessons/sql/1-select.md');
-      return data;
-    } catch (e) {
-      print("Error loading Markdown content: $e");
-      return '';
-    }
-  }
-
-  void onRun(String code) {
+  void onRun([String? c]) {
     setState(() {
       records = [];
       queried = false;
       columnNames = [];
       queryFinished = false;
     });
-    query("select * from 'movies'; ");
+    print('Running');
+    query(c ?? code);
   }
 
   List<Iterable<MapEntry<String, dynamic>>> parseQueryRows(

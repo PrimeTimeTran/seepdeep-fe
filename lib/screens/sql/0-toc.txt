@@ -1,0 +1,106 @@
+### Selecting Tables
+- Grab basic info about each movie. Specifically it's id, title & imdb_score.
+```sql
+SELECT id, title, imdb_score FROM films;
+```
+
+- Grab all info about each studio.
+```sql
+SELECT * FROM studios;
+```
+
+### SELECTing with Constraints
+
+- Grab the title of only the disney films"
+```sql
+SELECT title FROM films WHERE studio_id = 1;
+```
+
+- Grab title & worldwide gross of films making over 1 billion usd.
+```sql
+SELECT title, worldwide_gross FROM films WHERE worldwide_gross > 1000;
+```
+
+### Select with Constraints Part 2
+- Operators(=, !=, <>, Like, NOT LIKE, %, _, IN (...), NOT IN (...))
+
+- Grab titles of non disney films
+```sql
+SELECT title FROM films WHERE studio_id != 1;
+```
+
+- Grab titles of films whose title contains the string "and"
+```sql
+SELECT * FROM films as f WHERE f.title LIKE '% and %';
+```
+        Alias
+```sql
+SELECT * FROM films f WHERE f.title LIKE '%and%';
+```
+
+- Grab titles of films whose title contains the word "and"
+```sql
+SELECT * FROM films f WHERE f.title LIKE '% and %';
+```
+
+- Grab titles of films whose title does not contain the word "and"
+```sql
+SELECT * FROM films f WHERE f.title NOT LIKE '% and %';
+```
+
+### Filtering and Sorting Results;
+  - Distinct, Order By, LIMIT
+
+SELECT the title & worldwide_gross of only pixar films & sort by worldwide_gross in descending order(highest first).
+```sql
+SELECT title, worldwide_gross FROM films WHERE studio_id = 2 ORDER BY worldwide_gross DESC
+```
+
+SELECT the title & worldwide_gross of only pixar films & sort by worldwide_gross in ascending order(lowest first).
+```sql
+SELECT title, worldwide_gross FROM films WHERE studio_id = 2 ORDER BY worldwide_gross ASC
+```
+
+- Grab the title & worldwide_gross of the top 5 highest grossing Disney films.
+```sql
+SELECT title, worldwide_gross FROM films WHERE studio_id = 1 ORDER BY worldwide_gross DESC LIMIT 5
+```
+
+- Grab the title & worldwide_gross of bottom 3 grossing Disney films;
+```sql
+SELECT title, worldwide_gross FROM films WHERE studio_id = 1 ORDER BY worldwide_gross ASC LIMIT 3;
+```
+
+### Joining Tables
+
+- Grab the title of each movie & it's director's id.
+```sql
+SELECT title, director_id FROM movie_directors JOIN films ON films.id = movie_directors.movie_id;
+```
+
+- Grab name of director, title of movie.
+```sql
+SELECT films.title, directors.name AS director_name, movie_directors.director_id
+FROM movie_directors
+JOIN films ON films.id = movie_directors.movie_id
+JOIN directors ON directors.id = movie_directors.director_id;
+```
+
+- Grab distinct director names FROM disney films
+```sql
+SELECT DISTINCT directors.name
+FROM movie_directors
+JOIN films ON films.id = movie_directors.movie_id
+JOIN directors ON directors.id = movie_directors.director_id
+WHERE films.studio_id = 1;
+```
+
+- Grab director names & studio name FROM disney films.
+```sql
+SELECT DISTINCT directors.name AS director_name, studios.name AS studio_name
+FROM movie_directors
+JOIN films ON films.id = movie_directors.movie_id
+JOIN directors ON directors.id = movie_directors.director_id
+JOIN studios ON studios.id = films.studio_id
+WHERE studios.name = 'Disney';
+```

@@ -142,7 +142,7 @@ class Solution {
 ${'\n' * 20}
 """;
     case Language.sql:
-      return "";
+      return '\n' * 10;
     default:
       return "";
   }
