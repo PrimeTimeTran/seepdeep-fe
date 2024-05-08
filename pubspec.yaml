@@ -78,6 +78,8 @@ flutter:
   assets:
     - assets/
     - assets/json/
+    - assets/lessons/
+    - assets/lessons/sql/
     - assets/img/
     - assets/img/logos/
     - assets/img/headshots/

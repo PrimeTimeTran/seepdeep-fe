@@ -1,6 +1,7 @@
 import 'package:app/all.dart';
 import 'package:drift/drift.dart' hide Column;
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:provider/provider.dart' as provider;
@@ -8,34 +9,35 @@ import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 
 import '../../database/database.dart';
 
-const go = """
-# SQL Lesson 1: SELECT queries 101
+// const go = """
+// # SQL Lesson 1: SELECT queries 101
 
-To retrieve data from a SQL database, we write SELECT statements, which are often referred to as **queries**.
+// To retrieve data from a SQL database, we write SELECT statements, which are often referred to as **queries**.
 
-A query in itself is a statement which declares what data we're looking for, where to find it in the database, and optionally, how to transform it before it is returned.
+// A query in itself is a statement which declares what data we're looking for, where to find it in the database, and optionally, how to transform it before it is returned.
 
-It has a specific syntax though, which is what we are going to learn in the following exercises.
+// It has a specific syntax though, which is what we are going to learn in the following exercises.
 
-It's helpful to think of a table in SQL as a specific type of entity. Each row is an instance of that entity. The columns would then represent properties of an entity.
+// It's helpful to think of a table in SQL as a specific type of entity. Each row is an instance of that entity. The columns would then represent properties of an entity.
 
-For example on the right we have the table `Movies`. Each movie has the same properties, `title`, `director`, `year` etc, but their properties have different values, `Toy Story`, `A Bug's Life`, etc.
+// For example on the right we have the table `Movies`. Each movie has the same properties, `title`, `director`, `year` etc, but their properties have different values, `Toy Story`, `A Bug's Life`, etc.
 
+// The syntax for selecting data from our table follows:
 
-The syntax for selecting data from our table follows:
+// ```sql
+// SELECT column, another_column, …
+// FROM mytable;
+// ```
 
-```sql
-SELECT column, another_column, …
-FROM mytable;
-```
+// So if we wanted to select the title of all our movies in our database we would write
 
-So if we wanted to select the title of all our movies in our database we would write
+// ```sql
+// SELECT title
+// FROM movies;
+// ```
+// """;
 
-```sql
-SELECT title
-FROM movies;
-```
-""";
+final go = rootBundle.load('assets/lessons/sql/1-select.md');
 
 class Employee {
   final int id;
@@ -86,9 +88,8 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
   bool queried = false;
   bool queryFinished = false;
   Iterable<String> columnNames = [];
-  List<Iterable<MapEntry<String, dynamic>>> records = [];
-
   List<Employee> employees = <Employee>[];
+  List<Iterable<MapEntry<String, dynamic>>> records = [];
 
   late EmployeeDataSource employeeDataSource;
 
@@ -106,10 +107,12 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
                 children: [
                   Expanded(
                     child: Card(
-                      child: Column(
-                        children: [
-                          buildLesson(),
-                        ],
+                      child: SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            buildLesson(),
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -172,12 +175,27 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
   }
 
   buildLesson() {
-    return const Padding(
-      padding: EdgeInsets.all(8.0),
-      child: Markdown(
-        data: go,
+    return SizedBox(
+      height: getHeight(),
+      width: double.infinity,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: FutureBuilder<String>(
+          future: loadMarkdownContent(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            } else if (snapshot.hasError) {
+              return const Center(
+                  child: Text('Error loading Markdown content.'));
+            } else {
+              return Markdown(data: snapshot.data ?? '');
+            }
+          },
+        ),
       ),
     );
+    // Syntax highlighting but not perfect. Single backticks, `, are all new lines.
     // return SizedBox(
     //   height: 1000,
     //   width: 1000,
@@ -190,7 +208,7 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
     //           padding: const EdgeInsets.all(10),
     //           builders: {
     //             'code': CodeElementBuilder(),
-    //           })),
+    //           },),),
     // );
   }
 
@@ -343,6 +361,17 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
     onRun('');
     employees = getEmployeeData();
     employeeDataSource = EmployeeDataSource(employeeData: employees);
+  }
+
+  Future<String> loadMarkdownContent() async {
+    try {
+      final data =
+          await rootBundle.loadString('assets/lessons/sql/1-select.md');
+      return data;
+    } catch (e) {
+      print("Error loading Markdown content: $e");
+      return '';
+    }
   }
 
   void onRun(String code) {
