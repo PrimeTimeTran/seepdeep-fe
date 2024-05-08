@@ -1,11 +1,41 @@
 import 'package:app/all.dart';
 import 'package:drift/drift.dart' hide Column;
 import 'package:flutter/material.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:provider/provider.dart' as provider;
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 
-import '../database/database.dart';
+import '../../database/database.dart';
+
+const go = """
+# SQL Lesson 1: SELECT queries 101
+
+To retrieve data from a SQL database, we write SELECT statements, which are often referred to as **queries**.
+
+A query in itself is a statement which declares what data we're looking for, where to find it in the database, and optionally, how to transform it before it is returned.
+
+It has a specific syntax though, which is what we are going to learn in the following exercises.
+
+It's helpful to think of a table in SQL as a specific type of entity. Each row is an instance of that entity. The columns would then represent properties of an entity.
+
+For example on the right we have the table `Movies`. Each movie has the same properties, `title`, `director`, `year` etc, but their properties have different values, `Toy Story`, `A Bug's Life`, etc.
+
+
+The syntax for selecting data from our table follows:
+
+```sql
+SELECT column, another_column, …
+FROM mytable;
+```
+
+So if we wanted to select the title of all our movies in our database we would write
+
+```sql
+SELECT title
+FROM movies;
+```
+""";
 
 class Employee {
   final int id;
@@ -79,8 +109,6 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
                       child: Column(
                         children: [
                           buildLesson(),
-                          buildPrompts(),
-                          buildResults()
                         ],
                       ),
                     ),
@@ -144,7 +172,26 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
   }
 
   buildLesson() {
-    return Text('Learn SQL with our custom query tool', style: Style.bodyL);
+    return const Padding(
+      padding: EdgeInsets.all(8.0),
+      child: Markdown(
+        data: go,
+      ),
+    );
+    // return SizedBox(
+    //   height: 1000,
+    //   width: 1000,
+    //   child: Padding(
+    //       padding: const EdgeInsets.all(8.0),
+    //       child: Markdown(
+    //           key: const Key("defaultmarkdownformatter"),
+    //           data: go,
+    //           selectable: true,
+    //           padding: const EdgeInsets.all(10),
+    //           builders: {
+    //             'code': CodeElementBuilder(),
+    //           })),
+    // );
   }
 
   buildPrompts() {

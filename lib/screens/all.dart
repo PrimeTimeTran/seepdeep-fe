@@ -19,7 +19,7 @@ export 'profile_screen.dart';
 export 'search_screen.dart';
 export 'settings_screen.dart';
 export 'sort_screen.dart';
-export 'sql_screen.dart';
+export 'sql/sql_screen.dart';
 export 'streak_screen.dart';
 export 'test_screen.dart';
 export 'visualization_screen.dart';

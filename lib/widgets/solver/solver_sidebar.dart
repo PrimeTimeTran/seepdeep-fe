@@ -30,14 +30,14 @@ class CodeElementBuilder extends MarkdownElementBuilder {
 
   @override
   Widget? visitElementAfter(md.Element element, TextStyle? preferredStyle) {
-    String language = '';
+    String language = 'sql';
 
     if (element.attributes['class'] != null) {
       String lg = element.attributes['class'] as String;
       language = lg.substring(9);
     }
     return SizedBox(
-      width: getWidth(),
+      width: MediaQueryData.fromView(WidgetsBinding.instance.window).size.width,
       child: HighlightView(
         element.textContent,
         theme: getTheme(),

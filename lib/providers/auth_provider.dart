@@ -7,6 +7,27 @@ class AuthProvider extends ChangeNotifier {
   get isAuthenticated => _authenticated;
   get user => _user;
 
+  getStreakDates() {
+    Map<String, dynamic>? streak = _user?.streak;
+    Map<DateTime, int> dateTimeDayTotals = {};
+    DateTime parseDate(String dateString) {
+      List<String> dateParts = dateString.split('/');
+      int month = int.parse(dateParts[0]);
+      int day = int.parse(dateParts[1]);
+      int year = int.parse(dateParts[2]);
+      year += (year < 100) ? 2000 : 0;
+      return DateTime(year, month, day);
+    }
+
+    streak?.forEach((dateString, value) {
+      DateTime date = parseDate(dateString);
+      if (value is Map<String, dynamic> && value.containsKey("dayTotal")) {
+        dateTimeDayTotals[date] = value["dayTotal"];
+      }
+    });
+    return dateTimeDayTotals;
+  }
+
   setAuthenticated() {
     _authenticated = !_authenticated;
     notifyListeners();

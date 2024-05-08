@@ -16,64 +16,11 @@ class MasteryScreen extends StatefulWidget {
   State<MasteryScreen> createState() => _MasteryScreenState();
 }
 
-class ProgressIndicator extends StatelessWidget {
+class ProgressIndicator extends StatefulWidget {
   const ProgressIndicator({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        border: Border.all(),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(30),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Consumer<AuthProvider>(
-              builder: (context, auth, child) {
-                return Text('isAuthenticated: ${auth.user.email}',
-                    style: TextStyle(
-                        color:
-                            auth.isAuthenticated ? Colors.green : Colors.red));
-              },
-            ),
-            const Text('Progress'),
-            const Text(
-              'Topics covered',
-            ),
-            PrimerProgressBar(segments: segments2.toList()),
-            ColoredCard(
-              padding: 40,
-              child: HeatMap(
-                datasets: {
-                  DateTime(2024, 1, 1): 30,
-                  DateTime(2024, 2, 2): 30,
-                  DateTime(2024, 3, 3): 30,
-                  DateTime(2024, 4, 4): 30,
-                },
-                colorMode: ColorMode.opacity,
-                showText: false,
-                scrollable: true,
-                colorsets: const {
-                  1: Colors.red,
-                  3: Colors.orange,
-                  5: Colors.yellow,
-                  7: Colors.green,
-                  9: Colors.blue,
-                  11: Colors.indigo,
-                  13: Colors.purple,
-                },
-                onClick: (value) {},
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
+  State<ProgressIndicator> createState() => _ProgressIndicatorState();
 }
 
 class _MasteryScreenState extends State<MasteryScreen> {
@@ -118,6 +65,16 @@ class _MasteryScreenState extends State<MasteryScreen> {
                   style: const TextStyle(fontSize: 20))
             ],
           ),
+          Consumer<AuthProvider>(
+            builder: (context, auth, child) {
+              return Text(
+                'isAuthenticated: ${auth.user.email}',
+                style: TextStyle(
+                  color: auth.isAuthenticated ? Colors.green : Colors.red,
+                ),
+              );
+            },
+          ),
           LinearProgressIndicator(
             value: mastery[topic.name]['level'],
             color: color,
@@ -147,7 +104,6 @@ class _MasteryScreenState extends State<MasteryScreen> {
   void initState() {
     super.initState();
     user = Provider.of<AuthProvider>(context, listen: false).user;
-    print(user);
     Glob.logI(user.toJson().toString());
     mastery = buildMastery();
     setState(() {
@@ -155,5 +111,57 @@ class _MasteryScreenState extends State<MasteryScreen> {
       mastery = mastery;
     });
     fetchSolves();
+  }
+}
+
+class _ProgressIndicatorState extends State<ProgressIndicator> {
+  Map<DateTime, int> dataset = {};
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        border: Border.all(),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(30),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text('Progress'),
+            const Text(
+              'Topics covered',
+            ),
+            PrimerProgressBar(segments: segments2.toList()),
+            ColoredCard(
+              padding: 40,
+              child: Consumer<AuthProvider>(
+                builder: (context, auth, child) {
+                  final vals = auth.getStreakDates();
+                  return HeatMap(
+                    datasets: vals,
+                    colorMode: ColorMode.opacity,
+                    showText: false,
+                    scrollable: true,
+                    colorsets: const {
+                      1: Colors.red,
+                      3: Colors.orange,
+                      5: Colors.yellow,
+                      7: Colors.green,
+                      9: Colors.blue,
+                      11: Colors.indigo,
+                      13: Colors.purple,
+                    },
+                    onClick: (value) {},
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
