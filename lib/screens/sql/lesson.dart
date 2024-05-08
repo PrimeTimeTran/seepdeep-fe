@@ -1,3 +1,4 @@
+const go = """
 # SQL Lesson 1: SELECT queries 101
 
 To retrieve data from a SQL database, we write SELECT statements, which are often referred to as **queries**.
@@ -23,3 +24,4 @@ So if we wanted to select the title of all our movies in our database we would w
 SELECT title
 FROM movies;
 ```
+""";

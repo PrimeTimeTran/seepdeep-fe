@@ -5,14 +5,16 @@ import 'package:flutter/material.dart';
 
 class HorizontalSplitView extends StatefulWidget {
   final Widget top;
-  final Widget bottom;
   final double ratio;
+  final Widget bottom;
+  final bool? borderless;
 
   const HorizontalSplitView({
     super.key,
     required this.top,
     required this.bottom,
     this.ratio = .55,
+    this.borderless,
   })  : assert(ratio >= 0),
         assert(ratio <= 1);
 
@@ -64,12 +66,14 @@ class _HorizontalSplitViewState extends State<HorizontalSplitView> {
         }
 
         return Container(
-          decoration: const BoxDecoration(
-            border: Border(
-              left: BorderSide(
-                width: 1,
-              ),
-            ),
+          decoration: BoxDecoration(
+            border: widget.borderless == true
+                ? null
+                : const Border(
+                    left: BorderSide(
+                      width: 1,
+                    ),
+                  ),
           ),
           child: SizedBox(
             height: constraints.maxHeight + 33,
@@ -105,13 +109,15 @@ class _HorizontalSplitViewState extends State<HorizontalSplitView> {
                   height: _height2,
                   width: double.infinity,
                   child: Container(
-                    decoration: const BoxDecoration(
-                      border: Border(
-                        top: BorderSide(
-                          width: 1,
-                        ),
-                      ),
-                    ),
+                    decoration: widget.borderless == true
+                        ? null
+                        : const BoxDecoration(
+                            border: Border(
+                              top: BorderSide(
+                                width: 1,
+                              ),
+                            ),
+                          ),
                     child: widget.bottom,
                   ),
                 ),

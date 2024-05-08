@@ -5,77 +5,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:provider/provider.dart' as provider;
-import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 
 import '../../database/database.dart';
-
-// const go = """
-// # SQL Lesson 1: SELECT queries 101
-
-// To retrieve data from a SQL database, we write SELECT statements, which are often referred to as **queries**.
-
-// A query in itself is a statement which declares what data we're looking for, where to find it in the database, and optionally, how to transform it before it is returned.
-
-// It has a specific syntax though, which is what we are going to learn in the following exercises.
-
-// It's helpful to think of a table in SQL as a specific type of entity. Each row is an instance of that entity. The columns would then represent properties of an entity.
-
-// For example on the right we have the table `Movies`. Each movie has the same properties, `title`, `director`, `year` etc, but their properties have different values, `Toy Story`, `A Bug's Life`, etc.
-
-// The syntax for selecting data from our table follows:
-
-// ```sql
-// SELECT column, another_column, …
-// FROM mytable;
-// ```
-
-// So if we wanted to select the title of all our movies in our database we would write
-
-// ```sql
-// SELECT title
-// FROM movies;
-// ```
-// """;
-
-final go = rootBundle.load('assets/lessons/sql/1-select.md');
-
-class Employee {
-  final int id;
-  final int salary;
-  final String name;
-  final String designation;
-  Employee(this.id, this.name, this.designation, this.salary);
-}
-
-class EmployeeDataSource extends DataGridSource {
-  List<DataGridRow> _employeeData = [];
-  EmployeeDataSource({required List<Employee> employeeData}) {
-    _employeeData = employeeData
-        .map<DataGridRow>((e) => DataGridRow(cells: [
-              DataGridCell<int>(columnName: 'id', value: e.id),
-              DataGridCell<String>(columnName: 'name', value: e.name),
-              DataGridCell<String>(
-                  columnName: 'designation', value: e.designation),
-              DataGridCell<int>(columnName: 'salary', value: e.salary),
-            ]))
-        .toList();
-  }
-
-  @override
-  List<DataGridRow> get rows => _employeeData;
-
-  @override
-  DataGridRowAdapter buildRow(DataGridRow row) {
-    return DataGridRowAdapter(
-        cells: row.getCells().map<Widget>((e) {
-      return Container(
-        alignment: Alignment.center,
-        padding: const EdgeInsets.all(8.0),
-        child: Text(e.value.toString()),
-      );
-    }).toList());
-  }
-}
 
 class SQLScreen extends ConsumerStatefulWidget {
   const SQLScreen({super.key});
@@ -88,10 +19,7 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
   bool queried = false;
   bool queryFinished = false;
   Iterable<String> columnNames = [];
-  List<Employee> employees = <Employee>[];
   List<Iterable<MapEntry<String, dynamic>>> records = [];
-
-  late EmployeeDataSource employeeDataSource;
 
   @override
   Widget build(BuildContext context) {
@@ -116,13 +44,14 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
                       ),
                     ),
                   ),
-                  Expanded(
+                  const Expanded(
                     child: Card.outlined(
-                      child: Editor(
-                        onRun: onRun,
-                        onType: () {},
-                        problem: problem,
-                        lang: Language.sql,
+                      child: SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            Text('Queries'),
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -131,12 +60,12 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
             ),
             Expanded(
               child: Card(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const SizedBox(height: 10),
@@ -156,15 +85,62 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
                           ),
                         ],
                       ),
-                    ),
-                    Expanded(
-                      child: SingleChildScrollView(
+                      Expanded(
                         child: Column(
-                          children: [buildTable()],
+                          children: [
+                            SizedBox(
+                              height: getHeight() - 200,
+                              width: double.infinity,
+                              child: HorizontalSplitView(
+                                borderless: true,
+                                top: SingleChildScrollView(
+                                  child: Column(
+                                    children: [
+                                      buildTable(),
+                                    ],
+                                  ),
+                                ),
+                                bottom: Column(
+                                  children: [
+                                    Editor(
+                                      onRun: onRun,
+                                      onType: () {},
+                                      problem: problem,
+                                      lang: Language.sql,
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Button(
+                                            title: 'Back',
+                                            onPress: () {},
+                                            outlined: true,
+                                          ),
+                                          Button(
+                                            title: 'Reset',
+                                            onPress: () {},
+                                            outlined: true,
+                                          ),
+                                          Button(
+                                            title: 'Next',
+                                            onPress: () {},
+                                            outlined: true,
+                                          )
+                                        ],
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -176,7 +152,7 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
 
   buildLesson() {
     return SizedBox(
-      height: getHeight(),
+      height: getHeight() / 2,
       width: double.infinity,
       child: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -340,27 +316,10 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
     return const SizedBox();
   }
 
-  List<Employee> getEmployeeData() {
-    return [
-      Employee(10001, 'James', 'Project Lead', 20000),
-      Employee(10002, 'Kathryn', 'Manager', 30000),
-      Employee(10003, 'Lara', 'Developer', 15000),
-      Employee(10004, 'Michael', 'Designer', 15000),
-      Employee(10005, 'Martin', 'Developer', 15000),
-      Employee(10006, 'Newberry', 'Developer', 15000),
-      Employee(10007, 'Balnc', 'Developer', 15000),
-      Employee(10008, 'Perry', 'Developer', 15000),
-      Employee(10009, 'Gable', 'Developer', 15000),
-      Employee(10010, 'Grimes', 'Developer', 15000)
-    ];
-  }
-
   @override
   void initState() {
     super.initState();
     onRun('');
-    employees = getEmployeeData();
-    employeeDataSource = EmployeeDataSource(employeeData: employees);
   }
 
   Future<String> loadMarkdownContent() async {
