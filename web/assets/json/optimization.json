@@ -46,7 +46,7 @@
       "body": "The weekly cost to produce x widgets is given by",
       "equation": "\\[ C(x) = 75,000 + 100x - 0.03x^{2} + 0.000004x \\; 30 ≤ x ≤ 10000 \\]",
       "body2": "and the demand function for the widgets is given by,",
-      "equation": "p(x) = 200 - 0.005x \\; 0 ≤ x ≤ 10000",
+      "equation2": "\\[ p(x) = 200 - 0.005x \\; 0 ≤ x ≤ 10000  \\]",
       "prompt": "Determine the marginal cost, marginal revenue and marginal profit when 2500 widgets are sold and when 7500 widgets are sold. Assume that the company sells exactly what they produce.",
       "answer": "",
       "explanation": "So, upon producing and selling the 2501st widget it will cost the company approximately $25 to produce the widget and they will see an added $175 in revenue and $150 in profit. \n\nOn the other hand, when they produce and sell the 7501st widget it will cost an additional $325 and they will receive an extra $125 in revenue, but lose $200 in profit."

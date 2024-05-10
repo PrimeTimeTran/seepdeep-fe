@@ -105,7 +105,7 @@ class _AppBarContentState extends State<AppBarContent> {
               TextButton.icon(
                 onPressed: () => GoRouter.of(context).go(AppScreens.home.path),
                 icon: SvgPicture.asset(
-                  'assets/icons/favicon.svg',
+                  'assets/img/favicon.svg',
                   width: 48,
                   height: 48,
                 ),

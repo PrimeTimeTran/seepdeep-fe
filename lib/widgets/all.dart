@@ -10,7 +10,7 @@ export 'editor/editor.helpers.dart';
 export 'footer.dart';
 export 'indicator.dart';
 export 'markdown_editor/markdown_editor.dart';
-export 'modals.dart';
+export 'modal/modals.dart';
 export 'shimmer_list.dart';
 export 'shimmers.dart';
 export 'solver/all.dart';

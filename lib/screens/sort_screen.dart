@@ -7,10 +7,10 @@ import 'package:flutter/material.dart';
 class SortItem {
   Color color;
   num value;
-  late int position;
   String label;
   double height;
   double width;
+  late int position;
   late bool sorting = false;
   SortItem({
     required this.value,
