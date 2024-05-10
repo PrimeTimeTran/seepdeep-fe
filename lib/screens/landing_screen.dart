@@ -658,51 +658,22 @@ class _LandingScreenState extends State<LandingScreen> {
                           width: getWidth(),
                           child: Column(
                             children: [
-                              buildFAQTile('Is Seep Deep free?',
-                                  'Trailing expansion arrow icon'),
-                              ExpansionTile(
-                                title: Text('Will my profile be public?',
-                                    style: Style.headlineL),
-                                subtitle: Text('Trailing expansion arrow icon',
-                                    style: Style.headlineS),
-                                children: const <Widget>[
-                                  ListTile(
-                                      title: Text('This is tile number 1')),
-                                ],
-                              ),
-                              ExpansionTile(
-                                title: Text(
-                                    'Im not a programmer, is it ok for me?',
-                                    style: Style.headlineL),
-                                subtitle: Text('Trailing expansion arrow icon',
-                                    style: Style.headlineS),
-                                children: const <Widget>[
-                                  ListTile(
-                                      title: Text('This is tile number 1')),
-                                ],
-                              ),
-                              ExpansionTile(
-                                title: Text(
-                                    'Can I use Seep Deep to train my students?',
-                                    style: Style.headlineL),
-                                subtitle: Text('Trailing expansion arrow icon',
-                                    style: Style.headlineS),
-                                children: const <Widget>[
-                                  ListTile(
-                                      title: Text('This is tile number 1')),
-                                ],
-                              ),
-                              ExpansionTile(
-                                title: Text(
-                                    'Can I use Seep Deep for my company?',
-                                    style: Style.headlineL),
-                                subtitle: Text('Trailing expansion arrow icon',
-                                    style: Style.headlineS),
-                                children: const <Widget>[
-                                  ListTile(
-                                      title: Text('This is tile number 1')),
-                                ],
-                              ),
+                              buildFAQTile('Is Seep Deep free?', null,
+                                  'While were still in beta we\'re completely free to use.'),
+                              buildFAQTile('Will my profile be public?', null,
+                                  'Your profile is private until you choose to make it publicly available'),
+                              buildFAQTile(
+                                  'Im not a programmer, is it ok for me?',
+                                  null,
+                                  'We have a lot more than coding problems! Our material covers maths & data science as well(with more on the way)'),
+                              buildFAQTile(
+                                  'Can I use Seep Deep to train my students?',
+                                  null,
+                                  'Of course. Although at the time of writing we\'re not yet focusing on beginner topics(variables, conditionals, functions, algebra, trigonometry, etc)'),
+                              buildFAQTile(
+                                  'Can I use Seep Deep for my company?',
+                                  null,
+                                  'Please email us at info@seepdeep.com if there\'s something more you\'d like to see implemented.'),
                             ],
                           ),
                         ),
@@ -765,12 +736,13 @@ class _LandingScreenState extends State<LandingScreen> {
     );
   }
 
-  buildFAQTile(question, answer) {
+  buildFAQTile(question, [followup, answer]) {
     return ExpansionTile(
-      title: Text(question, style: Style.headlineL),
-      subtitle: Text(answer, style: Style.headlineS),
-      children: const <Widget>[
-        ListTile(title: Text('This is tile number 1')),
+      title: Text(question, style: Style.headlineS),
+      subtitle:
+          followup == null ? null : Text(followup, style: Style.headlineS),
+      children: <Widget>[
+        ListTile(title: Text(answer ?? '')),
       ],
     );
   }
