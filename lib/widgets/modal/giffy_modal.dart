@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:giffy_dialog/giffy_dialog.dart';
+import 'package:go_router/go_router.dart';
 
 class GiffyModel {
   final Widget giffy;
@@ -31,11 +32,11 @@ class GiffyModel {
       ),
       actions: [
         TextButton(
-          onPressed: () => Navigator.pop(context, 'Close'),
+          onPressed: () => GoRouter.of(context).pop(),
           child: const Text('Close'),
         ),
         TextButton(
-          onPressed: () => Navigator.pop(context, 'OK'),
+          onPressed: () => GoRouter.of(context).pop(),
           child: const Text('OK'),
         ),
       ],
@@ -59,11 +60,11 @@ class GiffyModel {
       ),
       actions: [
         TextButton(
-          onPressed: () => Navigator.pop(context, 'CANCEL'),
+          onPressed: () => GoRouter.of(context).pop(),
           child: const Text('CANCEL'),
         ),
         TextButton(
-          onPressed: () => Navigator.pop(context, 'OK'),
+          onPressed: () => GoRouter.of(context).pop(),
           child: const Text('OK'),
         ),
       ],
@@ -87,11 +88,11 @@ class GiffyModel {
       ),
       actions: [
         TextButton(
-          onPressed: () => Navigator.pop(context, 'CANCEL'),
+          onPressed: () => GoRouter.of(context).pop(),
           child: const Text('CANCEL'),
         ),
         TextButton(
-          onPressed: () => Navigator.pop(context, 'OK'),
+          onPressed: () => GoRouter.of(context).pop(),
           child: const Text('OK'),
         ),
       ],

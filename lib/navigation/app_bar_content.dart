@@ -131,7 +131,6 @@ class _AppBarContentState extends State<AppBarContent> {
                     TextButton.icon(
                       onPressed: () {
                         GoRouter.of(context).go(AppScreens.problems.path);
-                        // openDrawer();
                       },
                       label: const Text('Data Structures',
                           style: TextStyle(color: Colors.white)),

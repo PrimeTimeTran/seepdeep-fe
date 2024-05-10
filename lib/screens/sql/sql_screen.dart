@@ -3,6 +3,7 @@ import 'package:app/screens/sql/lesson.dart';
 import 'package:drift/drift.dart' hide Column;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gap/gap.dart';
 import 'package:provider/provider.dart' as provider;
 
 import '../../database/database.dart';
@@ -29,6 +30,7 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
         return Row(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            const Modal(type: GiffyType.rive, title: '', content: Gap(1)),
             const Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -258,6 +260,7 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
     // onRun("SELECT * FROM films as f WHERE f.title LIKE '% and %';");
     // onRun("SELECT * FROM films as f WHERE f.title LIKE '%Harry%';");
     onRun("SELECT * FROM films limit 50; ");
+    setup();
   }
 
   void onRun([String? c]) {
@@ -314,4 +317,6 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
       print('Error: $e');
     }
   }
+
+  setup() {}
 }

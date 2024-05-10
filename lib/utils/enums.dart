@@ -8,8 +8,8 @@ enum ContentLineType {
 }
 
 enum GiffyType {
-  image,
   rive,
+  image,
   lottie;
 
   Widget when({

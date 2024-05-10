@@ -59,6 +59,7 @@ dependencies:
   syncfusion_flutter_datagrid: ^25.1.42
   shared_preferences: ^2.2.3
   visibility_detector: ^0.4.0+2
+  smooth_page_indicator: ^1.1.0
 
 dev_dependencies:
   flutter_test:
@@ -81,5 +82,6 @@ flutter:
     - assets/lessons/
     - assets/lessons/sql/
     - assets/img/
+    - assets/img/carousels/
     - assets/img/logos/
     - assets/img/headshots/
