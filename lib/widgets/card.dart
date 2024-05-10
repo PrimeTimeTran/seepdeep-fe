@@ -30,9 +30,9 @@ class ColoredCard extends StatelessWidget {
     super.key,
     this.child,
     this.height = 300,
-    this.padding = 8.0,
-    this.width = double.infinity,
+    this.padding = 8,
     this.color = Colors.grey,
+    this.width = double.infinity,
   });
 
   @override

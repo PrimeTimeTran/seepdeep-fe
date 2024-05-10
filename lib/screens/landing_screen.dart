@@ -412,11 +412,6 @@ class _LandingScreenState extends State<LandingScreen> {
               ),
             ],
           ),
-          // Container(
-          //   height: getHeight(),
-          //   color: Colors.grey[100],
-          //   child: ,
-          // ),
           Container(
             height: getHeight(),
             color: Colors.white,
@@ -591,8 +586,8 @@ class _LandingScreenState extends State<LandingScreen> {
           ),
           Container(
             key: _sectionFKey,
-            height: getHeight() / 1.5,
             color: Colors.white,
+            height: getHeight() / 1.5,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

@@ -81,35 +81,25 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
   }
 
   Padding buildListHeader() {
-    return const Padding(
-      padding: EdgeInsets.only(),
+    return Padding(
+      padding: const EdgeInsets.only(),
       child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
+            SizedBox(child: AppText(text: "Status", style: Style.bold)),
+            const Gap(10),
+            Expanded(flex: 4, child: AppText(text: "Title", style: Style.bold)),
             SizedBox(
-                child: Text("Status",
-                    style: TextStyle(fontWeight: FontWeight.bold))),
-            Gap(10),
-            Expanded(
-                flex: 4,
-                child: Text("Title",
-                    style: TextStyle(fontWeight: FontWeight.bold))),
-            SizedBox(
-                width: 95,
-                child: Text("Solution",
-                    style: TextStyle(fontWeight: FontWeight.bold))),
+                width: 95, child: AppText(text: "Solution", style: Style.bold)),
             SizedBox(
                 width: 110,
-                child: Text("Acceptance",
-                    style: TextStyle(fontWeight: FontWeight.bold))),
+                child: AppText(text: "Acceptance", style: Style.bold)),
             SizedBox(
                 width: 110,
-                child: Text("Difficulty",
-                    style: TextStyle(fontWeight: FontWeight.bold))),
+                child: AppText(text: "Difficulty", style: Style.bold)),
             SizedBox(
                 width: 100,
-                child: Text("Frequency",
-                    style: TextStyle(fontWeight: FontWeight.bold))),
+                child: AppText(text: "Frequency", style: Style.bold)),
           ]),
     );
   }
@@ -138,11 +128,17 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
           leading: const Icon(Icons.abc),
           title: Row(
             children: [
-              Expanded(flex: 10, child: Text('${item.numLC}. ${item.title}')),
+              Expanded(
+                flex: 10,
+                child: AppText(text: '${item.numLC}. ${item.title}'),
+              ),
               const Spacer(),
               const SizedBox(width: 60, child: Icon(Icons.abc)),
               const Spacer(),
-              SizedBox(width: 60, child: Text('${item.acceptanceRate}')),
+              SizedBox(
+                width: 60,
+                child: AppText(text: '${item.acceptanceRate}'),
+              ),
               const Spacer(),
               SizedBox(
                 width: 70,
@@ -241,8 +237,7 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 TextButton.icon(
-                  label: const Text("Topics",
-                      style: TextStyle(color: Colors.white)),
+                  label: const AppText(text: "Topics"),
                   icon: const Icon(Icons.arrow_circle_down_outlined,
                       color: Colors.white),
                   onPressed: () => setState(

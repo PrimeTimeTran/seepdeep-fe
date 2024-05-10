@@ -62,14 +62,13 @@ class _EditorState extends State<Editor> {
                       buildMenuItem('SQL', Icons.bug_report, Language.sql),
                     ],
                     child: TextButton.icon(
-                      onPressed: null,
-                      icon:
-                          const Icon(size: 20, Icons.code, color: Colors.green),
-                      label: Text(
-                        selectedLanguageName(selectedLang),
-                        style: Style.bodyS.copyWith(color: Style.textColor),
-                      ),
-                    ),
+                        onPressed: null,
+                        icon: const Icon(
+                            size: 20, Icons.code, color: Colors.green),
+                        label: AppText(
+                          text: selectedLanguageName(selectedLang),
+                          style: Style.bodyL,
+                        )),
                   ),
                 ],
               ),

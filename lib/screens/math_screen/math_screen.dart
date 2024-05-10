@@ -156,14 +156,16 @@ class _MathScreenState extends State<MathScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       ConstrainedBox(
-                        constraints: const BoxConstraints(
-                          minWidth: 200,
-                          maxWidth: 1000,
-                          minHeight: 10,
-                          maxHeight: 150,
-                        ),
-                        child: Text(question.title!, style: Style.displayM),
-                      ),
+                          constraints: const BoxConstraints(
+                            minWidth: 200,
+                            maxWidth: 1000,
+                            minHeight: 10,
+                            maxHeight: 150,
+                          ),
+                          child: AppText(
+                            text: question.title!,
+                            style: Style.displayM,
+                          )),
                       const Gap(10),
                       ConstrainedBox(
                         constraints: const BoxConstraints(
@@ -172,7 +174,10 @@ class _MathScreenState extends State<MathScreen> {
                           minHeight: 100,
                           maxHeight: 150,
                         ),
-                        child: Text(question.body!, style: Style.headlineS),
+                        child: AppText(
+                          text: question.body!,
+                          style: Style.headlineS,
+                        ),
                       ),
                       const Gap(10),
                       ConstrainedBox(
@@ -198,14 +203,16 @@ class _MathScreenState extends State<MathScreen> {
                           )),
                       const Gap(10),
                       ConstrainedBox(
-                        constraints: const BoxConstraints(
-                          minWidth: 200,
-                          maxWidth: 1000,
-                          minHeight: 100,
-                          maxHeight: 150,
-                        ),
-                        child: Text(question.prompt!, style: Style.headlineS),
-                      ),
+                          constraints: const BoxConstraints(
+                            minWidth: 200,
+                            maxWidth: 1000,
+                            minHeight: 100,
+                            maxHeight: 150,
+                          ),
+                          child: AppText(
+                            text: question.prompt!,
+                            style: Style.headlineS,
+                          )),
                       const Gap(10),
                       Card.outlined(
                         child: Column(
@@ -231,7 +238,9 @@ class _MathScreenState extends State<MathScreen> {
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: <Widget>[
                                 OutlinedButton.icon(
-                                  label: const Text('Back'),
+                                  label: const AppText(
+                                    text: 'Back',
+                                  ),
                                   onPressed: () {
                                     if (index <= 1) return;
                                     _problemStreamController.add(index - 1);
@@ -244,7 +253,9 @@ class _MathScreenState extends State<MathScreen> {
                                 ),
                                 const Gap(10),
                                 OutlinedButton.icon(
-                                  label: const Text('Next'),
+                                  label: const AppText(
+                                    text: 'Next',
+                                  ),
                                   onPressed: () {
                                     if (index >= 10) return;
                                     _problemStreamController.add(index + 1);

@@ -4,6 +4,7 @@ import 'package:app/all.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 
 final routerConfig = GoRouter(
   initialLocation: '/sql',
@@ -117,9 +118,11 @@ class _AppState extends State<App> {
     setState(() {
       _isDarkMode = !_isDarkMode;
     });
-    Storage.instance.setTheme();
     Brightness newBrightness = _isDarkMode ? Brightness.dark : Brightness.light;
     Style.instance.updateBrightness(newBrightness);
+    Storage.instance.setTheme();
+    final themeProvider = Provider.of<ThemeProvider>(context);
+    themeProvider.toggleTheme(newBrightness);
   }
 }
 

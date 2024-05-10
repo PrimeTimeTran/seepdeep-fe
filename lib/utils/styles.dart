@@ -21,11 +21,12 @@ final ButtonStyle raisedButtonStyle = ElevatedButton.styleFrom(
 
 class Style {
   static final Style _instance = Style._privateConstructor();
-  // Largest to smallest
-  // Display, Headline, Title, Label, Body
   static get bodyL => _instance._bodyLarge;
   static get bodyM => _instance._bodyMedium;
   static get bodyS => _instance._bodySmall;
+  // Largest to smallest
+  // Display, Headline, Title, Label, Body
+  static get bold => _instance._bold;
   static get darkTheme => _instance._darkTheme;
   static get displayL => _instance._displayLarge;
   static get displayM => _instance._displayMedium;
@@ -63,6 +64,7 @@ class Style {
   late TextStyle _bodySmall;
   late TextStyle _bodyMedium;
   late TextStyle _bodyLarge;
+  late TextStyle _bold;
   Style._privateConstructor();
   // Info: How we can define styles in one place and reuse them elsewhere more easily.
   // See ./lib/navigation/root.dart
@@ -72,10 +74,6 @@ class Style {
     _displaySmall = Theme.of(context).textTheme.displaySmall!;
     _displayMedium = Theme.of(context).textTheme.displayMedium!;
     _displayLarge = Theme.of(context).textTheme.displayLarge!;
-    // _displayLarge = const TextStyle(
-    //   fontSize: 72,
-    //   fontWeight: FontWeight.bold,
-    // );
     _headlineSmall = Theme.of(context).textTheme.headlineSmall!;
     _headlineMedium = Theme.of(context).textTheme.headlineMedium!;
     _headlineLarge = Theme.of(context).textTheme.headlineLarge!;
@@ -89,8 +87,8 @@ class Style {
     _labelLarge = Theme.of(context).textTheme.labelLarge!;
     _bodySmall = Theme.of(context).textTheme.bodySmall!;
     _bodyMedium = Theme.of(context).textTheme.bodyMedium!;
-    // _bodyMedium = GoogleFonts.merriweather();
     _bodyLarge = Theme.of(context).textTheme.bodyLarge!;
+    _bold = const TextStyle(fontWeight: FontWeight.bold);
 
     final Brightness brightness = Theme.of(_context).brightness;
     _textColor = brightness == Brightness.light ? Colors.black : Colors.grey;

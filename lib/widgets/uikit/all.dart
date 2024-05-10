@@ -1,5 +1,6 @@
 // ignore_for_file: must_be_immutable
 import 'package:app/all.dart' as prefix;
+import 'package:app/all.dart';
 import 'package:flutter/material.dart';
 
 class Button extends StatelessWidget {
@@ -46,7 +47,9 @@ class Button extends StatelessWidget {
         child: OutlinedButton(
           style: outlineButtonStyle,
           onPressed: onPress,
-          child: Text(title),
+          child: AppText(
+            text: title,
+          ),
         ),
       );
     }
@@ -56,7 +59,12 @@ class Button extends StatelessWidget {
           style: prefix.flatButtonStyle.copyWith(
               foregroundColor: MaterialStatePropertyAll(Colors.lightBlue[700])),
         ),
-        child: TextButton(onPressed: onPress, child: Text(title)),
+        child: TextButton(
+          onPressed: onPress,
+          child: AppText(
+            text: title,
+          ),
+        ),
       );
     }
     if (elevatedButton == true) {

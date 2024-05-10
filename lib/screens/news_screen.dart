@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'dart:convert';
 
 import 'package:app/all.dart';
@@ -8,16 +10,16 @@ import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 
 class News {
-  String title;
   String link;
+  String title;
   String author;
-  String videoUrl;
-  String description;
-  String content;
-  DateTime publishedAt;
-  String urlToImage;
   String source;
+  String content;
+  String videoUrl;
   String language;
+  String urlToImage;
+  String description;
+  DateTime publishedAt;
   News({
     required this.title,
     required this.author,
@@ -34,14 +36,14 @@ class News {
   factory News.fromJson(Map<String, dynamic> j) {
     return News(
       link: j['link'] ?? '',
-      videoUrl: j['video_url'] ?? '',
-      language: j['language'] ?? '',
       title: j['title'] ?? '',
       content: j['content'] ?? '',
-      urlToImage: j['urlToImage'] ?? '',
-      description: j['description'] ?? '',
-      author: j['creator']?.first ?? '',
       source: j['source_id'] ?? '',
+      language: j['language'] ?? '',
+      videoUrl: j['video_url'] ?? '',
+      urlToImage: j['urlToImage'] ?? '',
+      author: j['creator']?.first ?? '',
+      description: j['description'] ?? '',
       publishedAt:
           j['pubDate'] != null ? DateTime.parse(j['pubDate']) : DateTime.now(),
     );
@@ -53,7 +55,6 @@ class NewsScreen extends StatefulWidget {
   const NewsScreen({super.key, this.title});
 
   @override
-  // ignore: library_private_types_in_public_api
   _NewsScreenState createState() => _NewsScreenState();
 }
 

@@ -1,28 +1,43 @@
+import 'package:app/all.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:seo/seo.dart';
 
-class AppText extends StatelessWidget {
+class AppText extends StatefulWidget {
   final String text;
-  final TextTagStyle? tagStyle;
-
   final TextStyle? style;
+  final TextTagStyle? tagStyle;
 
   const AppText({
     super.key,
-    required this.text,
+    this.style,
     this.tagStyle,
-    required this.style,
+    required this.text,
   });
 
   @override
+  State<AppText> createState() => _AppTextState();
+}
+
+class _AppTextState extends State<AppText> {
+  @override
   Widget build(BuildContext context) {
-    return Seo.text(
-      text: text,
-      style: tagStyle ?? TextTagStyle.p,
-      child: Text(
-        text,
-        style: style,
-      ),
+    return Consumer<ThemeProvider>(
+      builder: (context, themeProvider, child) {
+        final isDarkMode = themeProvider.isDarkMode;
+        final color = isDarkMode ? Colors.white : Colors.black;
+
+        return Seo.text(
+          text: widget.text,
+          style: widget.tagStyle ?? TextTagStyle.p,
+          child: Text(
+            widget.text,
+            style: widget.style != null
+                ? widget.style?.copyWith(color: color)
+                : TextStyle(color: color),
+          ),
+        );
+      },
     );
   }
 }

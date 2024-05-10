@@ -299,7 +299,6 @@ class _AppBarContentState extends State<AppBarContent> {
                         value: light1,
                         onChanged: (bool? value) {
                           widget.toggleTheme();
-
                           setState(() {
                             light1 = value!;
                           });

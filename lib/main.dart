@@ -15,6 +15,7 @@ void main() {
       providers: [
         provider.ChangeNotifierProvider(create: (_) => AuthProvider()),
         provider.ChangeNotifierProvider(create: (_) => ProblemProvider()),
+        provider.ChangeNotifierProvider(create: (_) => ThemeProvider()),
       ],
       child: MyApp(),
     ),
