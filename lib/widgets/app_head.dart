@@ -12,9 +12,9 @@ class AppHead extends StatefulWidget {
 
   const AppHead({
     super.key,
+    this.author,
     required this.title,
     required this.description,
-    this.author,
     required this.child,
   });
 

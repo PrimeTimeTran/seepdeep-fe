@@ -197,34 +197,40 @@ class _LandingScreenState extends State<LandingScreen> {
               onPressed: () => scrollToSection(_sectionAKey),
             ),
             const Spacer(),
-            TextButton(
-              child: const Text('Our Mission'),
-              onPressed: () => scrollToSection(_sectionBKey),
+            Button(
+              textButton: true,
+              title: 'Our Mission',
+              onPress: () => scrollToSection(_sectionBKey),
             ),
             const Gap(75),
-            TextButton(
-              child: const Text('Our Approach'),
-              onPressed: () => scrollToSection(_sectionCKey),
+            Button(
+              textButton: true,
+              title: 'Our Approach',
+              onPress: () => scrollToSection(_sectionCKey),
             ),
             const Gap(75),
-            TextButton(
-              child: const Text('Technologies'),
-              onPressed: () => scrollToSection(_sectionGKey),
+            Button(
+              textButton: true,
+              title: 'Technologies',
+              onPress: () => scrollToSection(_sectionGKey),
             ),
             const Gap(75),
-            TextButton(
-              child: const Text('Ideal Customers'),
-              onPressed: () => scrollToSection(_sectionDKey),
+            Button(
+              textButton: true,
+              title: 'Ideal Customers',
+              onPress: () => scrollToSection(_sectionDKey),
             ),
             const Gap(75),
-            TextButton(
-              child: const Text('Partners'),
-              onPressed: () => scrollToSection(_sectionFKey),
+            Button(
+              textButton: true,
+              title: 'Partners',
+              onPress: () => scrollToSection(_sectionFKey),
             ),
             const Gap(75),
-            TextButton(
-              child: const Text('FAQs'),
-              onPressed: () => scrollToSection(_sectionEKey),
+            Button(
+              textButton: true,
+              title: 'FAQs',
+              onPress: () => scrollToSection(_sectionEKey),
             ),
             const Gap(150),
           ],
@@ -327,7 +333,11 @@ class _LandingScreenState extends State<LandingScreen> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Our Mission', style: Style.headlineS),
+                      Text('Our Mission',
+                          style: Style.headlineS.copyWith(
+                            color: Colors.lightBlue[700],
+                            fontWeight: FontWeight.bold,
+                          )),
                       const Gap(50),
                       Text('Helping you master yourself',
                           style: Style.headlineL),
@@ -354,37 +364,59 @@ class _LandingScreenState extends State<LandingScreen> {
               ),
             ),
           ),
-          Container(
-            height: getHeight(),
-            color: Colors.grey[100],
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 200),
-              child: Column(
+          Stack(
+            children: [
+              SizedBox(
+                width: getWidth(),
+                height: getHeight(),
+                child: SvgPicture.asset(
+                  'assets/img/bgs/bg-2.svg',
+                  fit: BoxFit.fill,
+                ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text('Who are you?', style: Style.headlineS),
-                  const Gap(50),
-                  Text(
-                    'Does this sound like you? \nCan you relate to these?',
-                    style: Style.displayM,
-                    textAlign: TextAlign.center,
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 200),
+                    child: Column(
+                      children: [
+                        Text('Who are you?',
+                            style: Style.headlineS.copyWith(
+                              color: Colors.lightBlue[700],
+                              fontWeight: FontWeight.bold,
+                            )),
+                        const Gap(50),
+                        Text(
+                          'Does this sound like you? \nCan you relate to these?',
+                          style: Style.displayM,
+                          textAlign: TextAlign.center,
+                        ),
+                        const Gap(100),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Gap(100),
+                            buildPhotoBox('Students', 250),
+                            const Gap(300),
+                            buildPhotoBox('Professionals', 250),
+                            const Gap(300),
+                            buildPhotoBox('Knowledge Geeks', 250),
+                            const Gap(100),
+                          ],
+                        )
+                      ],
+                    ),
                   ),
-                  const Gap(100),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Gap(100),
-                      buildPhotoBox('Students', 250),
-                      const Gap(300),
-                      buildPhotoBox('Professionals', 250),
-                      const Gap(300),
-                      buildPhotoBox('Knowledge Geeks', 250),
-                      const Gap(100),
-                    ],
-                  )
                 ],
               ),
-            ),
+            ],
           ),
+          // Container(
+          //   height: getHeight(),
+          //   color: Colors.grey[100],
+          //   child: ,
+          // ),
           Container(
             height: getHeight(),
             color: Colors.white,
@@ -392,7 +424,11 @@ class _LandingScreenState extends State<LandingScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Gap(50),
-                Text('Our Early Adopters', style: Style.headlineS),
+                Text('Our Early Adopters',
+                    style: Style.headlineS.copyWith(
+                      color: Colors.lightBlue[700],
+                      fontWeight: FontWeight.bold,
+                    )),
                 const Gap(50),
                 Text('You\'ve found the right spot. These people know it',
                     style: Style.displayM),
@@ -436,7 +472,11 @@ class _LandingScreenState extends State<LandingScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Gap(50),
-                  Text('Our approach', style: Style.headlineS),
+                  Text('Our approach',
+                      style: Style.headlineS.copyWith(
+                        color: Colors.lightBlue[700],
+                        fontWeight: FontWeight.bold,
+                      )),
                   const Gap(50),
                   Text('The Seep Deep Meaning', style: Style.displayM),
                   const Gap(100),
@@ -479,7 +519,11 @@ class _LandingScreenState extends State<LandingScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Gap(50),
-                Text('The best technologies', style: Style.headlineS),
+                Text('The best technologies',
+                    style: Style.headlineS.copyWith(
+                      color: Colors.lightBlue[700],
+                      fontWeight: FontWeight.bold,
+                    )),
                 const Gap(50),
                 Text('Languages Supported & Incoming', style: Style.displayM),
                 const Gap(100),
@@ -514,7 +558,11 @@ class _LandingScreenState extends State<LandingScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Gap(50),
-                Text('Heres what they have to say', style: Style.headlineS),
+                Text('Heres what they have to say',
+                    style: Style.headlineS.copyWith(
+                      color: Colors.lightBlue[700],
+                      fontWeight: FontWeight.bold,
+                    )),
                 const Gap(50),
                 Text('Incredible', style: Style.displayM),
                 const Gap(100),
@@ -549,7 +597,11 @@ class _LandingScreenState extends State<LandingScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Gap(50),
-                Text('Trusted By', style: Style.headlineS),
+                Text('Trusted By',
+                    style: Style.headlineS.copyWith(
+                      color: Colors.lightBlue[700],
+                      fontWeight: FontWeight.bold,
+                    )),
                 const Gap(50),
                 Text('Companies Leveraging Our Technology',
                     style: Style.headlineL),
@@ -589,7 +641,11 @@ class _LandingScreenState extends State<LandingScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             const Gap(25),
-                            Text('FAQ\'S', style: Style.headlineS),
+                            Text('FAQ\'S',
+                                style: Style.headlineS.copyWith(
+                                  color: Colors.lightBlue[700],
+                                  fontWeight: FontWeight.bold,
+                                )),
                             const Gap(25),
                             Text('Frequently \nAsked Questions',
                                 style: Style.displayM),

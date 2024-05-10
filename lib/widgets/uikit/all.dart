@@ -21,6 +21,7 @@ class Button extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ButtonStyle outlineButtonStyle = OutlinedButton.styleFrom(
+      textStyle: const TextStyle(color: Colors.blue),
       foregroundColor: Colors.black87,
       minimumSize: const Size(88, 36),
       padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -51,7 +52,10 @@ class Button extends StatelessWidget {
     }
     if (textButton == true) {
       return TextButtonTheme(
-        data: TextButtonThemeData(style: prefix.flatButtonStyle),
+        data: TextButtonThemeData(
+          style: prefix.flatButtonStyle.copyWith(
+              foregroundColor: MaterialStatePropertyAll(Colors.lightBlue[700])),
+        ),
         child: TextButton(onPressed: onPress, child: Text(title)),
       );
     }

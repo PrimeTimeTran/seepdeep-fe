@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 final ButtonStyle flatButtonStyle = TextButton.styleFrom(
   foregroundColor: Colors.black87,
@@ -70,14 +69,13 @@ class Style {
 
   void initialize(BuildContext context) {
     _context = context;
-    // _displaySmall = Theme.of(context).textTheme.displaySmall!;
-    _displaySmall = GoogleFonts.pacifico();
+    _displaySmall = Theme.of(context).textTheme.displaySmall!;
     _displayMedium = Theme.of(context).textTheme.displayMedium!;
-    // _displayLarge = Theme.of(context).textTheme.displayLarge!;
-    _displayLarge = const TextStyle(
-      fontSize: 72,
-      fontWeight: FontWeight.bold,
-    );
+    _displayLarge = Theme.of(context).textTheme.displayLarge!;
+    // _displayLarge = const TextStyle(
+    //   fontSize: 72,
+    //   fontWeight: FontWeight.bold,
+    // );
     _headlineSmall = Theme.of(context).textTheme.headlineSmall!;
     _headlineMedium = Theme.of(context).textTheme.headlineMedium!;
     _headlineLarge = Theme.of(context).textTheme.headlineLarge!;
@@ -90,8 +88,8 @@ class Style {
     _labelMedium = Theme.of(context).textTheme.labelMedium!;
     _labelLarge = Theme.of(context).textTheme.labelLarge!;
     _bodySmall = Theme.of(context).textTheme.bodySmall!;
-    // _bodyMedium = Theme.of(context).textTheme.bodyMedium!;
-    _bodyMedium = GoogleFonts.merriweather();
+    _bodyMedium = Theme.of(context).textTheme.bodyMedium!;
+    // _bodyMedium = GoogleFonts.merriweather();
     _bodyLarge = Theme.of(context).textTheme.bodyLarge!;
 
     final Brightness brightness = Theme.of(_context).brightness;
