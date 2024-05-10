@@ -10,7 +10,9 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import './giffy_modal.dart';
 
 Future<void> dialogBig(BuildContext context, String title, String body,
-    [Widget? content]) {
+    [Widget? content]) async {
+  final isHide = await Storage.instance.getSqlIntroHide();
+  if (isHide) return;
   return showDialog<void>(
     context: context,
     builder: (BuildContext context) {
@@ -29,8 +31,11 @@ Future<void> dialogBig(BuildContext context, String title, String body,
                         width: 200,
                         height: 40,
                         child: Button(
-                          title: 'Ok',
+                          title: 'Start Learning',
                           onPress: () {
+                            if (isChecked) {
+                              Storage.instance.setSqlIntroHide();
+                            }
                             Navigator.of(context).pop();
                           },
                           outlined: true,

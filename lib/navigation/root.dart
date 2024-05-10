@@ -6,7 +6,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:go_router/go_router.dart';
 
 final routerConfig = GoRouter(
-  initialLocation: '/problems',
+  initialLocation: '/sql',
   debugLogDiagnostics: true,
   routes: [
     GoRoute(
@@ -56,8 +56,7 @@ class RootNavigator extends StatefulWidget {
 }
 
 class _AppState extends State<App> {
-  bool _isDarkMode = false;
-
+  late bool _isDarkMode = false;
   @override
   Widget build(BuildContext context) {
     final themeMode = _isDarkMode ? ThemeMode.dark : ThemeMode.light;
@@ -99,10 +98,26 @@ class _AppState extends State<App> {
     );
   }
 
+  getStoredTheme() async {
+    final storedTheme = await Storage.instance.getTheme();
+    if (storedTheme != _isDarkMode) {
+      setState(() {
+        _isDarkMode = storedTheme;
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getStoredTheme();
+  }
+
   void toggleTheme() {
     setState(() {
       _isDarkMode = !_isDarkMode;
     });
+    Storage.instance.setTheme();
     Brightness newBrightness = _isDarkMode ? Brightness.dark : Brightness.light;
     Style.instance.updateBrightness(newBrightness);
   }

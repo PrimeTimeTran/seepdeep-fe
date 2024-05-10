@@ -1,39 +1,93 @@
-import 'package:app/utils/utils.dart';
+import 'package:app/all.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-const go = """
-# SQL Lesson 1: SELECT queries 101
+MarkdownStyleSheet myStyleSheet = MarkdownStyleSheet(
+  h1: const TextStyle(
+      fontSize: 24, fontWeight: FontWeight.bold, color: Colors.blue),
+  h2: const TextStyle(
+      fontSize: 22, fontWeight: FontWeight.bold, color: Colors.green),
+  p: const TextStyle(fontSize: 16, color: Colors.black),
+  a: const TextStyle(color: Colors.blue),
+  listBullet: const TextStyle(fontSize: 16, color: Colors.grey),
+  code: TextStyle(
+    backgroundColor: Colors.blue.shade200,
+    fontSize: 16,
+    decorationThickness: 10,
+  ),
+  codeblockDecoration: BoxDecoration(
+    color: Colors.grey.shade200,
+    borderRadius: BorderRadius.circular(4),
+  ),
+);
 
-To retrieve data from a SQL database, we write SELECT statements, which are often referred to as **queries**.
+MarkdownStyleSheet myStyleSheetDark = MarkdownStyleSheet(
+  h1: const TextStyle(
+    fontSize: 24,
+    fontWeight: FontWeight.bold,
+    color: Colors.blue,
+  ),
+  h2: const TextStyle(
+    fontSize: 22,
+    fontWeight: FontWeight.bold,
+    color: Colors.green,
+  ),
+  p: const TextStyle(
+    fontSize: 16,
+    color: Colors.white,
+  ),
+  a: const TextStyle(
+    color: Colors.blue,
+  ),
+  listBullet: const TextStyle(
+    fontSize: 16,
+    color: Colors.grey,
+  ).copyWith(
+    color: Colors.white,
+  ),
+  code: TextStyle(
+    backgroundColor: Colors.blue.shade900,
+    fontSize: 16,
+  ),
+  codeblockDecoration: BoxDecoration(
+    color: Colors.grey.shade200,
+    borderRadius: BorderRadius.circular(4),
+  ),
+);
 
-A query in itself is a statement which declares what data we're looking for, where to find it in the database, and optionally, how to transform it before it is returned.
+Future<String> checkProgress() async {
+  final lessonId = await Storage.instance.getSQLLesson();
+  print(lessonId);
+  return lessonId ?? '1.0';
+}
 
-It has a specific syntax though, which is what we are going to learn in the following exercises.
+Future<String> loadData() async {
+  final String lessonId = await checkProgress();
+  return await loadMarkdownContent(lessonId);
+}
 
-It's helpful to think of a table in SQL as a specific type of entity. Each row is an instance of that entity. The columns would then represent properties of an entity.
+Future<String> loadMarkdownContent(String lessonId) async {
+  try {
+    String path = 'assets/lessons/sql/$lessonId.md';
+    final data = await rootBundle.loadString(path);
+    return data;
+  } catch (e) {
+    print("Error loading Markdown content: $e");
+    return '';
+  }
+}
 
-For example on the right we have the table `Movies`. Each movie has the same properties, `title`, `director`, `year` etc, but their properties have different values, `Toy Story`, `A Bug's Life`, etc.
-
-The syntax for selecting data from our table follows:
-
-```sql
-SELECT column, another_column, ...
-FROM my_table;
-```
-
-So if we wanted to select the title of all our movies in our database we would write
-
-```sql
-SELECT title
-FROM movies;
-```
-""";
-
-class LessonMarkDown extends StatelessWidget {
+class LessonMarkDown extends StatefulWidget {
   const LessonMarkDown({super.key});
+
+  @override
+  State<LessonMarkDown> createState() => _LessonMarkDownState();
+}
+
+class _LessonMarkDownState extends State<LessonMarkDown> {
+  late bool _isDarkMode;
 
   @override
   Widget build(BuildContext context) {
@@ -43,16 +97,26 @@ class LessonMarkDown extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: FutureBuilder<String>(
-          future: loadMarkdownContent(),
+          future: loadData(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(child: CircularProgressIndicator());
             } else if (snapshot.hasError) {
               return const Center(
-                  child: Text('Error loading Markdown content.'));
+                child: Text('Error loading Markdown content.'),
+              );
             } else {
+              // return Container(
+              //   // color: Theme.of(context).secondaryHeaderColor,
+              //   // color: Theme.of(context).splashColor,
+              //   child: Markdown(
+              //     selectable: true,
+              //     data: snapshot.data!,
+              //   ),
+              // );
               return Markdown(
-                data: go ?? '',
+                styleSheet: _isDarkMode ? myStyleSheetDark : myStyleSheet,
+                data: snapshot.data!,
                 onTapLink: (text, url, title) {
                   launchUrl(Uri.parse(url!));
                 },
@@ -64,14 +128,17 @@ class LessonMarkDown extends StatelessWidget {
     );
   }
 
-  Future<String> loadMarkdownContent() async {
-    try {
-      final data =
-          await rootBundle.loadString('assets/lessons/sql/1-select.md');
-      return data;
-    } catch (e) {
-      print("Error loading Markdown content: $e");
-      return '';
-    }
+  getStoredTheme() async {
+    _isDarkMode = await Storage.instance.getTheme();
+    setState(() {
+      _isDarkMode = _isDarkMode;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    checkProgress();
+    getStoredTheme();
   }
 }

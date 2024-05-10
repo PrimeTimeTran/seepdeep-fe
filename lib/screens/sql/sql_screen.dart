@@ -71,32 +71,32 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const SizedBox(height: 10),
-                          Text(
-                            'Query Results: ${records.length} records.',
-                            style: Theme.of(context).textTheme.bodyMedium,
-                          ),
-                          const SizedBox(height: 30),
-                          Text(
-                            'DatabaseTables:',
-                            style: Theme.of(context).textTheme.bodySmall,
-                          ),
-                          const SizedBox(height: 5),
-                          Text(
-                            'studios, directors, movies, movie_directors, customers, employees, invoices, invoice_items, albums, playlists, playlist_track, tracks, artists, genres, media_types',
-                            style: Theme.of(context).textTheme.bodySmall,
-                          ),
-                        ],
-                      ),
+                      // Column(
+                      //   crossAxisAlignment: CrossAxisAlignment.start,
+                      //   children: [
+                      //     const SizedBox(height: 10),
+                      //     Text(
+                      //       'Query Results: ${records.length} records.',
+                      //       style: Theme.of(context).textTheme.bodyMedium,
+                      //     ),
+                      //     const SizedBox(height: 30),
+                      //     Text(
+                      //       'DatabaseTables:',
+                      //       style: Theme.of(context).textTheme.bodySmall,
+                      //     ),
+                      //     const SizedBox(height: 5),
+                      //     Text(
+                      //       'studios, directors, movies, movie_directors, customers, employees, invoices, invoice_items, albums, playlists, playlist_track, tracks, artists, genres, media_types',
+                      //       style: Theme.of(context).textTheme.bodySmall,
+                      //     ),
+                      //   ],
+                      // ),
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             SizedBox(
-                              height: getHeight() - 200,
+                              height: (getHeight() / 1.5) + 225,
                               width: double.infinity,
                               child: HorizontalSplitView(
                                 borderless: true,
@@ -138,7 +138,10 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
                                           ),
                                           Button(
                                             title: 'Next',
-                                            onPress: () {},
+                                            onPress: () {
+                                              Storage.instance
+                                                  .setSqlStep('2.0');
+                                            },
                                             outlined: true,
                                           )
                                         ],
@@ -259,7 +262,7 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
     super.initState();
     // onRun("SELECT * FROM films as f WHERE f.title LIKE '% and %';");
     // onRun("SELECT * FROM films as f WHERE f.title LIKE '%Harry%';");
-    onRun("SELECT * FROM films limit 50; ");
+    onRun("SELECT * FROM films limit 5; ");
     setup();
   }
 
@@ -295,8 +298,6 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
         code,
         readsFrom: {...database.allTables},
       ).get();
-      print(result);
-      print(result[0].data);
       if (result.isNotEmpty) {
         records = parseQueryRows(result);
         QueryRow firstRow = result.first;

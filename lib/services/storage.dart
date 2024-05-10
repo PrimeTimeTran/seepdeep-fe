@@ -22,9 +22,19 @@ class Storage {
     return prefs.getString('problemId-$lang-$problemId');
   }
 
-  Future<String?> getSqlStep() async {
+  Future<bool> getSqlIntroHide() async {
     final prefs = await _prefs;
-    return prefs.getString('sql-step');
+    return prefs.getBool('introSqlHide') ?? false;
+  }
+
+  Future<String?> getSQLLesson() async {
+    final prefs = await _prefs;
+    return prefs.getString('sql-lessonId');
+  }
+
+  Future<bool> getTheme() async {
+    final prefs = await _prefs;
+    return prefs.getBool('isLightMode') ?? true;
   }
 
   Future<void> setProblemCode(problemId, lang, code) async {
@@ -32,11 +42,23 @@ class Storage {
     await prefs.setString('problemId-$lang-$problemId', code);
   }
 
+  Future<void> setSqlIntroHide() async {
+    final prefs = await _prefs;
+    await prefs.setBool('introSqlHide', true);
+  }
+
   Future<void> setSqlStep(String step) async {
-    // 1.1?
+    // 1.0 is new lesson, no items done.
+    // 1.1 is one problem done.
     //
     final prefs = await _prefs;
-    prefs.setString('sql-step', step);
+    prefs.setString('sql-lessonId', step);
+  }
+
+  Future<void> setTheme() async {
+    final prefs = await _prefs;
+    final curTheme = await getTheme();
+    await prefs.setBool('isLightMode', !curTheme);
   }
 
   Future<void> setToken(authToken) async {
