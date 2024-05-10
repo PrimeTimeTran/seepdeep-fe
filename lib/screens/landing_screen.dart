@@ -1,30 +1,9 @@
 import 'package:app/all.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
-
-// Emma
-// Olivia
-// Sophia
-// Ava
-// Isabella
-// Mia
-// Amelia
-// Charlotte
-// Harper
-// Ella
-
-// Liam
-// Noah
-// James
-// Elijah
-// Oliver
-// Benjamin
-// Lucas
-// William
-// Ethan
-// Alexander
 
 final users = [
   {
@@ -153,7 +132,52 @@ class LandingScreen extends StatefulWidget {
   State<LandingScreen> createState() => _LandingScreenState();
 }
 
+class Section1 extends StatefulWidget {
+  const Section1({super.key});
+
+  @override
+  Section1State createState() => Section1State();
+}
+
+class Section1State extends State<Section1> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 600,
+      color: Colors.red,
+    );
+  }
+}
+
+class Section2 extends StatefulWidget {
+  const Section2({super.key});
+
+  @override
+  Section2State createState() => Section2State();
+}
+
+class Section2State extends State<Section2> {
+  @override
+  Widget build(BuildContext context) {
+    // Your section content here
+    return Container(
+      height: 600,
+      color: Colors.red,
+    );
+  }
+}
+
 class _LandingScreenState extends State<LandingScreen> {
+  final ScrollController _scrollController = ScrollController();
+
+  final GlobalKey _sectionAKey = GlobalKey();
+  final GlobalKey _sectionBKey = GlobalKey();
+  final GlobalKey _sectionCKey = GlobalKey();
+  final GlobalKey _sectionDKey = GlobalKey();
+  final GlobalKey _sectionEKey = GlobalKey();
+  final GlobalKey _sectionFKey = GlobalKey();
+  final GlobalKey _sectionGKey = GlobalKey();
+
   @override
   Widget build(BuildContext context) {
     return AppHead(
@@ -164,21 +188,44 @@ class _LandingScreenState extends State<LandingScreen> {
         appBar: AppBar(
           actions: [
             const Gap(150),
-            SvgPicture.asset(
-              'assets/icons/favicon.svg',
-              width: 48,
-              height: 48,
+            IconButton(
+              icon: SvgPicture.asset(
+                'assets/img/favicon.svg',
+                width: 48,
+                height: 48,
+              ),
+              onPressed: () => scrollToSection(_sectionAKey),
             ),
             const Spacer(),
-            const Text('Our mission'),
-            const Gap(150),
-            const Text('Our Approach'),
-            const Gap(150),
-            const Text('Testimonials'),
-            const Gap(150),
-            const Text('FAQs'),
-            const Gap(150),
-            const Text('Blog'),
+            TextButton(
+              child: const Text('Our Mission'),
+              onPressed: () => scrollToSection(_sectionBKey),
+            ),
+            const Gap(75),
+            TextButton(
+              child: const Text('Our Approach'),
+              onPressed: () => scrollToSection(_sectionCKey),
+            ),
+            const Gap(75),
+            TextButton(
+              child: const Text('Technologies'),
+              onPressed: () => scrollToSection(_sectionGKey),
+            ),
+            const Gap(75),
+            TextButton(
+              child: const Text('Ideal Customers'),
+              onPressed: () => scrollToSection(_sectionDKey),
+            ),
+            const Gap(75),
+            TextButton(
+              child: const Text('Partners'),
+              onPressed: () => scrollToSection(_sectionFKey),
+            ),
+            const Gap(75),
+            TextButton(
+              child: const Text('FAQs'),
+              onPressed: () => scrollToSection(_sectionEKey),
+            ),
             const Gap(150),
           ],
         ),
@@ -210,62 +257,67 @@ class _LandingScreenState extends State<LandingScreen> {
 
   SingleChildScrollView buildDesktop() {
     return SingleChildScrollView(
+      controller: _scrollController,
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
+        key: _sectionAKey,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          SizedBox(
-            height: getHeight(),
-            child: Stack(
-              children: [
-                Container(
-                  width: double.infinity,
-                  height: getHeight(),
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: const AssetImage('img/landing-cover.jpg'),
-                      fit: BoxFit.cover,
-                      colorFilter: ColorFilter.mode(
-                        Colors.white.withOpacity(0.1),
-                        BlendMode.srcATop,
+          Stack(
+            children: [
+              SizedBox(
+                width: getWidth(),
+                height: getHeight(),
+                child: SvgPicture.asset(
+                  'assets/img/bgs/bg-1.svg',
+                  fit: BoxFit.cover,
+                ),
+              ),
+              Positioned(
+                top: 100,
+                right: 100,
+                bottom: 100,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text('Dont fly solo', style: Style.headlineS),
+                          const Gap(50),
+                          Text(
+                            'Money back guarantee.\n\nA fresh take on learning.\n\nnGain 21st century skills more \neasily with us',
+                            style: Style.displayM
+                                .copyWith(fontWeight: FontWeight.bold),
+                            textAlign: TextAlign.center,
+                          ),
+                          const Gap(50),
+                          SizedBox(
+                            height: 75,
+                            width: 300,
+                            child: OutlinedButton(
+                                onPressed: () {
+                                  GoRouter.of(context).go(AppScreens.sql.path);
+                                },
+                                child: Text(
+                                  'Try it out!',
+                                  style: Style.headlineS,
+                                  textAlign: TextAlign.center,
+                                )),
+                          ),
+                        ],
                       ),
                     ),
-                  ),
+                  ],
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 200),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text('Dont fly solo', style: Style.headlineS),
-                      const Gap(50),
-                      Text(
-                        'Money back guarantee.\n\nA fresh take on learning.\n\nnGain 21st century skills more \neasily with us',
-                        style: Style.displayM,
-                        textAlign: TextAlign.center,
-                      ),
-                      const Gap(50),
-                      SizedBox(
-                        height: 75,
-                        width: 300,
-                        child: OutlinedButton(
-                            onPressed: () {
-                              GoRouter.of(context).go(AppScreens.auth.path);
-                            },
-                            child: Text(
-                              'Create Account',
-                              style: Style.headlineS,
-                              textAlign: TextAlign.center,
-                            )),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
           Container(
+            key: _sectionBKey,
             height: getHeight(),
-            color: Colors.grey[100],
+            color: Colors.white,
             child: Padding(
               padding:
                   const EdgeInsets.symmetric(horizontal: 200, vertical: 200),
@@ -304,7 +356,7 @@ class _LandingScreenState extends State<LandingScreen> {
           ),
           Container(
             height: getHeight(),
-            color: Colors.white,
+            color: Colors.grey[100],
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 200),
               child: Column(
@@ -335,7 +387,7 @@ class _LandingScreenState extends State<LandingScreen> {
           ),
           Container(
             height: getHeight(),
-            color: Colors.grey[100],
+            color: Colors.white,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -374,8 +426,9 @@ class _LandingScreenState extends State<LandingScreen> {
             ),
           ),
           Container(
+            key: _sectionCKey,
             height: getHeight(),
-            color: Colors.white,
+            color: Colors.grey[100],
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 200),
               child: Column(
@@ -419,40 +472,7 @@ class _LandingScreenState extends State<LandingScreen> {
             ),
           ),
           Container(
-            height: getHeight(),
-            color: Colors.grey[100],
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Gap(50),
-                Text('Heres what they have to say', style: Style.headlineS),
-                const Gap(50),
-                Text('Incredible', style: Style.displayM),
-                const Gap(100),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Gap(50),
-                    Column(
-                      children: [Text('Students', style: Style.headlineS)],
-                    ),
-                    const Gap(50),
-                    Column(
-                      children: [Text('Professionals', style: Style.headlineS)],
-                    ),
-                    const Gap(50),
-                    Column(
-                      children: [
-                        Text('Knowledge geeks', style: Style.headlineS)
-                      ],
-                    ),
-                    const Gap(50),
-                  ],
-                )
-              ],
-            ),
-          ),
-          Container(
+            key: _sectionGKey,
             height: getHeight(),
             color: Colors.white,
             child: Column(
@@ -487,6 +507,71 @@ class _LandingScreenState extends State<LandingScreen> {
             ),
           ),
           Container(
+            key: _sectionDKey,
+            height: getHeight(),
+            color: Colors.grey[100],
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Gap(50),
+                Text('Heres what they have to say', style: Style.headlineS),
+                const Gap(50),
+                Text('Incredible', style: Style.displayM),
+                const Gap(100),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Gap(50),
+                    Column(
+                      children: [Text('Students', style: Style.headlineS)],
+                    ),
+                    const Gap(50),
+                    Column(
+                      children: [Text('Professionals', style: Style.headlineS)],
+                    ),
+                    const Gap(50),
+                    Column(
+                      children: [
+                        Text('Knowledge geeks', style: Style.headlineS)
+                      ],
+                    ),
+                    const Gap(50),
+                  ],
+                )
+              ],
+            ),
+          ),
+          Container(
+            key: _sectionFKey,
+            height: getHeight() / 1.5,
+            color: Colors.white,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Gap(50),
+                Text('Trusted By', style: Style.headlineS),
+                const Gap(50),
+                Text('Companies Leveraging Our Technology',
+                    style: Style.headlineL),
+                const Gap(100),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const Gap(50),
+                    getImg('logos/scanlab-favicon.jpg', 200),
+                    const Gap(100),
+                    getImg('logos/data-annotation-favicon.svg'),
+                    const Gap(100),
+                    getImg('logos/adapt-health-favicon.png'),
+                    const Gap(50),
+                  ],
+                )
+              ],
+            ),
+          ),
+          Container(
+            key: _sectionEKey,
             height: getHeight(),
             color: Colors.grey[100],
             child: Padding(
@@ -573,36 +658,8 @@ class _LandingScreenState extends State<LandingScreen> {
             ),
           ),
           Container(
-            height: getHeight() / 1.5,
-            color: Colors.white,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Gap(50),
-                Text('Trusted By', style: Style.headlineS),
-                const Gap(50),
-                Text('Companies Leveraging Our Technology',
-                    style: Style.headlineL),
-                const Gap(100),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    const Gap(50),
-                    getImg('logos/scanlab-favicon.jpg', 200),
-                    const Gap(100),
-                    getImg('logos/data-annotation-favicon.svg'),
-                    const Gap(100),
-                    getImg('logos/adapt-health-favicon.png'),
-                    const Gap(50),
-                  ],
-                )
-              ],
-            ),
-          ),
-          Container(
             height: 500,
-            color: Colors.grey[100],
+            color: Colors.white,
             child: Padding(
               padding: const EdgeInsets.only(top: 40, left: 200, right: 200),
               child: Column(
@@ -707,5 +764,18 @@ class _LandingScreenState extends State<LandingScreen> {
       );
     }
     return imageWidget;
+  }
+
+  void scrollToSection(GlobalKey key) {
+    final RenderObject? renderObject = key.currentContext?.findRenderObject();
+    if (renderObject != null && renderObject is RenderBox) {
+      final offset =
+          renderObject.localToGlobal(Offset.zero).dy + _scrollController.offset;
+      _scrollController.animateTo(
+        offset,
+        duration: const Duration(seconds: 1),
+        curve: Curves.easeInOut,
+      );
+    }
   }
 }

@@ -83,5 +83,6 @@ flutter:
     - assets/lessons/sql/
     - assets/img/
     - assets/img/carousels/
+    - assets/img/bgs/
     - assets/img/logos/
     - assets/img/headshots/

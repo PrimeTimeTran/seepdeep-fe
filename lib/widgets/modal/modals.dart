@@ -20,29 +20,40 @@ Future<void> dialogBig(BuildContext context, String title, String body,
           return AlertDialog(
             content: content ?? Text(body),
             actions: <Widget>[
-              Column(
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Checkbox(
-                    value: isChecked,
-                    onChanged: (value) {
-                      setState(() {
-                        isChecked = value!;
-                      });
-                    },
+                  Column(
+                    children: [
+                      SizedBox(
+                        width: 200,
+                        height: 40,
+                        child: Button(
+                          title: 'Ok',
+                          onPress: () {
+                            Navigator.of(context).pop();
+                          },
+                          outlined: true,
+                        ),
+                      ),
+                      const Gap(10),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Checkbox(
+                            value: isChecked,
+                            onChanged: (value) {
+                              setState(() {
+                                isChecked = value!;
+                              });
+                            },
+                          ),
+                          const Text('Don\'t show again'),
+                        ],
+                      ),
+                    ],
                   ),
-                  const Text('Don\'t show again'),
                 ],
-              ),
-              SizedBox(
-                width: 200,
-                height: 40,
-                child: Button(
-                  title: 'Ok',
-                  onPress: () {
-                    Navigator.of(context).pop();
-                  },
-                  outlined: true,
-                ),
               ),
             ],
           );
@@ -95,58 +106,6 @@ class Modal extends StatefulWidget {
 
   @override
   State<Modal> createState() => _ModalState();
-}
-
-class TestPage extends StatelessWidget {
-  final _controller = PageController();
-  TestPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return SafeArea(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Expanded(
-            child: PageView(
-              controller: _controller,
-              children: const [
-                Center(
-                  child: Text(
-                      'You\'re about make it to another world with your SQL skills.'),
-                ),
-                Center(
-                  child: Text(
-                      'On this page you\'re going to write progressively more challenging SQL queries which\'ll develop your mastery.'),
-                ),
-                Center(
-                  child: Text(
-                    'The tables will reflect & their relationships will reflect resources you\'ll undoubtedly see in your career.',
-                  ),
-                ),
-                Center(
-                  child: Text(
-                      'So don\'t rush through the exercises, try to deeply understand them; because once you do, they\'ll start to feel like art.'),
-                ),
-              ],
-            ),
-          ),
-          SmoothPageIndicator(
-            count: 5,
-            controller: _controller,
-            axisDirection: Axis.horizontal,
-            effect: const SlideEffect(
-              activeDotColor: Colors.white54,
-              dotHeight: 10,
-              dotColor: Colors.blue,
-              dotWidth: 10,
-            ),
-          ),
-          const SizedBox(height: 50),
-        ],
-      ),
-    );
-  }
 }
 
 class _ModalState extends State<Modal> {
@@ -238,7 +197,7 @@ class _ModalState extends State<Modal> {
 
   buildGuides() {
     return SizedBox(
-      width: getWidth() / 1.25,
+      width: getWidth() / 1.5,
       height: getHeight() / 1.5,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -250,16 +209,18 @@ class _ModalState extends State<Modal> {
                 Center(
                   child: Column(
                     children: [
+                      const Gap(30),
                       SvgPicture.asset(
                         'assets/img/carousels/SQL-01.svg',
                         width: 800,
                         height: 400,
                       ),
-                      const Gap(20),
+                      const Gap(60),
                       Text(
-                          'You\'re about make it to another world with your SQL skills.',
-                          style: Style.headlineL,
-                          textAlign: TextAlign.center),
+                        'Your SQL skills are about to be out of this world better. ',
+                        style: Style.headlineL,
+                        textAlign: TextAlign.center,
+                      ),
                     ],
                   ),
                 ),
@@ -273,9 +234,10 @@ class _ModalState extends State<Modal> {
                       ),
                       const Gap(20),
                       Text(
-                          'On this page you\'re going to write progressively more challenging SQL queries which\'ll develop your mastery.',
-                          style: Style.headlineL,
-                          textAlign: TextAlign.center),
+                        'On this page you\'re going to write progressively \nmore challenging SQL queries \nwhich\'ll develop your mastery.',
+                        style: Style.headlineL,
+                        textAlign: TextAlign.center,
+                      ),
                     ],
                   ),
                 ),
@@ -289,9 +251,10 @@ class _ModalState extends State<Modal> {
                       ),
                       const Gap(20),
                       Text(
-                          'The tables will reflect & their relationships will reflect resources you\'ll undoubtedly see in your career.',
-                          style: Style.headlineL,
-                          textAlign: TextAlign.center),
+                        'The tables will reflect & their \nrelationships will reflect resources you\'ll \nundoubtedly see in your career.',
+                        style: Style.headlineL,
+                        textAlign: TextAlign.center,
+                      ),
                     ],
                   ),
                 ),
@@ -305,9 +268,10 @@ class _ModalState extends State<Modal> {
                       ),
                       const Gap(20),
                       Text(
-                          'So don\'t rush through the exercises, try to deeply understand them; because once you do, they\'ll start to feel like art.',
-                          style: Style.headlineL,
-                          textAlign: TextAlign.center),
+                        'So don\'t rush through the exercises, try \nto deeply understand them; because \nonce you do, they\'ll start to feel like art.',
+                        style: Style.headlineL,
+                        textAlign: TextAlign.center,
+                      ),
                     ],
                   ),
                 ),
@@ -338,7 +302,7 @@ class _ModalState extends State<Modal> {
       setup();
       if (kDebugMode) {
         if (widget.content != null) {
-          dialogBig(context, 'SQL Screen', 'soso', buildGuides());
+          dialogBig(context, 'SQL Screen', '', buildGuides());
         } else {
           onLoad();
         }
