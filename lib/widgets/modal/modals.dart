@@ -9,12 +9,12 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import './giffy_modal.dart';
 
-Future<void> dialogBig(BuildContext context, String title, String body,
+Future<void> dialogBig(BuildContext c, String title, String body,
     [Widget? content]) async {
   final isHide = await Storage.instance.getSqlIntroHide();
   if (isHide) return;
   return showDialog<void>(
-    context: context,
+    context: c,
     builder: (BuildContext context) {
       bool isChecked = false;
       return StatefulBuilder(
@@ -305,7 +305,7 @@ class _ModalState extends State<Modal> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       setup();
-      if (kDebugMode) {
+      if (!kDebugMode) {
         if (widget.content != null) {
           dialogBig(context, 'SQL Screen', '', buildGuides());
         } else {

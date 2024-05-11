@@ -2,11 +2,11 @@ import 'package:app/all.dart';
 
 class Company {
   String? name;
-  String? industry;
+  int? teamSize;
   String? founded;
+  String? industry;
   String? location;
   String? urlAvatar;
-  int? teamSize;
   List<User>? founders;
   List<String>? industries;
   List<String>? technologies;

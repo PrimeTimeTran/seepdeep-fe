@@ -1,9 +1,9 @@
 import 'package:app/all.dart';
 
 class Comment {
-  int? numVotes;
   String? body;
   String? code;
+  int? numVotes;
   Comment? comment; // The comment this comment is replying to
 
   User? user;

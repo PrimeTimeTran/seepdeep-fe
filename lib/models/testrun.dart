@@ -5,7 +5,6 @@ class TestCase {
   final String outExpected;
   final Map<String, dynamic> signature;
 
-  // Constructor
   TestCase({
     required this.input,
     required this.passing,

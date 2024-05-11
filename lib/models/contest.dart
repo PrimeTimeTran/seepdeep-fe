@@ -60,22 +60,22 @@ class Contest {
 }
 
 class Participant {
-  User? user;
-  Contest? contest;
-  DateTime? time;
-  int? score;
   int? rank;
+  User? user;
+  int? score;
   int? rating;
+  DateTime? time;
+  Contest? contest;
   List<Problem>? problems;
   List<Submission>? submissions;
 
   Participant({
-    this.user,
-    this.contest,
     this.time,
-    this.score,
     this.rank,
+    this.user,
+    this.score,
     this.rating,
+    this.contest,
     this.problems,
     this.submissions,
   });

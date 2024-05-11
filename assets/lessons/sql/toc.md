@@ -1,0 +1,8 @@
+- Select
+- Where
+- Filter
+- Order By
+- Aggregates
+- Insert
+- Altering Table
+- Database

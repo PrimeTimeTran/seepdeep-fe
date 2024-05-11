@@ -1,9 +1,5 @@
 import 'package:app/all.dart';
 
-buildStreak() {
-  // DateTime(2024, 1, 1): 30
-}
-
 class LanguageScore {
   String? score;
   String? language;

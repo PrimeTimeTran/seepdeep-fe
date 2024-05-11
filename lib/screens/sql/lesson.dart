@@ -4,62 +4,11 @@ import 'package:flutter/services.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-MarkdownStyleSheet myStyleSheet = MarkdownStyleSheet(
-  h1: const TextStyle(
-      fontSize: 24, fontWeight: FontWeight.bold, color: Colors.blue),
-  h2: const TextStyle(
-      fontSize: 22, fontWeight: FontWeight.bold, color: Colors.green),
-  p: const TextStyle(fontSize: 16, color: Colors.black),
-  a: const TextStyle(color: Colors.blue),
-  listBullet: const TextStyle(fontSize: 16, color: Colors.grey),
-  code: TextStyle(
-    backgroundColor: Colors.blue.shade200,
-    fontSize: 16,
-    decorationThickness: 10,
-  ),
-  codeblockDecoration: BoxDecoration(
-    color: Colors.grey.shade200,
-    borderRadius: BorderRadius.circular(4),
-  ),
-);
-
-MarkdownStyleSheet myStyleSheetDark = MarkdownStyleSheet(
-  h1: const TextStyle(
-    fontSize: 24,
-    fontWeight: FontWeight.bold,
-    color: Colors.blue,
-  ),
-  h2: const TextStyle(
-    fontSize: 22,
-    fontWeight: FontWeight.bold,
-    color: Colors.green,
-  ),
-  p: const TextStyle(
-    fontSize: 16,
-    color: Colors.white,
-  ),
-  a: const TextStyle(
-    color: Colors.blue,
-  ),
-  listBullet: const TextStyle(
-    fontSize: 16,
-    color: Colors.grey,
-  ).copyWith(
-    color: Colors.white,
-  ),
-  code: TextStyle(
-    backgroundColor: Colors.blue.shade900,
-    fontSize: 16,
-  ),
-  codeblockDecoration: BoxDecoration(
-    color: Colors.grey.shade200,
-    borderRadius: BorderRadius.circular(4),
-  ),
-);
+import './markdown_styles.dart';
+import './temp_lesson.dart';
 
 Future<String> checkProgress() async {
   final lessonId = await Storage.instance.getSQLLesson();
-  print(lessonId);
   return lessonId ?? '1.0';
 }
 
@@ -70,8 +19,11 @@ Future<String> loadData() async {
 
 Future<String> loadMarkdownContent(String lessonId) async {
   try {
-    String path = 'assets/lessons/sql/$lessonId.md';
-    final data = await rootBundle.loadString(path);
+    String data = lesson;
+    if (true) {
+      String path = 'assets/lessons/sql/$lessonId.md';
+      data = await rootBundle.loadString(path);
+    }
     return data;
   } catch (e) {
     print("Error loading Markdown content: $e");
@@ -106,17 +58,10 @@ class _LessonMarkDownState extends State<LessonMarkDown> {
                 child: Text('Error loading Markdown content.'),
               );
             } else {
-              // return Container(
-              //   // color: Theme.of(context).secondaryHeaderColor,
-              //   // color: Theme.of(context).splashColor,
-              //   child: Markdown(
-              //     selectable: true,
-              //     data: snapshot.data!,
-              //   ),
-              // );
               return Markdown(
-                styleSheet: _isDarkMode ? myStyleSheetDark : myStyleSheet,
+                selectable: true,
                 data: snapshot.data!,
+                styleSheet: _isDarkMode ? myStyleSheetDark : myStyleSheet,
                 onTapLink: (text, url, title) {
                   launchUrl(Uri.parse(url!));
                 },
