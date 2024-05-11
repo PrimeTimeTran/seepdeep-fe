@@ -9,6 +9,17 @@ fake = Faker()
 cursor.execute("SELECT employee_id FROM employees")
 employee_ids = cursor.fetchall()
 
+# Jira?
+# Employees
+# Departments
+# Customers
+# Projects
+# Ticket
+# 
+
+
+roles = ['CEO', 'Database Admin', 'Product Engineer', 'Frontend Developer', 'Backend Developer', 'Full Stack Developer', 'QA Engineer', 'UI/UX Designer', 'Graphic Designer', 'Product Owner', 'Project Manager', 'Sales Manager', 'Business Development']
+
 for employee_id in employee_ids:
     address_parts = fake.address().split('\n')
     address = address_parts[0]
@@ -23,11 +34,14 @@ for employee_id in employee_ids:
     first_three = fake.random_int(100, 999)
     last_four = fake.random_int(1000, 9999)
     extension = fake.random_int(1000, 99999)
-    phone = f"({area_code}){first_three}-{last_four}x{extension}"
+    phone = f"({area_code}){first_three}-{last_four}"
+    job = random.sample(roles, 1)[0]
     random_days = random.randint(0, 21 * 365)
     start_date = datetime.now() - timedelta(days=21 * 365)
     random_date = start_date + timedelta(days=random_days)
-    cursor.execute("UPDATE employees SET address = ?, city = ?, state = ?, postal_code = ?, country = ?, phone = ?, hire_date = ? WHERE employee_id = ?", (address, city, state, zip, "USA", phone, random_date.date(), employee_id[0]))
+    if employee_id[0] == 1:
+        job = "CEO"
+    cursor.execute("UPDATE employees SET address = ?, city = ?, state = ?, postal_code = ?, country = ?, phone = ?, hire_date = ?, title = ? WHERE employee_id = ?", (address, city, state, zip, "US", phone, random_date.date(), job, employee_id[0]))
 
 conn.commit()
 conn.close()
