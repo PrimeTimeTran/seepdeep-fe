@@ -22,18 +22,42 @@ final lessonPromptMap = {
     {'prompt': 'Find all the films'},
     {'prompt': 'Find all the film directors'},
   ],
-  '3.update.md': [],
-  '4.delete.md': [],
-  '5.where.md': [],
-  '6.orderby.md': [],
-  '7.groupby.md': [],
-  '8.aggregate.md': [],
-  '9.join.md': [],
-  '10.union.md': [],
-  '11.window.md': [],
-  '12.functions.md': [],
-  '15.table-management.md': [],
-  '16.database-management.md': [],
+  '3.update.md': [
+    {'prompt': 'Update'},
+  ],
+  '4.delete.md': [
+    {'prompt': 'Delete'},
+  ],
+  '5.where.md': [
+    {'prompt': 'Where'},
+  ],
+  '6.orderby.md': [
+    {'prompt': 'Orderby'},
+  ],
+  '7.groupby.md': [
+    {'prompt': 'Groupby'},
+  ],
+  '8.aggregate.md': [
+    {'prompt': 'Aggregate'},
+  ],
+  '9.join.md': [
+    {'prompt': 'Join'},
+  ],
+  '10.union.md': [
+    {'prompt': 'Union'},
+  ],
+  '11.window.md': [
+    {'prompt': 'Window'},
+  ],
+  '12.functions.md': [
+    {'prompt': 'Functions'},
+  ],
+  '15.table-management.md': [
+    {'prompt': 'Table Management'},
+  ],
+  '16.database-management.md': [
+    {'prompt': 'Database Management'},
+  ],
 };
 
 final lessons = [

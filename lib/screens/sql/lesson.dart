@@ -9,8 +9,8 @@ import './markdown_styles.dart';
 import './sql.helpers.dart';
 
 class LessonMarkDown extends StatefulWidget {
-  int lessonId;
-  LessonMarkDown({super.key, required this.lessonId});
+  String lessonContent;
+  LessonMarkDown({super.key, required this.lessonContent});
 
   @override
   State<LessonMarkDown> createState() => _LessonMarkDownState();
@@ -24,29 +24,13 @@ class _LessonMarkDownState extends State<LessonMarkDown> {
     return SizedBox(
       height: getHeight() / 2,
       width: double.infinity,
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: FutureBuilder<String>(
-          future: loadData(widget.lessonId),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(child: CircularProgressIndicator());
-            } else if (snapshot.hasError) {
-              return const Center(
-                child: Text('Error loading Markdown content.'),
-              );
-            } else {
-              return Markdown(
-                selectable: true,
-                data: snapshot.data!,
-                styleSheet: _isDarkMode ? myStyleSheetDark : myStyleSheet,
-                onTapLink: (text, url, title) {
-                  launchUrl(Uri.parse(url!));
-                },
-              );
-            }
-          },
-        ),
+      child: Markdown(
+        selectable: true,
+        data: widget.lessonContent,
+        styleSheet: _isDarkMode ? myStyleSheetDark : myStyleSheet,
+        onTapLink: (text, url, title) {
+          launchUrl(Uri.parse(url!));
+        },
       ),
     );
   }

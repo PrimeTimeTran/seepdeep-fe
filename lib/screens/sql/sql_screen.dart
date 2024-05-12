@@ -18,9 +18,10 @@ class SQLScreen extends ConsumerStatefulWidget {
 
 class _SQLScreenState extends ConsumerState<SQLScreen> {
   String code = '';
-  int lessonId = 1;
+  int lessonId = 0;
   bool queried = false;
-  List currentPrompts = [];
+  String lessonContent = '';
+  List lessonQueryPrompts = [];
   bool queryFinished = false;
   Iterable<String> columnNames = [];
   List<Iterable<MapEntry<String, dynamic>>> records = [];
@@ -46,7 +47,7 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
                         child: SingleChildScrollView(
                           child: Column(
                             children: [
-                              LessonMarkDown(lessonId: lessonId),
+                              LessonMarkDown(lessonContent: lessonContent)
                             ],
                           ),
                         ),
@@ -102,26 +103,14 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
                                   title: 'Back',
                                   onPress: () {
                                     if (lessonId == 0) return;
-                                    final newLesson = lessonId - 1;
-                                    setState(() {
-                                      lessonId = newLesson;
-                                      currentPrompts =
-                                          lessonPromptMap[lessons[newLesson]]!;
-                                    });
-                                    Storage.instance.setSqlStep(newLesson);
+                                    setLesson(lessonId - 1);
                                   },
                                   outlined: true,
                                 ),
                                 Button(
                                   title: 'Reset Progress',
                                   onPress: () {
-                                    const newLesson = 0;
-                                    setState(() {
-                                      lessonId = newLesson;
-                                      currentPrompts =
-                                          lessonPromptMap[newLesson]!;
-                                    });
-                                    Storage.instance.setSqlStep(0);
+                                    setLesson(0);
                                   },
                                   outlined: true,
                                 ),
@@ -144,13 +133,7 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
                                   title: 'Next',
                                   onPress: () {
                                     if (lessonId == 14) return;
-                                    final newLesson = lessonId + 1;
-                                    setState(() {
-                                      lessonId = newLesson;
-                                      currentPrompts =
-                                          lessonPromptMap[lessons[newLesson]]!;
-                                    });
-                                    Storage.instance.setSqlStep(newLesson);
+                                    setLesson(lessonId + 1);
                                   },
                                   outlined: true,
                                 )
@@ -192,8 +175,8 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
 
   buildQueryPrompts() {
     List<Widget> prompts = [];
-    for (var i = 0; i < currentPrompts.length; i++) {
-      prompts.add(Text(currentPrompts[i]['prompt']));
+    for (var i = 0; i < lessonQueryPrompts.length; i++) {
+      prompts.add(Text(lessonQueryPrompts[i]['prompt']));
     }
     return prompts.toList();
   }
@@ -332,11 +315,18 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
     }
   }
 
+  setLesson(id) async {
+    lessonContent = await loadData(id);
+    setState(() {
+      lessonId = id;
+      lessonContent = lessonContent;
+      lessonQueryPrompts = lessonPromptMap[lessons[id]]!;
+    });
+    Storage.instance.setSqlStep(id);
+  }
+
   setup() async {
     lessonId = await checkProgress();
-    setState(() {
-      lessonId = lessonId;
-      currentPrompts = lessonPromptMap[lessons[lessonId]]!;
-    });
+    await setLesson(lessonId);
   }
 }
