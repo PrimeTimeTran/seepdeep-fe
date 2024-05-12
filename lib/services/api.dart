@@ -36,7 +36,7 @@ class Api {
         body: jsonEncode(body),
         headers: _headers(),
       )
-          .timeout(const Duration(seconds: 20), onTimeout: () {
+          .timeout(const Duration(seconds: 30), onTimeout: () {
         Glob.showSnack('Timeout. Is your internet connection ok?');
         return http.Response('Timeout', 408);
       });
