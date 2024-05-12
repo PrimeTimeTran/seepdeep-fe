@@ -7,6 +7,7 @@ import 'package:gap/gap.dart';
 import 'package:provider/provider.dart' as provider;
 
 import '../../database/database.dart';
+import 'sql.helpers.dart';
 
 class SQLScreen extends ConsumerStatefulWidget {
   const SQLScreen({super.key});
@@ -17,6 +18,7 @@ class SQLScreen extends ConsumerStatefulWidget {
 
 class _SQLScreenState extends ConsumerState<SQLScreen> {
   String code = '';
+  int lessonId = 0;
   bool queried = false;
   bool queryFinished = false;
   Iterable<String> columnNames = [];
@@ -31,7 +33,7 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             const Modal(type: GiffyType.rive, title: '', content: Gap(1)),
-            const Expanded(
+            Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
@@ -40,13 +42,13 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
                       child: SingleChildScrollView(
                         child: Column(
                           children: [
-                            LessonMarkDown(),
+                            LessonMarkDown(lessonId: lessonId),
                           ],
                         ),
                       ),
                     ),
                   ),
-                  Expanded(
+                  const Expanded(
                     child: Card.outlined(
                       child: SingleChildScrollView(
                         child: Padding(
@@ -123,12 +125,34 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
                                         children: [
                                           Button(
                                             title: 'Back',
-                                            onPress: () {},
+                                            onPress: () {
+                                              if (lessonId == 0) return;
+                                              setState(() {
+                                                lessonId = lessonId - 1;
+                                              });
+                                              Storage.instance
+                                                  .setSqlStep(lessonId - 1);
+                                            },
                                             outlined: true,
                                           ),
                                           Button(
-                                            title: 'Reset',
-                                            onPress: () {},
+                                            title: 'Reset Progress',
+                                            onPress: () {
+                                              setState(() {
+                                                lessonId = 0;
+                                              });
+                                              Storage.instance.setSqlStep(0);
+                                            },
+                                            outlined: true,
+                                          ),
+                                          Button(
+                                            title: 'Reset Query',
+                                            onPress: () {
+                                              // setState(() {
+                                              //   lessonId = 0;
+                                              // });
+                                              // Storage.instance.setSqlStep(0);
+                                            },
                                             outlined: true,
                                           ),
                                           Button(
@@ -139,8 +163,12 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
                                           Button(
                                             title: 'Next',
                                             onPress: () {
+                                              if (lessonId == 14) return;
+                                              setState(() {
+                                                lessonId = lessonId + 1;
+                                              });
                                               Storage.instance
-                                                  .setSqlStep('2.0');
+                                                  .setSqlStep(lessonId + 1);
                                             },
                                             outlined: true,
                                           )
@@ -319,5 +347,10 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
     }
   }
 
-  setup() {}
+  setup() async {
+    lessonId = await checkProgress();
+    setState(() {
+      lessonId = lessonId;
+    });
+  }
 }

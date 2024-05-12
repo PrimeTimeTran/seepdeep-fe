@@ -27,9 +27,9 @@ class Storage {
     return prefs.getBool('introSqlHide') ?? false;
   }
 
-  Future<String?> getSQLLesson() async {
+  Future<int?> getSQLLesson() async {
     final prefs = await _prefs;
-    return prefs.getString('sql-lessonId');
+    return prefs.getInt('sql-lessonId');
   }
 
   Future<bool> getTheme() async {
@@ -47,12 +47,12 @@ class Storage {
     await prefs.setBool('introSqlHide', true);
   }
 
-  Future<void> setSqlStep(String step) async {
+  Future<void> setSqlStep(int step) async {
     // 1.0 is new lesson, no items done.
     // 1.1 is one problem done.
     //
     final prefs = await _prefs;
-    prefs.setString('sql-lessonId', step);
+    prefs.setInt('sql-lessonId', step);
   }
 
   Future<void> setTheme() async {
