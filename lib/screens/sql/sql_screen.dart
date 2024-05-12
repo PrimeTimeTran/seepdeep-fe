@@ -76,16 +76,22 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
                   builder: (BuildContext context, BoxConstraints constraints) {
                     return HorizontalSplitView(
                       borderless: true,
-                      top: Container(
-                        decoration: BoxDecoration(
-                            border: Border(
-                                bottom:
-                                    BorderSide(color: Colors.grey.shade300))),
-                        child: SingleChildScrollView(
-                          child: Column(children: [buildTable()]),
+                      top: Align(
+                        alignment: Alignment.topLeft,
+                        child: Container(
+                          decoration: BoxDecoration(
+                              border: Border(
+                                  bottom:
+                                      BorderSide(color: Colors.grey.shade300))),
+                          child: SingleChildScrollView(
+                            child: Column(
+                              children: [buildTable()],
+                            ),
+                          ),
                         ),
                       ),
                       bottom: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           Editor(
@@ -291,7 +297,7 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
       // code = "Select * from categories";
 
       List<QueryRow> result = await database.customSelect(
-        code,
+        '$code ',
         readsFrom: {...database.allTables},
       ).get();
       if (result.isNotEmpty) {
