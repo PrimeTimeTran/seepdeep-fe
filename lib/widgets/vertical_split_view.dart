@@ -65,65 +65,51 @@ class _HorizontalSplitViewState extends State<HorizontalSplitView> {
           _maxHeight = constraints.maxHeight - _dividerHeight;
         }
 
-        return Container(
-          decoration: BoxDecoration(
-            border: widget.borderless == true
-                ? null
-                : const Border(
-                    left: BorderSide(
-                      width: 1,
+        return SizedBox(
+          height: constraints.maxHeight,
+          child: Column(
+            children: <Widget>[
+              SizedBox(
+                height: _height1,
+                child: widget.top,
+              ),
+              HoverableContainer(
+                child: GestureDetector(
+                  behavior: HitTestBehavior.translucent,
+                  child: Padding(
+                    padding: const EdgeInsets.only(bottom: 4.0),
+                    child: SizedBox(
+                      height: _dividerHeight,
+                      child: const Icon(Icons.drag_handle),
                     ),
                   ),
-          ),
-          child: SizedBox(
-            height: constraints.maxHeight + 33,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                SizedBox(
-                  height: _height1,
-                  child: widget.top,
+                  onPanUpdate: (DragUpdateDetails details) {
+                    setState(() {
+                      _ratio += details.delta.dy / _maxHeight;
+                      if (_ratio > 1) {
+                        _ratio = 1;
+                      } else if (_ratio < 0.0) {
+                        _ratio = 0.0;
+                      }
+                    });
+                  },
                 ),
-                HoverableContainer(
-                  child: GestureDetector(
-                    behavior: HitTestBehavior.translucent,
-                    child: Padding(
-                      padding: const EdgeInsets.only(bottom: 4.0),
-                      child: SizedBox(
-                        height: _dividerHeight,
-                        child: const Icon(Icons.drag_handle),
-                      ),
-                    ),
-                    onPanUpdate: (DragUpdateDetails details) {
-                      setState(() {
-                        _ratio += details.delta.dy / _maxHeight;
-                        if (_ratio > 1) {
-                          _ratio = 1;
-                        } else if (_ratio < 0.0) {
-                          _ratio = 0.0;
-                        }
-                      });
-                    },
-                  ),
-                ),
-                SizedBox(
-                  height: _height2,
-                  width: double.infinity,
-                  child: Container(
-                    decoration: widget.borderless == true
-                        ? null
-                        : const BoxDecoration(
-                            border: Border(
-                              top: BorderSide(
-                                width: 1,
-                              ),
-                            ),
+              ),
+              SizedBox(
+                height: _height2,
+                width: double.infinity,
+                child: Container(
+                  decoration: widget.borderless == true
+                      ? null
+                      : const BoxDecoration(
+                          border: Border(
+                            top: BorderSide(width: 1),
                           ),
-                    child: widget.bottom,
-                  ),
+                        ),
+                  child: widget.bottom,
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         );
       },

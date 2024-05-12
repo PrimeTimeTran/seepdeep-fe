@@ -34,156 +34,123 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
           children: [
             const Modal(type: GiffyType.rive, title: '', content: Gap(1)),
             Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Expanded(
-                    child: Card(
-                      child: SingleChildScrollView(
-                        child: Column(
-                          children: [
-                            LessonMarkDown(lessonId: lessonId),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                  const Expanded(
-                    child: Card.outlined(
-                      child: SingleChildScrollView(
-                        child: Padding(
-                          padding: EdgeInsets.all(8.0),
+              child: ScrollConfiguration(
+                behavior:
+                    ScrollConfiguration.of(context).copyWith(scrollbars: false),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Expanded(
+                      child: Card(
+                        child: SingleChildScrollView(
                           child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text('Select id, title & '),
+                              LessonMarkDown(lessonId: lessonId),
                             ],
                           ),
                         ),
                       ),
                     ),
-                  ),
-                ],
+                    const Expanded(
+                      child: Card.outlined(
+                        child: SingleChildScrollView(
+                          child: Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text('Select id, title & '),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
             Expanded(
-              child: Card(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // Column(
-                      //   crossAxisAlignment: CrossAxisAlignment.start,
-                      //   children: [
-                      //     const SizedBox(height: 10),
-                      //     Text(
-                      //       'Query Results: ${records.length} records.',
-                      //       style: Theme.of(context).textTheme.bodyMedium,
-                      //     ),
-                      //     const SizedBox(height: 30),
-                      //     Text(
-                      //       'DatabaseTables:',
-                      //       style: Theme.of(context).textTheme.bodySmall,
-                      //     ),
-                      //     const SizedBox(height: 5),
-                      //     Text(
-                      //       'studios, directors, movies, movie_directors, customers, employees, invoices, invoice_items, albums, playlists, playlist_track, tracks, artists, genres, media_types',
-                      //       style: Theme.of(context).textTheme.bodySmall,
-                      //     ),
-                      //   ],
-                      // ),
-                      Expanded(
+              child: Card.outlined(
+                child: LayoutBuilder(
+                  builder: (BuildContext context, BoxConstraints constraints) {
+                    return HorizontalSplitView(
+                      borderless: true,
+                      top: SingleChildScrollView(
                         child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            SizedBox(
-                              height: (getHeight() / 1.5) + 225,
-                              width: double.infinity,
-                              child: HorizontalSplitView(
-                                borderless: true,
-                                top: SingleChildScrollView(
-                                  child: Column(
-                                    children: [
-                                      buildTable(),
-                                    ],
-                                  ),
-                                ),
-                                bottom: Column(
-                                  children: [
-                                    Editor(
-                                      onRun: onRun,
-                                      onType: (c) => setState(() => code = c),
-                                      problem: problem,
-                                      lang: Language.sql,
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Button(
-                                            title: 'Back',
-                                            onPress: () {
-                                              if (lessonId == 0) return;
-                                              setState(() {
-                                                lessonId = lessonId - 1;
-                                              });
-                                              Storage.instance
-                                                  .setSqlStep(lessonId - 1);
-                                            },
-                                            outlined: true,
-                                          ),
-                                          Button(
-                                            title: 'Reset Progress',
-                                            onPress: () {
-                                              setState(() {
-                                                lessonId = 0;
-                                              });
-                                              Storage.instance.setSqlStep(0);
-                                            },
-                                            outlined: true,
-                                          ),
-                                          Button(
-                                            title: 'Reset Query',
-                                            onPress: () {
-                                              // setState(() {
-                                              //   lessonId = 0;
-                                              // });
-                                              // Storage.instance.setSqlStep(0);
-                                            },
-                                            outlined: true,
-                                          ),
-                                          Button(
-                                            title: 'Hint',
-                                            onPress: () {},
-                                            outlined: true,
-                                          ),
-                                          Button(
-                                            title: 'Next',
-                                            onPress: () {
-                                              if (lessonId == 14) return;
-                                              setState(() {
-                                                lessonId = lessonId + 1;
-                                              });
-                                              Storage.instance
-                                                  .setSqlStep(lessonId + 1);
-                                            },
-                                            outlined: true,
-                                          )
-                                        ],
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ),
-                            ),
+                            buildTable(),
                           ],
                         ),
                       ),
-                    ],
-                  ),
+                      bottom: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Editor(
+                            onRun: onRun,
+                            problem: problem,
+                            lang: Language.sql,
+                            onType: (c) => setState(() => code = c),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Button(
+                                  title: 'Back',
+                                  onPress: () {
+                                    if (lessonId == 0) return;
+                                    setState(() {
+                                      lessonId = lessonId - 1;
+                                    });
+                                    Storage.instance.setSqlStep(lessonId - 1);
+                                  },
+                                  outlined: true,
+                                ),
+                                Button(
+                                  title: 'Reset Progress',
+                                  onPress: () {
+                                    setState(() {
+                                      lessonId = 0;
+                                    });
+                                    Storage.instance.setSqlStep(0);
+                                  },
+                                  outlined: true,
+                                ),
+                                Button(
+                                  title: 'Reset Query',
+                                  onPress: () {
+                                    // setState(() {
+                                    //   lessonId = 0;
+                                    // });
+                                    // Storage.instance.setSqlStep(0);
+                                  },
+                                  outlined: true,
+                                ),
+                                Button(
+                                  title: 'Hint',
+                                  onPress: () {},
+                                  outlined: true,
+                                ),
+                                Button(
+                                  title: 'Next',
+                                  onPress: () {
+                                    if (lessonId == 14) return;
+                                    setState(() {
+                                      lessonId = lessonId + 1;
+                                    });
+                                    Storage.instance.setSqlStep(lessonId + 1);
+                                  },
+                                  outlined: true,
+                                )
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                    );
+                  },
                 ),
               ),
             ),
