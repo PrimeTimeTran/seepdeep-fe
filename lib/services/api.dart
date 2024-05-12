@@ -6,7 +6,8 @@ import 'package:http/http.dart' as http;
 
 class Api {
   static http.Client client = http.Client();
-  static const base = 'http://localhost:3000/api/';
+
+  static const base = 'https://seepdeep-api-dev-7d6537ynfa-uc.a.run.app/api/';
   static String authToken =
       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWNkMmY0YzAyNjAwNDZhNDQzNTExYTIiLCJpYXQiOjE3MTM2NDg2NzgsImV4cCI6MjAyOTAwODY3OH0.HnX3iDxGkKdcgaxpZSAR34jXq5T1pASW6vaeEjuJ6EM';
 
@@ -29,14 +30,16 @@ class Api {
 
   static FutureOr<dynamic> post(String path, dynamic body) async {
     try {
-      final response = await client.post(
+      final response = await client
+          .post(
         _url(path),
         body: jsonEncode(body),
         headers: _headers(),
-      );
-      if (response.statusCode == 408) {
-        Glob.showSnack('Submission failed. Are you connected to the internet?');
-      }
+      )
+          .timeout(const Duration(seconds: 20), onTimeout: () {
+        Glob.showSnack('Timeout. Is your internet connection ok?');
+        return http.Response('Timeout', 408);
+      });
       return _result(response);
     } catch (e) {
       Glob.logI(e);
