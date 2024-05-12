@@ -18,8 +18,9 @@ class SQLScreen extends ConsumerStatefulWidget {
 
 class _SQLScreenState extends ConsumerState<SQLScreen> {
   String code = '';
-  int lessonId = 0;
+  int lessonId = 1;
   bool queried = false;
+  List currentPrompts = [];
   bool queryFinished = false;
   Iterable<String> columnNames = [];
   List<Iterable<MapEntry<String, dynamic>>> records = [];
@@ -51,16 +52,14 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
                         ),
                       ),
                     ),
-                    const Expanded(
+                    Expanded(
                       child: Card.outlined(
                         child: SingleChildScrollView(
                           child: Padding(
-                            padding: EdgeInsets.all(8.0),
+                            padding: const EdgeInsets.all(8.0),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text('Select id, title & '),
-                              ],
+                              children: buildQueryPrompts(),
                             ),
                           ),
                         ),
@@ -76,11 +75,13 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
                   builder: (BuildContext context, BoxConstraints constraints) {
                     return HorizontalSplitView(
                       borderless: true,
-                      top: SingleChildScrollView(
-                        child: Column(
-                          children: [
-                            buildTable(),
-                          ],
+                      top: Container(
+                        decoration: BoxDecoration(
+                            border: Border(
+                                bottom:
+                                    BorderSide(color: Colors.grey.shade300))),
+                        child: SingleChildScrollView(
+                          child: Column(children: [buildTable()]),
                         ),
                       ),
                       bottom: Column(
@@ -101,18 +102,24 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
                                   title: 'Back',
                                   onPress: () {
                                     if (lessonId == 0) return;
+                                    final newLesson = lessonId - 1;
                                     setState(() {
-                                      lessonId = lessonId - 1;
+                                      lessonId = newLesson;
+                                      currentPrompts =
+                                          lessonPromptMap[lessons[newLesson]]!;
                                     });
-                                    Storage.instance.setSqlStep(lessonId - 1);
+                                    Storage.instance.setSqlStep(newLesson);
                                   },
                                   outlined: true,
                                 ),
                                 Button(
                                   title: 'Reset Progress',
                                   onPress: () {
+                                    const newLesson = 0;
                                     setState(() {
-                                      lessonId = 0;
+                                      lessonId = newLesson;
+                                      currentPrompts =
+                                          lessonPromptMap[newLesson]!;
                                     });
                                     Storage.instance.setSqlStep(0);
                                   },
@@ -137,10 +144,13 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
                                   title: 'Next',
                                   onPress: () {
                                     if (lessonId == 14) return;
+                                    final newLesson = lessonId + 1;
                                     setState(() {
-                                      lessonId = lessonId + 1;
+                                      lessonId = newLesson;
+                                      currentPrompts =
+                                          lessonPromptMap[lessons[newLesson]]!;
                                     });
-                                    Storage.instance.setSqlStep(lessonId + 1);
+                                    Storage.instance.setSqlStep(newLesson);
                                   },
                                   outlined: true,
                                 )
@@ -178,6 +188,14 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
       );
     }
     return const SizedBox();
+  }
+
+  buildQueryPrompts() {
+    List<Widget> prompts = [];
+    for (var i = 0; i < currentPrompts.length; i++) {
+      prompts.add(Text(currentPrompts[i]['prompt']));
+    }
+    return prompts.toList();
   }
 
   buildResults() {
@@ -318,6 +336,7 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
     lessonId = await checkProgress();
     setState(() {
       lessonId = lessonId;
+      currentPrompts = lessonPromptMap[lessons[lessonId]]!;
     });
   }
 }

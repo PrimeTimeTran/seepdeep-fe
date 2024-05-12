@@ -3,6 +3,39 @@ import 'package:flutter/services.dart';
 
 import 'temp_lesson.dart';
 
+final lessonPromptMap = {
+  '0.toc.md': [
+    {'prompt': 'Checkout the table in the top right'},
+    {'prompt': 'Checkout the next & find buttons'},
+    {'prompt': 'Checkout the results'},
+  ],
+  '1.insert.md': [
+    {'prompt': 'Add an employee to the employees table'},
+    {
+      'prompt':
+          'Add another employee with name & surname fields to the employees table'
+    },
+    {'prompt': 'Add a third employee to the employees table'},
+  ],
+  '2.select.md': [
+    {'prompt': 'Find all the directors'},
+    {'prompt': 'Find all the films'},
+    {'prompt': 'Find all the film directors'},
+  ],
+  '3.update.md': [],
+  '4.delete.md': [],
+  '5.where.md': [],
+  '6.orderby.md': [],
+  '7.groupby.md': [],
+  '8.aggregate.md': [],
+  '9.join.md': [],
+  '10.union.md': [],
+  '11.window.md': [],
+  '12.functions.md': [],
+  '15.table-management.md': [],
+  '16.database-management.md': [],
+};
+
 final lessons = [
   '0.toc.md',
   '1.insert.md',
@@ -27,7 +60,6 @@ Future<int> checkProgress() async {
 }
 
 Future<String> loadData(lessonId) async {
-  // int lessonId = await checkProgress();
   return await loadMarkdownContent(lessonId);
 }
 
