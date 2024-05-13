@@ -96,6 +96,32 @@ class Submission {
             json['contest'] != null ? Contest.fromJson(json['contest']) : null,
         penalty = json['penalty'];
 
+  factory Submission.placeholder(problemId, userId) {
+    return Submission(
+      user: userId,
+      body: 'Placeholder body',
+      title: 'Placeholder title',
+      explanation: 'Placeholder explanation',
+      language: 'Placeholder language',
+      notes: 'Placeholder notes',
+      submitted: DateTime.now(),
+      problem: problemId,
+      isAccepted: false,
+      isShared: false,
+      isContest: false,
+      penalty: 0,
+      numVotes: 0,
+      numComments: 0,
+      runTime: 0,
+      memoryUsage: 0,
+      beats: 0,
+      voterIds: [],
+      topics: [],
+      comments: [],
+      testCases: [],
+    );
+  }
+
   Map<String, dynamic> toJson() {
     return {
       'user': user?.toJson(),

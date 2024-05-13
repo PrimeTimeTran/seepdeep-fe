@@ -328,7 +328,12 @@ class _SolverState extends State<Solver> {
       }
     } catch (e) {
       print('Error: $e');
-      return [];
+      final submission = Submission.placeholder(problem!.id, 1);
+      submissions.insert(0, submission);
+      testCases = submission.testCases!;
+      setState(() {
+        testCases = testCases;
+      });
     } finally {
       setState(() {
         submitted = true;
