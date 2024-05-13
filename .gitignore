@@ -50,4 +50,5 @@ app.*.map.json
 notes/
 node_modules
 scripts/databases/venv
+scripts/databases/__pycache__
 .venv

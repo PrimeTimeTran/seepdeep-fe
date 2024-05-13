@@ -3,7 +3,6 @@ import sqlite3
 conn = sqlite3.connect('stocks.db')
 cur = conn.cursor()
 
-
 def drop_tables():
     cur.execute('DROP TABLE IF EXISTS Exchanges;')
     cur.execute('DROP TABLE IF EXISTS Companies;')

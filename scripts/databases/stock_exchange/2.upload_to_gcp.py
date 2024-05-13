@@ -1,4 +1,5 @@
 import os
+import datetime
 from google.cloud import storage
 
 def upload_to_gcs(bucket_name, local_file_path, destination_blob_name):
@@ -9,8 +10,10 @@ def upload_to_gcs(bucket_name, local_file_path, destination_blob_name):
     blob.upload_from_filename(local_file_path)
 
     print(f"File {local_file_path} uploaded to {destination_blob_name} in bucket {bucket_name}")
+
+today = datetime.datetime.today().strftime('%Y-%m-%d')
 bucket_name = 'turboship-dev-alpha'
-local_file_path = 'stocks-2024-05-13.json'
-destination_blob_name = 'stocks-2024-05-13.json'
+local_file_path = f'stocks-{today}.json'
+destination_blob_name = f'stocks-{today}.json'
 
 upload_to_gcs(bucket_name, local_file_path, destination_blob_name)
