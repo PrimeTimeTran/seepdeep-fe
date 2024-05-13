@@ -25,6 +25,8 @@ class _SolverState extends State<Solver> {
   List<Submission> submissions = [];
   final StreamController<Submission> _submissionStreamController =
       StreamController<Submission>();
+  Language selectedLang = Language.python;
+
   @override
   Widget build(BuildContext context) {
     return Consumer<ProblemProvider>(
@@ -64,8 +66,11 @@ class _SolverState extends State<Solver> {
       top: Editor(
         problem: p,
         key: ValueKey(p),
-        onRun: (code) => onRun(code),
-        onType: (c) => setState(() => code = c),
+        onRun: (code, lang) => onRun(code, lang),
+        onType: (c, lang) => setState(() {
+          code = c;
+          selectedLang = lang;
+        }),
       ),
       bottom: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
@@ -205,7 +210,8 @@ class _SolverState extends State<Solver> {
               Expanded(
                 child: GFButtonBadge(
                   color: Colors.green.shade600,
-                  onPressed: processing ? null : () => onRun(code),
+                  onPressed:
+                      processing ? null : () => onRun(code, selectedLang),
                   textStyle: const TextStyle(
                       fontWeight: FontWeight.bold, color: Colors.white),
                   text: processing ? "Processing" : "Run",
@@ -286,12 +292,21 @@ class _SolverState extends State<Solver> {
     initializeProblem();
   }
 
-  onRun(submission) {
+  onRun(submission, lang) {
+    setState(() {
+      selectedLang = lang;
+    });
+    String l = selectedLanguageName(lang).toLowerCase();
+    if (l == 'javascript') {
+      l = 'js';
+    } else if (l == 'typescript') {
+      l = 'ts';
+    }
     postSubmission({
-      "lang": 'python',
       "body": submission,
       "name": problem!.title,
       "problem": problem!.id,
+      "lang": l,
     });
   }
 

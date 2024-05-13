@@ -51,6 +51,7 @@ class _EditorState extends State<Editor> {
                     itemBuilder: (BuildContext context) =>
                         <PopupMenuEntry<Language>>[
                       buildMenuItem('Python', Icons.keyboard, Language.python),
+                      buildMenuItem('Ruby', Icons.keyboard, Language.ruby),
                       buildMenuItem(
                           'Javascript', Icons.note_alt_outlined, Language.js),
                       buildMenuItem(
@@ -58,8 +59,8 @@ class _EditorState extends State<Editor> {
                       buildMenuItem('Dart', Icons.bug_report, Language.dart),
                       buildMenuItem('C++', Icons.bug_report, Language.cpp),
                       buildMenuItem('Java', Icons.bug_report, Language.java),
-                      buildMenuItem('TS', Icons.bug_report, Language.ts),
-                      buildMenuItem('SQL', Icons.bug_report, Language.sql),
+                      buildMenuItem('Go', Icons.bug_report, Language.go),
+                      // buildMenuItem('SQL', Icons.bug_report, Language.sql),
                     ],
                     child: TextButton.icon(
                         onPressed: null,
@@ -133,7 +134,7 @@ class _EditorState extends State<Editor> {
                   );
                   return;
                 } else {
-                  widget.onType(_controller.text);
+                  widget.onType(_controller.text, selectedLang);
                 }
               }
               return;
@@ -206,12 +207,12 @@ class _EditorState extends State<Editor> {
 
   onRun() {
     String code = _controller.text;
-    widget.onRun(code);
+    widget.onRun(code, selectedLang);
   }
 
   setController([Language? lang]) {
     _controller = selectCodeController(lang ?? selectedLang, widget.problem);
-    widget.onType(_controller.text);
+    widget.onType(_controller.text, lang ?? selectedLang);
     setState(() {
       _controller = _controller;
     });
