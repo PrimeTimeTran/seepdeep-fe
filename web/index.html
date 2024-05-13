@@ -11,34 +11,43 @@
       rel="manifest"
       href="manifest.json"
     />
-    <title>Seep Deep - Next Generation Self Growth Platform</title>
+    <title>Seep Deep - Next Generation Stem & Tech Growth Platform</title>
     <meta
       name="title"
-      content="Seep Deep - Next Generation Self Growth Platform"
-    />
-    <meta
-      property="og:title"
-      content="Seep Deep - Next Generation Self Growth Platform"
+      content="Seep Deep - Next Generation Stem & Tech Growth Platform"
     />
     <meta
       name="description"
-      content="Master the skills you need in order to thrive in the 21st century. Learn advanced mathematics, data structures and more through spaces repetition."
+      content="Master skills needed to thrive in the 21st century. Learn advanced mathematics, data structures and more through spaces repetition."
     />
     <meta
-      property="og:type"
-      content="website"
+      name="keywords"
+      content="Data Structures & Algorithms, Learn SQL, Learn CSS, Learn Flex, Learn Data Structures & Algorithms, Learn Math"
+    />
+    <meta
+      name="author"
+      content="Loi Tran"
+    />
+    <!-- Actual Meta tags(property attribute) -->
+    <meta
+      property="og:title"
+      content="Seep Deep - Next Generation Stem & Tech Growth Platform"
     />
     <meta
       property="og:url"
       content="https://www.seepdeep.com/"
     />
     <meta
+      property="og:type"
+      content="website"
+    />
+    <meta
       property="og:description"
-      content="Master the skills you need in order to thrive in the 21st century. Learn advanced mathematics, data structures and more through spaces repetition."
+      content="Master skills needed to thrive in the 21st century. Learn advanced mathematics, data structures and more through spaces repetition."
     />
     <meta
       property="og:image"
-      content="./assets/img/og:image.png"
+      content="https://www.seepdeep.com/assets/img/og-image.png"
     />
     <meta
       property="twitter:card"
@@ -50,15 +59,15 @@
     />
     <meta
       property="twitter:title"
-      content="Seep Deep - Next Generation Self Growth Platform"
+      content="Seep Deep - Next Generation Stem & Tech Growth Platform"
     />
     <meta
       property="twitter:description"
-      content="Master the skills you need in order to thrive in the 21st century. Learn advanced mathematics, data structures and more through spaces repetition."
+      content="Master skills needed to thrive in the 21st century. Learn advanced mathematics, data structures and more through spaces repetition."
     />
     <meta
       property="twitter:image"
-      content="https://metatags.io/images/meta-tags.png"
+      content="https://www.seepdeep.com/assets/img/og-image.png"
     />
     <link
       rel="apple-touch-icon"
@@ -88,14 +97,8 @@
       defer
     ></script>
     <script type="module">
-      // Import the functions you need from the SDKs you need
       import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js'
       import { getAnalytics } from 'https://www.gstatic.com/firebasejs/10.11.1/firebase-analytics.js'
-      // TODO: Add SDKs for Firebase products that you want to use
-      // https://firebase.google.com/docs/web/setup#available-libraries
-
-      // Your web app's Firebase configuration
-      // For Firebase JS SDK v7.20.0 and later, measurementId is optional
       const firebaseConfig = {
         apiKey: 'AIzaSyC_H8RdeUmT-5sms4ai23E6nLe_nvFghuA',
         authDomain: 'seepdeep-dev.firebaseapp.com',
@@ -105,16 +108,11 @@
         appId: '1:870966333694:web:9d5168051bd506074155af',
         measurementId: 'G-Y90JY37LDH',
       }
-
-      // Initialize Firebase
       const app = initializeApp(firebaseConfig)
       const analytics = getAnalytics(app)
     </script>
   </head>
   <body>
-    <!-- This script installs service_worker.js to provide PWA functionality to
-       application. For more information, see:
-       https://developers.google.com/web/fundamentals/primers/service-workers -->
     <script>
       var serviceWorkerVersion = null
       var scriptLoaded = false
