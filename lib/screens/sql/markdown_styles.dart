@@ -8,18 +8,8 @@ MarkdownStyleSheet myStyleSheet = MarkdownStyleSheet(
       fontSize: 22, fontWeight: FontWeight.bold, color: Colors.green),
   h3: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
   h2Padding: const EdgeInsets.only(top: 20),
-  p: const TextStyle(fontSize: 16, color: Colors.black),
   a: const TextStyle(color: Colors.blue),
   listBullet: const TextStyle(fontSize: 16, color: Colors.grey),
-  // code: TextStyle(
-  //   fontSize: 16,
-  //   decorationThickness: 10,
-  //   backgroundColor: Colors.blue.shade200,
-  // ),
-  // codeblockDecoration: BoxDecoration(
-  //   color: Colors.grey.shade200,
-  //   borderRadius: BorderRadius.circular(4),
-  // ),
 );
 
 MarkdownStyleSheet myStyleSheetDark = MarkdownStyleSheet(
@@ -32,10 +22,6 @@ MarkdownStyleSheet myStyleSheetDark = MarkdownStyleSheet(
       fontSize: 22, fontWeight: FontWeight.bold, color: Colors.green),
   h3: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
   h2Padding: const EdgeInsets.only(top: 20),
-  p: const TextStyle(
-    fontSize: 16,
-    color: Colors.white,
-  ),
   a: const TextStyle(
     color: Colors.blue,
   ),
@@ -45,12 +31,4 @@ MarkdownStyleSheet myStyleSheetDark = MarkdownStyleSheet(
   ).copyWith(
     color: Colors.white,
   ),
-  // code: TextStyle(
-  //   fontSize: 16,
-  //   backgroundColor: Colors.blue.shade900,
-  // ),
-  // codeblockDecoration: BoxDecoration(
-  //   color: Colors.grey.shade200,
-  //   borderRadius: BorderRadius.circular(4),
-  // ),
 );

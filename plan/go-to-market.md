@@ -2,12 +2,12 @@
 - [ ] Product Hunt
 - [ ] Kaggle Competition
 - [ ] Facebook Groups
-- [ ] YouTube Videos(tutorials)
 - [ ] LinkedIn Posts
 - [ ] Reddit Threads
-- [ ] Glass Door Threads
 - [ ] Blind Threads
+- [ ] Glass Door Threads
 - [ ] Job Posts(Github Awesome Jobs)
+- [ ] YouTube Videos(tutorials)
 - [ ] Inbound Marketing(Content Marketing)
 
   - [ ] Write top 10 of something

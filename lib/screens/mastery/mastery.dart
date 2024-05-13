@@ -135,12 +135,13 @@ class _ProgressIndicatorState extends State<ProgressIndicator> {
               'Topics covered',
             ),
             PrimerProgressBar(segments: segments2.toList()),
-            ColoredCard(
-              padding: 40,
+            Padding(
+              padding: const EdgeInsets.all(50),
               child: Consumer<AuthProvider>(
                 builder: (context, auth, child) {
                   final vals = auth.getStreakDates();
                   return HeatMap(
+                    defaultColor: Colors.green.shade100,
                     datasets: vals,
                     colorMode: ColorMode.opacity,
                     showText: false,

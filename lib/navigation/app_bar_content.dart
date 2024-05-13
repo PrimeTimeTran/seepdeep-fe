@@ -103,7 +103,8 @@ class _AppBarContentState extends State<AppBarContent> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               TextButton.icon(
-                onPressed: () => GoRouter.of(context).go(AppScreens.home.path),
+                onPressed: () =>
+                    GoRouter.of(context).go(AppScreens.mastery.path),
                 icon: SvgPicture.asset(
                   'assets/img/favicon.svg',
                   width: 48,
@@ -145,15 +146,15 @@ class _AppBarContentState extends State<AppBarContent> {
                       icon: const Icon(Icons.table_chart_outlined,
                           color: Colors.white),
                     ),
-                    TextButton.icon(
-                      onPressed: () {
-                        GoRouter.of(context).go(AppScreens.mastery.path);
-                      },
-                      label: const Text('Mastery',
-                          style: TextStyle(color: Colors.white)),
-                      icon: const Icon(Icons.auto_graph_outlined,
-                          color: Colors.white),
-                    ),
+                    // TextButton.icon(
+                    //   onPressed: () {
+                    //     GoRouter.of(context).go(AppScreens.mastery.path);
+                    //   },
+                    //   label: const Text('Mastery',
+                    //       style: TextStyle(color: Colors.white)),
+                    //   icon: const Icon(Icons.auto_graph_outlined,
+                    //       color: Colors.white),
+                    // ),
                     // TextButton.icon(
                     //   onPressed: () {
                     //     GoRouter.of(context).go(AppScreens.explore.path);
@@ -207,15 +208,15 @@ class _AppBarContentState extends State<AppBarContent> {
                     //   icon: const Icon(Icons.work_outline_outlined,
                     //       color: Colors.white),
                     // ),
-                    TextButton.icon(
-                      onPressed: () {
-                        GoRouter.of(context).go(AppScreens.auth.path);
-                      },
-                      label: const Text('Auth',
-                          style: TextStyle(color: Colors.white)),
-                      icon: const Icon(Icons.work_outline_outlined,
-                          color: Colors.white),
-                    ),
+                    // TextButton.icon(
+                    //   onPressed: () {
+                    //     GoRouter.of(context).go(AppScreens.auth.path);
+                    //   },
+                    //   label: const Text('Auth',
+                    //       style: TextStyle(color: Colors.white)),
+                    //   icon: const Icon(Icons.work_outline_outlined,
+                    //       color: Colors.white),
+                    // ),
                   ],
                 ),
               ),

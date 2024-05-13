@@ -7,23 +7,23 @@ class Button extends StatelessWidget {
   String title;
   bool? outlined = false;
   bool? textButton = false;
-  bool? elevatedButton = false;
   void Function()? onPress;
+  bool? elevatedButton = false;
 
   Button({
     super.key,
-    required this.onPress,
-    required this.title,
     this.outlined,
     this.textButton,
     this.elevatedButton,
+    required this.title,
+    required this.onPress,
   });
 
   @override
   Widget build(BuildContext context) {
     final ButtonStyle outlineButtonStyle = OutlinedButton.styleFrom(
       textStyle: const TextStyle(color: Colors.blue),
-      foregroundColor: Colors.black87,
+      // foregroundColor: Colors.black87,
       minimumSize: const Size(88, 36),
       padding: const EdgeInsets.symmetric(horizontal: 16),
       shape: const RoundedRectangleBorder(

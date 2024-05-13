@@ -11,9 +11,9 @@ final routes = [
     navigatorKey: navigatorKeyA,
     routes: [
       GoRoute(
-        path: AppScreens.home.path,
-        name: AppScreens.home.name,
-        builder: (_, __) => const ProblemsScreen(),
+        path: AppScreens.mastery.path,
+        name: AppScreens.mastery.name,
+        builder: (_, __) => const MasteryScreen(),
       ),
       GoRoute(
         path: AppScreens.problems.path,
@@ -109,11 +109,6 @@ final routes = [
         path: AppScreens.auth.path,
         name: AppScreens.auth.name,
         builder: (_, __) => const AuthScreen(),
-      ),
-      GoRoute(
-        path: AppScreens.mastery.path,
-        name: AppScreens.mastery.name,
-        builder: (_, __) => const MasteryScreen(),
       ),
       GoRoute(
         path: AppScreens.math.path,
@@ -220,7 +215,7 @@ extension AppPageX on AppScreens {
 
   String get path {
     switch (this) {
-      case AppScreens.home:
+      case AppScreens.mastery:
         return '/';
       case AppScreens.problems:
         return '/problems';
@@ -264,10 +259,8 @@ extension AppPageX on AppScreens {
         return '/auth';
       case AppScreens.math:
         return '/math';
-      case AppScreens.mastery:
-        return '/mastery';
       case AppScreens.designKit:
-        return '/design-kit';
+        return '/designkit';
       case AppScreens.test:
         return '/test';
       default:

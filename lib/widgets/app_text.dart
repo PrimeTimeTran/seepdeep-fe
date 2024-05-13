@@ -1,6 +1,4 @@
-import 'package:app/all.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:seo/seo.dart';
 
 class AppText extends StatefulWidget {
@@ -22,22 +20,13 @@ class AppText extends StatefulWidget {
 class _AppTextState extends State<AppText> {
   @override
   Widget build(BuildContext context) {
-    return Consumer<ThemeProvider>(
-      builder: (context, themeProvider, child) {
-        final isDarkMode = themeProvider.isDarkMode;
-        final color = isDarkMode ? Colors.white : Colors.black;
-
-        return Seo.text(
-          text: widget.text,
-          style: widget.tagStyle ?? TextTagStyle.p,
-          child: Text(
-            widget.text,
-            style: widget.style != null
-                ? widget.style?.copyWith(color: color)
-                : TextStyle(color: color),
-          ),
-        );
-      },
+    return Seo.text(
+      text: widget.text,
+      style: widget.tagStyle ?? TextTagStyle.p,
+      child: Text(
+        widget.text,
+        style: widget.style,
+      ),
     );
   }
 }

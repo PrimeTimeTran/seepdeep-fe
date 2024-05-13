@@ -40,12 +40,17 @@ class Style {
   static get labelM => _instance._labelMedium;
   static get labelS => _instance._labelSmall;
   static get lightTheme => _instance._lightTheme;
+  static get surface => _instance._surface;
+  static get inverseSurface => _instance._inverseSurface;
   static get textColor => _instance._textColor;
   static get titleL => _instance._titleLarge;
   static get titleM => _instance._titleMedium;
   static get titleS => _instance._titleSmall;
+
   late BuildContext _context;
   late Color _textColor;
+  late Color _surface;
+  late Color _inverseSurface;
   late Color _headingColor;
   late ThemeData _lightTheme;
   late ThemeData _darkTheme;
@@ -70,6 +75,8 @@ class Style {
   // See ./lib/navigation/root.dart
 
   void initialize(BuildContext context) {
+    _surface = Theme.of(context).colorScheme.surface;
+    _inverseSurface = Theme.of(context).colorScheme.inverseSurface;
     _context = context;
     _displaySmall = Theme.of(context).textTheme.displaySmall!;
     _displayMedium = Theme.of(context).textTheme.displayMedium!;

@@ -14,3 +14,7 @@
 - workat.tech
 
 Leetcode, hackerrank, hackerearth, codechef, learnprogramming.online
+
+Quizlet, Kahoot, Anki, Tubecards,
+
+https://tubecards.app/

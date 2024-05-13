@@ -26,6 +26,7 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           buildLeft(),
@@ -268,7 +269,6 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
               firstDay: DateTime.utc(2010, 10, 16),
             ),
           ),
-          buildGenericListView('Companies', 400, Colors.grey),
         ],
       ),
     );
