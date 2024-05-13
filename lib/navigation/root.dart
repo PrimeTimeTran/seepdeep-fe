@@ -128,7 +128,6 @@ class _AppState extends State<App> {
 
 class _RootNavigatorState extends State<RootNavigator> {
   int currentPageIndex = 0;
-
   NavigationRailLabelType labelType = NavigationRailLabelType.all;
 
   @override

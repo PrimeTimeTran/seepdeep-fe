@@ -81,6 +81,7 @@ class SolutionsTable extends StatefulWidget {
 
 class _SolutionsTableState extends State<SolutionsTable> {
   late Future<List<Submission>> _solutionsFuture;
+  List<String> solutions = [];
   @override
   Widget build(BuildContext context) {
     return ScrollConfiguration(

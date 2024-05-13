@@ -103,64 +103,64 @@ $padding
 """;
     case Language.ruby:
       return """
-        def $functionName(${generateParameterString(problem.signature!)}) $returnType:
+def $functionName(${generateParameterString(problem.signature!)}) $returnType:
 
-        end
-        $padding
+end
+$padding
       """;
     case Language.js:
       return """
-        /**
-         * @param {string} version1
-         * @param {string} version2
-         * @return {$returnType}
-         */
-        var $functionName = function(version1, version2) {
+/**
+ * @param {string} version1
+ * @param {string} version2
+ * @return {$returnType}
+ */
+var $functionName = function(version1, version2) {
 
-        };
-        $padding
+};
+$padding
       """;
     case Language.ts:
       return """
-        function $functionName(version1: string, version2: string): $returnType {
-            
-        };
-        $padding
+function $functionName(version1: string, version2: string): $returnType {
+  
+};
+$padding
       """;
     case Language.dart:
       return """
-        class Solution {
-          $returnType $functionName(String version1, String version2) {
-            
-          }
-        }
-        $padding
+class Solution {
+  $returnType $functionName(String version1, String version2) {
+    
+  }
+}
+$padding
       """;
     case Language.java:
       return """
-        class Solution {
-            public $returnType $functionName(String version1, String version2) {
-                
-            }
-        }
-        $padding
+class Solution {
+    public $returnType $functionName(String version1, String version2) {
+        
+    }
+}
+$padding
       """;
     case Language.go:
       return """
-        func $functionName(String version1, String version2) $returnType {
+func $functionName(String version1, String version2) $returnType {
 
-        }
-        $padding
+}
+$padding
         """;
     case Language.cpp:
       return """
-        class Solution {
-        public:
-            $returnType $functionName(string version1, string version2) {
-                
-            }
-        };
-        $padding
+class Solution {
+  public:
+    $returnType $functionName(string version1, string version2) {
+      
+  }
+};
+$padding
       """;
     case Language.sql:
       return '\n' * 10;

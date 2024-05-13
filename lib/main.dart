@@ -44,7 +44,7 @@ class _MyAppState extends State<MyApp> {
             enabled: true,
             tree: WidgetTree(context: context),
             child: MaterialApp.router(
-              title: 'CSGems',
+              title: 'SeepDeep',
               routerConfig: routerConfig,
               debugShowCheckedModeBanner: false,
             ),

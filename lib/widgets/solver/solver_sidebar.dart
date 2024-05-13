@@ -61,9 +61,9 @@ class SolverSidebar extends StatefulWidget {
     required this.problem,
     required this.passing,
     required this.submitted,
+    required this.testCases,
     required this.submissions,
     required this.submissionStream,
-    required this.testCases,
   });
 
   @override
@@ -74,6 +74,7 @@ class _SolverSidebarState extends State<SolverSidebar> {
   ScrollController controller = ScrollController();
   late Future<List<Submission>> _submissionsFuture;
   late StreamSubscription<Submission> _streamSubscription;
+  List<String> editorialComments = [];
 
   List<Submission> _submissions = [];
 
@@ -138,13 +139,16 @@ class _SolverSidebarState extends State<SolverSidebar> {
                 hintText: 'Type a comment here... (Markdown Supported)',
               ),
             ),
-            ListView.builder(
-              shrinkWrap: true,
-              itemCount: 10,
-              itemBuilder: (BuildContext context, int idx) {
-                return const ui.CommentRow();
-              },
-            )
+            if (editorialComments.length < 10)
+              const Text('Too few submissions '),
+            if (editorialComments.length > 5)
+              ListView.builder(
+                shrinkWrap: true,
+                itemCount: 10,
+                itemBuilder: (BuildContext context, int idx) {
+                  return const ui.CommentRow();
+                },
+              ),
           ],
         ),
       ),
