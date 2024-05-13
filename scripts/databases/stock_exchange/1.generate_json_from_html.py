@@ -4,6 +4,7 @@ import sqlite3
 from bs4 import BeautifulSoup
 import requests
 import os
+import datetime
 import time
 
 if not os.path.exists("downloaded_files"):
@@ -33,59 +34,17 @@ def safe_parse_thousands(text):
         return float(text.replace('$', '').replace(',', ''))
 
 
-def get_tab(tabId):
-    if tabId == 0:
-        return 1
-    elif tabId == 1:
-        return 3
-    elif tabId == 2:
-        return 8
-    elif tabId == 3:
-        return 7
-    elif tabId == 4:
-        return 9
-
-def download_pages():
-    all_pages = []
-    pages = ['https://www.wallstreetzen.com/stock-screener/?t=1&p=1&s=mc&sd=desc',
-             'https://www.wallstreetzen.com/stock-screener/?t=3&p=1&s=mc&sd=desc',
-             'https://www.wallstreetzen.com/stock-screener/?t=8&p=1&s=mc&sd=desc',
-             'https://www.wallstreetzen.com/stock-screener/?t=7&p=1&s=mc&sd=desc',
-             'https://www.wallstreetzen.com/stock-screener/?t=9&p=1&s=mc&sd=desc']
-    for idx, page in enumerate(pages):
-        for i in range(1, 11):
-            modified_page = page.replace("p=1", f"p={i+1}")
-            all_pages.append(modified_page)
-            response = requests.get(modified_page)
-            filename = f"downloaded_files/wallstreetzen-{i}-{idx+1}.html"
-            with open(filename, 'wb') as f:
-                f.write(response.content)
-            print(f"File downloaded: {filename}")
-            time.sleep(2)
-
-    print(len(all_pages))
-
-
-download_pages()
-
-
-def scrape():
+def generate_json_from_html():
     items = []
     for i in range(1, 11):
         for j in range(1, 6):
-
-            # Scrape by URL
-            # page = f"https://www.wallstreetzen.com/stock-screener/?t={j}&p={i}&s=mc&sd=desc"
-            # Scrape by local
             page_path = f"./downloaded_files/wallstreetzen-{i}-{j}.html"
             with open(page_path, 'r') as file:
                 page_content = file.read()
-
             soup = BeautifulSoup(page_content, 'html.parser')
             if j == 1:
-                print('Grab OverView')
                 tbody_element = soup.find(
-                    'tbody', {'class': 'MuiTableBody-root-490'})
+                    'tbody', {'class': 'MuiTableBody-root-493'})
                 if tbody_element:
                     tr_elements = tbody_element.find_all('tr')
 
@@ -132,7 +91,7 @@ def scrape():
                 # if j == 2 and False:
                 print('Grab Price')
                 tbody_element = soup.find(
-                    'tbody', {'class': 'MuiTableBody-root-490'})
+                    'tbody', {'class': 'MuiTableBody-root-493'})
                 if tbody_element:
                     tr_elements = tbody_element.find_all('tr')
                     for _, tr in enumerate(tr_elements):
@@ -189,7 +148,7 @@ def scrape():
             if j == 3:
                 print('Grab Dividend')
                 tbody_element = soup.find(
-                    'tbody', {'class': 'MuiTableBody-root-490'})
+                    'tbody', {'class': 'MuiTableBody-root-493'})
                 if tbody_element:
                     tr_elements = tbody_element.find_all('tr')
                     for _, tr in enumerate(tr_elements):
@@ -235,7 +194,7 @@ def scrape():
             if j == 4:
                 print('Grab Earnings & Revenue')
                 tbody_element = soup.find(
-                    'tbody', {'class': 'MuiTableBody-root-490'})
+                    'tbody', {'class': 'MuiTableBody-root-493'})
                 if tbody_element:
                     tr_elements = tbody_element.find_all('tr')
                     for _, tr in enumerate(tr_elements):
@@ -281,7 +240,7 @@ def scrape():
             if j == 5:
                 print('Grab Ownership')
                 tbody_element = soup.find(
-                    'tbody', {'class': 'MuiTableBody-root-490'})
+                    'tbody', {'class': 'MuiTableBody-root-493'})
                 if tbody_element:
                     tr_elements = tbody_element.find_all('tr')
                     for _, tr in enumerate(tr_elements):
@@ -323,10 +282,9 @@ def scrape():
 
                             jdx += 1
     items_json_str = json.dumps(items, indent=4)
-    with open('stocks.json', 'w') as file:
+    today = datetime.datetime.today().strftime('%Y-%m-%d')
+    filename = f"stocks-{today}.json"
+    with open(filename, 'w') as file:
         file.write(items_json_str)
 
-
-# scrape()
-conn.commit()
-conn.close()
+generate_json_from_html()
