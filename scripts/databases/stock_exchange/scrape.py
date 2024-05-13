@@ -2,10 +2,17 @@ import json
 import pandas as pd
 import sqlite3
 from bs4 import BeautifulSoup
+import requests
+import os
+import time
+
+if not os.path.exists("downloaded_files"):
+    os.makedirs("downloaded_files")
 
 db_file_path = 'stocks.db'
 conn = sqlite3.connect(db_file_path)
 cur = conn.cursor()
+
 
 def safe_parse_na(text):
     if text == 'N/A':
@@ -17,6 +24,7 @@ def safe_parse_na(text):
         else:
             return round(float(text), 2)
 
+
 def safe_parse_thousands(text):
     if text.endswith('k'):
         number_str = text[:-1]
@@ -24,14 +32,52 @@ def safe_parse_thousands(text):
     else:
         return float(text.replace('$', '').replace(',', ''))
 
+
+def get_tab(tabId):
+    if tabId == 0:
+        return 1
+    elif tabId == 1:
+        return 3
+    elif tabId == 2:
+        return 8
+    elif tabId == 3:
+        return 7
+    elif tabId == 4:
+        return 9
+
+def download_pages():
+    all_pages = []
+    pages = ['https://www.wallstreetzen.com/stock-screener/?t=1&p=1&s=mc&sd=desc',
+             'https://www.wallstreetzen.com/stock-screener/?t=3&p=1&s=mc&sd=desc',
+             'https://www.wallstreetzen.com/stock-screener/?t=8&p=1&s=mc&sd=desc',
+             'https://www.wallstreetzen.com/stock-screener/?t=7&p=1&s=mc&sd=desc',
+             'https://www.wallstreetzen.com/stock-screener/?t=9&p=1&s=mc&sd=desc']
+    for idx, page in enumerate(pages):
+        for i in range(1, 11):
+            modified_page = page.replace("p=1", f"p={i+1}")
+            all_pages.append(modified_page)
+            response = requests.get(modified_page)
+            filename = f"downloaded_files/wallstreetzen-{i}-{idx+1}.html"
+            with open(filename, 'wb') as f:
+                f.write(response.content)
+            print(f"File downloaded: {filename}")
+            time.sleep(2)
+
+    print(len(all_pages))
+
+
+download_pages()
+
+
 def scrape():
     items = []
     for i in range(1, 11):
         for j in range(1, 6):
+
             # Scrape by URL
             # page = f"https://www.wallstreetzen.com/stock-screener/?t={j}&p={i}&s=mc&sd=desc"
             # Scrape by local
-            page_path = f"./wallstreetzen-{i}-{j}.html"
+            page_path = f"./downloaded_files/wallstreetzen-{i}-{j}.html"
             with open(page_path, 'r') as file:
                 page_content = file.read()
 
@@ -42,7 +88,7 @@ def scrape():
                     'tbody', {'class': 'MuiTableBody-root-490'})
                 if tbody_element:
                     tr_elements = tbody_element.find_all('tr')
-                    
+
                     for _, tr in enumerate(tr_elements):
                         td_elements = tr.find_all('td')
                         symbol = td_elements[0].find('a').get_text()
@@ -55,7 +101,8 @@ def scrape():
                                 # print(
                                 #     f"Span innerHTML {jdx}: {span.get_text()}")
                                 if jdx == 7:
-                                    item['change_1_day'] = safe_parse_na(span.get_text())
+                                    item['change_1_day'] = safe_parse_na(
+                                        span.get_text())
                             else:
                                 # print(
                                 #     f"TD innerHTML {jdx}: {td.get_text()}")
@@ -71,7 +118,8 @@ def scrape():
                                 if jdx == 5:
                                     item['mc'] = val
                                 if jdx == 6:
-                                    item['price'] = float(val.replace('$', '').replace(',', ''))
+                                    item['price'] = float(
+                                        val.replace('$', '').replace(',', ''))
                                 if jdx == 8:
                                     item['ebitda'] = val
                                 if jdx == 9:
@@ -81,7 +129,7 @@ def scrape():
                             jdx += 1
                         items.append(item.copy())
             if j == 2:
-            # if j == 2 and False:
+                # if j == 2 and False:
                 print('Grab Price')
                 tbody_element = soup.find(
                     'tbody', {'class': 'MuiTableBody-root-490'})
@@ -129,11 +177,14 @@ def scrape():
                                 # print(
                                 #     f"TD innerHTML {jdx}: {td.get_text()}")
                                 if jdx == 12:
-                                    items[index]['year_hi'] = safe_parse_thousands(td.get_text())
+                                    items[index]['year_hi'] = safe_parse_thousands(
+                                        td.get_text())
                                 if jdx == 13:
-                                    items[index]['year_lo'] = safe_parse_thousands(td.get_text())
+                                    items[index]['year_lo'] = safe_parse_thousands(
+                                        td.get_text())
                                 if jdx == 17:
-                                    items[index]['volume'] = int(safe_parse_thousands(td.get_text()))
+                                    items[index]['volume'] = int(
+                                        safe_parse_thousands(td.get_text()))
                             jdx += 1
             if j == 3:
                 print('Grab Dividend')
@@ -156,20 +207,26 @@ def scrape():
                                 # print(
                                 #     f"Span innerHTML {jdx}: {span.get_text()}")
                                 if jdx == 5:
-                                    items[index]['po_ratio'] = safe_parse_na(span.get_text())
+                                    items[index]['po_ratio'] = safe_parse_na(
+                                        span.get_text())
                             else:
                                 # print(
                                 #     f"TD innerHTML {jdx}: {td.get_text()}")
                                 if jdx == 4:
-                                    items[index]['dy'] = safe_parse_na(td.get_text())
+                                    items[index]['dy'] = safe_parse_na(
+                                        td.get_text())
                                 if jdx == 6:
-                                    items[index]['div_last'] = safe_parse_na(td.get_text())
+                                    items[index]['div_last'] = safe_parse_na(
+                                        td.get_text())
                                 if jdx == 7:
-                                    items[index]['div_annual'] = safe_parse_na(td.get_text())
+                                    items[index]['div_annual'] = safe_parse_na(
+                                        td.get_text())
                                 if jdx == 8:
-                                    items[index]['div_percent'] = safe_parse_na(td.get_text())
+                                    items[index]['div_percent'] = safe_parse_na(
+                                        td.get_text())
                                 if jdx == 9:
-                                    items[index]['div_dropped'] = None if td.get_text() == 'N/A' else int(td.get_text())
+                                    items[index]['div_dropped'] = None if td.get_text(
+                                    ) == 'N/A' else int(td.get_text())
                                 if jdx == 10:
                                     items[index]['ex_div_date'] = td.get_text()
                                 if jdx == 11:
@@ -190,7 +247,7 @@ def scrape():
                             if item['sym'] == symbol:
                                 index = item_idx
                                 break
-                        
+
                         jdx = 0
                         for td in td_elements:
                             span = td.find('span')
@@ -198,13 +255,17 @@ def scrape():
                                 print(
                                     f"Span innerHTML {jdx}: {span.get_text()}")
                                 if jdx == 8:
-                                    items[index]['revenue_growth_yoy'] = safe_parse_na(span.get_text())
+                                    items[index]['revenue_growth_yoy'] = safe_parse_na(
+                                        span.get_text())
                                 if jdx == 9:
-                                    items[index]['revenue_growth_5y'] = safe_parse_na(span.get_text())
+                                    items[index]['revenue_growth_5y'] = safe_parse_na(
+                                        span.get_text())
                                 if jdx == 10:
-                                    items[index]['earnings_growth_yoy'] = safe_parse_na(span.get_text())
+                                    items[index]['earnings_growth_yoy'] = safe_parse_na(
+                                        span.get_text())
                                 if jdx == 11:
-                                    items[index]['earnings_growth_5y'] = safe_parse_na(span.get_text())
+                                    items[index]['earnings_growth_5y'] = safe_parse_na(
+                                        span.get_text())
                             else:
                                 print(
                                     f"TD innerHTML {jdx}: {td.get_text()}")
@@ -213,11 +274,12 @@ def scrape():
                                 if jdx == 6:
                                     items[index]['earnings'] = td.get_text()
                                 if jdx == 7:
-                                    items[index]['eps'] = safe_parse_na(td.get_text())
-                                
+                                    items[index]['eps'] = safe_parse_na(
+                                        td.get_text())
+
                             jdx += 1
             if j == 5:
-                print('Grab Earnings & Revenue')
+                print('Grab Ownership')
                 tbody_element = soup.find(
                     'tbody', {'class': 'MuiTableBody-root-490'})
                 if tbody_element:
@@ -231,12 +293,12 @@ def scrape():
                             if item['sym'] == symbol:
                                 index = item_idx
                                 break
-                        
+
                         jdx = 0
                         # View one at a time
                         # isOne = symbol == 'MSFT'
                         # if isOne:
-                            # print(f'isOne {isOne}')
+                        # print(f'isOne {isOne}')
                         for td in td_elements:
                             span = td.find('span')
                             if span:
@@ -250,17 +312,21 @@ def scrape():
                                 if jdx == 2:
                                     items[index]['country'] = td.get_text()
                                 if jdx == 4:
-                                    items[index]['shares'] = int(safe_parse_na(td.get_text()))
+                                    items[index]['shares'] = int(
+                                        safe_parse_na(td.get_text()))
                                 if jdx == 5:
-                                    items[index]['institutional'] = safe_parse_na(td.get_text())
+                                    items[index]['institutional'] = safe_parse_na(
+                                        td.get_text())
                                 if jdx == 6:
-                                    items[index]['insider'] = safe_parse_na(td.get_text())
-                                
+                                    items[index]['insider'] = safe_parse_na(
+                                        td.get_text())
+
                             jdx += 1
     items_json_str = json.dumps(items, indent=4)
     with open('stocks.json', 'w') as file:
         file.write(items_json_str)
 
-scrape()
+
+# scrape()
 conn.commit()
 conn.close()
