@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:app/all.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +24,6 @@ void main() {
   );
 }
 
-// ignore: must_be_immutable
 class MyApp extends StatefulWidget
     with ChangeNotifier, DiagnosticableTreeMixin {
   MyApp({super.key});
