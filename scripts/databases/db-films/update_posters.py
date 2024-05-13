@@ -38,4 +38,4 @@ def update_poster_in_db(db_file_path, csv_file_path):
     
     print(f"Updated {len(df)} records in the database with poster URLs.")
 
-update_poster_in_db('./chinook.db', './films.csv')
+update_poster_in_db('./database.db', './films.csv')

@@ -98,7 +98,11 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
                             onRun: onRun,
                             problem: problem,
                             lang: Language.sql,
-                            onType: (c) => setState(() => code = c),
+                            onType: (c, l) {
+                              setState(() {
+                                code = c;
+                              });
+                            },
                           ),
                           Padding(
                             padding: const EdgeInsets.all(8.0),
@@ -262,20 +266,17 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
   @override
   void initState() {
     super.initState();
-    // onRun("SELECT * FROM films as f WHERE f.title LIKE '% and %';");
-    // onRun("SELECT * FROM films as f WHERE f.title LIKE '%Harry%';");
     onRun("SELECT * FROM films limit 5; ");
     setup();
   }
 
-  void onRun([String? c]) {
+  void onRun([String? c, Language? language]) {
     setState(() {
       records = [];
       queried = false;
       columnNames = [];
       queryFinished = false;
     });
-    print('Running');
     query(c ?? code);
   }
 

@@ -1,5 +1,5 @@
 ### Selecting Tables
-- Grab basic info about each movie. Specifically it's id, title & imdb_score.
+- Grab basic info about each film. Specifically it's id, title & imdb_score.
 ```sql
 SELECT id, title, imdb_score FROM films;
 ```
@@ -73,34 +73,34 @@ SELECT title, worldwide_gross FROM films WHERE studio_id = 1 ORDER BY worldwide_
 
 ### Joining Tables
 
-- Grab the title of each movie & it's director's id.
+- Grab the title of each film & it's director's id.
 ```sql
-SELECT title, director_id FROM movie_directors JOIN films ON films.id = movie_directors.movie_id;
+SELECT title, director_id FROM film_directors JOIN films ON films.id = film_directors.film_id;
 ```
 
-- Grab name of director, title of movie.
+- Grab name of director, title of film.
 ```sql
-SELECT films.title, directors.name AS director_name, movie_directors.director_id
-FROM movie_directors
-JOIN films ON films.id = movie_directors.movie_id
-JOIN directors ON directors.id = movie_directors.director_id;
+SELECT films.title, directors.name AS director_name, film_directors.director_id
+FROM film_directors
+JOIN films ON films.id = film_directors.film_id
+JOIN directors ON directors.id = film_directors.director_id;
 ```
 
 - Grab distinct director names FROM disney films
 ```sql
 SELECT DISTINCT directors.name
-FROM movie_directors
-JOIN films ON films.id = movie_directors.movie_id
-JOIN directors ON directors.id = movie_directors.director_id
+FROM film_directors
+JOIN films ON films.id = film_directors.film_id
+JOIN directors ON directors.id = film_directors.director_id
 WHERE films.studio_id = 1;
 ```
 
 - Grab director names & studio name FROM disney films.
 ```sql
 SELECT DISTINCT directors.name AS director_name, studios.name AS studio_name
-FROM movie_directors
-JOIN films ON films.id = movie_directors.movie_id
-JOIN directors ON directors.id = movie_directors.director_id
+FROM film_directors
+JOIN films ON films.id = film_directors.film_id
+JOIN directors ON directors.id = film_directors.director_id
 JOIN studios ON studios.id = films.studio_id
 WHERE studios.name = 'Disney';
 ```

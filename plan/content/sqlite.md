@@ -1,6 +1,6 @@
 ### Use LiteCLI
 
-litecli chinook.db
+litecli database.db
 
 ### Set no Wrap
 

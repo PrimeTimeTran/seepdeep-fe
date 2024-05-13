@@ -11,12 +11,12 @@ import 'package:sqlite3_flutter_libs/sqlite3_flutter_libs.dart';
 
 Future<File> get databaseFile async {
   // Directory appDir = await getApplicationDocumentsDirectory();
-  // String dbPath = p.join(appDir.path, 'chinook.db');
+  // String dbPath = p.join(appDir.path, 'database.db');
   // print("dbPath $dbPath");
   // return File(dbPath);
 
   final appDir = await getApplicationDocumentsDirectory();
-  final dbPath = p.join(appDir.path, 'chinook.db');
+  final dbPath = p.join(appDir.path, 'database.db');
   print("dbPath $dbPath");
   return File(dbPath);
 }

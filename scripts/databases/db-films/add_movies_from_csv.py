@@ -1,7 +1,7 @@
 import pandas as pd
 import sqlite3
 
-db_file_path = './chinook.db'
+db_file_path = './database.db'
 
 def create_studio_table():
     conn = sqlite3.connect(db_file_path)
@@ -332,7 +332,7 @@ def export_tables_to_csv(db_file_path, output_dir):
         df.to_csv(csv_file_path, index=False)
     print(f"Tables have been exported to '{csv_file_path}' as separate sheets.")
 
-db_file_path = './chinook.db'
+db_file_path = './database.db'
 csv_file_path = '.'
 
 def create_movies_table():

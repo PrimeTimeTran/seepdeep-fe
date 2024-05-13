@@ -1,7 +1,7 @@
 import pandas as pd
 import sqlite3
 
-db_file_path = 'chinook.db'
+db_file_path = 'database.db'
 directors = [["Toy Story", {"name": "John Lasseter", "birthyear": 1957, "country": "USA"}],
              ["A Bug's Life", [
                  {"name": "John Lasseter", "birthyear": 1957, "country": "USA"},

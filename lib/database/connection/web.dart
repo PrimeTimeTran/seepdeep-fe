@@ -13,7 +13,7 @@ DatabaseConnection connect() {
       sqlite3Uri: Uri.parse('sqlite3.wasm'),
       driftWorkerUri: Uri.parse('drift_worker.js'),
       initializeDatabase: () async {
-        final data = await rootBundle.load('assets/chinook.db');
+        final data = await rootBundle.load('assets/database.db');
         return data.buffer.asUint8List();
       },
     );

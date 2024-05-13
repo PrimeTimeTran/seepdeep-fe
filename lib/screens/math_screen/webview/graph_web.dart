@@ -63,7 +63,7 @@ class _SolverState extends State<Solver> {
       top: Editor(
         problem: p,
         key: ValueKey(p),
-        onRun: (code) => onRun(code),
+        onRun: (code, l) => onRun(code),
         onType: (c) => setState(() => code = c),
       ),
       bottom: LayoutBuilder(

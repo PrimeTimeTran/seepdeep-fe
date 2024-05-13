@@ -106,16 +106,21 @@ ORDER BY title, name, birth_date;
   '9.join.md': [
     {
       'prompt':
-          'Select title & it\'s studio\'s name from the films & studios tables.',
+          'Select title & studio\'s name from the films & studios tables.',
       'answer': """
 SELECT title, name from films join studios on films.studio_id = studios.id;
 """
     },
     {
       'prompt':
-          'Select employees name & their department\'s name from the employees & departments table.',
+          'Select all the unique directors Disney Studios has employed over the years.',
       'answer': """
-SELECT employees.name as employee_name, departments.name as department_name from employees join departments on employees.department_id = departments.id;
+SELECT DISTINCT directors.name, studios.name
+FROM film_directors
+JOIN films ON films.id = film_directors.film_id
+JOIN directors ON directors.id = film_directors.director_id
+JOIN studios on studios.id = films.studio_id
+WHERE films.studio_id = 1;
 """
     },
     {
@@ -142,6 +147,13 @@ SELECT films.title, GROUP_CONCAT(genres.name) AS genres
   GROUP BY films.title;
 """
     },
+    {
+      'prompt':
+          'Collect the film genres that Disney makes. Suppress duplicate records/genre names.',
+      'answer': """
+select title, studios.name, genres.name from films join genre_films on films.id = genre_films.film_id join genres on genre_films.genre_id = genres.id join studios on studios.id = films.studio_id where studios.id = 1 group by genres.name;
+"""
+    },
     // 3 left join, 3 right join, 3 inner join, 3 outer join, 3 self join
     {
       'prompt':
@@ -159,35 +171,35 @@ select worldwide_gross, title, directors.name, studios.name as studio_name from 
     },
     {
       'prompt':
-          'Select the top 3 directors from each studio(in terms of highest grossing total in films revenue) in descending order',
+          'Select the top 3 total grossing directors from each studio(grossing in terms of worldwide_gross in films revenue combined) in descending order',
       'answer': """
-WITH DirectorRanks AS (
-    SELECT 
-        studios.name AS studio_name,
-        directors.name AS director_name, 
-        SUM(films.worldwide_gross) AS director_total_gross,
-        ROW_NUMBER() OVER(PARTITION BY studios.id ORDER BY SUM(films.worldwide_gross) DESC) AS rank
-    FROM 
-        directors 
-    JOIN 
-        film_directors ON directors.id = film_directors.director_id 
-    JOIN 
-        films ON films.id = film_directors.film_id 
-    JOIN 
-        studios ON studios.id = films.studio_id 
-    GROUP BY 
-        studios.id, directors.id
-)
-SELECT 
-    studio_name,
-    director_name,
-    director_total_gross
-FROM 
-    DirectorRanks
-WHERE 
-    rank <= 3
-ORDER BY 
-    studio_name, rank;
+      WITH DirectorRanks AS (
+              SELECT 
+                  studios.name AS studio_name,
+                  directors.name AS director_name, 
+                  SUM(films.worldwide_gross) AS director_total_gross,
+                  ROW_NUMBER() OVER(PARTITION BY studios.id ORDER BY SUM(films.worldwide_gross) DESC) AS rank
+              FROM 
+                  directors 
+              JOIN 
+                  film_directors ON directors.id = film_directors.director_id 
+              JOIN 
+                  films ON films.id = film_directors.film_id 
+              JOIN 
+                  studios ON studios.id = films.studio_id 
+              GROUP BY 
+                  studios.id, directors.id
+          )
+          SELECT 
+              studio_name,
+              director_name,
+              director_total_gross
+          FROM 
+              DirectorRanks
+          WHERE 
+              rank <= 3
+          ORDER BY 
+              studio_name, rank;
 """,
     },
     {

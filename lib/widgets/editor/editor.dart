@@ -122,7 +122,7 @@ class _EditorState extends State<Editor> {
               if (event is RawKeyDownEvent) {
                 if (event.isControlPressed &&
                     event.logicalKey == LogicalKeyboardKey.enter) {
-                  onRun();
+                  onShortcutRun();
                 } else if (event.logicalKey == LogicalKeyboardKey.tab) {
                   TextEditingValue value = _controller.value;
                   int start = value.selection.baseOffset;
@@ -205,7 +205,7 @@ class _EditorState extends State<Editor> {
     }
   }
 
-  onRun() {
+  onShortcutRun() {
     String code = _controller.text;
     widget.onRun(code, selectedLang);
   }

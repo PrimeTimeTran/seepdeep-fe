@@ -5,7 +5,7 @@ import random
 
 from seed_helpers import select_random_job_and_department
 
-conn = sqlite3.connect('chinook.db')
+conn = sqlite3.connect('database.db')
 cursor = conn.cursor()
 fake = Faker()
 cursor.execute("SELECT employee_id FROM employees")
