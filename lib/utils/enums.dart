@@ -28,7 +28,17 @@ enum GiffyType {
   }
 }
 
-enum Language { python, js, ts, dart, cpp, java, sql }
+enum Language {
+  python,
+  ruby,
+  js,
+  ts,
+  dart,
+  java,
+  go,
+  cpp,
+  sql,
+}
 
 enum PainterType {
   circle,
