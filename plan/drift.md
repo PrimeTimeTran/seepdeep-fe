@@ -18,3 +18,10 @@ Migration steps
   `dart run drift_dev migrate`
 - Generate schema steps
   `dart run drift_dev schema steps drift_schemas/ lib/database/schema_versions.dart`
+
+SELECT year,
+title,
+oscars_won,
+oscars_nominated
+FROM films
+ORDER BY oscars_nominated, oscars_won DESC limit 25;

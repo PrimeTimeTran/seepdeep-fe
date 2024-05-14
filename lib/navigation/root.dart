@@ -6,7 +6,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:go_router/go_router.dart';
 
 final routerConfig = GoRouter(
-  initialLocation: '/',
+  initialLocation: '/sql',
   debugLogDiagnostics: true,
   routes: [
     GoRoute(

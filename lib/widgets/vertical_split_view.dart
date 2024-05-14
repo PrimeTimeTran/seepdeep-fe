@@ -1,4 +1,4 @@
-// ignore_for_file: library_private_types_in_public_api, prefer_typing_uninitialized_variables
+// ignore_for_file: library_private_types_in_public_api, prefer_typing_uninitialized_variables, must_be_immutable
 
 import 'package:app/all.dart';
 import 'package:flutter/material.dart';
@@ -8,13 +8,15 @@ class HorizontalSplitView extends StatefulWidget {
   final double ratio;
   final Widget bottom;
   final bool? borderless;
+  Color? borderColor;
 
-  const HorizontalSplitView({
+  HorizontalSplitView({
     super.key,
     required this.top,
     required this.bottom,
     this.ratio = .55,
     this.borderless,
+    this.borderColor,
   })  : assert(ratio >= 0),
         assert(ratio <= 1);
 
@@ -101,9 +103,11 @@ class _HorizontalSplitViewState extends State<HorizontalSplitView> {
                 child: Container(
                   decoration: widget.borderless == true
                       ? null
-                      : const BoxDecoration(
+                      : BoxDecoration(
                           border: Border(
-                            top: BorderSide(width: 1),
+                            top: BorderSide(
+                                width: 1,
+                                color: widget.borderColor ?? Colors.grey),
                           ),
                         ),
                   child: widget.bottom,

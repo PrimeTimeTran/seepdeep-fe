@@ -17,12 +17,12 @@ class LessonMarkDown extends StatefulWidget {
 }
 
 class _LessonMarkDownState extends State<LessonMarkDown> {
-  late bool _isDarkMode;
+  late bool _isDarkMode = false;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: getHeight() / 2,
+      height: getHeight() / 1.5,
       width: double.infinity,
       child: Markdown(
         selectable: true,

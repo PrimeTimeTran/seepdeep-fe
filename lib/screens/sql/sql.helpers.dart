@@ -3,177 +3,389 @@ import 'package:flutter/services.dart';
 
 import 'temp_lesson.dart';
 
+const duplicateTitles = """
+// duplicateTitles
+SELECT title, COUNT(*) AS count
+FROM films
+GROUP BY title
+HAVING COUNT(*) > 1;
+
+// duplicateTitles records, ordered by title
+SELECT id, title, year
+FROM films
+  WHERE title IN (
+      SELECT title
+      FROM films
+      GROUP BY title
+      HAVING COUNT(*) > 1
+  )
+ORDER BY title;
+
+
+# DELETE from a list of ids;
+WHERE id IN ( 5686,
+             5711,
+             5714,
+             1002,
+             5641,
+             5634,
+             5788,
+             5731,
+             5710,
+             5826,
+             5809,
+             34,
+             5784,
+             1048,
+             1054,
+             1064,
+             5685,
+             5779,
+             1038,
+             5820,
+             5680,
+             5695,
+             5805,
+             5706,
+             5681,
+             5662,
+             5647,
+             5688,
+             5686,
+             5677 );
+
+SELECT id, year, title from films where id < 50
+""";
+
 final lessonPromptMap = {
   '0.toc.md': [
-    {'prompt': 'Checkout the table in the top right'},
-    {'prompt': 'Checkout the next & find buttons'},
-    {'prompt': 'Checkout the results'},
+    makePrompt(queryPrompt: 'Checkout the table in the top right'),
+    makePrompt(queryPrompt: 'Checkout the next & find buttons'),
+    makePrompt(queryPrompt: 'Checkout the results'),
   ],
   '1.insert.md': [
-    {'prompt': 'Add an employee to the employees table'},
-    {
-      'prompt':
-          'Add another employee with name & surname fields to the employees table'
-    },
-    {'prompt': 'Add a third employee to the employees table'},
+    makePrompt(
+      queryPrompt: 'Add a film to the films table',
+      queryPromptFollowup: 'What fields should you consider adding?',
+    ),
+    makePrompt(queryPrompt: 'Add an employee to the employees table'),
+    makePrompt(
+        queryPrompt:
+            'Add another employee with name & surname fields to the employees table'),
+    makePrompt(queryPrompt: 'Add a third employee to the employees table'),
   ],
   '2.select.md': [
-    {'prompt': 'Select titles of the records in the films table.'},
-    {
-      'prompt':
-          'Select titles, runtime, & year release_year of the records from the films table.'
-    },
-    {'prompt': 'Select name & surname from the employees table.'},
+    makePrompt(
+      queryPrompt: 'Select titles of the records(films) from the films table.',
+      answer: 'SELECT title from films;',
+    ),
+    makePrompt(
+      queryPrompt: 'Select titles of the records(films) from the films table.',
+      answer: 'SELECT title FROM films;',
+      followup:
+          'You probably experienced some lag there. The reason you did was because your query returned a tremendous number of results. You can limit the number of results with the `LIMIT` clause.',
+      followupPrompt: 'SELECT title FROM films LIMIT 25;',
+      hint: 'Think of querying your database as SELECTing data from it',
+    ),
+    makePrompt(
+      queryPrompt:
+          'Select titles of the records in the films table but limit the results to 25 records only.',
+      answer: 'SELECT title FROM films LIMIT 25;',
+      hint:
+          'When we want to grab a subset of our data we can think of it as LIMITing our results.',
+    ),
+    makePrompt(
+      queryPrompt:
+          'Select titles, runtime, & release_year of the records from the films table.',
+      answer: 'SELECT title, runtime, release_year FROM films;',
+      hint:
+          'Remember that when searching for data we\'re SELECTing it FROM a table. Also remember to LIMIT the results so your system doesn\'t slow down.',
+    ),
+    makePrompt(
+      queryPrompt: 'Select name & surname from the employees table.',
+      answer: 'SELECT name, surname FROM employees;',
+      hint:
+          'Grabbing data FROM the employees table is just like SELECTing from the films table, we just have to change a few arguments to our expressions.',
+    ),
   ],
   '3.update.md': [
-    {
-      'prompt':
-          'The employee record with the id of 1, change it to have your data/information.'
-    },
-    {
-      'prompt': 'Update all employees with an id greater than 1 to report to 1.'
-    },
-    {
-      'prompt':
-          'Update the film with the id of 1 to your favorite film\'s information. Update all fields'
-    },
+    makePrompt(
+      queryPrompt:
+          'The employee record with the id of 1, change it to have your data/information.',
+    ),
+    makePrompt(
+      queryPrompt:
+          'Update all employees with an id greater than 1 to report to 1.',
+    ),
+    makePrompt(
+      queryPrompt:
+          'Update the film with the id of 1 to your favorite film\'s information. Update all fields',
+    ),
   ],
   '4.delete.md': [
-    {
-      'prompt':
-          'After reviewing the films table, pick one you dont like and delete it.'
-    },
-    {
-      'prompt':
-          'Find an employee from a city you\'ve never heard of in the employees table & delete that record from the db.'
-    },
+    makePrompt(
+        queryPrompt:
+            'After reviewing the films table, pick one you dont like and delete it.'),
+    makePrompt(
+        queryPrompt:
+            'Find an employee from a city you\'ve never heard of in the employees table & delete that record from the db.'),
   ],
   '5.where.md': [
-    {
-      'prompt':
-          'Select films that have made a worldwide_gross of over 1billion.'
-    },
-    {'prompt': 'Select films that have been nominated for 3 or more oscars'},
-    {'prompt': 'Select films that have won 2 or more oscars'},
+    makePrompt(
+      queryPrompt:
+          'Select films that have made a worldwide_gross of over 1billion.',
+    ),
+    makePrompt(
+        queryPrompt:
+            'Select films that have been nominated for 3 or more oscars'),
+    makePrompt(
+      queryPrompt: 'Select films that have won 2 or more oscars',
+    ),
   ],
   '6.orderby.md': [
-    {
-      'prompt':
-          'List the films ordered by their worldwide_gross in descending order'
-    },
-    {
-      'prompt': 'List the employees ordered by their salary in descending order'
-    },
-    {'prompt': 'List the employees ordered from youngest to oldest'},
-    {'prompt': 'List the employees ordered from oldest to youngest'},
-    {
-      'prompt': 'List employees but group them by title',
-      'answer': """
-SELECT title, id, name
+    makePrompt(
+      queryPrompt:
+          'Select id, name, surname, birth_date, age from employees ordered by age from youngest to oldest.',
+      answer: """
+SELECT id, name, surname, birth_date, age FROM employees ORDER BY age ASC;
+""",
+    ),
+    makePrompt(
+      queryPrompt:
+          'Select id, name, surname, birth_date & age from employees ordered by age from oldest to youngest.',
+      answer: """
+SELECT id, name, surname, birth_date, age FROM employees ORDER BY age DESC;
+""",
+    ),
+    makePrompt(
+      queryPrompt:
+          'Select id, name, surname, birth_date & age from employees ordered by age from oldest to youngest. Then order by their ids in DESC order for each age subgroup.',
+      answer: """
+SELECT id, name, surname, birth_date, age FROM employees ORDER BY age DESC, id DESC;
+""",
+    ),
+    makePrompt(
+        queryPrompt:
+            'Select id, name, surname & salary from the top 25 highest paid employees',
+        answer: """
+SELECT id, name, surname, salary FROM employees ORDER BY salary DESC LIMIT 25;
+"""),
+    makePrompt(
+        queryPrompt:
+            'Select the id, year, title & worldwide_gross of the top 50 highest grossing worldwide films of all time.',
+        answer: """
+SELECT id,
+       year,
+       title,
+       worldwide_gross
+FROM   films
+ORDER  BY worldwide_gross DESC
+LIMIT  50;
+"""),
+    makePrompt(
+        queryPrompt:
+            'Select id, title, name & age from employees and group by title alphabetically.',
+        answer: """
+SELECT id, title, name, age
 FROM employees
 ORDER BY title;
-"""
-    },
-    {
-      'prompt': 'List employees but group them by title then name',
-      'answer': """
-SELECT title, id, name
+"""),
+    makePrompt(
+      queryPrompt:
+          'Select id, title, name & age from employees and group by title alphabetically then age oldest to youngest.',
+      answer: """
+SELECT id, title, name, age
 FROM employees
-ORDER BY title, name;
-"""
-    },
-    {
-      'prompt': 'List employees but group them by title, name, then birth date',
-      'answer': """
-SELECT title, id, name
-FROM employees
-ORDER BY title, name, birth_date;
-"""
-    },
+ORDER BY title, age DESC;
+""",
+    ),
+    makePrompt(
+      queryPrompt:
+          'Select id, year, title, oscars_nominated, oscars_won from the top 50 films by oscars nominated.',
+      answer: """
+SELECT id, year, title, oscars_nominated, oscars_won
+FROM films 
+ORDER BY oscars_nominated DESC
+LIMIT 50;
+""",
+    ),
+    makePrompt(
+      queryPrompt:
+          'Select id, year, title, oscars_nominated, oscars_won from the top 50 films by oscars nominated. Order by oscars_nominated and then oscars_won if theres a tie.',
+      answer: """
+SELECT year, title, oscars_nominated, oscars_won 
+FROM films 
+ORDER BY oscars_nominated DESC, oscars_won DESC 
+LIMIT 50;
+""",
+    ),
+    makePrompt(
+      queryPrompt:
+          'Select id, year, title, oscars_nominated, oscars_won from the top 50 films by oscars nominated. Order by oscars_won and then oscars_nominated if theres a tie.',
+      answer: """
+SELECT year, title, oscars_nominated, oscars_won 
+FROM films 
+ORDER BY oscars_won DESC, oscars_nominated DESC
+LIMIT 50;
+""",
+    ),
   ],
   '7.groupby.md': [
-    {'prompt': 'List the number of employees from each state'},
-    {'prompt': 'List the number of films that have won 1 oscar'},
-    {
-      'prompt':
-          'Count the number of films that have won each sequential number of oscars(0, 1, 2,)'
-    },
-    {'prompt': 'Find all the unique number of oscars a film has won'},
+    makePrompt(
+      queryPrompt:
+          'List the number of employees from each state. Include the name of the state and the count.',
+      answer: """
+SELECT state, count(*) FROM employees GROUP BY state;
+""",
+    ),
+    makePrompt(
+      queryPrompt:
+          'List the number of films that have won at least 1 oscar. List the number they won as well.',
+      answer: """
+SELECT count(*) as oscar_winners, oscars_won FROM films WHERE oscars_won >= 1 GROUP BY oscars_won;
+""",
+    ),
   ],
   '8.aggregate.md': [
-    {'prompt': 'Aggregate'},
+    {'queryPrompt': 'Aggregate'},
   ],
+  // 3 left join, 3 right join, 3 inner join, 3 outer join, 3 self join
   '9.join.md': [
-    {
-      'prompt':
-          'Select title & studio\'s name from the films & studios tables.',
-      'answer': """
-SELECT title, name from films join studios on films.studio_id = studios.id;
-"""
-    },
-    {
-      'prompt':
+    makePrompt(
+      queryPrompt:
+          """Select id, name and their department's name of all the employees""",
+      answer: """
+SELECT employees.id, employees.name, departments.name
+FROM employees
+JOIN departments
+ON employees.department_id = departments.id
+""",
+    ),
+    makePrompt(
+      queryPrompt:
+          """Select id, name and their department's name of all the employees. Rename the employee's id to employee_id, employees name column to employee_name and department's name to department_name""",
+      answer: """
+SELECT employees.id as employee_id, employees.name employee_name, departments.name department_name
+FROM employees
+JOIN departments
+ON employees.department_id = departments.id
+""",
+    ),
+    makePrompt(
+      queryPrompt:
+          """Select the film's title & studio's name from the films & studios tables.""",
+      answer: """
+SELECT title, name 
+FROM films 
+JOIN studios 
+ON films.studio_id = studios.id;
+""",
+    ),
+    makePrompt(
+      queryPrompt: """
+Select the title of the film & genre's names for all genres. Group by genre name in alphabetical order.
+""",
+      answer: """
+SELECT title, 
+       NAME 
+FROM   films 
+       JOIN genre_films 
+         ON films.id = genre_films.film_id 
+       JOIN genres 
+         ON genre_films.genre_id = genres.id
+ORDER BY name;
+""",
+    ),
+    makePrompt(
+      queryPrompt: """
+Select all film titles and join it's genres into a single column which contains a list of the genre's it's categorized in.
+""",
+      answer: """
+SELECT films.title, GROUP_CONCAT(genres.name) AS genres
+  FROM films
+  JOIN genre_films ON films.id = genre_films.film_id
+  JOIN genres ON genre_films.genre_id = genres.id
+  GROUP BY films.title;
+""",
+    ),
+    makePrompt(
+      queryPrompt: """Select films title and it's director's name.""",
+      answer: """
+SELECT title, 
+       NAME 
+FROM   directors 
+       JOIN film_directors 
+         ON directors.id = film_directors.director_id 
+       JOIN films 
+         ON films.id = film_directors.film_id;
+""",
+    ),
+    makePrompt(
+      queryPrompt:
           'Select all the unique directors Disney Studios has employed over the years.',
-      'answer': """
+      answer: """
 SELECT DISTINCT directors.name, studios.name
 FROM film_directors
 JOIN films ON films.id = film_directors.film_id
 JOIN directors ON directors.id = film_directors.director_id
 JOIN studios on studios.id = films.studio_id
 WHERE films.studio_id = 1;
-"""
-    },
-    {
-      'prompt':
-          'Select employees name & their department\'s name from the employees & departments table.',
-      'answer': """
-SELECT employees.name as employee_name, departments.name as department_name from employees join departments on employees.department_id = departments.id;
-"""
-    },
-    {
-      'prompt': 'Select the titles & genre names of each of the films genres.',
-      'answer': """
-select title, name from films join genre_films on films.id = genre_films.film_id join genres on genre_films.genre_id = genres.id;
-"""
-    },
-    {
-      'prompt':
-          'List all films. Include their title & their genres as a single column that contains a list(as opposed to duplicating film rows like in the previous query).',
-      'answer': """
-SELECT films.title, GROUP_CONCAT(genres.name) AS genres
-  FROM films
-  JOIN genre_films ON films.id = genre_films.film_id
-  JOIN genres ON genre_films.genre_id = genres.id
-  GROUP BY films.title;
-"""
-    },
-    {
-      'prompt':
-          'Collect the film genres that Disney makes. Suppress duplicate records/genre names.',
-      'answer': """
-select title, studios.name, genres.name from films join genre_films on films.id = genre_films.film_id join genres on genre_films.genre_id = genres.id join studios on studios.id = films.studio_id where studios.id = 1 group by genres.name;
-"""
-    },
-    // 3 left join, 3 right join, 3 inner join, 3 outer join, 3 self join
-    {
-      'prompt':
-          'Find the name of and the title of the films they\'ve directed of the directors',
-      'answer': """
-select title, name from directors join film_directors on directors.id = film_directors.director_id join films on films.id = film_directors.film_id
 """,
-    },
-    {
-      'prompt':
-          'Select the films title, directors name, worldwide_gross and studios name from the db.',
-      'answer': """
-select worldwide_gross, title, directors.name, studios.name as studio_name from directors join film_directors on directors.id = film_directors.director_id join films on films.id = film_directors.film_id join studios on studios.id = films.studio_id
+    ),
+    makePrompt(
+        queryPrompt:
+            'Collect the film genres that Disney produces. Include genre_id and genre_name.',
+        answer: """
+SELECT genres.id as genre_id,
+       genres.name as genre_name
+FROM   films 
+       JOIN genre_films 
+         ON films.id = genre_films.film_id 
+       JOIN genres 
+         ON genre_films.genre_id = genres.id 
+       JOIN studios 
+         ON studios.id = films.studio_id 
+WHERE  studios.id = 1 
+GROUP  BY genres.name; 
+"""),
+    makePrompt(
+      queryPrompt: """
+Select the film's id, title, and director's & from all films.
 """,
-    },
-    {
-      'prompt':
-          'Select the top 3 total grossing directors from each studio(grossing in terms of worldwide_gross in films revenue combined) in descending order',
-      'answer': """
-      WITH DirectorRanks AS (
+      answer: """
+SELECT films.id, 
+       title, 
+       directors.NAME 
+FROM   directors 
+       JOIN film_directors 
+         ON film_directors.director_id = directors.id 
+       JOIN films 
+         ON films.id = film_directors.film_id 
+""",
+    ),
+    makePrompt(
+        queryPrompt:
+            """Select the film's id, title, & director's name from all films. But collect the directors into a new column named directors""",
+        answer: """
+SELECT worldwide_gross, 
+       title, 
+       GROUP_CONCAT(directors.NAME) AS directors,
+       studios.NAME AS studio_name 
+FROM   directors 
+       JOIN film_directors 
+         ON directors.id = film_directors.director_id 
+       JOIN films 
+         ON films.id = film_directors.film_id 
+       JOIN studios 
+         ON studios.id = films.studio_id 
+GROUP BY films.title;
+"""),
+    makePrompt(
+      queryPrompt: """
+Select the top 3 total grossing directors from each studio(grossing in terms of worldwide_gross in film's revenue worldwide) in descending order.
+""",
+      answer: """
+WITH DirectorRanks AS (
               SELECT 
                   studios.name AS studio_name,
                   directors.name AS director_name, 
@@ -201,82 +413,153 @@ select worldwide_gross, title, directors.name, studios.name as studio_name from 
           ORDER BY 
               studio_name, rank;
 """,
-    },
-    {
-      'prompt': '',
-      'answer': """
-
+    ),
+    makePrompt(
+      queryPrompt: """
+Select id, name and their department's name of all the employees. Rename the employee's id to employee_id, employees name column to employee_name and department's name to department_name
+Include employees that don't belong to a department.
 """,
-    },
-    {
-      'prompt': '',
-      'answer': """
-
+      answer: """
+SELECT employees.id as employee_id, employees.name employee_name, departments.name department_name
+FROM employees
+FULL JOIN departments
+ON employees.department_id = departments.id
 """,
-    },
-    {
-      'prompt': '',
-      'answer': """
-
+    ),
+    makePrompt(
+      queryPrompt: """""",
+      answer: """""",
+    ),
+    // makePrompt(
+    //   queryPrompt: """""",
+    //   answer: """""",
+    // ),
+    // makePrompt(
+    //   queryPrompt: """""",
+    //   answer: """""",
+    // ),
+    // makePrompt(
+    //   queryPrompt: """""",
+    //   answer: """""",
+    // ),
+    // makePrompt(
+    //   queryPrompt: """""",
+    //   answer: """""",
+    // ),
+    // makePrompt(
+    //   queryPrompt: """""",
+    //   answer: """""",
+    // ),
+    // makePrompt(
+    //   queryPrompt: """""",
+    //   answer: """""",
+    // ),
+    // makePrompt(
+    //   queryPrompt: """""",
+    //   answer: """""",
+    // ),
+    // makePrompt(
+    //   queryPrompt: """""",
+    //   answer: """""",
+    // ),
+    // makePrompt(
+    //   queryPrompt: """""",
+    //   answer: """""",
+    // ),
+    // makePrompt(
+    //   queryPrompt: """""",
+    //   answer: """""",
+    // ),
+    // makePrompt(
+    //   queryPrompt: """""",
+    //   answer: """""",
+    // ),
+    // makePrompt(
+    //   queryPrompt: """""",
+    //   answer: """""",
+    // ),
+  ],
+  '10.having.md': [
+    {'queryPrompt': 'Having'},
+    makePrompt(
+      queryPrompt: """
+Select film titles that have been used more than once. Return the title and number of times it's been used as a title_use_count.
 """,
-    },
-    {
-      'prompt': '',
-      'answer': """
-
+      answer: """
+SELECT title, COUNT(*) AS title_use_count
+FROM films
+GROUP BY title
+HAVING COUNT(*) > 1;
 """,
-    },
-    {
-      'prompt': '',
-      'answer': """
-
+    ),
+    makePrompt(
+      queryPrompt: """
+Select the film's id, title & year from films that have been used more than once. Order the title's names alphabetically.
 """,
-    },
-    {
-      'prompt': '',
-      'answer': """
-
+      answer: """
+SELECT id, title, year
+FROM films
+  WHERE title IN (
+      SELECT title
+      FROM films
+      GROUP BY title
+      HAVING COUNT(*) > 1
+  )
+ORDER BY title;
 """,
-    },
-    {
-      'prompt': '',
-      'answer': """
-
-""",
-    },
-    {
-      'prompt': '',
-      'answer': """
-
-""",
-    },
-    {
-      'prompt': '',
-      'answer': """
-
-""",
-    },
-    {
-      'prompt': '',
-      'answer': """
-
-""",
-    },
+    ),
   ],
   '10.union.md': [
-    {'prompt': 'Union'},
+    makePrompt(
+      queryPrompt: """
+Select the name & ages of employees in the development & product departments.
+""",
+      answer: """
+SELECT name, age FROM employees WHERE department_id = 1;
+UNION
+SELECT name, age FROM employees WHERE department_id = 2;
+""",
+    ),
   ],
   '11.window.md': [
-    {'prompt': 'Window'},
+    makePrompt(
+      queryPrompt: """
+Window
+""",
+      answer: """
+
+""",
+    ),
   ],
   '12.functions.md': [
-    {'prompt': 'Functions'},
+    makePrompt(
+      queryPrompt: """
+Functions
+""",
+      answer: """
+
+""",
+    ),
   ],
   '15.table-management.md': [
-    {'prompt': 'Table Management'},
+    makePrompt(
+      queryPrompt: """
+Table Management
+""",
+      answer: """
+
+""",
+    ),
   ],
   '16.database-management.md': [
-    {'prompt': 'Database Management'},
+    makePrompt(
+      queryPrompt: """
+List the fields & data-types of the employees table;
+""",
+      answer: """
+pragma table_info(employees)
+""",
+    ),
   ],
 };
 
@@ -289,6 +572,7 @@ final lessons = [
   '5.where.md',
   '6.orderby.md',
   '7.groupby.md',
+  // Having
   '8.aggregate.md',
   '9.join.md',
   '10.union.md',
@@ -297,6 +581,15 @@ final lessons = [
   '15.table-management.md',
   '16.database-management.md',
 ];
+
+final queryExample = {
+  'hint': '',
+  'answer': '',
+  'followup': '',
+  'queryPrompt': '',
+  'followupPrompt': '',
+  'promptFollowup': '',
+};
 
 Future<int> checkProgress() async {
   final lessonId = await Storage.instance.getSQLLesson();
@@ -319,4 +612,22 @@ Future<String> loadMarkdownContent(int lessonId) async {
     print("Error loading Markdown content: $e");
     return '';
   }
+}
+
+Map<String, String> makePrompt({
+  String? queryPrompt,
+  String? queryPromptFollowup,
+  String? answer,
+  String? hint,
+  String? followup,
+  String? followupPrompt,
+}) {
+  return {
+    'hint': hint ?? '',
+    'answer': answer ?? '',
+    'followup': followup ?? '',
+    'queryPrompt': queryPrompt ?? '',
+    'followupPrompt': followupPrompt ?? '',
+    'queryPromptFollowup': queryPromptFollowup ?? '',
+  };
 }
