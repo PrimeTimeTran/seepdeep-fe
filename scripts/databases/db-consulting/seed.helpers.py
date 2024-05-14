@@ -3,13 +3,6 @@ from faker import Faker
 from datetime import datetime, timedelta
 import random
 
-from seed_helpers import select_random_job_and_department
-
-conn = sqlite3.connect('database.db')
-cursor = conn.cursor()
-fake = Faker()
-cursor.execute("SELECT employee_id FROM employees")
-employee_ids = cursor.fetchall()
 
 # Jira?
 # Employees
@@ -18,6 +11,66 @@ employee_ids = cursor.fetchall()
 # Projects
 # Tickets
 # Invoices
+
+conn = sqlite3.connect('database.db')
+cursor = conn.cursor()
+fake = Faker()
+
+department_ids = {
+    "Development": 1,
+    "Product": 2,
+    "Business Development": 3,
+    "HR": 4,
+    "Finance": 5,
+    "Marketing": 6,
+    "Customer Support": 7,
+    "Design": 8,
+    "Accounting": 9,
+    "System Admin": 10,
+}
+
+department_map = {
+    'Development': ['Product Engineer',
+                    'Frontend Developer',
+                    'Backend Developer',
+                    'Full Stack Developer',
+                    'QA Engineer',],
+    'Design': ['UI/UX Designer',
+               'Graphic Designer',
+               'Visual Designer',
+               'Product Designer',],
+    'Product': ['Product Owner',
+                'Product Lead',
+                'Technical Product Manager',
+                'Project Manager',],
+    'Business Development': ['Sales Manager',
+                             'Business Development',
+                             'Account Executive',
+                             'Sales Manager',
+                             'Sales Executive',
+                             'Sales Director',
+                             'Partnership Manager',
+                             'Client Relations Manager',],
+    'Marketing': ['Marketing Coordinator',
+                  'Marketing Assistant',
+                  'Marketing Associate',
+                  'Social Media Coordinator',
+                  'Content Marketing Specialist',
+                  'Digital Marketing Specialist',
+                  'Social Media Manager'],
+    'System Admin': ['Database Admin',],
+    'Accounting': ['Accountant',
+                   'Controller',
+                   'Auditor',
+                   'Financial Analyst'],
+    'HR': ['HR Manager',
+           'HR Coordinator',
+           'HR Generalist',
+           'Benefits Administrator',
+           'Talent Acquisition Specialist',
+           'Recruiter',
+           'Employee Relations Manager',],
+}
 
 states = ["FL", "CA", 'NY']
 
@@ -29,6 +82,43 @@ women = ['Ada', 'Ava', 'Emma', 'Mia', 'Isabella', 'Olivia', 'Rose', 'Rachel', 'H
          'Linh', 'Trang', 'Hien', 'Tram', 'Nguyet', 'Diep', 'Nguyen', 'Hanh', 'Dieu', 'Chau']
 surnames = ['Bui', 'Nguyen', 'Tran', 'Duong', 'Dang', 'Ngo', 'Ho', 'Pham', 'Huynh', 'Phan', 'Ly', 'Do', 'Le',
             'Cong', 'Wilson', 'Jones', 'Smith', 'Williams', 'Wilson', 'Anderson', 'Brown', 'Johnson', 'Garcia', 'Miller']
+
+def select_random_job_and_department():
+    department = random.choice(list(department_map.keys()))
+    job_title = random.choice(department_map[department])
+    department_id = get_department_id_from_database(department)
+
+    return job_title, department_id
+
+
+def get_department_id_from_database(department):
+    department_id = department_ids.get(department)
+    return department_id
+
+
+def update_ids():
+    cursor.execute("""
+        -- Create a temporary table to store the updated id values
+        CREATE TEMP TABLE temp_employees AS
+        SELECT
+            id,
+            ROW_NUMBER() OVER (ORDER BY id) AS new_id
+        FROM
+            employees;
+        """)
+    cursor.execute("""
+        -- Update the original employees table with the new id values
+        UPDATE employees
+        SET id = (
+            SELECT new_id
+            FROM temp_employees
+            WHERE temp_employees.id = employees.id
+        );
+        """)
+    cursor.execute("""
+        -- Drop the temporary table
+        DROP TABLE temp_employees;
+    """)
 
 
 def create_employee():
@@ -107,38 +197,5 @@ def create_employee():
     ))
 
 
-def update_ids():
-    cursor.execute("""
-        -- Create a temporary table to store the updated employee_id values
-        CREATE TEMP TABLE temp_employees AS
-        SELECT
-            employee_id,
-            ROW_NUMBER() OVER (ORDER BY employee_id) AS new_employee_id
-        FROM
-            employees;
-        """)
-    cursor.execute("""
-        -- Update the original employees table with the new employee_id values
-        UPDATE employees
-        SET employee_id = (
-            SELECT new_employee_id
-            FROM temp_employees
-            WHERE temp_employees.employee_id = employees.employee_id
-        );
-        """)
-    cursor.execute("""
-        -- Drop the temporary table
-        DROP TABLE temp_employees;
-    """)
-
-for i in range(1, 250):
-    create_employee()
-    update_ids()
-
-def update_employees():
-    print('hi')
-
 conn.commit()
 conn.close()
-
-print("Addresses updated successfully.")

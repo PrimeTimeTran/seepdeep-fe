@@ -131,8 +131,6 @@ directors = [["Toy Story", {"name": "John Lasseter", "birthyear": 1957, "country
                               "birthyear": 1989, "country": "China"}]
              ]
 
-# films, film_directors, directors, genre_films, genres, studios
-
 def drop_tables():
     conn = sqlite3.connect(db_file_path)
     cursor = conn.cursor()
@@ -463,8 +461,8 @@ def create_film_director(films_path, directors_path):
 
 def export_tables_to_csv(output_dir):
     conn = sqlite3.connect(db_file_path)
-    tables = ['studios', 'directors', 'film_directors',
-              'films', 'genres', 'genre_films']
+    tables = ['studios', 'directors', 'films', 'film_directors',
+              'genres', 'genre_films']
     for table in tables:
         query = f"SELECT * FROM {table};"
         df = pd.read_sql(query, conn)
@@ -485,16 +483,16 @@ def update_studio_id(path):
     df.to_csv(path, index=False)
     return df
 
-drop_tables()
-create_tables()
-create_studios()
-add_movies_one('./movies_one.csv')
-create_directors()
-update_film_director()
+# drop_tables()
+# create_tables()
+# create_studios()
+# add_movies_one('./movies_one.csv')
+# create_directors()
+# update_film_director()
 
-add_movies('./imdb_top_1000.csv')
-create_genre_items('./imdb_top_1000.csv', './films.csv')
-create_film_director('./imdb_top_1000.csv', './directors.csv')
-update_film_director_two('./imdb_top_1000.csv', './films.csv')
-export_tables_to_csv('.')
-update_studio_id('./films.csv')
+# add_movies('./imdb_top_1000.csv')
+# create_genre_items('./imdb_top_1000.csv', './films.csv')
+# create_film_director('./imdb_top_1000.csv', './directors.csv')
+# update_film_director_two('./imdb_top_1000.csv', './films.csv')
+# export_tables_to_csv('.')
+# update_studio_id('./films.csv')
