@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:app/all.dart';
 import 'package:app/screens/sql/lesson.dart';
 import 'package:drift/drift.dart' hide Column;
@@ -21,10 +23,12 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
   String code = '';
   int lessonId = 0;
   bool queried = false;
+  bool error = false;
+  String errorMsg = '';
   bool querying = false;
   String lessonContent = '';
+  bool queryFinished = true;
   List lessonQueryPrompts = [];
-  bool queryFinished = false;
   Iterable<String> columnNames = [];
   List<Iterable<MapEntry<String, dynamic>>> records = [];
 
@@ -58,35 +62,7 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
                         ),
                       ),
                     ),
-                    Expanded(
-                      flex: 2,
-                      child: Card(
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: ListView.separated(
-                            separatorBuilder:
-                                (BuildContext context, int index) =>
-                                    const Divider(),
-                            itemCount: lessonQueryPrompts.length,
-                            itemBuilder: (BuildContext context, int index) {
-                              final item = lessonQueryPrompts[index];
-                              final subtitle =
-                                  item['queryPromptFollowup'] != null
-                                      ? Text(item['queryPromptFollowup'])
-                                      : null;
-                              return ListTile(
-                                titleTextStyle:
-                                    const TextStyle(color: Colors.grey),
-                                style: ListTileStyle.drawer,
-                                leading: const Icon(Icons.check_box),
-                                title: Text(item['queryPrompt']),
-                                subtitle: subtitle,
-                              );
-                            },
-                          ),
-                        ),
-                      ),
-                    ),
+                    buildQueryPromptPanel(),
                   ],
                 ),
               ),
@@ -100,17 +76,12 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
                   top: Align(
                     alignment: Alignment.topLeft,
                     child: Container(
-                      decoration: BoxDecoration(
-                        border: Border(
-                          bottom: BorderSide(color: Colors.grey.shade300),
+                        decoration: BoxDecoration(
+                          border: Border(
+                            bottom: BorderSide(color: Colors.grey.shade300),
+                          ),
                         ),
-                      ),
-                      child: SingleChildScrollView(
-                        child: Column(
-                          children: [buildTable()],
-                        ),
-                      ),
-                    ),
+                        child: buildQueryResultsTable()),
                   ),
                   bottom: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -203,6 +174,89 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
     return const SizedBox();
   }
 
+  Expanded buildQueryPromptPanel() {
+    return Expanded(
+      flex: 2,
+      child: Card(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: ListView.separated(
+            separatorBuilder: (BuildContext context, int index) =>
+                const Divider(),
+            itemCount: lessonQueryPrompts.length,
+            itemBuilder: (BuildContext context, int index) {
+              final item = lessonQueryPrompts[index];
+              final subtitle = item['queryPromptFollowup'] != null
+                  ? Text(item['queryPromptFollowup'])
+                  : null;
+              return ListTile(
+                titleTextStyle: const TextStyle(color: Colors.grey),
+                style: ListTileStyle.drawer,
+                leading: const Icon(Icons.check_box),
+                title: Text(item['queryPrompt']),
+                subtitle: subtitle,
+              );
+            },
+          ),
+        ),
+      ),
+    );
+  }
+
+  buildQueryResultsTable() {
+    if (records.isNotEmpty) {
+      return SingleChildScrollView(
+        child: Column(
+          children: [
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Column(
+                children: [
+                  DataTable(
+                    columns: columnNames.map<DataColumn>((String columnName) {
+                      return DataColumn(label: Text(columnName));
+                    }).toList(),
+                    rows: records.map<DataRow>(
+                        (Iterable<MapEntry<String, dynamic>> row) {
+                      final cellMap = Map<String, dynamic>.fromEntries(row);
+                      return DataRow(
+                        cells: columnNames.map<DataCell>((String columnName) {
+                          return DataCell(
+                            SelectableText(
+                                cellMap[columnName]?.toString() ?? ''),
+                          );
+                        }).toList(),
+                      );
+                    }).toList(),
+                  ),
+                ],
+              ),
+            )
+          ],
+        ),
+      );
+    }
+
+    if (error) {
+      return Center(
+        child: SizedBox(
+          child: Text(errorMsg.isNotEmpty
+              ? errorMsg
+              : 'Invalid submission. Try adding a valid SQL query.'),
+        ),
+      );
+    }
+
+    if (querying) {
+      return const Center(
+        child: SizedBox(
+          child: CircularProgressIndicator(),
+        ),
+      );
+    }
+    return const SizedBox();
+  }
+
   buildResults() {
     if (queried && records.isEmpty && queryFinished) {
       return Column(
@@ -246,45 +300,6 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
     return const SizedBox();
   }
 
-  buildTable() {
-    if (records.isNotEmpty) {
-      return SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        child: Column(
-          children: [
-            DataTable(
-              columns: columnNames.map<DataColumn>((String columnName) {
-                return DataColumn(label: Text(columnName));
-              }).toList(),
-              rows: records
-                  .map<DataRow>((Iterable<MapEntry<String, dynamic>> row) {
-                final cellMap = Map<String, dynamic>.fromEntries(row);
-                return DataRow(
-                  cells: columnNames.map<DataCell>((String columnName) {
-                    return DataCell(
-                      SelectableText(cellMap[columnName]?.toString() ?? ''),
-                    );
-                  }).toList(),
-                );
-              }).toList(),
-            ),
-          ],
-        ),
-      );
-    }
-    // if (querying) {
-    //   return Expanded(
-    //     child: Container(
-    //       color: Colors.black.withOpacity(0.5),
-    //       child: const Center(
-    //         child: CircularProgressIndicator(),
-    //       ),
-    //     ),
-    //   );
-    // }
-    return const SizedBox();
-  }
-
   Future<void> fetchData() async {
     try {
       final response = await http.get(Uri.parse('http://localhost:8080'));
@@ -311,7 +326,9 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
   void onRun([String? c, Language? language]) {
     setState(() {
       records = [];
+      error = false;
       queried = false;
+      querying = true;
       columnNames = [];
       queryFinished = false;
     });
@@ -327,41 +344,52 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
   }
 
   void query(String code) async {
+    Completer<void> queryCompleter = Completer<void>();
     try {
-      setState(() {
-        querying = true;
-      });
+      print('about to query');
+      Glob.logI('Query started');
       final database = ref.read(AppDatabase.provider);
-      // Select table names
-      // code = "SELECT name FROM sqlite_master WHERE type='table';";
-      // code = "SELECT * from todo_entries";
-      // code = "SELECT * from customers where country='Brazil'";
-      // code = "Select * from categories";
 
       List<QueryRow> result = await database.customSelect(
         '$code ',
         readsFrom: {...database.allTables},
       ).get();
+
       if (result.isNotEmpty) {
         records = parseQueryRows(result);
         QueryRow firstRow = result.first;
         columnNames = firstRow.data.keys;
         setState(() {
-          queried = true;
+          error = false;
           records = records;
-          queryFinished = true;
           columnNames = columnNames;
-          // querying = false;
         });
       } else {
         setState(() {
-          queried = true;
-          queryFinished = true;
-          // querying = false;
+          error = false;
         });
       }
+      queryCompleter.complete(); // Resolve the Completer
     } catch (e) {
-      print('Error: $e');
+      Glob.logI(e.toString());
+      if (e.toString().contains('Must contain an SQL statement.')) {
+        setState(() {
+          error = true;
+        });
+      } else {
+        setState(() {
+          error = true;
+          errorMsg = e.toString();
+        });
+      }
+      queryCompleter.complete(); // Resolve the Completer
+    } finally {
+      await queryCompleter.future;
+      Glob.logI('Query ended');
+      setState(() {
+        queried = true;
+        querying = false;
+      });
     }
   }
 
