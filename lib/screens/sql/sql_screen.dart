@@ -135,7 +135,7 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
                             Button(
                               title: 'Next',
                               onPress: () {
-                                if (lessonId == 14) return;
+                                if (lessonId == 15) return;
                                 setLesson(lessonId + 1);
                               },
                               outlined: true,
@@ -346,7 +346,6 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
   void query(String code) async {
     Completer<void> queryCompleter = Completer<void>();
     try {
-      print('about to query');
       Glob.logI('Query started');
       final database = ref.read(AppDatabase.provider);
 
@@ -369,7 +368,7 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
           error = false;
         });
       }
-      queryCompleter.complete(); // Resolve the Completer
+      queryCompleter.complete();
     } catch (e) {
       Glob.logI(e.toString());
       if (e.toString().contains('Must contain an SQL statement.')) {
@@ -382,7 +381,7 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
           errorMsg = e.toString();
         });
       }
-      queryCompleter.complete(); // Resolve the Completer
+      queryCompleter.complete();
     } finally {
       await queryCompleter.future;
       Glob.logI('Query ended');

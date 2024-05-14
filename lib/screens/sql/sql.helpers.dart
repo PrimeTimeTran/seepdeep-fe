@@ -246,11 +246,41 @@ SELECT count(*) as oscar_winners, oscars_won FROM films WHERE oscars_won >= 1 GR
 """,
     ),
   ],
-  '8.aggregate.md': [
+  '8.having.md': [
+    {'queryPrompt': 'Having'},
+    makePrompt(
+      queryPrompt: """
+Select film titles that have been used more than once. Return the title and number of times it's been used as a title_use_count.
+""",
+      answer: """
+SELECT title, COUNT(*) AS title_use_count
+FROM films
+GROUP BY title
+HAVING COUNT(*) > 1;
+""",
+    ),
+    makePrompt(
+      queryPrompt: """
+Select the film's id, title & year from films that have been used more than once. Order the title's names alphabetically.
+""",
+      answer: """
+SELECT id, title, year
+FROM films
+  WHERE title IN (
+      SELECT title
+      FROM films
+      GROUP BY title
+      HAVING COUNT(*) > 1
+  )
+ORDER BY title;
+""",
+    ),
+  ],
+  '9.aggregate.md': [
     {'queryPrompt': 'Aggregate'},
   ],
   // 3 left join, 3 right join, 3 inner join, 3 outer join, 3 self join
-  '9.join.md': [
+  '10.join.md': [
     makePrompt(
       queryPrompt:
           """Select id, name and their department's name of all the employees""",
@@ -430,86 +460,8 @@ ON employees.department_id = departments.id
       queryPrompt: """""",
       answer: """""",
     ),
-    // makePrompt(
-    //   queryPrompt: """""",
-    //   answer: """""",
-    // ),
-    // makePrompt(
-    //   queryPrompt: """""",
-    //   answer: """""",
-    // ),
-    // makePrompt(
-    //   queryPrompt: """""",
-    //   answer: """""",
-    // ),
-    // makePrompt(
-    //   queryPrompt: """""",
-    //   answer: """""",
-    // ),
-    // makePrompt(
-    //   queryPrompt: """""",
-    //   answer: """""",
-    // ),
-    // makePrompt(
-    //   queryPrompt: """""",
-    //   answer: """""",
-    // ),
-    // makePrompt(
-    //   queryPrompt: """""",
-    //   answer: """""",
-    // ),
-    // makePrompt(
-    //   queryPrompt: """""",
-    //   answer: """""",
-    // ),
-    // makePrompt(
-    //   queryPrompt: """""",
-    //   answer: """""",
-    // ),
-    // makePrompt(
-    //   queryPrompt: """""",
-    //   answer: """""",
-    // ),
-    // makePrompt(
-    //   queryPrompt: """""",
-    //   answer: """""",
-    // ),
-    // makePrompt(
-    //   queryPrompt: """""",
-    //   answer: """""",
-    // ),
   ],
-  '10.having.md': [
-    {'queryPrompt': 'Having'},
-    makePrompt(
-      queryPrompt: """
-Select film titles that have been used more than once. Return the title and number of times it's been used as a title_use_count.
-""",
-      answer: """
-SELECT title, COUNT(*) AS title_use_count
-FROM films
-GROUP BY title
-HAVING COUNT(*) > 1;
-""",
-    ),
-    makePrompt(
-      queryPrompt: """
-Select the film's id, title & year from films that have been used more than once. Order the title's names alphabetically.
-""",
-      answer: """
-SELECT id, title, year
-FROM films
-  WHERE title IN (
-      SELECT title
-      FROM films
-      GROUP BY title
-      HAVING COUNT(*) > 1
-  )
-ORDER BY title;
-""",
-    ),
-  ],
-  '10.union.md': [
+  '11.union.md': [
     makePrompt(
       queryPrompt: """
 Select the name & ages of employees in the development & product departments.
@@ -521,7 +473,7 @@ SELECT name, age FROM employees WHERE department_id = 2;
 """,
     ),
   ],
-  '11.window.md': [
+  '12.window.md': [
     makePrompt(
       queryPrompt: """
 Window
@@ -531,7 +483,7 @@ Window
 """,
     ),
   ],
-  '12.functions.md': [
+  '13.functions.md': [
     makePrompt(
       queryPrompt: """
 Functions
@@ -541,7 +493,7 @@ Functions
 """,
     ),
   ],
-  '15.table-management.md': [
+  '14.table-management.md': [
     makePrompt(
       queryPrompt: """
 Table Management
@@ -551,7 +503,7 @@ Table Management
 """,
     ),
   ],
-  '16.database-management.md': [
+  '15.database-management.md': [
     makePrompt(
       queryPrompt: """
 List the fields & data-types of the employees table;
