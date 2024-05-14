@@ -515,6 +515,18 @@ pragma table_info(employees)
   ],
 };
 
+// Example: Selecting same table twice with aliases
+// https://leetcode.com/problems/rising-temperature/?envType=study-plan-v2&envId=top-sql-50
+
+// Example: Multiple ands
+// https://leetcode.com/problems/average-time-of-process-per-machine/?envType=study-plan-v2&envId=top-sql-50
+
+// Example: Multiple group bys
+// https://leetcode.com/problems/students-and-examinations/?envType=study-plan-v2&envId=top-sql-50
+
+// Good subquery
+// https://leetcode.com/problems/managers-with-at-least-5-direct-reports/?envType=study-plan-v2&envId=top-sql-50
+
 final lessons = [
   '0.toc.md',
   '1.insert.md',
@@ -524,24 +536,18 @@ final lessons = [
   '5.where.md',
   '6.orderby.md',
   '7.groupby.md',
-  // Having
-  '8.aggregate.md',
-  '9.join.md',
-  '10.union.md',
-  '11.window.md',
-  '12.functions.md',
-  '15.table-management.md',
-  '16.database-management.md',
+  // Examples
+  // https://leetcode.com/problems/customer-who-visited-but-did-not-make-any-transactions/?envType=study-plan-v2&envId=top-sql-50
+  '8.having.md',
+  '9.aggregate.md',
+  // inner, outer, left, right, full, cross
+  '10.join.md',
+  '11.union.md',
+  '12.window.md',
+  '13.functions.md',
+  '14.table-management.md',
+  '15.database-management.md',
 ];
-
-final queryExample = {
-  'hint': '',
-  'answer': '',
-  'followup': '',
-  'queryPrompt': '',
-  'followupPrompt': '',
-  'promptFollowup': '',
-};
 
 Future<int> checkProgress() async {
   final lessonId = await Storage.instance.getSQLLesson();
