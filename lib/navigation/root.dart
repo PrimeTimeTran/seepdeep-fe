@@ -117,8 +117,7 @@ class _AppState extends State<App> {
     setState(() {
       _isDarkMode = !_isDarkMode;
     });
-    Brightness newBrightness = _isDarkMode ? Brightness.dark : Brightness.light;
-    Style.instance.updateBrightness(newBrightness);
+    Style.instance.updateBrightness(context);
     Storage.instance.setTheme();
   }
 }

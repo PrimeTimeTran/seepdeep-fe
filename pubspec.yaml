@@ -78,6 +78,7 @@ flutter:
   uses-material-design: true
   assets:
     - assets/
+    - assets/icons/
     - assets/json/
     - assets/lessons/
     - assets/lessons/sql/

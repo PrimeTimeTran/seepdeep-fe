@@ -1,3 +1,4 @@
+import 'package:app/all.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Storage {
@@ -34,7 +35,9 @@ class Storage {
 
   Future<bool> getTheme() async {
     final prefs = await _prefs;
-    return prefs.getBool('isLightMode') ?? true;
+    final isDarkModeValue = prefs.getBool('isDarkMode') ?? true;
+    Glob.logI('isDarkMode value: $isDarkModeValue');
+    return isDarkModeValue;
   }
 
   Future<void> setProblemCode(problemId, lang, code) async {
@@ -58,7 +61,10 @@ class Storage {
   Future<void> setTheme() async {
     final prefs = await _prefs;
     final curTheme = await getTheme();
-    await prefs.setBool('isLightMode', !curTheme);
+    Glob.logI(
+      'isDarkMode set: ${!curTheme}',
+    );
+    await prefs.setBool('isDarkMode', !curTheme);
   }
 
   Future<void> setToken(authToken) async {

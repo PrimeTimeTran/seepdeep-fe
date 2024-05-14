@@ -1,3 +1,5 @@
+// ignore_for_file: unrelated_type_equality_checks
+
 import 'package:flutter/material.dart';
 
 final ButtonStyle flatButtonStyle = TextButton.styleFrom(
@@ -36,18 +38,16 @@ class Style {
   static get headlineM => _instance._headlineMedium;
   static get headlineS => _instance._headlineSmall;
   static Style get instance => _instance;
+  static get inverseSurface => _instance._inverseSurface;
   static get labelL => _instance._labelLarge;
   static get labelM => _instance._labelMedium;
   static get labelS => _instance._labelSmall;
   static get lightTheme => _instance._lightTheme;
   static get surface => _instance._surface;
-  static get inverseSurface => _instance._inverseSurface;
   static get textColor => _instance._textColor;
   static get titleL => _instance._titleLarge;
   static get titleM => _instance._titleMedium;
   static get titleS => _instance._titleSmall;
-
-  late BuildContext _context;
   late Color _textColor;
   late Color _surface;
   late Color _inverseSurface;
@@ -75,33 +75,7 @@ class Style {
   // See ./lib/navigation/root.dart
 
   void initialize(BuildContext context) {
-    _surface = Theme.of(context).colorScheme.surface;
-    _inverseSurface = Theme.of(context).colorScheme.inverseSurface;
-    _context = context;
-    _displaySmall = Theme.of(context).textTheme.displaySmall!;
-    _displayMedium = Theme.of(context).textTheme.displayMedium!;
-    _displayLarge = Theme.of(context).textTheme.displayLarge!;
-    _headlineSmall = Theme.of(context).textTheme.headlineSmall!;
-    _headlineMedium = Theme.of(context).textTheme.headlineMedium!;
-    _headlineLarge = Theme.of(context).textTheme.headlineLarge!;
-    _titleSmall = Theme.of(context).textTheme.titleSmall!;
-    _titleMedium = Theme.of(context).textTheme.titleMedium!;
-    _titleLarge = Theme.of(context).textTheme.titleLarge!.copyWith(
-        fontSize: 30, color: Colors.blue, fontWeight: FontWeight.bold);
-
-    _labelSmall = Theme.of(context).textTheme.labelSmall!;
-    _labelMedium = Theme.of(context).textTheme.labelMedium!;
-    _labelLarge = Theme.of(context).textTheme.labelLarge!;
-    _bodySmall = Theme.of(context).textTheme.bodySmall!;
-    _bodyMedium = Theme.of(context).textTheme.bodyMedium!;
-    _bodyLarge = Theme.of(context).textTheme.bodyLarge!;
-    _bold = const TextStyle(fontWeight: FontWeight.bold);
-
-    final Brightness brightness = Theme.of(_context).brightness;
-    _textColor = brightness == Brightness.light ? Colors.black : Colors.grey;
-    _headingColor =
-        brightness == Brightness.light ? Colors.blue : Colors.lightBlue;
-
+    setWithThemeColor(context);
     _lightTheme = ThemeData(
       brightness: Brightness.light,
     );
@@ -110,10 +84,36 @@ class Style {
     );
   }
 
-  void updateBrightness(Brightness brightness) {
-    _textColor = brightness == Brightness.light ? Colors.black : Colors.grey;
-    _headingColor =
-        brightness == Brightness.light ? Colors.blue : Colors.lightBlue;
+  void setWithThemeColor(BuildContext context) {
+    _surface = Theme.of(context).colorScheme.surface;
+    _inverseSurface = Theme.of(context).colorScheme.inverseSurface;
+    _displaySmall = Theme.of(context).textTheme.displaySmall!;
+    _displayMedium = Theme.of(context).textTheme.displayMedium!;
+    _displayLarge = Theme.of(context).textTheme.displayLarge!;
+    _headlineSmall = Theme.of(context).textTheme.headlineSmall!;
+    _headlineMedium = Theme.of(context).textTheme.headlineMedium!;
+    _headlineLarge = Theme.of(context).textTheme.headlineLarge!;
+    _titleSmall = Theme.of(context).textTheme.titleSmall!;
+    _titleMedium = Theme.of(context).textTheme.titleMedium!;
+    _titleLarge = Theme.of(context).textTheme.titleLarge!;
+    _labelSmall = Theme.of(context).textTheme.labelSmall!;
+    _labelMedium = Theme.of(context).textTheme.labelMedium!;
+    _labelLarge = Theme.of(context).textTheme.labelLarge!;
+    _bodySmall = Theme.of(context).textTheme.bodySmall!;
+    _bodyMedium = Theme.of(context).textTheme.bodyMedium!;
+    _bodyLarge = Theme.of(context).textTheme.bodyLarge!;
+    _bold = const TextStyle(fontWeight: FontWeight.bold);
+
+    _textColor = Theme.of(context).brightness == Brightness.light
+        ? Colors.black
+        : Colors.grey;
+    _headingColor = Theme.of(context).brightness == Brightness.light
+        ? Colors.blue
+        : Colors.lightBlue;
+  }
+
+  void updateBrightness(BuildContext context) {
+    setWithThemeColor(context);
   }
 
   static Brightness currentTheme(BuildContext context) {

@@ -290,8 +290,6 @@ class _AppBarContentState extends State<AppBarContent> {
                       'Profile', Icons.person, AppScreens.profile.path),
                   buildMenuItem(
                       'Settings', Icons.settings, AppScreens.settings.path),
-                  buildMenuItem('Report Bug', Icons.bug_report,
-                      AppScreens.bugReports.path),
                   PopupMenuItem<SampleItem>(
                     value: SampleItem.itemOne,
                     child: InkWell(
@@ -307,6 +305,8 @@ class _AppBarContentState extends State<AppBarContent> {
                       ),
                     ),
                   ),
+                  buildMenuItem('Report Bug', Icons.bug_report,
+                      AppScreens.bugReports.path),
                   buildMenuItem(
                       'Logout', Icons.exit_to_app, AppScreens.bugReports.path),
                 ],
