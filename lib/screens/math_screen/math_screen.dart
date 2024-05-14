@@ -164,7 +164,7 @@ class _MathScreenState extends State<MathScreen> {
                           ),
                           child: AppText(
                             text: question.title!,
-                            style: Style.displayM,
+                            style: Theme.of(context).textTheme.displayMedium,
                           )),
                       const Gap(10),
                       ConstrainedBox(
@@ -176,7 +176,7 @@ class _MathScreenState extends State<MathScreen> {
                         ),
                         child: AppText(
                           text: question.body!,
-                          style: Style.headlineS,
+                          style: Theme.of(context).textTheme.bodyLarge,
                         ),
                       ),
                       const Gap(10),
@@ -211,7 +211,7 @@ class _MathScreenState extends State<MathScreen> {
                           ),
                           child: AppText(
                             text: question.prompt!,
-                            style: Style.headlineS,
+                            style: Theme.of(context).textTheme.bodyLarge,
                           )),
                       const Gap(10),
                       Card.outlined(

@@ -179,15 +179,16 @@ class _SolverState extends State<Solver> {
                 child: Row(
                   children: [
                     TextButton.icon(
-                      style: TextButton.styleFrom(
-                          shape: const RoundedRectangleBorder(
-                              borderRadius: BorderRadius.all(Radius.zero))),
-                      onPressed: () {},
-                      icon: const Icon(Icons.science_outlined,
-                          color: Colors.green),
-                      label: Text('Test Cases',
-                          style: Style.bodyS.copyWith(color: Style.textColor)),
-                    ),
+                        style: TextButton.styleFrom(
+                            shape: const RoundedRectangleBorder(
+                                borderRadius: BorderRadius.all(Radius.zero))),
+                        onPressed: () {},
+                        icon: const Icon(Icons.science_outlined,
+                            color: Colors.green),
+                        label: Text(
+                          'Test Cases',
+                          style: Theme.of(context).textTheme.bodySmall,
+                        )),
                     const Gap(10),
                     TextButton.icon(
                       style: TextButton.styleFrom(
@@ -201,8 +202,10 @@ class _SolverState extends State<Solver> {
                               child: CircularProgressIndicator())
                           : const Icon(Icons.keyboard_double_arrow_right,
                               color: Colors.green),
-                      label: Text('Test Result',
-                          style: Style.bodyS.copyWith(color: Style.textColor)),
+                      label: Text(
+                        'Test Result',
+                        style: Theme.of(context).textTheme.bodySmall,
+                      ),
                     )
                   ],
                 ),

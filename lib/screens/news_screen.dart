@@ -144,7 +144,7 @@ class _NewsScreenState extends State<NewsScreen> {
           contentPadding: const EdgeInsets.all(50),
           title: Text(
             item.title,
-            style: Style.titleL,
+            style: Theme.of(context).textTheme.titleLarge,
           ),
           subtitle: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,

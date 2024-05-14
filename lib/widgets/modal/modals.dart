@@ -223,7 +223,7 @@ class _ModalState extends State<Modal> {
                       const Gap(60),
                       Text(
                         'Your SQL skills are about to be out of this world better. ',
-                        style: Style.headlineL,
+                        style: Theme.of(context).textTheme.headlineLarge,
                         textAlign: TextAlign.center,
                       ),
                     ],
@@ -240,7 +240,7 @@ class _ModalState extends State<Modal> {
                       const Gap(20),
                       Text(
                         'On this page you\'re going to write progressively \nmore challenging SQL queries \nwhich\'ll develop your mastery.',
-                        style: Style.headlineL,
+                        style: Theme.of(context).textTheme.headlineLarge,
                         textAlign: TextAlign.center,
                       ),
                     ],
@@ -257,7 +257,7 @@ class _ModalState extends State<Modal> {
                       const Gap(20),
                       Text(
                         'The tables will reflect & their \nrelationships will reflect resources you\'ll \nundoubtedly see in your career.',
-                        style: Style.headlineL,
+                        style: Theme.of(context).textTheme.headlineLarge,
                         textAlign: TextAlign.center,
                       ),
                     ],
@@ -274,7 +274,7 @@ class _ModalState extends State<Modal> {
                       const Gap(20),
                       Text(
                         'So don\'t rush through the exercises, try \nto deeply understand them; because \nonce you do, they\'ll start to feel like art.',
-                        style: Style.headlineL,
+                        style: Theme.of(context).textTheme.headlineLarge,
                         textAlign: TextAlign.center,
                       ),
                     ],

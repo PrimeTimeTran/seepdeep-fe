@@ -68,7 +68,7 @@ class _EditorState extends State<Editor> {
                             size: 20, Icons.code, color: Colors.green),
                         label: AppText(
                           text: selectedLanguageName(selectedLang),
-                          style: Style.bodyL,
+                          style: Theme.of(context).textTheme.bodyLarge,
                         )),
                   ),
                 ],
@@ -81,7 +81,6 @@ class _EditorState extends State<Editor> {
                       Icons.format_indent_increase,
                       size: 20,
                     ),
-                    color: Colors.black54,
                     onPressed: () {},
                   ),
                   // Todo: Reset
@@ -90,7 +89,6 @@ class _EditorState extends State<Editor> {
                       Icons.restart_alt_rounded,
                       size: 20,
                     ),
-                    color: Colors.black54,
                     onPressed: () {
                       setController();
                     },
@@ -101,7 +99,6 @@ class _EditorState extends State<Editor> {
                       Icons.keyboard,
                       size: 20,
                     ),
-                    color: Colors.black54,
                     onPressed: () {},
                   ),
                   IconButton(
@@ -109,7 +106,6 @@ class _EditorState extends State<Editor> {
                       Icons.format_align_center,
                       size: 20,
                     ),
-                    color: Colors.black54,
                     onPressed: () {},
                   ),
                 ],

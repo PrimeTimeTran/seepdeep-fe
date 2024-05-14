@@ -168,12 +168,12 @@ class _SolverSidebarState extends State<SolverSidebar> {
             children: [
               SelectableText(
                 widget.problem.title!,
-                style: Style.titleL.copyWith(color: Style.headingColor),
+                style: Theme.of(context).textTheme.titleLarge,
               ),
               const SizedBox(height: 10),
               SelectableText(
                 widget.problem.body!,
-                style: Style.bodyL.copyWith(color: Style.textColor),
+                style: Theme.of(context).textTheme.bodyLarge,
               ),
               const SizedBox(height: 10),
               SizedBox(
@@ -191,9 +191,7 @@ class _SolverSidebarState extends State<SolverSidebar> {
                         children: [
                           Text(
                             "Example ${idx + 1}",
-                            style: Style.titleM.copyWith(
-                                fontWeight: FontWeight.bold,
-                                color: Style.textColor),
+                            style: Theme.of(context).textTheme.titleMedium,
                           ),
                           const SizedBox(height: 5),
                           // TODO: Seperate parameters and add names
@@ -201,16 +199,12 @@ class _SolverSidebarState extends State<SolverSidebar> {
                             children: [
                               Text(
                                 'Input:',
-                                style: Style.labelL.copyWith(
-                                    fontWeight: FontWeight.bold,
-                                    color: Style.textColor),
+                                style: Theme.of(context).textTheme.labelLarge,
                               ),
                               const Gap(10),
                               SelectableText(
                                 testCase.input.toString(),
-                                style: Style.bodyL.copyWith(
-                                  color: Style.textColor,
-                                ),
+                                style: Theme.of(context).textTheme.bodyLarge,
                               ),
                             ],
                           ),
@@ -219,16 +213,12 @@ class _SolverSidebarState extends State<SolverSidebar> {
                             children: [
                               Text(
                                 'Output:',
-                                style: Style.labelL.copyWith(
-                                    fontWeight: FontWeight.bold,
-                                    color: Style.textColor),
+                                style: Theme.of(context).textTheme.labelLarge,
                               ),
                               const Gap(10),
                               SelectableText(
                                 testCase.outExpected.toString(),
-                                style: Style.bodyL.copyWith(
-                                  color: Style.textColor,
-                                ),
+                                style: Theme.of(context).textTheme.bodyLarge,
                               ),
                             ],
                           ),
