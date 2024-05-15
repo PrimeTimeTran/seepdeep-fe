@@ -22,22 +22,14 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
   String code = '';
   int lessonId = 0;
   int lessonPromptIdx = 0;
-  bool queried = false;
   bool error = false;
   String errorMsg = '';
   bool querying = false;
   String lessonContent = '';
-  bool queryFinished = true;
+  List queryResults = [];
   List lessonQueryPrompts = [];
   Iterable<String> columnNames = [];
   Map<String, dynamic> answerMap = {};
-  List<Iterable<MapEntry<String, dynamic>>> records = [];
-  List<Iterable<MapEntry<String, dynamic>>> answerRecords = [];
-
-  List queryResults = [];
-  List answerQueryResults = [];
-
-  // late String jsonData;
 
   @override
   Widget build(BuildContext context) {
@@ -125,10 +117,9 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
                             Button(
                               title: 'Reset Query',
                               onPress: () {
-                                // setState(() {
-                                //   lessonId = 0;
-                                // });
-                                // Storage.instance.setSqlStep(0);
+                                setState(() {
+                                  code = '';
+                                });
                               },
                               outlined: true,
                             ),
@@ -203,7 +194,7 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
   }
 
   buildQueryResultsTable() {
-    if (records.isNotEmpty) {
+    if (queryResults.isNotEmpty) {
       return SingleChildScrollView(
         child: Column(
           children: [
@@ -215,9 +206,7 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
                     columns: columnNames.map<DataColumn>((String columnName) {
                       return DataColumn(label: Text(columnName));
                     }).toList(),
-                    rows: records.map<DataRow>(
-                        (Iterable<MapEntry<String, dynamic>> row) {
-                      final cellMap = Map<String, dynamic>.fromEntries(row);
+                    rows: queryResults.map<DataRow>((cellMap) {
                       return DataRow(
                         cells: columnNames.map<DataCell>((String columnName) {
                           return DataCell(
@@ -256,55 +245,56 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
     return const SizedBox();
   }
 
-  buildResults() {
-    if (queried && records.isEmpty && queryFinished) {
-      return Column(
-        children: [
-          const SizedBox(height: 50),
-          Text(
-            '0 Results found. Double check your query and try again.',
-            style: Theme.of(context).textTheme.headlineSmall,
-          ),
-          const SizedBox(height: 25),
-          Text(
-            'If this problem persists please checkout our help guide as we do have a few known issues with our parser.',
-            style: Theme.of(context).textTheme.bodyLarge,
-          ),
-          const SizedBox(height: 10),
-          Text(
-            'Column names should not have quotes and the value should be in single quotes. For Example:',
-            style: Theme.of(context).textTheme.bodyLarge,
-          ),
-          const SizedBox(height: 10),
-          RichText(
-            text: const TextSpan(
-              style: TextStyle(
-                fontSize: 16.0,
-                color: Colors.black,
-              ),
-              children: <TextSpan>[
-                TextSpan(
-                  text: 'SELECT * from Customers where country = \'USA\' ',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.blue,
-                  ),
-                ),
-              ],
-            ),
-          )
-        ],
-      );
-    }
-    return const SizedBox();
-  }
+  // buildResults() {
+  //   if (queried && records.isEmpty && queryFinished) {
+  //     return Column(
+  //       children: [
+  //         const SizedBox(height: 50),
+  //         Text(
+  //           '0 Results found. Double check your query and try again.',
+  //           style: Theme.of(context).textTheme.headlineSmall,
+  //         ),
+  //         const SizedBox(height: 25),
+  //         Text(
+  //           'If this problem persists please checkout our help guide as we do have a few known issues with our parser.',
+  //           style: Theme.of(context).textTheme.bodyLarge,
+  //         ),
+  //         const SizedBox(height: 10),
+  //         Text(
+  //           'Column names should not have quotes and the value should be in single quotes. For Example:',
+  //           style: Theme.of(context).textTheme.bodyLarge,
+  //         ),
+  //         const SizedBox(height: 10),
+  //         RichText(
+  //           text: const TextSpan(
+  //             style: TextStyle(
+  //               fontSize: 16.0,
+  //               color: Colors.black,
+  //             ),
+  //             children: <TextSpan>[
+  //               TextSpan(
+  //                 text: 'SELECT * from Customers where country = \'USA\' ',
+  //                 style: TextStyle(
+  //                   fontWeight: FontWeight.bold,
+  //                   color: Colors.blue,
+  //                 ),
+  //               ),
+  //             ],
+  //           ),
+  //         )
+  //       ],
+  //     );
+  //   }
+  //   return const SizedBox();
+  // }
 
   checkCorrect() async {
     final userQueryResultIds = queryResults.map((e) => e['id']).toList();
     final lesson = lessonPromptMap[lessons[lessonId]];
     final resultIds = [];
-    answerQueryResults = await queryAnswer(lesson![lessonPromptIdx]['answer']!);
-    for (var e in answerQueryResults) {
+    final answerQuery = lesson![lessonPromptIdx]['answer']!;
+    final answerResults = await queryAnswer(answerQuery);
+    for (var e in answerResults) {
       resultIds.add(e['id']);
     }
     print('lessonId $lessonId');
@@ -316,9 +306,9 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
     //
 
     const go = """
-
 select id, title, worldwide_gross from films where worldwide_gross >= 1000;
 select id, year, title, oscars_nominated from films where oscars_nominated >= 5;
+select id, year, title, oscars_nominated, oscars_won from films where oscars_won >= 3;
 """;
     if (resultIds.length != userQueryResultIds.length) {
       print('not same');
@@ -352,31 +342,25 @@ select id, year, title, oscars_nominated from films where oscars_nominated >= 5;
 
   void onRun([String? c, Language? language]) {
     setState(() {
-      records = [];
       error = false;
-      queried = false;
       querying = true;
       columnNames = [];
-      answerRecords = [];
       queryResults = [];
-      queryFinished = false;
-      answerQueryResults = [];
     });
     query(c ?? code);
   }
 
-  List<Iterable<MapEntry<String, dynamic>>> parseQueryRows(
-      List<QueryRow> queryRows) {
-    records = [];
-    for (var row in queryRows) {
-      records.add(row.data.entries);
+  parseResults(result) {
+    final parsedResults = [];
+    for (var row in result) {
+      final cellMap = Map<String, dynamic>.fromEntries(row.data.entries);
+      parsedResults.add(cellMap);
     }
-    return records;
+    return parsedResults;
   }
 
   void query(String code) async {
     Completer<void> queryCompleter = Completer<void>();
-
     try {
       Glob.logI('Query started');
       final database = ref.read(AppDatabase.provider);
@@ -387,44 +371,26 @@ select id, year, title, oscars_nominated from films where oscars_nominated >= 5;
       ).get();
 
       if (result.isNotEmpty) {
-        records = parseQueryRows(result);
-        for (var element in records) {
-          final cellMap = Map<String, dynamic>.fromEntries(element);
-          queryResults.add(cellMap);
-        }
-        print('queryResults ${queryResults.length}');
-        QueryRow firstRow = result.first;
-        columnNames = firstRow.data.keys;
+        final results = parseResults(result);
         setState(() {
-          error = false;
-          records = records;
-          columnNames = columnNames;
-          queryResults = queryResults;
-        });
-      } else {
-        setState(() {
-          error = false;
+          queryResults = results;
+          columnNames = results[0].keys;
         });
       }
-      queryCompleter.complete();
     } catch (e) {
-      Glob.logI(e.toString());
+      String msg = e.toString();
       if (e.toString().contains('Must contain an SQL statement.')) {
-        setState(() {
-          error = true;
-        });
-      } else {
-        setState(() {
-          error = true;
-          errorMsg = e.toString();
-        });
+        msg = 'Try adding a valid SQL query.';
       }
-      queryCompleter.complete();
+      setState(() {
+        error = true;
+        errorMsg = msg;
+      });
     } finally {
+      queryCompleter.complete();
       await queryCompleter.future;
       Glob.logI('Query ended');
       setState(() {
-        queried = true;
         querying = false;
       });
       checkCorrect();
@@ -432,22 +398,14 @@ select id, year, title, oscars_nominated from films where oscars_nominated >= 5;
   }
 
   queryAnswer(String code) async {
-    final answerQueryResults = [];
     final database = ref.read(AppDatabase.provider);
-    List<QueryRow> answerResult = await database.customSelect(
+    List<QueryRow> result = await database.customSelect(
       '$code ',
       readsFrom: {...database.allTables},
     ).get();
 
-    if (answerResult.isNotEmpty) {
-      for (var row in answerResult) {
-        answerRecords.add(row.data.entries);
-      }
-      for (var element in answerRecords) {
-        final cellMap = Map<String, dynamic>.fromEntries(element);
-        answerQueryResults.add(cellMap);
-      }
-      return answerQueryResults;
+    if (result.isNotEmpty) {
+      return parseResults(result);
     }
   }
 

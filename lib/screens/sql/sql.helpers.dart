@@ -75,8 +75,9 @@ final lessonPromptMap = {
       answer: 'SELECT title from films;',
     ),
     makePrompt(
-      queryPrompt: 'Select titles of the records(films) from the films table.',
-      answer: 'SELECT title FROM films;',
+      queryPrompt:
+          'Select titles of the records(films) from the films table but LIMIT the results to only 25 records.',
+      answer: 'SELECT title FROM films LIMIT 25;',
       followup:
           'You probably experienced some lag there. The reason you did was because your query returned a tremendous number of results. You can limit the number of results with the `LIMIT` clause.',
       followupPrompt: 'SELECT title FROM films LIMIT 25;',
