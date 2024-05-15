@@ -68,6 +68,79 @@ Future<void> dialogBig(BuildContext c, String title, String body,
   );
 }
 
+Future<void> dialogBugReport(BuildContext context) {
+  return showDialog<void>(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text(
+          'Bug Report',
+          style: Theme.of(context).textTheme.displaySmall,
+        ),
+        content: SizedBox(
+          height: getHeight() / 5,
+          width: getWidth() / 2,
+          child: Center(
+            child: Expanded(
+              child: Column(
+                children: [
+                  TextFormField(
+                    autofocus: true,
+                    decoration: InputDecoration(
+                      labelStyle: Theme.of(context).textTheme.headlineLarge,
+                      hintText: 'Problem changing...',
+                      labelText: 'Title',
+                    ),
+                  ),
+                  const Gap(30),
+                  TextFormField(
+                    decoration: InputDecoration(
+                      labelStyle: Theme.of(context).textTheme.headlineLarge,
+                      hintText: 'On the...',
+                      labelText: 'Description',
+                    ),
+                  ),
+                  const Gap(30),
+                  TextFormField(
+                    decoration: InputDecoration(
+                      labelStyle: Theme.of(context).textTheme.headlineLarge,
+                      helperText:
+                          'We can update you if you provide your contact.',
+                      hintText: 'john@email.com',
+                      labelText: 'Email',
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+        actions: <Widget>[
+          TextButton(
+            style: TextButton.styleFrom(
+              textStyle: Theme.of(context).textTheme.labelLarge,
+            ),
+            child: const Text('Cancel'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+          FilledButton(
+            style: TextButton.styleFrom(
+              textStyle: Theme.of(context).textTheme.labelLarge,
+            ),
+            child: const Text('Report'),
+            onPressed: () {
+              Navigator.of(context).pop();
+              Glob.showSnack('Thank you for your report!');
+            },
+          ),
+        ],
+      );
+    },
+  );
+}
+
 Future<void> dialogBuilder(BuildContext context, title, body) {
   return showDialog<void>(
     context: context,
@@ -93,6 +166,81 @@ Future<void> dialogBuilder(BuildContext context, title, body) {
             ),
             child: const Text('Ok'),
             onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      );
+    },
+  );
+}
+
+Future<void> dialogFeatureRequest(BuildContext context) {
+  return showDialog<void>(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text(
+          'Feature Request',
+          style: Theme.of(context).textTheme.displaySmall,
+        ),
+        content: SizedBox(
+          height: getHeight() / 5,
+          width: getWidth() / 2,
+          child: Center(
+            child: Expanded(
+              child: Column(
+                children: [
+                  TextFormField(
+                    autofocus: true,
+                    decoration: InputDecoration(
+                      labelStyle: Theme.of(context).textTheme.headlineLarge,
+                      // helperText: 'Which screen are you referring to?',
+                      hintText: 'Data Structures...',
+                      labelText: 'Title',
+                    ),
+                  ),
+                  const Gap(30),
+                  TextFormField(
+                    decoration: InputDecoration(
+                      labelStyle: Theme.of(context).textTheme.headlineLarge,
+                      // helperText: 'Helper Text',
+                      hintText: 'It would great if...',
+                      labelText: 'Description',
+                    ),
+                  ),
+                  const Gap(30),
+                  TextFormField(
+                    decoration: InputDecoration(
+                      labelStyle: Theme.of(context).textTheme.headlineLarge,
+                      helperText:
+                          'We can update you if you provide your contact.',
+                      hintText: 'john@email.com',
+                      labelText: 'Email',
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+        actions: <Widget>[
+          TextButton(
+            style: TextButton.styleFrom(
+              textStyle: Theme.of(context).textTheme.labelLarge,
+            ),
+            child: const Text('Cancel'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+          FilledButton(
+            style: TextButton.styleFrom(
+              textStyle: Theme.of(context).textTheme.labelLarge,
+            ),
+            child: const Text('Request'),
+            onPressed: () {
+              Glob.showSnack('Thank you for your request!');
               Navigator.of(context).pop();
             },
           ),

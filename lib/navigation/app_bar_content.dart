@@ -323,12 +323,26 @@ class _AppBarContentState extends State<AppBarContent> {
     return PopupMenuItem<SampleItem>(
       value: SampleItem.itemOne,
       onTap: () {
-        GoRouter.of(context).go(route);
+        if (route == AppScreens.featureRequests.path) {
+          dialogFeatureRequest(context);
+        } else if (route == AppScreens.bugReports.path) {
+          dialogBugReport(context);
+        } else {
+          GoRouter.of(context).go(route);
+        }
       },
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [Icon(icon), const SizedBox(width: 5.0), Text(title)],
       ),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      // dialogBugReport(context);
+    });
   }
 }
