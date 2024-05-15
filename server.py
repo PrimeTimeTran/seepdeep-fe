@@ -1,4 +1,5 @@
 import http.server
+import json
 import os
 from openai import OpenAI
 import time
@@ -10,60 +11,52 @@ key = os.environ.get("OPENAI_API_KEY")
 client = OpenAI(
     api_key=key)
 
-class MyFileSystemEventHandler(FileSystemEventHandler):
-    def __init__(self, callback):
-        self.callback = callback
-
-    def on_modified(self, event):
-        if event.src_path.endswith(".py"):
-            print("File modified. Reloading...")
-            self.callback()
-
-def stream_audio():
+def stream_audio(text):
     with client.audio.speech.with_streaming_response.create(
-        model="tts-1",
+        input=text,
         voice="alloy",
-        input="Wow, thats great. Try again",
+        model="tts-1",
     ) as response:
         for chunk in response.iter_bytes():
             yield chunk
 
 
 class JSONHandler(http.server.BaseHTTPRequestHandler):
-    def do_GET(self):
+    def do_OPTIONS(self):
         self.send_response(200)
-        self.send_header('Content-type', 'audio/mpeg')
         self.send_header('Access-Control-Allow-Origin', '*')
+        self.send_header('Access-Control-Allow-Methods', 'POST, OPTIONS')
+        self.send_header('Access-Control-Allow-Headers', 'Content-Type')
         self.end_headers()
+    def do_POST(self):
         try:
-            for chunk in stream_audio():
+            content_length = int(self.headers['Content-Length'])
+            post_data = self.rfile.read(content_length).decode('utf-8')
+            data = json.loads(post_data)
+            text = data.get('body', '')
+            self.send_response(200)
+            self.send_header('Content-type', 'audio/mpeg')
+            self.send_header('Access-Control-Allow-Origin', '*')
+            self.end_headers()
+
+            for chunk in stream_audio(text):
                 self.wfile.write(chunk)
-        except BrokenPipeError:
-            pass
+        except Exception as e:
+            self.send_error(500, f'Internal Server Error: {str(e)}')
 
 
 def run(server_class=http.server.HTTPServer, handler_class=JSONHandler, port=8080):
     global server_process
-    print('Running..  .')
     server_address = ('', port)
     httpd = server_class(server_address, handler_class)
     print(f'Starting server on port {port}...')
     server_process = httpd
-    httpd.serve_forever()
-    print("Server has been reloaded.")
-
-
-def watch_and_reload():
-    observer = Observer()
-    observer.schedule(MyFileSystemEventHandler(run), ".", recursive=True)
-    observer.start()
     try:
-        while True:
-            time.sleep(1)
+        httpd.serve_forever()
     except KeyboardInterrupt:
-        observer.stop()
-    observer.join()
+        httpd.server_close()
+        print("Server stopped.")
 
 
-if __name__ == '__main__':
-    watch_and_reload()
+if __name__ == "__main__":
+    run()

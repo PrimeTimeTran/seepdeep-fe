@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:html' as html;
 
 import 'package:app/all.dart';
@@ -319,9 +320,7 @@ select id, year, title, oscars_nominated from films where oscars_nominated >= 5;
 select id, year, title, oscars_nominated, oscars_won from films where oscars_won >= 3;
 """;
     final userQueryIds = queryResults.map((e) => e['id']).toList();
-    print('userQueryIds $userQueryIds');
     if (answerIds.length != userQueryIds.length) {
-      print('not same');
     } else {
       bool same = true;
       for (int i = 0; i < answerIds.length; i++) {
@@ -348,16 +347,17 @@ select id, year, title, oscars_nominated, oscars_won from films where oscars_won
     });
   }
 
-  @override
-  void dispose() {
-    _audioPlayer.dispose();
-    super.dispose();
-  }
-
-  Future<void> getAIHelp() async {
+  Future<void> getAIHelp(content) async {
     try {
-      final response = await http.get(
+      print('getAIHelp');
+      final headers = <String, String>{};
+      headers['Content-Type'] = 'application/json';
+      final response = await http.post(
         Uri.parse('http://localhost:8080'),
+        headers: headers,
+        body: jsonEncode(
+          {"body": content},
+        ),
       );
       if (response.statusCode == 200) {
         await playAudioFromBytes(response.bodyBytes);
@@ -370,12 +370,61 @@ select id, year, title, oscars_nominated, oscars_won from films where oscars_won
     }
   }
 
+  getOpenAIHint() async {
+    try {
+      final headers = <String, String>{};
+      headers['authorization'] =
+          'Bearer ${'sk-proj-Uib4u9nZ7uLEtPGcI9EgT3BlbkFJGlA5PKHfcN8SsXDmnbfo'}';
+      headers['Content-Type'] = 'application/json';
+//       final response = await http.post(
+//         Uri.parse('https://api.openai.com/v1/chat/completions'),
+//         headers: headers,
+//         body: jsonEncode(
+//           {
+//             "model": "gpt-4o",
+//             "messages": [
+//               {
+//                 "role": "system",
+//                 "content":
+//                     """You help hint users towards a successful SQL query given a requirement & query.
+// Requirement:
+// Select id, title, worldwide_gross from films that have at least 1billion in worldwide_gross.
+// Query:
+// SELECT id, title, worldwide_gross
+// FROM films
+// WHERE worldwide_gross >= 1
+// """
+//               },
+//               {
+//                 "role": "user",
+//                 "content": "What should I consider doing to make this work?"
+//               }
+//             ]
+//           },
+//         ),
+//       );
+      Map<String, dynamic> response = {"statusCode": 201, 'body': {}};
+      if (response['statusCode'] == 200) {
+        final json = jsonDecode(response['body']);
+        String resp = json['choices'][0]['message']['content'];
+      } else {
+        String resp = """
+To make this query work for selecting films with at least 1 billion in worldwide gross, you need to adjust the condition in the `WHERE` clause. The current condition `worldwide_gross >= 1` is incorrect because it looks for films with a worldwide gross of at least 1 unit, not 1 billion. The right condition should be `worldwide_gross >= 1000000000`.
+""";
+        getAIHelp(resp);
+      }
+    } catch (e) {
+      // Handle any exceptions
+      print('Error: $e');
+    }
+  }
+
   @override
   void initState() {
     super.initState();
     // onRun("select id, year, title from films limit 5;");
     // setup();
-    getAIHelp();
+    getOpenAIHint();
     super.initState();
   }
 
