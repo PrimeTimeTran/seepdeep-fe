@@ -6,6 +6,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:giffy_dialog/giffy_dialog.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import './giffy_modal.dart';
 
@@ -270,6 +271,47 @@ Future<void> dialogFeatureRequest(BuildContext context) {
             child: const Text('Request'),
             onPressed: () {
               Glob.showSnack('Thank you for your request!');
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      );
+    },
+  );
+}
+
+Future<void> dialogPay(BuildContext context) {
+  final Uri url = Uri.parse('https://buy.stripe.com/14k6qB4WMabKadi288');
+  return showDialog<void>(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: const Text('Premium'),
+        //
+        content: ElevatedButton(
+          onPressed: () async {
+            if (!await launchUrl(url)) {
+              throw Exception('Could not launch $url');
+            }
+          },
+          child: const Text('Go SeepDeep Premium'),
+        ),
+        actions: <Widget>[
+          TextButton(
+            style: TextButton.styleFrom(
+              textStyle: Theme.of(context).textTheme.labelLarge,
+            ),
+            child: const Text('Close'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+          TextButton(
+            style: TextButton.styleFrom(
+              textStyle: Theme.of(context).textTheme.labelLarge,
+            ),
+            child: const Text('Ok'),
+            onPressed: () {
               Navigator.of(context).pop();
             },
           ),

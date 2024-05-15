@@ -9,11 +9,11 @@ import 'package:provider/provider.dart' as provider;
 import 'package:seo/seo.dart';
 import 'package:url_strategy/url_strategy.dart';
 
-import 'firebase_options.dart';
-
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   setPathUrlStrategy();
+  await Firebase.initializeApp();
+
   runApp(
     provider.MultiProvider(
       providers: [
@@ -59,12 +59,5 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    setupFirebase();
-  }
-
-  setupFirebase() async {
-    await Firebase.initializeApp(
-      options: DefaultFirebaseOptions.currentPlatform,
-    );
   }
 }
