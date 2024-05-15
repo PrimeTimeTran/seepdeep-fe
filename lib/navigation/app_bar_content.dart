@@ -5,6 +5,7 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 
 void openDrawer() {
   drawerKey.currentState?.openDrawer();
@@ -304,8 +305,7 @@ class _AppBarContentState extends State<AppBarContent> {
                     selectedItem = item;
                   });
                 },
-                itemBuilder: (BuildContext context) =>
-                    <PopupMenuEntry<SampleItem>>[
+                itemBuilder: (BuildContext context) => [
                   buildMenuItem(
                     'Profile',
                     Icons.person,
@@ -337,9 +337,9 @@ class _AppBarContentState extends State<AppBarContent> {
                     AppScreens.bugReports.path,
                   ),
                   buildMenuItem(
-                    'Logout',
+                    '',
                     Icons.exit_to_app,
-                    AppScreens.bugReports.path,
+                    'auth',
                   ),
                 ],
               ),
@@ -351,10 +351,28 @@ class _AppBarContentState extends State<AppBarContent> {
   }
 
   PopupMenuItem<SampleItem> buildMenuItem(
-      String title, IconData icon, String route) {
+    String title,
+    IconData icon,
+    String route,
+  ) {
     return PopupMenuItem<SampleItem>(
       value: SampleItem.itemOne,
       onTap: () async {
+        final auth = Provider.of<AuthProvider>(context, listen: false);
+        if (auth.isAuthenticated) {
+          if (route == 'auth') {
+            auth.setUser(null);
+            auth.setAuthenticated(false);
+            Storage.instance.setUser(null);
+            Storage.instance.setToken(null);
+            return;
+          }
+        } else {
+          if (route == 'auth') {
+            dialogGetCode(context);
+            return;
+          }
+        }
         if (route == AppScreens.featureRequests.path) {
           dialogFeatureRequest(context);
           await FirebaseAnalytics.instance.logEvent(
@@ -383,7 +401,35 @@ class _AppBarContentState extends State<AppBarContent> {
       },
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
-        children: [Icon(icon), const SizedBox(width: 5.0), Text(title)],
+        children: [
+          Consumer<AuthProvider>(
+            builder: (context, auth, child) {
+              if (route == 'auth') {
+                if (auth.user?.email != null) {
+                  return const Icon(Icons.exit_to_app);
+                } else {
+                  return const Icon(Icons.create);
+                }
+              }
+              return Icon(icon);
+            },
+          ),
+          const SizedBox(width: 5.0),
+          Consumer<AuthProvider>(
+            builder: (context, auth, child) {
+              if (route == 'auth') {
+                if (auth.user?.email != null) {
+                  title = 'Log Out';
+                  icon = Icons.exit_to_app;
+                } else {
+                  title = 'Sign Up';
+                  icon = Icons.create;
+                }
+              }
+              return Text(title);
+            },
+          )
+        ],
       ),
     );
   }

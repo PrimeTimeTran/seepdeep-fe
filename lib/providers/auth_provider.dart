@@ -2,8 +2,12 @@ import 'package:app/all.dart';
 import 'package:flutter/material.dart';
 
 class AuthProvider extends ChangeNotifier {
-  User? _user = User.fromMap({"email": "john@email.com"});
+  User? _user;
   bool _authenticated = false;
+  AuthProvider({Map<String, dynamic>? user}) {
+    if (user == null) return;
+    setUser(user);
+  }
   get isAuthenticated => _authenticated;
   get user => _user;
 
@@ -28,13 +32,18 @@ class AuthProvider extends ChangeNotifier {
     return dateTimeDayTotals;
   }
 
-  setAuthenticated() {
-    _authenticated = !_authenticated;
+  setAuthenticated(bool authenticated) {
+    _authenticated = authenticated;
     notifyListeners();
   }
 
-  setUser(User? u) {
-    _user = u;
-    setAuthenticated();
+  setUser(u) {
+    if (u == null) {
+      _user = null;
+      setAuthenticated(false);
+    } else {
+      _user = User.fromJson(u);
+      setAuthenticated(true);
+    }
   }
 }

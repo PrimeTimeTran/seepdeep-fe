@@ -93,7 +93,7 @@ class _AuthScreenState extends State<AuthScreen> {
                 ),
                 Consumer<AuthProvider>(
                   builder: (context, auth, child) {
-                    return Text('isAuthenticated: ${auth.user.email}',
+                    return Text('isAuthenticated: ${auth.user?.email}',
                         style: TextStyle(
                             color: auth.isAuthenticated
                                 ? Colors.green

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:giffy_dialog/giffy_dialog.dart';
+import 'package:provider/provider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -281,13 +282,19 @@ Future<void> dialogFeatureRequest(BuildContext context) {
 }
 
 Future<void> dialogGetCode(BuildContext context) {
-  String email = '';
-  String firstName = '';
-  String lastName = '';
-  String password = '';
-  String passwordConfirm = '';
+  String email = 'user@seepdeep.com';
+  String firstName = 'Loi';
+  String lastName = 'Tran';
+  String password = 'asdf!1234';
+  String passwordConfirm = 'asdf!1234';
+  // String email = '';
+  // String firstName = '';
+  // String lastName = '';
+  // String password = '';
+  // String passwordConfirm = '';
+  bool isSignUp = true;
 
-  signUpForAccess() async {
+  signUpForAccess(context) async {
     final response = await Api.post('auth/create', {
       'email': email,
       'firstName': firstName,
@@ -295,21 +302,38 @@ Future<void> dialogGetCode(BuildContext context) {
       'password': password,
       'passwordConfirm': passwordConfirm,
     });
-    if (response.statusCode == 200) {
+    if (response['user'] != null) {
+      final auth = Provider.of<AuthProvider>(context, listen: false);
+      auth.setUser(response['user']);
       Navigator.of(context).pop();
+    } else {
+      print('Error');
     }
-
-    // String token = result['token'];
-    // Storage.instance.setToken(token);
-    // if (resp.statusCode == 200) {
-    //   print(resp);
-    // print(resp['token']);
-    // }
   }
 
   return showDialog<void>(
     context: context,
     builder: (BuildContext context) {
+      final ButtonStyle outlineButtonStyle = OutlinedButton.styleFrom(
+        foregroundColor: Colors.black87,
+        minimumSize: const Size(88, 36),
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(2)),
+        ),
+      ).copyWith(
+        side: MaterialStateProperty.resolveWith<BorderSide?>(
+          (Set<MaterialState> states) {
+            if (states.contains(MaterialState.pressed)) {
+              return BorderSide(
+                color: Theme.of(context).colorScheme.primary,
+                width: 1,
+              );
+            }
+            return null;
+          },
+        ),
+      );
       return StatefulBuilder(
         builder: (BuildContext context, StateSetter setState) {
           return AlertDialog(
@@ -330,6 +354,7 @@ Future<void> dialogGetCode(BuildContext context) {
                               children: [
                                 TextFormField(
                                   autofocus: true,
+                                  initialValue: firstName,
                                   onChanged: (value) {
                                     setState(() {
                                       firstName = value;
@@ -344,6 +369,7 @@ Future<void> dialogGetCode(BuildContext context) {
                                 ),
                                 const Gap(25),
                                 TextFormField(
+                                  initialValue: password,
                                   onChanged: (value) {
                                     setState(() {
                                       password = value;
@@ -366,6 +392,7 @@ Future<void> dialogGetCode(BuildContext context) {
                             child: ListView(
                               children: [
                                 TextFormField(
+                                  initialValue: lastName,
                                   onChanged: (value) {
                                     setState(() {
                                       lastName = value;
@@ -380,6 +407,7 @@ Future<void> dialogGetCode(BuildContext context) {
                                 ),
                                 const Gap(25),
                                 TextFormField(
+                                  initialValue: passwordConfirm,
                                   obscureText: true,
                                   onChanged: (value) {
                                     setState(() {
@@ -402,6 +430,7 @@ Future<void> dialogGetCode(BuildContext context) {
                     Expanded(
                       child: TextFormField(
                         autofocus: true,
+                        initialValue: email,
                         onChanged: (value) {
                           setState(() {
                             email = value;
@@ -419,23 +448,62 @@ Future<void> dialogGetCode(BuildContext context) {
               ),
             ),
             actions: <Widget>[
-              TextButton(
-                style: TextButton.styleFrom(
-                  textStyle: Theme.of(context).textTheme.titleMedium,
+              Padding(
+                padding: const EdgeInsets.only(bottom: 16, right: 16),
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        SizedBox(
+                          height: 50,
+                          width: 100,
+                          child: TextButtonTheme(
+                            data: TextButtonThemeData(style: flatButtonStyle),
+                            child: TextButton(
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                                child: const Text('Cancel')),
+                          ),
+                        ),
+                        const Gap(30),
+                        SizedBox(
+                          height: 50,
+                          width: 300,
+                          child: OutlinedButtonTheme(
+                            data: OutlinedButtonThemeData(
+                                style: outlineButtonStyle),
+                            child: OutlinedButton(
+                              style: outlineButtonStyle,
+                              child: Text(isSignUp ? 'Sign Up' : 'Log In'),
+                              onPressed: () {
+                                signUpForAccess(context);
+                              },
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const Gap(25),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Text(isSignUp
+                            ? 'Already have an account? '
+                            : 'Need a new account? '),
+                        TextButton(
+                          child: Text(isSignUp ? 'Login' : 'Sign Up'),
+                          onPressed: () {
+                            setState(() {
+                              isSignUp = !isSignUp;
+                            });
+                          },
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
-                child: const Text('Close'),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-              TextButton(
-                style: TextButton.styleFrom(
-                  textStyle: Theme.of(context).textTheme.titleMedium,
-                ),
-                child: const Text('Sign Up for Access'),
-                onPressed: () {
-                  signUpForAccess();
-                },
               ),
             ],
           );

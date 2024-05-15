@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:app/all.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Storage {
@@ -9,7 +8,6 @@ class Storage {
 
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
   String? _cachedToken;
-  String? _cachedUser;
   Storage._privateConstructor();
 
   Future<String> get token async {
@@ -39,17 +37,14 @@ class Storage {
   Future<bool> getTheme() async {
     final prefs = await _prefs;
     final isDarkModeValue = prefs.getBool('isDarkMode') ?? true;
-    Glob.logI('isDarkMode value: $isDarkModeValue');
     return isDarkModeValue;
   }
 
-  Future<String> getUser(user) async {
-    if (_cachedUser != null) {
-      return _cachedUser!;
-    }
+  Future<Map<String, dynamic>?> getUser() async {
     final prefs = await _prefs;
-    String user = prefs.getString('user') ?? '';
-    user = jsonDecode(user);
+    final u = prefs.getString('user');
+    Map<String, dynamic>? user =
+        u != null && u.isNotEmpty ? jsonDecode(u) : null;
     return user;
   }
 
@@ -74,21 +69,22 @@ class Storage {
   Future<void> setTheme() async {
     final prefs = await _prefs;
     final curTheme = await getTheme();
-    Glob.logI(
-      'isDarkMode set: ${!curTheme}',
-    );
     await prefs.setBool('isDarkMode', !curTheme);
   }
 
-  Future<void> setToken(authToken) async {
+  Future<void> setToken(String? authToken) async {
     final prefs = await _prefs;
+    if (authToken == null) {
+      _cachedToken = null;
+      await prefs.setString('authToken', '');
+      return;
+    }
     await prefs.setString('authToken', authToken);
     _cachedToken = authToken;
   }
 
-  Future<void> setUser(user) async {
+  Future<void> setUser(Map<String, dynamic>? user) async {
     final prefs = await _prefs;
     await prefs.setString('user', jsonEncode(user));
-    _cachedUser = user;
   }
 }

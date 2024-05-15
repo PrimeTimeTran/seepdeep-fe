@@ -4,11 +4,10 @@ import 'dart:convert';
 import 'package:app/all.dart';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
+import 'package:http/http.dart';
 
 class Api {
   static http.Client client = http.Client();
-
-  // static const base = 'https://seepdeep-api-dev-7d6537ynfa-uc.a.run.app/api/';
   static const base = kDebugMode
       ? 'http://localhost:3000/api/'
       : 'https://seepdeep-api-dev-7d6537ynfa-uc.a.run.app/api/';
@@ -49,7 +48,9 @@ class Api {
         Glob.showSnack('Email already taken. Try another?');
         return http.Response('Email Taken', 400);
       }
-      return _result(response);
+      if (response.statusCode == 200) {
+        return _result(response);
+      }
     } catch (e) {
       Glob.logI('Error $e');
     }
@@ -63,27 +64,32 @@ class Api {
     return headers;
   }
 
-  static _result(response) {
-    final body = jsonDecode(response.body);
-    final data = body['data'];
-    if (body['token'] != null) {
-      final token = body['token'];
-      Storage.instance.setToken(token);
-      Storage.instance.setUser(token);
-      Glob.showSnack('Signup success!');
-      return body;
-    }
-    if (isArray(data)) {
-      if (data.length == 0) {
-        Glob.logI('0 Results');
-      } else {
-        Glob.logI(body['meta']);
-        Glob.logI(data[0]);
+  static _result(Response response) {
+    try {
+      final body = jsonDecode(response.body);
+      if (body['token'] != null) {
+        final token = body['token'];
+        final user = body['user'];
+        Storage.instance.setToken(token);
+        Storage.instance.setUser(user);
+        Glob.showSnack('Authentication successful');
+        return body;
       }
-    } else {
-      Glob.logI(data);
+      final data = body['data'];
+      if (isArray(data)) {
+        if (data.length == 0) {
+          Glob.logI('0 Results');
+        } else {
+          Glob.logI(body['meta']);
+          Glob.logI(data[0]);
+        }
+      } else {
+        Glob.logI(data);
+      }
+      return data;
+    } catch (e) {
+      Glob.logE('Error: $e');
     }
-    return data;
   }
 
   static _url(path) => Uri.parse(base + path);

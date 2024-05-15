@@ -13,11 +13,12 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   setPathUrlStrategy();
   await Firebase.initializeApp();
-
+  Map<String, dynamic>? user = await Storage.instance.getUser();
   runApp(
     provider.MultiProvider(
       providers: [
-        provider.ChangeNotifierProvider(create: (_) => AuthProvider()),
+        provider.ChangeNotifierProvider(
+            create: (_) => AuthProvider(user: user)),
         provider.ChangeNotifierProvider(create: (_) => ProblemProvider()),
       ],
       child: MyApp(),

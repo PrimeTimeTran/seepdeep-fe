@@ -420,7 +420,7 @@ To make this query work for selecting films with at least 1 billion in worldwide
     super.initState();
     onRun("select id, year, title from films limit 5;");
     setup();
-    getOpenAIHint();
+    // getOpenAIHint();
     super.initState();
   }
 

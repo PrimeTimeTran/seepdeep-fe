@@ -64,25 +64,28 @@ class _MasteryScreenState extends State<MasteryScreen> {
             children: [
               Text(topicName(topic), style: const TextStyle(fontSize: 20)),
               const Spacer(),
-              Text('${mastery[topic.name]['level']} / 10',
+              Text('${mastery[topic.name]?['level'] ?? 0} / 10',
                   style: const TextStyle(fontSize: 20))
             ],
           ),
-          // Consumer<AuthProvider>(
-          //   builder: (context, auth, child) {
-          //     return Text(
-          //       'isAuthenticated: ${auth.user.email}',
-          //       style: TextStyle(
-          //         color: auth.isAuthenticated ? Colors.green : Colors.red,
-          //       ),
-          //     );
-          //   },
-          // ),
+          Consumer<AuthProvider>(
+            builder: (context, auth, child) {
+              if (auth.isAuthenticated) {
+                return Text(
+                  'isAuthenticated: ${auth.user.email}',
+                  style: TextStyle(
+                    color: auth.isAuthenticated ? Colors.green : Colors.red,
+                  ),
+                );
+              }
+              return const SizedBox();
+            },
+          ),
           LinearProgressIndicator(
             color: color,
             minHeight: 15,
             semanticsValue: '40',
-            value: mastery[topic.name]['level'],
+            value: mastery[topic.name]?['level'] ?? 0,
             semanticsLabel: 'Linear progress indicator',
             borderRadius: const BorderRadius.all(Radius.circular(10)),
           ),
@@ -94,7 +97,6 @@ class _MasteryScreenState extends State<MasteryScreen> {
   }
 
   calculateMastery() {
-    Topics.values;
     user.solved?.map((solved) {});
   }
 
@@ -105,15 +107,22 @@ class _MasteryScreenState extends State<MasteryScreen> {
 
   @override
   void initState() {
+    setup();
     super.initState();
-    user = Provider.of<AuthProvider>(context, listen: false).user;
-    Glob.logI(user.toJson().toString());
-    mastery = buildMastery();
-    setState(() {
-      user = user;
-      mastery = mastery;
-    });
-    fetchSolves();
+  }
+
+  setup() {
+    final auth = Provider.of<AuthProvider>(context, listen: false);
+    if (auth.isAuthenticated) {
+      user = auth.user;
+      Glob.logI(user.toJson().toString());
+      mastery = buildMastery();
+      setState(() {
+        user = user;
+        mastery = mastery;
+      });
+      fetchSolves();
+    }
   }
 }
 
@@ -142,7 +151,10 @@ class _ProgressIndicatorState extends State<ProgressIndicator> {
               padding: const EdgeInsets.all(50),
               child: Consumer<AuthProvider>(
                 builder: (context, auth, child) {
-                  final vals = auth.getStreakDates();
+                  Map<DateTime, int>? vals = {};
+                  if (auth.isAuthenticated) {
+                    vals = auth.getStreakDates();
+                  }
                   return HeatMap(
                     defaultColor: Colors.green.shade100,
                     datasets: vals,
