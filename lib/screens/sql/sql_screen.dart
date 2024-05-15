@@ -21,6 +21,7 @@ class SQLScreen extends ConsumerStatefulWidget {
 class _SQLScreenState extends ConsumerState<SQLScreen> {
   String code = '';
   int lessonId = 0;
+  int lessonPromptIdx = 0;
   bool queried = false;
   bool error = false;
   String errorMsg = '';
@@ -29,6 +30,7 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
   bool queryFinished = true;
   List lessonQueryPrompts = [];
   Iterable<String> columnNames = [];
+  Map<String, dynamic> answerMap = {};
   List<Iterable<MapEntry<String, dynamic>>> records = [];
   List<Iterable<MapEntry<String, dynamic>>> answerRecords = [];
 
@@ -157,26 +159,6 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
     );
   }
 
-  buildPrompts() {
-    if (!queryFinished) {
-      return Column(
-        children: [
-          const SizedBox(height: 50),
-          Text(
-            'Query for Results. Available Tables:',
-            style: Theme.of(context).textTheme.headlineSmall,
-          ),
-          const SizedBox(height: 25),
-          Text(
-            'Customers, Employees, Invoices, Invoice_Items, Albums, Playlists, Playlist_Track, Tracks, Artists, Genres, Media_Types',
-            style: Theme.of(context).textTheme.bodyLarge,
-          ),
-        ],
-      );
-    }
-    return const SizedBox();
-  }
-
   Expanded buildQueryPromptPanel() {
     return Expanded(
       flex: 2,
@@ -192,10 +174,24 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
               final subtitle = item['queryPromptFollowup'] != null
                   ? Text(item['queryPromptFollowup'])
                   : null;
+
+              bool isDone = answerMap['$lessonId-$index'];
+              var checkboxColor = Colors.grey;
+              var icon = Icon(Icons.check_box_outline_blank_outlined,
+                  color: Colors.red.shade400);
+              if (isDone) {
+                checkboxColor = Colors.green;
+                icon =
+                    const Icon(Icons.check_box_outlined, color: Colors.green);
+              }
+
               return ListTile(
-                titleTextStyle: const TextStyle(color: Colors.grey),
+                titleTextStyle: Theme.of(context)
+                    .textTheme
+                    .headlineSmall
+                    ?.copyWith(color: checkboxColor),
                 style: ListTileStyle.drawer,
-                leading: const Icon(Icons.check_box),
+                leading: icon,
                 title: Text(item['queryPrompt']),
                 subtitle: subtitle,
               );
@@ -305,12 +301,25 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
 
   checkCorrect() async {
     final userQueryResultIds = queryResults.map((e) => e['id']).toList();
-    final lesson = lessonPromptMap[lessons[6]];
+    final lesson = lessonPromptMap[lessons[lessonId]];
     final resultIds = [];
-    answerQueryResults = await queryAnswer(lesson![0]['answer']!);
+    answerQueryResults = await queryAnswer(lesson![lessonPromptIdx]['answer']!);
     for (var e in answerQueryResults) {
       resultIds.add(e['id']);
     }
+    print('lessonId $lessonId');
+    print('lessonPromptIdx $lessonPromptIdx');
+    // print('lesson $lesson');
+    print('query ${lesson[lessonPromptIdx]['answer']!}');
+    print('resultIdsresultIds $resultIds');
+    print('userQueryResultIds $userQueryResultIds');
+    //
+
+    const go = """
+
+select id, title, worldwide_gross from films where worldwide_gross >= 1000;
+select id, year, title, oscars_nominated from films where oscars_nominated >= 5;
+""";
     if (resultIds.length != userQueryResultIds.length) {
       print('not same');
     } else {
@@ -323,6 +332,11 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
       }
       if (same) {
         print('same');
+        answerMap['$lessonId-$lessonPromptIdx'] = true;
+        setState(() {
+          answerMap = answerMap;
+          lessonPromptIdx = lessonPromptIdx + 1;
+        });
       } else {
         print('not same');
       }
@@ -343,14 +357,17 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
       queried = false;
       querying = true;
       columnNames = [];
+      answerRecords = [];
       queryResults = [];
       queryFinished = false;
+      answerQueryResults = [];
     });
     query(c ?? code);
   }
 
   List<Iterable<MapEntry<String, dynamic>>> parseQueryRows(
       List<QueryRow> queryRows) {
+    records = [];
     for (var row in queryRows) {
       records.add(row.data.entries);
     }
@@ -359,6 +376,7 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
 
   void query(String code) async {
     Completer<void> queryCompleter = Completer<void>();
+
     try {
       Glob.logI('Query started');
       final database = ref.read(AppDatabase.provider);
@@ -374,6 +392,7 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
           final cellMap = Map<String, dynamic>.fromEntries(element);
           queryResults.add(cellMap);
         }
+        print('queryResults ${queryResults.length}');
         QueryRow firstRow = result.first;
         columnNames = firstRow.data.keys;
         setState(() {
@@ -408,7 +427,7 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
         queried = true;
         querying = false;
       });
-      // checkCorrect();
+      checkCorrect();
     }
   }
 
@@ -434,10 +453,16 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
 
   setLesson(id) async {
     lessonContent = await loadData(id);
+    lessonQueryPrompts = lessonPromptMap[lessons[id]]!;
+    int idx = 0;
+    for (var _ in lessonQueryPrompts) {
+      answerMap['$id-$idx'] = false;
+      idx += 1;
+    }
     setState(() {
       lessonId = id;
       lessonContent = lessonContent;
-      lessonQueryPrompts = lessonPromptMap[lessons[id]]!;
+      lessonQueryPrompts = lessonQueryPrompts;
     });
     Storage.instance.setSqlStep(id);
   }

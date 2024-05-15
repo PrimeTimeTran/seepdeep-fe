@@ -149,18 +149,18 @@ final lessonPromptMap = {
       answer: """
 SELECT id, title, worldwide_gross 
 FROM films 
-WHERE worldwide_gross > 1000
+WHERE worldwide_gross >= 1000
 """,
       hint:
           'The WHERE keyword is used to filter results for results we want to keep.',
     ),
     makePrompt(
       queryPrompt:
-          'Select id, year, title, oscars_nominated from films that have been nominated for 3 or more Oscars.',
+          'Select id, year, title, oscars_nominated from films that have been nominated for 5 or more Oscars.',
       answer: """
 SELECT id, year, title, oscars_nominated
 FROM films
-WHERE oscars_nominated >= 3
+WHERE oscars_nominated >= 5
 """,
       hint: 'The films table has a column named oscars_nominated.',
     ),
