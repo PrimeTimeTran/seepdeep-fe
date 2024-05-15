@@ -280,6 +280,102 @@ Future<void> dialogFeatureRequest(BuildContext context) {
   );
 }
 
+Future<void> dialogGetCode(BuildContext context) {
+  String firstName = '';
+  String lastName = '';
+  String email = '';
+
+  signUpForAccess() {
+    print("Local firstName: $firstName"); // Print local variable
+    print("Local lastName: $lastName"); // Print local variable
+    print("Local email: $email"); // Print local variable
+  }
+
+  return showDialog<void>(
+    context: context,
+    builder: (BuildContext context) {
+      return StatefulBuilder(
+        builder: (BuildContext context, StateSetter setState) {
+          return AlertDialog(
+            title: const Text('Get Code'),
+            content: SizedBox(
+              height: getHeight() / 5,
+              width: getWidth() / 2,
+              child: Center(
+                child: Column(
+                  children: [
+                    TextFormField(
+                      onChanged: (value) {
+                        setState(() {
+                          firstName = value;
+                        });
+                      },
+                      autofocus: true,
+                      decoration: InputDecoration(
+                        labelStyle: Theme.of(context).textTheme.titleLarge,
+                        hintText: 'John',
+                        labelText: 'First Name',
+                      ),
+                    ),
+                    TextFormField(
+                      autofocus: true,
+                      onChanged: (value) {
+                        setState(() {
+                          lastName = value;
+                        });
+                      },
+                      decoration: InputDecoration(
+                        labelStyle: Theme.of(context).textTheme.titleLarge,
+                        hintText: 'Doe',
+                        labelText: 'Last Name',
+                      ),
+                    ),
+                    const SizedBox(height: 30),
+                    TextFormField(
+                      initialValue: email,
+                      onChanged: (value) {
+                        setState(() {
+                          email = value;
+                        });
+                      },
+                      decoration: InputDecoration(
+                        labelStyle: Theme.of(context).textTheme.titleLarge,
+                        hintText: 'johndoe@email.com',
+                        labelText: 'Email',
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            actions: <Widget>[
+              TextButton(
+                style: TextButton.styleFrom(
+                  textStyle: Theme.of(context).textTheme.titleMedium,
+                ),
+                child: const Text('Close'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+              TextButton(
+                style: TextButton.styleFrom(
+                  textStyle: Theme.of(context).textTheme.titleMedium,
+                ),
+                child: const Text('Sign Up for Access'),
+                onPressed: () {
+                  signUpForAccess();
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+    },
+  );
+}
+
 Future<void> dialogPay(BuildContext context) {
   final Uri url = Uri.parse('https://buy.stripe.com/14k6qB4WMabKadi288');
   return showDialog<void>(

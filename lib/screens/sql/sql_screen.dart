@@ -349,7 +349,6 @@ select id, year, title, oscars_nominated, oscars_won from films where oscars_won
 
   Future<void> getAIHelp(content) async {
     try {
-      print('getAIHelp');
       final headers = <String, String>{};
       headers['Content-Type'] = 'application/json';
       final response = await http.post(
@@ -361,11 +360,8 @@ select id, year, title, oscars_nominated, oscars_won from films where oscars_won
       );
       if (response.statusCode == 200) {
         await playAudioFromBytes(response.bodyBytes);
-      } else {
-        // Handle other status codes if needed
-      }
+      } else {}
     } catch (e) {
-      // Handle any exceptions
       print('Error: $e');
     }
   }
@@ -422,8 +418,8 @@ To make this query work for selecting films with at least 1 billion in worldwide
   @override
   void initState() {
     super.initState();
-    // onRun("select id, year, title from films limit 5;");
-    // setup();
+    onRun("select id, year, title from films limit 5;");
+    setup();
     getOpenAIHint();
     super.initState();
   }

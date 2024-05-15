@@ -394,7 +394,7 @@ class _AppBarContentState extends State<AppBarContent> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       // dialogBugReport(context);
       // dialogShortcuts(context);
-      // dialogPay(context);
+      // dialogGetCode(context);
     });
   }
 }
