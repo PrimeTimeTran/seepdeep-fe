@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:app/all.dart';
 import 'package:app/screens/sql/lesson.dart';
 import 'package:drift/drift.dart' hide Column;
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
@@ -327,6 +328,8 @@ select id, year, title, oscars_nominated, oscars_won from films where oscars_won
       }
       if (same) {
         print('same');
+        await FirebaseAnalytics.instance
+            .logEvent(name: "study_query_end_success");
         answerMap['$lessonId-$lessonPromptIdx'] = true;
         setState(() {
           answerMap = answerMap;
@@ -379,6 +382,13 @@ select id, year, title, oscars_nominated, oscars_won from films where oscars_won
 
   void queryUser(String code) async {
     Completer<void> queryCompleter = Completer<void>();
+    await FirebaseAnalytics.instance.logEvent(
+      name: "study_submission_create",
+      parameters: {
+        "type": "sql",
+        "problem_id": '$lessonId-$lessonPromptIdx',
+      },
+    );
     try {
       Glob.logI('Query started');
       final results = await queryDB(code);

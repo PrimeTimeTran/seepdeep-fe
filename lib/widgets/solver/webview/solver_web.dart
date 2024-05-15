@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:app/all.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:getwidget/getwidget.dart';
@@ -315,6 +316,13 @@ class _SolverState extends State<Solver> {
 
   postSubmission(item) async {
     try {
+      await FirebaseAnalytics.instance.logEvent(
+        name: "study_submission_create",
+        parameters: {
+          "type": "dsa",
+          "problem_id": problem?.id,
+        },
+      );
       setState(() {
         processing = true;
       });

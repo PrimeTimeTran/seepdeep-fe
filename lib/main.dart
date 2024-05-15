@@ -1,6 +1,7 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:app/all.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -8,10 +9,11 @@ import 'package:provider/provider.dart' as provider;
 import 'package:seo/seo.dart';
 import 'package:url_strategy/url_strategy.dart';
 
+import 'firebase_options.dart';
+
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   setPathUrlStrategy();
-
   runApp(
     provider.MultiProvider(
       providers: [
@@ -57,5 +59,12 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
+    setupFirebase();
+  }
+
+  setupFirebase() async {
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
   }
 }

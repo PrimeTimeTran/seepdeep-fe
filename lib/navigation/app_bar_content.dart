@@ -1,6 +1,7 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 
 import 'package:app/all.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
@@ -353,13 +354,29 @@ class _AppBarContentState extends State<AppBarContent> {
       String title, IconData icon, String route) {
     return PopupMenuItem<SampleItem>(
       value: SampleItem.itemOne,
-      onTap: () {
+      onTap: () async {
         if (route == AppScreens.featureRequests.path) {
           dialogFeatureRequest(context);
+          await FirebaseAnalytics.instance.logEvent(
+            name: "engage",
+            parameters: {"type": "feature_request_create"},
+          );
         } else if (route == AppScreens.bugReports.path) {
+          await FirebaseAnalytics.instance.logEvent(
+            name: "engage",
+            parameters: {"type": "bug_report_create"},
+          );
           dialogBugReport(context);
         } else if (route == 'shortcuts') {
+          await FirebaseAnalytics.instance.logEvent(
+            name: "engage",
+            parameters: {"type": "shortcuts_research"},
+          );
           dialogShortcuts(context);
+          await FirebaseAnalytics.instance.logEvent(
+            name: "engage",
+            parameters: {"type": "navigate_site"},
+          );
         } else {
           GoRouter.of(context).go(route);
         }
