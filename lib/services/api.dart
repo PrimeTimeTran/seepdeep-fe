@@ -2,14 +2,19 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:app/all.dart';
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 
 class Api {
   static http.Client client = http.Client();
 
-  static const base = 'https://seepdeep-api-dev-7d6537ynfa-uc.a.run.app/api/';
-  static String authToken =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWNkMmY0YzAyNjAwNDZhNDQzNTExYTIiLCJpYXQiOjE3MTM2NDg2NzgsImV4cCI6MjAyOTAwODY3OH0.HnX3iDxGkKdcgaxpZSAR34jXq5T1pASW6vaeEjuJ6EM';
+  // static const base = 'https://seepdeep-api-dev-7d6537ynfa-uc.a.run.app/api/';
+  static const base = kDebugMode
+      ? 'http://localhost:3000/api/'
+      : 'https://seepdeep-api-dev-7d6537ynfa-uc.a.run.app/api/';
+  static String authToken = kDebugMode
+      ? 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWNkMmY0YzAyNjAwNDZhNDQzNTExYTIiLCJpYXQiOjE3MTM2NDg2NzgsImV4cCI6MjAyOTAwODY3OH0.HnX3iDxGkKdcgaxpZSAR34jXq5T1pASW6vaeEjuJ6EM'
+      : '';
 
   Api._();
 
@@ -40,9 +45,13 @@ class Api {
         Glob.showSnack('Timeout. Is your internet connection ok?');
         return http.Response('Timeout', 408);
       });
+      if (response.statusCode == 400) {
+        Glob.showSnack('Email already taken. Try another?');
+        return http.Response('Email Taken', 400);
+      }
       return _result(response);
     } catch (e) {
-      Glob.logI(e);
+      Glob.logI('Error $e');
     }
   }
 
@@ -57,6 +66,13 @@ class Api {
   static _result(response) {
     final body = jsonDecode(response.body);
     final data = body['data'];
+    if (body['token'] != null) {
+      final token = body['token'];
+      Storage.instance.setToken(token);
+      Storage.instance.setUser(token);
+      Glob.showSnack('Signup success!');
+      return body;
+    }
     if (isArray(data)) {
       if (data.length == 0) {
         Glob.logI('0 Results');

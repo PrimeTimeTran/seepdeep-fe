@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:app/all.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -7,6 +9,7 @@ class Storage {
 
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
   String? _cachedToken;
+  String? _cachedUser;
   Storage._privateConstructor();
 
   Future<String> get token async {
@@ -40,6 +43,16 @@ class Storage {
     return isDarkModeValue;
   }
 
+  Future<String> getUser(user) async {
+    if (_cachedUser != null) {
+      return _cachedUser!;
+    }
+    final prefs = await _prefs;
+    String user = prefs.getString('user') ?? '';
+    user = jsonDecode(user);
+    return user;
+  }
+
   Future<void> setProblemCode(problemId, lang, code) async {
     final prefs = await _prefs;
     await prefs.setString('problemId-$lang-$problemId', code);
@@ -71,5 +84,11 @@ class Storage {
     final prefs = await _prefs;
     await prefs.setString('authToken', authToken);
     _cachedToken = authToken;
+  }
+
+  Future<void> setUser(user) async {
+    final prefs = await _prefs;
+    await prefs.setString('user', jsonEncode(user));
+    _cachedUser = user;
   }
 }
