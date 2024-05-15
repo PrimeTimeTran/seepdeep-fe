@@ -293,7 +293,7 @@ class _LandingScreenState extends State<LandingScreen> {
                           Text('Dont fly solo', style: Style.headlineS),
                           const Gap(50),
                           Text(
-                            'Money back guarantee.\n\nA fresh take on learning.\n\nnGain 21st century skills more \neasily with us',
+                            'Money back guarantee.\n\nA fresh take on learning.\n\nGain 21st century skills more \neasily with us',
                             style: Style.displayM
                                 .copyWith(fontWeight: FontWeight.bold),
                             textAlign: TextAlign.center,

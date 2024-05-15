@@ -1,7 +1,8 @@
 {
+    // flb web --release --dart-define=FLUTTER_BASE_HREF='https://www.seepdeep.com'
     "name": "Seep Deep - Automated spaced repetition so you can reap the benefits of learning for life.",
     "short_name": "Seep Deep - Learn for life",
-    "start_url": "https://seepdeep.com",
+    "start_url": "https://www.seepdeep.com",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
