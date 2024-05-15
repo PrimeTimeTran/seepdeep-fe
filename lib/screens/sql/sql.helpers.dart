@@ -1,62 +1,6 @@
 import 'package:app/all.dart';
 import 'package:flutter/services.dart';
 
-import 'temp_lesson.dart';
-
-const duplicateTitles = """
-// duplicateTitles
-SELECT title, COUNT(*) AS count
-FROM films
-GROUP BY title
-HAVING COUNT(*) > 1;
-
-// duplicateTitles records, ordered by title
-SELECT id, title, year
-FROM films
-  WHERE title IN (
-      SELECT title
-      FROM films
-      GROUP BY title
-      HAVING COUNT(*) > 1
-  )
-ORDER BY title;
-
-
-# DELETE from a list of ids;
-WHERE id IN ( 5686,
-             5711,
-             5714,
-             1002,
-             5641,
-             5634,
-             5788,
-             5731,
-             5710,
-             5826,
-             5809,
-             34,
-             5784,
-             1048,
-             1054,
-             1064,
-             5685,
-             5779,
-             1038,
-             5820,
-             5680,
-             5695,
-             5805,
-             5706,
-             5681,
-             5662,
-             5647,
-             5688,
-             5686,
-             5677 );
-
-SELECT id, year, title from films where id < 50
-""";
-
 final lessonPromptMap = {
   '0.toc.md': [
     makePrompt(queryPrompt: 'Checkout the table in the top right'),
@@ -279,23 +223,22 @@ ORDER BY title;
   '9.aggregate.md': [
     {'queryPrompt': 'Aggregate'},
   ],
-  // 3 left join, 3 right join, 3 inner join, 3 outer join, 3 self join
   '10.join.md': [
     makePrompt(
       queryPrompt:
-          """Select id, name and their department's name of all the employees""",
+          """Select employees id, name, surname and their department's name from all the employees""",
       answer: """
-SELECT employees.id, employees.name, departments.name
+SELECT employees.id, employees.name, surname, departments.name as department_name
 FROM employees
 JOIN departments
-ON employees.department_id = departments.id
+ON employees.department_id = departments.id;
 """,
     ),
     makePrompt(
       queryPrompt:
-          """Select id, name and their department's name of all the employees. Rename the employee's id to employee_id, employees name column to employee_name and department's name to department_name""",
+          """Select employees id, name, surname and their department's name of all the employees. Rename the employee's id to employee_id, employees name to employee_name, employees surname to employee_surname and department's name to department_name""",
       answer: """
-SELECT employees.id as employee_id, employees.name employee_name, departments.name department_name
+SELECT employees.id employee_id, employees.name employee_name, surname employee_surname, departments.name department_name
 FROM employees
 JOIN departments
 ON employees.department_id = departments.id
@@ -313,11 +256,11 @@ ON films.studio_id = studios.id;
     ),
     makePrompt(
       queryPrompt: """
-Select the title of the film & genre's names for all genres. Group by genre name in alphabetical order.
+Select the title of the film & genre's names for all genres. Order by genre name in alphabetical order.
 """,
       answer: """
 SELECT title, 
-       NAME 
+       name 
 FROM   films 
        JOIN genre_films 
          ON films.id = genre_films.film_id 
@@ -352,9 +295,9 @@ FROM   directors
     ),
     makePrompt(
       queryPrompt:
-          'Select all the unique directors Disney Studios has employed over the years.',
+          'Select all the unique directors Disney Studios has employed over the years. Rename directors name field to directors_name and studios as studio_name',
       answer: """
-SELECT DISTINCT directors.name, studios.name
+SELECT DISTINCT directors.name as directors_name, studios.name studio_name
 FROM film_directors
 JOIN films ON films.id = film_directors.film_id
 JOIN directors ON directors.id = film_directors.director_id
@@ -456,10 +399,10 @@ FULL JOIN departments
 ON employees.department_id = departments.id
 """,
     ),
-    makePrompt(
-      queryPrompt: """""",
-      answer: """""",
-    ),
+    // makePrompt(
+    //   queryPrompt: """""",
+    //   answer: """""",
+    // ),
   ],
   '11.union.md': [
     makePrompt(
@@ -515,6 +458,9 @@ pragma table_info(employees)
   ],
 };
 
+// Examples
+// https://leetcode.com/problems/customer-who-visited-but-did-not-make-any-transactions/?envType=study-plan-v2&envId=top-sql-50
+
 // Example: Selecting same table twice with aliases
 // https://leetcode.com/problems/rising-temperature/?envType=study-plan-v2&envId=top-sql-50
 
@@ -524,7 +470,7 @@ pragma table_info(employees)
 // Example: Multiple group bys
 // https://leetcode.com/problems/students-and-examinations/?envType=study-plan-v2&envId=top-sql-50
 
-// Good subquery
+// Good sub query
 // https://leetcode.com/problems/managers-with-at-least-5-direct-reports/?envType=study-plan-v2&envId=top-sql-50
 
 final lessons = [
@@ -536,8 +482,6 @@ final lessons = [
   '5.where.md',
   '6.orderby.md',
   '7.groupby.md',
-  // Examples
-  // https://leetcode.com/problems/customer-who-visited-but-did-not-make-any-transactions/?envType=study-plan-v2&envId=top-sql-50
   '8.having.md',
   '9.aggregate.md',
   // inner, outer, left, right, full, cross
@@ -560,11 +504,8 @@ Future<String> loadData(lessonId) async {
 
 Future<String> loadMarkdownContent(int lessonId) async {
   try {
-    String data = lesson;
-    if (true) {
-      String path = 'assets/lessons/sql/${lessons[lessonId]}';
-      data = await rootBundle.loadString(path);
-    }
+    String path = 'assets/lessons/sql/${lessons[lessonId]}';
+    final data = await rootBundle.loadString(path);
     return data;
   } catch (e) {
     print("Error loading Markdown content: $e");

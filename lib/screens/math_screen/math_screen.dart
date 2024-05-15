@@ -164,7 +164,7 @@ class _MathScreenState extends State<MathScreen> {
                           ),
                           child: AppText(
                             text: question.title!,
-                            style: Theme.of(context).textTheme.displayMedium,
+                            style: Theme.of(context).textTheme.headlineMedium,
                           )),
                       const Gap(10),
                       ConstrainedBox(

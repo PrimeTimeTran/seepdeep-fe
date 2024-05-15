@@ -1,6 +1,29 @@
 import csv
 import sqlite3
 
+# List of films for studios?
+
+# Universal
+# https://simple.wikipedia.org/wiki/List_of_Universal_Pictures_movies
+
+# Disney
+# https://en.wikipedia.org/wiki/List_of_Walt_Disney_Pictures_films
+
+# Paramount
+# https://simple.wikipedia.org/wiki/List_of_Paramount_Pictures_movies
+
+# Not so good below
+
+# Warner brothers
+# https://en.wikipedia.org/wiki/Lists_of_Warner_Bros._films
+
+# 20th century
+# https://en.wikipedia.org/wiki/Lists_of_20th_Century_Studios_films
+
+# Columbia
+# https://en.wikipedia.org/wiki/Lists_of_Columbia_Pictures_films
+
+
 def connect_to_database(db_file_path):
     conn = sqlite3.connect(db_file_path)
     cursor = conn.cursor()
