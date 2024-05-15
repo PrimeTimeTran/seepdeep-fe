@@ -119,18 +119,17 @@ class _MathScreenState extends State<MathScreen> {
               ),
             ],
           );
-        } else {
-          return const Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              CircularProgressIndicator(),
-              Padding(
-                padding: EdgeInsets.only(top: 16),
-                child: Text('Awaiting result...'),
-              ),
-            ],
-          );
         }
+        return const Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            CircularProgressIndicator(),
+            Padding(
+              padding: EdgeInsets.only(top: 16),
+              child: Text('Awaiting result...'),
+            ),
+          ],
+        );
       },
     );
   }

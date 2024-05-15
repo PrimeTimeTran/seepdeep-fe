@@ -6,7 +6,6 @@ import 'package:drift/drift.dart' hide Column;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
-import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart' as provider;
 
 import '../../database/database.dart';
@@ -31,8 +30,12 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
   List lessonQueryPrompts = [];
   Iterable<String> columnNames = [];
   List<Iterable<MapEntry<String, dynamic>>> records = [];
+  List<Iterable<MapEntry<String, dynamic>>> answerRecords = [];
 
-  late String jsonData;
+  List queryResults = [];
+  List answerQueryResults = [];
+
+  // late String jsonData;
 
   @override
   Widget build(BuildContext context) {
@@ -300,27 +303,37 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
     return const SizedBox();
   }
 
-  Future<void> fetchData() async {
-    try {
-      final response = await http.get(Uri.parse('http://localhost:8080'));
-      if (response.statusCode == 200) {
-        setState(() {
-          jsonData = response.body;
-        });
-      } else {
-        print('Request failed with status: ${response.statusCode}');
+  checkCorrect() async {
+    final userQueryResultIds = queryResults.map((e) => e['id']).toList();
+    final lesson = lessonPromptMap[lessons[6]];
+    final resultIds = [];
+    answerQueryResults = await queryAnswer(lesson![0]['answer']!);
+    for (var e in answerQueryResults) {
+      resultIds.add(e['id']);
+    }
+    if (resultIds.length != userQueryResultIds.length) {
+      print('not same');
+    } else {
+      bool same = true;
+      for (int i = 0; i < resultIds.length; i++) {
+        if (resultIds[i] != userQueryResultIds[i]) {
+          same = false;
+          break;
+        }
       }
-    } catch (e) {
-      print('Error fetching data: $e');
+      if (same) {
+        print('same');
+      } else {
+        print('not same');
+      }
     }
   }
 
   @override
   void initState() {
     super.initState();
-    onRun("SELECT * FROM films limit 5; ");
+    onRun("select id, year, title from films limit 5;");
     setup();
-    // fetchData();
   }
 
   void onRun([String? c, Language? language]) {
@@ -330,6 +343,7 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
       queried = false;
       querying = true;
       columnNames = [];
+      queryResults = [];
       queryFinished = false;
     });
     query(c ?? code);
@@ -356,12 +370,17 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
 
       if (result.isNotEmpty) {
         records = parseQueryRows(result);
+        for (var element in records) {
+          final cellMap = Map<String, dynamic>.fromEntries(element);
+          queryResults.add(cellMap);
+        }
         QueryRow firstRow = result.first;
         columnNames = firstRow.data.keys;
         setState(() {
           error = false;
           records = records;
           columnNames = columnNames;
+          queryResults = queryResults;
         });
       } else {
         setState(() {
@@ -389,6 +408,27 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
         queried = true;
         querying = false;
       });
+      // checkCorrect();
+    }
+  }
+
+  queryAnswer(String code) async {
+    final answerQueryResults = [];
+    final database = ref.read(AppDatabase.provider);
+    List<QueryRow> answerResult = await database.customSelect(
+      '$code ',
+      readsFrom: {...database.allTables},
+    ).get();
+
+    if (answerResult.isNotEmpty) {
+      for (var row in answerResult) {
+        answerRecords.add(row.data.entries);
+      }
+      for (var element in answerRecords) {
+        final cellMap = Map<String, dynamic>.fromEntries(element);
+        answerQueryResults.add(cellMap);
+      }
+      return answerQueryResults;
     }
   }
 

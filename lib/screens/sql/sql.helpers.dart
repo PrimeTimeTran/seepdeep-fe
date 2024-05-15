@@ -1,6 +1,44 @@
 import 'package:app/all.dart';
 import 'package:flutter/services.dart';
 
+// select id, title, worldwide_gross from films order by worldwide_gross desc limit 25
+
+// How to use union to compare the results of two queries;
+const query = """
+WITH NumberedRows AS (
+    SELECT 
+        id, 
+        title, 
+        worldwide_gross, 
+        (SELECT COUNT(*) FROM films AS f2 WHERE f2.worldwide_gross >= f1.worldwide_gross) AS row_num
+    FROM films AS f1
+    ORDER BY worldwide_gross DESC
+    LIMIT 25
+)
+SELECT 
+    row_num,
+    id,
+    title,
+    worldwide_gross 
+FROM NumberedRows
+UNION
+WITH NumberedFilms AS (
+    SELECT 
+        id, 
+        title, 
+        worldwide_gross, 
+        ROW_NUMBER() OVER (ORDER BY id) AS row_num
+    FROM films
+)
+SELECT 
+    row_num,
+    id,
+    title,
+    worldwide_gross
+FROM NumberedFilms
+WHERE row_num <= 25;
+""";
+
 final lessonPromptMap = {
   '0.toc.md': [
     makePrompt(queryPrompt: 'Checkout the table in the top right'),
@@ -11,12 +49,25 @@ final lessonPromptMap = {
     makePrompt(
       queryPrompt: 'Add a film to the films table',
       queryPromptFollowup: 'What fields should you consider adding?',
+      answer: """
+
+""",
     ),
-    makePrompt(queryPrompt: 'Add an employee to the employees table'),
     makePrompt(
-        queryPrompt:
-            'Add another employee with name & surname fields to the employees table'),
-    makePrompt(queryPrompt: 'Add a third employee to the employees table'),
+      queryPrompt: 'Add an employee to the employees table',
+      queryPromptFollowup:
+          'What fields does it make sense for employees to have?',
+      answer: """
+
+""",
+    ),
+    makePrompt(
+      queryPrompt:
+          'Add another employee with name & surname fields to the employees table',
+      answer: """
+
+""",
+    ),
   ],
   '2.select.md': [
     makePrompt(
@@ -56,68 +107,132 @@ final lessonPromptMap = {
     makePrompt(
       queryPrompt:
           'The employee record with the id of 1, change it to have your data/information.',
+      answer: """
+
+""",
     ),
     makePrompt(
       queryPrompt:
           'Update all employees with an id greater than 1 to report to 1.',
+      answer: """
+
+""",
     ),
     makePrompt(
       queryPrompt:
           'Update the film with the id of 1 to your favorite film\'s information. Update all fields',
+      answer: """
+
+""",
     ),
   ],
   '4.delete.md': [
     makePrompt(
-        queryPrompt:
-            'After reviewing the films table, pick one you dont like and delete it.'),
+      queryPrompt:
+          'After reviewing the films table, pick one you dont like and delete it.',
+      answer: """
+
+""",
+    ),
     makePrompt(
-        queryPrompt:
-            'Find an employee from a city you\'ve never heard of in the employees table & delete that record from the db.'),
+      queryPrompt:
+          'Find an employee from a city you\'ve never heard of in the employees table & delete that record from the db.',
+      answer: """
+
+""",
+    ),
   ],
   '5.where.md': [
     makePrompt(
       queryPrompt:
-          'Select films that have made a worldwide_gross of over 1billion.',
+          'Select id, title, worldwide_gross from films that have at least 1billion in worldwide_gross.',
+      answer: """
+SELECT id, title, worldwide_gross 
+FROM films 
+WHERE worldwide_gross > 1000
+""",
+      hint:
+          'The WHERE keyword is used to filter results for results we want to keep.',
     ),
     makePrompt(
-        queryPrompt:
-            'Select films that have been nominated for 3 or more oscars'),
+      queryPrompt:
+          'Select id, year, title, oscars_nominated from films that have been nominated for 3 or more Oscars.',
+      answer: """
+SELECT id, year, title, oscars_nominated
+FROM films
+WHERE oscars_nominated >= 3
+""",
+      hint: 'The films table has a column named oscars_nominated.',
+    ),
     makePrompt(
-      queryPrompt: 'Select films that have won 2 or more oscars',
+      queryPrompt:
+          'Select id, year, title, oscars_nominated, oscars_won, from films that have won 3 or more Oscars.',
+      answer: """
+SELECT id, year, title, oscars_nominated, oscars_won
+FROM films
+WHERE oscars_won >= 3
+""",
+      hint: 'The films table has a column named oscars_won.',
     ),
   ],
   '6.orderby.md': [
     makePrompt(
+      ordered: true,
+      queryPrompt:
+          'Select id, title, worldwide_gross from films order by worldwide in desc order. limit to 25 results',
+      answer: """
+SELECT id,
+       title,
+       worldwide_gross
+FROM   films
+ORDER  BY worldwide_gross DESC
+LIMIT  5; 
+""",
+      hint:
+          'With the keywords ORDER BY we can change the sequence of our results.',
+    ),
+    makePrompt(
+      ordered: true,
       queryPrompt:
           'Select id, name, surname, birth_date, age from employees ordered by age from youngest to oldest.',
       answer: """
 SELECT id, name, surname, birth_date, age FROM employees ORDER BY age ASC;
 """,
+      hint: 'ORDER BY sorts in ascending order by default.',
     ),
     makePrompt(
+      ordered: true,
       queryPrompt:
           'Select id, name, surname, birth_date & age from employees ordered by age from oldest to youngest.',
       answer: """
 SELECT id, name, surname, birth_date, age FROM employees ORDER BY age DESC;
 """,
+      hint: 'Try ORDER BY with the age column first.',
     ),
     makePrompt(
+      ordered: true,
       queryPrompt:
           'Select id, name, surname, birth_date & age from employees ordered by age from oldest to youngest. Then order by their ids in DESC order for each age subgroup.',
       answer: """
 SELECT id, name, surname, birth_date, age FROM employees ORDER BY age DESC, id DESC;
 """,
+      hint:
+          'We can ORDER BY on multiple columns just like we can SELECT multiple columns.',
     ),
     makePrompt(
-        queryPrompt:
-            'Select id, name, surname & salary from the top 25 highest paid employees',
-        answer: """
+      queryPrompt:
+          'Select id, name, surname & salary from the top 25 highest paid employees',
+      answer: """
 SELECT id, name, surname, salary FROM employees ORDER BY salary DESC LIMIT 25;
-"""),
+""",
+      hint:
+          'If we\'re looking for the highest paid, should we ORDER BY ascending or descending?',
+    ),
     makePrompt(
-        queryPrompt:
-            'Select the id, year, title & worldwide_gross of the top 50 highest grossing worldwide films of all time.',
-        answer: """
+      ordered: true,
+      queryPrompt:
+          'Select the id, year, title & worldwide_gross of the top 50 highest grossing worldwide films of all time.',
+      answer: """
 SELECT id,
        year,
        title,
@@ -125,16 +240,22 @@ SELECT id,
 FROM   films
 ORDER  BY worldwide_gross DESC
 LIMIT  50;
-"""),
+""",
+      hint: 'We can place a LIMIT on our results.',
+    ),
     makePrompt(
-        queryPrompt:
-            'Select id, title, name & age from employees and group by title alphabetically.',
-        answer: """
+      ordered: true,
+      queryPrompt:
+          'Select id, title, name & age from employees and group by title alphabetically.',
+      answer: """
 SELECT id, title, name, age
 FROM employees
 ORDER BY title;
-"""),
+""",
+      hint: 'Is A-Z in alphabetical order or Z-A?',
+    ),
     makePrompt(
+      ordered: true,
       queryPrompt:
           'Select id, title, name & age from employees and group by title alphabetically then age oldest to youngest.',
       answer: """
@@ -142,8 +263,11 @@ SELECT id, title, name, age
 FROM employees
 ORDER BY title, age DESC;
 """,
+      hint:
+          'We\'ve seen one similar to this. We just need to recall a previous query.',
     ),
     makePrompt(
+      ordered: true,
       queryPrompt:
           'Select id, year, title, oscars_nominated, oscars_won from the top 50 films by oscars nominated.',
       answer: """
@@ -152,26 +276,32 @@ FROM films
 ORDER BY oscars_nominated DESC
 LIMIT 50;
 """,
+      hint:
+          'This one is similar to a previous step. We just need to LIMIT our results.',
     ),
     makePrompt(
+      ordered: true,
       queryPrompt:
-          'Select id, year, title, oscars_nominated, oscars_won from the top 50 films by oscars nominated. Order by oscars_nominated and then oscars_won if theres a tie.',
+          'Select id, year, title, oscars_nominated & oscars_won from the top 50 films by oscars nominated.',
       answer: """
 SELECT year, title, oscars_nominated, oscars_won 
 FROM films 
-ORDER BY oscars_nominated DESC, oscars_won DESC 
+ORDER BY oscars_nominated DESC
 LIMIT 50;
 """,
+      hint: 'How might we LIMIT and ORDER BY columns in our query?',
     ),
     makePrompt(
+      ordered: true,
       queryPrompt:
-          'Select id, year, title, oscars_nominated, oscars_won from the top 50 films by oscars nominated. Order by oscars_won and then oscars_nominated if theres a tie.',
+          'Select id, year, title, oscars_nominated & oscars_won from the top 50 films. Order by oscars_won & subsequently oscars_nominated.',
       answer: """
 SELECT year, title, oscars_nominated, oscars_won 
 FROM films 
 ORDER BY oscars_won DESC, oscars_nominated DESC
 LIMIT 50;
 """,
+      hint: 'How might we LIMIT and ORDER BY columns in our query?',
     ),
   ],
   '7.groupby.md': [
@@ -179,15 +309,24 @@ LIMIT 50;
       queryPrompt:
           'List the number of employees from each state. Include the name of the state and the count.',
       answer: """
-SELECT state, count(*) FROM employees GROUP BY state;
+SELECT state,
+       Count(*)
+FROM   employees
+GROUP  BY state; 
 """,
+      hint: 'We want to group records on their state column value.',
     ),
     makePrompt(
       queryPrompt:
           'List the number of films that have won at least 1 oscar. List the number they won as well.',
       answer: """
-SELECT count(*) as oscar_winners, oscars_won FROM films WHERE oscars_won >= 1 GROUP BY oscars_won;
+SELECT Count(*) AS oscar_winners,
+       oscars_won
+FROM   films
+WHERE  oscars_won >= 1
+GROUP  BY oscars_won; 
 """,
+      hint: 'Having more than 1 oscar could mean having 2... or 3... etc.',
     ),
   ],
   '8.having.md': [
@@ -197,27 +336,31 @@ SELECT count(*) as oscar_winners, oscars_won FROM films WHERE oscars_won >= 1 GR
 Select film titles that have been used more than once. Return the title and number of times it's been used as a title_use_count.
 """,
       answer: """
-SELECT title, COUNT(*) AS title_use_count
-FROM films
-GROUP BY title
-HAVING COUNT(*) > 1;
+SELECT title,
+       Count(*) AS title_use_count
+FROM   films
+GROUP  BY title
+HAVING Count(*) > 1; 
 """,
+      hint: 'Filtering aggregates of records requires a HAVING clause.',
     ),
     makePrompt(
+      ordered: true,
       queryPrompt: """
 Select the film's id, title & year from films that have been used more than once. Order the title's names alphabetically.
 """,
       answer: """
-SELECT id, title, year
-FROM films
-  WHERE title IN (
-      SELECT title
-      FROM films
-      GROUP BY title
-      HAVING COUNT(*) > 1
-  )
-ORDER BY title;
+SELECT id,
+       title,
+       year
+FROM   films
+WHERE  title IN (SELECT title
+                 FROM   films
+                 GROUP  BY title
+                 HAVING Count(*) > 1)
+ORDER  BY title; 
 """,
+      hint: 'We can use ORDER BY with HAVING as well.',
     ),
   ],
   '9.aggregate.md': [
@@ -233,6 +376,7 @@ FROM employees
 JOIN departments
 ON employees.department_id = departments.id;
 """,
+      hint: 'We need to combine the results of multiple tables for this one.',
     ),
     makePrompt(
       queryPrompt:
@@ -243,6 +387,7 @@ FROM employees
 JOIN departments
 ON employees.department_id = departments.id
 """,
+      hint: 'We need to combine the results of multiple tables for this one.',
     ),
     makePrompt(
       queryPrompt:
@@ -253,6 +398,8 @@ FROM films
 JOIN studios 
 ON films.studio_id = studios.id;
 """,
+      hint:
+          'We need to combine the results of multiple tables for this one. When we use JOIN we have to include an ON',
     ),
     makePrompt(
       queryPrompt: """
@@ -268,6 +415,8 @@ FROM   films
          ON genre_films.genre_id = genres.id
 ORDER BY name;
 """,
+      hint:
+          'We need to combine the results of multiple tables for this one. When we use JOIN we have to include an ON',
     ),
     makePrompt(
       queryPrompt: """
@@ -280,6 +429,8 @@ SELECT films.title, GROUP_CONCAT(genres.name) AS genres
   JOIN genres ON genre_films.genre_id = genres.id
   GROUP BY films.title;
 """,
+      hint:
+          'We need to combine the results of multiple tables for this one. When we use JOIN we have to include an ON',
     ),
     makePrompt(
       queryPrompt: """Select films title and it's director's name.""",
@@ -292,6 +443,8 @@ FROM   directors
        JOIN films 
          ON films.id = film_directors.film_id;
 """,
+      hint:
+          'We need to combine the results of multiple tables for this one. When we use JOIN we have to include an ON',
     ),
     makePrompt(
       queryPrompt:
@@ -304,6 +457,8 @@ JOIN directors ON directors.id = film_directors.director_id
 JOIN studios on studios.id = films.studio_id
 WHERE films.studio_id = 1;
 """,
+      hint:
+          'We need to combine the results of multiple tables for this one. We can eliminate duplicates using DISTINCT',
     ),
     makePrompt(
         queryPrompt:
@@ -335,11 +490,12 @@ FROM   directors
        JOIN films 
          ON films.id = film_directors.film_id 
 """,
+      hint: 'It\'s possible to JOIN multiple times.',
     ),
     makePrompt(
-        queryPrompt:
-            """Select the film's id, title, & director's name from all films. But collect the directors into a new column named directors""",
-        answer: """
+      queryPrompt:
+          """Select the film's id, title, & director's name from all films. But collect the directors into a new column named directors""",
+      answer: """
 SELECT worldwide_gross, 
        title, 
        GROUP_CONCAT(directors.NAME) AS directors,
@@ -352,8 +508,11 @@ FROM   directors
        JOIN studios 
          ON studios.id = films.studio_id 
 GROUP BY films.title;
-"""),
+""",
+      hint: 'It\'s possible to JOIN multiple tables.',
+    ),
     makePrompt(
+      ordered: true,
       queryPrompt: """
 Select the top 3 total grossing directors from each studio(grossing in terms of worldwide_gross in film's revenue worldwide) in descending order.
 """,
@@ -386,6 +545,8 @@ WITH DirectorRanks AS (
           ORDER BY 
               studio_name, rank;
 """,
+      hint:
+          'This one is tricky. It\'s probably easiest accomplished with a WINDOW function.',
     ),
     makePrompt(
       queryPrompt: """
@@ -398,11 +559,8 @@ FROM employees
 FULL JOIN departments
 ON employees.department_id = departments.id
 """,
+      hint: 'There are multiple types of JOINs.',
     ),
-    // makePrompt(
-    //   queryPrompt: """""",
-    //   answer: """""",
-    // ),
   ],
   '11.union.md': [
     makePrompt(
@@ -414,6 +572,8 @@ SELECT name, age FROM employees WHERE department_id = 1;
 UNION
 SELECT name, age FROM employees WHERE department_id = 2;
 """,
+      hint:
+          'With UNION we can combine multiple select statement results into one.',
     ),
   ],
   '12.window.md': [
@@ -513,13 +673,14 @@ Future<String> loadMarkdownContent(int lessonId) async {
   }
 }
 
-Map<String, String> makePrompt({
+Map<String, dynamic> makePrompt({
   String? queryPrompt,
   String? queryPromptFollowup,
   String? answer,
   String? hint,
   String? followup,
   String? followupPrompt,
+  bool? ordered,
 }) {
   return {
     'hint': hint ?? '',
@@ -528,5 +689,6 @@ Map<String, String> makePrompt({
     'queryPrompt': queryPrompt ?? '',
     'followupPrompt': followupPrompt ?? '',
     'queryPromptFollowup': queryPromptFollowup ?? '',
+    'ordered': ordered ?? false,
   };
 }

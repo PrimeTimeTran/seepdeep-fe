@@ -156,7 +156,7 @@ class _EditorState extends State<Editor> {
                 // : darkTheme,
               ),
               child: SizedBox(
-                height: widget.lang != null ? 300 : 900,
+                height: widget.lang != null ? 400 : 900,
                 width: double.infinity,
                 child: CodeField(
                   textStyle: const TextStyle(
