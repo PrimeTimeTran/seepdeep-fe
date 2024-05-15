@@ -82,25 +82,22 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
   }
 
   Padding buildListHeader() {
+    final style = Theme.of(context)
+        .textTheme
+        .labelSmall
+        ?.copyWith(fontWeight: FontWeight.bold);
     return Padding(
       padding: const EdgeInsets.only(),
       child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
-            SizedBox(child: AppText(text: "Status", style: Style.bold)),
+            SizedBox(child: Text("Status", style: style)),
             const Gap(10),
-            Expanded(flex: 4, child: AppText(text: "Title", style: Style.bold)),
-            SizedBox(
-                width: 95, child: AppText(text: "Solution", style: Style.bold)),
-            SizedBox(
-                width: 110,
-                child: AppText(text: "Acceptance", style: Style.bold)),
-            SizedBox(
-                width: 110,
-                child: AppText(text: "Difficulty", style: Style.bold)),
-            SizedBox(
-                width: 100,
-                child: AppText(text: "Frequency", style: Style.bold)),
+            Expanded(flex: 4, child: Text("Title", style: style)),
+            SizedBox(width: 95, child: Text("Solution", style: style)),
+            SizedBox(width: 110, child: Text("Acceptance", style: style)),
+            SizedBox(width: 110, child: Text("Difficulty", style: style)),
+            SizedBox(width: 100, child: Text("Frequency", style: style)),
           ]),
     );
   }
@@ -188,18 +185,17 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
               ),
             ],
           );
-        } else {
-          return const Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              CircularProgressIndicator(),
-              Padding(
-                padding: EdgeInsets.only(top: 16),
-                child: Text('Awaiting result...'),
-              ),
-            ],
-          );
         }
+        return const Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            CircularProgressIndicator(),
+            Padding(
+              padding: EdgeInsets.only(top: 16),
+              child: Text('Awaiting result...'),
+            ),
+          ],
+        );
       },
     );
   }
@@ -228,31 +224,30 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
           buildTopicFilter(),
         ],
       );
-    } else {
-      return SizedBox(
-        width: 925,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                TextButton.icon(
-                  label: const AppText(text: "Topics"),
-                  icon: const Icon(Icons.arrow_circle_down_outlined,
-                      color: Colors.white),
-                  onPressed: () => setState(
-                      () => toggleProblemTopics = !toggleProblemTopics),
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(Colors.blue),
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
-      );
     }
+    return SizedBox(
+      width: 925,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              TextButton.icon(
+                label: const AppText(text: "Topics"),
+                icon: const Icon(Icons.arrow_circle_down_outlined,
+                    color: Colors.white),
+                onPressed: () =>
+                    setState(() => toggleProblemTopics = !toggleProblemTopics),
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(Colors.blue),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
   }
 
   buildRight() {

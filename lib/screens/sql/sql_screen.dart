@@ -21,12 +21,13 @@ class SQLScreen extends ConsumerStatefulWidget {
 class _SQLScreenState extends ConsumerState<SQLScreen> {
   String code = '';
   int lessonId = 0;
-  int lessonPromptIdx = 0;
   bool error = false;
   String errorMsg = '';
+  bool showHint = false;
   bool querying = false;
-  String lessonContent = '';
   List queryResults = [];
+  int lessonPromptIdx = 0;
+  String lessonContent = '';
   List lessonQueryPrompts = [];
   Iterable<String> columnNames = [];
   Map<String, dynamic> answerMap = {};
@@ -88,12 +89,17 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
                         onRun: onRun,
                         problem: problem,
                         lang: Language.sql,
-                        onType: (c, l) {
-                          setState(() {
-                            code = c;
-                          });
-                        },
+                        onType: (c, l) => setState(() => code = c),
                       ),
+                      if (showHint)
+                        Align(
+                          alignment: Alignment.center,
+                          child: Text(
+                            lessonPromptMap[lessons[lessonId]]?[lessonPromptIdx]
+                                ['hint'],
+                            style: Theme.of(context).textTheme.bodyLarge,
+                          ),
+                        ),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Row(
@@ -125,7 +131,11 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
                             ),
                             Button(
                               title: 'Hint',
-                              onPress: () {},
+                              onPress: () {
+                                setState(() {
+                                  showHint = true;
+                                });
+                              },
                               outlined: true,
                             ),
                             Button(
@@ -289,33 +299,28 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
   // }
 
   checkCorrect() async {
-    final userQueryResultIds = queryResults.map((e) => e['id']).toList();
     final lesson = lessonPromptMap[lessons[lessonId]];
-    final resultIds = [];
     final answerQuery = lesson![lessonPromptIdx]['answer']!;
-    final answerResults = await queryAnswer(answerQuery);
-    for (var e in answerResults) {
-      resultIds.add(e['id']);
-    }
+    List results = await queryDB(answerQuery);
+    List answerIds = results.map((e) => e['id']).toList();
     print('lessonId $lessonId');
     print('lessonPromptIdx $lessonPromptIdx');
-    // print('lesson $lesson');
     print('query ${lesson[lessonPromptIdx]['answer']!}');
-    print('resultIdsresultIds $resultIds');
-    print('userQueryResultIds $userQueryResultIds');
-    //
+    print('resultIdsresultIds $answerIds');
 
     const go = """
 select id, title, worldwide_gross from films where worldwide_gross >= 1000;
 select id, year, title, oscars_nominated from films where oscars_nominated >= 5;
 select id, year, title, oscars_nominated, oscars_won from films where oscars_won >= 3;
 """;
-    if (resultIds.length != userQueryResultIds.length) {
+    final userQueryIds = queryResults.map((e) => e['id']).toList();
+    print('userQueryIds $userQueryIds');
+    if (answerIds.length != userQueryIds.length) {
       print('not same');
     } else {
       bool same = true;
-      for (int i = 0; i < resultIds.length; i++) {
-        if (resultIds[i] != userQueryResultIds[i]) {
+      for (int i = 0; i < answerIds.length; i++) {
+        if (answerIds[i] != userQueryIds[i]) {
           same = false;
           break;
         }
@@ -331,6 +336,9 @@ select id, year, title, oscars_nominated, oscars_won from films where oscars_won
         print('not same');
       }
     }
+    setState(() {
+      querying = false;
+    });
   }
 
   @override
@@ -345,41 +353,42 @@ select id, year, title, oscars_nominated, oscars_won from films where oscars_won
       error = false;
       querying = true;
       columnNames = [];
+      showHint = false;
       queryResults = [];
     });
-    query(c ?? code);
+    queryUser(c ?? code);
   }
 
   parseResults(result) {
-    final parsedResults = [];
-    for (var row in result) {
-      final cellMap = Map<String, dynamic>.fromEntries(row.data.entries);
-      parsedResults.add(cellMap);
-    }
-    return parsedResults;
+    return result.map((row) {
+      return Map<String, dynamic>.fromEntries(row.data.entries);
+    }).toList();
   }
 
-  void query(String code) async {
+  queryDB(String code) async {
+    final database = ref.read(AppDatabase.provider);
+    List<QueryRow> result = await database.customSelect(
+      '$code ',
+      readsFrom: {...database.allTables},
+    ).get();
+
+    if (result.isNotEmpty) {
+      return parseResults(result);
+    }
+  }
+
+  void queryUser(String code) async {
     Completer<void> queryCompleter = Completer<void>();
     try {
       Glob.logI('Query started');
-      final database = ref.read(AppDatabase.provider);
-
-      List<QueryRow> result = await database.customSelect(
-        '$code ',
-        readsFrom: {...database.allTables},
-      ).get();
-
-      if (result.isNotEmpty) {
-        final results = parseResults(result);
-        setState(() {
-          queryResults = results;
-          columnNames = results[0].keys;
-        });
-      }
+      final results = await queryDB(code);
+      setState(() {
+        queryResults = results;
+        columnNames = results[0].keys;
+      });
     } catch (e) {
       String msg = e.toString();
-      if (e.toString().contains('Must contain an SQL statement.')) {
+      if (e.toString().contains('Must contain an SQL')) {
         msg = 'Try adding a valid SQL query.';
       }
       setState(() {
@@ -390,22 +399,7 @@ select id, year, title, oscars_nominated, oscars_won from films where oscars_won
       queryCompleter.complete();
       await queryCompleter.future;
       Glob.logI('Query ended');
-      setState(() {
-        querying = false;
-      });
       checkCorrect();
-    }
-  }
-
-  queryAnswer(String code) async {
-    final database = ref.read(AppDatabase.provider);
-    List<QueryRow> result = await database.customSelect(
-      '$code ',
-      readsFrom: {...database.allTables},
-    ).get();
-
-    if (result.isNotEmpty) {
-      return parseResults(result);
     }
   }
 
@@ -419,6 +413,7 @@ select id, year, title, oscars_nominated, oscars_won from films where oscars_won
     }
     setState(() {
       lessonId = id;
+      showHint = false;
       lessonContent = lessonContent;
       lessonQueryPrompts = lessonQueryPrompts;
     });
