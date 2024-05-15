@@ -1,7 +1,7 @@
 import pandas as pd
 import sqlite3
 
-db_file_path = 'database.db'
+db_file_path = '../database.db'
 directors = [["Toy Story", {"name": "John Lasseter", "birthyear": 1957, "country": "USA"}],
              ["A Bug's Life", [
                  {"name": "John Lasseter", "birthyear": 1957, "country": "USA"},
@@ -469,7 +469,7 @@ def export_tables_to_csv(output_dir):
         csv_file_path = f"{output_dir}/{table}.csv"
         df.to_csv(csv_file_path, index=False)
     print(
-        f"Tables have been exported to '{csv_file_path}' as separate sheets.")
+        f"Tables have been exported from as separate sheets.")
 
 
 def update_studio_id(path):
