@@ -84,7 +84,7 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
   Padding buildListHeader() {
     final style = Theme.of(context)
         .textTheme
-        .labelSmall
+        .headlineSmall
         ?.copyWith(fontWeight: FontWeight.bold);
     return Padding(
       padding: const EdgeInsets.only(),
@@ -94,10 +94,14 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
             SizedBox(child: Text("Status", style: style)),
             const Gap(10),
             Expanded(flex: 4, child: Text("Title", style: style)),
-            SizedBox(width: 95, child: Text("Solution", style: style)),
-            SizedBox(width: 110, child: Text("Acceptance", style: style)),
-            SizedBox(width: 110, child: Text("Difficulty", style: style)),
-            SizedBox(width: 100, child: Text("Frequency", style: style)),
+            const Gap(50),
+            SizedBox(child: Text("Solution", style: style)),
+            const Gap(50),
+            SizedBox(child: Text("Acceptance", style: style)),
+            const Gap(50),
+            SizedBox(child: Text("Difficulty", style: style)),
+            const Gap(60),
+            SizedBox(child: Text("Frequency", style: style)),
           ]),
     );
   }
@@ -105,7 +109,7 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
   GestureDetector buildListItem(item, idx, BuildContext context) {
     idx -= 1;
     bool odd = idx % 2 == 0;
-    Color color = odd ? Colors.grey.shade200 : Colors.grey.shade400;
+    Color color = odd ? Colors.grey.shade500 : Colors.grey.shade400;
     Color difficultyColor = item.difficulty == 'Hard'
         ? Colors.red
         : item.difficulty == 'Medium'
@@ -122,7 +126,6 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
         color: odd ? color : null,
         child: ListTile(
           iconColor: Colors.grey,
-          textColor: Style.textColor,
           leading: const Icon(Icons.abc),
           title: Row(
             children: [

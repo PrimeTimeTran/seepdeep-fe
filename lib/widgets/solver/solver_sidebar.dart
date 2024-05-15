@@ -92,7 +92,6 @@ class _SolverSidebarState extends State<SolverSidebar> {
           children: [
             buildTabProblemDescription(context),
             buildTabEditorial(),
-            // ignore: prefer_const_constructors
             SolutionsTable(problem: widget.problem),
             SubmissionTable(
               problem: widget.problem,
@@ -105,6 +104,13 @@ class _SolverSidebarState extends State<SolverSidebar> {
     );
   }
 
+  buildTab(title, icon) {
+    return Row(children: [
+      Tab(icon: Icon(icon)),
+      Text(title, style: Theme.of(context).textTheme.bodySmall)
+    ]);
+  }
+
   ScrollConfiguration buildTabEditorial() {
     return ScrollConfiguration(
       behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
@@ -112,27 +118,37 @@ class _SolverSidebarState extends State<SolverSidebar> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Row(
+            const Gap(30),
+            Row(
               children: [
-                Icon(Icons.star, color: Colors.yellow),
-                Icon(Icons.star, color: Colors.yellow),
-                Icon(Icons.star, color: Colors.yellow),
-                Icon(Icons.star, color: Colors.yellow),
-                Icon(Icons.star, color: Colors.yellow),
-                SelectableText('4.53 (15 Votes)'),
+                SelectableText(
+                  'Editorial',
+                  style: Theme.of(context).textTheme.displaySmall,
+                ),
+                const Spacer(),
+                const Row(
+                  children: [
+                    Icon(Icons.star, color: Colors.yellow),
+                    Icon(Icons.star, color: Colors.yellow),
+                    Icon(Icons.star, color: Colors.yellow),
+                    Icon(Icons.star, color: Colors.yellow),
+                    Icon(Icons.star, color: Colors.yellow),
+                    SelectableText('4.53 (15 Votes)'),
+                  ],
+                ),
               ],
             ),
-            const SelectableText('Editorial'),
+            const Gap(30),
             SelectableText(
               widget.problem.title!,
-              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              style: Theme.of(context).textTheme.headlineLarge,
             ),
-            const SizedBox(height: 10),
+            const Gap(30),
             SelectableText(
               widget.problem.editorialBody!,
               style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
-            const SizedBox(height: 10),
+            const Gap(30),
             const TextField(
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
@@ -140,7 +156,12 @@ class _SolverSidebarState extends State<SolverSidebar> {
               ),
             ),
             if (editorialComments.length < 10)
-              const Text('Too few submissions '),
+              const SizedBox(
+                height: 200,
+                child: Center(
+                  child: Text('Too few comments so far for this editorial.'),
+                ),
+              ),
             if (editorialComments.length > 5)
               ListView.builder(
                 shrinkWrap: true,
@@ -168,16 +189,16 @@ class _SolverSidebarState extends State<SolverSidebar> {
             children: [
               SelectableText(
                 widget.problem.title!,
-                style: Theme.of(context).textTheme.titleLarge,
+                style: Theme.of(context).textTheme.displayLarge,
               ),
-              const SizedBox(height: 10),
+              const Gap(30),
               SelectableText(
                 widget.problem.body!,
-                style: Theme.of(context).textTheme.bodyLarge,
+                style: Theme.of(context).textTheme.titleLarge,
               ),
-              const SizedBox(height: 10),
+              const Gap(30),
               SizedBox(
-                height: 400,
+                height: getHeight() / 3,
                 width: double.infinity,
                 child: ListView.builder(
                     itemCount: widget.testCases.length,
@@ -190,8 +211,8 @@ class _SolverSidebarState extends State<SolverSidebar> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "Example ${idx + 1}",
-                            style: Theme.of(context).textTheme.titleMedium,
+                            "Example ${idx + 1}:",
+                            style: Theme.of(context).textTheme.headlineLarge,
                           ),
                           const SizedBox(height: 5),
                           // TODO: Seperate parameters and add names
@@ -199,26 +220,38 @@ class _SolverSidebarState extends State<SolverSidebar> {
                             children: [
                               Text(
                                 'Input:',
-                                style: Theme.of(context).textTheme.labelLarge,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headlineSmall
+                                    ?.copyWith(fontWeight: FontWeight.bold),
                               ),
                               const Gap(10),
                               SelectableText(
                                 testCase.input.toString(),
-                                style: Theme.of(context).textTheme.bodyLarge,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headlineSmall
+                                    ?.copyWith(color: Colors.grey),
                               ),
                             ],
                           ),
-                          const SizedBox(height: 5),
+                          const Gap(5),
                           Row(
                             children: [
                               Text(
                                 'Output:',
-                                style: Theme.of(context).textTheme.labelLarge,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headlineSmall
+                                    ?.copyWith(fontWeight: FontWeight.bold),
                               ),
                               const Gap(10),
                               SelectableText(
                                 testCase.outExpected.toString(),
-                                style: Theme.of(context).textTheme.bodyLarge,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headlineSmall
+                                    ?.copyWith(color: Colors.grey),
                               ),
                             ],
                           ),
@@ -244,48 +277,10 @@ class _SolverSidebarState extends State<SolverSidebar> {
           tabAlignment: TabAlignment.start,
           isScrollable: true,
           tabs: [
-            Row(
-              children: [
-                const Tab(
-                  icon: Icon(Icons.notes),
-                ),
-                Text(
-                  'Description',
-                  style: Theme.of(context).textTheme.bodySmall,
-                )
-              ],
-            ),
-            Row(
-              children: [
-                const Tab(
-                  icon: Icon(Icons.edit_note),
-                ),
-                Text(
-                  'Editorial',
-                  style: Theme.of(context).textTheme.bodySmall,
-                )
-              ],
-            ),
-            Row(
-              children: [
-                const Tab(icon: Icon(Icons.science_outlined)),
-                Text(
-                  'Solutions',
-                  style: Theme.of(context).textTheme.bodySmall,
-                )
-              ],
-            ),
-            Row(
-              children: [
-                const Tab(
-                  icon: Icon(Icons.history),
-                ),
-                Text(
-                  'Submissions',
-                  style: Theme.of(context).textTheme.bodySmall,
-                )
-              ],
-            ),
+            buildTab('Description', Icons.notes),
+            buildTab('Editorial', Icons.edit_note),
+            buildTab('Solutions', Icons.science_outlined),
+            buildTab('Submissions', Icons.history),
           ],
         ),
       )),
@@ -313,7 +308,7 @@ class _SolverSidebarState extends State<SolverSidebar> {
     } catch (e) {
       print('Error: $e');
       return [];
-    } finally {}
+    }
   }
 
   @override

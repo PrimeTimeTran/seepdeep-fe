@@ -113,7 +113,9 @@ class _AppBarContentState extends State<AppBarContent> {
                 label: Text(
                   'SeepDeep',
                   style: Style.bodyL.copyWith(
-                      color: Colors.white, fontWeight: FontWeight.bold),
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
               const SizedBox(width: 10),
@@ -125,8 +127,10 @@ class _AppBarContentState extends State<AppBarContent> {
                       onPressed: () {
                         GoRouter.of(context).go(AppScreens.math.path);
                       },
-                      label: const Text('Maths',
-                          style: TextStyle(color: Colors.white)),
+                      label: const Text(
+                        'Maths',
+                        style: TextStyle(color: Colors.white),
+                      ),
                       icon: const Icon(Icons.calculate, color: Colors.white),
                     ),
                     TextButton.icon(
@@ -135,14 +139,21 @@ class _AppBarContentState extends State<AppBarContent> {
                       },
                       label: const Text('Data Structures',
                           style: TextStyle(color: Colors.white)),
-                      icon: const Icon(Icons.data_object, color: Colors.white),
+                      icon: const Icon(
+                        Icons.data_object,
+                        color: Colors.white,
+                      ),
                     ),
                     TextButton.icon(
                       onPressed: () {
                         GoRouter.of(context).go(AppScreens.sql.path);
                       },
-                      label: const Text('Databases',
-                          style: TextStyle(color: Colors.white)),
+                      label: const Text(
+                        'Databases',
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
+                      ),
                       icon: const Icon(Icons.table_chart_outlined,
                           color: Colors.white),
                     ),
@@ -163,7 +174,6 @@ class _AppBarContentState extends State<AppBarContent> {
                     //       style: TextStyle(color: Colors.white)),
                     //   icon: const Icon(Icons.explore, color: Colors.white),
                     // ),
-
                     // TextButton.icon(
                     //   onPressed: () {
                     //     GoRouter.of(context).go(AppScreens.community.path);
@@ -265,11 +275,20 @@ class _AppBarContentState extends State<AppBarContent> {
                 itemBuilder: (BuildContext context) =>
                     <PopupMenuEntry<SampleItem>>[
                   buildMenuItem(
-                      'Shortcuts', Icons.keyboard, AppScreens.explore.path),
-                  buildMenuItem('Feature Requests', Icons.note_alt_outlined,
-                      AppScreens.featureRequests.path),
-                  buildMenuItem('Report Bug', Icons.bug_report,
-                      AppScreens.bugReports.path),
+                    'Shortcuts',
+                    Icons.keyboard,
+                    'shortcuts',
+                  ),
+                  buildMenuItem(
+                    'Feature Requests',
+                    Icons.note_alt_outlined,
+                    AppScreens.featureRequests.path,
+                  ),
+                  buildMenuItem(
+                    'Report Bug',
+                    Icons.bug_report,
+                    AppScreens.bugReports.path,
+                  ),
                 ],
               ),
               PopupMenuButton<SampleItem>(
@@ -287,9 +306,15 @@ class _AppBarContentState extends State<AppBarContent> {
                 itemBuilder: (BuildContext context) =>
                     <PopupMenuEntry<SampleItem>>[
                   buildMenuItem(
-                      'Profile', Icons.person, AppScreens.profile.path),
+                    'Profile',
+                    Icons.person,
+                    AppScreens.profile.path,
+                  ),
                   buildMenuItem(
-                      'Settings', Icons.settings, AppScreens.settings.path),
+                    'Settings',
+                    Icons.settings,
+                    AppScreens.settings.path,
+                  ),
                   PopupMenuItem<SampleItem>(
                     value: SampleItem.itemOne,
                     child: InkWell(
@@ -305,10 +330,16 @@ class _AppBarContentState extends State<AppBarContent> {
                       ),
                     ),
                   ),
-                  buildMenuItem('Report Bug', Icons.bug_report,
-                      AppScreens.bugReports.path),
                   buildMenuItem(
-                      'Logout', Icons.exit_to_app, AppScreens.bugReports.path),
+                    'Report Bug',
+                    Icons.bug_report,
+                    AppScreens.bugReports.path,
+                  ),
+                  buildMenuItem(
+                    'Logout',
+                    Icons.exit_to_app,
+                    AppScreens.bugReports.path,
+                  ),
                 ],
               ),
             ],
@@ -327,6 +358,8 @@ class _AppBarContentState extends State<AppBarContent> {
           dialogFeatureRequest(context);
         } else if (route == AppScreens.bugReports.path) {
           dialogBugReport(context);
+        } else if (route == 'shortcuts') {
+          dialogShortcuts(context);
         } else {
           GoRouter.of(context).go(route);
         }
@@ -343,6 +376,7 @@ class _AppBarContentState extends State<AppBarContent> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       // dialogBugReport(context);
+      // dialogShortcuts(context);
     });
   }
 }

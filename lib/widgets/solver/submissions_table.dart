@@ -95,6 +95,14 @@ class _SubmissionTableState extends State<SubmissionTable> {
         future: widget.submissionsFuture,
         builder: (BuildContext context, snapshot) {
           if (snapshot.hasData) {
+            if (widget.submissions.isEmpty) {
+              return const SizedBox(
+                height: 200,
+                child: Center(
+                  child: Text('No Submissions for this problem.'),
+                ),
+              );
+            }
             List<DataRow> rows = [];
             for (var submission in widget.submissions) {
               final statusIcon = submission.isAccepted!
@@ -115,7 +123,6 @@ class _SubmissionTableState extends State<SubmissionTable> {
             }
             return DataTable(
               columns: const [
-                // Define the headers for each column
                 DataColumn(label: Text('Status')),
                 DataColumn(label: Text('Language')),
                 DataColumn(label: Text('Runtime')),
@@ -139,18 +146,17 @@ class _SubmissionTableState extends State<SubmissionTable> {
                 ),
               ],
             );
-          } else {
-            return const Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                CircularProgressIndicator(),
-                Padding(
-                  padding: EdgeInsets.only(top: 16),
-                  child: Text('Awaiting result...'),
-                ),
-              ],
-            );
           }
+          return const Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              CircularProgressIndicator(),
+              Padding(
+                padding: EdgeInsets.only(top: 16),
+                child: Text('Awaiting result...'),
+              ),
+            ],
+          );
         },
       )),
     );

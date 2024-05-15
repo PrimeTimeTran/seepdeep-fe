@@ -38,7 +38,10 @@ class _MasteryScreenState extends State<MasteryScreen> {
               children: [
                 Expanded(child: Column(children: buildOverAllIndicators())),
                 const Gap(10),
-                const Expanded(child: Column(children: [])),
+                Expanded(
+                    child: Column(children: [
+                  Text('WIP', style: Theme.of(context).textTheme.displaySmall)
+                ])),
               ],
             ),
           ],
@@ -65,21 +68,21 @@ class _MasteryScreenState extends State<MasteryScreen> {
                   style: const TextStyle(fontSize: 20))
             ],
           ),
-          Consumer<AuthProvider>(
-            builder: (context, auth, child) {
-              return Text(
-                'isAuthenticated: ${auth.user.email}',
-                style: TextStyle(
-                  color: auth.isAuthenticated ? Colors.green : Colors.red,
-                ),
-              );
-            },
-          ),
+          // Consumer<AuthProvider>(
+          //   builder: (context, auth, child) {
+          //     return Text(
+          //       'isAuthenticated: ${auth.user.email}',
+          //       style: TextStyle(
+          //         color: auth.isAuthenticated ? Colors.green : Colors.red,
+          //       ),
+          //     );
+          //   },
+          // ),
           LinearProgressIndicator(
-            value: mastery[topic.name]['level'],
             color: color,
             minHeight: 15,
             semanticsValue: '40',
+            value: mastery[topic.name]['level'],
             semanticsLabel: 'Linear progress indicator',
             borderRadius: const BorderRadius.all(Radius.circular(10)),
           ),

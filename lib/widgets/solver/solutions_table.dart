@@ -93,6 +93,9 @@ class _SolutionsTableState extends State<SolutionsTable> {
           children: [
             TextField(
               decoration: InputDecoration(
+                isDense: true,
+                hintText: 'Search',
+                suffixText: 'Votes',
                 prefixIcon: const Icon(Icons.search),
                 suffixIcon: GestureDetector(
                   onTap: () {
@@ -100,12 +103,8 @@ class _SolutionsTableState extends State<SolutionsTable> {
                   },
                   child: const Icon(Icons.sort),
                 ),
-                suffixText: 'Votes',
-                // border: OutlineInputBorder(),
-                isDense: true,
                 contentPadding:
                     const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
-                hintText: 'Search',
               ),
             ),
             SizedBox(
@@ -114,7 +113,7 @@ class _SolutionsTableState extends State<SolutionsTable> {
                 scrollDirection: Axis.horizontal,
                 child: ListView.builder(
                   shrinkWrap: true,
-                  itemCount: 10,
+                  itemCount: 0,
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (context, index) {
                     return TextButton(
@@ -130,6 +129,14 @@ class _SolutionsTableState extends State<SolutionsTable> {
               builder: (BuildContext context, snapshot) {
                 if (snapshot.hasData) {
                   List<Submission> solutions = snapshot.data!;
+                  if (solutions.isEmpty) {
+                    return const SizedBox(
+                      height: 200,
+                      child: Center(
+                        child: Text('No solutions for this problem so far.'),
+                      ),
+                    );
+                  }
 
                   return ListView.separated(
                     shrinkWrap: true,
@@ -158,18 +165,8 @@ class _SolutionsTableState extends State<SolutionsTable> {
                       ),
                     ],
                   );
-                } else {
-                  return const Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      CircularProgressIndicator(),
-                      Padding(
-                        padding: EdgeInsets.only(top: 16),
-                        child: Text('Awaiting result...'),
-                      ),
-                    ],
-                  );
                 }
+                return const Center(child: CircularProgressIndicator());
               },
             ),
           ],

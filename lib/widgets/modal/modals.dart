@@ -9,6 +9,35 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import './giffy_modal.dart';
 
+buildShortcut(context, title, explanation, icons) {
+  return Row(
+    children: [
+      Text(
+        title,
+        style: Theme.of(context).textTheme.headlineSmall,
+      ),
+      const Spacer(),
+      Text(
+        explanation,
+        style: Theme.of(context).textTheme.headlineSmall,
+      ),
+      const Gap(30),
+      Card.outlined(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            children: [
+              if (icons[0] != null) Icon(icons[0]),
+              if (icons.length > 1) const Text('+'),
+              if (icons[1] != null) Icon(icons[1]),
+            ],
+          ),
+        ),
+      ),
+    ],
+  );
+}
+
 Future<void> dialogBig(BuildContext c, String title, String body,
     [Widget? content]) async {
   final isHide = await Storage.instance.getSqlIntroHide();
@@ -242,6 +271,110 @@ Future<void> dialogFeatureRequest(BuildContext context) {
             onPressed: () {
               Glob.showSnack('Thank you for your request!');
               Navigator.of(context).pop();
+            },
+          ),
+        ],
+      );
+    },
+  );
+}
+
+Future<void> dialogShortcuts(BuildContext context) {
+  return showDialog<void>(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text(
+          'Shortcuts',
+          style: Theme.of(context).textTheme.displaySmall,
+        ),
+        content: SizedBox(
+          width: getWidth() / 2,
+          height: getHeight() / 2,
+          child: Center(
+            child: Expanded(
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Card.outlined(
+                      child: Padding(
+                        padding: const EdgeInsets.all(20),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('Editor',
+                                style:
+                                    Theme.of(context).textTheme.displaySmall),
+                            buildShortcut(context, 'Run Code', 'Ctrl + Enter', [
+                              Icons.keyboard_control_key,
+                              Icons.keyboard_return
+                            ])
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Card.outlined(
+                      child: Padding(
+                        padding: const EdgeInsets.all(20),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('Global',
+                                style:
+                                    Theme.of(context).textTheme.displaySmall),
+                            buildShortcut(context, 'Run Code', 'Ctrl + Enter', [
+                              Icons.keyboard_control_key,
+                              Icons.keyboard_return
+                            ])
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Card.outlined(
+                      child: Padding(
+                        padding: const EdgeInsets.all(20),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('Help',
+                                style:
+                                    Theme.of(context).textTheme.displaySmall),
+                            buildShortcut(context, 'Run Code', 'Ctrl + Enter', [
+                              Icons.keyboard_control_key,
+                              Icons.keyboard_return
+                            ])
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+        actions: <Widget>[
+          TextButton(
+            style: TextButton.styleFrom(
+              textStyle: Theme.of(context).textTheme.labelLarge,
+            ),
+            child: const Text('Cancel'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+          FilledButton(
+            style: TextButton.styleFrom(
+              textStyle: Theme.of(context).textTheme.labelLarge,
+            ),
+            child: const Text('Report'),
+            onPressed: () {
+              Navigator.of(context).pop();
+              Glob.showSnack('Thank you for your report!');
             },
           ),
         ],
