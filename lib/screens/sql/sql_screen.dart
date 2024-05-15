@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:html' as html;
 
 import 'package:app/all.dart';
 import 'package:app/screens/sql/lesson.dart';
@@ -7,6 +8,7 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
+import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart' as provider;
 
 import '../../database/database.dart';
@@ -32,6 +34,8 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
   List lessonQueryPrompts = [];
   Iterable<String> columnNames = [];
   Map<String, dynamic> answerMap = {};
+
+  http.Client client = http.Client();
 
   @override
   Widget build(BuildContext context) {
@@ -345,10 +349,34 @@ select id, year, title, oscars_nominated, oscars_won from films where oscars_won
   }
 
   @override
+  void dispose() {
+    _audioPlayer.dispose();
+    super.dispose();
+  }
+
+  Future<void> getAIHelp() async {
+    try {
+      final response = await http.get(
+        Uri.parse('http://localhost:8080'),
+      );
+      if (response.statusCode == 200) {
+        await playAudioFromBytes(response.bodyBytes);
+      } else {
+        // Handle other status codes if needed
+      }
+    } catch (e) {
+      // Handle any exceptions
+      print('Error: $e');
+    }
+  }
+
+  @override
   void initState() {
     super.initState();
-    onRun("select id, year, title from films limit 5;");
-    setup();
+    // onRun("select id, year, title from films limit 5;");
+    // setup();
+    getAIHelp();
+    super.initState();
   }
 
   void onRun([String? c, Language? language]) {
@@ -366,6 +394,19 @@ select id, year, title, oscars_nominated, oscars_won from films where oscars_won
     return result.map((row) {
       return Map<String, dynamic>.fromEntries(row.data.entries);
     }).toList();
+  }
+
+  Future<void> playAudioFromBytes(Uint8List audioBytes) async {
+    try {
+      final blob = html.Blob([audioBytes]);
+      final url = html.Url.createObjectUrlFromBlob(blob);
+      final audioElement = html.AudioElement()
+        ..src = url
+        ..controls = true;
+      audioElement.play();
+    } catch (e) {
+      print('Error: $e');
+    }
   }
 
   queryDB(String code) async {
