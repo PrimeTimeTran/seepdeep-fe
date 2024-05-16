@@ -12,13 +12,22 @@ client = OpenAI(
     api_key=key)
 
 def stream_audio(text):
-    with client.audio.speech.with_streaming_response.create(
-        input=text,
-        voice="alloy",
-        model="tts-1",
-    ) as response:
-        for chunk in response.iter_bytes():
-            yield chunk
+    audio_dir = './audios'
+    os.makedirs(audio_dir, exist_ok=True)
+    first_three_words = ' '.join(text.split()[:3])
+    timestamp = time.strftime("%Y%m%d-%H%M%S")
+    file_name = f"{timestamp}_{first_three_words}.mp3"
+    audio_path = os.path.join(audio_dir, file_name)
+    
+    with open(audio_path, 'wb') as audio_file:
+        with client.audio.speech.with_streaming_response.create(
+            input=text,
+            voice="alloy",
+            model="tts-1",
+        ) as response:
+            for chunk in response.iter_bytes():
+                audio_file.write(chunk)
+                yield chunk
 
 
 class JSONHandler(http.server.BaseHTTPRequestHandler):

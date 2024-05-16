@@ -6,6 +6,7 @@ import 'package:app/all.dart';
 import 'package:app/screens/sql/lesson.dart';
 import 'package:drift/drift.dart' hide Column;
 import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
@@ -26,6 +27,8 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
   String code = '';
   int lessonId = 0;
   bool error = false;
+  bool isAIProcessing = false;
+  String aiText = '';
   String errorMsg = '';
   bool showHint = false;
   bool querying = false;
@@ -76,7 +79,7 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
                 child: HorizontalSplitView(
                   borderless: false,
                   borderColor: Colors.grey,
-                  ratio: .6,
+                  ratio: .5,
                   top: Align(
                     alignment: Alignment.topLeft,
                     child: Container(
@@ -97,13 +100,44 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
                         lang: Language.sql,
                         onType: (c, l) => setState(() => code = c),
                       ),
+                      if (isAIProcessing)
+                        const Align(
+                          alignment: Alignment.center,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              CircularProgressIndicator(),
+                              Gap(25),
+                              Text('AI Processing')
+                            ],
+                          ),
+                        ),
+                      if (!isAIProcessing && aiText != '')
+                        Align(
+                          alignment: Alignment.center,
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: SizedBox(
+                              width: double.infinity,
+                              child: Text(
+                                aiText,
+                                style: Theme.of(context).textTheme.bodyLarge,
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                          ),
+                        ),
                       if (showHint)
                         Align(
                           alignment: Alignment.center,
-                          child: Text(
-                            lessonPromptMap[lessons[lessonId]]?[lessonPromptIdx]
-                                ['hint'],
-                            style: Theme.of(context).textTheme.bodyLarge,
+                          child: SizedBox(
+                            width: double.infinity,
+                            child: Text(
+                              lessonPromptMap[lessons[lessonId]]
+                                  ?[lessonPromptIdx]['hint'],
+                              style: Theme.of(context).textTheme.bodyLarge,
+                              textAlign: TextAlign.center,
+                            ),
                           ),
                         ),
                       Padding(
@@ -111,47 +145,55 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Button(
-                              title: 'Back',
-                              onPress: () {
-                                if (lessonId == 0) return;
-                                setLesson(lessonId - 1);
-                              },
-                              outlined: true,
-                            ),
-                            Button(
+                            buildButton(
                               title: 'Reset Progress',
-                              onPress: () {
+                              onPressed: () {
                                 setLesson(0);
                               },
-                              outlined: true,
                             ),
-                            Button(
-                              title: 'Reset Query',
-                              onPress: () {
+                            const Gap(10),
+                            buildButton(
+                              title: 'Reset query',
+                              onPressed: () {
                                 setState(() {
                                   code = '';
                                 });
                               },
-                              outlined: true,
                             ),
-                            Button(
+                            const Gap(10),
+                            buildButton(
+                              title: 'Back',
+                              onPressed: () {
+                                if (lessonId == 0) return;
+                                setLesson(lessonId - 1);
+                              },
+                            ),
+                            const Gap(10),
+                            buildButton(
                               title: 'Hint',
-                              onPress: () {
+                              onPressed: () {
                                 setState(() {
                                   showHint = true;
                                 });
                               },
-                              outlined: true,
                             ),
-                            Button(
+                            const Gap(10),
+                            buildButton(
+                              title: 'Tutor Hint',
+                              onPressed: () {
+                                // help!
+                                getOpenAIHint();
+                              },
+                            ),
+                            const Gap(10),
+                            buildButton(
                               title: 'Next',
-                              onPress: () {
+                              size: 2,
+                              onPressed: () {
                                 if (lessonId == 15) return;
                                 setLesson(lessonId + 1);
                               },
-                              outlined: true,
-                            )
+                            ),
                           ],
                         ),
                       )
@@ -163,6 +205,20 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
           ],
         );
       },
+    );
+  }
+
+  buildButton({String title = '', int size = 1, onPressed}) {
+    return Expanded(
+      flex: size,
+      child: ElevatedButton(
+        style: ButtonStyle(
+          backgroundColor:
+              MaterialStatePropertyAll(Theme.of(context).colorScheme.onPrimary),
+        ),
+        onPressed: onPressed,
+        child: Text(title),
+      ),
     );
   }
 
@@ -306,6 +362,7 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
 
   checkCorrect() async {
     final lesson = lessonPromptMap[lessons[lessonId]];
+
     final answerQuery = lesson![lessonPromptIdx]['answer']!;
     List results = await queryDB(answerQuery);
     List answerIds = results.map((e) => e['id']).toList();
@@ -351,64 +408,108 @@ select id, year, title, oscars_nominated, oscars_won from films where oscars_won
     try {
       final headers = <String, String>{};
       headers['Content-Type'] = 'application/json';
+      String api = 'https://seepdeep-api-dev-7d6537ynfa-uc.a.run.app/api/ai';
+      if (kDebugMode) {
+        api = 'http://localhost:3000/api/ai';
+      }
       final response = await http.post(
-        Uri.parse('http://localhost:8080'),
+        Uri.parse(api),
         headers: headers,
         body: jsonEncode(
           {"body": content},
         ),
       );
       if (response.statusCode == 200) {
-        await playAudioFromBytes(response.bodyBytes);
-      } else {}
+        final body = jsonDecode(response.body);
+        final audioBase64 = body['body'];
+        final bytes = base64Decode(audioBase64);
+        await playAudioFromBytes(bytes);
+      }
     } catch (e) {
       print('Error: $e');
+    } finally {
+      setState(() {
+        aiText = content;
+        isAIProcessing = false;
+      });
     }
   }
 
+  // Python backend working
+  // Future<void> getAIHelp(content) async {
+  //   try {
+  //     final headers = <String, String>{};
+  //     headers['Content-Type'] = 'application/json';
+  //     final response = await http.post(
+  //       Uri.parse('http://localhost:3000/api/ai'),
+  //       headers: headers,
+  //       body: jsonEncode(
+  //         {"body": content},
+  //       ),
+  //     );
+  //     if (response.statusCode == 200) {
+  //       await playAudioFromBytes(response.bodyBytes);
+  //     } else {}
+  //   } catch (e) {
+  //     print('Error: $e');
+  //   } finally {
+  //     setState(() {
+  //       aiText = content;
+  //       isAIProcessing = false;
+  //     });
+  //   }
+  // }
+
   getOpenAIHint() async {
+    setState(() {
+      isAIProcessing = true;
+    });
     try {
       final headers = <String, String>{};
       headers['authorization'] =
           'Bearer ${'sk-proj-Uib4u9nZ7uLEtPGcI9EgT3BlbkFJGlA5PKHfcN8SsXDmnbfo'}';
       headers['Content-Type'] = 'application/json';
-//       final response = await http.post(
-//         Uri.parse('https://api.openai.com/v1/chat/completions'),
-//         headers: headers,
-//         body: jsonEncode(
-//           {
-//             "model": "gpt-4o",
-//             "messages": [
-//               {
-//                 "role": "system",
-//                 "content":
-//                     """You help hint users towards a successful SQL query given a requirement & query.
-// Requirement:
-// Select id, title, worldwide_gross from films that have at least 1billion in worldwide_gross.
-// Query:
-// SELECT id, title, worldwide_gross
-// FROM films
-// WHERE worldwide_gross >= 1
-// """
-//               },
-//               {
-//                 "role": "user",
-//                 "content": "What should I consider doing to make this work?"
-//               }
-//             ]
-//           },
-//         ),
-//       );
-      Map<String, dynamic> response = {"statusCode": 201, 'body': {}};
-      if (response['statusCode'] == 200) {
-        final json = jsonDecode(response['body']);
+      final response = await http.post(
+        Uri.parse('https://api.openai.com/v1/chat/completions'),
+        headers: headers,
+        body: jsonEncode(
+          {
+            "model": "gpt-4o",
+            "messages": [
+              {
+                "role": "system",
+                "content":
+                    """You help hint users towards a successful SQL query given a requirement & query.
+                    Requirement:
+                    ${lessonPromptMap[lessons[lessonId]]?[lessonPromptIdx]}
+                    Query:
+                    $code
+                    """
+              },
+              {
+                "role": "user",
+                "content":
+                    "What should I consider doing to make this work? Do not include code in your response. But do name specific columns or SQL keywords I might consider using."
+              }
+            ]
+          },
+        ),
+      );
+      if (response.statusCode == 200) {
+        final json = jsonDecode(response.body);
         String resp = json['choices'][0]['message']['content'];
-      } else {
-        String resp = """
-To make this query work for selecting films with at least 1 billion in worldwide gross, you need to adjust the condition in the `WHERE` clause. The current condition `worldwide_gross >= 1` is incorrect because it looks for films with a worldwide gross of at least 1 unit, not 1 billion. The right condition should be `worldwide_gross >= 1000000000`.
-""";
         getAIHelp(resp);
       }
+      //       Map<String, dynamic> response = {"statusCode": 201, 'body': {}};
+      //       if (response['statusCode'] == 200) {
+      //         final json = jsonDecode(response['body']);
+      //         String resp = json['choices'][0]['message']['content'];
+      //       } else {
+      //         String resp = """
+      // To make this query work for selecting films with at least 1 billion in worldwide gross, you need to adjust the condition in the `WHERE` clause. The current condition `worldwide_gross >= 1` is incorrect because it looks for films with a worldwide gross of at least 1 unit, not 1 billion. The right condition should be `worldwide_gross >= 1000000000`.
+      // """;
+      //         getAIHelp(resp);
+      //       }
     } catch (e) {
       // Handle any exceptions
       print('Error: $e');
@@ -420,7 +521,6 @@ To make this query work for selecting films with at least 1 billion in worldwide
     super.initState();
     onRun("select id, year, title from films limit 5;");
     setup();
-    // getOpenAIHint();
     super.initState();
   }
 
@@ -441,6 +541,7 @@ To make this query work for selecting films with at least 1 billion in worldwide
     }).toList();
   }
 
+  // Works for both Python & Node Backend
   Future<void> playAudioFromBytes(Uint8List audioBytes) async {
     try {
       final blob = html.Blob([audioBytes]);
