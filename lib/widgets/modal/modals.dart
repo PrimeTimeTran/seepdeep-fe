@@ -282,16 +282,16 @@ Future<void> dialogFeatureRequest(BuildContext context) {
 }
 
 Future<void> dialogGetCode(BuildContext context) {
-  String email = 'user@seepdeep.com';
-  String firstName = 'Loi';
-  String lastName = 'Tran';
-  String password = 'asdf!1234';
-  String passwordConfirm = 'asdf!1234';
-  // String email = '';
-  // String firstName = '';
-  // String lastName = '';
-  // String password = '';
-  // String passwordConfirm = '';
+  // String email = 'user@seepdeep.com';
+  // String firstName = 'Loi';
+  // String lastName = 'Tran';
+  // String password = 'asdf!1234';
+  // String passwordConfirm = 'asdf!1234';
+  String email = '';
+  String firstName = '';
+  String lastName = '';
+  String password = '';
+  String passwordConfirm = '';
   bool isSignUp = true;
 
   signUpForAccess(context) async {
