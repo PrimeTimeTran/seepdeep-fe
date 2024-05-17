@@ -345,88 +345,94 @@ Future<void> dialogGetCode(BuildContext context) {
                 padding:
                     const EdgeInsets.symmetric(vertical: 50, horizontal: 100),
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Expanded(
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: ListView(
-                              children: [
-                                TextFormField(
-                                  autofocus: true,
-                                  initialValue: firstName,
-                                  onChanged: (value) {
-                                    setState(() {
-                                      firstName = value;
-                                    });
-                                  },
-                                  decoration: InputDecoration(
-                                    labelStyle:
-                                        Theme.of(context).textTheme.titleLarge,
-                                    hintText: 'John',
-                                    labelText: 'First Name',
+                    if (isSignUp)
+                      Expanded(
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: ListView(
+                                children: [
+                                  TextFormField(
+                                    autofocus: true,
+                                    initialValue: firstName,
+                                    onChanged: (value) {
+                                      setState(() {
+                                        firstName = value;
+                                      });
+                                    },
+                                    decoration: InputDecoration(
+                                      labelStyle: Theme.of(context)
+                                          .textTheme
+                                          .titleLarge,
+                                      hintText: 'John',
+                                      labelText: 'First Name',
+                                    ),
                                   ),
-                                ),
-                                const Gap(25),
-                                TextFormField(
-                                  initialValue: password,
-                                  onChanged: (value) {
-                                    setState(() {
-                                      password = value;
-                                    });
-                                  },
-                                  autofocus: true,
-                                  obscureText: true,
-                                  decoration: InputDecoration(
-                                    labelStyle:
-                                        Theme.of(context).textTheme.titleLarge,
-                                    hintText: '*******',
-                                    labelText: 'Password',
+                                  const Gap(25),
+                                  TextFormField(
+                                    initialValue: password,
+                                    onChanged: (value) {
+                                      setState(() {
+                                        password = value;
+                                      });
+                                    },
+                                    autofocus: true,
+                                    obscureText: true,
+                                    decoration: InputDecoration(
+                                      labelStyle: Theme.of(context)
+                                          .textTheme
+                                          .titleLarge,
+                                      hintText: '*******',
+                                      labelText: 'Password',
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
-                          ),
-                          const Gap(30),
-                          Expanded(
-                            child: ListView(
-                              children: [
-                                TextFormField(
-                                  initialValue: lastName,
-                                  onChanged: (value) {
-                                    setState(() {
-                                      lastName = value;
-                                    });
-                                  },
-                                  decoration: InputDecoration(
-                                    labelStyle:
-                                        Theme.of(context).textTheme.titleLarge,
-                                    hintText: 'Doe',
-                                    labelText: 'Last Name',
+                            const Gap(30),
+                            Expanded(
+                              child: ListView(
+                                children: [
+                                  TextFormField(
+                                    initialValue: lastName,
+                                    onChanged: (value) {
+                                      setState(() {
+                                        lastName = value;
+                                      });
+                                    },
+                                    decoration: InputDecoration(
+                                      labelStyle: Theme.of(context)
+                                          .textTheme
+                                          .titleLarge,
+                                      hintText: 'Doe',
+                                      labelText: 'Last Name',
+                                    ),
                                   ),
-                                ),
-                                const Gap(25),
-                                TextFormField(
-                                  initialValue: passwordConfirm,
-                                  obscureText: true,
-                                  onChanged: (value) {
-                                    setState(() {
-                                      passwordConfirm = value;
-                                    });
-                                  },
-                                  decoration: InputDecoration(
-                                    labelStyle:
-                                        Theme.of(context).textTheme.titleLarge,
-                                    hintText: '*******',
-                                    labelText: 'Confirm Password',
+                                  const Gap(25),
+                                  TextFormField(
+                                    initialValue: passwordConfirm,
+                                    obscureText: true,
+                                    onChanged: (value) {
+                                      setState(() {
+                                        passwordConfirm = value;
+                                      });
+                                    },
+                                    decoration: InputDecoration(
+                                      labelStyle: Theme.of(context)
+                                          .textTheme
+                                          .titleLarge,
+                                      hintText: '*******',
+                                      labelText: 'Confirm Password',
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
-                    ),
                     Expanded(
                       child: TextFormField(
                         autofocus: true,
@@ -443,6 +449,23 @@ Future<void> dialogGetCode(BuildContext context) {
                         ),
                       ),
                     ),
+                    if (!isSignUp)
+                      TextFormField(
+                        initialValue: password,
+                        onChanged: (value) {
+                          setState(() {
+                            password = value;
+                          });
+                        },
+                        autofocus: true,
+                        obscureText: true,
+                        decoration: InputDecoration(
+                          labelStyle: Theme.of(context).textTheme.titleLarge,
+                          hintText: '*******',
+                          labelText: 'Password',
+                        ),
+                      ),
+                    if (!isSignUp) const Spacer()
                   ],
                 ),
               ),
@@ -458,29 +481,21 @@ Future<void> dialogGetCode(BuildContext context) {
                         SizedBox(
                           height: 50,
                           width: 100,
-                          child: TextButtonTheme(
-                            data: TextButtonThemeData(style: flatButtonStyle),
-                            child: TextButton(
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
-                                child: const Text('Cancel')),
-                          ),
+                          child: TextButton(
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                              child: const Text('Cancel')),
                         ),
                         const Gap(30),
                         SizedBox(
                           height: 50,
                           width: 300,
-                          child: OutlinedButtonTheme(
-                            data: OutlinedButtonThemeData(
-                                style: outlineButtonStyle),
-                            child: OutlinedButton(
-                              style: outlineButtonStyle,
-                              child: Text(isSignUp ? 'Sign Up' : 'Log In'),
-                              onPressed: () {
-                                signUpForAccess(context);
-                              },
-                            ),
+                          child: OutlinedButton(
+                            child: Text(isSignUp ? 'Sign Up' : 'Log In'),
+                            onPressed: () {
+                              signUpForAccess(context);
+                            },
                           ),
                         ),
                       ],
@@ -495,9 +510,11 @@ Future<void> dialogGetCode(BuildContext context) {
                         TextButton(
                           child: Text(isSignUp ? 'Login' : 'Sign Up'),
                           onPressed: () {
-                            setState(() {
-                              isSignUp = !isSignUp;
-                            });
+                            setState(
+                              () {
+                                isSignUp = !isSignUp;
+                              },
+                            );
                           },
                         ),
                       ],
