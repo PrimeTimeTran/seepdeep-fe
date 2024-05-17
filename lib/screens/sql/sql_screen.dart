@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:html' as html;
 
 import 'package:app/all.dart';
+import 'package:app/s_d_icon_icons.dart';
 import 'package:app/screens/sql/lesson.dart';
 import 'package:drift/drift.dart' hide Column;
 import 'package:firebase_analytics/firebase_analytics.dart';
@@ -94,6 +95,7 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
+                      const Icon(SDIcon.add_to_photos),
                       Editor(
                         onRun: onRun,
                         problem: problem,

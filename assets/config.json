@@ -1,0 +1,76 @@
+{
+  "name": "SDIcon",
+  "css_prefix_text": "",
+  "css_use_suffix": false,
+  "hinting": true,
+  "units_per_em": 1000,
+  "ascent": 850,
+  "glyphs": [
+    {
+      "uid": "2cc10cdba83708a30142016d40519bb9",
+      "css": "threedee_rotation",
+      "code": 59395,
+      "src": "material"
+    },
+    {
+      "uid": "6a105ad156427b024b633a799e03af7b",
+      "css": "ac_unit",
+      "code": 59392,
+      "src": "material"
+    },
+    {
+      "uid": "53d20a593b610c9cc648f101ebcdc73f",
+      "css": "add_shopping_cart",
+      "code": 59411,
+      "src": "material"
+    },
+    {
+      "uid": "51f8aafdf68796e9e138c4b27e7367d2",
+      "css": "add_to_photos",
+      "code": 59412,
+      "src": "material"
+    },
+    {
+      "uid": "538114eb6d771c5f11738537ca077ddd",
+      "css": "add_to_queue",
+      "code": 59413,
+      "src": "material"
+    },
+    {
+      "uid": "7064ec5658a1a7ef305e0994f2cfe1df",
+      "css": "album",
+      "code": 59431,
+      "src": "material"
+    },
+    {
+      "uid": "43d998e224a6395b157221a2510c5810",
+      "css": "all_inclusive",
+      "code": 59432,
+      "src": "material"
+    },
+    {
+      "uid": "ef31a40de565b5e5a48c78e2a2641dc0",
+      "css": "all_out",
+      "code": 59433,
+      "src": "material"
+    },
+    {
+      "uid": "9eb96e6b1c3095b9169701a7ca8d88ae",
+      "css": "assignment_return",
+      "code": 59451,
+      "src": "material"
+    },
+    {
+      "uid": "d347eb3c6a4d93d477401a80904efb42",
+      "css": "assignment_returned",
+      "code": 59452,
+      "src": "material"
+    },
+    {
+      "uid": "217851518691636a6919833b02c9e87b",
+      "css": "assignment_turned_in",
+      "code": 59453,
+      "src": "material"
+    }
+  ]
+}

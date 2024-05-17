@@ -1,5 +1,5 @@
 name: app
-description: A Computer Scientists dream come true
+description: Seeping deeply
 publish_to: 'none'
 
 version: 1.0.0+1
@@ -60,8 +60,8 @@ dependencies:
   shared_preferences: ^2.2.3
   visibility_detector: ^0.4.0+2
   smooth_page_indicator: ^1.1.0
-  firebase_analytics: ^10.10.5
-  firebase_core: ^2.31.0
+  firebase_analytics: ^10.10.2 
+  firebase_core: 2.30.0
 
 dev_dependencies:
   flutter_test:
@@ -80,6 +80,7 @@ flutter:
   uses-material-design: true
   assets:
     - assets/
+    - assets/fonts/
     - assets/icons/
     - assets/json/
     - assets/lessons/
@@ -89,3 +90,8 @@ flutter:
     - assets/img/bgs/
     - assets/img/logos/
     - assets/img/headshots/
+
+  fonts:
+    - family: SDIcon
+      fonts:
+        - asset: assets/fonts/SDIcon.ttf

@@ -197,40 +197,40 @@ class _LandingScreenState extends State<LandingScreen> {
               onPressed: () => scrollToSection(_sectionAKey),
             ),
             const Spacer(),
-            Button(
-              textButton: true,
-              title: 'Our Mission',
-              onPress: () => scrollToSection(_sectionBKey),
+            TextButton.icon(
+              icon: const Icon(Icons.directions_run_rounded),
+              onPressed: () => scrollToSection(_sectionBKey),
+              label: const Text('Our Mission'),
             ),
             const Gap(75),
-            Button(
-              textButton: true,
-              title: 'Our Approach',
-              onPress: () => scrollToSection(_sectionCKey),
+            TextButton.icon(
+              icon: const Icon(Icons.alt_route_outlined),
+              onPressed: () => scrollToSection(_sectionCKey),
+              label: const Text('Our Approach'),
             ),
             const Gap(75),
-            Button(
-              textButton: true,
-              title: 'Technologies',
-              onPress: () => scrollToSection(_sectionGKey),
+            TextButton.icon(
+              icon: const Icon(Icons.category_outlined),
+              onPressed: () => scrollToSection(_sectionGKey),
+              label: const Text('Technologies'),
             ),
             const Gap(75),
-            Button(
-              textButton: true,
-              title: 'Ideal Customers',
-              onPress: () => scrollToSection(_sectionDKey),
+            TextButton.icon(
+              icon: const Icon(Icons.supervised_user_circle_outlined),
+              onPressed: () => scrollToSection(_sectionDKey),
+              label: const Text('Ideal Customers'),
             ),
             const Gap(75),
-            Button(
-              textButton: true,
-              title: 'Partners',
-              onPress: () => scrollToSection(_sectionFKey),
+            TextButton.icon(
+              icon: const Icon(Icons.business),
+              onPressed: () => scrollToSection(_sectionFKey),
+              label: const Text('Partners'),
             ),
             const Gap(75),
-            Button(
-              textButton: true,
-              title: 'FAQs',
-              onPress: () => scrollToSection(_sectionEKey),
+            TextButton.icon(
+              icon: const Icon(Icons.help),
+              onPressed: () => scrollToSection(_sectionEKey),
+              label: const Text('FAQs'),
             ),
             const Gap(150),
           ],
@@ -302,15 +302,18 @@ class _LandingScreenState extends State<LandingScreen> {
                           SizedBox(
                             height: 75,
                             width: 300,
-                            child: OutlinedButton(
-                                onPressed: () {
-                                  GoRouter.of(context).go(AppScreens.sql.path);
-                                },
-                                child: Text(
-                                  'Try it out!',
-                                  style: Style.headlineS,
-                                  textAlign: TextAlign.center,
-                                )),
+                            child: ElevatedButton.icon(
+                              icon: const Icon(Icons.start_outlined),
+                              onPressed: () =>
+                                  GoRouter.of(context).go(AppScreens.sql.path),
+                              label: const Text(
+                                'FAQs',
+                                style: TextStyle(
+                                  fontSize: 25,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
                           ),
                         ],
                       ),
@@ -339,8 +342,10 @@ class _LandingScreenState extends State<LandingScreen> {
                             fontWeight: FontWeight.bold,
                           )),
                       const Gap(50),
-                      Text('Helping you master yourself',
-                          style: Style.headlineL),
+                      Text(
+                        'Helping you master yourself',
+                        style: Style.headlineL,
+                      ),
                       const Gap(50),
                       Text(
                           'Were about helping people become \nthe best version of themselves. \nWe\'re about enabling',
