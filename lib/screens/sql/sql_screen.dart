@@ -95,7 +95,11 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Icon(SDIcon.add_to_photos),
+                      const Icon(SDIcon.curated_content),
+                      const Icon(SDIcon.product),
+                      const Icon(SDIcon.professional),
+                      const Icon(SDIcon.spaced_reps),
+                      const Icon(SDIcon.trusted),
                       Editor(
                         onRun: onRun,
                         problem: problem,
