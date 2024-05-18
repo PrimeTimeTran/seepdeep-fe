@@ -234,7 +234,7 @@ class _LandingScreenState extends State<LandingScreen> {
 
   Container buildFooter() {
     return Container(
-      height: 700,
+      height: 800,
       color: Colors.white,
       child: Padding(
         padding: const EdgeInsets.only(top: 40, left: 200, right: 200),
@@ -249,15 +249,27 @@ class _LandingScreenState extends State<LandingScreen> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      'Product',
-                      style: TextStyle(
-                        fontSize: 30,
-                        color: themeColor(
-                          context,
-                          'primary',
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.category_outlined,
+                          color: themeColor(
+                            context,
+                            'outline',
+                          ),
                         ),
-                      ),
+                        const Gap(10),
+                        Text(
+                          'Product',
+                          style: TextStyle(
+                            fontSize: 30,
+                            color: themeColor(
+                              context,
+                              'primary',
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                     const Gap(20),
                     Text(
@@ -307,8 +319,22 @@ class _LandingScreenState extends State<LandingScreen> {
                       ),
                     ),
                     const Gap(10),
-                    const Text('Home Work'),
-                    const Text('Cheat Sheet'),
+                    TextButton(
+                      onPressed: () {
+                        // launchUrl(Uri.parse('https://seepdeep.com/math'));
+                      },
+                      child: const Text(
+                        'Home Work',
+                      ),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        // launchUrl(Uri.parse('https://seepdeep.com/math'));
+                      },
+                      child: const Text(
+                        'Play Book',
+                      ),
+                    ),
                     const Gap(20),
                     Text(
                       'For Employers',
@@ -320,22 +346,48 @@ class _LandingScreenState extends State<LandingScreen> {
                         ),
                       ),
                     ),
-                    const Text('Applicant Screener'),
-                    const Text('Team Developer'),
+                    TextButton(
+                      onPressed: () {
+                        // launchUrl(Uri.parse('https://seepdeep.com/math'));
+                      },
+                      child: const Text(
+                        'Applicant Scree ',
+                      ),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        // launchUrl(Uri.parse('https://seepdeep.com/math'));
+                      },
+                      child: const Text(
+                        'Team Developer',
+                      ),
+                    ),
                   ],
                 ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      'Company',
-                      style: TextStyle(
-                        fontSize: 30,
-                        color: themeColor(
-                          context,
-                          'primary',
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.business,
+                          color: themeColor(
+                            context,
+                            'outline',
+                          ),
                         ),
-                      ),
+                        const Gap(10),
+                        Text(
+                          'Company',
+                          style: TextStyle(
+                            fontSize: 30,
+                            color: themeColor(
+                              context,
+                              'primary',
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                     const Gap(20),
                     Text(
@@ -348,7 +400,12 @@ class _LandingScreenState extends State<LandingScreen> {
                         ),
                       ),
                     ),
-                    const Text('Careers'),
+                    TextButton(
+                      onPressed: () async {},
+                      child: const Text(
+                        'Careers',
+                      ),
+                    ),
                     const Gap(20),
                     Text(
                       'Contact',
@@ -361,21 +418,47 @@ class _LandingScreenState extends State<LandingScreen> {
                       ),
                     ),
                     const Gap(10),
-                    const Text('contact@seepdeep.com'),
+                    TextButton(
+                      onPressed: () async {
+                        final url = Uri.parse('mailto:contact@seepdeep.com');
+                        if (await canLaunchUrl(url)) {
+                          if (await canLaunchUrl(url)) {
+                            await launchUrl(url);
+                          }
+                        } else {
+                          throw 'Could not launch $url';
+                        }
+                      },
+                      child: const Text(
+                        'contact@seepdeep.com',
+                      ),
+                    ),
                   ],
                 ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      'Socials',
-                      style: TextStyle(
-                        fontSize: 30,
-                        color: themeColor(
-                          context,
-                          'primary',
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.content_paste_search_outlined,
+                          color: themeColor(
+                            context,
+                            'outline',
+                          ),
                         ),
-                      ),
+                        const Gap(10),
+                        Text(
+                          'Socials',
+                          style: TextStyle(
+                            fontSize: 30,
+                            color: themeColor(
+                              context,
+                              'primary',
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                     Row(
                       children: [
@@ -586,7 +669,7 @@ class _LandingScreenState extends State<LandingScreen> {
         ),
         const Gap(50),
         TextButton.icon(
-          icon: const Icon(Icons.alt_route_outlined),
+          icon: const Icon(Icons.directions_outlined),
           onPressed: () => scrollToSection(_sectionCKey),
           label: const Text('Our Approach'),
         ),
@@ -750,12 +833,17 @@ class _LandingScreenState extends State<LandingScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Gap(50),
-            Text('Our approach',
-                style: Style.headlineS.copyWith(
-                  color: Colors.lightBlue[700],
-                  fontWeight: FontWeight.bold,
-                )),
+            Row(
+              children: [
+                const Icon(Icons.directions_outlined, size: 35),
+                const Gap(35),
+                Text('Our approach',
+                    style: Style.headlineS.copyWith(
+                      color: Colors.lightBlue[700],
+                      fontWeight: FontWeight.bold,
+                    )),
+              ],
+            ),
             const Gap(50),
             Row(
               children: [
@@ -806,11 +894,20 @@ class _LandingScreenState extends State<LandingScreen> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const Gap(50),
-          Text('Our Early Adopters',
-              style: Style.headlineS.copyWith(
-                color: Colors.lightBlue[700],
-                fontWeight: FontWeight.bold,
-              )),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Icon(Icons.groups_rounded, size: 35),
+              const Gap(35),
+              Text(
+                'Our Early Adopters',
+                style: Style.headlineS.copyWith(
+                  color: Colors.lightBlue[700],
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
+          ),
           const Gap(50),
           Text('You\'ve found the right spot. These people know it',
               style: Style.displayM),

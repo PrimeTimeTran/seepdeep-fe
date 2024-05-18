@@ -147,7 +147,7 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
                             Row(
                               children: [
                                 buildButton(
-                                  icon: Icons.reset_tv_rounded,
+                                  icon: Icons.restore_outlined,
                                   title: 'Reset',
                                   onPressed: () {
                                     setLesson(0);
@@ -155,7 +155,7 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
                                 ),
                                 const Gap(10),
                                 buildButton(
-                                  icon: Icons.restore,
+                                  icon: Icons.delete_outline_outlined,
                                   title: 'Reset Query',
                                   onPressed: () {
                                     setState(() {
@@ -178,6 +178,7 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
                             Row(
                               children: [
                                 buildButton(
+                                  icon: Icons.co_present_outlined,
                                   title: 'Hint',
                                   onPressed: () {
                                     setState(() {
