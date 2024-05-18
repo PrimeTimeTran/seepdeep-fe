@@ -1,4 +1,5 @@
 import 'package:app/all.dart';
+import 'package:app/s_d_icon_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_svg/svg.dart';
@@ -86,33 +87,33 @@ final zKeyPoints = [
     "description":
         "Time-tested educational practice, supported by over 80 years of research data.",
     "source": "",
-    "icon": ""
+    "icon": const Icon(SDIcon.spaced_reps, size: 35),
   },
   {
     "title": "Problem Library",
     "description": "A collection of the industries most popular problems",
-    "icon": "",
     "source": "",
+    "icon": const Icon(SDIcon.curated_content, size: 35),
   },
   {
     "title": "Guided Learning",
     "description":
         "A roadmap on what to focus on and how much time to spend on it.",
-    "icon": "",
     "source": "",
+    "icon": const Icon(SDIcon.guided_content, size: 35),
   },
   {
     "title": "Industry Insiders",
     "description": "Created by Silicon Valley insiders so you know it works.",
-    "icon": "",
     "source": "",
+    "icon": const Icon(SDIcon.industry_leaders, size: 35),
   },
   {
     "title": "Curated Content",
     "description":
         "Quality material instead of the hit or miss nature of social media & fan pages",
-    "icon": "",
     "source": "",
+    "icon": const Icon(SDIcon.curated_content, size: 35),
   },
 
   // We'll collect their submissions and then submit to AI and ask for room for improvement.
@@ -120,8 +121,8 @@ final zKeyPoints = [
     "title": "AI Enabled",
     "description":
         "Leveraging state of the art technology for feedback on your work.",
-    "icon": "",
-    "source": "",
+    "icon": const Icon(SDIcon.ai_enabled, size: 35),
+    "source": ""
   },
 ];
 
@@ -251,10 +252,17 @@ class _LandingScreenState extends State<LandingScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            point['title'],
-            style: Style.headlineL,
+          Row(
+            children: [
+              point['icon'],
+              const Gap(20),
+              Text(
+                point['title'],
+                style: Style.headlineL,
+              )
+            ],
           ),
+          const Gap(20),
           Text(point['description'], style: Style.headlineS),
         ],
       ),
@@ -336,11 +344,19 @@ class _LandingScreenState extends State<LandingScreen> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Our Mission',
-                          style: Style.headlineS.copyWith(
-                            color: Colors.lightBlue[700],
-                            fontWeight: FontWeight.bold,
-                          )),
+                      Row(
+                        children: [
+                          const Icon(SDIcon.ai_enabled),
+                          const Gap(5),
+                          Text(
+                            'Our Mission',
+                            style: Style.headlineS.copyWith(
+                              color: Colors.lightBlue[700],
+                              fontWeight: FontWeight.bold,
+                            ),
+                          )
+                        ],
+                      ),
                       const Gap(50),
                       Text(
                         'Helping you master yourself',
@@ -478,7 +494,13 @@ class _LandingScreenState extends State<LandingScreen> {
                         fontWeight: FontWeight.bold,
                       )),
                   const Gap(50),
-                  Text('The Seep Deep Meaning', style: Style.displayM),
+                  Row(
+                    children: [
+                      const Icon(SDIcon.curated_content, size: 35),
+                      const Gap(20),
+                      Text('The Seep Deep Meaning', style: Style.displayM)
+                    ],
+                  ),
                   const Gap(100),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -519,11 +541,20 @@ class _LandingScreenState extends State<LandingScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Gap(50),
-                Text('The best technologies',
-                    style: Style.headlineS.copyWith(
-                      color: Colors.lightBlue[700],
-                      fontWeight: FontWeight.bold,
-                    )),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Icon(SDIcon.best_tech, size: 35),
+                    const Gap(35),
+                    Text(
+                      'The best technologies',
+                      style: Style.headlineS.copyWith(
+                        color: Colors.lightBlue[700],
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
                 const Gap(50),
                 Text('Languages Supported & Incoming', style: Style.displayM),
                 const Gap(100),
@@ -557,12 +588,18 @@ class _LandingScreenState extends State<LandingScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Gap(50),
-                Text('Heres what they have to say',
-                    style: Style.headlineS.copyWith(
-                      color: Colors.lightBlue[700],
-                      fontWeight: FontWeight.bold,
-                    )),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Icon(Icons.chrome_reader_mode_outlined, size: 35),
+                    const Gap(35),
+                    Text('Heres what they have to say',
+                        style: Style.headlineS.copyWith(
+                          color: Colors.lightBlue[700],
+                          fontWeight: FontWeight.bold,
+                        )),
+                  ],
+                ),
                 const Gap(50),
                 Text('Incredible', style: Style.displayM),
                 const Gap(100),
@@ -571,15 +608,25 @@ class _LandingScreenState extends State<LandingScreen> {
                   children: [
                     const Gap(50),
                     Column(
-                      children: [Text('Students', style: Style.headlineS)],
+                      children: [
+                        const Icon(SDIcon.student, size: 50),
+                        const Gap(35),
+                        Text('Students', style: Style.headlineS)
+                      ],
                     ),
-                    const Gap(50),
-                    Column(
-                      children: [Text('Professionals', style: Style.headlineS)],
-                    ),
-                    const Gap(50),
+                    const Gap(150),
                     Column(
                       children: [
+                        const Icon(SDIcon.professional, size: 50),
+                        const Gap(35),
+                        Text('Professionals', style: Style.headlineS)
+                      ],
+                    ),
+                    const Gap(150),
+                    Column(
+                      children: [
+                        const Icon(SDIcon.geek, size: 50),
+                        const Gap(35),
                         Text('Knowledge geeks', style: Style.headlineS)
                       ],
                     ),
@@ -597,11 +644,18 @@ class _LandingScreenState extends State<LandingScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Gap(50),
-                Text('Trusted By',
-                    style: Style.headlineS.copyWith(
-                      color: Colors.lightBlue[700],
-                      fontWeight: FontWeight.bold,
-                    )),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Icon(SDIcon.trusted, size: 25),
+                    const Gap(35),
+                    Text('Trusted By',
+                        style: Style.headlineS.copyWith(
+                          color: Colors.lightBlue[700],
+                          fontWeight: FontWeight.bold,
+                        )),
+                  ],
+                ),
                 const Gap(50),
                 Text('Companies Leveraging Our Technology',
                     style: Style.headlineL),
@@ -641,11 +695,18 @@ class _LandingScreenState extends State<LandingScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             const Gap(25),
-                            Text('FAQ\'S',
-                                style: Style.headlineS.copyWith(
-                                  color: Colors.lightBlue[700],
-                                  fontWeight: FontWeight.bold,
-                                )),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                const Icon(SDIcon.trusted),
+                                const Gap(5),
+                                Text('FAQ\'S',
+                                    style: Style.headlineS.copyWith(
+                                      color: Colors.lightBlue[700],
+                                      fontWeight: FontWeight.bold,
+                                    )),
+                              ],
+                            ),
                             const Gap(25),
                             Text('Frequently \nAsked Questions',
                                 style: Style.displayM),
