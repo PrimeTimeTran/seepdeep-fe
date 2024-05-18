@@ -115,8 +115,6 @@ final zKeyPoints = [
     "source": "",
     "icon": const Icon(SDIcon.curated_content, size: 35),
   },
-
-  // We'll collect their submissions and then submit to AI and ask for room for improvement.
   {
     "title": "AI Enabled",
     "description":
@@ -298,12 +296,29 @@ class _LandingScreenState extends State<LandingScreen> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text('Dont fly solo', style: Style.headlineS),
+                          Row(
+                            children: [
+                              const Icon(Icons.money),
+                              const Gap(5),
+                              Text(
+                                'Fly Higher',
+                                style: Style.headlineS.copyWith(
+                                  color: Colors.lightBlue[700],
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              )
+                            ],
+                          ),
                           const Gap(50),
                           Text(
                             'Money back guarantee.\n\nA fresh take on learning.\n\nGain 21st century skills more \neasily with us',
-                            style: Style.displayM
-                                .copyWith(fontWeight: FontWeight.bold),
+                            style: TextStyle(
+                              fontFamily: 'ObelixPro',
+                              fontSize: 35,
+                              foreground: Paint()
+                                ..style = PaintingStyle.stroke
+                                ..strokeWidth = 3,
+                            ),
                             textAlign: TextAlign.center,
                           ),
                           const Gap(50),
@@ -315,7 +330,7 @@ class _LandingScreenState extends State<LandingScreen> {
                               onPressed: () =>
                                   GoRouter.of(context).go(AppScreens.sql.path),
                               label: const Text(
-                                'FAQs',
+                                'Get Started',
                                 style: TextStyle(
                                   fontSize: 25,
                                   fontWeight: FontWeight.bold,

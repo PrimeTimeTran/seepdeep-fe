@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:html' as html;
 
 import 'package:app/all.dart';
+import 'package:app/s_d_icon_icons.dart';
 import 'package:app/screens/sql/lesson.dart';
 import 'package:drift/drift.dart' hide Column;
 import 'package:firebase_analytics/firebase_analytics.dart';
@@ -15,6 +16,18 @@ import 'package:provider/provider.dart' as provider;
 
 import '../../database/database.dart';
 import 'sql.helpers.dart';
+
+colorPicker(context, color) {
+  switch (color) {
+    case 'background':
+      return Theme.of(context).colorScheme.background;
+    case 'onTertiaryContainer':
+      return Theme.of(context).colorScheme.onTertiaryContainer;
+    case 'primaryContainer':
+      return Theme.of(context).colorScheme.primaryContainer;
+    default:
+  }
+}
 
 class SQLScreen extends ConsumerStatefulWidget {
   const SQLScreen({super.key});
@@ -79,7 +92,7 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
                 child: HorizontalSplitView(
                   borderless: false,
                   borderColor: Colors.grey,
-                  ratio: .5,
+                  ratio: .45,
                   top: Align(
                     alignment: Alignment.topLeft,
                     child: Container(
@@ -142,58 +155,70 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
                         ),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        child: Column(
                           children: [
-                            buildButton(
-                              title: 'Reset Progress',
-                              onPressed: () {
-                                setLesson(0);
-                              },
+                            Row(
+                              children: [
+                                buildButton(
+                                  icon: Icons.reset_tv_rounded,
+                                  title: 'Reset',
+                                  onPressed: () {
+                                    setLesson(0);
+                                  },
+                                ),
+                                const Gap(10),
+                                buildButton(
+                                  icon: Icons.restore,
+                                  title: 'Reset Query',
+                                  onPressed: () {
+                                    setState(() {
+                                      code = '';
+                                    });
+                                  },
+                                ),
+                                const Gap(10),
+                                buildButton(
+                                  icon: Icons.arrow_back,
+                                  title: 'Back',
+                                  onPressed: () {
+                                    if (lessonId == 0) return;
+                                    setLesson(lessonId - 1);
+                                  },
+                                ),
+                              ],
                             ),
                             const Gap(10),
-                            buildButton(
-                              title: 'Reset query',
-                              onPressed: () {
-                                setState(() {
-                                  code = '';
-                                });
-                              },
-                            ),
-                            const Gap(10),
-                            buildButton(
-                              title: 'Back',
-                              onPressed: () {
-                                if (lessonId == 0) return;
-                                setLesson(lessonId - 1);
-                              },
-                            ),
-                            const Gap(10),
-                            buildButton(
-                              title: 'Hint',
-                              onPressed: () {
-                                setState(() {
-                                  showHint = true;
-                                });
-                              },
-                            ),
-                            const Gap(10),
-                            buildButton(
-                              title: 'Tutor Hint',
-                              onPressed: () {
-                                // help!
-                                getOpenAIHint();
-                              },
-                            ),
-                            const Gap(10),
-                            buildButton(
-                              title: 'Next',
-                              size: 2,
-                              onPressed: () {
-                                if (lessonId == 15) return;
-                                setLesson(lessonId + 1);
-                              },
-                            ),
+                            Row(
+                              children: [
+                                buildButton(
+                                  title: 'Hint',
+                                  onPressed: () {
+                                    setState(() {
+                                      showHint = true;
+                                    });
+                                  },
+                                ),
+                                const Gap(10),
+                                buildButton(
+                                  icon: SDIcon.ai_enabled,
+                                  title: 'A.I. Help',
+                                  onPressed: () {
+                                    getOpenAIHint();
+                                  },
+                                ),
+                                const Gap(10),
+                                buildButton(
+                                  title: 'Next',
+                                  color: 'primaryContainer',
+                                  icon: Icons.navigate_next_outlined,
+                                  size: 2,
+                                  onPressed: () {
+                                    if (lessonId == 15) return;
+                                    setLesson(lessonId + 1);
+                                  },
+                                ),
+                              ],
+                            )
                           ],
                         ),
                       )
@@ -208,18 +233,47 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
     );
   }
 
-  buildButton({String title = '', int size = 1, onPressed}) {
-    return Expanded(
+  buildButton({
+    String? color,
+    String title = '',
+    int size = 1,
+    onPressed,
+    IconData? icon,
+  }) {
+    MaterialStatePropertyAll<Color?> buttonColor = MaterialStatePropertyAll(
+        colorPicker(context, color ?? 'onInverseSurface'));
+
+    var button = Expanded(
       flex: size,
       child: ElevatedButton(
-        style: ButtonStyle(
-          backgroundColor:
-              MaterialStatePropertyAll(Theme.of(context).colorScheme.onPrimary),
-        ),
         onPressed: onPressed,
+        style: ButtonStyle(
+          backgroundColor: buttonColor,
+        ),
         child: Text(title),
       ),
     );
+    if (icon != null) {
+      button = Expanded(
+        flex: size,
+        child: ElevatedButton(
+          onPressed: onPressed,
+          style: ButtonStyle(
+            backgroundColor: buttonColor,
+            minimumSize: MaterialStateProperty.all(const Size(20, 50)),
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(title),
+              const SizedBox(width: 8.0),
+              Icon(icon),
+            ],
+          ),
+        ),
+      );
+    }
+    return button;
   }
 
   Expanded buildQueryPromptPanel() {

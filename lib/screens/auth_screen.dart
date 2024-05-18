@@ -13,8 +13,8 @@ class AuthScreen extends StatefulWidget {
 }
 
 class _AuthScreenState extends State<AuthScreen> {
-  String email = 'datloiboi@gmail.com';
-  String password = 'asdf!123';
+  String email = '';
+  String password = '';
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(

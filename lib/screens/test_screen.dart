@@ -26,7 +26,7 @@ class _TestScreenState extends State<TestScreen> {
         child: Center(
           child: Column(
             children: [
-              Image.asset('assets/bouncing-ball.gif'),
+              // Image.asset('assets/bouncing-ball.gif'),
               ElevatedButton(
                 onPressed: () async {
                   var total = await complexTask1();

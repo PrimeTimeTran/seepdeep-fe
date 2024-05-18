@@ -95,3 +95,6 @@ flutter:
     - family: SDIcon
       fonts:
         - asset: assets/fonts/SDIcon.ttf
+    - family: ObelixPro
+      fonts:
+        - asset: assets/fonts/ObelixPro.ttf
