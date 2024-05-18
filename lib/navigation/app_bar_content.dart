@@ -307,6 +307,11 @@ class _AppBarContentState extends State<AppBarContent> {
                 },
                 itemBuilder: (BuildContext context) => [
                   buildMenuItem(
+                    'About US',
+                    Icons.business,
+                    AppScreens.landing.path,
+                  ),
+                  buildMenuItem(
                     'Profile',
                     Icons.person,
                     AppScreens.profile.path,

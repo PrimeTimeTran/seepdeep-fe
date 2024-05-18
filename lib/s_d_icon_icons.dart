@@ -12,6 +12,10 @@
 ///       - asset: fonts/SDIcon.ttf
 ///
 /// 
+/// * Brandico, (C) 2012 by Vitaly Puzrin
+///         Author:    Crowdsourced, for Fontello project
+///         License:   SIL (http://scripts.sil.org/OFL)
+///         Homepage:  
 ///
 import 'package:flutter/widgets.dart';
 
@@ -37,4 +41,10 @@ class SDIcon {
   static const IconData spaced_reps = IconData(0xe80e, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData student = IconData(0xe80f, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData trusted = IconData(0xe810, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData facebook = IconData(0xf300, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData facebook_rect = IconData(0xf301, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData github_text = IconData(0xf307, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData github = IconData(0xf308, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData linkedin = IconData(0xf31a, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData linkedin_rect = IconData(0xf31b, fontFamily: _kFontFam, fontPackage: _kFontPkg);
 }

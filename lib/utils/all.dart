@@ -1,3 +1,4 @@
+export 'colors.dart';
 export 'constants.dart';
 export 'dates.dart';
 export 'enums.dart';

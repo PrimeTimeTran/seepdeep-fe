@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'dart:html' as html;
 
 import 'package:app/all.dart';
-import 'package:app/s_d_icon_icons.dart';
 import 'package:app/screens/sql/lesson.dart';
 import 'package:drift/drift.dart' hide Column;
 import 'package:firebase_analytics/firebase_analytics.dart';
@@ -16,18 +15,6 @@ import 'package:provider/provider.dart' as provider;
 
 import '../../database/database.dart';
 import 'sql.helpers.dart';
-
-colorPicker(context, color) {
-  switch (color) {
-    case 'background':
-      return Theme.of(context).colorScheme.background;
-    case 'onTertiaryContainer':
-      return Theme.of(context).colorScheme.onTertiaryContainer;
-    case 'primaryContainer':
-      return Theme.of(context).colorScheme.primaryContainer;
-    default:
-  }
-}
 
 class SQLScreen extends ConsumerStatefulWidget {
   const SQLScreen({super.key});
@@ -241,7 +228,7 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
     IconData? icon,
   }) {
     MaterialStatePropertyAll<Color?> buttonColor = MaterialStatePropertyAll(
-        colorPicker(context, color ?? 'onInverseSurface'));
+        themeColor(context, color ?? 'onInverseSurface'));
 
     var button = Expanded(
       flex: size,

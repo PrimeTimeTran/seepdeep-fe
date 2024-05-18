@@ -6,7 +6,7 @@ export 'designkit_screen.dart';
 export 'explore_screen.dart';
 export 'feature_request_screen.dart';
 export 'jobs_screen.dart';
-export 'landing_screen.dart';
+export 'landing_screen/all.dart';
 export 'leaderboards_screen.dart';
 export 'mastery/mastery.dart';
 export 'math_screen/math_screen.dart';
