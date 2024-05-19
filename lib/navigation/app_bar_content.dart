@@ -114,7 +114,7 @@ class _AppBarContentState extends State<AppBarContent> {
                 ),
                 label: Text(
                   'SeepDeep',
-                  style: Style.bodyL.copyWith(
+                  style: Style.of(context, 'bodyL').copyWith(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
                   ),
@@ -125,6 +125,15 @@ class _AppBarContentState extends State<AppBarContent> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
+                    // AnimatedSwitch(
+                    //   value: light1,
+                    //   onChanged: (bool? value) {
+                    //     widget.toggleTheme();
+                    //     setState(() {
+                    //       light1 = value!;
+                    //     });
+                    //   },
+                    // ),
                     TextButton.icon(
                       onPressed: () {
                         GoRouter.of(context).go(AppScreens.math.path);

@@ -17,6 +17,13 @@ class LandingScreen extends StatefulWidget {
   State<LandingScreen> createState() => _LandingScreenState();
 }
 
+class ThemeWrapper extends StatefulWidget {
+  const ThemeWrapper({super.key});
+
+  @override
+  State<ThemeWrapper> createState() => _ThemeWrapperState();
+}
+
 class _LandingScreenState extends State<LandingScreen> {
   final ScrollController _scrollController = ScrollController();
 
@@ -30,14 +37,13 @@ class _LandingScreenState extends State<LandingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return AppHead(
-      title: "Seep Deep - Your one stop shop for skills acquisition",
-      description:
-          "Mastery skills crucial to success in the information age. Develop real mastery with spaced repetition, games, curated content & and more.",
-      child: Scaffold(
-        appBar: buildNavbar(),
-        body: buildDesktop(),
-      ),
+    return Builder(
+      builder: (context) {
+        return Scaffold(
+          appBar: buildNavbar(),
+          body: buildDesktop(),
+        );
+      },
     );
   }
 
@@ -58,37 +64,39 @@ class _LandingScreenState extends State<LandingScreen> {
               const Gap(20),
               Text(
                 point['title'],
-                style: Style.headlineL,
+                style: Style.of(context, 'headlineL'),
               )
             ],
           ),
           const Gap(20),
-          Text(point['description'], style: Style.headlineS),
+          Text(point['description'], style: Style.of(context, 'headlineS')),
         ],
       ),
     );
   }
 
-  SingleChildScrollView buildDesktop() {
-    return SingleChildScrollView(
-      controller: _scrollController,
-      child: Column(
-        key: _sectionAKey,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          buildJumbotron(),
-          buildMission(),
-          buildFilter(),
-          buildSocialProof(),
-          buildSellingPoints(),
-          buildTechnologies(),
-          buildReferrals(),
-          buildPartners(),
-          buildFAQs(),
-          buildFooter(),
-        ],
-      ),
-    );
+  buildDesktop() {
+    return Builder(builder: (context) {
+      return SingleChildScrollView(
+        controller: _scrollController,
+        child: Column(
+          key: _sectionAKey,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            buildJumbotron(),
+            buildMission(),
+            buildFilter(),
+            buildSocialProof(),
+            buildSellingPoints(),
+            buildTechnologies(),
+            buildReferrals(),
+            buildPartners(),
+            buildFAQs(),
+            buildFooter(),
+          ],
+        ),
+      );
+    });
   }
 
   Container buildFAQs() {
@@ -115,16 +123,12 @@ class _LandingScreenState extends State<LandingScreen> {
                         children: [
                           const Icon(SDIcon.trusted),
                           const Gap(5),
-                          Text('FAQ\'S',
-                              style: Style.headlineS.copyWith(
-                                color: Colors.lightBlue[700],
-                                fontWeight: FontWeight.bold,
-                              )),
+                          Text('FAQ\'S', style: Style.of(context, 'headlineS')),
                         ],
                       ),
                       const Gap(25),
                       Text('Frequently \nAsked Questions',
-                          style: Style.displayM),
+                          style: Style.of(context, 'displayM')),
                     ],
                   ),
                 ),
@@ -164,9 +168,10 @@ class _LandingScreenState extends State<LandingScreen> {
 
   buildFAQTile(question, [followup, answer]) {
     return ExpansionTile(
-      title: Text(question, style: Style.headlineS),
-      subtitle:
-          followup == null ? null : Text(followup, style: Style.headlineS),
+      title: Text(question, style: Style.of(context, 'headlineS')),
+      subtitle: followup == null
+          ? null
+          : Text(followup, style: Style.of(context, 'headlineS')),
       children: <Widget>[
         ListTile(title: Text(answer ?? '')),
       ],
@@ -196,20 +201,12 @@ class _LandingScreenState extends State<LandingScreen> {
                       const Icon(Icons.person),
                       const Gap(5),
                       Text(
-                        'Who are you',
-                        style: Style.headlineS.copyWith(
-                          color: Colors.lightBlue[700],
-                          fontWeight: FontWeight.bold,
-                        ),
+                        'WHO ARE YOU?',
+                        style: Style.of(context, 'headlineS'),
                       )
                     ],
                   ),
                   const Gap(50),
-                  // Text(
-                  //   'Does this sound like you? \nCan you relate to these?',
-                  //   style: Style.displayM,
-                  //   textAlign: TextAlign.center,
-                  // ),
                   const Gap(100),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -217,13 +214,14 @@ class _LandingScreenState extends State<LandingScreen> {
                       const Gap(100),
                       Column(
                         children: [
-                          Text('Learners', style: Style.headlineS),
-                          const SizedBox(
+                          Text('Learners',
+                              style: Style.of(context, 'headlineS')),
+                          SizedBox(
                             height: 250,
                             width: 250,
                             child: Text(
                               "You love learning or you're determined to succeed in your educational journey.",
-                              style: TextStyle(fontSize: 30),
+                              style: Style.of(context, 'displayS'),
                               textAlign: TextAlign.center,
                             ),
                           ),
@@ -232,13 +230,14 @@ class _LandingScreenState extends State<LandingScreen> {
                       const Gap(100),
                       Column(
                         children: [
-                          Text('Teachers', style: Style.headlineS),
-                          const SizedBox(
+                          Text('Teachers',
+                              style: Style.of(context, 'headlineS')),
+                          SizedBox(
                             height: 250,
                             width: 250,
                             child: Text(
-                              "You're managing a ever increasing list of things to do. You need help delivering on the mission.",
-                              style: TextStyle(fontSize: 30),
+                              "You're managing a ever increasing list \nof things to do. You need help \ndelivering on the mission.",
+                              style: Style.of(context, 'displayS'),
                               textAlign: TextAlign.center,
                             ),
                           ),
@@ -247,13 +246,14 @@ class _LandingScreenState extends State<LandingScreen> {
                       const Gap(100),
                       Column(
                         children: [
-                          Text('Businesses', style: Style.headlineS),
-                          const SizedBox(
+                          Text('Businesses',
+                              style: Style.of(context, 'headlineS')),
+                          SizedBox(
                             height: 250,
                             width: 250,
                             child: Text(
                               "You're inundated with candidates. Your're training new members.",
-                              style: TextStyle(fontSize: 30),
+                              style: Style.of(context, 'displayS'),
                               textAlign: TextAlign.center,
                             ),
                           ),
@@ -503,7 +503,8 @@ class _LandingScreenState extends State<LandingScreen> {
                       children: [
                         IconButton(
                           onPressed: () {
-                            launchUrl(Uri.parse('https://faceboook.com'));
+                            launchUrl(Uri.parse(
+                                'https://www.facebook.com/profile.php?id=61559652654746'));
                           },
                           icon: SvgPicture.asset(
                             'assets/img/logos/facebook.svg',
@@ -514,7 +515,8 @@ class _LandingScreenState extends State<LandingScreen> {
                         const Gap(25),
                         IconButton(
                           onPressed: () {
-                            launchUrl(Uri.parse('https://linkedin.com'));
+                            launchUrl(Uri.parse(
+                                'https://www.linkedin.com/company/seep-deep'));
                           },
                           icon: SvgPicture.asset(
                             'assets/img/logos/linkedin.svg',
@@ -585,37 +587,15 @@ class _LandingScreenState extends State<LandingScreen> {
                         const Icon(Icons.money),
                         const Gap(5),
                         Text(
-                          'Fly Higher',
-                          style: Style.headlineS.copyWith(
-                            color: Colors.lightBlue[700],
-                            fontWeight: FontWeight.bold,
-                          ),
+                          'FLY HIGHER',
+                          style: Style.of(context, 'headlineS'),
                         )
                       ],
                     ),
                     const Gap(50),
-                    Stack(
-                      children: <Widget>[
-                        Text(
-                          'Next Generation Learning Platform. \n\nDeveloped to help students achieve, \n\nteachers deliver & businesses succeed.',
-                          style: TextStyle(
-                            fontFamily: 'ObelixPro',
-                            fontSize: 35,
-                            foreground: Paint()
-                              ..style = PaintingStyle.stroke
-                              ..strokeWidth = 6
-                              ..color = Colors.black,
-                          ),
-                        ),
-                        const Text(
-                          'Next Generation Learning Platform. \n\nDeveloped to help students achieve, \n\nteachers deliver & businesses succeed.',
-                          style: TextStyle(
-                            fontFamily: 'ObelixPro',
-                            fontSize: 35,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ],
+                    Text(
+                      'Next Generation Learning Platform. \nDeveloped to help students achieve, \nteachers deliver & businesses succeed.',
+                      style: Style.of(context, 'displayL'),
                     ),
                     const Gap(50),
                     SizedBox(
@@ -662,23 +642,20 @@ class _LandingScreenState extends State<LandingScreen> {
                     const Icon(SDIcon.ai_enabled),
                     const Gap(5),
                     Text(
-                      'Our Mission',
-                      style: Style.headlineS.copyWith(
-                        color: Colors.lightBlue[700],
-                        fontWeight: FontWeight.bold,
-                      ),
+                      'OUR MISSION',
+                      style: Style.of(context, 'headlineS'),
                     )
                   ],
                 ),
                 const Gap(50),
                 Text(
                   'Helping you master yourself',
-                  style: Style.headlineL,
+                  style: Style.of(context, 'headlineL'),
                 ),
                 const Gap(50),
                 Text(
                     'Were about helping people become \nthe best version of themselves. \nWe\'re about enabling',
-                    style: Style.headlineM),
+                    style: Style.of(context, 'headlineM')),
               ],
             ),
             const Gap(50),
@@ -767,15 +744,12 @@ class _LandingScreenState extends State<LandingScreen> {
             children: [
               const Icon(SDIcon.trusted, size: 25),
               const Gap(35),
-              Text('Trusted By',
-                  style: Style.headlineS.copyWith(
-                    color: Colors.lightBlue[700],
-                    fontWeight: FontWeight.bold,
-                  )),
+              Text('TRUSTED BY', style: Style.of(context, 'headlineS')),
             ],
           ),
           const Gap(50),
-          Text('Companies Working Smarter', style: Style.headlineL),
+          Text('Companies Working Smarter',
+              style: Style.of(context, 'headlineL')),
           const Gap(100),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -841,7 +815,7 @@ class _LandingScreenState extends State<LandingScreen> {
     if (content != null) {
       return Column(
         children: [
-          Text(title, style: Style.headlineS),
+          Text(title, style: Style.of(context, 'headlineS')),
           SizedBox(
             height: size,
             width: size,
@@ -852,7 +826,8 @@ class _LandingScreenState extends State<LandingScreen> {
     }
     return Column(
       children: [
-        Text(u != null ? u['name'] : title, style: Style.headlineS),
+        Text(u != null ? u['name'] : title,
+            style: Style.of(context, 'headlineS')),
         Container(
           height: size,
           width: size,
@@ -880,17 +855,13 @@ class _LandingScreenState extends State<LandingScreen> {
             children: [
               const Icon(Icons.chrome_reader_mode_outlined, size: 35),
               const Gap(35),
-              Text('Heres what they have to say',
-                  style: Style.headlineS.copyWith(
-                    color: Colors.lightBlue[700],
-                    fontWeight: FontWeight.bold,
-                  )),
+              Text('THEIR REVIEWS', style: Style.of(context, 'headlineS')),
             ],
           ),
           const Gap(50),
           Text(
             'Incredible',
-            style: Style.displayM,
+            style: Style.of(context, 'displayM'),
             textAlign: TextAlign.center,
           ),
           const Gap(50),
@@ -901,7 +872,7 @@ class _LandingScreenState extends State<LandingScreen> {
                 children: [
                   const Icon(SDIcon.student, size: 50),
                   const Gap(35),
-                  Text('Learners', style: Style.headlineS)
+                  Text('Learners', style: Style.of(context, 'headlineS'))
                 ],
               ),
               const Gap(150),
@@ -909,7 +880,7 @@ class _LandingScreenState extends State<LandingScreen> {
                 children: [
                   const Icon(SDIcon.professional, size: 50),
                   const Gap(35),
-                  Text('Teachers', style: Style.headlineS)
+                  Text('Teachers', style: Style.of(context, 'headlineS'))
                 ],
               ),
               const Gap(150),
@@ -917,7 +888,7 @@ class _LandingScreenState extends State<LandingScreen> {
                 children: [
                   const Icon(SDIcon.company, size: 50),
                   const Gap(35),
-                  Text('Businesses', style: Style.headlineS)
+                  Text('Businesses', style: Style.of(context, 'headlineS'))
                 ],
               ),
             ],
@@ -942,11 +913,10 @@ class _LandingScreenState extends State<LandingScreen> {
               children: [
                 const Icon(Icons.directions_outlined, size: 35),
                 const Gap(35),
-                Text('Our approach',
-                    style: Style.headlineS.copyWith(
-                      color: Colors.lightBlue[700],
-                      fontWeight: FontWeight.bold,
-                    )),
+                Text(
+                  'OUR APPROACH',
+                  style: Style.of(context, 'headlineS'),
+                )
               ],
             ),
             const Gap(50),
@@ -954,7 +924,8 @@ class _LandingScreenState extends State<LandingScreen> {
               children: [
                 const Icon(SDIcon.curated_content, size: 35),
                 const Gap(20),
-                Text('The Seep Deep Meaning', style: Style.displayM)
+                Text('The Seep Deep Meaning',
+                    style: Style.of(context, 'displayM'))
               ],
             ),
             const Gap(100),
@@ -1005,17 +976,14 @@ class _LandingScreenState extends State<LandingScreen> {
               const Icon(Icons.groups_rounded, size: 35),
               const Gap(35),
               Text(
-                'Our Early Adopters',
-                style: Style.headlineS.copyWith(
-                  color: Colors.lightBlue[700],
-                  fontWeight: FontWeight.bold,
-                ),
+                'OUR EARLY ADOPTERS',
+                style: Style.of(context, 'headlineS'),
               ),
             ],
           ),
           const Gap(50),
           Text('You\'ve found the right spot. These people know it',
-              style: Style.displayM),
+              style: Style.of(context, 'displayM')),
           const Gap(100),
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
@@ -1062,16 +1030,14 @@ class _LandingScreenState extends State<LandingScreen> {
               const Icon(SDIcon.best_tech, size: 35),
               const Gap(35),
               Text(
-                'The best technologies',
-                style: Style.headlineS.copyWith(
-                  color: Colors.lightBlue[700],
-                  fontWeight: FontWeight.bold,
-                ),
+                'THE BEST TECHNOLOGIES',
+                style: Style.of(context, 'headlineS'),
               ),
             ],
           ),
           const Gap(50),
-          Text('Languages Supported & Incoming', style: Style.displayM),
+          Text('Languages Supported & Incoming',
+              style: Style.of(context, 'displayM')),
           const Gap(100),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -1143,5 +1109,42 @@ class _LandingScreenState extends State<LandingScreen> {
         curve: Curves.easeInOut,
       );
     }
+  }
+}
+
+class _ThemeWrapperState extends State<ThemeWrapper> {
+  late bool _isDarkMode = false;
+
+  @override
+  Widget build(BuildContext context) {
+    final themeMode = _isDarkMode ? ThemeMode.dark : ThemeMode.light;
+    return MaterialApp(
+      themeMode: themeMode,
+      theme: Style.lightTheme,
+      darkTheme: Style.darkTheme,
+      home: const LandingScreen(),
+    );
+  }
+
+  getStoredTheme() async {
+    final storedTheme = await Storage.instance.getTheme();
+    if (storedTheme != _isDarkMode) {
+      setState(() {
+        _isDarkMode = storedTheme;
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getStoredTheme();
+  }
+
+  void toggleTheme() {
+    setState(() {
+      _isDarkMode = !_isDarkMode;
+    });
+    Storage.instance.setTheme();
   }
 }

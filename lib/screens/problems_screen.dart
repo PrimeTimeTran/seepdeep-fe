@@ -278,7 +278,7 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
       children: [
         Text(
           'Study Plan',
-          style: Style.titleL,
+          style: Style.of(context, 'titleL'),
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,

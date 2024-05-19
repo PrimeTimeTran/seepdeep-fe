@@ -6,13 +6,22 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:go_router/go_router.dart';
 
 final routerConfig = GoRouter(
-  initialLocation: '/',
+  initialLocation: '/landing',
   debugLogDiagnostics: true,
   routes: [
-    GoRoute(
-      path: '/landing',
-      name: AppScreens.landing.toString(),
-      builder: (_, __) => const LandingScreen(),
+    StatefulShellRoute.indexedStack(
+      builder: (context, state, shell) {
+        return const ThemeWrapper();
+      },
+      branches: [
+        StatefulShellBranch(navigatorKey: navigatorKeyB, routes: [
+          GoRoute(
+            path: AppScreens.landing.path,
+            name: AppScreens.landing.name,
+            builder: (_, __) => const LandingScreen(),
+          ),
+        ])
+      ],
     ),
     StatefulShellRoute.indexedStack(
       builder: (context, state, shell) {
@@ -20,22 +29,6 @@ final routerConfig = GoRouter(
       },
       branches: routes,
     ),
-    // StatefulShellRoute.indexedStack(
-    //     builder: (context, state, shell) {
-    //       return App(shell: shell);
-    //     },
-    //     branches: [
-    //       StatefulShellBranch(
-    //         navigatorKey: navigatorKeyB,
-    //         routes: [
-    //           GoRoute(
-    //             path: '/landing',
-    //             name: AppScreens.landing.toString(),
-    //             builder: (_, __) => const LandingScreen(),
-    //           ),
-    //         ],
-    //       )
-    //     ]),
   ],
 );
 
@@ -66,7 +59,6 @@ class _AppState extends State<App> {
     final colors = _isDarkMode
         ? <Color>[Colors.black, Colors.black87]
         : <Color>[Colors.blue[900]!, Colors.lightBlue];
-
     return MaterialApp(
       scaffoldMessengerKey: snackKey,
       themeMode: themeMode,
@@ -74,26 +66,30 @@ class _AppState extends State<App> {
       darkTheme: Style.darkTheme,
       builder: EasyLoading.init(),
       debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        key: drawerKey,
-        body: RootNavigator(
-          screen: SizedBox(
-            height: height,
-            child: widget.screen ?? widget.shell,
-          ),
-        ),
-        drawer: const MyDrawer(),
-        appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(60.0),
-          child: SizedBox(
-            child: Container(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(colors: colors),
+      home: Builder(
+        builder: (context) {
+          return Scaffold(
+            key: drawerKey,
+            body: RootNavigator(
+              screen: SizedBox(
+                height: height,
+                child: widget.screen ?? widget.shell,
               ),
-              child: AppBarContent(toggleTheme: toggleTheme),
             ),
-          ),
-        ),
+            drawer: const MyDrawer(),
+            appBar: PreferredSize(
+              preferredSize: const Size.fromHeight(60.0),
+              child: SizedBox(
+                child: Container(
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(colors: colors),
+                  ),
+                  child: AppBarContent(toggleTheme: toggleTheme),
+                ),
+              ),
+            ),
+          );
+        },
       ),
     );
   }
@@ -117,7 +113,6 @@ class _AppState extends State<App> {
     setState(() {
       _isDarkMode = !_isDarkMode;
     });
-    Style.instance.updateBrightness(context);
     Storage.instance.setTheme();
   }
 }

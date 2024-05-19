@@ -15,21 +15,6 @@ class CurveClipper extends CustomClipper<Path> {
 
   CurveClipper(this.animationValue);
 
-  // @override
-  // Path getClip(Size size) {
-  //   final path = Path();
-  //   final curveHeight =
-  //       size.height * 5; // Adjust this value for the desired curve height
-  //   final curveTop = (1.0 - animationValue) *
-  //       size.height; // Calculate the top position of the curve
-
-  //   path.lineTo(0, size.height);
-  //   path.quadraticBezierTo(size.width / 2, curveTop, size.width, size.height);
-  //   path.lineTo(size.width, 0);
-  //   path.close();
-  //   return path;
-  // }
-
   @override
   Path getClip(Size size) {
     final path = Path();
@@ -243,8 +228,10 @@ class _LandingScreenState extends State<LandingScreen>
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text('Seeking the skills to build the future?',
-                    style: Style.displayL)
+                Text(
+                  'Seeking the skills to build the future?',
+                  style: Style.of(context, 'displayL'),
+                )
               ],
             ),
           ),
@@ -254,9 +241,15 @@ class _LandingScreenState extends State<LandingScreen>
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Text('Helping you master yourself', style: Style.displayM),
+                Text(
+                  'Helping you master yourself',
+                  style: Style.of(context, 'displayM'),
+                ),
                 const Gap(50),
-                Text('Helping you master yourself', style: Style.displayM),
+                Text(
+                  'Helping you master yourself',
+                  style: Style.of(context, 'displayM'),
+                ),
               ],
             ),
           ),
@@ -267,11 +260,12 @@ class _LandingScreenState extends State<LandingScreen>
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Gap(50),
-                Text('Who should join us?', style: Style.bodyL),
+                Text('Who should join us?', style: Style.of(context, 'bodyL')),
                 const Gap(50),
                 Text(
-                    'We want to make sure you know what you wanna do with your life',
-                    style: Style.displayM),
+                  'We want to make sure you know what you wanna do with your life',
+                  style: Style.of(context, 'displayM'),
+                ),
                 const Gap(100),
                 const Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -304,9 +298,15 @@ class _LandingScreenState extends State<LandingScreen>
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Gap(50),
-                  Text('Our approach', style: Style.bodyL),
+                  Text(
+                    'Our approach',
+                    style: Style.of(context, 'bodyL'),
+                  ),
                   const Gap(50),
-                  Text('The Seep Deep Meaning', style: Style.displayM),
+                  Text(
+                    'The Seep Deep Meaning',
+                    style: Style.of(context, 'displayM'),
+                  ),
                   const Gap(100),
                   Row(
                     children: [
@@ -345,10 +345,11 @@ class _LandingScreenState extends State<LandingScreen>
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Gap(50),
-                Text('Who has already joined us?', style: Style.bodyL),
+                Text('Who has already joined us?',
+                    style: Style.of(context, 'bodyL')),
                 const Gap(50),
                 Text('These people have already pulled the trigger',
-                    style: Style.displayM),
+                    style: Style.of(context, 'displayM')),
                 const Gap(100),
                 const Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -512,7 +513,7 @@ class _LandingScreenState extends State<LandingScreen>
         minHeight: 250,
         maxHeight: 250,
       ),
-      child: Text(title, style: Style.bodyL),
+      child: Text(title, style: Style.of(context, 'bodyL')),
     );
   }
 
@@ -534,7 +535,7 @@ class _LandingScreenState extends State<LandingScreen>
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       Text('The real deal',
-                              style: Style.displayL.copyWith(
+                              style: Style.of(context, 'displayL').copyWith(
                                 fontWeight: FontWeight.bold,
                               ))
                           .animate()
@@ -556,7 +557,7 @@ class _LandingScreenState extends State<LandingScreen>
                     children: [
                       const Text('hi yo'),
                       Text('The real deal',
-                              style: Style.displayL.copyWith(
+                              style: Style.of(context, 'displayL').copyWith(
                                 fontWeight: FontWeight.bold,
                               ))
                           .animate()
@@ -576,7 +577,7 @@ class _LandingScreenState extends State<LandingScreen>
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       Text('The real deal',
-                              style: Style.displayL.copyWith(
+                              style: Style.of(context, 'displayL').copyWith(
                                 fontWeight: FontWeight.bold,
                               ))
                           .animate()
@@ -598,7 +599,7 @@ class _LandingScreenState extends State<LandingScreen>
                     children: [
                       const Text('hi yo'),
                       Text('The real deal',
-                              style: Style.displayL.copyWith(
+                              style: Style.of(context, 'displayL').copyWith(
                                 fontWeight: FontWeight.bold,
                               ))
                           .animate()
@@ -637,7 +638,7 @@ class _LandingScreenState extends State<LandingScreen>
   //         // ),
   //         Text(
   //           'The real deal',
-  //           style: Style.displayL.copyWith(
+  //           style: Style.of(context, 'displayL').copyWith(
   //             fontWeight: FontWeight.bold,
   //           ),
   //         ),

@@ -1,6 +1,8 @@
 // ignore_for_file: unrelated_type_equality_checks
 
+import 'package:app/all.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 final ButtonStyle flatButtonStyle = TextButton.styleFrom(
   foregroundColor: Colors.black87,
@@ -23,100 +25,123 @@ final ButtonStyle raisedButtonStyle = ElevatedButton.styleFrom(
 
 class Style {
   static final Style _instance = Style._privateConstructor();
-  static get bodyL => _instance._bodyLarge;
-  static get bodyM => _instance._bodyMedium;
-  static get bodyS => _instance._bodySmall;
-  // Largest to smallest
-  // Display, Headline, Title, Label, Body
-  static get bold => _instance._bold;
   static get darkTheme => _instance._darkTheme;
-  static get displayL => _instance._displayLarge;
-  static get displayM => _instance._displayMedium;
-  static get displayS => _instance._displaySmall;
-  static get headingColor => _instance._headingColor;
-  static get headlineL => _instance._headlineLarge;
-  static get headlineM => _instance._headlineMedium;
-  static get headlineS => _instance._headlineSmall;
   static Style get instance => _instance;
-  static get inverseSurface => _instance._inverseSurface;
-  static get labelL => _instance._labelLarge;
-  static get labelM => _instance._labelMedium;
-  static get labelS => _instance._labelSmall;
   static get lightTheme => _instance._lightTheme;
-  static get surface => _instance._surface;
-  static get textColor => _instance._textColor;
-  static get titleL => _instance._titleLarge;
-  static get titleM => _instance._titleMedium;
-  static get titleS => _instance._titleSmall;
-  late Color _textColor;
-  late Color _surface;
-  late Color _inverseSurface;
-  late Color _headingColor;
   late ThemeData _lightTheme;
   late ThemeData _darkTheme;
-  late TextStyle _displaySmall;
-  late TextStyle _displayMedium;
-  late TextStyle _displayLarge;
-  late TextStyle _headlineSmall;
-  late TextStyle _headlineMedium;
-  late TextStyle _headlineLarge;
-  late TextStyle _titleSmall;
-  late TextStyle _titleMedium;
-  late TextStyle _titleLarge;
-  late TextStyle _labelSmall;
-  late TextStyle _labelMedium;
-  late TextStyle _labelLarge;
-  late TextStyle _bodySmall;
-  late TextStyle _bodyMedium;
-  late TextStyle _bodyLarge;
-  late TextStyle _bold;
+
   Style._privateConstructor();
-  // Info: How we can define styles in one place and reuse them elsewhere more easily.
-  // See ./lib/navigation/root.dart
 
   void initialize(BuildContext context) {
-    setWithThemeColor(context);
+    final heading = TextStyle(
+      color: themeColor(context, 'primary'),
+      fontFamily: GoogleFonts.leagueSpartan().fontFamily,
+      fontWeight: FontWeight.bold,
+    );
+    final withColor = TextStyle(
+      color: themeColor(
+        context,
+        'secondary',
+      ),
+    );
     _lightTheme = ThemeData(
+      fontFamily: GoogleFonts.libreBaskerville().fontFamily,
+      iconTheme: const IconThemeData(color: Colors.grey),
       brightness: Brightness.light,
+      textTheme: TextTheme(
+        displayLarge: heading,
+        displayMedium: heading,
+        displaySmall: heading,
+        headlineLarge: heading,
+        headlineMedium:
+            heading.copyWith(color: themeColor(context, 'secondary')),
+        headlineSmall:
+            heading.copyWith(color: themeColor(context, 'secondary')),
+        titleLarge: withColor,
+        titleMedium: withColor,
+        titleSmall: withColor,
+        labelLarge: withColor,
+        labelMedium: withColor,
+        labelSmall: withColor,
+        bodyLarge: withColor,
+        bodyMedium: withColor,
+        bodySmall: withColor,
+      ),
     );
     _darkTheme = ThemeData(
+      fontFamily: GoogleFonts.libreBaskerville().fontFamily,
+      iconTheme: const IconThemeData(color: Colors.grey),
       brightness: Brightness.dark,
+      textTheme: TextTheme(
+        displayLarge: heading,
+        displayMedium: heading,
+        displaySmall: heading,
+        headlineLarge: heading,
+        headlineMedium:
+            heading.copyWith(color: themeColor(context, 'secondary')),
+        headlineSmall:
+            heading.copyWith(color: themeColor(context, 'secondary')),
+        titleLarge: withColor,
+        titleMedium: withColor,
+        titleSmall: withColor,
+        labelLarge: withColor,
+        labelMedium: withColor,
+        labelSmall: withColor,
+        bodyLarge: withColor,
+        bodyMedium: withColor,
+        bodySmall: withColor,
+      ),
     );
-  }
-
-  void setWithThemeColor(BuildContext context) {
-    _surface = Theme.of(context).colorScheme.surface;
-    _inverseSurface = Theme.of(context).colorScheme.inverseSurface;
-    _displaySmall = Theme.of(context).textTheme.displaySmall!;
-    _displayMedium = Theme.of(context).textTheme.displayMedium!;
-    _displayLarge = Theme.of(context).textTheme.displayLarge!;
-    _headlineSmall = Theme.of(context).textTheme.headlineSmall!;
-    _headlineMedium = Theme.of(context).textTheme.headlineMedium!;
-    _headlineLarge = Theme.of(context).textTheme.headlineLarge!;
-    _titleSmall = Theme.of(context).textTheme.titleSmall!;
-    _titleMedium = Theme.of(context).textTheme.titleMedium!;
-    _titleLarge = Theme.of(context).textTheme.titleLarge!;
-    _labelSmall = Theme.of(context).textTheme.labelSmall!;
-    _labelMedium = Theme.of(context).textTheme.labelMedium!;
-    _labelLarge = Theme.of(context).textTheme.labelLarge!;
-    _bodySmall = Theme.of(context).textTheme.bodySmall!;
-    _bodyMedium = Theme.of(context).textTheme.bodyMedium!;
-    _bodyLarge = Theme.of(context).textTheme.bodyLarge!;
-    _bold = const TextStyle(fontWeight: FontWeight.bold);
-
-    _textColor = Theme.of(context).brightness == Brightness.light
-        ? Colors.black
-        : Colors.grey;
-    _headingColor = Theme.of(context).brightness == Brightness.light
-        ? Colors.blue
-        : Colors.lightBlue;
-  }
-
-  void updateBrightness(BuildContext context) {
-    setWithThemeColor(context);
   }
 
   static Brightness currentTheme(BuildContext context) {
     return Theme.of(context).brightness;
+  }
+
+  static of(context, value) {
+    switch (value) {
+      case 'displayL':
+        return Theme.of(context).textTheme.displayLarge;
+      case 'displayM':
+        return Theme.of(context).textTheme.displayMedium;
+      case 'displayS':
+        return Theme.of(context).textTheme.displaySmall;
+      case 'headlineL':
+        return Theme.of(context).textTheme.headlineLarge;
+      case 'headlineM':
+        return Theme.of(context).textTheme.headlineMedium;
+      case 'headlineS':
+        return Theme.of(context).textTheme.headlineSmall;
+      case 'titleL':
+        return Theme.of(context).textTheme.titleLarge;
+      case 'titleM':
+        return Theme.of(context).textTheme.titleMedium;
+      case 'titleS':
+        return Theme.of(context).textTheme.titleSmall;
+      case 'labelL':
+        return Theme.of(context).textTheme.labelLarge;
+      case 'labelM':
+        return Theme.of(context).textTheme.labelMedium;
+      case 'labelS':
+        return Theme.of(context).textTheme.labelSmall;
+      case 'bodyL':
+        return Theme.of(context).textTheme.bodyLarge;
+      case 'bodyM':
+        return Theme.of(context).textTheme.bodyMedium;
+      case 'bodyS':
+        return Theme.of(context).textTheme.bodySmall;
+      case 'displayLUnderline':
+        return Theme.of(context)
+            .textTheme
+            .displayLarge
+            ?.copyWith(decoration: TextDecoration.underline);
+      case 'titleGrey':
+        return Theme.of(context).textTheme.titleLarge?.copyWith(
+              color: Colors.grey,
+            );
+      default:
+        throw Exception('Style does not exist');
+    }
   }
 }

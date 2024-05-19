@@ -38,49 +38,72 @@ class _DesignKitScreenState extends State<DesignKitScreen> {
       ),
     );
 
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          ScrollConfiguration(
-            behavior:
-                ScrollConfiguration.of(context).copyWith(scrollbars: false),
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Buttons',
-                    style: Style.titleL,
+    return Builder(builder: (context) {
+      return Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(
+              child: ScrollConfiguration(
+                behavior:
+                    ScrollConfiguration.of(context).copyWith(scrollbars: false),
+                child: SingleChildScrollView(
+                  child: Card.outlined(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 50, vertical: 25),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Typography',
+                            style: Style.of(context, 'displayLUnderline'),
+                          ),
+                          buildTexts(),
+                          Text(
+                            'Buttons',
+                            style: Style.of(context, 'displayLUnderline'),
+                          ),
+                          buildDefaultButtons(),
+                          buildCustomStyledButtons(outlineButtonStyle),
+                        ],
+                      ),
+                    ),
                   ),
-                  buildDefaultButtons(),
-                  buildCustomStyledButtons(outlineButtonStyle),
-                  buildTexts(),
-                ],
+                ),
               ),
             ),
-          ),
-          SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Icons',
-                  style: Style.titleL,
+            const Gap(25),
+            Expanded(
+              child: SingleChildScrollView(
+                child: Card.outlined(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 50, vertical: 25),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Icons',
+                          style: Style.of(context, 'titleL'),
+                        ),
+                        buildIconButtons(),
+                        buildSegmentedButtons(),
+                        const Gap(25),
+                        buildBadges(),
+                        buildCheckboxes(),
+                        buildChips(),
+                      ],
+                    ),
+                  ),
                 ),
-                buildIconButtons(),
-                buildSegmentedButtons(),
-                const Gap(25),
-                buildBadges(),
-                buildCheckboxes(),
-                buildChips(),
-              ],
-            ),
-          )
-        ],
-      ),
-    );
+              ),
+            )
+          ],
+        ),
+      );
+    });
   }
 
   buildBadges() {
@@ -229,9 +252,9 @@ class _DesignKitScreenState extends State<DesignKitScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
+        Text(
           'from Custom Style',
-          style: TextStyle(fontSize: 25),
+          style: Style.of(context, 'titleL'),
         ),
         TextButtonTheme(
           data: TextButtonThemeData(style: prefix.flatButtonStyle),
@@ -261,9 +284,9 @@ class _DesignKitScreenState extends State<DesignKitScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
+        Text(
           'from Color Scheme',
-          style: TextStyle(fontSize: 25),
+          style: Style.of(context, 'titleL'),
         ),
         const Gap(5),
         TextButton(onPressed: () {}, child: const Text('TextButton')),
@@ -349,88 +372,89 @@ class _DesignKitScreenState extends State<DesignKitScreen> {
       children: [
         Text(
           'Display',
-          style: Style.titleL,
-        ),
-        Text(
-          'displaySmall',
-          style: Style.displayS,
-        ),
-        Text(
-          'displayMedium',
-          style: Style.displayM,
+          style: Style.of(context, 'titleGrey'),
         ),
         Text(
           'displayLarge',
-          style: Style.displayL,
+          style: Style.of(context, 'displayL'),
+        ),
+        Text(
+          'displayMedium',
+          style: Style.of(context, 'displayM'),
+        ),
+        Text(
+          'displaySmall',
+          style: Style.of(context, 'displayS'),
         ),
         const Gap(30),
         Text(
           'Headline',
-          style: Style.titleL,
-        ),
-        Text(
-          'headlineSmall',
-          style: Style.headlineS,
-        ),
-        Text(
-          'headlineMedium',
-          style: Style.headlineM,
+          style: Style.of(context, 'titleGrey'),
         ),
         Text(
           'headlineLarge',
-          style: Style.headlineL,
+          style: Style.of(context, 'headlineL'),
+        ),
+        Text(
+          'headlineMedium',
+          style: Style.of(context, 'headlineM'),
+        ),
+        Text(
+          'headlineSmall',
+          style: Style.of(context, 'headlineS'),
         ),
         const Gap(30),
         Text(
           'Title',
-          style: Style.titleL,
-        ),
-        Text(
-          'titleSmall',
-          style: Style.titleS,
-        ),
-        Text(
-          'titleMedium',
-          style: Style.titleM,
+          style: Style.of(context, 'titleGrey'),
         ),
         Text(
           'titleLarge',
-          style: Style.titleL,
+          style: Style.of(context, 'titleL'),
+        ),
+        Text(
+          'titleMedium',
+          style: Style.of(context, 'titleM'),
+        ),
+        Text(
+          'titleSmall',
+          style: Style.of(context, 'titleS'),
         ),
         const Gap(30),
         Text(
           'Label',
-          style: Style.titleL,
-        ),
-        Text(
-          'labelSmall',
-          style: Style.labelS,
-        ),
-        Text(
-          'labelMedium',
-          style: Style.labelM,
+          style: Style.of(context, 'titleGrey'),
         ),
         Text(
           'labelLarge',
-          style: Style.labelL,
+          style: Style.of(context, 'labelL'),
+        ),
+        Text(
+          'labelMedium',
+          style: Style.of(context, 'labelM'),
+        ),
+        Text(
+          'labelSmall',
+          style: Style.of(context, 'labelS'),
         ),
         const Gap(30),
         Text(
           'Body',
-          style: Style.titleL,
-        ),
-        Text(
-          'bodySmall',
-          style: Style.bodyS,
-        ),
-        Text(
-          'bodyMedium',
-          style: Style.bodyM,
+          style: Style.of(context, 'titleGrey'),
         ),
         Text(
           'bodyLarge',
-          style: Style.bodyL,
+          style: Style.of(context, 'bodyL'),
         ),
+        Text(
+          'bodyMedium',
+          style: Style.of(context, 'bodyM'),
+        ),
+        Text(
+          'bodySmall',
+          style: Style.of(context, 'bodyS'),
+        ),
+        const Gap(30),
       ],
     );
   }

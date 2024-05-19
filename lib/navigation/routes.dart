@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 final navigatorKeyA = GlobalKey<NavigatorState>(debugLabel: 'shellA');
-
 final navigatorKeyB = GlobalKey<NavigatorState>(debugLabel: 'shellB');
 
 final routes = [
@@ -260,7 +259,7 @@ extension AppPageX on AppScreens {
       case AppScreens.math:
         return '/math';
       case AppScreens.designKit:
-        return '/designkit';
+        return '/design-kit';
       case AppScreens.test:
         return '/test';
       default:

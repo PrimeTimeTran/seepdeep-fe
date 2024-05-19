@@ -113,7 +113,7 @@ final zKeyPoints = [
   {
     "title": "AI Enabled",
     "description":
-        "Leveraging state of the art technology for feedback on your work.",
+        "Leveraging state of the art technology for feedback & help when you need it.",
     "icon": const Icon(SDIcon.ai_enabled, size: 35),
     "source": ""
   },
