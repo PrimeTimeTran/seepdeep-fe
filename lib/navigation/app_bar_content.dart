@@ -136,7 +136,7 @@ class _AppBarContentState extends State<AppBarContent> {
                     // ),
                     TextButton.icon(
                       onPressed: () {
-                        GoRouter.of(context).go(AppScreens.math.path);
+                        GoRouter.of(context).go(AppScreens.mathIndex.path);
                       },
                       label: const Text(
                         'Maths',
@@ -451,10 +451,6 @@ class _AppBarContentState extends State<AppBarContent> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      // dialogBugReport(context);
-      // dialogShortcuts(context);
-      // dialogGetCode(context);
-    });
+    WidgetsBinding.instance.addPostFrameCallback((_) {});
   }
 }

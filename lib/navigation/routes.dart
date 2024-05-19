@@ -1,4 +1,5 @@
 import 'package:app/all.dart';
+import 'package:app/screens/math_screen/math_screen.intro.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -110,13 +111,13 @@ final routes = [
         builder: (_, __) => const AuthScreen(),
       ),
       GoRoute(
-        path: AppScreens.math.path,
-        name: AppScreens.math.name,
-        builder: (_, __) => const MathScreen(),
-      ),
-      GoRoute(
         path: AppScreens.mathIndex.path,
         name: AppScreens.mathIndex.name,
+        builder: (_, __) => const MathIntroScreen(),
+      ),
+      GoRoute(
+        path: AppScreens.math.path,
+        name: AppScreens.math.name,
         builder: (_, __) => const MathScreen(),
       ),
       GoRoute(

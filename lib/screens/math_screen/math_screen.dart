@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_web_libraries_in_flutter, must_be_immutable
 import 'dart:async';
 import 'dart:convert';
+import 'dart:html' as html;
 import 'dart:html';
 import 'dart:ui_web' as ui;
 
@@ -117,7 +118,7 @@ class _MathScreenState extends State<MathScreen> {
                         ),
                         child: AppText(
                           text: question.body!,
-                          style: Theme.of(context).textTheme.bodyLarge,
+                          style: Style.of(context, 'displayS'),
                         ),
                       ),
                       const Gap(10),
@@ -173,12 +174,12 @@ class _MathScreenState extends State<MathScreen> {
                           ),
                           child: AppText(
                             text: question.prompt!,
-                            style: Theme.of(context).textTheme.bodyLarge,
+                            style: Style.of(context, 'displayS'),
                           )),
                       const Gap(10),
                       Card.outlined(
                         child: Column(
-                          mainAxisSize: MainAxisSize.min,
+                          mainAxisSize: MainAxisSize.max,
                           children: <Widget>[
                             Padding(
                               padding: const EdgeInsets.only(
@@ -294,28 +295,48 @@ class _MathScreenState extends State<MathScreen> {
                                     [LatexInlineSyntax()],
                                   ),
                                 )),
-                            ConstrainedBox(
-                                constraints: const BoxConstraints(
-                                  minHeight: 30,
-                                  maxHeight: 50,
-                                ),
-                                child: Markdown(
-                                  selectable: true,
-                                  data: question.answerLatex,
-                                  builders: {
-                                    'latex': LatexElementBuilder(
-                                      textStyle: const TextStyle(
-                                        fontSize: 25,
-                                        fontWeight: FontWeight.w100,
-                                      ),
-                                    ),
-                                  },
-                                  extensionSet: md.ExtensionSet(
-                                    [LatexBlockSyntax()],
-                                    [LatexInlineSyntax()],
-                                  ),
-                                )),
-                            const Gap(10),
+                            // ConstrainedBox(
+                            //     constraints: const BoxConstraints(
+                            //       minHeight: 30,
+                            //       maxHeight: 125,
+                            //     ),
+                            //     child: Markdown(
+                            //       selectable: true,
+                            //       data: question.answerLatex,
+                            //       builders: {
+                            //         'latex': LatexElementBuilder(
+                            //           textStyle: const TextStyle(
+                            //             fontSize: 25,
+                            //             fontWeight: FontWeight.w100,
+                            //           ),
+                            //         ),
+                            //       },
+                            //       extensionSet: md.ExtensionSet(
+                            //         [LatexBlockSyntax()],
+                            //         [LatexInlineSyntax()],
+                            //       ),
+                            //     )),
+                            // ConstrainedBox(
+                            //     constraints: const BoxConstraints(
+                            //       minHeight: 30,
+                            //       maxHeight: 125,
+                            //     ),
+                            //     child: Markdown(
+                            //       selectable: true,
+                            //       data: question.solution,
+                            //       builders: {
+                            //         'latex': LatexElementBuilder(
+                            //           textStyle: const TextStyle(
+                            //             fontSize: 25,
+                            //             fontWeight: FontWeight.w100,
+                            //           ),
+                            //         ),
+                            //       },
+                            //       extensionSet: md.ExtensionSet(
+                            //         [LatexBlockSyntax()],
+                            //         [LatexInlineSyntax()],
+                            //       ),
+                            //     )),
                             const Gap(10),
                           ],
                         ),
@@ -386,20 +407,32 @@ class _MathScreenState extends State<MathScreen> {
     }
   }
 
-  getProblems() async {
+  getCategory() {
+    final url = html.window.location.href;
+    Uri uri = Uri.parse(url);
+    String category = uri.queryParameters['category'] ?? 'limits';
+    if (category != '') {
+      setState(() {
+        problemType = category;
+      });
+    }
+    getProblems(category);
+  }
+
+  getProblems(topic) async {
     try {
       List<Optimization> values = [];
-      final json = await rootBundle.loadString('json/$problemType.json');
+      final json = await rootBundle.loadString('json/$topic.json');
       final Map<String, dynamic> data = await jsonDecode(json);
       for (var question in data['data']) {
         values.add(Optimization(
-          title: question['title'] ?? '',
           body: question['body'] ?? '',
+          title: question['title'] ?? '',
+          prompt: question['prompt'] ?? '',
+          answer: question['answer'] ?? '',
           equation: question['equation'] ?? '',
           evaluate: question['evaluate'] ?? '',
-          prompt: question['prompt'] ?? '',
           solution: question['solution'] ?? '',
-          answer: question['answer'] ?? '',
           answerLatex: question['answerLatex'] ?? '',
         ));
       }
@@ -414,8 +447,11 @@ class _MathScreenState extends State<MathScreen> {
   @override
   void initState() {
     super.initState();
-
-    getProblems();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Future.delayed(const Duration(seconds: 2), () {
+        getCategory();
+      });
+    });
   }
 
   setProblem() {}

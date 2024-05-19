@@ -1,4 +1,7 @@
+import 'package:app/all.dart';
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
 
 // Topics,
 // Calculus 1
@@ -6,23 +9,24 @@ import 'package:flutter/material.dart';
 // Calculus 2
 
 final subjects = {
+  "subjects": ['pre-calculus', 'trigonometry', 'calculus'],
   "calculus": {
+    "subjects": ['limits', 'limit-properties', 'infinite-limits'],
     "limit": {
-      // Good
       "limit": "",
-      // Good
       "limit-properties": "",
-      // Good
       "infinite-limit": "",
     },
     "derivatives": {
-      // Good
-      "derivatives": [],
-      // Good
+      "subjects": [
+        'derivatives',
+        'product-rule',
+        'quotient-rule',
+        'optimizations'
+      ],
+      "derivative": [],
       "product-rule": [],
-      // Good
       "quotient-rule": [],
-      // Good
       "optimization": ['limit'],
     },
     "integrals": ['limit'],
@@ -39,18 +43,80 @@ class MathIntroScreen extends StatefulWidget {
 class _MathIntroScreenState extends State<MathIntroScreen> {
   @override
   Widget build(BuildContext context) {
-    return const SingleChildScrollView(
+    return SingleChildScrollView(
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 50, vertical: 50),
+        padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 50),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
               children: [
                 Expanded(
-                  child: Text('Math Subjects'),
+                  child: Text(
+                    'Calculus',
+                    style: Style.of(
+                      context,
+                      'displayL',
+                    ),
+                  ),
                 ),
               ],
             ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Limits',
+                  style: Style.of(
+                    context,
+                    'displayS',
+                  ),
+                ),
+                Text(
+                  "Limits describe the behavior of functions as their inputs approach specific values. The limit of a function f(x) as x approaches a value  c represents the value  f(x) approaches as x gets arbitrarily close to c. Key properties, like sum, difference, constant multiple, product, and quotient properties, aid in evaluating limits efficiently. Techniques such as direct substitution and L'Hôpital's Rule help determine limits in various scenarios. Understanding limits is essential as they form the basis for concepts like continuity, derivatives, and integrals, enabling the analysis of functions' behavior near critical points.",
+                  style: Style.of(context, 'headlineS'),
+                ),
+                TextButton(
+                    onPressed: () {
+                      GoRouter.of(context).go('/math?category=limits');
+                    },
+                    child: const Text('Practice')),
+                const Gap(50),
+                Text(
+                  'Derivatives',
+                  style: Style.of(
+                    context,
+                    'displayS',
+                  ),
+                ),
+                Text(
+                  "Derivatives measure the rate of change of a function with respect to its input. The derivative of a function f(x) at a point x represents the slope of the tangent line to the graph of  f(x) at that point. Key properties, such as the power rule, product rule, quotient rule, and chain rule, allow for the differentiation of various functions efficiently. Techniques like implicit differentiation and logarithmic differentiation expand the scope of functions that can be differentiated. Understanding derivatives is fundamental as they provide insights into the behavior of functions, including identifying extrema, inflection points, and graph characteristics. They also have applications in physics, engineering, economics, and other fields where rates of change are essential for analysis.",
+                  style: Style.of(context, 'headlineS'),
+                ),
+                TextButton(
+                    onPressed: () {
+                      GoRouter.of(context).go('/math?category=derivatives');
+                    },
+                    child: const Text('Practice')),
+                const Gap(50),
+                Text(
+                  'Integrals',
+                  style: Style.of(
+                    context,
+                    'displayS',
+                  ),
+                ),
+                Text(
+                  "Integrals are used to calculate the accumulation of quantities over an interval and to find the area under curves. The integral of a function f(x) over an interval [a,b] represents the signed area between the curve of f(x) and the x-axis within that interval. Key properties, such as linearity, the fundamental theorem of calculus, substitution, and integration by parts, facilitate the computation of integrals for various functions. Techniques like trigonometric substitution and partial fractions enable the integration of more complex functions. Understanding integrals is crucial as they provide solutions to problems involving rates of change, accumulation, and area computations across diverse fields, including physics, engineering, economics, and statistics.",
+                  style: Style.of(context, 'headlineS'),
+                ),
+                TextButton(
+                    onPressed: () {
+                      GoRouter.of(context).go('/math?category=integrals');
+                    },
+                    child: const Text('Practice'))
+              ],
+            )
           ],
         ),
       ),
