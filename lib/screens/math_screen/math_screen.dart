@@ -28,7 +28,10 @@ class Optimization {
   String? title;
   String? prompt;
   String? equation;
+  String? evaluate;
   String? solution;
+  String? answer;
+  String? answerLatex;
   String? solutionsWrong;
   List<String>? imgUrls;
   List<String>? formulas;
@@ -43,7 +46,10 @@ class Optimization {
     this.type,
     this.hint,
     this.prompt,
+    this.evaluate,
     this.solution,
+    this.answer,
+    this.answerLatex,
     this.imgUrls,
     this.formulas,
     this.equation,
@@ -53,6 +59,7 @@ class Optimization {
 class _MathScreenState extends State<MathScreen> {
   int index = 1;
   bool error = false;
+  String problemType = 'optimization';
   List<Optimization> questions = [];
   IFrameElement webView = IFrameElement();
   final StreamController<int> _problemStreamController = StreamController();
@@ -124,6 +131,27 @@ class _MathScreenState extends State<MathScreen> {
                           child: Markdown(
                             selectable: true,
                             data: question.equation,
+                            builders: {
+                              'latex': LatexElementBuilder(
+                                textStyle: const TextStyle(
+                                    fontWeight: FontWeight.w100, fontSize: 25),
+                              ),
+                            },
+                            extensionSet: md.ExtensionSet(
+                              [LatexBlockSyntax()],
+                              [LatexInlineSyntax()],
+                            ),
+                          )),
+                      ConstrainedBox(
+                          constraints: const BoxConstraints(
+                            minWidth: 200,
+                            maxWidth: 1000,
+                            minHeight: 100,
+                            maxHeight: 150,
+                          ),
+                          child: Markdown(
+                            selectable: true,
+                            data: question.evaluate,
                             builders: {
                               'latex': LatexElementBuilder(
                                 textStyle: const TextStyle(
@@ -230,7 +258,7 @@ class _MathScreenState extends State<MathScreen> {
                                 ElevatedButton.icon(
                                   icon: const Icon(SDIcon.ai_enabled),
                                   onPressed: () {
-                                    generateAIProblem();
+                                    generateAIProblem(problemType);
                                   },
                                   style: ButtonStyle(
                                     backgroundColor: MaterialStatePropertyAll(
@@ -245,6 +273,49 @@ class _MathScreenState extends State<MathScreen> {
                                 const Gap(20),
                               ],
                             ),
+                            ConstrainedBox(
+                                constraints: const BoxConstraints(
+                                  minHeight: 30,
+                                  maxHeight: 50,
+                                ),
+                                child: Markdown(
+                                  selectable: true,
+                                  data: question.answer,
+                                  builders: {
+                                    'latex': LatexElementBuilder(
+                                      textStyle: const TextStyle(
+                                        fontSize: 25,
+                                        fontWeight: FontWeight.w100,
+                                      ),
+                                    ),
+                                  },
+                                  extensionSet: md.ExtensionSet(
+                                    [LatexBlockSyntax()],
+                                    [LatexInlineSyntax()],
+                                  ),
+                                )),
+                            ConstrainedBox(
+                                constraints: const BoxConstraints(
+                                  minHeight: 30,
+                                  maxHeight: 50,
+                                ),
+                                child: Markdown(
+                                  selectable: true,
+                                  data: question.answerLatex,
+                                  builders: {
+                                    'latex': LatexElementBuilder(
+                                      textStyle: const TextStyle(
+                                        fontSize: 25,
+                                        fontWeight: FontWeight.w100,
+                                      ),
+                                    ),
+                                  },
+                                  extensionSet: md.ExtensionSet(
+                                    [LatexBlockSyntax()],
+                                    [LatexInlineSyntax()],
+                                  ),
+                                )),
+                            const Gap(10),
                             const Gap(10),
                           ],
                         ),
@@ -287,11 +358,10 @@ class _MathScreenState extends State<MathScreen> {
     );
   }
 
-  Future<void> generateAIProblem() async {
+  Future<void> generateAIProblem(type) async {
     final gemini = Gemini.instance;
-
     try {
-      final resp = await gemini.text(generateGeminiPrompts('optimization'));
+      final resp = await gemini.text(generateGeminiPrompts(type));
       final json = resp?.content?.parts?[0].text;
       if (json != null) {
         // Sometimes the response comes back wrapped with a ```json ```.
@@ -317,21 +387,28 @@ class _MathScreenState extends State<MathScreen> {
   }
 
   getProblems() async {
-    final json = await rootBundle.loadString("json/optimization.json");
-    final Map<String, dynamic> data = await jsonDecode(json);
-    List<Optimization> values = [];
-    for (var question in data['data']) {
-      values.add(Optimization(
-        title: question['title'],
-        body: question['body'],
-        equation: question['equation'],
-        prompt: question['prompt'],
-        solution: question['solution'],
-      ));
+    try {
+      List<Optimization> values = [];
+      final json = await rootBundle.loadString('json/$problemType.json');
+      final Map<String, dynamic> data = await jsonDecode(json);
+      for (var question in data['data']) {
+        values.add(Optimization(
+          title: question['title'] ?? '',
+          body: question['body'] ?? '',
+          equation: question['equation'] ?? '',
+          evaluate: question['evaluate'] ?? '',
+          prompt: question['prompt'] ?? '',
+          solution: question['solution'] ?? '',
+          answer: question['answer'] ?? '',
+          answerLatex: question['answerLatex'] ?? '',
+        ));
+      }
+      setState(() {
+        questions = values;
+      });
+    } catch (e) {
+      print('Error: $e');
     }
-    setState(() {
-      questions = values;
-    });
   }
 
   @override
@@ -339,7 +416,6 @@ class _MathScreenState extends State<MathScreen> {
     super.initState();
 
     getProblems();
-    generateAIProblem();
   }
 
   setProblem() {}
@@ -370,45 +446,3 @@ class _MathScreenState extends State<MathScreen> {
     }, isVisible: false);
   }
 }
-
-// Question Types:
-// - Multiple Choice, Free Response, Checkbox, Fill in the blank, Matching, Short Answer, True/False
-// - Acronyms: MC, FR, CB, FB, M, SA, TF
-
-// Potential domains...?
-// Arithmetic, Algebra, Geometry, Trigonometry, Statistics, Number Theory, Calculus, Word Problems, Finance
-
-// Examples:
-//    1. Multiple Choice or :MC:
-//    Question.     What's Flutter primarily written in?
-//    Choices.      [Python, Ruby, C, C++]
-//    Answer.       Dart
-
-//    2. Free Response or :FR:
-//    Question.     What's 4 squared?
-//    Choices.      null
-//    Answer.       16
-
-//    3. Checkbox or :CB:
-//    Question.     Which are prime numbers?
-//    Choices.      [1, 2, 3, 5, 7, 11, 13, 15]
-//    Answer.       [2, 3, 5, 7, 11, 13]
-
-//    4. Fill in the blank or :FB:
-//    Question.     Calculus is the study of _____?
-//    Choices.      [Math, Derivatives, Equations, Change]
-//    Answer.       Change
-
-//    5. Matching: :M:
-//    Question.     Match the term to it's definition.
-//    Term.         Asymptote, Derivative
-//    Definitions.  ["a line that continually approaches a given curve but does not meet it at any finite distance.", "(of a financial product) having a value deriving from an underlying variable asset."]
-//    Answer.       [[Asymptote, "a line that continually approaches a given curve but does not meet it at any finite distance."], [Derivative,"(of a financial product) having a value deriving from an underlying variable asset."]]
-
-//    6. Short Answer or :SA:
-//    Question.     If you invest $1000 at an annual interest rate of 5% for 2 years, how much will you have at the end? How about after 10 years?
-//    Answer.       "After 2 years, $1102.5, then $1628.89 for 10"
-
-//    7. True/False or :TF:
-//    Question.     Studying math is good for you,
-//    Answer.       "After 2 years, $1102.5, then $1628.89 for 10"

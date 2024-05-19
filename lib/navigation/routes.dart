@@ -115,6 +115,11 @@ final routes = [
         builder: (_, __) => const MathScreen(),
       ),
       GoRoute(
+        path: AppScreens.mathIndex.path,
+        name: AppScreens.mathIndex.name,
+        builder: (_, __) => const MathScreen(),
+      ),
+      GoRoute(
         path: AppScreens.designKit.path,
         name: AppScreens.designKit.name,
         builder: (_, __) => const DesignKitScreen(),
@@ -151,6 +156,7 @@ enum AppScreens {
   streak,
   auth,
   mastery,
+  mathIndex,
   math,
   designKit,
   test
@@ -201,6 +207,8 @@ extension AppPageX on AppScreens {
         return 'AUTH';
       case AppScreens.mastery:
         return 'MASTERY';
+      case AppScreens.mathIndex:
+        return 'MATHINDEX';
       case AppScreens.math:
         return 'MATH';
       case AppScreens.designKit:
@@ -256,6 +264,8 @@ extension AppPageX on AppScreens {
         return '/jobs';
       case AppScreens.auth:
         return '/auth';
+      case AppScreens.mathIndex:
+        return '/maths';
       case AppScreens.math:
         return '/math';
       case AppScreens.designKit:
