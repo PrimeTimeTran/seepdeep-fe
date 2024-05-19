@@ -111,39 +111,41 @@ Future<void> dialogBugReport(BuildContext context) {
         content: SizedBox(
           height: getHeight() / 5,
           width: getWidth() / 2,
-          child: Center(
-            child: Expanded(
-              child: Column(
-                children: [
-                  TextFormField(
-                    autofocus: true,
-                    decoration: InputDecoration(
-                      labelStyle: Theme.of(context).textTheme.headlineLarge,
-                      hintText: 'Problem changing...',
-                      labelText: 'Title',
-                    ),
+          child: Column(
+            children: [
+              Expanded(
+                child: TextFormField(
+                  autofocus: true,
+                  decoration: InputDecoration(
+                    labelStyle: Theme.of(context).textTheme.headlineLarge,
+                    hintText: 'Problem changing...',
+                    labelText: 'Title',
                   ),
-                  const Gap(30),
-                  TextFormField(
-                    decoration: InputDecoration(
-                      labelStyle: Theme.of(context).textTheme.headlineLarge,
-                      hintText: 'On the...',
-                      labelText: 'Description',
-                    ),
-                  ),
-                  const Gap(30),
-                  TextFormField(
-                    decoration: InputDecoration(
-                      labelStyle: Theme.of(context).textTheme.headlineLarge,
-                      helperText:
-                          'We can update you if you provide your contact.',
-                      hintText: 'john@email.com',
-                      labelText: 'Email',
-                    ),
-                  ),
-                ],
+                ),
               ),
-            ),
+              const Gap(30),
+              Expanded(
+                child: TextFormField(
+                  decoration: InputDecoration(
+                    labelStyle: Theme.of(context).textTheme.headlineLarge,
+                    hintText: 'On the...',
+                    labelText: 'Description',
+                  ),
+                ),
+              ),
+              const Gap(30),
+              Expanded(
+                child: TextFormField(
+                  decoration: InputDecoration(
+                    labelStyle: Theme.of(context).textTheme.headlineLarge,
+                    helperText:
+                        'We can update you if you provide your contact.',
+                    hintText: 'john@email.com',
+                    labelText: 'Email',
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
         actions: <Widget>[
@@ -218,41 +220,43 @@ Future<void> dialogFeatureRequest(BuildContext context) {
         content: SizedBox(
           height: getHeight() / 5,
           width: getWidth() / 2,
-          child: Center(
-            child: Expanded(
-              child: Column(
-                children: [
-                  TextFormField(
-                    autofocus: true,
-                    decoration: InputDecoration(
-                      labelStyle: Theme.of(context).textTheme.headlineLarge,
-                      // helperText: 'Which screen are you referring to?',
-                      hintText: 'Data Structures...',
-                      labelText: 'Title',
-                    ),
+          child: Column(
+            children: [
+              Expanded(
+                child: TextFormField(
+                  autofocus: true,
+                  decoration: InputDecoration(
+                    labelStyle: Theme.of(context).textTheme.headlineLarge,
+                    // helperText: 'Which screen are you referring to?',
+                    hintText: 'Data Structures...',
+                    labelText: 'Title',
                   ),
-                  const Gap(30),
-                  TextFormField(
-                    decoration: InputDecoration(
-                      labelStyle: Theme.of(context).textTheme.headlineLarge,
-                      // helperText: 'Helper Text',
-                      hintText: 'It would great if...',
-                      labelText: 'Description',
-                    ),
-                  ),
-                  const Gap(30),
-                  TextFormField(
-                    decoration: InputDecoration(
-                      labelStyle: Theme.of(context).textTheme.headlineLarge,
-                      helperText:
-                          'We can update you if you provide your contact.',
-                      hintText: 'john@email.com',
-                      labelText: 'Email',
-                    ),
-                  ),
-                ],
+                ),
               ),
-            ),
+              const Gap(30),
+              Expanded(
+                child: TextFormField(
+                  decoration: InputDecoration(
+                    labelStyle: Theme.of(context).textTheme.headlineLarge,
+                    // helperText: 'Helper Text',
+                    hintText: 'It would great if...',
+                    labelText: 'Description',
+                  ),
+                ),
+              ),
+              const Gap(30),
+              Expanded(
+                child: TextFormField(
+                  decoration: InputDecoration(
+                    labelStyle: Theme.of(context).textTheme.headlineLarge,
+                    helperText:
+                        'We can update you if you provide your contact.',
+                    hintText: 'john@email.com',
+                    labelText: 'Email',
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
         actions: <Widget>[
@@ -581,72 +585,59 @@ Future<void> dialogShortcuts(BuildContext context) {
           style: Theme.of(context).textTheme.displaySmall,
         ),
         content: SizedBox(
-          width: getWidth() / 2,
+          width: getWidth() * .8,
           height: getHeight() / 2,
-          child: Center(
-            child: Expanded(
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Card.outlined(
-                      child: Padding(
-                        padding: const EdgeInsets.all(20),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text('Editor',
-                                style:
-                                    Theme.of(context).textTheme.displaySmall),
-                            buildShortcut(context, 'Run Code', 'Ctrl + Enter', [
-                              Icons.keyboard_control_key,
-                              Icons.keyboard_return
-                            ])
-                          ],
-                        ),
-                      ),
+          child: Row(
+            children: [
+              Expanded(
+                child: Card.outlined(
+                  child: Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('Editor',
+                            style: Theme.of(context).textTheme.displaySmall),
+                        buildShortcut(context, 'Run Code', 'Ctrl + Enter',
+                            [Icons.keyboard_control_key, Icons.keyboard_return])
+                      ],
                     ),
                   ),
-                  Expanded(
-                    child: Card.outlined(
-                      child: Padding(
-                        padding: const EdgeInsets.all(20),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text('Global',
-                                style:
-                                    Theme.of(context).textTheme.displaySmall),
-                            buildShortcut(context, 'Run Code', 'Ctrl + Enter', [
-                              Icons.keyboard_control_key,
-                              Icons.keyboard_return
-                            ])
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    child: Card.outlined(
-                      child: Padding(
-                        padding: const EdgeInsets.all(20),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text('Help',
-                                style:
-                                    Theme.of(context).textTheme.displaySmall),
-                            buildShortcut(context, 'Run Code', 'Ctrl + Enter', [
-                              Icons.keyboard_control_key,
-                              Icons.keyboard_return
-                            ])
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
+                ),
               ),
-            ),
+              Expanded(
+                child: Card.outlined(
+                  child: Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('Global',
+                            style: Theme.of(context).textTheme.displaySmall),
+                        buildShortcut(context, 'Run Code', 'Ctrl + Enter',
+                            [Icons.keyboard_control_key, Icons.keyboard_return])
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              Expanded(
+                child: Card.outlined(
+                  child: Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('Help',
+                            style: Theme.of(context).textTheme.displaySmall),
+                        buildShortcut(context, 'Run Code', 'Ctrl + Enter',
+                            [Icons.keyboard_control_key, Icons.keyboard_return])
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
         actions: <Widget>[

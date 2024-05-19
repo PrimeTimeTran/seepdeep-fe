@@ -94,7 +94,7 @@ class _LandingScreenState extends State<LandingScreen> {
   Container buildFAQs() {
     return Container(
       key: _sectionEKey,
-      height: getHeight(),
+      height: getHeight() * .75,
       color: Colors.grey[100],
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 200, vertical: 200),
@@ -205,21 +205,60 @@ class _LandingScreenState extends State<LandingScreen> {
                     ],
                   ),
                   const Gap(50),
-                  Text(
-                    'Does this sound like you? \nCan you relate to these?',
-                    style: Style.displayM,
-                    textAlign: TextAlign.center,
-                  ),
+                  // Text(
+                  //   'Does this sound like you? \nCan you relate to these?',
+                  //   style: Style.displayM,
+                  //   textAlign: TextAlign.center,
+                  // ),
                   const Gap(100),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const Gap(100),
-                      buildPhotoBox('Learners', 250),
-                      const Gap(300),
-                      buildPhotoBox('Teachers', 250),
-                      const Gap(300),
-                      buildPhotoBox('Businesses', 250),
+                      Column(
+                        children: [
+                          Text('Learners', style: Style.headlineS),
+                          const SizedBox(
+                            height: 250,
+                            width: 250,
+                            child: Text(
+                              "You love learning or you're determined to succeed in your educational journey.",
+                              style: TextStyle(fontSize: 30),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const Gap(100),
+                      Column(
+                        children: [
+                          Text('Teachers', style: Style.headlineS),
+                          const SizedBox(
+                            height: 250,
+                            width: 250,
+                            child: Text(
+                              "You're managing a ever increasing list of things to do. You need help delivering on the mission.",
+                              style: TextStyle(fontSize: 30),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const Gap(100),
+                      Column(
+                        children: [
+                          Text('Businesses', style: Style.headlineS),
+                          const SizedBox(
+                            height: 250,
+                            width: 250,
+                            child: Text(
+                              "You're inundated with candidates. Your're training new members.",
+                              style: TextStyle(fontSize: 30),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ],
+                      ),
                       const Gap(100),
                     ],
                   )
@@ -555,16 +594,28 @@ class _LandingScreenState extends State<LandingScreen> {
                       ],
                     ),
                     const Gap(50),
-                    Text(
-                      'Money back guarantee.\n\nA fresh take on learning.\n\nGain 21st century skills more \neasily with us',
-                      style: TextStyle(
-                        fontFamily: 'ObelixPro',
-                        fontSize: 35,
-                        foreground: Paint()
-                          ..style = PaintingStyle.stroke
-                          ..strokeWidth = 3,
-                      ),
-                      textAlign: TextAlign.center,
+                    Stack(
+                      children: <Widget>[
+                        Text(
+                          'Next Generation Learning Platform. \n\nDeveloped to help students achieve, \n\nteachers deliver & businesses succeed.',
+                          style: TextStyle(
+                            fontFamily: 'ObelixPro',
+                            fontSize: 35,
+                            foreground: Paint()
+                              ..style = PaintingStyle.stroke
+                              ..strokeWidth = 6
+                              ..color = Colors.black,
+                          ),
+                        ),
+                        const Text(
+                          'Next Generation Learning Platform. \n\nDeveloped to help students achieve, \n\nteachers deliver & businesses succeed.',
+                          style: TextStyle(
+                            fontFamily: 'ObelixPro',
+                            fontSize: 35,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ],
                     ),
                     const Gap(50),
                     SizedBox(
@@ -744,7 +795,19 @@ class _LandingScreenState extends State<LandingScreen> {
     );
   }
 
-  buildPhotoBox(title, size, [u, cover]) {
+  buildPhotoBox(title, size, [u, cover, content, contentBody]) {
+    if (content != null) {
+      return Column(
+        children: [
+          Text(title, style: Style.headlineS),
+          SizedBox(
+            height: size,
+            width: size,
+            child: Text(contentBody),
+          ),
+        ],
+      );
+    }
     return Column(
       children: [
         Text(u != null ? u['name'] : title, style: Style.headlineS),
