@@ -7,6 +7,7 @@
       "body2": "and the demand function is",
       "equation2": "\\[ p(x) = 100 - 0.01x \\; 0 ≤ x ≤ 1000  \\]",
       "prompt": "Determine the production level that maximizes revenue.",
+      "answer": "",
       "explanation": "Upon producing and selling the 501st unit, the company incurs an additional cost of $25, but gains $75 in revenue, resulting in a $50 increase in profit."
     },
     {
@@ -16,6 +17,7 @@
       "body2": "and the demand function is",
       "equation2": "\\[ p(x) = 150 - 0.05x \\; 100 ≤ x ≤ 500 \\]",
       "prompt": "Find the production level that minimizes the average cost.",
+      "answer": "",
       "explanation": "When producing and selling the 251st unit, the company faces an additional cost of $50 but earns $75 in revenue, resulting in a $25 profit increase."
     },
     {
@@ -25,6 +27,7 @@
       "body2": "and the demand function is",
       "equation2": "\\[ p(x) = 120 - 0.02x \\; 0 ≤ x ≤ 800 \\]",
       "prompt": "Determine the production level that maximizes profit subject to the constraint that $x$ must be greater than or equal to 200 units.",
+      "answer": "",
       "explanation": "Upon producing and selling the 201st unit, the company incurs an additional cost of $30 but gains"
     },
     {
@@ -74,7 +77,6 @@
       "prompt": "What is the marginal cost when x = 200 , x = 300 and x = 400 ?",
       "answer": "10, 38, 78",
       "explanation": "So, in order to produce the 201st widget it will cost approximately $10. To produce the 301st widget will cost around $38. Finally, to product the 401st widget it will cost approximately $78."
-      
     },
     {
       "title": "Production Costs 4",

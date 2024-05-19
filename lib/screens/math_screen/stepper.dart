@@ -7,8 +7,14 @@ import 'package:flutter_svg/svg.dart';
 
 class StepperDemo extends StatefulWidget {
   Stream<int> problemStream;
+  int problemsLength;
   Function setStep;
-  StepperDemo({super.key, required this.problemStream, required this.setStep});
+  StepperDemo({
+    super.key,
+    required this.problemStream,
+    required this.setStep,
+    required this.problemsLength,
+  });
 
   @override
   State<StepperDemo> createState() => _StepperDemoState();
@@ -60,7 +66,7 @@ class _StepperDemoState extends State<StepperDemo> {
       'ic_scatter_chart',
     ];
     List<EasyStep> vals = [];
-    for (var i = 1; i <= 10; i++) {
+    for (var i = 1; i <= widget.problemsLength; i++) {
       vals.add(EasyStep(
         customStep: ClipRRect(
           borderRadius: BorderRadius.circular(15),

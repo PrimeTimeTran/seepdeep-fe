@@ -6,8 +6,10 @@ import 'dart:ui_web' as ui;
 
 import 'package:app/all.dart';
 import 'package:app/screens/math_screen/stepper.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter_markdown_latex/flutter_markdown_latex.dart';
 import 'package:gap/gap.dart';
@@ -27,54 +29,13 @@ class Optimization {
   String? prompt;
   String? equation;
   String? solution;
+  String? solutionsWrong;
   List<String>? imgUrls;
   List<String>? formulas;
   String? answerPlaceholder;
   List<String>? explanation;
 
   String? type;
-
-  // Question Types:
-  // - Multiple Choice, Free Response, Checkbox, Fill in the blank, Matching, Short Answer, True/False
-  // - Acronyms: MC, FR, CB, FB, M, SA, TF
-
-  // Potential domains...?
-  // Arithmetic, Algebra, Geometry, Trigonometry, Statistics, Number Theory, Calculus, Word Problems, Finance
-
-  // Examples:
-  //    1. Multiple Choice or :MC:
-  //    Question.     What's Flutter primarily written in?
-  //    Choices.      [Python, Ruby, C, C++]
-  //    Answer.       Dart
-
-  //    2. Free Response or :FR:
-  //    Question.     What's 4 squared?
-  //    Choices.      null
-  //    Answer.       16
-
-  //    3. Checkbox or :CB:
-  //    Question.     Which are prime numbers?
-  //    Choices.      [1, 2, 3, 5, 7, 11, 13, 15]
-  //    Answer.       [2, 3, 5, 7, 11, 13]
-
-  //    4. Fill in the blank or :FB:
-  //    Question.     Calculus is the study of _____?
-  //    Choices.      [Math, Derivatives, Equations, Change]
-  //    Answer.       Change
-
-  //    5. Matching: :M:
-  //    Question.     Match the term to it's definition.
-  //    Term.         Asymptote, Derivative
-  //    Definitions.  ["a line that continually approaches a given curve but does not meet it at any finite distance.", "(of a financial product) having a value deriving from an underlying variable asset."]
-  //    Answer.       [[Asymptote, "a line that continually approaches a given curve but does not meet it at any finite distance."], [Derivative,"(of a financial product) having a value deriving from an underlying variable asset."]]
-
-  //    6. Short Answer or :SA:
-  //    Question.     If you invest $1000 at an annual interest rate of 5% for 2 years, how much will you have at the end? How about after 10 years?
-  //    Answer.       "After 2 years, $1102.5, then $1628.89 for 10"
-
-  //    7. True/False or :TF:
-  //    Question.     Studying math is good for you,
-  //    Answer.       "After 2 years, $1102.5, then $1628.89 for 10"
 
   Optimization({
     this.body,
@@ -91,47 +52,18 @@ class Optimization {
 
 class _MathScreenState extends State<MathScreen> {
   int index = 1;
-  List questions = [];
+  bool error = false;
+  List<Optimization> questions = [];
   IFrameElement webView = IFrameElement();
   final StreamController<int> _problemStreamController = StreamController();
 
   @override
   Widget build(BuildContext context) {
     setSubscription();
-    return FutureBuilder<List<Optimization>>(
-      future: fetchProblems(),
-      builder: (BuildContext context, snapshot) {
-        if (snapshot.hasData) {
-          List<Optimization> problems = snapshot.data!;
-          return buildProblemUI(problems);
-        } else if (snapshot.hasError) {
-          return Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Icon(
-                Icons.error_outline,
-                color: Colors.red,
-                size: 60,
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 16),
-                child: Text('Error: ${snapshot.error}'),
-              ),
-            ],
-          );
-        }
-        return const Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            CircularProgressIndicator(),
-            Padding(
-              padding: EdgeInsets.only(top: 16),
-              child: Text('Awaiting result...'),
-            ),
-          ],
-        );
-      },
-    );
+    if (questions.isNotEmpty) {
+      return buildProblemUI(questions);
+    }
+    return Container();
   }
 
   buildProblemUI(problems) {
@@ -140,7 +72,10 @@ class _MathScreenState extends State<MathScreen> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         StepperDemo(
-            problemStream: _problemStreamController.stream, setStep: setStep),
+          setStep: setStep,
+          problemsLength: questions.length,
+          problemStream: _problemStreamController.stream,
+        ),
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -219,10 +154,10 @@ class _MathScreenState extends State<MathScreen> {
                           children: <Widget>[
                             Padding(
                               padding: const EdgeInsets.only(
-                                left: 100.0,
-                                right: 50,
                                 top: 50,
+                                right: 50,
                                 bottom: 50,
+                                left: 100,
                               ),
                               child: TextFormField(
                                 autofocus: true,
@@ -235,7 +170,8 @@ class _MathScreenState extends State<MathScreen> {
                             const Gap(10),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.end,
-                              children: <Widget>[
+                              children: [
+                                const Gap(20),
                                 OutlinedButton.icon(
                                   label: const AppText(
                                     text: 'Back',
@@ -250,13 +186,13 @@ class _MathScreenState extends State<MathScreen> {
                                   icon: const Icon(
                                       Icons.navigate_before_outlined),
                                 ),
-                                const Gap(10),
+                                const Gap(20),
                                 OutlinedButton.icon(
                                   label: const AppText(
                                     text: 'Next',
                                   ),
                                   onPressed: () {
-                                    if (index >= 10) return;
+                                    if (index >= problems.length) return;
                                     _problemStreamController.add(index + 1);
                                     setState(() {
                                       index = index + 1;
@@ -265,7 +201,48 @@ class _MathScreenState extends State<MathScreen> {
                                   icon:
                                       const Icon(Icons.navigate_next_outlined),
                                 ),
-                                const Gap(10),
+                                const Gap(20),
+                                OutlinedButton.icon(
+                                  label: const AppText(
+                                    text: 'Answer',
+                                  ),
+                                  onPressed: () async {
+                                    if (index >= problems.length) return;
+                                    await FirebaseAnalytics.instance.logEvent(
+                                      name: "engage",
+                                      parameters: {
+                                        "type": "problem_solve",
+                                        "category": "math",
+                                        "module": "calculus",
+                                      },
+                                    );
+                                  },
+                                  icon:
+                                      const Icon(Icons.navigate_next_outlined),
+                                ),
+                                const Gap(20),
+                              ],
+                            ),
+                            const Gap(10),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: <Widget>[
+                                ElevatedButton.icon(
+                                  icon: const Icon(SDIcon.ai_enabled),
+                                  onPressed: () {
+                                    generateAIProblem();
+                                  },
+                                  style: ButtonStyle(
+                                    backgroundColor: MaterialStatePropertyAll(
+                                      themeColor(
+                                        context,
+                                        'primaryContainer',
+                                      ),
+                                    ),
+                                  ),
+                                  label: const Text('New'),
+                                ),
+                                const Gap(20),
                               ],
                             ),
                             const Gap(10),
@@ -310,9 +287,38 @@ class _MathScreenState extends State<MathScreen> {
     );
   }
 
-  Future<List<Optimization>> fetchProblems() async {
+  Future<void> generateAIProblem() async {
+    final gemini = Gemini.instance;
+
+    try {
+      final resp = await gemini.text(generateGeminiPrompts('optimization'));
+      final json = resp?.content?.parts?[0].text;
+      if (json != null) {
+        // Sometimes the response comes back wrapped with a ```json ```.
+        String trimmedJson =
+            json.replaceAll('```json', '').replaceAll('```', '');
+        final Map<String, dynamic> question = await jsonDecode(trimmedJson);
+
+        final problem = Optimization(
+          title: question['title'],
+          body: question['body'],
+          equation: question['equation'],
+          prompt: question['prompt'],
+          solution: question['solution'],
+        );
+        questions.add(problem);
+        setState(() {
+          questions = questions;
+        });
+      }
+    } catch (e) {
+      print('Errorr: $e');
+    }
+  }
+
+  getProblems() async {
     final json = await rootBundle.loadString("json/optimization.json");
-    final Map<String, dynamic> data = jsonDecode(json);
+    final Map<String, dynamic> data = await jsonDecode(json);
     List<Optimization> values = [];
     for (var question in data['data']) {
       values.add(Optimization(
@@ -323,13 +329,20 @@ class _MathScreenState extends State<MathScreen> {
         solution: question['solution'],
       ));
     }
-    return Future.value(values);
+    setState(() {
+      questions = values;
+    });
   }
 
   @override
   void initState() {
     super.initState();
+
+    getProblems();
+    generateAIProblem();
   }
+
+  setProblem() {}
 
   setStep(idx) {
     setState(() {
@@ -357,3 +370,45 @@ class _MathScreenState extends State<MathScreen> {
     }, isVisible: false);
   }
 }
+
+// Question Types:
+// - Multiple Choice, Free Response, Checkbox, Fill in the blank, Matching, Short Answer, True/False
+// - Acronyms: MC, FR, CB, FB, M, SA, TF
+
+// Potential domains...?
+// Arithmetic, Algebra, Geometry, Trigonometry, Statistics, Number Theory, Calculus, Word Problems, Finance
+
+// Examples:
+//    1. Multiple Choice or :MC:
+//    Question.     What's Flutter primarily written in?
+//    Choices.      [Python, Ruby, C, C++]
+//    Answer.       Dart
+
+//    2. Free Response or :FR:
+//    Question.     What's 4 squared?
+//    Choices.      null
+//    Answer.       16
+
+//    3. Checkbox or :CB:
+//    Question.     Which are prime numbers?
+//    Choices.      [1, 2, 3, 5, 7, 11, 13, 15]
+//    Answer.       [2, 3, 5, 7, 11, 13]
+
+//    4. Fill in the blank or :FB:
+//    Question.     Calculus is the study of _____?
+//    Choices.      [Math, Derivatives, Equations, Change]
+//    Answer.       Change
+
+//    5. Matching: :M:
+//    Question.     Match the term to it's definition.
+//    Term.         Asymptote, Derivative
+//    Definitions.  ["a line that continually approaches a given curve but does not meet it at any finite distance.", "(of a financial product) having a value deriving from an underlying variable asset."]
+//    Answer.       [[Asymptote, "a line that continually approaches a given curve but does not meet it at any finite distance."], [Derivative,"(of a financial product) having a value deriving from an underlying variable asset."]]
+
+//    6. Short Answer or :SA:
+//    Question.     If you invest $1000 at an annual interest rate of 5% for 2 years, how much will you have at the end? How about after 10 years?
+//    Answer.       "After 2 years, $1102.5, then $1628.89 for 10"
+
+//    7. True/False or :TF:
+//    Question.     Studying math is good for you,
+//    Answer.       "After 2 years, $1102.5, then $1628.89 for 10"

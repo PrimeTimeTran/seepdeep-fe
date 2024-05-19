@@ -4,6 +4,7 @@ import 'package:app/all.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:provider/provider.dart' as provider;
 import 'package:seo/seo.dart';
@@ -11,6 +12,9 @@ import 'package:url_strategy/url_strategy.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  Gemini.init(
+      apiKey: const String.fromEnvironment('GEMINI_API_KEY'),
+      enableDebugging: true);
   setPathUrlStrategy();
   await Firebase.initializeApp();
   Map<String, dynamic>? user = await Storage.instance.getUser();
