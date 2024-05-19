@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 208.9 50">
+  <defs>
+    <clipPath id="clippath">
+      <rect width="56.4" height="50" style="fill: none; stroke-width: 0px;"/>
+    </clipPath>
+  </defs>
+  <g id="Layer_5" data-name="Layer 5">
+    <g id="adobe">
+      <g style="clip-path: url(#clippath);">
+        <path d="M0,0v50L20.8,0H0ZM35.6,0l20.8,50V0h-20.8ZM28.4,18.6l13.6,31.4h-8.9l-4.2-10.2h-9.7" style="fill: #fa0f00; stroke-width: 0px;"/>
+      </g>
+      <path d="M120.9,11h-10.9v26.1s10.9-26.1,10.9-26.1Z" style="fill: #fa0c00; stroke-width: 0px;"/>
+      <path d="M128.6,11h10.9v26.1s-10.9-26.1-10.9-26.1Z" style="fill: #fa0c00; stroke-width: 0px;"/>
+      <path d="M124.7,20.6l6.9,16.5h-4.6l-2.1-5.2h-5.1l4.8-11.2h0Z" style="fill: #fa0c00; stroke-width: 0px;"/>
+      <path d="M157.2,27.6l1.3,3.7h2.7s.2,0,0-.2l-5.1-14.2h-3.3v.2c0,.7,0,1-.2,1.2l-4.5,12.9c0,.1,0,.2.2.2h2.2s.2,0,.2-.2l1.2-3.6h5.3ZM152.7,25.2c.7-2,1.5-4.6,1.9-6.1h0c.4,1.5,1.5,4.6,1.9,6.1h-3.9,0Z" style="fill: #fa0c00; stroke-width: 0px;"/>
+      <path d="M167.9,31.6c1.3,0,2.7-.2,4.2-.9v-15h0c0-.1-2.4-.1-2.4-.1v4.7h-.9c-3.9,0-6.3,2.6-6.3,5.8s2.4,5.6,5.7,5.6h-.3,0ZM169.5,29.2c-.4,0-.8.2-1.3.2-1.8,0-3.2-1-3.2-3.4s1.5-3.4,3.5-3.4.7,0,1,.2v6.5h0Z" style="fill: #fa0c00; stroke-width: 0px;"/>
+      <path d="M179.9,20.3c-3.3,0-5.4,2.5-5.4,5.7s1.6,5.7,5.3,5.7,5.3-2.3,5.3-5.7-1.9-5.6-5.2-5.6h0ZM179.8,22.5c1.9,0,2.7,1.6,2.7,3.5s-1.2,3.4-2.5,3.4-2.7-1.4-2.7-3.5,1.1-3.4,2.5-3.4Z" style="fill: #fa0c00; stroke-width: 0px;"/>
+      <path d="M187.7,15.7s-.2,0-.2.2v15.1s0,.2.2.2c1.1.3,2.2.5,3.3.5,3.3,0,6.5-2,6.5-6.1s-2-5.2-5.2-5.2-1.4,0-2,.3v-4.8c0-.1,0-.2-.2-.2h-2.4ZM194.7,25.8c0,2.5-1.7,3.6-3.5,3.6s-.7,0-1,0v-6.4c.4,0,.8-.2,1.5-.2,1.8,0,3,1.1,3,3.2h0v-.2Z" style="fill: #fa0c00; stroke-width: 0px;"/>
+      <path d="M206.4,26.6h2.3s.2,0,.2-.2v-1.4c0-2.1-1.3-4.7-4.5-4.7s-5.2,2.7-5.2,5.8,1.4,5.5,5.5,5.5,2.5-.2,3.3-.6v-2h0c-.8.4-1.8.5-2.7.5-2.2,0-3.3-1.2-3.3-2.8h4.5-.1ZM201.9,24.7c.2-1.1.9-2.3,2.4-2.3s2.1,1.4,2.1,2.1v.2h-4.5Z" style="fill: #fa0c00; stroke-width: 0px;"/>
+    </g>
+  </g>
+</svg>

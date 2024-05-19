@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 155 50">
+  <defs>
+    <clipPath id="clippath">
+      <rect width="27.6" height="50" style="fill: none; stroke-width: 0px;"/>
+    </clipPath>
+    <clipPath id="clippath-1">
+      <rect x="55" y="11" width="100" height="27.1" style="fill: none; stroke-width: 0px;"/>
+    </clipPath>
+  </defs>
+  <g id="Layer_5" data-name="Layer 5">
+    <g id="netflix">
+      <g style="clip-path: url(#clippath);">
+        <g>
+          <rect width="9.9" height="50" style="fill: none; stroke-width: 0px;"/>
+          <rect x="17.7" width="9.9" height="50" style="fill: none; stroke-width: 0px;"/>
+          <path d="M9.9,0H0l17.4,49.1c4.9,0,10.1.8,10.1.8L9.9,0h0Z" style="fill: #e50914; stroke-width: 0px;"/>
+        </g>
+      </g>
+      <g style="clip-path: url(#clippath-1);">
+        <path d="M68.8,36.3c-1.5.3-3,.3-4.6.6l-4.8-14.2v14.8c-1.5.2-2.9.4-4.3.6V11.1h4l5.5,15.3v-15.3h4.2v25.3h0ZM77.1,20.9h5.6v4.2h-5.6v6.3c2.5-.2,5-.4,7.5-.5v4.1l-11.7.9V11h11.7v4.2h-7.5v5.7h0ZM100.2,15.2h-4.4v19.4h-4.2V15.1h-4.4v-4.2h13v4.2h0ZM107.1,20.6h5.8v4.2h-5.8v9.6h-4.2V11h11.8v4.2h-7.6v5.4h0ZM121.6,30.7c2.4,0,4.8.2,7.2.4v4.2c-3.8-.2-7.6-.5-11.4-.6V11h4.2v19.7ZM132.4,35.5c1.3,0,2.8.2,4.1.3V10.9h-4.1v24.5h0ZM155,11l-5.4,12.8,5.4,14.2c-1.6-.2-3.2-.5-4.8-.8l-3-7.8-3.1,7.2c-1.5-.3-3-.3-4.5-.6l5.4-12.4-4.9-12.7h4.5l2.8,7.1,2.9-7.1h4.7Z" style="fill: #d81f26; stroke-width: 0px;"/>
+      </g>
+    </g>
+  </g>
+</svg>
