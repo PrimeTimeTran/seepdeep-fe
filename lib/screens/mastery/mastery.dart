@@ -9,7 +9,7 @@ import 'package:provider/provider.dart';
 
 import './mastery.helpers.dart';
 
-final subjects = {
+final subjectsS = {
   'Calculus': {
     "Limits": [
       'Tangent Lines & Rates of Change',
@@ -22,8 +22,6 @@ final subjects = {
       'Limits at Infinity, Part II',
       'Continuity',
       'The Definition of the Limit',
-      'Derivatives',
-      'Integrals',
     ],
     "Derivatives": [
       'The Definition of the Derivative',
@@ -189,7 +187,7 @@ class _MasteryScreenState extends State<MasteryScreen> {
   }
 
   listBuilder(section, subject, String? topic) {
-    var topics = subjects[subject]?[topic];
+    var topics = subjectsS[subject]?[topic];
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(

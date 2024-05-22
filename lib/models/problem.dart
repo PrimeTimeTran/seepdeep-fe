@@ -32,6 +32,17 @@ class Problem {
   // Map of language and their tests to test the problem.
   Map<String, String>? bodyTests;
   List<Map<String, dynamic>>? testCases;
+
+  String? hint;
+  String? prompt;
+  String? equation;
+  String? evaluate;
+  String? solution;
+  String? answer;
+  String? answerLatex;
+  List<String>? terms;
+  List<String>? options;
+
   Problem({
     this.id,
     this.title,
@@ -56,6 +67,15 @@ class Problem {
     this.bodyTests,
     this.testCases,
     this.signature,
+    this.hint,
+    this.prompt,
+    this.equation,
+    this.evaluate,
+    this.solution,
+    this.answer,
+    this.answerLatex,
+    this.terms,
+    this.options,
   });
   Problem.fromJson(Map<String, dynamic> json) {
     Map<String, dynamic> j = json['signature'];
@@ -88,6 +108,16 @@ class Problem {
     this.signature = signature;
     testCases =
         (json['testCases'] as List<dynamic>?)?.cast<Map<String, dynamic>>();
+
+    hint = json['hint'];
+    prompt = json['prompt'];
+    equation = json['equation'];
+    evaluate = json['evaluate'];
+    solution = json['solution'];
+    answer = json['answer'];
+    answerLatex = json['answerLatex'];
+    terms = json['terms'];
+    options = json['options'];
   }
 
   Map<String, dynamic> toJson() {
@@ -115,6 +145,15 @@ class Problem {
       'bodyTests': bodyTests,
       'testCases': testCases,
       'signature': signature,
+      'hint': hint,
+      'prompt': prompt,
+      'equation': equation,
+      'evaluate': evaluate,
+      'solution': solution,
+      'answer': answer,
+      'answerLatex': answerLatex,
+      'terms': terms,
+      'options': options,
     };
   }
 }
