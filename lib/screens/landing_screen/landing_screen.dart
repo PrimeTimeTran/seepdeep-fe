@@ -173,7 +173,7 @@ class _LandingScreenState extends State<LandingScreen> {
           ? null
           : Text(followup, style: Style.of(context, 'headlineS')),
       children: <Widget>[
-        ListTile(title: Text(answer ?? '')),
+        ListTile(title: Text(answer ?? '', style: Style.of(context, 'bodyM'))),
       ],
     );
   }
@@ -274,7 +274,7 @@ class _LandingScreenState extends State<LandingScreen> {
   Container buildFooter() {
     return Container(
       height: 800,
-      color: Colors.white,
+      color: themeColor(context, 'surface'),
       child: Padding(
         padding: const EdgeInsets.only(top: 40, left: 200, right: 200),
         child: Column(
