@@ -19,7 +19,6 @@ themeColor(context, color) {
       return Theme.of(context).colorScheme.secondaryContainer;
     case 'onSecondaryContainer':
       return Theme.of(context).colorScheme.onSecondaryContainer;
-
     case 'tertiary':
       return Theme.of(context).colorScheme.tertiary;
     case 'onTertiary':

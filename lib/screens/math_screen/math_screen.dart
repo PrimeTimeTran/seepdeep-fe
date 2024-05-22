@@ -233,7 +233,7 @@ class _MathScreenState extends State<MathScreen> {
                                 const Gap(20),
                                 OutlinedButton.icon(
                                   label: const AppText(
-                                    text: 'Answer',
+                                    text: 'Submit',
                                   ),
                                   onPressed: () async {
                                     if (index >= problems.length) return;
@@ -246,8 +246,7 @@ class _MathScreenState extends State<MathScreen> {
                                       },
                                     );
                                   },
-                                  icon:
-                                      const Icon(Icons.navigate_next_outlined),
+                                  icon: const Icon(Icons.keyboard_return),
                                 ),
                                 const Gap(20),
                               ],
@@ -274,27 +273,28 @@ class _MathScreenState extends State<MathScreen> {
                                 const Gap(20),
                               ],
                             ),
-                            ConstrainedBox(
-                                constraints: const BoxConstraints(
-                                  minHeight: 30,
-                                  maxHeight: 50,
-                                ),
-                                child: Markdown(
-                                  selectable: true,
-                                  data: question.answer,
-                                  builders: {
-                                    'latex': LatexElementBuilder(
-                                      textStyle: const TextStyle(
-                                        fontSize: 25,
-                                        fontWeight: FontWeight.w100,
-                                      ),
-                                    ),
-                                  },
-                                  extensionSet: md.ExtensionSet(
-                                    [LatexBlockSyntax()],
-                                    [LatexInlineSyntax()],
-                                  ),
-                                )),
+                            // ConstrainedBox(
+                            //   constraints: const BoxConstraints(
+                            //     minHeight: 30,
+                            //     maxHeight: 50,
+                            //   ),
+                            //   child: Markdown(
+                            //     selectable: true,
+                            //     data: question.answer,
+                            //     builders: {
+                            //       'latex': LatexElementBuilder(
+                            //         textStyle: const TextStyle(
+                            //           fontSize: 25,
+                            //           fontWeight: FontWeight.w100,
+                            //         ),
+                            //       ),
+                            //     },
+                            //     extensionSet: md.ExtensionSet(
+                            //       [LatexBlockSyntax()],
+                            //       [LatexInlineSyntax()],
+                            //     ),
+                            //   ),
+                            // ),
                             // ConstrainedBox(
                             //     constraints: const BoxConstraints(
                             //       minHeight: 30,

@@ -9,6 +9,75 @@ import 'package:provider/provider.dart';
 
 import './mastery.helpers.dart';
 
+final subjects = {
+  'Calculus': {
+    "Limits": [
+      'Tangent Lines & Rates of Change',
+      'The Limit',
+      'One-Sided Limits',
+      'Limit Properties',
+      'Computing Limits',
+      'Infinite Limits',
+      'Limits at Infinity, Part I',
+      'Limits at Infinity, Part II',
+      'Continuity',
+      'The Definition of the Limit',
+      'Derivatives',
+      'Integrals',
+    ],
+    "Derivatives": [
+      'The Definition of the Derivative',
+      'Interpretation of the Derivative Differentiation Formulas',
+      'Product and Quotient Rule',
+      'Derivatives of Trig Functions',
+      'Derivatives of Exponential and Logarithm Functions',
+      'Derivatives of Inverse Trig Functions',
+      'Derivatives of Hyperbolic Functions',
+      'Chain Rule',
+      'Implicit Differentiation',
+      'Related Rates',
+      'Higher Order Derivatives',
+      'Logarithmic Differentiation',
+    ],
+    "Application of Derivatives": [
+      'Rates of Change',
+      'Critical Points',
+      'Minimum & Maximum Values',
+      'Finding Absolute Extrema',
+      'The Shape of a Graph, Part I',
+      'The Shape of a Graph, Part II',
+      'The Mean Value Theorem',
+      'Optimization Problems',
+      'More Optimization Problems',
+      "L’Hospital’s Rule and Indeterminate Forms",
+      'Linear Approximations',
+      'Differentials',
+      "Newton's Method",
+      'Business Applications',
+    ],
+    "Integrals": [
+      'Indefinite Integrals',
+      'Computing Indefinite Integrals',
+      'Substitution Rule for Indefinite Integrals',
+      'More Substitution Rule',
+      'Area Problem',
+      'Definition of the Definite Integral',
+      'Computing Definite Integrals',
+      'Substitution Rule for Definite Integrals',
+    ],
+    "Application of Integrals": [
+      "Average Function Value",
+      'Area Between Curves',
+      'Volumes of Solids of Revolution / Method of Rings',
+      'Volumes of Solids of Revolution / Method of Cylinders',
+      'More Volume Problems',
+    ]
+  },
+  'Computer Science': {
+    'algorithms': ['Data Structures & Algorithms']
+  },
+};
+
 class MasteryScreen extends StatefulWidget {
   const MasteryScreen({super.key});
 
@@ -33,15 +102,23 @@ class _MasteryScreenState extends State<MasteryScreen> {
         padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 50),
         child: Column(
           children: [
-            const ProgressIndicator(),
             Row(
               children: [
-                Expanded(child: Column(children: buildOverAllIndicators())),
-                const Gap(10),
                 Expanded(
-                    child: Column(children: [
-                  Text('WIP', style: Theme.of(context).textTheme.displaySmall)
-                ])),
+                  child: Column(
+                    children: [
+                      listBuilder('Limits', 'Calculus', 'Limits'),
+                      listBuilder('Derivatives', 'Calculus', 'Derivatives'),
+                      listBuilder('Applications of Derivatives', 'Calculus',
+                          'Application of Derivatives'),
+                      listBuilder('Integrals', 'Calculus', 'Integrals'),
+                      listBuilder('Applications of Intgrals', 'Calculus',
+                          'Application of Integrals'),
+                      listBuilder(
+                          'Computer Science', 'Computer Science', 'algorithms')
+                    ],
+                  ),
+                ),
               ],
             ),
           ],
@@ -109,6 +186,86 @@ class _MasteryScreenState extends State<MasteryScreen> {
   void initState() {
     setup();
     super.initState();
+  }
+
+  listBuilder(section, subject, String? topic) {
+    var topics = subjects[subject]?[topic];
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            section,
+            style: Style.of(context, 'displayL'),
+          ),
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ConstrainedBox(
+                  constraints: BoxConstraints(
+                    minWidth: getWidth(),
+                    maxWidth: getWidth(),
+                    minHeight: 300,
+                    maxHeight: 300,
+                  ),
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: topics?.length,
+                    itemExtentBuilder: (index, dimensions) => 400,
+                    itemBuilder: (BuildContext context, int idx) {
+                      final name = topics?[idx];
+                      return Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: Theme.of(context).colorScheme.outline,
+                            ),
+                            borderRadius: const BorderRadius.all(
+                              Radius.elliptical(20, 20),
+                            ),
+                          ),
+                          child: Column(
+                            children: [
+                              // SvgPicture.asset(
+                              //   'assets/icons/the-limit.svg',
+                              //   height: 100,
+                              //   width: 100,
+                              //   color: Colors.red,
+                              // ),
+                              // SvgPicture.asset(
+                              //   'assets/icons/tangent-line.svg',
+                              //   height: 100,
+                              //   width: 100,
+                              //   color: Colors.blue,
+                              // ),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  name ?? '',
+                                  style: Style.of(
+                                    context,
+                                    'titleL',
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const Gap(30)
+        ],
+      ),
+    );
   }
 
   setup() {

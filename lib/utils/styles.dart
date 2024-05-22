@@ -53,7 +53,8 @@ class Style {
         displayLarge: heading,
         displayMedium: heading,
         displaySmall: heading,
-        headlineLarge: heading,
+        headlineLarge:
+            heading.copyWith(color: themeColor(context, 'secondary')),
         headlineMedium:
             heading.copyWith(color: themeColor(context, 'secondary')),
         headlineSmall:
@@ -77,20 +78,21 @@ class Style {
         displayLarge: heading,
         displayMedium: heading,
         displaySmall: heading,
-        headlineLarge: heading,
+        headlineLarge:
+            withColor.copyWith(color: themeColor(context, 'secondary')),
         headlineMedium:
-            heading.copyWith(color: themeColor(context, 'secondary')),
+            withColor.copyWith(color: themeColor(context, 'secondary')),
         headlineSmall:
-            heading.copyWith(color: themeColor(context, 'secondary')),
-        titleLarge: withColor,
-        titleMedium: withColor,
-        titleSmall: withColor,
-        labelLarge: withColor,
-        labelMedium: withColor,
-        labelSmall: withColor,
-        bodyLarge: withColor,
-        bodyMedium: withColor,
-        bodySmall: withColor,
+            withColor.copyWith(color: themeColor(context, 'secondary')),
+        titleLarge: withColor.copyWith(color: Colors.white),
+        titleMedium: withColor.copyWith(color: Colors.white),
+        titleSmall: withColor.copyWith(color: Colors.white),
+        labelLarge: withColor.copyWith(color: Colors.white),
+        labelMedium: withColor.copyWith(color: Colors.white),
+        labelSmall: withColor.copyWith(color: Colors.white),
+        bodyLarge: withColor.copyWith(color: Colors.white),
+        bodyMedium: withColor.copyWith(color: Colors.white),
+        bodySmall: withColor.copyWith(color: Colors.white),
       ),
     );
   }
