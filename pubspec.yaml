@@ -91,6 +91,7 @@ flutter:
     - assets/img/bgs/
     - assets/img/logos/
     - assets/img/headshots/
+    - assets/img/SVG/
 
   fonts:
     - family: SDIcon

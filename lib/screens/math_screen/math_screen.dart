@@ -9,11 +9,12 @@ import 'package:app/all.dart';
 import 'package:app/screens/math_screen/stepper.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter_markdown_latex/flutter_markdown_latex.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
+import 'package:http/http.dart' as http;
 import 'package:markdown/markdown.dart' as md;
 
 class MathScreen extends StatefulWidget {
@@ -23,54 +24,41 @@ class MathScreen extends StatefulWidget {
   State<MathScreen> createState() => _MathScreenState();
 }
 
-class Optimization {
-  String? hint;
-  String? body;
-  String? title;
-  String? prompt;
-  String? equation;
-  String? evaluate;
-  String? solution;
-  String? answer;
-  String? answerLatex;
-  String? solutionsWrong;
-  String? answerPlaceholder;
-  List<String>? imgUrls;
-  List<String>? formulas;
-  List<String>? explanation;
-
-  String? type;
-
-  Optimization({
-    this.body,
-    this.title,
-    this.type,
-    this.hint,
-    this.prompt,
-    this.evaluate,
-    this.solution,
-    this.answer,
-    this.answerLatex,
-    this.imgUrls,
-    this.formulas,
-    this.equation,
-  });
-}
-
 class _MathScreenState extends State<MathScreen> {
   int index = 1;
   bool error = false;
   bool showAnswer = false;
   String problemType = 'optimization';
-  List<Optimization> questions = [];
+  List<Problem> questions = [];
   IFrameElement webView = IFrameElement();
   final StreamController<int> _problemStreamController = StreamController();
 
   @override
   Widget build(BuildContext context) {
-    setSubscription();
+    // setSubscription();
+    if (error) {
+      return Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SvgPicture.asset(
+              'assets/img/SVG/bug-fixing.svg',
+              width: 600,
+            ),
+            const Gap(50),
+            Text(
+              'Our server is down. Please try again later',
+              style: Style.of(
+                context,
+                'displayL',
+              ),
+            )
+          ],
+        ),
+      );
+    }
     if (questions.isNotEmpty) {
-      return buildProblemUI(questions);
+      return buildUI(questions);
     }
     return Container();
   }
@@ -231,8 +219,9 @@ class _MathScreenState extends State<MathScreen> {
     );
   }
 
-  buildProblemUI(problems) {
+  buildUI(problems) {
     final question = problems[index - 1];
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -312,7 +301,7 @@ class _MathScreenState extends State<MathScreen> {
             json.replaceAll('```json', '').replaceAll('```', '');
         final Map<String, dynamic> question = await jsonDecode(trimmedJson);
 
-        final problem = Optimization(
+        final problem = Problem(
           title: question['title'],
           body: question['body'],
           equation: question['equation'],
@@ -325,7 +314,7 @@ class _MathScreenState extends State<MathScreen> {
         });
       }
     } catch (e) {
-      print('Errorr: $e');
+      print('Error: $e');
     }
   }
 
@@ -343,26 +332,76 @@ class _MathScreenState extends State<MathScreen> {
 
   getProblems(topic) async {
     try {
-      List<Optimization> values = [];
-      final json = await rootBundle.loadString('json/$topic.json');
-      final Map<String, dynamic> data = await jsonDecode(json);
-      for (var question in data['data']) {
-        values.add(Optimization(
-          body: question['body'] ?? '',
-          title: question['title'] ?? '',
-          prompt: question['prompt'] ?? '',
-          answer: question['answer'] ?? '',
-          equation: question['equation'] ?? '',
-          evaluate: question['evaluate'] ?? '',
-          solution: question['solution'] ?? '',
-          answerLatex: question['answerLatex'] ?? '',
-        ));
+      List<Problem> values = [];
+      final response =
+          await http.get(Uri.parse('http://localhost:8080/?category=limits'));
+
+      if (response.statusCode == 200) {
+        print(response.body);
+        final resp = jsonDecode(response.body);
+        for (var question in resp['data']) {
+          values.add(Problem(
+            body: question['body'] ?? '',
+            title: question['title'] ?? '',
+            prompt: question['prompt'] ?? '',
+            answer: question['answer'] ?? '',
+            equation: question['equation'] ?? '',
+            evaluate: question['evaluate'] ?? '',
+            solution: question['solution'] ?? '',
+            answerLatex: question['answerLatex'] ?? '',
+          ));
+        }
+        setState(() {
+          questions = values;
+        });
+        return json.decode(response.body);
+      } else {
+        throw Exception('Failed to load data');
       }
-      setState(() {
-        questions = values;
-      });
+      if (response.statusCode == 200) {
+        print(response.body);
+        // for (var question in response['data']) {
+        //   values.add(Problem(
+        //     body: question['body'] ?? '',
+        //     title: question['title'] ?? '',
+        //     prompt: question['prompt'] ?? '',
+        //     answer: question['answer'] ?? '',
+        //     equation: question['equation'] ?? '',
+        //     evaluate: question['evaluate'] ?? '',
+        //     solution: question['solution'] ?? '',
+        //     answerLatex: question['answerLatex'] ?? '',
+        //   ));
+        // }
+        // setState(() {
+        //   questions = values;
+        // });
+        // return json.decode(response.body);
+      } else {
+        // If the server did not return a 200 OK response, throw an exception
+        throw Exception('Failed to load data');
+      }
+      // final json = await rootBundle.loadString('json/$topic.json');
+      // final Map<String, dynamic> data = await jsonDecode(json);
+      // for (var question in data['data']) {
+      //   values.add(Problem(
+      //     body: question['body'] ?? '',
+      //     title: question['title'] ?? '',
+      //     prompt: question['prompt'] ?? '',
+      //     answer: question['answer'] ?? '',
+      //     equation: question['equation'] ?? '',
+      //     evaluate: question['evaluate'] ?? '',
+      //     solution: question['solution'] ?? '',
+      //     answerLatex: question['answerLatex'] ?? '',
+      //   ));
+      // }
+      // setState(() {
+      //   questions = values;
+      // });
     } catch (e) {
       print('Error: $e');
+      setState(() {
+        error = true;
+      });
     }
   }
 
@@ -375,8 +414,6 @@ class _MathScreenState extends State<MathScreen> {
       });
     });
   }
-
-  setProblem() {}
 
   setStep(idx) {
     setState(() {

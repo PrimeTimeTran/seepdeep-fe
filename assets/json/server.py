@@ -1,20 +1,35 @@
-import http.server
+from flask import Flask, request, jsonify
+from flask_cors import CORS
+import os
+
 import json
 
-class JSONHandler(http.server.BaseHTTPRequestHandler):
-    def do_GET(self):
-        self.send_response(200)
-        self.send_header('Content-type', 'application/json')
-        self.end_headers()
-        with open('prompts.json', 'r') as file:
-            data = json.load(file)
-        self.wfile.write(json.dumps(data).encode())
+app = Flask(__name__)
+CORS(app)
+app.config['TEMPLATES_AUTO_RELOAD'] = True
+app.config['DEBUG'] = True
+current_dir = os.path.dirname(os.path.abspath(__file__))
 
-def run(server_class=http.server.HTTPServer, handler_class=JSONHandler, port=8080):
-    server_address = ('', port)
-    httpd = server_class(server_address, handler_class)
-    print(f'Starting server on port {port}...')
-    httpd.serve_forever()
+# Get a list of all files in the current directory
+files_in_current_dir = [os.path.join(current_dir, filename) for filename in os.listdir(current_dir)]
+
+# Add the files in the current directory to the extra_files list
+extra_files = files_in_current_dir
+@app.route('/')
+def get_data():
+    category = request.args.get('category', '')
+
+    if category:
+        filename = f"{category}.json"
+        try:
+            with open(filename, 'r') as file:
+                data = json.load(file)
+            return jsonify(data), 200
+        except FileNotFoundError:
+            return "File not found", 404
+    else:
+        return "Bad request: Missing category parameter", 400
 
 if __name__ == '__main__':
-    run()
+    app.run(host='127.0.0.1', port=8080, extra_files=extra_files)
+
