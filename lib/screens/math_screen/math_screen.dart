@@ -504,7 +504,7 @@ class _MathScreenState extends State<MathScreen> {
           throw Exception('Failed to load data');
         }
       } else {
-        final json = await rootBundle.loadString('json/$topic.json');
+        final json = await rootBundle.loadString('json/math/$topic.json');
         final Map<String, dynamic> data = await jsonDecode(json);
         for (var question in data['data']) {
           values.add(MathProblem.fromJson(question));
