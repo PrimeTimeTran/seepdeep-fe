@@ -161,7 +161,7 @@ class _AppBarContentState extends State<AppBarContent> {
                       label: const Text('Data Structures',
                           style: TextStyle(color: Colors.white)),
                       icon: const Icon(
-                        Icons.data_object,
+                        Icons.widgets_outlined,
                         color: Colors.white,
                       ),
                     ),

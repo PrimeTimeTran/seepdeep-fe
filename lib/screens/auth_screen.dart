@@ -124,14 +124,6 @@ class _AuthScreenState extends State<AuthScreen> {
   @override
   void initState() {
     super.initState();
-    // TODO...? Add reset on problem if the user navigates away.
-    // html.window.onBeforeUnload.listen((event) async {
-    //   print('onBeforeUnload');
-    // });
-    // html.window.onUnload.listen((event) {
-    //   print('onUnload');
-    // });
-
     detectTabChange();
   }
 

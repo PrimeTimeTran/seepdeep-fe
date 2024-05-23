@@ -47,7 +47,7 @@ final subjectsS = {
       'The Mean Value Theorem',
       'Optimization Problems',
       'More Optimization Problems',
-      "L’Hospital’s Rule and Indeterminate Forms",
+      "L'Hospital's Rule and Indeterminate Forms",
       'Linear Approximations',
       'Differentials',
       "Newton's Method",
