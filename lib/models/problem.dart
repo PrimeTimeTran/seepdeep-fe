@@ -11,10 +11,11 @@ class MathProblem extends Problem {
   String? answerLatex;
 
   String? followUpPrompt;
-  String? followUpAnswer;
   String? followUpExplanation;
 
   List<dynamic>? answer;
+  List<dynamic>? followUpAnswers;
+
   List<dynamic>? terms;
   List<dynamic>? options;
   List<dynamic>? answerLabels;
@@ -34,7 +35,7 @@ class MathProblem extends Problem {
     this.answer,
     this.answerLatex,
     this.followUpPrompt,
-    this.followUpAnswer,
+    this.followUpAnswers,
     this.followUpExplanation,
     this.terms,
     this.options,
@@ -54,7 +55,7 @@ class MathProblem extends Problem {
     answer = json['answer'] ?? '';
     answerLatex = json['answerLatex'] ?? '';
     followUpPrompt = json['followUpPrompt'] ?? '';
-    followUpAnswer = json['followUpAnswer'] ?? '';
+    followUpAnswers = json['followUpAnswers'] ?? [];
     followUpExplanation = json['followUpExplanation'] ?? '';
     format = json['format'] ?? '';
     terms = json['terms'] != null ? List<dynamic>.from(json['terms']) : [];

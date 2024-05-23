@@ -1,7 +1,6 @@
 // ignore_for_file: avoid_web_libraries_in_flutter, must_be_immutable
 import 'dart:async';
 import 'dart:convert';
-import 'dart:html' as html;
 import 'dart:html';
 import 'dart:ui_web' as ui;
 
@@ -41,14 +40,20 @@ class MathScreen extends StatefulWidget {
   State<MathScreen> createState() => _MathScreenState();
 }
 
+class Solution {
+  List<dynamic>? answers;
+  Solution({
+    this.answers,
+  });
+}
+
 class _MathScreenState extends State<MathScreen> {
   int index = 1;
   bool error = false;
   bool showAnswer = false;
   String problemType = 'optimization';
   List<MathProblem> questions = [];
-  List<String> answers = [];
-  List<String?> problemAnswers = [];
+  List<Map<String, dynamic>> answers = [];
 
   IFrameElement webView = IFrameElement();
   final StreamController<int> _problemStreamController = StreamController();
@@ -90,23 +95,8 @@ class _MathScreenState extends State<MathScreen> {
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            buildAnswerBoxes(question),
-            Padding(
-              padding: const EdgeInsets.only(
-                top: 50,
-                right: 50,
-                bottom: 50,
-                left: 100,
-              ),
-              child: TextFormField(
-                autofocus: true,
-                decoration: const InputDecoration(
-                  labelText: 'Answer',
-                  hintText: 'Enter answer here',
-                ),
-              ),
-            ),
-            const Gap(10),
+            buildAnswerBoxes(),
+            buildFollowUpAnswers(),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
@@ -199,16 +189,23 @@ class _MathScreenState extends State<MathScreen> {
     );
   }
 
-  buildAnswerBoxes(question) {
+  buildAnswerBoxes() {
     List<Widget> items = [];
-    for (int i = 0; i < question.options.length; i++) {
+    final answer = answers[index - 1];
+    int answerLength = answer['answers'].length;
+    List<TextEditingController> controllers =
+        List.generate(answerLength, (_) => TextEditingController());
+
+    for (int i = 0; i < answerLength; i++) {
+      controllers[i].text = answer['answers'][i] ?? '';
+
       items.add(
         Padding(
           padding: const EdgeInsets.all(30),
           child: Row(
             children: [
               Text(
-                '${optionLabels[i]}: ',
+                '${answerLength == 1 ? 'Answer' : optionLabels[i]}: ',
                 style: Style.of(context, 'labelL').copyWith(
                     fontSize: 30,
                     fontWeight: FontWeight.bold,
@@ -218,17 +215,16 @@ class _MathScreenState extends State<MathScreen> {
                 height: 30,
                 width: 200,
                 child: TextFormField(
+                  key: ValueKey('$index-$i'),
+                  controller: controllers[i],
                   decoration: const InputDecoration(
-                    hintText: 'Enter answer here',
+                    hintText: 'Answer',
                   ),
                   onChanged: (value) {
+                    answer['answers'][i] = value;
+                    answers[index - 1] = answer;
                     setState(() {
-                      if (problemAnswers.length <= i) {
-                        while (problemAnswers.length <= i) {
-                          problemAnswers.add(null);
-                        }
-                      }
-                      problemAnswers[i] = value;
+                      answers = answers;
                     });
                   },
                 ),
@@ -238,10 +234,13 @@ class _MathScreenState extends State<MathScreen> {
         ),
       );
     }
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Row(
-        children: items,
+    return Align(
+      alignment: Alignment.centerRight,
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Row(
+          children: items,
+        ),
       ),
     );
   }
@@ -257,6 +256,63 @@ class _MathScreenState extends State<MathScreen> {
       child: AppText(
         text: value,
         style: style,
+      ),
+    );
+  }
+
+  Widget buildFollowUpAnswers() {
+    List<Widget> items = [];
+    final answer = answers[index - 1];
+    int lengthOfAnswers = answer['followUpAnswers'].length;
+    List<TextEditingController> controllers =
+        List.generate(lengthOfAnswers, (_) => TextEditingController());
+    for (int i = 0; i < lengthOfAnswers; i++) {
+      controllers[i].text = answer['answers'][i] ?? '';
+      items.add(
+        Padding(
+          padding: const EdgeInsets.all(30),
+          child: Row(
+            children: [
+              Text(
+                '${lengthOfAnswers == 1 ? '(b) ' : optionLabels[i]}: ',
+                style: Style.of(context, 'labelL').copyWith(
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold,
+                    color: themeColor(context, 'secondary')),
+              ),
+              SizedBox(
+                height: 30,
+                width: 200,
+                child: TextFormField(
+                  key: ValueKey('$index-$i'),
+                  controller: controllers[i],
+                  decoration: const InputDecoration(
+                    hintText: 'Answer',
+                  ),
+                  onChanged: (value) {
+                    setState(() {
+                      answer['followUpAnswers'][i] = value;
+                      answers[index - 1] = answer;
+                      setState(() {
+                        answers = answers;
+                      });
+                    });
+                  },
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+    return Align(
+      alignment: Alignment.centerRight,
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: items,
+        ),
       ),
     );
   }
@@ -355,7 +411,14 @@ class _MathScreenState extends State<MathScreen> {
                         const Gap(10),
                         buildAnswerBox(problems, question),
                         const Gap(10),
-                        Text(problemAnswers.toString())
+                        if (kDebugMode)
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(answers.toString()),
+                              Text('Index: $index')
+                            ],
+                          )
                       ],
                     ),
                   ),
@@ -396,17 +459,6 @@ class _MathScreenState extends State<MathScreen> {
     }
   }
 
-  getCategory() {
-    final url = html.window.location.href;
-    Uri uri = Uri.parse(url);
-    String category = uri.queryParameters['category'] ?? 'limits';
-    if (category != '') {
-      setState(() {
-        problemType = category;
-      });
-    }
-  }
-
   getProblems(topic) async {
     try {
       List<MathProblem> values = [];
@@ -422,6 +474,8 @@ class _MathScreenState extends State<MathScreen> {
           setState(() {
             questions = values;
           });
+          setupAnswerObj(questions);
+
           return;
         } else {
           throw Exception('Failed to load data');
@@ -432,13 +486,6 @@ class _MathScreenState extends State<MathScreen> {
         for (var question in data['data']) {
           values.add(MathProblem.fromJson(question));
         }
-        setState(() {
-          problemAnswers = List.generate(
-            values[0].options?.length ?? 0,
-            (index) => null,
-          );
-          questions = values;
-        });
       }
     } catch (e) {
       print('Error: $e');
@@ -451,12 +498,10 @@ class _MathScreenState extends State<MathScreen> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      setState(() {
-        problemType = widget.category;
-      });
-      getProblems(widget.category);
+    setState(() {
+      problemType = widget.category;
     });
+    getProblems(widget.category);
   }
 
   setStep(idx) {
@@ -483,5 +528,25 @@ class _MathScreenState extends State<MathScreen> {
       });
       return webView;
     }, isVisible: false);
+  }
+
+  setupAnswerObj(values) {
+    for (MathProblem element in values) {
+      Map<String, dynamic> problem = {
+        'problemId': element.id,
+        "answers": List<dynamic>.generate(
+          element.answer?.length ?? 0,
+          (index) => null,
+        ),
+        "followUpAnswers": List<dynamic>.generate(
+          element.followUpAnswers?.length ?? 0,
+          (index) => null,
+        ),
+      };
+      answers.add(problem);
+    }
+    setState(() {
+      answers = answers;
+    });
   }
 }
