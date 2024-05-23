@@ -251,26 +251,26 @@ class _AppBarContentState extends State<AppBarContent> {
                   ],
                 ),
               ),
-              IconButton(
-                icon: const Icon(
-                  Icons.search,
-                  size: 20,
-                ),
-                color: Colors.white,
-                onPressed: () {
-                  GoRouter.of(context).go(AppScreens.search.path);
-                },
-              ),
-              IconButton(
-                icon: const Icon(
-                  Icons.fireplace_outlined,
-                  size: 20,
-                ),
-                color: Colors.white,
-                onPressed: () {
-                  GoRouter.of(context).go(AppScreens.streak.path);
-                },
-              ),
+              // IconButton(
+              //   icon: const Icon(
+              //     Icons.search,
+              //     size: 20,
+              //   ),
+              //   color: Colors.white,
+              //   onPressed: () {
+              //     GoRouter.of(context).go(AppScreens.search.path);
+              //   },
+              // ),
+              // IconButton(
+              //   icon: const Icon(
+              //     Icons.fireplace_outlined,
+              //     size: 20,
+              //   ),
+              //   color: Colors.white,
+              //   onPressed: () {
+              //     GoRouter.of(context).go(AppScreens.streak.path);
+              //   },
+              // ),
               IconButton(
                 icon: const Icon(
                   Icons.notifications_active,
