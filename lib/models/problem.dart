@@ -13,7 +13,7 @@ class MathProblem extends Problem {
   String? followUpPrompt;
   String? followUpExplanation;
 
-  List<dynamic>? answer;
+  List<dynamic>? answers;
   List<dynamic>? followUpAnswers;
 
   List<dynamic>? terms;
@@ -32,7 +32,7 @@ class MathProblem extends Problem {
     this.equation,
     this.evaluate,
     this.solution,
-    this.answer,
+    this.answers,
     this.answerLatex,
     this.followUpPrompt,
     this.followUpAnswers,
@@ -52,7 +52,7 @@ class MathProblem extends Problem {
     equation = json['equation'] ?? '';
     evaluate = json['evaluate'] ?? '';
     solution = json['solution'] ?? '';
-    answer = json['answer'] ?? '';
+    answers = json['answers'] ?? [];
     answerLatex = json['answerLatex'] ?? '';
     followUpPrompt = json['followUpPrompt'] ?? '';
     followUpAnswers = json['followUpAnswers'] ?? [];

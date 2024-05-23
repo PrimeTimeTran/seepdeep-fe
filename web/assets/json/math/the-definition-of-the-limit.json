@@ -1,0 +1,16 @@
+{
+  "data": [
+    {
+      "type": "fr",
+      "body": "For the function $f(x) = \\frac{8-x^{3}}{x^{2}-4}$ answer each of the following questions.",
+      "prompt": "(a) Evaluate the function at the following values of  x  compute (accurate to at least 8 decimal places).",
+      "options": [],
+      "answers": [],
+      "explanation": "",
+      "followUpPrompt": "",
+      "followUpAnswers": [],
+      "followUpExplanation": "",
+      "answerLabels": []
+    }
+  ]
+}

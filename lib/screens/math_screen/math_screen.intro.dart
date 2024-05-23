@@ -85,8 +85,11 @@ class _CategoryCardState extends State<CategoryCard> {
     final vals = [];
     for (var i = 0; i < subjectSubjects.length; i++) {
       String name = subjectSubjects[i];
-      String categoryName =
-          name.replaceAll(' ', '-').replaceAll('&', 'and').toLowerCase();
+      String categoryName = name
+          .replaceAll(' ', '-')
+          .replaceAll('&', 'and')
+          .replaceAll(',', '')
+          .toLowerCase();
       bool isSelected = categoryName == selectedSubject;
       vals.add(
         Padding(

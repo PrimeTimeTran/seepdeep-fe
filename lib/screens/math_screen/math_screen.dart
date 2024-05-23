@@ -7,6 +7,7 @@ import 'dart:ui_web' as ui;
 import 'package:app/all.dart';
 import 'package:app/screens/math_screen/stepper.dart';
 import 'package:app/screens/sql/markdown_styles.dart';
+import 'package:app/services/quiz_service.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -51,7 +52,7 @@ class _MathScreenState extends State<MathScreen> {
   int index = 1;
   bool error = false;
   bool showAnswer = false;
-  String problemType = 'optimization';
+  late QuizService quizService;
   List<MathProblem> questions = [];
   List<Map<String, dynamic>> answers = [];
 
@@ -128,6 +129,15 @@ class _MathScreenState extends State<MathScreen> {
                   },
                   icon: const Icon(Icons.navigate_next_outlined),
                 ),
+                // OutlinedButton.icon(
+                //   label: const AppText(
+                //     text: 'GetGrade',
+                //   ),
+                //   onPressed: () {
+                //     quizService.getGrade(answers);
+                //   },
+                //   icon: const Icon(Icons.navigate_next_outlined),
+                // ),
                 const Gap(20),
                 OutlinedButton.icon(
                   label: const AppText(
@@ -156,7 +166,7 @@ class _MathScreenState extends State<MathScreen> {
                 ElevatedButton.icon(
                   icon: const Icon(SDIcon.ai_enabled),
                   onPressed: () {
-                    generateAIProblem(problemType);
+                    generateAIProblem(widget.category);
                   },
                   style: ButtonStyle(
                     backgroundColor: MaterialStatePropertyAll(
@@ -267,7 +277,7 @@ class _MathScreenState extends State<MathScreen> {
     List<TextEditingController> controllers =
         List.generate(lengthOfAnswers, (_) => TextEditingController());
     for (int i = 0; i < lengthOfAnswers; i++) {
-      controllers[i].text = answer['answers'][i] ?? '';
+      controllers[i].text = answer['followUpAnswers'][i] ?? '';
       items.add(
         Padding(
           padding: const EdgeInsets.all(30),
@@ -471,10 +481,13 @@ class _MathScreenState extends State<MathScreen> {
           for (var question in resp['data']) {
             values.add(MathProblem.fromJson(question));
           }
+          quizService = QuizService(problems: values);
+          answers = quizService.answers;
           setState(() {
             questions = values;
+            answers = answers;
+            quizService = quizService;
           });
-          setupAnswerObj(questions);
 
           return;
         } else {
@@ -486,6 +499,13 @@ class _MathScreenState extends State<MathScreen> {
         for (var question in data['data']) {
           values.add(MathProblem.fromJson(question));
         }
+        quizService = QuizService(problems: values);
+        answers = quizService.answers;
+        setState(() {
+          questions = values;
+          answers = answers;
+          quizService = quizService;
+        });
       }
     } catch (e) {
       print('Error: $e');
@@ -498,9 +518,6 @@ class _MathScreenState extends State<MathScreen> {
   @override
   void initState() {
     super.initState();
-    setState(() {
-      problemType = widget.category;
-    });
     getProblems(widget.category);
   }
 
@@ -528,25 +545,5 @@ class _MathScreenState extends State<MathScreen> {
       });
       return webView;
     }, isVisible: false);
-  }
-
-  setupAnswerObj(values) {
-    for (MathProblem element in values) {
-      Map<String, dynamic> problem = {
-        'problemId': element.id,
-        "answers": List<dynamic>.generate(
-          element.answer?.length ?? 0,
-          (index) => null,
-        ),
-        "followUpAnswers": List<dynamic>.generate(
-          element.followUpAnswers?.length ?? 0,
-          (index) => null,
-        ),
-      };
-      answers.add(problem);
-    }
-    setState(() {
-      answers = answers;
-    });
   }
 }

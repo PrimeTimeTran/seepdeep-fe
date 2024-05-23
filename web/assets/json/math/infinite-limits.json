@@ -1,114 +1,92 @@
 {
   "data": [
     {
-      "title": "Infinite Limits",
       "body": "For the following problem:",
       "equation": "\\[ f(x) = \\frac{9}{(x-3)^{5}} \\]",
       "evaluate": "\\[ lim_{x \\to 3^{-}} f(x) \\]",
       "prompt": "Evaluate",
-      "answer": "-\\infty",
-      "answerLatex": "\\[ f(x) = \\frac{9}{(x-3)^{5}} = -\\infty \\]",
-      "explanation": ""
+      "answers": ["-\\infty"],
+      "answerLatex": "\\[ f(x) = \\frac{9}{(x-3)^{5}} = -\\infty \\]"
     },
     {
-      "title": "Infinite Limits",
       "body": "For the following problem:",
       "equation": "\\[ f(x) = \\frac{9}{(x-3)^{5}} \\]",
       "evaluate": "\\[ \\lim_{{x \\to 3^{-}}} f(x) \\]",
       "prompt": "Evaluate",
-      "answer": "-\\infty",
-      "answerLatex": "\\[ \\lim_{{x \\to 3^{-}}} f(x) = -\\infty \\]",
-      "explanation": ""
+      "answers": ["-\\infty"],
+      "answerLatex": "\\[ \\lim_{{x \\to 3^{-}}} f(x) = -\\infty \\]"
     },
     {
-      "title": "Infinite Limits",
       "body": "For the following problem:",
       "equation": "\\[ g(x) = \\frac{6}{(x+2)^3} \\]",
       "evaluate": "\\[ \\lim_{{x \\to -2^{+}}} g(x) \\]",
       "prompt": "Evaluate",
-      "answer": "+\\infty",
-      "answerLatex": "\\[ \\lim_{{x \\to -2^{+}}} g(x) = +\\infty \\]",
-      "explanation": ""
+      "answers": ["+\\infty"],
+      "answerLatex": "\\[ \\lim_{{x \\to -2^{+}}} g(x) = +\\infty \\]"
     },
     {
-      "title": "Infinite Limits",
       "body": "For the following problem:",
       "equation": "\\[ h(x) = \\frac{7}{(x-1)^2} \\]",
       "evaluate": "\\[ \\lim_{{x \\to 1^{+}}} h(x) \\]",
       "prompt": "Evaluate",
-      "answer": "+\\infty",
-      "answerLatex": "\\[ \\lim_{{x \\to 1^{+}}} h(x) = +\\infty \\]",
-      "explanation": ""
+      "answers": ["+\\infty"],
+      "answerLatex": "\\[ \\lim_{{x \\to 1^{+}}} h(x) = +\\infty \\]"
     },
     {
-      "title": "Infinite Limits",
       "body": "For the following problem:",
       "equation": "\\[ k(x) = \\frac{5}{(x+4)^4} \\]",
       "evaluate": "\\[ \\lim_{{x \\to -4^{-}}} k(x) \\]",
       "prompt": "Evaluate",
-      "answer": "-\\infty",
-      "answerLatex": "\\[ \\lim_{{x \\to -4^{-}}} k(x) = -\\infty \\]",
-      "explanation": ""
+      "answers": ["-\\infty"],
+      "answerLatex": "\\[ \\lim_{{x \\to -4^{-}}} k(x) = -\\infty \\]"
     },
     {
-      "title": "Infinite Limits",
       "body": "For the following problem:",
       "equation": "\\[ m(x) = \\frac{8}{x^2 - 9} \\]",
       "evaluate": "\\[ \\lim_{{x \\to 3^{+}}} m(x) \\]",
       "prompt": "Evaluate",
-      "answer": "-\\infty",
-      "answerLatex": "\\[ \\lim_{{x \\to 3^{+}}} m(x) = -\\infty \\]",
-      "explanation": ""
+      "answers": ["-\\infty"],
+      "answerLatex": "\\[ \\lim_{{x \\to 3^{+}}} m(x) = -\\infty \\]"
     },
     {
-      "title": "Infinite Limits",
       "body": "For the following problem:",
       "equation": "\\[ p(x) = \\frac{10}{x+1} \\]",
       "evaluate": "\\[ \\lim_{{x \\to -1^{-}}} p(x) \\]",
       "prompt": "Evaluate",
-      "answer": "-\\infty",
-      "answerLatex": "\\[ \\lim_{{x \\to -1^{-}}} p(x) = -\\infty \\]",
-      "explanation": ""
+      "answers": ["-\\infty"],
+      "answerLatex": "\\[ \\lim_{{x \\to -1^{-}}} p(x) = -\\infty \\]"
     },
     {
-      "title": "Infinite Limits",
       "body": "For the following problem:",
       "equation": "\\[ q(x) = \\frac{12}{x-2} \\]",
       "evaluate": "\\[ \\lim_{{x \\to 2^{+}}} q(x) \\]",
       "prompt": "Evaluate",
-      "answer": "+\\infty",
-      "answerLatex": "\\[ \\lim_{{x \\to 2^{+}}} q(x) = +\\infty \\]",
-      "explanation": ""
+      "answers": ["+\\infty"],
+      "answerLatex": "\\[ \\lim_{{x \\to 2^{+}}} q(x) = +\\infty \\]"
     },
     {
-      "title": "Infinite Limits",
       "body": "For the following problem:",
       "equation": "\\[ r(x) = \\frac{15}{x-5} \\]",
       "evaluate": "\\[ \\lim_{{x \\to 5^{-}}} r(x) \\]",
       "prompt": "Evaluate",
-      "answer": "-\\infty",
-      "answerLatex": "\\[ \\lim_{{x \\to 5^{-}}} r(x) = -\\infty \\]",
-      "explanation": ""
+      "answers": ["-\\infty"],
+      "answerLatex": "\\[ \\lim_{{x \\to 5^{-}}} r(x) = -\\infty \\]"
     },
     {
-      "title": "Infinite Limits",
       "body": "For the following problem:",
       "equation": "\\[ s(x) = \\frac{20}{x-6} \\]",
       "evaluate": "\\[ \\lim_{{x \\to 6^{+}}} s(x) \\]",
       "prompt": "Evaluate",
-      "answer": "+\\infty",
-      "answerLatex": "\\[ \\lim_{{x \\to 6^{+}}} s(x) = +\\infty \\]",
-      "explanation": ""
+      "answers": ["+\\infty"],
+      "answerLatex": "\\[ \\lim_{{x \\to 6^{+}}} s(x) = +\\infty \\]"
     },
     {
-      "title": "Infinite Limits",
       "body": "For the following problem:",
       "equation": "\\[ t(x) = \\frac{25}{x-7} \\]",
       "evaluate": "\\[ \\lim_{{x \\to 7^{-}}} t(x) \\]",
       "prompt": "Evaluate",
-      "answer": "-\\infty",
-      "answerLatex": "\\[ \\lim_{{x \\to 7^{-}}} t(x) = -\\infty \\]",
-      "explanation": ""
+      "answers": ["-\\infty"],
+      "answerLatex": "\\[ \\lim_{{x \\to 7^{-}}} t(x) = -\\infty \\]"
     }
   ]
 }

@@ -5,7 +5,7 @@
       "body": "For problems 1 & 2 determine favg for the function on the given interval.",
       "equation": "\\[ \\frac{1}{2} \\]",
       "prompt": "Evaluate the following limit",
-      "answer": "",
+      "answers": [],
       "explanation": ""
     },
     {
@@ -14,7 +14,7 @@
       "equation": "\\[ \\frac{1}{2} \\]",
       "evaluate": "\\[\\lim\\limits_{ x \\to 8 } [2f(x) -12h(x)] \\]",
       "prompt": "View the following examples.",
-      "answer": "",
+      "answers": [],
       "answerLatex": "\\[ \\lim_{{x \\to 3^{+}}} m(x) = -\\infty \\]",
       "explanation": ""
     },
@@ -24,7 +24,7 @@
       "equation": "\\[ \\lim \\]",
       "evaluate": "\\[ \\lim \\limits_{ x \\to 3^{-} } [ 2f(x) -12h(x) ] \\]",
       "prompt": "View the following examples.",
-      "answer": "",
+      "answers": [],
       "answerLatex": "\\[ \\lim_{{x \\to 3^{+}}} m(x) = -\\infty \\]",
       "explanation": ""
     },
@@ -44,7 +44,7 @@
       "equation": "\\[ \\sum \\]",
       "evaluate": "\\[ \\sum_{n=1}^{\\infty} 2^{-n} = 1 \\]",
       "prompt": "View the following examples.",
-      "answer": "",
+      "answers": [],
       "answerLatex": "\\[ \\sum_{n=1}^{\\infty} 2^{-n} = 1 \\]",
       "explanation": ""
     }

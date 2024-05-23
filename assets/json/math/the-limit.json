@@ -2,11 +2,10 @@
   "data": [
     {
       "type": "fr",
-      "title": "The Limit",
       "body": "For the function $f(x) = \\frac{8-x^{3}}{x^{2}-4}$ answer each of the following questions.",
       "prompt": "(a) Evaluate the function at the following values of  x  compute (accurate to at least 8 decimal places).",
       "options": [2.5, 2.1, 2.01, 2.001, 2.0001, 1.5, 1.9, 1.99, 1.999, 1.9999],
-      "answer": [
+      "answers": [
         -3.38888889, -3.07560976, -3.00750623, -3.00075006, -3.000075,
         -2.64285714, -2.92564103, -2.99250627, -2.99925006, -2.999925
       ],
