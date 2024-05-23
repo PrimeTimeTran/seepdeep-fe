@@ -1,7 +1,7 @@
 {
   "data": [
     {
-      "title": "Integrals",
+      "title": "Large",
       "body": "For problems 1 & 2 determine favg for the function on the given interval.",
       "equation": "For the value \\[ \\frac{1}{2} \\] and the value \\[ \\frac{1}{2} \\]",
       "prompt": "Evaluate the following limit",

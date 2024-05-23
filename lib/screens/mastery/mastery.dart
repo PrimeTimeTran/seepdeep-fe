@@ -97,7 +97,7 @@ class _MasteryScreenState extends State<MasteryScreen> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 50),
+        padding: const EdgeInsets.symmetric(horizontal: 200, vertical: 50),
         child: Column(
           children: [
             Row(
@@ -110,7 +110,7 @@ class _MasteryScreenState extends State<MasteryScreen> {
                       listBuilder('Applications of Derivatives', 'Calculus',
                           'Application of Derivatives'),
                       listBuilder('Integrals', 'Calculus', 'Integrals'),
-                      listBuilder('Applications of Intgrals', 'Calculus',
+                      listBuilder('Applications of Integrals', 'Calculus',
                           'Application of Integrals'),
                       listBuilder(
                           'Computer Science', 'Computer Science', 'algorithms')
@@ -246,7 +246,7 @@ class _MasteryScreenState extends State<MasteryScreen> {
                                   name ?? '',
                                   style: Style.of(
                                     context,
-                                    'titleL',
+                                    'headlineL',
                                   ),
                                 ),
                               ),

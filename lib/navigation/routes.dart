@@ -116,9 +116,12 @@ final routes = [
         builder: (_, __) => const MathIntroScreen(),
       ),
       GoRoute(
-        path: AppScreens.math.path,
+        path: '${AppScreens.math.path}/:category',
         name: AppScreens.math.name,
-        builder: (_, __) => const MathScreen(),
+        builder: (context, state) {
+          final category = state.pathParameters['category'] ?? '';
+          return MathScreen(category: category);
+        },
       ),
       GoRoute(
         path: AppScreens.designKit.path,

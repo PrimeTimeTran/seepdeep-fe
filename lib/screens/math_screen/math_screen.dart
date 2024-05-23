@@ -8,7 +8,9 @@ import 'dart:ui_web' as ui;
 import 'package:app/all.dart';
 import 'package:app/screens/math_screen/stepper.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter_markdown_latex/flutter_markdown_latex.dart';
@@ -18,7 +20,8 @@ import 'package:http/http.dart' as http;
 import 'package:markdown/markdown.dart' as md;
 
 class MathScreen extends StatefulWidget {
-  const MathScreen({super.key});
+  final String category;
+  const MathScreen({super.key, required this.category});
 
   @override
   State<MathScreen> createState() => _MathScreenState();
@@ -29,13 +32,12 @@ class _MathScreenState extends State<MathScreen> {
   bool error = false;
   bool showAnswer = false;
   String problemType = 'optimization';
-  List<Problem> questions = [];
+  List<MathProblem> questions = [];
   IFrameElement webView = IFrameElement();
   final StreamController<int> _problemStreamController = StreamController();
 
   @override
   Widget build(BuildContext context) {
-    // setSubscription();
     if (error) {
       return Center(
         child: Column(
@@ -47,7 +49,7 @@ class _MathScreenState extends State<MathScreen> {
             ),
             const Gap(50),
             Text(
-              'Our server is down. Please try again later',
+              "We're experiencing issues. Please try again later.",
               style: Style.of(
                 context,
                 'displayL',
@@ -104,6 +106,16 @@ class _MathScreenState extends State<MathScreen> {
                   },
                   icon: const Icon(Icons.navigate_before_outlined),
                 ),
+                // OutlinedButton.icon(
+                //   label: const AppText(
+                //     text: 'JSON',
+                //   ),
+                //   onPressed: () {
+                //     final go = jsonEncode(_text);
+                //     print(go);
+                //   },
+                //   icon: const Icon(Icons.navigate_before_outlined),
+                // ),
                 const Gap(20),
                 OutlinedButton.icon(
                   label: const AppText(
@@ -200,15 +212,17 @@ class _MathScreenState extends State<MathScreen> {
         minWidth: 200,
         maxWidth: 1000,
         minHeight: 100,
-        maxHeight: 150,
+        maxHeight: 500,
       ),
       child: Markdown(
         selectable: true,
         data: value,
         builders: {
           'latex': LatexElementBuilder(
-            textStyle:
-                const TextStyle(fontWeight: FontWeight.w100, fontSize: 25),
+            textStyle: const TextStyle(
+              fontWeight: FontWeight.w100,
+            ),
+            textScaleFactor: 1.2,
           ),
         },
         extensionSet: md.ExtensionSet(
@@ -222,71 +236,73 @@ class _MathScreenState extends State<MathScreen> {
   buildUI(problems) {
     final question = problems[index - 1];
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        StepperDemo(
-          setStep: setStep,
-          problemsLength: questions.length,
-          problemStream: _problemStreamController.stream,
-        ),
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Expanded(
-              flex: 3,
-              child: Card(
-                semanticContainer: true,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      buildContentBox(
-                          question.title, Style.of(context, 'displayL')),
-                      const Gap(10),
-                      buildContentBox(
-                          question.body, Style.of(context, 'headlineL')),
-                      const Gap(10),
-                      buildLatexSection(question.equation),
-                      buildLatexSection(question.evaluate),
-                      const Gap(10),
-                      buildContentBox(
-                          question.prompt, Style.of(context, 'titleS')),
-                      const Gap(10),
-                      buildAnswerBox(problems, question),
-                      const Gap(10),
-                    ],
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          StepperDemo(
+            setStep: setStep,
+            problemsLength: questions.length,
+            problemStream: _problemStreamController.stream,
+          ),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                flex: 3,
+                child: Card(
+                  semanticContainer: true,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        buildContentBox(
+                            question.title, Style.of(context, 'displayL')),
+                        const Gap(10),
+                        buildContentBox(
+                            question.body, Style.of(context, 'headlineL')),
+                        const Gap(10),
+                        buildLatexSection(question.equation),
+                        buildLatexSection(question.evaluate),
+                        const Gap(10),
+                        buildContentBox(
+                            question.prompt, Style.of(context, 'titleS')),
+                        const Gap(10),
+                        buildAnswerBox(problems, question),
+                        const Gap(10),
+                      ],
+                    ),
                   ),
                 ),
               ),
-            ),
 
-            // Calculator
-            // Expanded(
-            //   flex: 4,
-            //   child: Align(
-            //     alignment: Alignment.centerRight,
-            //     child: LayoutBuilder(
-            //       builder: (BuildContext context, BoxConstraints constraints) {
-            //         const ratio = 1025 / 750;
-            //         final width = constraints.maxWidth;
-            //         final height = width / ratio;
-            //         return SizedBox(
-            //           width: width,
-            //           height: height,
-            //           child: const HtmlElementView(
-            //             viewType: 'index',
-            //           ),
-            //         );
-            //       },
-            //     ),
-            //   ),
-            // )
-          ],
-        ),
-      ],
+              // Calculator
+              // Expanded(
+              //   flex: 4,
+              //   child: Align(
+              //     alignment: Alignment.centerRight,
+              //     child: LayoutBuilder(
+              //       builder: (BuildContext context, BoxConstraints constraints) {
+              //         const ratio = 1025 / 750;
+              //         final width = constraints.maxWidth;
+              //         final height = width / ratio;
+              //         return SizedBox(
+              //           width: width,
+              //           height: height,
+              //           child: const HtmlElementView(
+              //             viewType: 'index',
+              //           ),
+              //         );
+              //       },
+              //     ),
+              //   ),
+              // )
+            ],
+          ),
+        ],
+      ),
     );
   }
 
@@ -301,7 +317,7 @@ class _MathScreenState extends State<MathScreen> {
             json.replaceAll('```json', '').replaceAll('```', '');
         final Map<String, dynamic> question = await jsonDecode(trimmedJson);
 
-        final problem = Problem(
+        final problem = MathProblem(
           title: question['title'],
           body: question['body'],
           equation: question['equation'],
@@ -327,76 +343,37 @@ class _MathScreenState extends State<MathScreen> {
         problemType = category;
       });
     }
-    getProblems(category);
   }
 
   getProblems(topic) async {
     try {
-      List<Problem> values = [];
-      final response =
-          await http.get(Uri.parse('http://localhost:8080/?category=limits'));
+      List<MathProblem> values = [];
+      if (kDebugMode) {
+        final response =
+            await http.get(Uri.parse('http://localhost:8080/?category=$topic'));
 
-      if (response.statusCode == 200) {
-        print(response.body);
-        final resp = jsonDecode(response.body);
-        for (var question in resp['data']) {
-          values.add(Problem(
-            body: question['body'] ?? '',
-            title: question['title'] ?? '',
-            prompt: question['prompt'] ?? '',
-            answer: question['answer'] ?? '',
-            equation: question['equation'] ?? '',
-            evaluate: question['evaluate'] ?? '',
-            solution: question['solution'] ?? '',
-            answerLatex: question['answerLatex'] ?? '',
-          ));
+        if (response.statusCode == 200) {
+          final resp = jsonDecode(response.body);
+          for (var question in resp['data']) {
+            values.add(MathProblem.fromJson(question));
+          }
+          setState(() {
+            questions = values;
+          });
+          return;
+        } else {
+          throw Exception('Failed to load data');
+        }
+      } else {
+        final json = await rootBundle.loadString('json/$topic.json');
+        final Map<String, dynamic> data = await jsonDecode(json);
+        for (var question in data['data']) {
+          values.add(MathProblem.fromJson(question));
         }
         setState(() {
           questions = values;
         });
-        return json.decode(response.body);
-      } else {
-        throw Exception('Failed to load data');
       }
-      if (response.statusCode == 200) {
-        print(response.body);
-        // for (var question in response['data']) {
-        //   values.add(Problem(
-        //     body: question['body'] ?? '',
-        //     title: question['title'] ?? '',
-        //     prompt: question['prompt'] ?? '',
-        //     answer: question['answer'] ?? '',
-        //     equation: question['equation'] ?? '',
-        //     evaluate: question['evaluate'] ?? '',
-        //     solution: question['solution'] ?? '',
-        //     answerLatex: question['answerLatex'] ?? '',
-        //   ));
-        // }
-        // setState(() {
-        //   questions = values;
-        // });
-        // return json.decode(response.body);
-      } else {
-        // If the server did not return a 200 OK response, throw an exception
-        throw Exception('Failed to load data');
-      }
-      // final json = await rootBundle.loadString('json/$topic.json');
-      // final Map<String, dynamic> data = await jsonDecode(json);
-      // for (var question in data['data']) {
-      //   values.add(Problem(
-      //     body: question['body'] ?? '',
-      //     title: question['title'] ?? '',
-      //     prompt: question['prompt'] ?? '',
-      //     answer: question['answer'] ?? '',
-      //     equation: question['equation'] ?? '',
-      //     evaluate: question['evaluate'] ?? '',
-      //     solution: question['solution'] ?? '',
-      //     answerLatex: question['answerLatex'] ?? '',
-      //   ));
-      // }
-      // setState(() {
-      //   questions = values;
-      // });
     } catch (e) {
       print('Error: $e');
       setState(() {
@@ -409,9 +386,10 @@ class _MathScreenState extends State<MathScreen> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      Future.delayed(const Duration(seconds: 2), () {
-        getCategory();
+      setState(() {
+        problemType = widget.category;
       });
+      getProblems(widget.category);
     });
   }
 

@@ -65,8 +65,10 @@ class _CategoryCardState extends State<CategoryCard> {
                     icon: const Icon(Icons.track_changes_outlined),
                     label: Text('Practice: $selectedSubjectTitle'),
                     onPressed: () {
-                      GoRouter.of(context)
-                          .go('/math?category=$selectedSubject');
+                      String encodedSubject =
+                          Uri.encodeComponent(selectedSubject);
+                      String navigationUrl = '/math/$encodedSubject';
+                      GoRouter.of(context).go(navigationUrl);
                     },
                   ),
                 )
@@ -83,7 +85,8 @@ class _CategoryCardState extends State<CategoryCard> {
     final vals = [];
     for (var i = 0; i < subjectSubjects.length; i++) {
       String name = subjectSubjects[i];
-      String categoryName = name.replaceAll(' ', '-').toLowerCase();
+      String categoryName =
+          name.replaceAll(' ', '-').replaceAll('&', 'and').toLowerCase();
       bool isSelected = categoryName == selectedSubject;
       vals.add(
         Padding(
@@ -95,11 +98,14 @@ class _CategoryCardState extends State<CategoryCard> {
                     backgroundColor: MaterialStatePropertyAll(Colors.green))
                 : null,
             onPressed: () {
-              setState(() {
-                selectedSubjectTitle = name;
-                selectedSubject = categoryName;
-                content = subjects['calculus'][domain][name]['description'];
-              });
+              String encodedSubject = Uri.encodeComponent(categoryName);
+              String navigationUrl = '/math/$encodedSubject';
+              GoRouter.of(context).go(navigationUrl);
+              // setState(() {
+              //   selectedSubjectTitle = name;
+              //   selectedSubject = categoryName;
+              //   content = subjects['calculus'][domain][name]['description'];
+              // });
             },
             child: Text(name),
           ),

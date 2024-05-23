@@ -1,6 +1,64 @@
 import 'package:app/all.dart';
 
+class MathProblem extends Problem {
+  String? hint;
+  String? prompt;
+  String? equation;
+  String? evaluate;
+  String? solution;
+
+  String? answer;
+  String? answerLatex;
+
+  String? followUpPrompt;
+  String? followUpAnswer;
+  String? followUpExplanation;
+
+  List<double>? terms;
+  List<double>? options;
+
+  MathProblem({
+    super.id,
+    super.type,
+    super.title,
+    super.body,
+    super.urlImgs,
+    this.hint,
+    this.prompt,
+    this.equation,
+    this.evaluate,
+    this.solution,
+    this.answer,
+    this.answerLatex,
+    this.terms,
+    this.options,
+    this.followUpPrompt,
+    this.followUpAnswer,
+    this.followUpExplanation,
+  });
+
+  MathProblem.fromJson(Map<String, dynamic> json) {
+    type = json['type'] ?? '';
+    id = json['id'] ?? '';
+    title = json['title'] ?? '';
+    body = json['body'] ?? '';
+    hint = json['hint'] ?? '';
+    prompt = json['prompt'] ?? '';
+    equation = json['equation'] ?? '';
+    evaluate = json['evaluate'] ?? '';
+    solution = json['solution'] ?? '';
+    answer = json['answer'] ?? '';
+    answerLatex = json['answerLatex'] ?? '';
+    terms = json['terms'] != null ? List<double>.from(json['terms']) : [];
+    options = json['options'] != null ? List<double>.from(json['options']) : [];
+    followUpPrompt = json['followUpPrompt'] ?? '';
+    followUpAnswer = json['followUpAnswer'] ?? '';
+    followUpExplanation = json['followUpExplanation'] ?? '';
+  }
+}
+
 class Problem {
+  String? type;
   String? id;
   String? title;
   String? body;
@@ -13,6 +71,7 @@ class Problem {
   int? numLC;
   List<Topic>? topics;
   List<String>? hints;
+  List<String>? urlImgs;
   List<String>? constraints;
   List<Map<String, String>>? similar;
 
@@ -33,19 +92,11 @@ class Problem {
   Map<String, String>? bodyTests;
   List<Map<String, dynamic>>? testCases;
 
-  String? hint;
-  String? prompt;
-  String? equation;
-  String? evaluate;
-  String? solution;
-  String? answer;
-  String? answerLatex;
-  List<String>? terms;
-  List<String>? options;
-
   Problem({
     this.id,
+    this.type,
     this.title,
+    this.urlImgs,
     this.numLC,
     this.body,
     this.topics,
@@ -67,15 +118,6 @@ class Problem {
     this.bodyTests,
     this.testCases,
     this.signature,
-    this.hint,
-    this.prompt,
-    this.equation,
-    this.evaluate,
-    this.solution,
-    this.answer,
-    this.answerLatex,
-    this.terms,
-    this.options,
   });
   Problem.fromJson(Map<String, dynamic> json) {
     Map<String, dynamic> j = json['signature'];
@@ -84,6 +126,8 @@ class Problem {
       returnType: j['returnType'],
     );
     id = json['id'];
+    type = json['type'];
+    urlImgs = json['urlImgs'];
     title = json['title'];
     numLC = json['numLC'];
     body = json['body'];
@@ -108,24 +152,16 @@ class Problem {
     this.signature = signature;
     testCases =
         (json['testCases'] as List<dynamic>?)?.cast<Map<String, dynamic>>();
-
-    hint = json['hint'];
-    prompt = json['prompt'];
-    equation = json['equation'];
-    evaluate = json['evaluate'];
-    solution = json['solution'];
-    answer = json['answer'];
-    answerLatex = json['answerLatex'];
-    terms = json['terms'];
-    options = json['options'];
   }
 
   Map<String, dynamic> toJson() {
     return {
       'id': id,
       'title': title,
+      'type': type,
       'numLC': numLC,
       'body': body,
+      'urlImgs': urlImgs,
       'topics': topics?.map((topic) => topic.toJson()).toList(),
       'isPublished': isPublished,
       'isSubmitted': isSubmitted,
@@ -145,15 +181,6 @@ class Problem {
       'bodyTests': bodyTests,
       'testCases': testCases,
       'signature': signature,
-      'hint': hint,
-      'prompt': prompt,
-      'equation': equation,
-      'evaluate': evaluate,
-      'solution': solution,
-      'answer': answer,
-      'answerLatex': answerLatex,
-      'terms': terms,
-      'options': options,
     };
   }
 }

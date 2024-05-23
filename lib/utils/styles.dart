@@ -78,12 +78,9 @@ class Style {
         displayLarge: heading,
         displayMedium: heading,
         displaySmall: heading,
-        headlineLarge:
-            withColor.copyWith(color: themeColor(context, 'secondary')),
-        headlineMedium:
-            withColor.copyWith(color: themeColor(context, 'secondary')),
-        headlineSmall:
-            withColor.copyWith(color: themeColor(context, 'secondary')),
+        headlineLarge: heading.copyWith(color: Colors.white),
+        headlineMedium: heading.copyWith(color: Colors.white),
+        headlineSmall: heading.copyWith(color: Colors.white),
         titleLarge: withColor.copyWith(color: Colors.white),
         titleMedium: withColor.copyWith(color: Colors.white),
         titleSmall: withColor.copyWith(color: Colors.white),

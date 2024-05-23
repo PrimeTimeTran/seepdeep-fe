@@ -9,20 +9,23 @@ CORS(app)
 app.config['TEMPLATES_AUTO_RELOAD'] = True
 app.config['DEBUG'] = True
 current_dir = os.path.dirname(os.path.abspath(__file__))
-
-# Get a list of all files in the current directory
 files_in_current_dir = [os.path.join(current_dir, filename) for filename in os.listdir(current_dir)]
-
-# Add the files in the current directory to the extra_files list
 extra_files = files_in_current_dir
+base_dir = os.path.dirname(os.path.abspath(__file__))
+
+
 @app.route('/')
 def get_data():
     category = request.args.get('category', '')
 
     if category:
+        # Construct the absolute path to the directory containing the JSON files
+        json_dir = os.path.join(base_dir, 'math')
         filename = f"{category}.json"
+        file_path = os.path.join(json_dir, filename)
+
         try:
-            with open(filename, 'r') as file:
+            with open(file_path, 'r') as file:
                 data = json.load(file)
             return jsonify(data), 200
         except FileNotFoundError:
