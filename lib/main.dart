@@ -13,8 +13,9 @@ import 'package:url_strategy/url_strategy.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Gemini.init(
-      apiKey: const String.fromEnvironment('GEMINI_API_KEY'),
-      enableDebugging: true);
+    apiKey: const String.fromEnvironment('GEMINI_API_KEY'),
+    enableDebugging: true,
+  );
   setPathUrlStrategy();
   await Firebase.initializeApp();
   Map<String, dynamic>? user = await Storage.instance.getUser();

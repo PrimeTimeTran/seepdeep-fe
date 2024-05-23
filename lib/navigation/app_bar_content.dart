@@ -136,6 +136,16 @@ class _AppBarContentState extends State<AppBarContent> {
                     // ),
                     TextButton.icon(
                       onPressed: () {
+                        GoRouter.of(context).go('/math/test');
+                      },
+                      label: const Text(
+                        'Test',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      icon: const Icon(Icons.calculate, color: Colors.white),
+                    ),
+                    TextButton.icon(
+                      onPressed: () {
                         GoRouter.of(context).go(AppScreens.mathIndex.path);
                       },
                       label: const Text(

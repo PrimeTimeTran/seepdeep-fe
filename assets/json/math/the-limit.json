@@ -1,7 +1,7 @@
 {
   "data": [
     {
-      "type": "mfr",
+      "type": "fr",
       "title": "The Limit",
       "body": "",
       "equation": "For the function $f(x) = \\frac{8-x^{3}}{x^{2}-4}$ answer each of the following questions.",
@@ -11,7 +11,8 @@
       "explanation": "",
       "followUpPrompt": "Use the information from (a) to estimate the value of \\lim\\limits_{ x \\to 2 } \\frac{8-x3}{x^{2}-4}",
       "followUpAns": "",
-      "followUpExplanation": ""
+      "followUpExplanation": "",
+      "answerLabels": []
     }
   ]
 }

@@ -84,7 +84,7 @@ flutter:
     - assets/fonts/
     - assets/icons/
     - assets/json/
-    - assets/json/math
+    - assets/json/math/
     - assets/lessons/
     - assets/lessons/sql/
     - assets/img/

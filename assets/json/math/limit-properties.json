@@ -1,103 +1,93 @@
 {
   "data": [
     {
-      "title": "Finding the Limit Using Properties",
+      "type": "",
       "body": "Given the following equations: ",
       "equation": "\\[\\lim\\limits_{ x \\to 8 } f(x) = -9, \\lim\\limits_{ x \\to 8 } g(x) = 2, \\text{and}  \\lim\\limits_{ x \\to 8 } h(x) = 4 \\]",
       "prompt": " use the limit properties given in this section to compute each of the following limits. If it is not possible to compute any of the limits, clearly explain why not. If it is not possible to compute the limit, clearly explain why not.",
       "evaluate": "\\[\\lim\\limits_{ x \\to 8 } [2f(x) -12h(x)] \\]",
-      "answer": "-66",
-      "answerLatex": "",
+      "answer": [-66],
       "explanation": "Here is the work for this limit. At each step the property (or properties) used are listed and note that in some cases the properties may have been used more than once in the indicated step."
     },
     {
-      "title": "Finding the Limit Using Properties",
+      "type": "",
       "body": "Given the following equations: ",
       "equation": "\\[\\lim\\limits_{ x \\to 5 } f(x) = 7, \\lim\\limits_{ x \\to 5 } g(x) = -3, \\text{and}  \\lim\\limits_{ x \\to 5 } h(x) = 2 \\]",
       "prompt": "Use the limit properties given in this section to compute each of the following limits. If it is not possible to compute any of the limits, clearly explain why not. If it is not possible to compute the limit, clearly explain why not.",
       "evaluate": "\\[\\lim\\limits_{ x \\to 5 } [-3f(x) + 2g(x)]\\]",
-      "answer": "-31",
-      "answerLatex": "",
+      "answer": [-31],
       "explanation": "Here is the work for this limit. At each step the property (or properties) used are listed and note that in some cases the properties may have been used more than once in the indicated step."
     },
     {
-      "title": "Finding the Limit Using Properties",
+      "type": "",
       "body": "Given the following equations: ",
       "equation": "\\[\\lim\\limits_{ x \\to -3 } f(x) = 4, \\lim\\limits_{ x \\to -3 } g(x) = -6, \\text{and}  \\lim\\limits_{ x \\to -3 } h(x) = 3 \\]",
       "prompt": "Use the limit properties given in this section to compute each of the following limits. If it is not possible to compute any of the limits, clearly explain why not. If it is not possible to compute the limit, clearly explain why not.",
       "evaluate": "\\[\\lim\\limits_{ x \\to -3 } [5g(x) - 2h(x)]\\]",
-      "answer": "-3",
-      "answerLatex": "",
+      "answer": [-3],
       "explanation": "Here is the work for this limit. At each step the property (or properties) used are listed and note that in some cases the properties may have been used more than once in the indicated step."
     },
     {
-      "title": "Finding the Limit Using Properties",
+      "type": "",
       "body": "Given the following equations: ",
       "equation": "\\[\\lim\\limits_{ x \\to 2 } f(x) = 9, \\lim\\limits_{ x \\to 2 } g(x) = -5, \\text{and}  \\lim\\limits_{ x \\to 2 } h(x) = 6 \\]",
       "prompt": "Use the limit properties given in this section to compute each of the following limits. If it is not possible to compute any of the limits, clearly explain why not. If it is not possible to compute the limit, clearly explain why not.",
       "evaluate": "\\[\\lim\\limits_{ x \\to 2 } [3f(x) + g(x)]\\]",
-      "answer": "22",
-      "answerLatex": "",
+      "answer": [22],
       "explanation": "Here is the work for this limit. At each step the property (or properties) used are listed and note that in some cases the properties may have been used more than once in the indicated step."
     },
     {
-      "title": "Finding the Limit Using Properties",
+      "type": "",
       "body": "Given the following equations: ",
       "equation": "\\[\\lim\\limits_{ x \\to 0 } f(x) = -2, \\lim\\limits_{ x \\to 0 } g(x) = 5, \\text{and}  \\lim\\limits_{ x \\to 0 } h(x) = 1 \\]",
       "prompt": "Use the limit properties given in this section to compute each of the following limits. If it is not possible to compute any of the limits, clearly explain why not. If it is not possible to compute the limit, clearly explain why not.",
       "evaluate": "\\[\\lim\\limits_{ x \\to 0 } [2f(x) - h(x)]\\]",
-      "answer": "-5",
-      "answerLatex": "",
+      "answer": [-5],
       "explanation": "Here is the work for this limit. At each step the property (or properties) used are listed and note that in some cases the properties may have been used more than once in the indicated step."
     },
     {
-      "title": "Finding the Limit Using Properties",
+      "type": "",
       "body": "Given the following equations: ",
       "equation": "\\[\\lim\\limits_{ x \\to 3 } f(x) = 6, \\lim\\limits_{ x \\to 3 } g(x) = -4, \\text{and}  \\lim\\limits_{ x \\to 3 } h(x) = 2 \\]",
       "prompt": "Use the limit properties given in this section to compute each of the following limits. If it is not possible to compute any of the limits, clearly explain why not. If it is not possible to compute the limit, clearly explain why not.",
       "evaluate": "\\[\\lim\\limits_{ x \\to 3 } [4h(x) - g(x)]\\]",
-      "answer": "10",
-      "answerLatex": "",
+      "answer": [10],
       "explanation": "Here is the work for this limit. At each step the property (or properties) used are listed and note that in some cases the properties may have been used more than once in the indicated step."
     },
     {
-      "title": "Finding the Limit Using Properties",
+      "type": "",
       "body": "Given the following equations: ",
       "equation": "\\[\\lim\\limits_{ x \\to -4 } f(x) = 8, \\lim\\limits_{ x \\to -4 } g(x) = -7, \\text{and}  \\lim\\limits_{ x \\to -4 } h(x) = 3 \\]",
       "prompt": "Use the limit properties given in this section to compute each of the following limits. If it is not possible to compute any of the limits, clearly explain why not. If it is not possible to compute the limit, clearly explain why not.",
       "evaluate": "\\[\\lim\\limits_{ x \\to -4 } [3f(x) + 2g(x)]\\]",
-      "answer": "7",
-      "answerLatex": "",
+      "answer": [7],
       "explanation": "Here is the work for this limit. At each step the property (or properties) used are listed and note that in some cases the properties may have been used more than once in the indicated step."
     },
     {
-      "title": "Finding the Limit Using Properties",
+      "type": "",
       "body": "Given the following equations: ",
       "equation": "\\[\\lim\\limits_{ x \\to -2 } f(x) = 5, \\lim\\limits_{ x \\to -2 } g(x) = -3, \\text{and}  \\lim\\limits_{ x \\to -2 } h(x) = 1 \\]",
       "prompt": "Use the limit properties given in this section to compute each of the following limits. If it is not possible to compute any of the limits, clearly explain why not. If it is not possible to compute the limit, clearly explain why not.",
       "evaluate": "\\[\\lim\\limits_{ x \\to -2 } [4f(x) - 3g(x) + 2h(x)]\\]",
-      "answer": "44",
-      "answerLatex": "",
+      "answer": [44],
       "explanation": "Here is the work for this limit. At each step the property (or properties) used are listed and note that in some cases the properties may have been used more than once in the indicated step."
     },
     {
-      "title": "Finding the Limit Using Properties",
+      "type": "",
       "body": "Given the following equations: ",
       "equation": "\\[\\lim\\limits_{ x \\to 6 } f(x) = -6, \\lim\\limits_{ x \\to 6 } g(x) = 2, \\text{and}  \\lim\\limits_{ x \\to 6 } h(x) = 3 \\]",
       "prompt": "Use the limit properties given in this section to compute each of the following limits. If it is not possible to compute any of the limits, clearly explain why not. If it is not possible to compute the limit, clearly explain why not.",
       "evaluate": "\\[\\lim\\limits_{ x \\to 6 } [3f(x) + 2g(x) - h(x)]\\]",
-      "answer": "-27",
-      "answerLatex": "",
+      "answer": [-27],
       "explanation": "Here is the work for this limit. At each step the property (or properties) used are listed and note that in some cases the properties may have been used more than once in the indicated step."
     },
     {
-      "title": "Finding the Limit Using Properties",
+      "type": "",
       "body": "Given the following equations: ",
       "equation": "\\[\\lim\\limits_{ x \\to 7 } f(x) = 3, \\lim\\limits_{ x \\to 7 } g(x) = -2, \\text{and}  \\lim\\limits_{ x \\to 7 } h(x) = -5 \\]",
       "prompt": "Use the limit properties given in this section to compute each of the following limits. If it is not possible to compute any of the limits, clearly explain why not. If it is not possible to compute the limit, clearly explain why not.",
       "evaluate": "\\[\\lim\\limits_{ x \\to 7 } [2f(x) + 3g(x) + h(x)]\\]",
-      "answer": "2",
-      "answerLatex": "",
+      "answer": [2],
       "explanation": "Here is the work for this limit. At each step the property (or properties) used are listed and note that in some cases the properties may have been used more than once in the indicated step."
     }
   ]

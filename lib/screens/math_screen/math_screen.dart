@@ -7,6 +7,7 @@ import 'dart:ui_web' as ui;
 
 import 'package:app/all.dart';
 import 'package:app/screens/math_screen/stepper.dart';
+import 'package:app/screens/sql/markdown_styles.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +19,19 @@ import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:http/http.dart' as http;
 import 'package:markdown/markdown.dart' as md;
+
+final optionLabels = [
+  'i',
+  'ii',
+  'iii',
+  'iv',
+  'v',
+  'vi',
+  'vii',
+  'viii',
+  'ix',
+  'x'
+];
 
 class MathScreen extends StatefulWidget {
   final String category;
@@ -33,6 +47,9 @@ class _MathScreenState extends State<MathScreen> {
   bool showAnswer = false;
   String problemType = 'optimization';
   List<MathProblem> questions = [];
+  List<String> answers = [];
+  List<String?> problemAnswers = [];
+
   IFrameElement webView = IFrameElement();
   final StreamController<int> _problemStreamController = StreamController();
 
@@ -73,6 +90,7 @@ class _MathScreenState extends State<MathScreen> {
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
+            buildAnswerBoxes(question),
             Padding(
               padding: const EdgeInsets.only(
                 top: 50,
@@ -106,16 +124,6 @@ class _MathScreenState extends State<MathScreen> {
                   },
                   icon: const Icon(Icons.navigate_before_outlined),
                 ),
-                // OutlinedButton.icon(
-                //   label: const AppText(
-                //     text: 'JSON',
-                //   ),
-                //   onPressed: () {
-                //     final go = jsonEncode(_text);
-                //     print(go);
-                //   },
-                //   icon: const Icon(Icons.navigate_before_outlined),
-                // ),
                 const Gap(20),
                 OutlinedButton.icon(
                   label: const AppText(
@@ -191,11 +199,58 @@ class _MathScreenState extends State<MathScreen> {
     );
   }
 
+  buildAnswerBoxes(question) {
+    List<Widget> items = [];
+    for (int i = 0; i < question.options.length; i++) {
+      items.add(
+        Padding(
+          padding: const EdgeInsets.all(30),
+          child: Row(
+            children: [
+              Text(
+                '${optionLabels[i]}: ',
+                style: Style.of(context, 'labelL').copyWith(
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold,
+                    color: themeColor(context, 'secondary')),
+              ),
+              SizedBox(
+                height: 30,
+                width: 200,
+                child: TextFormField(
+                  decoration: const InputDecoration(
+                    hintText: 'Enter answer here',
+                  ),
+                  onChanged: (value) {
+                    setState(() {
+                      if (problemAnswers.length <= i) {
+                        while (problemAnswers.length <= i) {
+                          problemAnswers.add(null);
+                        }
+                      }
+                      problemAnswers[i] = value;
+                    });
+                  },
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Row(
+        children: items,
+      ),
+    );
+  }
+
   buildContentBox(value, style) {
     return ConstrainedBox(
       constraints: const BoxConstraints(
         minWidth: 200,
-        maxWidth: 1000,
+        maxWidth: 1500,
         minHeight: 10,
         maxHeight: 150,
       ),
@@ -210,16 +265,19 @@ class _MathScreenState extends State<MathScreen> {
     return ConstrainedBox(
       constraints: const BoxConstraints(
         minWidth: 200,
-        maxWidth: 1000,
+        maxWidth: 1500,
         minHeight: 100,
-        maxHeight: 500,
+        maxHeight: 150,
       ),
       child: Markdown(
         selectable: true,
         data: value,
+        styleSheet: myStyleSheet,
         builders: {
           'latex': LatexElementBuilder(
-            textStyle: const TextStyle(
+            textStyle: TextStyle(
+              fontSize: 30,
+              color: themeColor(context, 'primary'),
               fontWeight: FontWeight.w100,
             ),
             textScaleFactor: 1.2,
@@ -231,6 +289,36 @@ class _MathScreenState extends State<MathScreen> {
         ),
       ),
     );
+  }
+
+  buildOptions(question) {
+    List<Widget> items = [];
+    for (int i = 0; i < question.options.length; i++) {
+      var element = question.options[i];
+      items.add(
+        Padding(
+          padding: const EdgeInsets.all(30),
+          child: Row(
+            children: [
+              Text(
+                '${optionLabels[i]}: ',
+                style: Style.of(context, 'labelL').copyWith(
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold,
+                    color: themeColor(context, 'secondary')),
+              ),
+              Text(
+                element.toString(),
+                style: Style.of(context, 'labelL').copyWith(
+                  fontSize: 30,
+                ),
+              )
+            ],
+          ),
+        ),
+      );
+    }
+    return Row(children: items);
   }
 
   buildUI(problems) {
@@ -258,47 +346,21 @@ class _MathScreenState extends State<MathScreen> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        buildContentBox(
-                            question.title, Style.of(context, 'displayL')),
+                        buildLatexSection(question.body),
                         const Gap(10),
-                        buildContentBox(
-                            question.body, Style.of(context, 'headlineL')),
+                        buildLatexSection(question.prompt),
+                        if (question.options != null) buildOptions(question),
                         const Gap(10),
-                        buildLatexSection(question.equation),
-                        buildLatexSection(question.evaluate),
-                        const Gap(10),
-                        buildContentBox(
-                            question.prompt, Style.of(context, 'titleS')),
+                        buildLatexSection(question.followUpPrompt),
                         const Gap(10),
                         buildAnswerBox(problems, question),
                         const Gap(10),
+                        Text(problemAnswers.toString())
                       ],
                     ),
                   ),
                 ),
               ),
-
-              // Calculator
-              // Expanded(
-              //   flex: 4,
-              //   child: Align(
-              //     alignment: Alignment.centerRight,
-              //     child: LayoutBuilder(
-              //       builder: (BuildContext context, BoxConstraints constraints) {
-              //         const ratio = 1025 / 750;
-              //         final width = constraints.maxWidth;
-              //         final height = width / ratio;
-              //         return SizedBox(
-              //           width: width,
-              //           height: height,
-              //           child: const HtmlElementView(
-              //             viewType: 'index',
-              //           ),
-              //         );
-              //       },
-              //     ),
-              //   ),
-              // )
             ],
           ),
         ],
@@ -371,6 +433,10 @@ class _MathScreenState extends State<MathScreen> {
           values.add(MathProblem.fromJson(question));
         }
         setState(() {
+          problemAnswers = List.generate(
+            values[0].options?.length ?? 0,
+            (index) => null,
+          );
           questions = values;
         });
       }

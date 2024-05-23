@@ -6,16 +6,18 @@ class MathProblem extends Problem {
   String? equation;
   String? evaluate;
   String? solution;
+  String? format;
 
-  String? answer;
   String? answerLatex;
 
   String? followUpPrompt;
   String? followUpAnswer;
   String? followUpExplanation;
 
-  List<double>? terms;
-  List<double>? options;
+  List<dynamic>? answer;
+  List<dynamic>? terms;
+  List<dynamic>? options;
+  List<dynamic>? answerLabels;
 
   MathProblem({
     super.id,
@@ -25,16 +27,18 @@ class MathProblem extends Problem {
     super.urlImgs,
     this.hint,
     this.prompt,
+    this.format,
     this.equation,
     this.evaluate,
     this.solution,
     this.answer,
     this.answerLatex,
-    this.terms,
-    this.options,
     this.followUpPrompt,
     this.followUpAnswer,
     this.followUpExplanation,
+    this.terms,
+    this.options,
+    this.answerLabels,
   });
 
   MathProblem.fromJson(Map<String, dynamic> json) {
@@ -49,11 +53,16 @@ class MathProblem extends Problem {
     solution = json['solution'] ?? '';
     answer = json['answer'] ?? '';
     answerLatex = json['answerLatex'] ?? '';
-    terms = json['terms'] != null ? List<double>.from(json['terms']) : [];
-    options = json['options'] != null ? List<double>.from(json['options']) : [];
     followUpPrompt = json['followUpPrompt'] ?? '';
     followUpAnswer = json['followUpAnswer'] ?? '';
     followUpExplanation = json['followUpExplanation'] ?? '';
+    format = json['format'] ?? '';
+    terms = json['terms'] != null ? List<dynamic>.from(json['terms']) : [];
+    options =
+        json['options'] != null ? List<dynamic>.from(json['options']) : [];
+    answerLabels = json['answerLabels'] != null
+        ? List<dynamic>.from(json['answerLabels'])
+        : [];
   }
 }
 
