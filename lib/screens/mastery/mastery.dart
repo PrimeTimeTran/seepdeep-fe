@@ -74,6 +74,9 @@ final subjectsS = {
   'Computer Science': {
     'algorithms': ['Data Structures & Algorithms']
   },
+  'Databases': {
+    'SQL': ['SQL']
+  },
 };
 
 class MasteryScreen extends StatefulWidget {
@@ -97,13 +100,14 @@ class _MasteryScreenState extends State<MasteryScreen> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 200, vertical: 50),
+        padding: const EdgeInsets.symmetric(horizontal: 400, vertical: 50),
         child: Column(
           children: [
             Row(
               children: [
                 Expanded(
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       listBuilder('Limits', 'Calculus', 'Limits'),
                       listBuilder('Derivatives', 'Calculus', 'Derivatives'),
@@ -113,7 +117,8 @@ class _MasteryScreenState extends State<MasteryScreen> {
                       listBuilder('Applications of Integrals', 'Calculus',
                           'Application of Integrals'),
                       listBuilder(
-                          'Computer Science', 'Computer Science', 'algorithms')
+                          'Computer Science', 'Computer Science', 'algorithms'),
+                      listBuilder('SQL', 'Databases', 'SQL')
                     ],
                   ),
                 ),
@@ -200,21 +205,20 @@ class _MasteryScreenState extends State<MasteryScreen> {
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 ConstrainedBox(
                   constraints: BoxConstraints(
-                    minWidth: getWidth(),
-                    maxWidth: getWidth(),
+                    minWidth: topics!.length * 400,
+                    maxWidth: topics.length * 400,
                     minHeight: 300,
                     maxHeight: 300,
                   ),
                   child: ListView.builder(
                     scrollDirection: Axis.horizontal,
-                    itemCount: topics?.length,
+                    itemCount: topics.length,
                     itemExtentBuilder: (index, dimensions) => 400,
                     itemBuilder: (BuildContext context, int idx) {
-                      final name = topics?[idx];
+                      final name = topics[idx];
                       return Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Container(
@@ -227,6 +231,7 @@ class _MasteryScreenState extends State<MasteryScreen> {
                             ),
                           ),
                           child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               // SvgPicture.asset(
                               //   'assets/icons/the-limit.svg',
@@ -243,7 +248,7 @@ class _MasteryScreenState extends State<MasteryScreen> {
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Text(
-                                  name ?? '',
+                                  name,
                                   style: Style.of(
                                     context,
                                     'headlineL',

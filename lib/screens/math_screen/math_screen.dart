@@ -327,33 +327,37 @@ class _MathScreenState extends State<MathScreen> {
     );
   }
 
+  buildLatex(value) {
+    return Markdown(
+      selectable: true,
+      data: value,
+      styleSheet: myStyleSheet,
+      builders: {
+        'latex': LatexElementBuilder(
+          textStyle: TextStyle(
+            fontSize: 30,
+            color: themeColor(context, 'primary'),
+            fontWeight: FontWeight.w100,
+          ),
+          textScaleFactor: 1.2,
+        ),
+      },
+      extensionSet: md.ExtensionSet(
+        [LatexBlockSyntax()],
+        [LatexInlineSyntax()],
+      ),
+    );
+  }
+
   buildLatexSection(value) {
     return ConstrainedBox(
       constraints: const BoxConstraints(
         minWidth: 200,
-        maxWidth: 1500,
+        maxWidth: 1000,
         minHeight: 100,
         maxHeight: 150,
       ),
-      child: Markdown(
-        selectable: true,
-        data: value,
-        styleSheet: myStyleSheet,
-        builders: {
-          'latex': LatexElementBuilder(
-            textStyle: TextStyle(
-              fontSize: 30,
-              color: themeColor(context, 'primary'),
-              fontWeight: FontWeight.w100,
-            ),
-            textScaleFactor: 1.2,
-          ),
-        },
-        extensionSet: md.ExtensionSet(
-          [LatexBlockSyntax()],
-          [LatexInlineSyntax()],
-        ),
-      ),
+      child: buildLatex(value),
     );
   }
 
@@ -373,18 +377,22 @@ class _MathScreenState extends State<MathScreen> {
                     fontWeight: FontWeight.bold,
                     color: themeColor(context, 'secondary')),
               ),
-              Text(
-                element.toString(),
-                style: Style.of(context, 'labelL').copyWith(
-                  fontSize: 30,
-                ),
+              SizedBox(
+                width: 400,
+                height: 85,
+                child: buildLatex(element.toString()),
               )
             ],
           ),
         ),
       );
     }
-    return Row(children: items);
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Row(
+        children: items,
+      ),
+    );
   }
 
   buildUI(problems) {
@@ -414,6 +422,8 @@ class _MathScreenState extends State<MathScreen> {
                       children: [
                         buildLatexSection(question.body),
                         const Gap(10),
+                        if (question.equation != null)
+                          buildLatexSection(question.equation),
                         buildLatexSection(question.prompt),
                         if (question.options != null) buildOptions(question),
                         const Gap(10),

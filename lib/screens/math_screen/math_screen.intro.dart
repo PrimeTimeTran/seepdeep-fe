@@ -103,12 +103,12 @@ class _CategoryCardState extends State<CategoryCard> {
             onPressed: () {
               String encodedSubject = Uri.encodeComponent(categoryName);
               String navigationUrl = '/math/$encodedSubject';
-              GoRouter.of(context).go(navigationUrl);
-              // setState(() {
-              //   selectedSubjectTitle = name;
-              //   selectedSubject = categoryName;
-              //   content = subjects['calculus'][domain][name]['description'];
-              // });
+              // GoRouter.of(context).go(navigationUrl);
+              setState(() {
+                selectedSubjectTitle = name;
+                selectedSubject = categoryName;
+                content = subjects['calculus'][domain][name]['description'];
+              });
             },
             child: Text(name),
           ),
