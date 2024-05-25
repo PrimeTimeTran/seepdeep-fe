@@ -1,4 +1,4 @@
-import 'bloc_app.dart';
+import 'app_bloc.dart';
 
 class AppProvider {
   final AppBloc _appBloc;

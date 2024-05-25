@@ -3,8 +3,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 
-import 'repository/bloc_app.dart';
+import 'repository/app_bloc.dart';
 import 'repository/get_it.dart';
+
+class AuthPanel extends StatefulWidget {
+  const AuthPanel({super.key});
+
+  @override
+  State<AuthPanel> createState() => _AuthPanelState();
+}
+
+class GetItRepositoryScreen extends StatefulWidget {
+  const GetItRepositoryScreen({super.key});
+
+  @override
+  State<GetItRepositoryScreen> createState() => _GetItRepositoryScreenState();
+}
 
 class NavigationFooter extends StatelessWidget {
   const NavigationFooter({super.key});
@@ -70,43 +84,7 @@ class ProviderWrapper extends StatefulWidget {
   State<ProviderWrapper> createState() => _ProviderWrapperState();
 }
 
-class RepositoryScreen extends StatefulWidget {
-  const RepositoryScreen({super.key});
-
-  @override
-  State<RepositoryScreen> createState() => _RepositoryScreenState();
-}
-
-class TestScreen extends StatefulWidget {
-  const TestScreen({super.key});
-
-  @override
-  State<TestScreen> createState() => _TestScreenState();
-}
-
-class _ProviderWrapperState extends State<ProviderWrapper> {
-  @override
-  Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (BuildContext context) => getIt<AppBloc>(),
-      child: const Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          RepositoryScreen(),
-          NavigationFooter(),
-        ],
-      ),
-    );
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    setupDependencies();
-  }
-}
-
-class _RepositoryScreenState extends State<RepositoryScreen> {
+class _AuthPanelState extends State<AuthPanel> {
   late final Repository _repository;
 
   @override
@@ -209,9 +187,31 @@ class _RepositoryScreenState extends State<RepositoryScreen> {
   }
 }
 
-class _TestScreenState extends State<TestScreen> {
+class _GetItRepositoryScreenState extends State<GetItRepositoryScreen> {
   @override
   Widget build(BuildContext context) {
     return const ProviderWrapper();
+  }
+}
+
+class _ProviderWrapperState extends State<ProviderWrapper> {
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (BuildContext context) => getIt<AppBloc>(),
+      child: const Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          AuthPanel(),
+          NavigationFooter(),
+        ],
+      ),
+    );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    setupDependencies();
   }
 }

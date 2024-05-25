@@ -1,6 +1,7 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:app/all.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:go_router/go_router.dart';
@@ -65,7 +66,7 @@ class _AppState extends State<App> {
       theme: Style.lightTheme,
       darkTheme: Style.darkTheme,
       builder: EasyLoading.init(),
-      debugShowCheckedModeBanner: false,
+      debugShowCheckedModeBanner: kDebugMode ? true : false,
       home: Builder(
         builder: (context) {
           return Scaffold(

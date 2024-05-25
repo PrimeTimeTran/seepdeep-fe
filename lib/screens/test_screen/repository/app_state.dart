@@ -1,4 +1,4 @@
-import 'package:equatable/equatable.dart';
+part of 'app_bloc.dart';
 
 class AppState extends Equatable {
   final bool isDarkMode;

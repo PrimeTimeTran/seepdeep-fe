@@ -6,6 +6,7 @@ export 'company.dart';
 export 'contest.dart';
 export 'graph.dart';
 export 'guide.dart';
+export 'math_problem.dart';
 export 'node.dart';
 export 'note.dart';
 export 'notification.dart';

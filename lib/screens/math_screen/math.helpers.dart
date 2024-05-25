@@ -1,3 +1,28 @@
+final allSubjects = [
+  'Tangent Lines & Rates of Change',
+  'The Limit',
+  'One-Sided Limits',
+  'Limit Properties',
+  'Computing Limits',
+  'Infinite Limits',
+  'Limits at Infinity, Part I',
+  'Limits at Infinity, Part II',
+  'Continuity',
+  'The Definition of the Limit',
+  'The Definition of the Derivative',
+  'Interpretation of the Derivative Differentiation Formulas',
+  'Product and Quotient Rule',
+  'Derivatives of Trig Functions',
+  'Derivatives of Exponential and Logarithm Functions',
+  'Derivatives of Inverse Trig Functions',
+  'Derivatives of Hyperbolic Functions',
+  'Chain Rule',
+  'Implicit Differentiation',
+  'Related Rates',
+  'Higher Order Derivatives',
+  'Logarithmic Differentiation',
+];
+
 Map<String, String> categoryIntroMap = {
   "Limits":
       "Limits describe the behavior of functions as their inputs approach specific values. The limit of a function f(x) as x approaches a value  c represents the value  f(x) approaches as x gets arbitrarily close to c. Key properties, like sum, difference, constant multiple, product, and quotient properties, aid in evaluating limits efficiently. Techniques such as direct substitution and L'Hôpital's Rule help determine limits in various scenarios. Understanding limits is essential as they form the basis for concepts like continuity, derivatives, and integrals, enabling the analysis of functions' behavior near critical points.",
@@ -192,3 +217,26 @@ Map<String, dynamic> subjects = {
     },
   }
 };
+
+String? matchSubject(String urlSafeString) {
+  String convertUrlSafeString(String urlSafeString) {
+    String converted = urlSafeString.replaceAll('-', ' ');
+    List<String> words = converted.split(' ');
+    words = words.map((word) {
+      if (word.isNotEmpty) {
+        return word[0].toUpperCase() + word.substring(1);
+      }
+      return word;
+    }).toList();
+
+    return words.join(' ');
+  }
+
+  String convertedString = convertUrlSafeString(urlSafeString);
+  for (var subject in allSubjects) {
+    if (subject.toLowerCase() == convertedString.toLowerCase()) {
+      return subject;
+    }
+  }
+  return '';
+}

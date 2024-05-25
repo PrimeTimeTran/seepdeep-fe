@@ -78,7 +78,7 @@ class _MathScreenState extends State<MathScreen> {
   }
 
   Card buildActionPanel(problems, question) {
-    return Card(
+    return Card.outlined(
       child: Padding(
         padding: const EdgeInsets.all(20),
         child: Column(
@@ -90,19 +90,6 @@ class _MathScreenState extends State<MathScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                SizedBox(
-                  height: 50,
-                  width: 300,
-                  child: OutlinedButton.icon(
-                    label: const AppText(
-                      text: 'New Problem(AI generated)',
-                    ),
-                    onPressed: () {
-                      generateAIProblem(widget.category);
-                    },
-                    icon: const Icon(SDIcon.ai_enabled),
-                  ),
-                ),
                 const Gap(20),
                 SizedBox(
                   height: 50,
@@ -141,10 +128,24 @@ class _MathScreenState extends State<MathScreen> {
                 ),
               ],
             ),
-            const Gap(10),
+            const Gap(20),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
+                SizedBox(
+                  height: 50,
+                  width: 300,
+                  child: OutlinedButton.icon(
+                    label: const AppText(
+                      text: 'New Problem(AI generated)',
+                    ),
+                    onPressed: () {
+                      generateAIProblem(widget.category);
+                    },
+                    icon: const Icon(SDIcon.ai_enabled),
+                  ),
+                ),
+                const Gap(20),
                 SizedBox(
                   width: 400,
                   height: 50,
@@ -380,9 +381,8 @@ class _MathScreenState extends State<MathScreen> {
               },
             )),
       );
-    } else {
-      return const SizedBox();
     }
+    return const SizedBox();
   }
 
   buildUI(problems) {
@@ -393,66 +393,82 @@ class _MathScreenState extends State<MathScreen> {
         final height = constraints.maxHeight;
         final width = constraints.maxWidth;
 
+        final title = matchSubject(widget.category) ?? '';
+
         return SingleChildScrollView(
           child: SizedBox(
             width: width,
             height: height,
             child: Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  StepperDemo(
-                    setStep: setStep,
-                    problemsLength: questions.length,
-                    problemStream: _problemStreamController.stream,
-                  ),
-                  Expanded(
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              buildLatexContent(question.body),
-                              const Gap(10),
-                              if (question.equation != null)
-                                buildLatexContent(question.equation),
-                              buildLatexContent(question.prompt),
-                              buildOptions(question),
-                              buildLatexContent(question.followUpPrompt),
-                            ],
+              child: Card(
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      if (title.isNotEmpty)
+                        Text(
+                          title,
+                          style: Style.of(
+                            context,
+                            'displayL',
                           ),
                         ),
-                        Expanded(
-                          child: Column(
-                            children: [
-                              // Note: Questions with images
-                              // Container(
-                              //   // color: Colors.red,
-                              //   child: const SizedBox(
-                              //     width: double.infinity,
-                              //     height: 300,
-                              //   ),
-                              // ),
-                              const Spacer(),
-                              if (kDebugMode)
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(answers.toString()),
-                                    Text('Index: $index')
-                                  ],
-                                ),
-                              buildActionPanel(problems, question),
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
+                      StepperDemo(
+                        setStep: setStep,
+                        problemsLength: questions.length,
+                        problemStream: _problemStreamController.stream,
+                      ),
+                      Expanded(
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  buildLatexContent(question.body),
+                                  const Gap(10),
+                                  if (question.equation != null)
+                                    buildLatexContent(question.equation),
+                                  if (question.prompt.isNotEmpty)
+                                    buildLatexContent(question.prompt),
+                                  buildOptions(question),
+                                  if (question.followUpPrompt.isNotEmpty)
+                                    buildLatexContent(question.followUpPrompt),
+                                ],
+                              ),
+                            ),
+                            Expanded(
+                              child: Column(
+                                children: [
+                                  if (question.urlImgs != null &&
+                                      question.urlImgs.isNotEmpty)
+                                    Image.asset('assets/img/graph.png'),
+                                  // if (question.urlImgs != null &&
+                                  //     question.urlImgs.isNotEmpty)
+                                  //   Image.network(question.urlImgs[0]),
+                                  const Spacer(),
+                                  if (kDebugMode)
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text('Answers for: $index'),
+                                        Text(answers.toString()),
+                                      ],
+                                    ),
+                                  buildActionPanel(problems, question),
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
-                ],
+                ),
               ),
             ),
           ),
@@ -492,7 +508,7 @@ class _MathScreenState extends State<MathScreen> {
   getProblems(topic) async {
     try {
       List<MathProblem> values = [];
-      if (kDebugMode) {
+      if (!kDebugMode) {
         final response =
             await http.get(Uri.parse('http://localhost:8080/?category=$topic'));
 
