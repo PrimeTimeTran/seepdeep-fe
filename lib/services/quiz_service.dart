@@ -50,13 +50,21 @@ class QuizService {
     for (MathProblem element in values) {
       Map<String, dynamic> problem = {
         'problemId': element.id,
+        // 'answers': List<dynamic>.generate(
+        //   element.answers?.length ?? 0,
+        //   (index) => null,
+        // ),
+        // 'followUpAnswers': List<dynamic>.generate(
+        //   element.followUpAnswers?.length ?? 0,
+        //   (index) => null,
+        // ),
         'answers': List<dynamic>.generate(
           element.answers?.length ?? 0,
-          (index) => null,
+          (index) => element.answers?[0] is List ? ['', ''] : null,
         ),
         'followUpAnswers': List<dynamic>.generate(
           element.followUpAnswers?.length ?? 0,
-          (index) => null,
+          (index) => element.followUpAnswers?[0] is List ? ['', ''] : null,
         ),
       };
       graded.add(problem);

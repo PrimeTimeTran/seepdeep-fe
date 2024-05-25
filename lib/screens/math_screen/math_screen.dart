@@ -2,7 +2,6 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:html';
-import 'dart:ui_web' as ui;
 
 import 'package:app/all.dart';
 import 'package:app/screens/math_screen/stepper.dart';
@@ -188,15 +187,19 @@ class _MathScreenState extends State<MathScreen> {
   }
 
   buildAnswerInputs() {
+    // Fix:
+    // Switching questions results in the inputs not updating/reverting to their previous values.
+    // Gotta make controller smarter.
+    // Also the issue with them is they're fickle with allowing us to type.
     List<Widget> items = [];
     final answer = answers[index - 1];
+    bool isMultiAnswer = false;
+    if (questions[index - 1].answers?[0] is List) {
+      isMultiAnswer = true;
+    }
     int answerLength = answer['answers'].length;
-    List<TextEditingController> controllers =
-        List.generate(answerLength, (_) => TextEditingController());
 
     for (int i = 0; i < answerLength; i++) {
-      controllers[i].text = answer['answers'][i] ?? '';
-
       items.add(
         Padding(
           padding: const EdgeInsets.all(30),
@@ -205,21 +208,24 @@ class _MathScreenState extends State<MathScreen> {
               Text(
                 '${answerLength == 1 ? 'Answer' : optionLabels[i]}: ',
                 style: Style.of(context, 'labelL').copyWith(
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold,
-                    color: themeColor(context, 'secondary')),
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                  color: themeColor(context, 'secondary'),
+                ),
               ),
               SizedBox(
                 height: 30,
                 width: 200,
                 child: TextFormField(
-                  key: ValueKey('$index-$i'),
-                  controller: controllers[i],
                   decoration: const InputDecoration(
                     hintText: 'Answer',
                   ),
                   onChanged: (value) {
-                    answer['answers'][i] = value;
+                    if (isMultiAnswer) {
+                      answer['answers'][i][0] = value;
+                    } else {
+                      answer['answers'][i] = value;
+                    }
                     answers[index - 1] = answer;
                     setState(() {
                       answers = answers;
@@ -227,6 +233,23 @@ class _MathScreenState extends State<MathScreen> {
                   },
                 ),
               ),
+              if (isMultiAnswer)
+                SizedBox(
+                  height: 30,
+                  width: 200,
+                  child: TextFormField(
+                    decoration: const InputDecoration(
+                      hintText: 'Answer',
+                    ),
+                    onChanged: (value) {
+                      answer['answers'][i][1] = value;
+                      answers[index - 1] = answer;
+                      setState(() {
+                        answers = answers;
+                      });
+                    },
+                  ),
+                ),
             ],
           ),
         ),
@@ -561,25 +584,5 @@ class _MathScreenState extends State<MathScreen> {
     setState(() {
       index = idx;
     });
-  }
-
-  setSubscription() {
-    ui.platformViewRegistry.registerViewFactory('index', (int viewId) {
-      webView = IFrameElement()
-        ..src = 'assets/index.html'
-        ..style.border = 'none';
-      window.onMessage.listen((msg) {
-        if (msg.data?.startsWith("onMsg Success:")) {
-          Glob.logI('onMsg Success');
-        } else {
-          Glob.logI('onMsg not success');
-        }
-      }, onError: (e) {
-        Glob.logI(e);
-      }, onDone: () {
-        Glob.logI('Done');
-      });
-      return webView;
-    }, isVisible: false);
   }
 }
