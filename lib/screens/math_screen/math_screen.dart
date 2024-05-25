@@ -20,18 +20,7 @@ import 'package:gap/gap.dart';
 import 'package:http/http.dart' as http;
 import 'package:markdown/markdown.dart' as md;
 
-final optionLabels = [
-  'i',
-  'ii',
-  'iii',
-  'iv',
-  'v',
-  'vi',
-  'vii',
-  'viii',
-  'ix',
-  'x'
-];
+import 'math.helpers.dart';
 
 class MathScreen extends StatefulWidget {
   final String category;
@@ -88,10 +77,10 @@ class _MathScreenState extends State<MathScreen> {
     return Container();
   }
 
-  Card buildAnswerBox(problems, question) {
-    return Card.outlined(
+  Card buildActionPanel(problems, question) {
+    return Card(
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(20),
         child: Column(
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -101,84 +90,82 @@ class _MathScreenState extends State<MathScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                const Gap(20),
-                OutlinedButton.icon(
-                  label: const AppText(
-                    text: 'Back',
+                SizedBox(
+                  height: 50,
+                  width: 300,
+                  child: OutlinedButton.icon(
+                    label: const AppText(
+                      text: 'New Problem(AI generated)',
+                    ),
+                    onPressed: () {
+                      generateAIProblem(widget.category);
+                    },
+                    icon: const Icon(SDIcon.ai_enabled),
                   ),
-                  onPressed: () {
-                    if (index <= 1) return;
-                    _problemStreamController.add(index - 1);
-                    setState(() {
-                      index = index - 1;
-                    });
-                  },
-                  icon: const Icon(Icons.navigate_before_outlined),
                 ),
                 const Gap(20),
-                OutlinedButton.icon(
-                  label: const AppText(
-                    text: 'Next',
+                SizedBox(
+                  height: 50,
+                  width: 200,
+                  child: OutlinedButton.icon(
+                    label: const AppText(
+                      text: 'Back',
+                    ),
+                    onPressed: () {
+                      if (index <= 1) return;
+                      _problemStreamController.add(index - 1);
+                      setState(() {
+                        index = index - 1;
+                      });
+                    },
+                    icon: const Icon(Icons.navigate_before_outlined),
                   ),
-                  onPressed: () {
-                    if (index >= problems.length) return;
-                    _problemStreamController.add(index + 1);
-                    setState(() {
-                      index = index + 1;
-                    });
-                  },
-                  icon: const Icon(Icons.navigate_next_outlined),
-                ),
-                // OutlinedButton.icon(
-                //   label: const AppText(
-                //     text: 'GetGrade',
-                //   ),
-                //   onPressed: () {
-                //     quizService.getGrade(answers);
-                //   },
-                //   icon: const Icon(Icons.navigate_next_outlined),
-                // ),
-                const Gap(20),
-                OutlinedButton.icon(
-                  label: const AppText(
-                    text: 'Submit',
-                  ),
-                  onPressed: () async {
-                    if (index >= problems.length) return;
-                    await FirebaseAnalytics.instance.logEvent(
-                      name: "engage",
-                      parameters: {
-                        "type": "problem_solve",
-                        "category": "math",
-                        "module": "calculus",
-                      },
-                    );
-                  },
-                  icon: const Icon(Icons.keyboard_return),
                 ),
                 const Gap(20),
+                SizedBox(
+                  height: 50,
+                  width: 200,
+                  child: OutlinedButton.icon(
+                    label: const AppText(
+                      text: 'Next',
+                    ),
+                    onPressed: () {
+                      if (index >= problems.length) return;
+                      _problemStreamController.add(index + 1);
+                      setState(() {
+                        index = index + 1;
+                      });
+                    },
+                    icon: const Icon(Icons.navigate_next_outlined),
+                  ),
+                ),
               ],
             ),
             const Gap(10),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
-              children: <Widget>[
-                ElevatedButton.icon(
-                  icon: const Icon(SDIcon.ai_enabled),
-                  onPressed: () {
-                    generateAIProblem(widget.category);
-                  },
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStatePropertyAll(
-                      themeColor(
-                        context,
-                        'primaryContainer',
-                      ),
+              children: [
+                SizedBox(
+                  width: 400,
+                  height: 50,
+                  child: OutlinedButton.icon(
+                    label: const AppText(
+                      text: 'Submit',
                     ),
+                    onPressed: () async {
+                      if (index >= problems.length) return;
+                      await FirebaseAnalytics.instance.logEvent(
+                        name: "engage",
+                        parameters: {
+                          "type": "problem_solve",
+                          "category": "math",
+                          "module": "calculus",
+                        },
+                      );
+                    },
+                    icon: const Icon(Icons.keyboard_return),
                   ),
-                  label: const Text('New'),
                 ),
-                const Gap(20),
               ],
             ),
             const Gap(10),
@@ -349,7 +336,8 @@ class _MathScreenState extends State<MathScreen> {
     );
   }
 
-  buildLatexSection(value) {
+  buildLatexContent(value) {
+    // return buildLatex(value);
     return ConstrainedBox(
       constraints: const BoxConstraints(
         minWidth: 200,
@@ -362,92 +350,114 @@ class _MathScreenState extends State<MathScreen> {
   }
 
   buildOptions(question) {
-    List<Widget> items = [];
-    for (int i = 0; i < question.options.length; i++) {
-      var element = question.options[i];
-      items.add(
-        Padding(
-          padding: const EdgeInsets.all(30),
-          child: Row(
-            children: [
-              Text(
-                '${optionLabels[i]}: ',
-                style: Style.of(context, 'labelL').copyWith(
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold,
-                    color: themeColor(context, 'secondary')),
-              ),
-              SizedBox(
-                width: 400,
-                height: 85,
-                child: buildLatex(element.toString()),
-              )
-            ],
-          ),
-        ),
+    final options = question.options;
+    if (options.isNotEmpty) {
+      return Card.filled(
+        child: ConstrainedBox(
+            constraints: const BoxConstraints(
+              maxHeight: 100,
+            ),
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: options.length,
+              itemBuilder: (context, index) {
+                return Row(
+                  children: [
+                    Text(
+                      '${optionLabels[index]}: ',
+                      style: Style.of(context, 'labelL').copyWith(
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold,
+                          color: themeColor(context, 'secondary')),
+                    ),
+                    SizedBox(
+                      height: 85,
+                      width: 400,
+                      child: buildLatex(options[index].toString()),
+                    ),
+                  ],
+                );
+              },
+            )),
       );
+    } else {
+      return const SizedBox();
     }
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Row(
-        children: items,
-      ),
-    );
   }
 
   buildUI(problems) {
     final question = problems[index - 1];
 
-    return SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          StepperDemo(
-            setStep: setStep,
-            problemsLength: questions.length,
-            problemStream: _problemStreamController.stream,
-          ),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Expanded(
-                flex: 3,
-                child: Card(
-                  semanticContainer: true,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
+    return LayoutBuilder(
+      builder: (BuildContext context, BoxConstraints constraints) {
+        final height = constraints.maxHeight;
+        final width = constraints.maxWidth;
+
+        return SingleChildScrollView(
+          child: SizedBox(
+            width: width,
+            height: height,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  StepperDemo(
+                    setStep: setStep,
+                    problemsLength: questions.length,
+                    problemStream: _problemStreamController.stream,
+                  ),
+                  Expanded(
+                    child: Row(
                       children: [
-                        buildLatexSection(question.body),
-                        const Gap(10),
-                        if (question.equation != null)
-                          buildLatexSection(question.equation),
-                        buildLatexSection(question.prompt),
-                        if (question.options != null) buildOptions(question),
-                        const Gap(10),
-                        buildLatexSection(question.followUpPrompt),
-                        const Gap(10),
-                        buildAnswerBox(problems, question),
-                        const Gap(10),
-                        if (kDebugMode)
-                          Column(
+                        Expanded(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(answers.toString()),
-                              Text('Index: $index')
+                              buildLatexContent(question.body),
+                              const Gap(10),
+                              if (question.equation != null)
+                                buildLatexContent(question.equation),
+                              buildLatexContent(question.prompt),
+                              buildOptions(question),
+                              buildLatexContent(question.followUpPrompt),
                             ],
-                          )
+                          ),
+                        ),
+                        Expanded(
+                          child: Column(
+                            children: [
+                              // Note: Questions with images
+                              // Container(
+                              //   // color: Colors.red,
+                              //   child: const SizedBox(
+                              //     width: double.infinity,
+                              //     height: 300,
+                              //   ),
+                              // ),
+                              const Spacer(),
+                              if (kDebugMode)
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(answers.toString()),
+                                    Text('Index: $index')
+                                  ],
+                                ),
+                              buildActionPanel(problems, question),
+                            ],
+                          ),
+                        )
                       ],
                     ),
                   ),
-                ),
+                ],
               ),
-            ],
+            ),
           ),
-        ],
-      ),
+        );
+      },
     );
   }
 

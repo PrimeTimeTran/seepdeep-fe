@@ -100,7 +100,7 @@ class _MasteryScreenState extends State<MasteryScreen> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 400, vertical: 50),
+        padding: const EdgeInsets.symmetric(horizontal: 200, vertical: 50),
         child: Column(
           children: [
             Row(

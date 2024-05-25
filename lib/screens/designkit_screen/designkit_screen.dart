@@ -1,4 +1,5 @@
 import 'package:app/all.dart' as prefix;
+import 'package:app/screens/designkit_screen/designkit_screen.helpers.dart';
 import 'package:app/utils/enums.dart';
 import 'package:app/utils/styles.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +18,7 @@ class _DesignKitScreenState extends State<DesignKitScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // return const ColorsDemo();
     final ButtonStyle outlineButtonStyle = OutlinedButton.styleFrom(
       foregroundColor: Colors.black87,
       minimumSize: const Size(88, 36),
@@ -56,6 +58,9 @@ class _DesignKitScreenState extends State<DesignKitScreen> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                          // const Expanded(
+                          //   child: ColorsDemo(),
+                          // ),
                           Text(
                             'Typography',
                             style: Style.of(context, 'displayLUnderline'),
@@ -99,6 +104,9 @@ class _DesignKitScreenState extends State<DesignKitScreen> {
                   ),
                 ),
               ),
+            ),
+            const Center(
+              child: ColorsDemo(),
             )
           ],
         ),

@@ -7,6 +7,19 @@ Map<String, String> categoryIntroMap = {
       "Derivatives measure the rate of change of a function with respect to its input. The derivative of a function f(x) at a point x represents the slope of the tangent line to the graph of  f(x) at that point. Key properties, such as the power rule, product rule, quotient rule, and chain rule, allow for the differentiation of various functions efficiently. Techniques like implicit differentiation and logarithmic differentiation expand the scope of functions that can be differentiated. Understanding derivatives is fundamental as they provide insights into the behavior of functions, including identifying extrema, inflection points, and graph characteristics. They also have applications in physics, engineering, economics, and other fields where rates of change are essential for analysis."
 };
 
+final optionLabels = [
+  'i',
+  'ii',
+  'iii',
+  'iv',
+  'v',
+  'vi',
+  'vii',
+  'viii',
+  'ix',
+  'x'
+];
+
 Map<String, dynamic> subjects = {
   "subjects": ['pre-calculus', 'trigonometry', 'calculus'],
   "calculus": {

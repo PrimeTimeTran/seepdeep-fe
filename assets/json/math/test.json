@@ -9,6 +9,7 @@
     {
       "type": "fr",
       "body": "What's 4 squared",
+      "options": null,
       "answer": [16]
     },
     {
@@ -33,11 +34,13 @@
     {
       "type": "fb",
       "body": "Calculus is the study of ____ ?",
+      "options": null,
       "answer": ["change"]
     },
     {
       "type": "fb",
       "body": "Roses are ___, violets are ___, sugar is ____, and so are ____.",
+      "options": null,
       "answer": ["red", "blue", "sweet", "you"]
     },
     {
@@ -66,7 +69,37 @@
     {
       "type": "tf",
       "body": "Is learning Calculus good for Computer Science?",
+      "options": null,
       "answer": [true]
+    },
+    {
+      "type": "fr",
+      "body": "For the function $f(x) = 4(x + 1)^{2}$ and the point $P$ given by $x = -1$ answer each of the following questions.",
+      "prompt": "(a) For the points $Q$ given by the following values of $x$ compute (accurate to at least 8 decimal places) the slope, $mPQ$, of the secant line through points $P$ and $Q$.",
+      "options": [
+        -1.5, -1.1, -1.01, -1.001, -1.0001, -0.5, -0.9, -0.99, -0.999, -0.9999
+      ],
+      "answers": [
+        -8.0, -6.6, -6.04, -6.004, -6.0004, -4.0, -6.2, -6.04, -6.004, -6.0004
+      ],
+      "hint": "$mPQ = \\frac{f(x) - f(a)}{x - a}$",
+      "followUpPrompt": "(b) Use the information from (a) to estimate the slope of the tangent line to $f(x)$ at $x = -1$ and write down the equation of the tangent line.",
+      "followUpAnswers": ["y = -6 x -15"]
+    },
+    {
+      "type": "fr",
+      "body": "For the function $f(x) = \\frac{8-x^{3}}{x^{2}-4}$ answer each of the following questions.",
+      "prompt": "(a) Evaluate the function at the following values of  x  compute (accurate to at least 8 decimal places).",
+      "options": [2.5, 2.1, 2.01, 2.001, 2.0001, 1.5, 1.9, 1.99, 1.999, 1.9999],
+      "answers": [
+        -3.38888889, -3.07560976, -3.00750623, -3.00075006, -3.000075,
+        -2.64285714, -2.92564103, -2.99250627, -2.99925006, -2.999925
+      ],
+      "explanation": "",
+      "followUpPrompt": "(b) Use the information from (a) to estimate the value of $\\lim_{x \\to 2} \\frac{8-x^{3}}{x^{2}-4} $",
+      "followUpAnswers": [-3],
+      "followUpExplanation": "",
+      "answerLabels": []
     }
   ]
 }
