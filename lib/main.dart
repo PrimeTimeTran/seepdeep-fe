@@ -1,9 +1,11 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:app/all.dart';
+import 'package:app/observers.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:provider/provider.dart' as provider;
@@ -17,8 +19,11 @@ void main() async {
     enableDebugging: true,
   );
   setPathUrlStrategy();
+  Bloc.observer = SimpleBlocObserver();
+
   await Firebase.initializeApp();
   Map<String, dynamic>? user = await Storage.instance.getUser();
+
   runApp(
     provider.MultiProvider(
       providers: [

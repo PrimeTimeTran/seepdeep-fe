@@ -63,6 +63,7 @@ dependencies:
   firebase_analytics: ^10.10.2 
   firebase_core: 2.30.0
   flutter_gemini: ^2.0.3
+  flutter_bloc: ^8.1.5
 
 dev_dependencies:
   flutter_test:

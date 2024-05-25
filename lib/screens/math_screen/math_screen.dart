@@ -85,7 +85,7 @@ class _MathScreenState extends State<MathScreen> {
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            buildAnswerBoxes(),
+            buildAnswerInputs(),
             buildFollowUpAnswers(),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
@@ -186,7 +186,7 @@ class _MathScreenState extends State<MathScreen> {
     );
   }
 
-  buildAnswerBoxes() {
+  buildAnswerInputs() {
     List<Widget> items = [];
     final answer = answers[index - 1];
     int answerLength = answer['answers'].length;

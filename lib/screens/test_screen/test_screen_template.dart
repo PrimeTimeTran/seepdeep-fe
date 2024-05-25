@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class TestScreen extends StatefulWidget {
-  const TestScreen({super.key});
+class TestScreenTemplate extends StatefulWidget {
+  const TestScreenTemplate({super.key});
 
   @override
-  State<TestScreen> createState() => _TestScreenState();
+  State<TestScreenTemplate> createState() => _TestScreenTemplateState();
 }
 
-class _TestScreenState extends State<TestScreen> {
+class _TestScreenTemplateState extends State<TestScreenTemplate> {
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
@@ -19,10 +19,7 @@ class _TestScreenState extends State<TestScreen> {
             width: width,
             height: height,
             child: const Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text('Test Screen'),
-              ],
+              children: [Text('Test Screen')],
             ),
           ),
         );
