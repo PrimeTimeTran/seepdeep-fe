@@ -1,3 +1,4 @@
+export 'assets_screen/all.dart';
 export 'auth_screen.dart';
 export 'bug_report_screen.dart';
 export 'community_screen.dart';

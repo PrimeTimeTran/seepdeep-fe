@@ -124,6 +124,19 @@ final routes = [
         },
       ),
       GoRoute(
+        path: AppScreens.assets.path,
+        name: AppScreens.assets.name,
+        builder: (_, __) => const AssetsScreen(),
+      ),
+      GoRoute(
+        path: '${AppScreens.asset.path}/:img',
+        name: AppScreens.asset.name,
+        builder: (context, state) {
+          final img = state.pathParameters['img'] ?? '';
+          return AssetScreen(img: img);
+        },
+      ),
+      GoRoute(
         path: AppScreens.designKit.path,
         name: AppScreens.designKit.name,
         builder: (_, __) => const DesignKitScreen(),
@@ -162,6 +175,8 @@ enum AppScreens {
   mastery,
   mathIndex,
   math,
+  asset,
+  assets,
   designKit,
   test
 }
@@ -219,6 +234,10 @@ extension AppPageX on AppScreens {
         return 'DESIGN_KIT';
       case AppScreens.test:
         return 'TEST';
+      case AppScreens.asset:
+        return 'ASSET';
+      case AppScreens.assets:
+        return 'ASSETS';
       default:
         return 'HOME';
     }
@@ -274,6 +293,10 @@ extension AppPageX on AppScreens {
         return '/math';
       case AppScreens.designKit:
         return '/design-kit';
+      case AppScreens.assets:
+        return '/assets';
+      case AppScreens.asset:
+        return '/asset';
       case AppScreens.test:
         return '/test';
       default:

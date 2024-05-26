@@ -178,6 +178,19 @@ class _AppBarContentState extends State<AppBarContent> {
                       icon: const Icon(Icons.table_chart_outlined,
                           color: Colors.white),
                     ),
+                    TextButton.icon(
+                      onPressed: () {
+                        GoRouter.of(context).go(AppScreens.assets.path);
+                      },
+                      label: const Text(
+                        'Assets',
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
+                      ),
+                      icon: const Icon(Icons.table_chart_outlined,
+                          color: Colors.white),
+                    ),
                     // TextButton.icon(
                     //   onPressed: () {
                     //     GoRouter.of(context).go(AppScreens.mastery.path);

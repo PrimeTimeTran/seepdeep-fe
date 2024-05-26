@@ -430,18 +430,26 @@ class _MathScreenState extends State<MathScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      if (title.isNotEmpty)
-                        Text(
-                          title,
-                          style: Style.of(
-                            context,
-                            'displayL',
+                      Row(
+                        children: [
+                          if (title.isNotEmpty)
+                            Expanded(
+                              child: Text(
+                                title,
+                                style: Style.of(
+                                  context,
+                                  'displayL',
+                                ),
+                              ),
+                            ),
+                          Expanded(
+                            child: StepperDemo(
+                              setStep: setStep,
+                              problemsLength: questions.length,
+                              problemStream: _problemStreamController.stream,
+                            ),
                           ),
-                        ),
-                      StepperDemo(
-                        setStep: setStep,
-                        problemsLength: questions.length,
-                        problemStream: _problemStreamController.stream,
+                        ],
                       ),
                       Expanded(
                         child: Row(
@@ -468,10 +476,14 @@ class _MathScreenState extends State<MathScreen> {
                                 children: [
                                   if (question.urlImgs != null &&
                                       question.urlImgs.isNotEmpty)
-                                    Image.asset('assets/img/graph.png'),
-                                  // if (question.urlImgs != null &&
-                                  //     question.urlImgs.isNotEmpty)
-                                  //   Image.network(question.urlImgs[0]),
+                                    SizedBox(
+                                      height: 400,
+                                      width: 600,
+                                      child: Image.asset(
+                                        'assets/img/graph.png',
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
                                   const Spacer(),
                                   if (kDebugMode)
                                     Column(
