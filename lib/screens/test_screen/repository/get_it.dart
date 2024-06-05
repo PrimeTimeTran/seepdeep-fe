@@ -1,7 +1,7 @@
 import 'package:app/screens/test_screen/repository/app_bloc.dart';
 import 'package:get_it/get_it.dart';
 
-import 'data_provider.dart';
+import 'providers.dart';
 import 'repository.dart';
 
 final getIt = GetIt.instance;

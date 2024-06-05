@@ -193,12 +193,12 @@ class _MathScreenState extends State<MathScreen> {
     // Also the issue with them is they're fickle with allowing us to type.
     List<Widget> items = [];
     final answer = answers[index - 1];
+
     bool isMultiAnswer = false;
     if (questions[index - 1].answers?[0] is List) {
       isMultiAnswer = true;
     }
     int answerLength = answer['answers'].length;
-
     for (int i = 0; i < answerLength; i++) {
       items.add(
         Padding(
@@ -543,6 +543,7 @@ class _MathScreenState extends State<MathScreen> {
   getProblems(topic) async {
     try {
       List<MathProblem> values = [];
+      print('kDebugMode $kDebugMode');
       if (!kDebugMode) {
         final response =
             await http.get(Uri.parse('http://localhost:8080/?category=$topic'));

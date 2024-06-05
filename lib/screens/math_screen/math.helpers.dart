@@ -184,11 +184,11 @@ Map<String, dynamic> subjects = {
       ],
       'Indefinite Integrals': {
         "description":
-            "Indefinite integrals represent the process of finding the antiderivative of a function, essentially reversing differentiation. The result of an indefinite integral is a family of functions, differing by a constant, which when differentiated, give back the original function. Indefinite integrals are fundamental in solving problems related to accumulation and area under curves, providing a key tool in calculus for understanding the general behavior of functions."
+            "Indefinite integrals represent the process of finding the anti-derivative of a function, essentially reversing differentiation. The result of an indefinite integral is a family of functions, differing by a constant, which when differentiated, give back the original function. Indefinite integrals are fundamental in solving problems related to accumulation and area under curves, providing a key tool in calculus for understanding the general behavior of functions."
       },
       'Computing Indefinite Integrals': {
         "description":
-            "Computing indefinite integrals involves applying various techniques and rules to determine the antiderivative of a given function. This process requires recognizing patterns, using algebraic manipulation, and applying known integral rules. Mastery of these techniques is crucial for solving a wide range of problems in physics, engineering, and other fields where functions describe changing quantities."
+            "Computing indefinite integrals involves applying various techniques and rules to determine the anti-derivative of a given function. This process requires recognizing patterns, using algebraic manipulation, and applying known integral rules. Mastery of these techniques is crucial for solving a wide range of problems in physics, engineering, and other fields where functions describe changing quantities."
       },
       'Substitution Rule for Indefinite Integrals': {
         "description":

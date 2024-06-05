@@ -1,4 +1,4 @@
-import 'data_provider.dart';
+import 'providers.dart';
 import 'get_it.dart';
 
 class Repository {

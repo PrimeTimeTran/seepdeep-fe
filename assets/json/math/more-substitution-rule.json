@@ -1,0 +1,13 @@
+{
+  "data": [
+    {
+      "title": "Evaluate the given integral.",
+      "body": "Evaluate the given integral.",
+      "equation": "\\[ ∫ 6x^5 - 18x^2 + 7dx \\]",
+      "prompt": "",
+      "answers": ["x^6 - 6x^3 + 7x + c"],
+      "answerLatex": "\\[  \\]",
+      "explanation": ""
+    }
+  ]
+}
