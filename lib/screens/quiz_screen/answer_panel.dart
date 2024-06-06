@@ -121,58 +121,65 @@ class _AnswerPanelState extends State<AnswerPanel> {
 
   Widget buildAnswerInputs(BuildContext blocContext, QuizState state) {
     List<Widget> items = [];
-    Map<String, dynamic> activeAnswer = state.activeAnswer!;
+    Map<String, dynamic> activeAnswer = state.activeAnswer;
     if (activeAnswer['type'] == 'mc') {
-      List<String> options = (state.activeAnswer!['options'] as List<dynamic>)
+      List<String> options = (state.activeAnswer['options'] as List<dynamic>)
           .map((item) => item.toString())
           .toList();
 
-      return buildSelectDropdown(
-        blocContext,
-        options,
-      );
-    }
-    if (activeAnswer['type'] == 'tf') {
-      return buildTrueFalse(blocContext);
-    }
-    int answerLength = activeAnswer['answers'].length;
-
-    List<TextEditingController> controllers = List.generate(
-      answerLength,
-      (idx) => TextEditingController(text: activeAnswer['answers'][idx] ?? ''),
-    );
-
-    for (int i = 0; i < answerLength; i++) {
-      items.add(
-        Padding(
-          padding: const EdgeInsets.all(30),
-          child: Row(
-            children: [
-              Text(
-                '${i + 1 == 1 ? 'Answer' : optionLabels[i]}: ',
-                style: Style.of(context, 'labelL').copyWith(
-                  fontSize: 30,
-                  fontWeight: FontWeight.bold,
-                  color: themeColor(context, 'secondary'),
-                ),
-              ),
-              SizedBox(
-                height: 30,
-                width: 200,
-                child: TextFormField(
-                  controller: controllers[i],
-                  decoration: const InputDecoration(
-                    hintText: 'Answer',
-                  ),
-                  onChanged: (value) {
-                    blocContext.read<QuizBloc>().add(AnswerProblem(i, value));
-                  },
-                ),
-              ),
-            ],
-          ),
+      items.add(Padding(
+        padding: const EdgeInsets.all(30),
+        child: buildSelectDropdown(
+          blocContext,
+          options,
         ),
+      ));
+    } else if (activeAnswer['type'] == 'tf') {
+      items.add(Padding(
+        padding: const EdgeInsets.all(30),
+        child: buildTrueFalse(blocContext),
+      ));
+    } else {
+      int answerLength = activeAnswer['answers'].length;
+
+      List<TextEditingController> controllers = List.generate(
+        answerLength,
+        (idx) =>
+            TextEditingController(text: activeAnswer['answers'][idx] ?? ''),
       );
+
+      for (int i = 0; i < answerLength; i++) {
+        items.add(
+          Padding(
+            padding: const EdgeInsets.all(30),
+            child: Row(
+              children: [
+                Text(
+                  '${i + 1 == 1 ? 'Answer' : optionLabels[i]}: ',
+                  style: Style.of(context, 'labelL').copyWith(
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold,
+                    color: themeColor(context, 'secondary'),
+                  ),
+                ),
+                SizedBox(
+                  height: 30,
+                  width: 200,
+                  child: TextFormField(
+                    controller: controllers[i],
+                    decoration: const InputDecoration(
+                      hintText: 'Answer',
+                    ),
+                    onChanged: (value) {
+                      blocContext.read<QuizBloc>().add(AnswerProblem(i, value));
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      }
     }
 
     return Align(
@@ -253,10 +260,12 @@ class _AnswerPanelState extends State<AnswerPanel> {
         color: Colors.deepPurpleAccent,
       ),
       onChanged: (String? value) {
-        blocContext.read<QuizBloc>().add(AnswerProblem(i, value!));
-        setState(() {
-          dropdownValue = value;
-        });
+        if (value != null) {
+          blocContext.read<QuizBloc>().add(AnswerProblem(i, value));
+          setState(() {
+            dropdownValue = value;
+          });
+        }
       },
       items: options.map<DropdownMenuItem<String>>((String value) {
         return DropdownMenuItem<String>(

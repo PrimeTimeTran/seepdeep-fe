@@ -86,6 +86,31 @@ class _QuizScreenState extends State<QuizScreen> {
     );
   }
 
+  buildAnswerPreview() {
+    if (kDebugMode) {
+      return BlocBuilder<QuizBloc, QuizState>(
+        buildWhen: (previous, current) {
+          return previous.activeAnswer != current.activeAnswer;
+        },
+        builder: (blocContext, state) {
+          return Card.outlined(
+            child: Padding(
+              padding: const EdgeInsets.all(20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(state.problemIdx.toString()),
+                  Text(state.activeAnswer['answers'].toString()),
+                ],
+              ),
+            ),
+          );
+        },
+      );
+    }
+    return const SizedBox();
+  }
+
   buildContentBox(value, style) {
     return ConstrainedBox(
       constraints: const BoxConstraints(
@@ -251,14 +276,7 @@ class _QuizScreenState extends State<QuizScreen> {
                                       ),
                                     ),
                                   const Spacer(),
-                                  if (kDebugMode)
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(state.answers.toString()),
-                                      ],
-                                    ),
+                                  buildAnswerPreview(),
                                   const AnswerPanel(),
                                 ],
                               ),
@@ -275,5 +293,11 @@ class _QuizScreenState extends State<QuizScreen> {
         );
       },
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    BlocProvider.of<QuizBloc>(context).add(QuizScreenLoad(widget.category));
   }
 }

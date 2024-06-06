@@ -1,4 +1,5 @@
 import 'package:app/all.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../quiz_provider.dart';
@@ -37,7 +38,7 @@ class QuizBloc extends Bloc<QuizEvent, QuizState> {
     on<NextButtonPress>((event, emit) {
       if (state.problemIdx + 1 == state.problems.length) return;
       int idx = state.problemIdx + 1;
-      final activeAnswer = state.answers?[idx];
+      final activeAnswer = state.answers[idx];
       emit(
         state.copyWith(
           problemIdx: idx,
@@ -49,7 +50,7 @@ class QuizBloc extends Bloc<QuizEvent, QuizState> {
     on<PrevButtonPress>((event, emit) {
       if (state.problemIdx - 1 < 0) return;
       int idx = state.problemIdx - 1;
-      final activeAnswer = state.answers?[idx];
+      final activeAnswer = state.answers[idx];
       emit(
         state.copyWith(
           problemIdx: idx,
@@ -67,7 +68,7 @@ class QuizBloc extends Bloc<QuizEvent, QuizState> {
       );
     });
     on<ProblemSelectButtonPress>((event, emit) {
-      final activeAnswer = state.answers?[event.index];
+      final activeAnswer = state.answers[event.index];
       emit(
         state.copyWith(
           problemIdx: event.index,
@@ -80,11 +81,17 @@ class QuizBloc extends Bloc<QuizEvent, QuizState> {
       emit(state.copyWith(isDone: true));
     });
     on<AnswerProblem>((event, emit) {
-      state.activeAnswer?['answers'][event.index] = event.value;
-      state.answers?[state.problemIdx] = state.activeAnswer!;
+      final updatedActiveAnswer = Map<String, dynamic>.from(state.activeAnswer);
+      updatedActiveAnswer['answers'] =
+          List<dynamic>.from(updatedActiveAnswer['answers'] ?? []);
+      updatedActiveAnswer['answers'][event.index] = event.value;
+      final updatedAnswers = List<Map<String, dynamic>>.from(state.answers);
+      updatedAnswers[state.problemIdx] =
+          Map<String, dynamic>.from(updatedActiveAnswer);
+
       emit(state.copyWith(
-        answers: state.answers,
-        activeAnswer: state.activeAnswer,
+        answers: updatedAnswers,
+        activeAnswer: updatedActiveAnswer,
       ));
     });
   }
@@ -92,18 +99,18 @@ class QuizBloc extends Bloc<QuizEvent, QuizState> {
   @override
   void onChange(Change<QuizState> change) {
     super.onChange(change);
-    // debugPrint('Change: $change');
+    debugPrint('Change: $change');
   }
 
   @override
   void onEvent(QuizEvent event) {
     super.onEvent(event);
-    // debugPrint('Event: $event');
+    debugPrint('Event: $event');
   }
 
   @override
   void onTransition(Transition<QuizEvent, QuizState> transition) {
     super.onTransition(transition);
-    // debugPrint('Transition: $transition');
+    debugPrint('Transition: $transition');
   }
 }

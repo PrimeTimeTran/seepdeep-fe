@@ -57,23 +57,7 @@
       "answers": [2, 3, 5, 7, 11, 13],
       "followUpAnswers": []
     },
-    {
-      "type": "m",
-      "body": "Match the term to it's definition.",
-      "terms": ["Calculus", "Tangent Line"],
-      "options": [
-        "The study of change",
-        "The straight line that 'just touches' the curve at that point"
-      ],
-      "answers": [
-        ["Calculus", "The study of change"],
-        [
-          "Tangent Line",
-          "The straight line that 'just touches' the curve at that point"
-        ]
-      ],
-      "followUpAnswers": []
-    },
+    
     {
       "type": "sa",
       "body": "If you invest $1000 at an annual interest rate of 5% for 2 years, how much will you have at the end? How about after 10 years?",
@@ -141,6 +125,23 @@
       "hint": "$mPQ = \\frac{f(x) - f(a)}{x - a}$",
       "followUpAnswers": [],
       "followUpPrompt": "(b) Use the information from (a) to estimate the slope of the tangent line to $f(x)$ at $x = -1$ and write down the equation of the tangent line."
+    },
+    {
+      "type": "m",
+      "body": "Match the term to it's definition.",
+      "terms": ["Calculus", "Tangent Line"],
+      "options": [
+        "The study of change",
+        "The straight line that 'just touches' the curve at that point"
+      ],
+      "answers": [
+        ["Calculus", "The study of change"],
+        [
+          "Tangent Line",
+          "The straight line that 'just touches' the curve at that point"
+        ]
+      ],
+      "followUpAnswers": []
     }
   ]
 }

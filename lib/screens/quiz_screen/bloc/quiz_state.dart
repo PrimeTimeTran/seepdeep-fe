@@ -9,8 +9,8 @@ class QuizState extends Equatable {
   final int problemIdx;
   final bool isChallengeMode;
   final Problem? activeProblem;
-  final List<Map<String, dynamic>>? answers;
-  final Map<String, dynamic>? activeAnswer;
+  final List<Map<String, dynamic>> answers;
+  final Map<String, dynamic> activeAnswer;
 
   QuizState({
     this.problemIdx = 0,
@@ -34,7 +34,7 @@ class QuizState extends Equatable {
         problems,
         answers,
         activeProblem,
-        activeAnswer
+        activeAnswer,
       ];
 
   QuizState copyWith({
@@ -49,8 +49,9 @@ class QuizState extends Equatable {
     List<Map<String, dynamic>>? answers,
   }) {
     return QuizState(
-      activeAnswer: activeAnswer ?? activeAnswer,
-      answers: answers ?? this.answers,
+      activeAnswer:
+          activeAnswer ?? Map<String, dynamic>.from(this.activeAnswer),
+      answers: answers ?? List<Map<String, dynamic>>.from(this.answers),
       problems: problems ?? this.problems,
       problemIdx: problemIdx ?? this.problemIdx,
       isChallengeMode: isChallengeMode ?? this.isChallengeMode,
