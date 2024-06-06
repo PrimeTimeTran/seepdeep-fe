@@ -1,25 +1,17 @@
 final allSubjects = [
-  // Done
   'Tangent Lines and Rates of Change',
-  // Done
   'The Limit',
-  //
   'One Sided Limits',
-  // Done
   'Limit Properties',
-  // Done
   'Computing Limits',
-  // Done
   'Infinite Limits',
-  // Done
   'Limits At Infinity Part I',
-  // Done
   'Limits At Infinity Part II',
   'Continuity',
   'The Definition of the Limit',
-
+  // Derivatives
   'The Definition of the Derivative',
-  'Interpretation of the Derivative Differentiation Formulas',
+  'Interpretation of the Derivative Differentiation',
   'Product and Quotient Rule',
   'Derivatives of Trig Functions',
   'Derivatives of Exponential and Logarithm Functions',
@@ -30,15 +22,50 @@ final allSubjects = [
   'Related Rates',
   'Higher Order Derivatives',
   'Logarithmic Differentiation',
+  // Application of Derivatives
+  'Rates of Change',
+  'Critical Points',
+  'Minimum and Maximum Values',
+  'Finding Absolute Extreme',
+  'The Shape of a Graph Part I',
+  'The Shape of a Graph Part II',
+  'The Mean Value Theorem',
+  'Optimization Problems',
+  'More Optimization Problems',
+  'LHospitals Rule and Indeterminate Forms',
+  'Linear Approximations',
+  'Differentials',
+  'Newtons Method',
+  'Business Applications',
+  // Integrals
+  'Indefinite Integrals',
+  'Computing Indefinite Integrals',
+  'Substitution Rule for Indefinite Integrals',
+  'More Substitution Rule',
+  'Area Problem',
+  'Definition of the Definite Integral',
+  'Computing Definite Integrals',
+  'Substitution Rule for Definite Integrals',
+  // Application of Integrals
+  'Average Function Value',
+  'Area Between Curves',
+  'Volumes of Solids of Revolution / Method of Rings',
+  'Volumes of Solids of Revolution / Method of Cylinders',
+  'More Volume Problems',
+  'Work',
 ];
 
 Map<String, String> categoryIntroMap = {
   "Limits":
-      "Limits describe the behavior of functions as their inputs approach specific values. The limit of a function f(x) as x approaches a value  c represents the value  f(x) approaches as x gets arbitrarily close to c. Key properties, like sum, difference, constant multiple, product, and quotient properties, aid in evaluating limits efficiently. Techniques such as direct substitution and L'Hôpital's Rule help determine limits in various scenarios. Understanding limits is essential as they form the basis for concepts like continuity, derivatives, and integrals, enabling the analysis of functions' behavior near critical points.",
+      "Limits describe the behavior of functions as their inputs approach specific values. The limit of a function f(x) as x approaches a value c represents the value f(x) approaches as x gets arbitrarily close to c. Key properties, like sum, difference, constant multiple, product, and quotient properties, aid in evaluating limits efficiently. Techniques such as direct substitution and L'Hôpital's Rule help determine limits in various scenarios. Understanding limits is essential as they form the basis for concepts like continuity, derivatives, and integrals, enabling the analysis of functions' behavior near critical points.",
   "Derivatives":
-      "Derivatives measure the rate of change of a function with respect to its input. The derivative of a function f(x) at a point x represents the slope of the tangent line to the graph of  f(x) at that point. Key properties, such as the power rule, product rule, quotient rule, and chain rule, allow for the differentiation of various functions efficiently. Techniques like implicit differentiation and logarithmic differentiation expand the scope of functions that can be differentiated. Understanding derivatives is fundamental as they provide insights into the behavior of functions, including identifying extrema, inflection points, and graph characteristics. They also have applications in physics, engineering, economics, and other fields where rates of change are essential for analysis.",
+      "Derivatives measure the rate of change of a function with respect to its input. The derivative of a function f(x) at a point x represents the slope of the tangent line to the graph of f(x) at that point. Key properties, such as the power rule, product rule, quotient rule, and chain rule, allow for the differentiation of various functions efficiently. Techniques like implicit differentiation and logarithmic differentiation expand the scope of functions that can be differentiated. Understanding derivatives is fundamental as they provide insights into the behavior of functions, including identifying extrema, inflection points, and graph characteristics. They also have applications in physics, engineering, economics, and other fields where rates of change are essential for analysis.",
+  "Applications of Derivatives":
+      "Applications of derivatives encompass various techniques and concepts that leverage the derivative of a function to solve practical problems. This includes finding rates of change in different contexts, identifying critical points where functions attain maximum or minimum values, and determining the concavity and inflection points that describe the shape of a graph. The Mean Value Theorem links the derivative to average rates of change, while optimization problems use derivatives to find optimal solutions. Additionally, L'Hôpital's Rule resolves indeterminate forms in limits, linear approximations provide close estimates of function values, differentials estimate error margins, Newton's Method approximates roots, and business applications optimize cost, revenue, and profit analysis.",
   "Integrals":
-      "Derivatives measure the rate of change of a function with respect to its input. The derivative of a function f(x) at a point x represents the slope of the tangent line to the graph of  f(x) at that point. Key properties, such as the power rule, product rule, quotient rule, and chain rule, allow for the differentiation of various functions efficiently. Techniques like implicit differentiation and logarithmic differentiation expand the scope of functions that can be differentiated. Understanding derivatives is fundamental as they provide insights into the behavior of functions, including identifying extrema, inflection points, and graph characteristics. They also have applications in physics, engineering, economics, and other fields where rates of change are essential for analysis."
+      "Integrals calculate the accumulation of quantities, which can represent areas under curves, total distance traveled, or accumulated change. The indefinite integral of a function f(x) represents a family of functions whose derivative is f(x), including a constant of integration. Techniques for finding integrals include substitution, integration by parts, and partial fractions. The Fundamental Theorem of Calculus connects differentiation and integration, allowing the evaluation of definite integrals as the net change over an interval. Integrals are crucial for solving problems in physics, engineering, and other fields where total accumulation is important.",
+  "Applications of Integrals":
+      "Applications of integrals involve using integration to solve real-world problems. This includes calculating areas under curves, volumes of solids of revolution, and lengths of curves. Integrals determine accumulated quantities, such as total distance traveled, work done by a force, or the center of mass of an object. Techniques like the disk and shell methods are used to find volumes, while double and triple integrals extend the concept to higher dimensions. Applications in physics include finding the center of mass, moment of inertia, and solving differential equations. In economics, integrals calculate consumer and producer surplus, while in biology, they model population growth and decay."
 };
 
 final optionLabels = [
@@ -60,7 +87,9 @@ Map<String, dynamic> subjects = {
     "subjects": [
       'Limits',
       'Derivatives',
+      'Applications of Derivatives',
       'Integrals',
+      'Applications of Integrals',
     ],
     "Limits": {
       "subjects": [
@@ -119,7 +148,7 @@ Map<String, dynamic> subjects = {
     "Derivatives": {
       "subjects": [
         'The Definition of the Derivative',
-        'Interpretation of the Derivative Differentiation Formulas',
+        'Interpretation of the Derivative Differentiation',
         'Product and Quotient Rule',
         'Derivatives of Trig Functions',
         'Derivatives of Exponential and Logarithm Functions',
@@ -135,7 +164,7 @@ Map<String, dynamic> subjects = {
         "description":
             "The derivative of a function at a point provides the rate at which the function's value changes as the input changes. It is essentially the slope of the tangent line to the function's graph at that point, representing instantaneous change. This concept is foundational in calculus, enabling the analysis of dynamic systems and rates of change in various fields such as physics, economics, and engineering."
       },
-      'Interpretation of the Derivative Differentiation Formulas': {
+      'Interpretation of the Derivative Differentiation': {
         "description":
             "Differentiation formulas are rules that simplify the process of finding derivatives of functions. These formulas include the basic rules for power, product, and quotient operations on functions, among others. Understanding these formulas allows one to quickly and accurately determine the rate of change of complex functions, facilitating problem-solving in real-world applications."
       },
@@ -178,6 +207,84 @@ Map<String, dynamic> subjects = {
       'Logarithmic Differentiation': {
         "description":
             "Logarithmic differentiation is a technique used to simplify the process of differentiating functions that are products, quotients, or powers of other functions. By taking the natural logarithm of both sides of an equation and then differentiating, we can make the differentiation process more manageable. This method is particularly useful for dealing with complicated expressions that would be difficult to differentiate directly."
+      },
+    },
+    "Applications of Derivatives": {
+      'subjects': [
+        'Rates of Change',
+        'Critical Points',
+        'Minimum and Maximum Values',
+        'Finding Absolute Extreme',
+        'The Shape of a Graph Part I',
+        'The Shape of a Graph Part II',
+        'The Mean Value Theorem',
+        'Optimization Problems',
+        'More Optimization Problems',
+        'LHospitals Rule and Indeterminate Forms',
+        'Linear Approximations',
+        'Differentials',
+        'Newtons Method',
+        'Business Applications',
+      ],
+      'Indefinite Integrals': {
+        "description":
+            "Indefinite integrals represent the family of all antiderivatives of a function. They are used to find the general form of functions given their rate of change and are represented with the integral symbol and a constant of integration."
+      },
+      "Rates of Change": {
+        'description':
+            "The derivative represents the rate of change of a function with respect to a variable. This concept is applied to understand how a quantity changes over time or in relation to other variables."
+      },
+      "Critical Points": {
+        'description':
+            "Critical points are points on a graph where the derivative is zero or undefined. These points are used to find local maximums, minimums, or saddle points."
+      },
+      "Minimum and Maximum Values": {
+        'description':
+            "These are the highest or lowest values that a function can reach on a given interval. The first and second derivative tests help identify these values."
+      },
+      "Finding Absolute Extreme": {
+        'description':
+            "Absolute extreme values are the global maximum and minimum values a function attains on a given interval. These are found by evaluating the function at critical points and endpoints."
+      },
+      "The Shape of a Graph Part I": {
+        'description':
+            "The first derivative of a function provides information about the function's increasing or decreasing behavior, which helps in sketching the graph."
+      },
+      "The Shape of a Graph Part II": {
+        'description':
+            "The second derivative of a function gives information about the concavity of the graph and helps identify inflection points where the concavity changes."
+      },
+      "The Mean Value Theorem": {
+        'description':
+            "This theorem states that for a continuous function on a closed interval, there exists at least one point where the derivative equals the average rate of change over that interval."
+      },
+      "Optimization Problems": {
+        'description':
+            "Optimization involves finding the maximum or minimum values of a function in a real-world context, such as minimizing cost or maximizing profit."
+      },
+      "More Optimization Problems": {
+        'description':
+            "This involves more complex or additional real-world scenarios where optimization techniques are applied to find the best possible solution."
+      },
+      "LHospitals Rule and Indeterminate Forms": {
+        'description':
+            "L'Hospital's Rule is used to find the limit of indeterminate forms like 0/0 or ∞/∞ by differentiating the numerator and the denominator."
+      },
+      "Linear Approximations": {
+        'description':
+            "Linear approximations use the tangent line at a point to approximate the value of a function near that point, simplifying complex calculations."
+      },
+      "Differentials": {
+        'description':
+            "Differentials provide an approximate change in the function value resulting from a small change in the input value, useful for error estimation."
+      },
+      "Newtons Method": {
+        'description':
+            "Newton's Method is an iterative numerical technique for finding approximate roots of a real-valued function using tangents."
+      },
+      "Business Applications": {
+        'description':
+            "Applications in business include cost, revenue, and profit analysis, using derivatives to optimize production, minimize costs, and maximize profits."
       },
     },
     "Integrals": {
@@ -224,6 +331,40 @@ Map<String, dynamic> subjects = {
             "The substitution rule for definite integrals extends the concept of u-substitution to definite integrals, allowing for a change of variables that simplifies the integral over a specified interval. This technique involves adjusting the limits of integration according to the substitution, ensuring the correct evaluation of the integral. It is particularly useful for integrating functions where direct integration is challenging, making it a powerful tool for solving complex integrals in practical applications."
       },
     },
+    'Applications of Integrals': {
+      'subjects': [
+        'Average Function Value',
+        'Area Between Curves',
+        'Volumes of Solids of Revolution / Method of Rings',
+        'Volumes of Solids of Revolution / Method of Cylinders',
+        'More Volume Problems',
+        'Work',
+      ],
+      "Average Function Value": {
+        "description":
+            "The average function value of a function f(x) on the interval [a, b] is given by the integral of f(x) over [a, b], divided by the length of the interval (b - a). It represents the average height of the function over that interval."
+      },
+      "Area Between Curves": {
+        "description":
+            "The area between two curves y = f(x) and y = g(x) on the interval [a, b] is found by taking the difference between the integrals of the upper curve and the lower curve over that interval, |∫[a,b] (f(x) - g(x)) dx|. It calculates the total area enclosed between the curves."
+      },
+      "Volumes of Solids of Revolution / Method of Rings": {
+        "description":
+            "The volume of a solid generated by rotating a region bounded by two curves around a horizontal or vertical axis can be found using the method of rings. This involves integrating the area of infinitesimally thin rings formed by the rotation."
+      },
+      "Volumes of Solids of Revolution / Method of Cylinders": {
+        "description":
+            "Similar to the method of rings, the method of cylinders calculates the volume of a solid of revolution by integrating the area of infinitesimally thin cylinders formed by the rotation of a region bounded by two curves around an axis."
+      },
+      "More Volume Problems": {
+        "description":
+            "Involves additional scenarios where integration is used to find volumes of solids, such as when cross-sections perpendicular to a given axis are not circular, requiring integration techniques tailored to the specific geometry."
+      },
+      "Work": {
+        "description":
+            "In physics, work is calculated as the integral of force over distance. It represents the energy transferred to or from an object by means of a force acting along a path of displacement. Integration is used to sum up the infinitesimal amounts of work done."
+      }
+    }
   }
 };
 

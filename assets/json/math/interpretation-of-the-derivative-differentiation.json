@@ -1,0 +1,17 @@
+{
+  "data": [
+    {
+      "type": "fr",
+      "body": "Use the definition of the derivative to find the derivative of the following functions.",
+      "equation": "\\[f(x) = 6 \\]",
+      "prompt": "",
+      "options": [],
+      "answers": ["\\[f'(x) = 0\\]"],
+      "explanation": "",
+      "followUpPrompt": "",
+      "followUpAnswers": [],
+      "followUpExplanation": "",
+      "answerLabels": []
+    }
+  ]
+}

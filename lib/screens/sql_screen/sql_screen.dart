@@ -228,7 +228,7 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
     onPressed,
     IconData? icon,
   }) {
-    WidgetStateProperty<Color?>? buttonColor = WidgetStatePropertyAll(
+    MaterialStatePropertyAll<Color?> buttonColor = MaterialStatePropertyAll(
         themeColor(context, color ?? 'onInverseSurface'));
 
     var button = Expanded(
@@ -248,7 +248,7 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
           onPressed: onPressed,
           style: ButtonStyle(
             backgroundColor: buttonColor,
-            minimumSize: WidgetStateProperty.all(const Size(20, 50)),
+            minimumSize: MaterialStateProperty.all(const Size(20, 50)),
           ),
           child: Row(
             mainAxisSize: MainAxisSize.min,

@@ -163,7 +163,15 @@ class _MathIntroScreenState extends State<MathIntroScreen> {
                 ),
                 Gap(50),
                 CategoryCard(
+                  category: 'Applications of Derivatives',
+                ),
+                Gap(50),
+                CategoryCard(
                   category: 'Integrals',
+                ),
+                Gap(50),
+                CategoryCard(
+                  category: 'Applications of Integrals',
                 ),
               ],
             )

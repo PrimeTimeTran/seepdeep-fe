@@ -1,0 +1,17 @@
+{
+  "data": [
+    {
+      "type": "fr",
+      "body": "",
+      "equation": "\\[f(x) = 6 \\]",
+      "prompt": "",
+      "options": [],
+      "answers": ["\\[f'(x) = 0\\]"],
+      "explanation": "",
+      "followUpPrompt": "",
+      "followUpAnswers": [],
+      "followUpExplanation": "",
+      "answerLabels": []
+    }
+  ]
+}
