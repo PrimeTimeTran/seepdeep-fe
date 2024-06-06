@@ -228,7 +228,7 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
     onPressed,
     IconData? icon,
   }) {
-    MaterialStatePropertyAll<Color?> buttonColor = MaterialStatePropertyAll(
+    WidgetStatePropertyAll<Color>? buttonColor = WidgetStatePropertyAll(
         themeColor(context, color ?? 'onInverseSurface'));
 
     var button = Expanded(
@@ -248,7 +248,7 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
           onPressed: onPressed,
           style: ButtonStyle(
             backgroundColor: buttonColor,
-            minimumSize: MaterialStateProperty.all(const Size(20, 50)),
+            minimumSize: WidgetStateProperty.all(const Size(20, 50)),
           ),
           child: Row(
             mainAxisSize: MainAxisSize.min,
@@ -358,49 +358,6 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
     }
     return const SizedBox();
   }
-
-  // buildResults() {
-  //   if (queried && records.isEmpty && queryFinished) {
-  //     return Column(
-  //       children: [
-  //         const SizedBox(height: 50),
-  //         Text(
-  //           '0 Results found. Double check your query and try again.',
-  //           style: Theme.of(context).textTheme.headlineSmall,
-  //         ),
-  //         const SizedBox(height: 25),
-  //         Text(
-  //           'If this problem persists please checkout our help guide as we do have a few known issues with our parser.',
-  //           style: Theme.of(context).textTheme.bodyLarge,
-  //         ),
-  //         const SizedBox(height: 10),
-  //         Text(
-  //           'Column names should not have quotes and the value should be in single quotes. For Example:',
-  //           style: Theme.of(context).textTheme.bodyLarge,
-  //         ),
-  //         const SizedBox(height: 10),
-  //         RichText(
-  //           text: const TextSpan(
-  //             style: TextStyle(
-  //               fontSize: 16.0,
-  //               color: Colors.black,
-  //             ),
-  //             children: <TextSpan>[
-  //               TextSpan(
-  //                 text: 'SELECT * from Customers where country = \'USA\' ',
-  //                 style: TextStyle(
-  //                   fontWeight: FontWeight.bold,
-  //                   color: Colors.blue,
-  //                 ),
-  //               ),
-  //             ],
-  //           ),
-  //         )
-  //       ],
-  //     );
-  //   }
-  //   return const SizedBox();
-  // }
 
   checkCorrect() async {
     final lesson = lessonPromptMap[lessons[lessonId]];

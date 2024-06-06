@@ -64,12 +64,15 @@ class _LandingScreenState extends State<LandingScreen> {
               const Gap(20),
               Text(
                 point['title'],
-                style: Style.of(context, 'headlineL'),
+                style: Theme.of(context).textTheme.headlineLarge,
               )
             ],
           ),
           const Gap(20),
-          Text(point['description'], style: Style.of(context, 'headlineS')),
+          Text(
+            point['description'],
+            style: Theme.of(context).textTheme.headlineSmall,
+          ),
         ],
       ),
     );
@@ -123,12 +126,13 @@ class _LandingScreenState extends State<LandingScreen> {
                         children: [
                           const Icon(SDIcon.trusted),
                           const Gap(5),
-                          Text('FAQ\'S', style: Style.of(context, 'headlineS')),
+                          Text('FAQ\'S',
+                              style: Theme.of(context).textTheme.headlineSmall),
                         ],
                       ),
                       const Gap(25),
                       Text('Frequently \nAsked Questions',
-                          style: Style.of(context, 'displayM')),
+                          style: Theme.of(context).textTheme.displayMedium),
                     ],
                   ),
                 ),
@@ -168,12 +172,23 @@ class _LandingScreenState extends State<LandingScreen> {
 
   buildFAQTile(question, [followup, answer]) {
     return ExpansionTile(
-      title: Text(question, style: Style.of(context, 'headlineS')),
+      title: Text(
+        question,
+        style: Theme.of(context).textTheme.headlineSmall,
+      ),
       subtitle: followup == null
           ? null
-          : Text(followup, style: Style.of(context, 'headlineS')),
+          : Text(
+              followup,
+              style: Theme.of(context).textTheme.headlineSmall,
+            ),
       children: <Widget>[
-        ListTile(title: Text(answer ?? '', style: Style.of(context, 'bodyM'))),
+        ListTile(
+          title: Text(
+            answer ?? '',
+            style: Theme.of(context).textTheme.bodyMedium,
+          ),
+        ),
       ],
     );
   }
@@ -202,7 +217,7 @@ class _LandingScreenState extends State<LandingScreen> {
                       const Gap(5),
                       Text(
                         'WHO ARE YOU?',
-                        style: Style.of(context, 'headlineS'),
+                        style: Theme.of(context).textTheme.headlineSmall,
                       )
                     ],
                   ),
@@ -215,13 +230,13 @@ class _LandingScreenState extends State<LandingScreen> {
                       Column(
                         children: [
                           Text('Learners',
-                              style: Style.of(context, 'headlineS')),
+                              style: Theme.of(context).textTheme.headlineSmall),
                           SizedBox(
                             height: 250,
                             width: 250,
                             child: Text(
                               "You love learning or you're determined to succeed in your educational journey.",
-                              style: Style.of(context, 'displayS'),
+                              style: Theme.of(context).textTheme.displaySmall,
                               textAlign: TextAlign.center,
                             ),
                           ),
@@ -231,13 +246,13 @@ class _LandingScreenState extends State<LandingScreen> {
                       Column(
                         children: [
                           Text('Teachers',
-                              style: Style.of(context, 'headlineS')),
+                              style: Theme.of(context).textTheme.headlineSmall),
                           SizedBox(
                             height: 250,
                             width: 250,
                             child: Text(
                               "You're managing a ever increasing list \nof things to do. You need help \ndelivering on the mission.",
-                              style: Style.of(context, 'displayS'),
+                              style: Theme.of(context).textTheme.displaySmall,
                               textAlign: TextAlign.center,
                             ),
                           ),
@@ -247,13 +262,13 @@ class _LandingScreenState extends State<LandingScreen> {
                       Column(
                         children: [
                           Text('Businesses',
-                              style: Style.of(context, 'headlineS')),
+                              style: Theme.of(context).textTheme.headlineSmall),
                           SizedBox(
                             height: 250,
                             width: 250,
                             child: Text(
                               "You're inundated with candidates. Your're training new members.",
-                              style: Style.of(context, 'displayS'),
+                              style: Theme.of(context).textTheme.displaySmall,
                               textAlign: TextAlign.center,
                             ),
                           ),
@@ -588,14 +603,14 @@ class _LandingScreenState extends State<LandingScreen> {
                         const Gap(5),
                         Text(
                           'FLY HIGHER',
-                          style: Style.of(context, 'headlineS'),
+                          style: Theme.of(context).textTheme.headlineSmall,
                         )
                       ],
                     ),
                     const Gap(50),
                     Text(
                       'Next Generation Learning Platform. \nDeveloped to help students achieve, \nteachers deliver & businesses succeed.',
-                      style: Style.of(context, 'displayL'),
+                      style: Theme.of(context).textTheme.displayLarge,
                     ),
                     const Gap(50),
                     SizedBox(
@@ -643,19 +658,19 @@ class _LandingScreenState extends State<LandingScreen> {
                     const Gap(5),
                     Text(
                       'OUR MISSION',
-                      style: Style.of(context, 'headlineS'),
+                      style: Theme.of(context).textTheme.headlineSmall,
                     )
                   ],
                 ),
                 const Gap(50),
                 Text(
                   'Helping you master yourself',
-                  style: Style.of(context, 'headlineL'),
+                  style: Theme.of(context).textTheme.headlineLarge,
                 ),
                 const Gap(50),
                 Text(
                     'Were about helping people become \nthe best version of themselves. \nWe\'re about enabling',
-                    style: Style.of(context, 'headlineM')),
+                    style: Theme.of(context).textTheme.headlineMedium),
               ],
             ),
             const Gap(50),
@@ -744,19 +759,20 @@ class _LandingScreenState extends State<LandingScreen> {
             children: [
               const Icon(SDIcon.trusted, size: 25),
               const Gap(35),
-              Text('TRUSTED BY', style: Style.of(context, 'headlineS')),
+              Text('TRUSTED BY',
+                  style: Theme.of(context).textTheme.headlineSmall),
             ],
           ),
           const Gap(50),
           Text('Companies Working Smarter',
-              style: Style.of(context, 'headlineL')),
+              style: Theme.of(context).textTheme.headlineLarge),
           const Gap(100),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const Gap(50),
-              getImg('logos/adobe-partner.svg'),
+              // getImg('logos/adobe-partner.svg'),
               const Gap(100),
               getImg('logos/airbnb-partner.svg'),
               const Gap(100),
@@ -772,7 +788,7 @@ class _LandingScreenState extends State<LandingScreen> {
               const Gap(50),
               getImg('logos/facebook-partner.svg'),
               const Gap(100),
-              getImg('logos/github-partner.svg'),
+              // getImg('logos/github-partner.svg'),
               const Gap(100),
               getImg('logos/google-partner.svg'),
               const Gap(50),
@@ -784,7 +800,7 @@ class _LandingScreenState extends State<LandingScreen> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const Gap(50),
-              getImg('logos/ibm-partner.svg'),
+              // getImg('logos/ibm-partner.svg'),
               const Gap(100),
               getImg('logos/linkedin-partner.svg'),
               const Gap(100),
@@ -800,7 +816,7 @@ class _LandingScreenState extends State<LandingScreen> {
               const Gap(50),
               getImg('logos/netflix-partner.svg', 100),
               const Gap(100),
-              getImg('logos/salesforce-partner.svg', 100),
+              // getImg('logos/salesforce-partner.svg', 100),
               const Gap(100),
               getImg('logos/stripe-partner.svg', 100),
               const Gap(50),
@@ -815,7 +831,7 @@ class _LandingScreenState extends State<LandingScreen> {
     if (content != null) {
       return Column(
         children: [
-          Text(title, style: Style.of(context, 'headlineS')),
+          Text(title, style: Theme.of(context).textTheme.headlineSmall),
           SizedBox(
             height: size,
             width: size,
@@ -827,7 +843,7 @@ class _LandingScreenState extends State<LandingScreen> {
     return Column(
       children: [
         Text(u != null ? u['name'] : title,
-            style: Style.of(context, 'headlineS')),
+            style: Theme.of(context).textTheme.headlineSmall),
         Container(
           height: size,
           width: size,
@@ -855,13 +871,14 @@ class _LandingScreenState extends State<LandingScreen> {
             children: [
               const Icon(Icons.chrome_reader_mode_outlined, size: 35),
               const Gap(35),
-              Text('THEIR REVIEWS', style: Style.of(context, 'headlineS')),
+              Text('THEIR REVIEWS',
+                  style: Theme.of(context).textTheme.headlineSmall),
             ],
           ),
           const Gap(50),
           Text(
             'Incredible',
-            style: Style.of(context, 'displayM'),
+            style: Theme.of(context).textTheme.displayMedium,
             textAlign: TextAlign.center,
           ),
           const Gap(50),
@@ -872,7 +889,8 @@ class _LandingScreenState extends State<LandingScreen> {
                 children: [
                   const Icon(SDIcon.student, size: 50),
                   const Gap(35),
-                  Text('Learners', style: Style.of(context, 'headlineS'))
+                  Text('Learners',
+                      style: Theme.of(context).textTheme.headlineSmall)
                 ],
               ),
               const Gap(150),
@@ -880,7 +898,8 @@ class _LandingScreenState extends State<LandingScreen> {
                 children: [
                   const Icon(SDIcon.professional, size: 50),
                   const Gap(35),
-                  Text('Teachers', style: Style.of(context, 'headlineS'))
+                  Text('Teachers',
+                      style: Theme.of(context).textTheme.headlineSmall)
                 ],
               ),
               const Gap(150),
@@ -888,7 +907,8 @@ class _LandingScreenState extends State<LandingScreen> {
                 children: [
                   const Icon(SDIcon.company, size: 50),
                   const Gap(35),
-                  Text('Businesses', style: Style.of(context, 'headlineS'))
+                  Text('Businesses',
+                      style: Theme.of(context).textTheme.headlineSmall)
                 ],
               ),
             ],
@@ -915,7 +935,7 @@ class _LandingScreenState extends State<LandingScreen> {
                 const Gap(35),
                 Text(
                   'OUR APPROACH',
-                  style: Style.of(context, 'headlineS'),
+                  style: Theme.of(context).textTheme.headlineSmall,
                 )
               ],
             ),
@@ -925,7 +945,7 @@ class _LandingScreenState extends State<LandingScreen> {
                 const Icon(SDIcon.curated_content, size: 35),
                 const Gap(20),
                 Text('The Seep Deep Meaning',
-                    style: Style.of(context, 'displayM'))
+                    style: Theme.of(context).textTheme.displayMedium)
               ],
             ),
             const Gap(100),
@@ -977,13 +997,13 @@ class _LandingScreenState extends State<LandingScreen> {
               const Gap(35),
               Text(
                 'OUR EARLY ADOPTERS',
-                style: Style.of(context, 'headlineS'),
+                style: Theme.of(context).textTheme.headlineSmall,
               ),
             ],
           ),
           const Gap(50),
           Text('You\'ve found the right spot. These people know it',
-              style: Style.of(context, 'displayM')),
+              style: Theme.of(context).textTheme.displayMedium),
           const Gap(100),
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
@@ -1031,13 +1051,13 @@ class _LandingScreenState extends State<LandingScreen> {
               const Gap(35),
               Text(
                 'THE BEST TECHNOLOGIES',
-                style: Style.of(context, 'headlineS'),
+                style: Theme.of(context).textTheme.headlineSmall,
               ),
             ],
           ),
           const Gap(50),
           Text('Languages Supported & Incoming',
-              style: Style.of(context, 'displayM')),
+              style: Theme.of(context).textTheme.displayMedium),
           const Gap(100),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,

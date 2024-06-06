@@ -91,7 +91,7 @@ class _DesignKitScreenState extends State<DesignKitScreen> {
                       children: [
                         Text(
                           'Icons',
-                          style: Style.of(context, 'titleL'),
+                          style: Theme.of(context).textTheme.titleLarge,
                         ),
                         buildIconButtons(),
                         buildSegmentedButtons(),
@@ -262,7 +262,7 @@ class _DesignKitScreenState extends State<DesignKitScreen> {
       children: [
         Text(
           'from Custom Style',
-          style: Style.of(context, 'titleL'),
+          style: Theme.of(context).textTheme.titleLarge,
         ),
         TextButtonTheme(
           data: TextButtonThemeData(style: prefix.flatButtonStyle),
@@ -294,7 +294,7 @@ class _DesignKitScreenState extends State<DesignKitScreen> {
       children: [
         Text(
           'from Color Scheme',
-          style: Style.of(context, 'titleL'),
+          style: Theme.of(context).textTheme.titleLarge,
         ),
         const Gap(5),
         TextButton(onPressed: () {}, child: const Text('TextButton')),
@@ -409,7 +409,7 @@ class _DesignKitScreenState extends State<DesignKitScreen> {
         ),
         Text(
           'headlineSmall',
-          style: Style.of(context, 'headlineS'),
+          style: Theme.of(context).textTheme.headlineLarge,
         ),
         const Gap(30),
         Text(
@@ -418,7 +418,7 @@ class _DesignKitScreenState extends State<DesignKitScreen> {
         ),
         Text(
           'titleLarge',
-          style: Style.of(context, 'titleL'),
+          style: Theme.of(context).textTheme.titleLarge,
         ),
         Text(
           'titleMedium',
