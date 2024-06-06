@@ -59,11 +59,20 @@ class QuizBloc extends Bloc<QuizEvent, QuizState> {
       );
     });
     on<QuizProblemsFetched>((event, emit) {
-      debugPrint('Event $event');
       emit(
         state.copyWith(
           problems: event.problems,
           activeProblem: event.problems[0],
+        ),
+      );
+    });
+    on<ProblemSelectButtonPress>((event, emit) {
+      final activeAnswer = state.answers?[event.index];
+      emit(
+        state.copyWith(
+          problemIdx: event.index,
+          activeAnswer: activeAnswer,
+          activeProblem: state.problems[event.index],
         ),
       );
     });

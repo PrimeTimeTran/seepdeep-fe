@@ -2,6 +2,7 @@
 
 import 'package:app/all.dart';
 import 'package:app/observers.dart';
+import 'package:app/screens/quiz_screen/bloc/all.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -25,13 +26,16 @@ void main() async {
   Map<String, dynamic>? user = await Storage.instance.getUser();
 
   runApp(
-    provider.MultiProvider(
-      providers: [
-        provider.ChangeNotifierProvider(
-            create: (_) => AuthProvider(user: user)),
-        provider.ChangeNotifierProvider(create: (_) => ProblemProvider()),
-      ],
-      child: MyApp(),
+    BlocProvider(
+      create: (context) => QuizBloc(),
+      child: provider.MultiProvider(
+        providers: [
+          provider.ChangeNotifierProvider(
+              create: (_) => AuthProvider(user: user)),
+          provider.ChangeNotifierProvider(create: (_) => ProblemProvider()),
+        ],
+        child: MyApp(),
+      ),
     ),
   );
 }

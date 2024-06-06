@@ -1,6 +1,4 @@
 // ignore_for_file: avoid_web_libraries_in_flutter, must_be_immutable
-import 'dart:async';
-
 import 'package:app/all.dart';
 import 'package:app/screens/sql/markdown_styles.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
@@ -33,55 +31,51 @@ class Solution {
 }
 
 class _QuizScreenState extends State<QuizScreen> {
-  final StreamController<int> _problemStreamController = StreamController();
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (BuildContext context) => QuizBloc(),
-      child: BlocBuilder<QuizBloc, QuizState>(
-        builder: (context, state) {
-          if (state.isError) {
-            return Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SvgPicture.asset(
-                    'assets/img/SVG/bug-fixing.svg',
-                    width: 600,
-                  ),
-                  const Gap(50),
-                  Text(
-                    "We're experiencing issues. Please try again later.",
-                    style: Style.of(
-                      context,
-                      'displayL',
-                    ),
-                  )
-                ],
-              ),
-            );
-          }
-          if (state.problems.isNotEmpty) {
-            return buildUI(context, state);
-          }
+    return BlocBuilder<QuizBloc, QuizState>(
+      builder: (context, state) {
+        if (state.isError) {
           return Center(
-            child: SizedBox(
-              height: 50,
-              width: 200,
-              child: OutlinedButton.icon(
-                label: const AppText(
-                  text: 'Start',
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SvgPicture.asset(
+                  'assets/img/SVG/bug-fixing.svg',
+                  width: 600,
                 ),
-                onPressed: () {
-                  BlocProvider.of<QuizBloc>(context)
-                      .add(QuizScreenLoad(widget.category));
-                },
-                icon: const Icon(Icons.navigate_next_outlined),
-              ),
+                const Gap(50),
+                Text(
+                  "We're experiencing issues. Please try again later.",
+                  style: Style.of(
+                    context,
+                    'displayL',
+                  ),
+                )
+              ],
             ),
           );
-        },
-      ),
+        }
+        if (state.problems.isNotEmpty) {
+          return buildUI(context, state);
+        }
+        return Center(
+          child: SizedBox(
+            height: 50,
+            width: 200,
+            child: OutlinedButton.icon(
+              label: const AppText(
+                text: 'Start',
+              ),
+              onPressed: () {
+                BlocProvider.of<QuizBloc>(context)
+                    .add(QuizScreenLoad(widget.category));
+              },
+              icon: const Icon(Icons.navigate_next_outlined),
+            ),
+          ),
+        );
+      },
     );
   }
 
@@ -230,7 +224,7 @@ class _QuizScreenState extends State<QuizScreen> {
     // Todo:
     // Checkbox -> Checkboxes/Toggle
     // Multiple Choice -> Dropdown/Select
-    // 
+    //
     final problem = state.activeProblem;
     final activeAnswer = state.activeAnswer;
     // Fix:
@@ -489,9 +483,13 @@ class _QuizScreenState extends State<QuizScreen> {
                             ),
                           Expanded(
                             child: StepperDemo(
-                              setStep: () {},
+                              activeStep: state.problemIdx + 1,
                               problemsLength: problems.length,
-                              problemStream: _problemStreamController.stream,
+                              setStep: (int idx) {
+                                buildContext
+                                    .read<QuizBloc>()
+                                    .add(ProblemSelectButtonPress(idx));
+                              },
                             ),
                           ),
                         ],
@@ -560,10 +558,5 @@ class _QuizScreenState extends State<QuizScreen> {
         );
       },
     );
-  }
-
-  @override
-  void initState() {
-    super.initState();
   }
 }
