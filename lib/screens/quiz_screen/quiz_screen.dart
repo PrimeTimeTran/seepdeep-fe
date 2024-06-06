@@ -1,6 +1,6 @@
 // ignore_for_file: avoid_web_libraries_in_flutter, must_be_immutable
 import 'package:app/all.dart';
-import 'package:app/screens/sql/markdown_styles.dart';
+import 'package:app/screens/sql_screen/markdown_styles.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

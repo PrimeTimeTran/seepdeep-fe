@@ -15,6 +15,8 @@ class QuizBloc extends Bloc<QuizEvent, QuizState> {
         return {
           'type': el.type,
           'problemId': el.id,
+          'options': el.options,
+          'isMulti': el.answers?[0] is List,
           'answers': List<dynamic>.generate(
             el.answers?.length ?? 0,
             (index) => el.answers?[0] is List ? ['', ''] : '',
@@ -23,7 +25,6 @@ class QuizBloc extends Bloc<QuizEvent, QuizState> {
             el.followUpAnswers?.length ?? 0,
             (index) => el.followUpAnswers?[0] is List ? ['', ''] : '',
           ),
-          'options': el.options
         };
       }).toList();
       emit(
@@ -89,10 +90,39 @@ class QuizBloc extends Bloc<QuizEvent, QuizState> {
       updatedAnswers[state.problemIdx] =
           Map<String, dynamic>.from(updatedActiveAnswer);
 
-      emit(state.copyWith(
-        answers: updatedAnswers,
-        activeAnswer: updatedActiveAnswer,
-      ));
+      emit(
+        state.copyWith(
+          answers: updatedAnswers,
+          activeAnswer: updatedActiveAnswer,
+        ),
+      );
+    });
+    on<AnswerProblemMulti>((event, emit) {
+      // Create a copy of activeAnswer and its nested structures
+      final updatedActiveAnswer =
+          Map<String, dynamic>.from(state.activeAnswer ?? {});
+
+      // Ensure answers is initialized as a list if it's null
+      updatedActiveAnswer['answers'] =
+          List.from(updatedActiveAnswer['answers'] ?? []);
+
+      // Update the specific nested value
+      updatedActiveAnswer['answers'][event.index] =
+          List.from(updatedActiveAnswer['answers'][event.index] ?? []);
+      updatedActiveAnswer['answers'][event.index][event.multiIndex] =
+          event.value;
+
+      // Create a copy of answers with the updated activeAnswer
+      final updatedAnswers = List<Map<String, dynamic>>.from(state.answers);
+      updatedAnswers[state.problemIdx] =
+          Map<String, dynamic>.from(updatedActiveAnswer);
+
+      emit(
+        state.copyWith(
+          answers: updatedAnswers,
+          activeAnswer: updatedActiveAnswer,
+        ),
+      );
     });
   }
 

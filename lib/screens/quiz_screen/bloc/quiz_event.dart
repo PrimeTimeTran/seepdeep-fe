@@ -4,6 +4,13 @@ class AnswerProblem extends QuizEvent {
   AnswerProblem(this.index, this.value);
 }
 
+class AnswerProblemMulti extends QuizEvent {
+  int index;
+  int multiIndex;
+  String value;
+  AnswerProblemMulti(this.index, this.multiIndex, this.value);
+}
+
 class FinishQuizButtonPress extends QuizEvent {}
 
 class NextButtonPress extends QuizEvent {}

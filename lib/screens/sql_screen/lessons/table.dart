@@ -40,7 +40,7 @@ class EmployeeDataSource extends DataGridSource {
 }
 
 
-// Info: Keeps header but isn't simple to have dynamic columns
+// INFO: Keeps header but isn't simple to have dynamic columns
 // return SfDataGrid(
 //   source: employeeDataSource,
 //   columnWidthMode: ColumnWidthMode.fill,

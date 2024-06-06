@@ -14,6 +14,20 @@ class AnswerPanel extends StatefulWidget {
   State<AnswerPanel> createState() => _AnswerPanelState();
 }
 
+class DynamicInputsWidget extends StatefulWidget {
+  final List<TextEditingController> controllers;
+  final Function(String, int) onChanged;
+
+  const DynamicInputsWidget({
+    super.key,
+    required this.controllers,
+    required this.onChanged,
+  });
+
+  @override
+  State<DynamicInputsWidget> createState() => _DynamicInputsWidgetState();
+}
+
 class _AnswerPanelState extends State<AnswerPanel> {
   String dropdownValue = '';
   bool isTrueOrFalse = false;
@@ -22,15 +36,15 @@ class _AnswerPanelState extends State<AnswerPanel> {
   Widget build(BuildContext context) {
     return BlocBuilder<QuizBloc, QuizState>(
       buildWhen: (previous, current) {
-        return previous.problemIdx != current.problemIdx;
+        return previous.problemIdx != current.problemIdx ||
+            previous.activeAnswer != current.activeAnswer;
       },
       builder: (blocContext, state) {
         return Card.outlined(
           child: Padding(
             padding: const EdgeInsets.all(20),
             child: Column(
-              mainAxisSize: MainAxisSize.max,
-              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
                 buildAnswerInputs(blocContext, state),
                 // buildFollowUpAnswers(state),
@@ -140,13 +154,29 @@ class _AnswerPanelState extends State<AnswerPanel> {
         child: buildTrueFalse(blocContext),
       ));
     } else {
+      bool isMultiAnswer = activeAnswer['isMulti'];
       int answerLength = activeAnswer['answers'].length;
-
-      List<TextEditingController> controllers = List.generate(
-        answerLength,
-        (idx) =>
-            TextEditingController(text: activeAnswer['answers'][idx] ?? ''),
-      );
+      List<TextEditingController> controllers = [];
+      List<List<TextEditingController>> controllersMulti = [[]];
+      if (isMultiAnswer) {
+        // INFO: Answers which are lists
+        controllersMulti = List.generate(
+          activeAnswer['answers'].length,
+          (outerIdx) => List.generate(
+            activeAnswer['answers'][outerIdx].length,
+            (innerIdx) => TextEditingController(
+              text:
+                  activeAnswer['answers'][outerIdx][innerIdx]?.toString() ?? '',
+            ),
+          ),
+        );
+      } else {
+        controllers = List.generate(
+          answerLength,
+          (idx) =>
+              TextEditingController(text: activeAnswer['answers'][idx] ?? ''),
+        );
+      }
 
       for (int i = 0; i < answerLength; i++) {
         items.add(
@@ -155,25 +185,34 @@ class _AnswerPanelState extends State<AnswerPanel> {
             child: Row(
               children: [
                 Text(
-                  '${i + 1 == 1 ? 'Answer' : optionLabels[i]}: ',
+                  '${answerLength == 0 ? 'Answer' : optionLabels[i]}: ',
                   style: Style.of(context, 'labelL').copyWith(
                     fontSize: 30,
                     fontWeight: FontWeight.bold,
                     color: themeColor(context, 'secondary'),
                   ),
                 ),
+                const SizedBox(width: 20),
                 SizedBox(
-                  height: 30,
+                  height: 150,
                   width: 200,
-                  child: TextFormField(
-                    controller: controllers[i],
-                    decoration: const InputDecoration(
-                      hintText: 'Answer',
-                    ),
-                    onChanged: (value) {
-                      blocContext.read<QuizBloc>().add(AnswerProblem(i, value));
-                    },
-                  ),
+                  child: isMultiAnswer
+                      ? DynamicInputsWidget(
+                          controllers: controllersMulti[i],
+                          onChanged: (value, idx) {
+                            blocContext
+                                .read<QuizBloc>()
+                                .add(AnswerProblemMulti(i, idx, value));
+                          },
+                        )
+                      : DynamicInputsWidget(
+                          controllers: [controllers[i]],
+                          onChanged: (value, idx) {
+                            blocContext
+                                .read<QuizBloc>()
+                                .add(AnswerProblem(i, value));
+                          },
+                        ),
                 ),
               ],
             ),
@@ -181,12 +220,12 @@ class _AnswerPanelState extends State<AnswerPanel> {
         );
       }
     }
-
     return Align(
       alignment: Alignment.centerRight,
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: items,
         ),
       ),
@@ -241,8 +280,11 @@ class _AnswerPanelState extends State<AnswerPanel> {
     );
   }
 
-  Widget buildSelectDropdown(BuildContext blocContext, List<dynamic> list,
-      [i = 0]) {
+  Widget buildSelectDropdown(
+    BuildContext blocContext,
+    List<dynamic> list, [
+    i = 0,
+  ]) {
     List<String> options = list.map((item) => item.toString()).toList();
     String value;
     if (dropdownValue != '') {
@@ -285,6 +327,38 @@ class _AnswerPanelState extends State<AnswerPanel> {
           isTrueOrFalse = value;
         });
       },
+    );
+  }
+}
+
+class _DynamicInputsWidgetState extends State<DynamicInputsWidget> {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.end,
+      children: widget.controllers.asMap().entries.map((entry) {
+        // INFO: Required to fix the cursor moving left
+        final int index = entry.key;
+        final TextEditingController controller = entry.value;
+        controller.selection = TextSelection.fromPosition(
+          TextPosition(offset: controller.text.length),
+        );
+
+        return Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8.0),
+          child: TextFormField(
+            key: ValueKey(index),
+            controller: controller,
+            // TODO: Fix focus to stay within this widget before moving to next group.
+            onChanged: (value) {
+              widget.onChanged(value, index);
+            },
+            decoration: const InputDecoration(
+              hintText: 'Answer',
+            ),
+          ),
+        );
+      }).toList(),
     );
   }
 }

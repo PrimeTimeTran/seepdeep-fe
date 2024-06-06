@@ -7,7 +7,7 @@ import 'package:gap/gap.dart';
 import 'package:primer_progress_bar/primer_progress_bar.dart';
 import 'package:provider/provider.dart';
 
-import './mastery.helpers.dart';
+import 'mastery.helpers.dart';
 
 final subjectsS = {
   'Calculus': {

@@ -75,7 +75,7 @@ class _EditorState extends State<Editor> {
               ),
               Row(
                 children: [
-                  // Todo: Format code
+                  // TODO: Format code
                   IconButton(
                     icon: const Icon(
                       Icons.format_indent_increase,
@@ -83,7 +83,7 @@ class _EditorState extends State<Editor> {
                     ),
                     onPressed: () {},
                   ),
-                  // Todo: Reset
+                  // TODO: Reset
                   IconButton(
                     icon: const Icon(
                       Icons.restart_alt_rounded,
@@ -93,7 +93,7 @@ class _EditorState extends State<Editor> {
                       setController();
                     },
                   ),
-                  // Todo: Shortcut Prompt
+                  // TODO: Shortcut Prompt
                   IconButton(
                     icon: const Icon(
                       Icons.keyboard,
@@ -137,7 +137,7 @@ class _EditorState extends State<Editor> {
             },
             child: CodeTheme(
               data: CodeThemeData(
-                // Info: Themes
+                // INFO: Themes
                 // https://github.com/git-touch/highlight.dart/tree/master/flutter_highlight/lib/themes
                 styles: Style.currentTheme(context) == Brightness.light
                     ? vsTheme

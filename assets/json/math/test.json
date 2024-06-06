@@ -2,25 +2,62 @@
 {
   "data": [
     {
+      "type": "fr",
+      "body": "Below is the graph of f(x) . For each of the given points determine the value of  f(a)  and lim x → a f(x). If any of the quantities do not exist clearly explain why.",
+      "prompt": "",
+      "options": [-3, -1, 2, 4],
+      "answers": [
+        [4, "dne"],
+        [3, 1],
+        ["dne", 1],
+        [5, 5]
+      ],
+      "explanation": "",
+      "followUpPrompt": "",
+      "followUpAnswers": [],
+      "followUpExplanation": "",
+      "answerLabels": [],
+      "urlImgs": ["https://tutorial.math.lamar.edu/Problems/CalcI/TheLimit_Files/image001.png"]
+    },
+    {
+      "type": "fr",
+      "body": "For the function $f(x) = \\frac{8-x^{3}}{x^{2}-4}$ answer each of the following questions.",
+      "prompt": "(a) Evaluate the function at the following values of  x  compute (accurate to at least 8 decimal places).",
+      "options": [2.5, 2.1, 2.01, 2.001, 2.0001, 1.5, 1.9, 1.99, 1.999, 1.9999],
+      "answers": [
+        -3.38888889, -3.07560976, -3.00750623, -3.00075006, -3.000075,
+        -2.64285714, -2.92564103, -2.99250627, -2.99925006, -2.999925
+      ],
+      "explanation": "",
+      "followUpPrompt": "(b) Use the information from (a) to estimate the value of $\\lim_{x \\to 2} \\frac{8-x^{3}}{x^{2}-4} $",
+      "followUpAnswers": [-3],
+      "followUpExplanation": "",
+      "answerLabels": [],
+      "urlImgs": ["https://tutorial.math.lamar.edu/Problems/CalcI/TheLimit_Files/image001.png"]
+    },
+    {
       "type": "mc",
       "body": "What's Flutter primarily written in?",
       "options": ["dart", "ruby", "python", "mojo"],
       "answers": ["dart"],
-      "followUpAnswers": []
+      "followUpAnswers": [],
+      "urlImgs": ["https://tutorial.math.lamar.edu/Problems/CalcI/TheLimit_Files/image001.png"]
     },
     {
       "type": "fr",
       "body": "What's 4 squared",
       "options": null,
       "answers": [16],
-      "followUpAnswers": []
+      "followUpAnswers": [],
+      "urlImgs": ["https://tutorial.math.lamar.edu/Problems/CalcI/TheLimit_Files/image001.png"]
     },
     {
       "type": "tf",
       "body": "Is learning Calculus good for Computer Science?",
       "options": null,
       "answers": [true],
-      "followUpAnswers": []
+      "followUpAnswers": [],
+      "urlImgs": ["https://tutorial.math.lamar.edu/Problems/CalcI/TheLimit_Files/image001.png"]
     },
     {
       "type": "fb",

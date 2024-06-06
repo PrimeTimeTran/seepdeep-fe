@@ -61,7 +61,7 @@ class _SolverState extends State<Solver> {
     );
   }
 
-  // Todo: Add bg color change when slider is hovered
+  // TODO: Add bg color change when slider is hovered
   buildRight(Problem p) {
     return HorizontalSplitView(
       top: Editor(

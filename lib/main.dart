@@ -6,6 +6,7 @@ import 'package:app/screens/quiz_screen/bloc/all.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -14,6 +15,8 @@ import 'package:seo/seo.dart';
 import 'package:url_strategy/url_strategy.dart';
 
 void main() async {
+  debugPaintSizeEnabled = false; // Enable visual debugging
+
   WidgetsFlutterBinding.ensureInitialized();
   Gemini.init(
     apiKey: const String.fromEnvironment('GEMINI_API_KEY'),

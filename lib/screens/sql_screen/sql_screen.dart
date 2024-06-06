@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'dart:html' as html;
 
 import 'package:app/all.dart';
-import 'package:app/screens/sql/lesson.dart';
+import 'package:app/screens/sql_screen/lesson.dart';
 import 'package:drift/drift.dart' hide Column;
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/foundation.dart';
