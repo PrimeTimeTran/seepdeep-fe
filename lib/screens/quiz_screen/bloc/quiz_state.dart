@@ -19,7 +19,7 @@ class QuizState extends Equatable {
     this.graded = const [],
     this.problems = const [],
     this.isChallengeMode = false,
-    this.isDone = true,
+    this.isDone = false,
     this.isError = false,
     this.activeProblem,
     Map<String, dynamic>? activeAnswer,
@@ -27,9 +27,9 @@ class QuizState extends Equatable {
   })  : activeAnswer = activeAnswer ?? {},
         finalScore = finalScore ??
             {
-              "score": 1,
-              "countProblems": 100,
-              "countCorrect": 100,
+              // "score": 1,
+              // "countProblems": 100,
+              // "countCorrect": 100,
             };
 
   @override

@@ -37,11 +37,18 @@ class _QuizScreenState extends State<QuizScreen> {
       builder: (buildContext, state) {
         if (state.isDone) {
           final score = state.finalScore;
+          final finalScore = (score['score'] * 100);
+          Color? color = Colors.yellow;
+          if (finalScore > 90) {
+            color = Colors.teal;
+          } else if (finalScore < 60) {
+            color = Colors.red;
+          }
           return Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(
-                width: MediaQuery.of(context).size.width / 4,
+                width: MediaQuery.of(context).size.width / 2,
                 child: Card.outlined(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
@@ -89,8 +96,11 @@ class _QuizScreenState extends State<QuizScreen> {
                             ),
                             const Gap(25),
                             Text(
-                              (score['score'] * 100).toStringAsFixed(2),
-                              style: Theme.of(context).textTheme.displayLarge,
+                              finalScore.toStringAsFixed(2),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .displayLarge
+                                  ?.copyWith(color: color),
                             ),
                           ],
                         ),

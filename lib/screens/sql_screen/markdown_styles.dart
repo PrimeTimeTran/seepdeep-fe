@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 
 MarkdownStyleSheet myStyleSheet = MarkdownStyleSheet(
-  textScaler: const TextScaler.linear(1.75),
+  textScaler: const TextScaler.linear(1.10),
   h1: const TextStyle(
       fontSize: 26, fontWeight: FontWeight.bold, color: Colors.blue),
   h2: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
@@ -13,7 +13,7 @@ MarkdownStyleSheet myStyleSheet = MarkdownStyleSheet(
 );
 
 MarkdownStyleSheet myStyleSheetDark = MarkdownStyleSheet(
-  textScaler: const TextScaler.linear(1.75),
+  textScaler: const TextScaler.linear(1.10),
   h1: const TextStyle(
     fontSize: 24,
     fontWeight: FontWeight.bold,
