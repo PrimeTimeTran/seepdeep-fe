@@ -1,32 +1,28 @@
 // ignore_for_file: avoid_web_libraries_in_flutter, must_be_immutable
 import 'dart:async';
-import 'dart:convert';
-import 'dart:html';
 
 import 'package:app/all.dart';
-import 'package:app/screens/math_screen/stepper.dart';
 import 'package:app/screens/sql/markdown_styles.dart';
-import 'package:app/services/quiz_service.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_gemini/flutter_gemini.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter_markdown_latex/flutter_markdown_latex.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
-import 'package:http/http.dart' as http;
 import 'package:markdown/markdown.dart' as md;
 
+import 'bloc/all.dart';
 import 'math.helpers.dart';
+import 'stepper.dart';
 
-class MathScreen extends StatefulWidget {
+class QuizScreen extends StatefulWidget {
   final String category;
-  const MathScreen({super.key, required this.category});
+  const QuizScreen({super.key, required this.category});
 
   @override
-  State<MathScreen> createState() => _MathScreenState();
+  State<QuizScreen> createState() => _QuizScreenState();
 }
 
 class Solution {
@@ -36,47 +32,60 @@ class Solution {
   });
 }
 
-class _MathScreenState extends State<MathScreen> {
-  int index = 1;
-  bool error = false;
-  bool showAnswer = false;
-  late QuizService quizService;
-  List<MathProblem> questions = [];
-  List<Map<String, dynamic>> answers = [];
-
-  IFrameElement webView = IFrameElement();
+class _QuizScreenState extends State<QuizScreen> {
   final StreamController<int> _problemStreamController = StreamController();
-
   @override
   Widget build(BuildContext context) {
-    if (error) {
-      return Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SvgPicture.asset(
-              'assets/img/SVG/bug-fixing.svg',
-              width: 600,
-            ),
-            const Gap(50),
-            Text(
-              "We're experiencing issues. Please try again later.",
-              style: Style.of(
-                context,
-                'displayL',
+    return BlocProvider(
+      create: (BuildContext context) => QuizBloc(),
+      child: BlocBuilder<QuizBloc, QuizState>(
+        builder: (context, state) {
+          if (state.isError) {
+            return Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SvgPicture.asset(
+                    'assets/img/SVG/bug-fixing.svg',
+                    width: 600,
+                  ),
+                  const Gap(50),
+                  Text(
+                    "We're experiencing issues. Please try again later.",
+                    style: Style.of(
+                      context,
+                      'displayL',
+                    ),
+                  )
+                ],
               ),
-            )
-          ],
-        ),
-      );
-    }
-    if (questions.isNotEmpty) {
-      return buildUI(questions);
-    }
-    return Container();
+            );
+          }
+          if (state.problems.isNotEmpty) {
+            return buildUI(context, state);
+          }
+          return Center(
+            child: SizedBox(
+              height: 50,
+              width: 200,
+              child: OutlinedButton.icon(
+                label: const AppText(
+                  text: 'Start',
+                ),
+                onPressed: () {
+                  BlocProvider.of<QuizBloc>(context)
+                      .add(QuizScreenLoad(widget.category));
+                },
+                icon: const Icon(Icons.navigate_next_outlined),
+              ),
+            ),
+          );
+        },
+      ),
+    );
   }
 
-  Card buildActionPanel(problems, question) {
+  Card buildActionPanel(BuildContext buildContext, state, problems, question) {
     return Card.outlined(
       child: Padding(
         padding: const EdgeInsets.all(20),
@@ -84,8 +93,8 @@ class _MathScreenState extends State<MathScreen> {
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            buildAnswerInputs(),
-            buildFollowUpAnswers(),
+            buildAnswerInputs(state),
+            buildFollowUpAnswers(state),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
@@ -98,11 +107,7 @@ class _MathScreenState extends State<MathScreen> {
                       text: 'Back',
                     ),
                     onPressed: () {
-                      if (index <= 1) return;
-                      _problemStreamController.add(index - 1);
-                      setState(() {
-                        index = index - 1;
-                      });
+                      buildContext.read<QuizBloc>().add(PrevButtonPress());
                     },
                     icon: const Icon(Icons.navigate_before_outlined),
                   ),
@@ -116,11 +121,7 @@ class _MathScreenState extends State<MathScreen> {
                       text: 'Next',
                     ),
                     onPressed: () {
-                      if (index >= problems.length) return;
-                      _problemStreamController.add(index + 1);
-                      setState(() {
-                        index = index + 1;
-                      });
+                      buildContext.read<QuizBloc>().add(NextButtonPress());
                     },
                     icon: const Icon(Icons.navigate_next_outlined),
                   ),
@@ -139,7 +140,7 @@ class _MathScreenState extends State<MathScreen> {
                       text: 'New Problem(AI generated)',
                     ),
                     onPressed: () {
-                      generateAIProblem(widget.category);
+                      // generateAIProblem(widget.category);
                     },
                     icon: const Icon(SDIcon.ai_enabled),
                   ),
@@ -153,7 +154,6 @@ class _MathScreenState extends State<MathScreen> {
                       text: 'Submit',
                     ),
                     onPressed: () async {
-                      if (index >= problems.length) return;
                       await FirebaseAnalytics.instance.logEvent(
                         name: "engage",
                         parameters: {
@@ -169,36 +169,39 @@ class _MathScreenState extends State<MathScreen> {
               ],
             ),
             const Gap(10),
-            if (showAnswer)
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text('Answer'),
-                  buildContentBox(question.answer, Style.of(context, 'bodyS')),
-                  const Text('Answer Latex'),
-                  buildContentBox(
-                      question.answerLatex, Style.of(context, 'bodyS')),
-                ],
-              )
+            // if (showAnswer)
+            //   Column(
+            //     crossAxisAlignment: CrossAxisAlignment.start,
+            //     children: [
+            //       const Text('Answer'),
+            //       buildContentBox(question.answer, Style.of(context, 'bodyS')),
+            //       const Text('Answer Latex'),
+            //       buildContentBox(
+            //           question.answerLatex, Style.of(context, 'bodyS')),
+            //     ],
+            //   )
           ],
         ),
       ),
     );
   }
 
-  buildAnswerInputs() {
+  buildAnswerInputs(state) {
+    final problem = state.activeProblem;
+    final activeAnswer = state.activeAnswer;
+    // return const SizedBox();
     // Fix:
     // Switching questions results in the inputs not updating/reverting to their previous values.
     // Gotta make controller smarter.
     // Also the issue with them is they're fickle with allowing us to type.
     List<Widget> items = [];
-    final answer = answers[index - 1];
+    // final answer = answers[index - 1];
 
     bool isMultiAnswer = false;
-    if (questions[index - 1].answers?[0] is List) {
-      isMultiAnswer = true;
-    }
-    int answerLength = answer['answers'].length;
+    // if (problem.answers?[0] is List) {
+    //   isMultiAnswer = true;
+    // }
+    int answerLength = activeAnswer['answers']?.length ?? 0;
     for (int i = 0; i < answerLength; i++) {
       items.add(
         Padding(
@@ -221,19 +224,19 @@ class _MathScreenState extends State<MathScreen> {
                     hintText: 'Answer',
                   ),
                   onChanged: (value) {
-                    if (isMultiAnswer) {
-                      answer['answers'][i][0] = value;
-                    } else {
-                      answer['answers'][i] = value;
-                    }
-                    answers[index - 1] = answer;
-                    setState(() {
-                      answers = answers;
-                    });
+                    // if (isMultiAnswer) {
+                    //   answer['answers'][i][0] = value;
+                    // } else {
+                    //   answer['answers'][i] = value;
+                    // }
+                    // answers[index - 1] = answer;
+                    // setState(() {
+                    //   answers = answers;
+                    // });
                   },
                 ),
               ),
-              if (isMultiAnswer)
+              if (true)
                 SizedBox(
                   height: 30,
                   width: 200,
@@ -242,11 +245,11 @@ class _MathScreenState extends State<MathScreen> {
                       hintText: 'Answer',
                     ),
                     onChanged: (value) {
-                      answer['answers'][i][1] = value;
-                      answers[index - 1] = answer;
-                      setState(() {
-                        answers = answers;
-                      });
+                      // activeAnswer['answers'][i][1] = value;
+                      // answers[index - 1] = answer;
+                      // setState(() {
+                      //   answers = answers;
+                      // });
                     },
                   ),
                 ),
@@ -281,21 +284,23 @@ class _MathScreenState extends State<MathScreen> {
     );
   }
 
-  Widget buildFollowUpAnswers() {
+  Widget buildFollowUpAnswers(state) {
     List<Widget> items = [];
-    final answer = answers[index - 1];
-    int lengthOfAnswers = answer['followUpAnswers'].length;
-    List<TextEditingController> controllers =
-        List.generate(lengthOfAnswers, (_) => TextEditingController());
-    for (int i = 0; i < lengthOfAnswers; i++) {
-      controllers[i].text = answer['followUpAnswers'][i] ?? '';
+    Map<String, dynamic> answer = state.activeAnswer;
+    // int lengthOfAnswers = answer['followUpAnswers'];
+    print('dododo ${answer['followUpAnswers']}');
+    // return const SizedBox();
+    // List<TextEditingController> controllers =
+    //     List.generate(lengthOfAnswers, (_) => TextEditingController());
+    for (int i = 0; i < 1; i++) {
+      // controllers[i].text = answer['followUpAnswers'][i] ?? '';
       items.add(
         Padding(
           padding: const EdgeInsets.all(30),
           child: Row(
             children: [
               Text(
-                '${lengthOfAnswers == 1 ? '(b) ' : optionLabels[i]}: ',
+                '${0 == 1 ? '(b) ' : optionLabels[i]}: ',
                 style: Style.of(context, 'labelL').copyWith(
                     fontSize: 30,
                     fontWeight: FontWeight.bold,
@@ -305,18 +310,18 @@ class _MathScreenState extends State<MathScreen> {
                 height: 30,
                 width: 200,
                 child: TextFormField(
-                  key: ValueKey('$index-$i'),
-                  controller: controllers[i],
+                  // key: ValueKey('$index-$i'),
+                  // controller: controllers[i],
                   decoration: const InputDecoration(
                     hintText: 'Answer',
                   ),
                   onChanged: (value) {
                     setState(() {
                       answer['followUpAnswers'][i] = value;
-                      answers[index - 1] = answer;
-                      setState(() {
-                        answers = answers;
-                      });
+                      // answers[index - 1] = answer;
+                      // setState(() {
+                      //   answers = answers;
+                      // });
                     });
                   },
                 ),
@@ -361,7 +366,6 @@ class _MathScreenState extends State<MathScreen> {
   }
 
   buildLatexContent(value) {
-    // return buildLatex(value);
     return ConstrainedBox(
       constraints: const BoxConstraints(
         minWidth: 200,
@@ -383,7 +387,7 @@ class _MathScreenState extends State<MathScreen> {
             ),
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
-              itemCount: options.length,
+              itemCount: options?.length,
               itemBuilder: (context, index) {
                 return Row(
                   children: [
@@ -408,9 +412,9 @@ class _MathScreenState extends State<MathScreen> {
     return const SizedBox();
   }
 
-  buildUI(problems) {
-    final question = problems[index - 1];
-
+  buildUI(BuildContext buildContext, state) {
+    final problems = state.problems;
+    final activeProblem = state.activeProblem;
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
         final height = constraints.maxHeight;
@@ -444,8 +448,8 @@ class _MathScreenState extends State<MathScreen> {
                             ),
                           Expanded(
                             child: StepperDemo(
-                              setStep: setStep,
-                              problemsLength: questions.length,
+                              setStep: () {},
+                              problemsLength: problems.length,
                               problemStream: _problemStreamController.stream,
                             ),
                           ),
@@ -459,23 +463,24 @@ class _MathScreenState extends State<MathScreen> {
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  buildLatexContent(question.body),
+                                  buildLatexContent(activeProblem.body),
                                   const Gap(10),
-                                  if (question.equation != null)
-                                    buildLatexContent(question.equation),
-                                  if (question.prompt.isNotEmpty)
-                                    buildLatexContent(question.prompt),
-                                  buildOptions(question),
-                                  if (question.followUpPrompt.isNotEmpty)
-                                    buildLatexContent(question.followUpPrompt),
+                                  if (activeProblem.equation != null)
+                                    buildLatexContent(activeProblem.equation),
+                                  if (activeProblem.prompt.isNotEmpty)
+                                    buildLatexContent(activeProblem.prompt),
+                                  buildOptions(activeProblem),
+                                  if (activeProblem.followUpPrompt.isNotEmpty)
+                                    buildLatexContent(
+                                        activeProblem.followUpPrompt),
                                 ],
                               ),
                             ),
                             Expanded(
                               child: Column(
                                 children: [
-                                  if (question.urlImgs != null &&
-                                      question.urlImgs.isNotEmpty)
+                                  if (activeProblem.urlImgs != null &&
+                                      activeProblem.urlImgs.isNotEmpty)
                                     SizedBox(
                                       height: 400,
                                       width: 600,
@@ -486,15 +491,20 @@ class _MathScreenState extends State<MathScreen> {
                                     ),
                                   const Spacer(),
                                   if (kDebugMode)
-                                    Column(
+                                    const Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        Text('Answers for: $index'),
-                                        Text(answers.toString()),
+                                        // Text('Answers for: $index'),
+                                        // Text(answers.toString()),
                                       ],
                                     ),
-                                  buildActionPanel(problems, question),
+                                  buildActionPanel(
+                                    buildContext,
+                                    state,
+                                    problems,
+                                    activeProblem,
+                                  ),
                                 ],
                               ),
                             )
@@ -512,90 +522,8 @@ class _MathScreenState extends State<MathScreen> {
     );
   }
 
-  Future<void> generateAIProblem(type) async {
-    final gemini = Gemini.instance;
-    try {
-      final resp = await gemini.text(generateGeminiPrompts(type));
-      final json = resp?.content?.parts?[0].text;
-      if (json != null) {
-        // Sometimes the response comes back wrapped with a ```json ```.
-        String trimmedJson =
-            json.replaceAll('```json', '').replaceAll('```', '');
-        final Map<String, dynamic> question = await jsonDecode(trimmedJson);
-
-        final problem = MathProblem(
-          title: question['title'],
-          body: question['body'],
-          equation: question['equation'],
-          prompt: question['prompt'],
-          solution: question['solution'],
-        );
-        questions.add(problem);
-        setState(() {
-          questions = questions;
-        });
-      }
-    } catch (e) {
-      print('Error: $e');
-    }
-  }
-
-  getProblems(topic) async {
-    try {
-      List<MathProblem> values = [];
-      print('kDebugMode $kDebugMode');
-      if (!kDebugMode) {
-        final response =
-            await http.get(Uri.parse('http://localhost:8080/?category=$topic'));
-
-        if (response.statusCode == 200) {
-          final resp = jsonDecode(response.body);
-          for (var question in resp['data']) {
-            values.add(MathProblem.fromJson(question));
-          }
-          quizService = QuizService(problems: values);
-          answers = quizService.answers;
-          setState(() {
-            questions = values;
-            answers = answers;
-            quizService = quizService;
-          });
-
-          return;
-        } else {
-          throw Exception('Failed to load data');
-        }
-      } else {
-        final json = await rootBundle.loadString('json/math/$topic.json');
-        final Map<String, dynamic> data = await jsonDecode(json);
-        for (var question in data['data']) {
-          values.add(MathProblem.fromJson(question));
-        }
-        quizService = QuizService(problems: values);
-        answers = quizService.answers;
-        setState(() {
-          questions = values;
-          answers = answers;
-          quizService = quizService;
-        });
-      }
-    } catch (e) {
-      print('Error: $e');
-      setState(() {
-        error = true;
-      });
-    }
-  }
-
   @override
   void initState() {
     super.initState();
-    getProblems(widget.category);
-  }
-
-  setStep(idx) {
-    setState(() {
-      index = idx;
-    });
   }
 }

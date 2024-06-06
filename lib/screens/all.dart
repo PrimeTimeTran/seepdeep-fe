@@ -10,7 +10,7 @@ export 'jobs_screen.dart';
 export 'landing_screen/all.dart';
 export 'leaderboards_screen.dart';
 export 'mastery/mastery.dart';
-export 'math_screen/math_screen.dart';
+export 'quiz_screen/quiz_screen.dart';
 export 'maze_screen.dart';
 export 'news_screen.dart';
 export 'notification_screen.dart';

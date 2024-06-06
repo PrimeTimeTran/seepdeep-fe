@@ -1,5 +1,5 @@
 import 'package:app/all.dart';
-import 'package:app/screens/math_screen/math_screen.intro.dart';
+import 'package:app/screens/quiz_screen/math_screen.intro.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -120,7 +120,7 @@ final routes = [
         name: AppScreens.math.name,
         builder: (context, state) {
           final category = state.pathParameters['category'] ?? '';
-          return MathScreen(category: category);
+          return QuizScreen(category: category);
         },
       ),
       GoRoute(
