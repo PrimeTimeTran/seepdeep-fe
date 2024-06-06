@@ -4,9 +4,25 @@
       "body": "For the following equation:",
       "equation": "\\[ f(x) = \\frac{9}{(x-3)^{5}} \\]",
       "prompt": "Evaluate",
-      "options": ["\\[ \\lim_{x \\to 3^{-}} f(x) \\]", "\\[ \\lim_{x \\to 3^{+}} f(x) \\]", "\\[ \\lim_{x \\to 3} f(x) \\]"],
+      "options": [
+        "\\[\\lim_{x \\to 3^{-}} f(x) \\]",
+        "\\[\\lim_{x \\to 3^{+}} f(x) \\]",
+        "\\[\\lim_{x \\to 3} f(x) \\]"
+      ],
       "answers": ["-\\infty", "\\infty", "dne"],
-      "answerLatex": "\\[ f(x) = \\frac{9}{(x-3)^{5}} = -\\infty \\]"
+      "answerLatex": ""
+    },
+    {
+      "body": "Find all the vertical asymptotes of:",
+      "equation": "\\[f(x) = \\frac{7x}{(10-3x)^4} \\]",
+      "prompt": "Evaluate",
+      "options": [
+        "\\[\\lim_{x \\to 3^{-}} f(x) \\]",
+        "\\[\\lim_{x \\to 3^{+}} f(x) \\]",
+        "\\[\\lim_{x \\to 3} f(x) \\]"
+      ],
+      "answers": ["10/3"],
+      "answerLatex": ""
     }
   ]
 }

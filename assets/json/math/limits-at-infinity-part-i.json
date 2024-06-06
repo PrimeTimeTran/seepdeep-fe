@@ -3,9 +3,22 @@
     {
       "type": "fr",
       "body": "For the function $f(x) = 4x^{7} - 18x^{3} + 9$ answer each of the following questions.",
-      "prompt": "Evaluate",
+      "prompt": "",
       "options": ["\\[\\lim_{x \\to -\\infty} f(x) \\]", "\\[ \\lim_{x \\to \\infty} f(x) \\]", "Write down the equation(s) of any horizontal asymptotes for the function."],
       "answers": ["\\[-\\infty \\]", "\\[\\infty \\]"],
+      "explanation": "",
+      "followUpPrompt": "",
+      "followUpAnswers": [],
+      "followUpExplanation": "",
+      "answerLabels": []
+    },
+    {
+      "type": "fr",
+      "body": "For the function answer each of the following questions.",
+      "equation": "\\[ f(x) = \\frac{8-4x^{2}}{9x^{2} + 5x} \\]",
+      "prompt": "",
+      "options": ["\\[\\lim_{x \\to -\\infty} f(x) \\]", "\\[ \\lim_{x \\to \\infty} f(x) \\]", "Write down the equation(s) of any horizontal asymptotes for the function."],
+      "answers": ["\\[\\frac{-4}{9}\\]", "\\[\\frac{-4}{9}\\]", "\\[\\ y = - \\frac{4}{9}\\]"],
       "explanation": "",
       "followUpPrompt": "",
       "followUpAnswers": [],

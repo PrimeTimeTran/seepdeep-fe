@@ -15,7 +15,7 @@
     },
     {
       "type": "fr",
-      "body": "Given the function",
+      "body": "Given:",
       "prompt": "Evaluate the following limits, if they exist.",
       "equation": "\\[f(x) = \\begin{cases} 7 - 4x & \\text{if } x < 1 \\\\ x^2 + 2 & \\text{if } x \\geq 1 \\end{cases}\\]",
       "options": ["\\[\\lim_{x \\to -6} f(x) \\]", "\\[\\lim_{x \\to 1} f(x) \\]"],

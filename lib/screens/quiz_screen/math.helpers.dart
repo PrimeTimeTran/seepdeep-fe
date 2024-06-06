@@ -5,11 +5,15 @@ final allSubjects = [
   'The Limit',
   //
   'One Sided Limits',
+  // Done
   'Limit Properties',
+  // Done
   'Computing Limits',
+  // Done
   'Infinite Limits',
+  // Done
   'Limits At Infinity Part I',
-  // limits-at-infinity-part-i
+  // Done
   'Limits At Infinity Part II',
   'Continuity',
   'The Definition of the Limit',
