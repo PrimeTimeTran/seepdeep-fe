@@ -1,5 +1,4 @@
 import 'package:app/all.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../quiz_provider.dart';
@@ -17,11 +16,11 @@ class QuizBloc extends Bloc<QuizEvent, QuizState> {
           'problemId': el.id,
           'answers': List<dynamic>.generate(
             el.answers?.length ?? 0,
-            (index) => el.answers?[0] is List ? ['', ''] : null,
+            (index) => el.answers?[0] is List ? ['', ''] : '',
           ),
           'followUpAnswers': List<dynamic>.generate(
             el.followUpAnswers?.length ?? 0,
-            (index) => el.followUpAnswers?[0] is List ? ['', ''] : null,
+            (index) => el.followUpAnswers?[0] is List ? ['', ''] : '',
           ),
         };
       }).toList();
@@ -76,23 +75,34 @@ class QuizBloc extends Bloc<QuizEvent, QuizState> {
         ),
       );
     });
+    on<FinishQuizButtonPress>((event, emit) {
+      emit(state.copyWith(isDone: true));
+    });
+    on<AnswerProblem>((event, emit) {
+      state.activeAnswer?['answers'][event.index] = event.value;
+      state.answers?[state.problemIdx] = state.activeAnswer!;
+      emit(state.copyWith(
+        answers: state.answers,
+        activeAnswer: state.activeAnswer,
+      ));
+    });
   }
 
   @override
   void onChange(Change<QuizState> change) {
     super.onChange(change);
-    debugPrint('Change: $change');
+    // debugPrint('Change: $change');
   }
 
   @override
   void onEvent(QuizEvent event) {
     super.onEvent(event);
-    debugPrint('Event: $event');
+    // debugPrint('Event: $event');
   }
 
   @override
   void onTransition(Transition<QuizEvent, QuizState> transition) {
     super.onTransition(transition);
-    debugPrint('Transition: $transition');
+    // debugPrint('Transition: $transition');
   }
 }

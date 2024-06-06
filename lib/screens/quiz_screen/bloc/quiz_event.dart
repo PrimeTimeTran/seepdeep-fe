@@ -1,3 +1,11 @@
+class AnswerProblem extends QuizEvent {
+  int index;
+  String value;
+  AnswerProblem(this.index, this.value);
+}
+
+class FinishQuizButtonPress extends QuizEvent {}
+
 class NextButtonPress extends QuizEvent {}
 
 class PrevButtonPress extends QuizEvent {}

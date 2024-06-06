@@ -2,14 +2,12 @@ import 'package:app/all.dart';
 import 'package:equatable/equatable.dart';
 
 class QuizState extends Equatable {
-  final double score;
   final bool isDone;
+  final double score;
   final bool isError;
-
   final List problems;
   final int problemIdx;
   final bool isChallengeMode;
-
   final Problem? activeProblem;
   final List<Map<String, dynamic>>? answers;
   final Map<String, dynamic>? activeAnswer;
@@ -28,6 +26,7 @@ class QuizState extends Equatable {
 
   @override
   List<Object?> get props => [
+        isError,
         score,
         isDone,
         isChallengeMode,

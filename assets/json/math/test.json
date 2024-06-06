@@ -5,31 +5,36 @@
       "type": "mc",
       "body": "What's Flutter primarily written in?",
       "options": ["dart", "ruby", "python", "mojo"],
-      "answers": ["dart"]
+      "answers": ["dart"],
+      "followUpAnswers": []
     },
     {
       "type": "fr",
       "body": "What's 4 squared",
       "options": null,
-      "answers": [16]
+      "answers": [16],
+      "followUpAnswers": []
     },
     {
       "type": "tf",
       "body": "Is learning Calculus good for Computer Science?",
       "options": null,
-      "answers": [true]
+      "answers": [true],
+      "followUpAnswers": []
     },
     {
       "type": "fb",
       "body": "Calculus is the study of ____ ?",
       "options": null,
-      "answers": ["change"]
+      "answers": ["change"],
+      "followUpAnswers": []
     },
     {
       "type": "fb",
       "body": "Roses are ___, violets are ___, sugar is ____, and so are ____.",
       "options": null,
-      "answers": ["red", "blue", "sweet", "you"]
+      "answers": ["red", "blue", "sweet", "you"],
+      "followUpAnswers": []
     },
     {
       "type": "fr",
@@ -42,13 +47,15 @@
         -7.5, -6.3, -6.03, -6.003, -6.0003, -4.5, -5.7, -5.97, -5.997, -5.9997
       ],
       "hint": "$mPQ = f(x) = \\frac{f(x)-f(a)}{x-a}$",
-      "followUpPrompt": "Use the information from (a) to estimate the slope of the tangent line to $f(x)  at  x = -3$  and write down the equation of the tangent line."
+      "followUpPrompt": "Use the information from (a) to estimate the slope of the tangent line to $f(x)  at  x = -3$  and write down the equation of the tangent line.",
+      "followUpAnswers": []
     },
     {
       "type": "cb",
       "body": "Which numbers are prime?",
       "options": [1, 2, 3, 5, 7, 11, 13, 15],
-      "answers": [2, 3, 5, 7, 11, 13]
+      "answers": [2, 3, 5, 7, 11, 13],
+      "followUpAnswers": []
     },
     {
       "type": "m",
@@ -64,14 +71,16 @@
           "Tangent Line",
           "The straight line that 'just touches' the curve at that point"
         ]
-      ]
+      ],
+      "followUpAnswers": []
     },
     {
       "type": "sa",
       "body": "If you invest $1000 at an annual interest rate of 5% for 2 years, how much will you have at the end? How about after 10 years?",
       "answers": [1102.5, 1628.89],
       "format": "money",
-      "answerLabels": ["2 years", "10 years"]
+      "answerLabels": ["2 years", "10 years"],
+      "followUpAnswers": []
     },
     
     {
@@ -115,7 +124,7 @@
       ],
       "explanation": "",
       "followUpPrompt": "(b) Use the information from (a) to estimate the value of $\\lim_{x \\to 2} \\frac{8-x^{3}}{x^{2}-4} $",
-      "followUpAns": "",
+      "followUpAnswers": [],
       "followUpExplanation": "",
       "answerLabels": []
     },
@@ -130,6 +139,7 @@
         -8.0, -6.6, -6.04, -6.004, -6.0004, -4.0, -6.2, -6.04, -6.004, -6.0004
       ],
       "hint": "$mPQ = \\frac{f(x) - f(a)}{x - a}$",
+      "followUpAnswers": [],
       "followUpPrompt": "(b) Use the information from (a) to estimate the slope of the tangent line to $f(x)$ at $x = -1$ and write down the equation of the tangent line."
     }
   ]
