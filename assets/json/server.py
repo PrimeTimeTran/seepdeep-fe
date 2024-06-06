@@ -22,7 +22,7 @@ def get_data():
         # Construct the absolute path to the directory containing the JSON files
         json_dir = os.path.join(base_dir, 'math')
         filename = f"{category}.json"
-        filename = f"test.json"
+        # filename = f"test.json"
         file_path = os.path.join(json_dir, filename)
 
         try:

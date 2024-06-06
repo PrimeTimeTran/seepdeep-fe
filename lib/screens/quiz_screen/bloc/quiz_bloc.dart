@@ -15,7 +15,7 @@ class QuizBloc extends Bloc<QuizEvent, QuizState> {
       List<MathProblem> problems =
           await _quizRepo.getQuizProblems(event.category);
       List<Map<String, dynamic>> answers;
-      if (kDebugMode) {
+      if (!kDebugMode && false) {
         final json = await rootBundle.loadString('json/math/test.json');
         final Map<String, dynamic> data = jsonDecode(json);
         answers = (data['data'] as List).map((el) {

@@ -12,14 +12,14 @@ import 'mastery.helpers.dart';
 final subjectsS = {
   'Calculus': {
     "Limits": [
-      'Tangent Lines & Rates of Change',
+      'Tangent Lines and Rates of Change',
       'The Limit',
-      'One-Sided Limits',
+      'One Sided Limits',
       'Limit Properties',
       'Computing Limits',
       'Infinite Limits',
-      'Limits at Infinity, Part I',
-      'Limits at Infinity, Part II',
+      'Limits At Infinity Part I',
+      'Limits At Infinity Part II',
       'Continuity',
       'The Definition of the Limit',
     ],

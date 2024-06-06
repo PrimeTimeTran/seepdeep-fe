@@ -253,6 +253,7 @@ class _QuizScreenState extends State<QuizScreen> {
   }
 
   buildLatexContent(value) {
+    print('value $value');
     return ConstrainedBox(
       constraints: const BoxConstraints(
         minWidth: 200,

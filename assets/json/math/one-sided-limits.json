@@ -1,11 +1,26 @@
 {
   "data": [
     {
-      "body": "For problems 1 & 2 determine favg for the function on the given interval.",
-      "equation": "For the value \\[ \\frac{1}{2} \\] and the value \\[ \\frac{1}{2} \\]",
-      "prompt": "Evaluate the following limit",
-      "answers": [],
-      "explanation": ""
+      "title": "One Sided Limits",
+      "body": "On the right is the graph of $f(x)$. For each of the given points determine the value of $f(a)$, \n\n $\\lim_{x \\to a^{-}}  f(x)$, $\\lim_{x \\to a^{+}}  f(x)$, and $\\lim_{x \\to a} f(x)$.",
+      "prompt": "If any of the quantities do not exist clearly explain why.",
+      "options": [-4, -1, 2, 4],
+      "answers": [
+        [3, 3, -2, "dne"],
+        [4, 4, 4, 4],
+        [-1, -1, 5, "dne"],
+        ["dne", 2, 2, 2]
+      ],
+      "followupAnswers": [0],
+      "explanation": "",
+      "answerLabels": [
+        "\\[\\lim_{x \\to a^{-}}\\]",
+        "\\[\\lim_{x \\to a^{+}}\\]",
+        "\\[\\lim_{x \\to a}\\]"
+      ],
+      "urlImgs": [
+        "https://tutorial.math.lamar.edu/Solutions/CalcI/OneSidedLimits/OneSidedLimits_Files/image001.png"
+      ]
     }
   ]
 }

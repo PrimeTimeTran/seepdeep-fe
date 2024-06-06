@@ -5,7 +5,8 @@
       "body": "After the opening $$ we need newlines. Also before the closing $$",
       "equation": "Plus Minus Afterwards: \n\n$$\n 3^{+}, 3^{-} \n$$\n\n Infinities: \n\n$$\n -\\infty, \\infty \n$$\n\n Plus Minus:\n\n$$\n\\pm\n$$\n\n Square Root:\n\n$$\n \\sqrt{a^2 + b^2}\n$$\n\n Fractions: \n\n$$\n \\frac{1}{2} \n$$\n\n Limit: \n\n$$\n \\lim\\limits_{x \\to 8 } \n$$\n\n Summation: \n\n$$\n \\sum, \\sum_{n=0}^{10} \n$$\n\n Integrals: \n\n$$\n \\int, \\int_0^1, \\mu(u,v) \n$$\n\n",
       "prompt": "Evaluate the following limit",
-      "answer": "",
+      "answers": [],
+      "followupAnswers": [],
       "explanation": ""
     },
     {
@@ -13,7 +14,8 @@
       "body": "Example:",
       "equation": "This is inline latex: $f(x) = \\sum_{i=0}^{n} \\frac{a_i}{1+x}$\n\nThis is block level latex:\n\n$$\nc = \\pm\\sqrt{a^2 + b^2}\n$$\n\nThis is inline latex with displayMode: $$f(x) = \\sum_{i=0}^{n} \\frac{a_i}{1+x}$$ and here is a very long text that should be in the same line.\n\nThe relationship between the height and the side length of an equilateral triangle is:\n\n\\[ \\text{Height} = \\frac{\\sqrt{3}}{2} \\times \\text{Side Length} \\]\n\n\\[ \\text{X} = \\frac{1}{2} \\times \\text{Y} \\times \\text{Z} = \\frac{1}{2} \\times 9 \\times \\frac{\\sqrt{3}}{2} \\times 9 = \\frac{81\\sqrt{3}}{4} \\]\n\nThe basic form of the Taylor series is:\n\n\\[f(x) = f(a) + f'(a)(x-a) + \\frac{f''(a)}{2!}(x-a)^2 + \\frac{f'''(a)}{3!}(x-a)^3 + \\cdots\\]\n\nwhere \\(f(x)\\) is the function to be expanded, \\(a\\) is the expansion point, \\(f'(a)\\), \\(f''(a)\\), \\(f'''(a)\\), etc., are the first, second, third, and so on derivatives of the function at point \\(a\\), and \\(n!\\) denotes the factorial of \\(n\\).\n\nIn particular, when \\(a=0\\), this expansion is called the Maclaurin series.\n\n",
       "prompt": "Evaluate the following limit",
-      "answer": "",
+      "answers": [],
+      "followupAnswers": [],
       "explanation": ""
     }
   ]

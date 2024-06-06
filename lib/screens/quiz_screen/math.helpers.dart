@@ -1,14 +1,19 @@
 final allSubjects = [
-  'Tangent Lines & Rates of Change',
+  // Done
+  'Tangent Lines and Rates of Change',
+  // Done
   'The Limit',
-  'One-Sided Limits',
+  //
+  'One Sided Limits',
   'Limit Properties',
   'Computing Limits',
   'Infinite Limits',
-  'Limits at Infinity, Part I',
-  'Limits at Infinity, Part II',
+  'Limits At Infinity Part I',
+  // limits-at-infinity-part-i
+  'Limits At Infinity Part II',
   'Continuity',
   'The Definition of the Limit',
+
   'The Definition of the Derivative',
   'Interpretation of the Derivative Differentiation Formulas',
   'Product and Quotient Rule',
@@ -55,18 +60,18 @@ Map<String, dynamic> subjects = {
     ],
     "Limits": {
       "subjects": [
-        'Tangent Lines & Rates of Change',
+        'Tangent Lines and Rates of Change',
         'The Limit',
-        'One-Sided Limits',
+        'One Sided Limits',
         'Limit Properties',
         'Computing Limits',
         'Infinite Limits',
-        'Limits at Infinity, Part I',
-        'Limits at Infinity, Part II',
+        'Limits At Infinity Part I',
+        'Limits At Infinity Part II',
         'Continuity',
         'The Definition of the Limit',
       ],
-      'Tangent Lines & Rates of Change': {
+      'Tangent Lines and Rates of Change': {
         "description":
             "Tangent lines represent the instantaneous rate of change of a function at a particular point, akin to the slope of the function at that point. This concept is fundamental in calculus as it bridges the idea of derivative, showing how a function changes instantaneously. Rates of change can be applied to various contexts, such as velocity in physics, where the slope of the tangent line to a position-time graph gives the object's velocity."
       },
@@ -74,9 +79,9 @@ Map<String, dynamic> subjects = {
         "description":
             "The limit is a core concept in calculus that describes the value that a function approaches as the input approaches a particular point. Limits help define continuity, derivatives, and integrals. They are essential for handling situations where direct substitution might lead to indeterminate forms or undefined values, allowing mathematicians to rigorously deal with the behavior of functions at boundaries or points of discontinuity."
       },
-      'One-Sided Limits': {
+      'One Sided Limits': {
         "description":
-            """One-sided limits focus on the behavior of a function as the input approaches a specific value from one side—either from the left (x→c−x→c −) or the right (x→c+x→c +). These limits are crucial for understanding discontinuities and defining limits in cases where the function behaves differently depending on the direction of approach, such as at jump discontinuities or in piecewise-defined functions."""
+            """One Sided limits focus on the behavior of a function as the input approaches a specific value from one side—either from the left (x→c−x→c −) or the right (x→c+x→c +). These limits are crucial for understanding discontinuities and defining limits in cases where the function behaves differently depending on the direction of approach, such as at jump discontinuities or in piecewise-defined functions."""
       },
       'Limit Properties': {
         "description":
@@ -90,11 +95,11 @@ Map<String, dynamic> subjects = {
         "description":
             "Infinite limits describe the behavior of functions as they grow without bound near certain points or as inputs approach infinity. These limits can indicate vertical asymptotes when a function approaches infinity or negative infinity at finite points. They are used to understand the unbounded growth or decay of functions, which is important in fields such as physics and economics where such behavior is observed."
       },
-      'Limits at Infinity, Part I': {
+      'Limits At Infinity Part I': {
         "description":
             "Limits at infinity examine the behavior of functions as the input grows increasingly large in the positive or negative direction. This involves determining whether the function approaches a particular finite value (indicating a horizontal asymptote) or grows without bound. Understanding these limits helps in analyzing the long-term behavior of functions and is crucial in fields such as engineering and natural sciences."
       },
-      'Limits at Infinity, Part II': {
+      'Limits At Infinity Part II': {
         "description":
             "This part continues the exploration of limits at infinity, delving deeper into more complex functions and their asymptotic behaviors. It includes functions that oscillate, polynomial and rational functions, and exponential growth or decay. These advanced concepts are vital for accurately modeling and predicting long-term trends in various applications, from population growth to financial projections."
       },

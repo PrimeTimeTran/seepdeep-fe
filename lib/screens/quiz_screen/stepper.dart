@@ -47,7 +47,7 @@ class _StepperDemoState extends State<StepperDemo> {
       finishedStepBackgroundColor: Colors.greenAccent,
       steps: buildSteps(),
       onStepReached: (index) {
-        widget.setStep(index - 1);
+        widget.setStep(index);
         // setState(() => widget.activeStep = index + 1);
       },
     );

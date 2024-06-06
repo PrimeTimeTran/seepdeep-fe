@@ -3,15 +3,15 @@
     {
       "type": "",
       "body": "Given the following equations: ",
-      "equation": "\\[\\lim\\limits_{ x \\to 8 } f(x) = -9, \\lim\\limits_{ x \\to 8 } g(x) = 2, \\text{and}  \\lim\\limits_{ x \\to 8 } h(x) = 4 \\]",
+      "equation": "\\[\\lim\\limits_{ x \\to 8 } \\space f(x) = -9, \\lim\\limits_{ x \\to 8 } \\space g(x) = 2, \\text{and}  \\lim\\limits_{ x \\to 8 } h(x) = 4 \\]",
       "prompt": " use the limit properties given in this section to compute each of the following limits. If it is not possible to compute any of the limits, clearly explain why not. If it is not possible to compute the limit, clearly explain why not.",
       "evaluate": "\\[\\lim\\limits_{ x \\to 8 } [2f(x) -12h(x)] \\]",
       "followUpPrompt": "",
       "options": [
-        "$$\n\n \\lim\\limits_{x \\to 8 } [2f(x) - 12h(x)] \n$$",
-        "$$\n\n \\lim\\limits_{x \\to 8 } [3h(x) - 6] \n$$",
-        "$$\n\n \\lim\\limits_{x \\to 8 } [g(x)h(x) - f(x)] \n$$",
-        "$$\n\n \\lim\\limits_{x \\to 8 } [f(x) - g(x) +h(x) \n$$"
+        "\\[ \\lim\\limits_{x \\to 8 } [2f(x) - 12h(x)]\\]",
+        "\\[ \\lim\\limits_{x \\to 8 } [3h(x) - 6]\\]",
+        "\\[ \\lim\\limits_{x \\to 8 } [g(x)h(x) - f(x)]\\]",
+        "\\[ \\lim\\limits_{x \\to 8 } [f(x) - g(x) +h (x)]\\]"
       ],
       "answers": [-66, 6, 17, -7],
       "explanation": "Here is the work for this limit. At each step the property (or properties) used are listed and note that in some cases the properties may have been used more than once in the indicated step."

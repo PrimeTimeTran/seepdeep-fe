@@ -1,6 +1,78 @@
-
 {
   "data": [
+    {
+      "body": "On the right is the graph of $f(x)$. For each of the given points determine the value of $f(a)$, \n\n $\\lim_{x \\to a^{-}}  f(x)$, $\\lim_{x \\to a^{+}}  f(x)$, and $\\lim_{x \\to a} f(x)$.",
+      "prompt": "If any of the quantities do not exist clearly explain why.",
+      "options": [-4, -1, 2, 4],
+      "answers": [
+        [3, 3, -2, "dne"],
+        [4, 4, 4, 4],
+        [-1, -1, 5, "dne"],
+        ["dne", 2, 2, 2]
+      ],
+      "followupAnswers": [0],
+      "explanation": "",
+      "answerLabels": [
+        "\\[\\lim_{x \\to a^{-}}\\]",
+        "\\[\\lim_{x \\to a^{+}}\\]",
+        "\\[\\lim_{x \\to a}\\]"
+      ],
+      "urlImgs": [
+        "https://tutorial.math.lamar.edu/Solutions/CalcI/OneSidedLimits/OneSidedLimits_Files/image001.png"
+      ]
+    },
+    {
+      "body": "For the following equation:",
+      "equation": "\\[ f(x) = e^{8+2x-x^{3}} \\]",
+      "prompt": "Evaluate",
+      "options": [
+        "\\[\\lim_{x \\to -\\infty} f(x) \\]",
+        "\\[ \\lim_{x \\to \\infty} f(x) \\]"
+      ],
+      "answers": ["\\infty", 0],
+      "followUpAnswers": [],
+      "answerLatex": ""
+    },
+    {
+      "type": "fr",
+      "body": "For the function $f(x) = 4x^{7} - 18x^{3} + 9$ answer each of the following questions.",
+      "prompt": "Evaluate",
+      "options": [
+        "\\[\\lim_{x \\to -\\infty} f(x) \\]",
+        "\\[ \\lim_{x \\to \\infty} f(x) \\]",
+        "Write down the equation(s) of any horizontal asymptotes for the function."
+      ],
+      "answers": ["\\[-\\infty \\]", "\\[\\infty \\]"],
+      "explanation": "",
+      "followUpPrompt": "",
+      "followUpAnswers": [],
+      "followUpExplanation": ""
+    },
+    {
+      "type": "fr",
+      "body": "Given the function",
+      "prompt": "Evaluate the following limits, if they exist.",
+      "equation": "\\[f(x) = \\begin{cases} 7 - 4x & \\text{if } x < 1 \\\\ x^2 + 2 & \\text{if } x \\geq 1 \\end{cases}\\]",
+      "options": [
+        "\\[\\lim_{x \\to -6} f(x) \\]",
+        "\\[\\lim_{x \\to 1} f(x) \\]"
+      ],
+      "answers": [31, 3],
+      "followUpAnswers": [],
+      "explanation": "",
+      "followUpPrompt": "",
+      "followUpExplanation": "",
+      "answerLabels": []
+    },
+    {
+      "title": "Multi line text with embeded Latex",
+      "body": "Example:",
+      "equation": "This is inline latex: $f(x) = \\sum_{i=0}^{n} \\frac{a_i}{1+x}$\n\nThis is block level latex:\n\n$$\nc = \\pm\\sqrt{a^2 + b^2}\n$$\n\nThis is inline latex with displayMode: $$f(x) = \\sum_{i=0}^{n} \\frac{a_i}{1+x}$$ and here is a very long text that should be in the same line.\n\nThe relationship between the height and the side length of an equilateral triangle is:\n\n\\[ \\text{Height} = \\frac{\\sqrt{3}}{2} \\times \\text{Side Length} \\]\n\n\\[ \\text{X} = \\frac{1}{2} \\times \\text{Y} \\times \\text{Z} = \\frac{1}{2} \\times 9 \\times \\frac{\\sqrt{3}}{2} \\times 9 = \\frac{81\\sqrt{3}}{4} \\]\n\nThe basic form of the Taylor series is:\n\n\\[f(x) = f(a) + f'(a)(x-a) + \\frac{f''(a)}{2!}(x-a)^2 + \\frac{f'''(a)}{3!}(x-a)^3 + \\cdots\\]\n\nwhere \\(f(x)\\) is the function to be expanded, \\(a\\) is the expansion point, \\(f'(a)\\), \\(f''(a)\\), \\(f'''(a)\\), etc., are the first, second, third, and so on derivatives of the function at point \\(a\\), and \\(n!\\) denotes the factorial of \\(n\\).\n\nIn particular, when \\(a=0\\), this expansion is called the Maclaurin series.\n\n",
+      "prompt": "Evaluate the following limit",
+      "answers": [-1],
+      "followupAnswers": [],
+      "explanation": ""
+    },
     {
       "type": "fr",
       "body": "Below is the graph of f(x) . For each of the given points determine the value of  f(a)  and lim x → a f(x). If any of the quantities do not exist clearly explain why.",
@@ -17,7 +89,9 @@
       "followUpAnswers": [],
       "followUpExplanation": "",
       "answerLabels": [],
-      "urlImgs": ["https://tutorial.math.lamar.edu/Problems/CalcI/TheLimit_Files/image001.png"]
+      "urlImgs": [
+        "https://tutorial.math.lamar.edu/Problems/CalcI/TheLimit_Files/image001.png"
+      ]
     },
     {
       "type": "fr",
@@ -33,7 +107,9 @@
       "followUpAnswers": [-3],
       "followUpExplanation": "",
       "answerLabels": [],
-      "urlImgs": ["https://tutorial.math.lamar.edu/Problems/CalcI/TheLimit_Files/image001.png"]
+      "urlImgs": [
+        "https://tutorial.math.lamar.edu/Problems/CalcI/TheLimit_Files/image001.png"
+      ]
     },
     {
       "type": "mc",
@@ -41,7 +117,9 @@
       "options": ["dart", "ruby", "python", "mojo"],
       "answers": ["dart"],
       "followUpAnswers": [],
-      "urlImgs": ["https://tutorial.math.lamar.edu/Problems/CalcI/TheLimit_Files/image001.png"]
+      "urlImgs": [
+        "https://tutorial.math.lamar.edu/Problems/CalcI/TheLimit_Files/image001.png"
+      ]
     },
     {
       "type": "fr",
@@ -49,7 +127,9 @@
       "options": null,
       "answers": [16],
       "followUpAnswers": [],
-      "urlImgs": ["https://tutorial.math.lamar.edu/Problems/CalcI/TheLimit_Files/image001.png"]
+      "urlImgs": [
+        "https://tutorial.math.lamar.edu/Problems/CalcI/TheLimit_Files/image001.png"
+      ]
     },
     {
       "type": "tf",
@@ -57,7 +137,9 @@
       "options": null,
       "answers": [true],
       "followUpAnswers": [],
-      "urlImgs": ["https://tutorial.math.lamar.edu/Problems/CalcI/TheLimit_Files/image001.png"]
+      "urlImgs": [
+        "https://tutorial.math.lamar.edu/Problems/CalcI/TheLimit_Files/image001.png"
+      ]
     },
     {
       "type": "fb",
@@ -94,7 +176,7 @@
       "answers": [2, 3, 5, 7, 11, 13],
       "followUpAnswers": []
     },
-    
+
     {
       "type": "sa",
       "body": "If you invest $1000 at an annual interest rate of 5% for 2 years, how much will you have at the end? How about after 10 years?",
@@ -103,7 +185,7 @@
       "answerLabels": ["2 years", "10 years"],
       "followUpAnswers": []
     },
-    
+
     {
       "type": "fr",
       "body": "For the function $f(x) = 4(x + 1)^{2}$ and the point $P$ given by $x = -1$ answer each of the following questions.",

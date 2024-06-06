@@ -2,13 +2,27 @@
   "data": [
     {
       "type": "fr",
-      "body": "For the function $f(x) = \\frac{8-x^{3}}{x^{2}-4}$ answer each of the following questions.",
-      "prompt": "(a) Evaluate the function at the following values of  x  compute (accurate to at least 8 decimal places).",
+      "body": "Evaluate the limit if it exists",
+      "prompt": "Evaluate the limit if it exists",
+      "equation": "\\[\\lim_{x \\to 2} (8 - 3x + 12x^{2}) \\]",
       "options": [],
-      "answers": [],
+      "answers": [50],
+      "followUpAnswers": [],
       "explanation": "",
       "followUpPrompt": "",
+      "followUpExplanation": "",
+      "answerLabels": []
+    },
+    {
+      "type": "fr",
+      "body": "Given the function",
+      "prompt": "Evaluate the following limits, if they exist.",
+      "equation": "\\[f(x) = \\begin{cases} 7 - 4x & \\text{if } x < 1 \\\\ x^2 + 2 & \\text{if } x \\geq 1 \\end{cases}\\]",
+      "options": ["\\[\\lim_{x \\to -6} f(x) \\]", "\\[\\lim_{x \\to 1} f(x) \\]"],
+      "answers": [31, 3],
       "followUpAnswers": [],
+      "explanation": "",
+      "followUpPrompt": "",
       "followUpExplanation": "",
       "answerLabels": []
     }
