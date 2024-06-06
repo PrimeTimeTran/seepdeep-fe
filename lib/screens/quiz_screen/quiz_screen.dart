@@ -187,9 +187,52 @@ class _QuizScreenState extends State<QuizScreen> {
   }
 
   buildAnswerInputs(state) {
+    // Problem Types:
+
+    // Potential domains...?
+    // Arithmetic, Algebra, Geometry, Trigonometry, Statistics, Number Theory, Calculus, Word Problems, Finance
+
+    // Examples:
+    //    Multiple Choice or :mc:
+    //    Body.                 "What's Flutter primarily written in?"
+    //    Options.              [Python, Ruby, C, C++]
+    //    Answer.               Dart
+
+    //    Free Response or :fr:
+    //    Body.                 "What's 4 squared?"
+    //    Options.              null
+    //    Answer.               16
+
+    //    Checkbox or :cb:
+    //    Body.                 "Which are prime numbers?"
+    //    Options.              [1, 2, 3, 5, 7, 11, 13, 15]
+    //    Answer.               [2, 3, 5, 7, 11, 13]
+
+    //    Fill in the blank or :fb:
+    //    Body.                 "Calculus is the study of _____?"
+    //    Options.              [Math, Derivatives, Equations, Change]
+    //    Answer.               Change
+
+    //    Matching: :m:
+    //    Body.                 Match the term to it's definition.
+    //    Terms.                Asymptote, Derivative
+    //    Options/Definitions   ["a line that continually approaches a given curve but does not meet it at any finite distance.", "(of a financial product) having a value deriving from an underlying variable asset."]
+    //    Answer.               [[Asymptote, "a line that continually approaches a given curve but does not meet it at any finite distance."], [Derivative,"(of a financial product) having a value deriving from an underlying variable asset."]]
+
+    //    Short Answer or :sa:
+    //    Body.                 "If you invest $1000 at an annual interest rate of 5% for 2 years, how much will you have at the end? How about after 10 years?"
+    //    Answer.               "After 2 years, $1102.5, then $1628.89 for 10"
+
+    //    True/False or :tf:
+    //    Body.                 "Is Studying math is good for you?"
+    //    Answer.               true
+
+    // Todo:
+    // Checkbox -> Checkboxes/Toggle
+    // Multiple Choice -> Dropdown/Select
+    // 
     final problem = state.activeProblem;
     final activeAnswer = state.activeAnswer;
-    // return const SizedBox();
     // Fix:
     // Switching questions results in the inputs not updating/reverting to their previous values.
     // Gotta make controller smarter.
@@ -198,9 +241,9 @@ class _QuizScreenState extends State<QuizScreen> {
     // final answer = answers[index - 1];
 
     bool isMultiAnswer = false;
-    // if (problem.answers?[0] is List) {
-    //   isMultiAnswer = true;
-    // }
+    if (problem.answers?[0] is List) {
+      isMultiAnswer = true;
+    }
     int answerLength = activeAnswer['answers']?.length ?? 0;
     for (int i = 0; i < answerLength; i++) {
       items.add(
@@ -236,7 +279,7 @@ class _QuizScreenState extends State<QuizScreen> {
                   },
                 ),
               ),
-              if (true)
+              if (isMultiAnswer)
                 SizedBox(
                   height: 30,
                   width: 200,
@@ -287,12 +330,10 @@ class _QuizScreenState extends State<QuizScreen> {
   Widget buildFollowUpAnswers(state) {
     List<Widget> items = [];
     Map<String, dynamic> answer = state.activeAnswer;
-    // int lengthOfAnswers = answer['followUpAnswers'];
-    print('dododo ${answer['followUpAnswers']}');
-    // return const SizedBox();
+    int lengthOfAnswers = answer['followUpAnswers'].length;
     // List<TextEditingController> controllers =
     //     List.generate(lengthOfAnswers, (_) => TextEditingController());
-    for (int i = 0; i < 1; i++) {
+    for (int i = 0; i < lengthOfAnswers; i++) {
       // controllers[i].text = answer['followUpAnswers'][i] ?? '';
       items.add(
         Padding(
@@ -414,7 +455,7 @@ class _QuizScreenState extends State<QuizScreen> {
 
   buildUI(BuildContext buildContext, state) {
     final problems = state.problems;
-    final activeProblem = state.activeProblem;
+    final problem = state.activeProblem;
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
         final height = constraints.maxHeight;
@@ -463,24 +504,23 @@ class _QuizScreenState extends State<QuizScreen> {
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  buildLatexContent(activeProblem.body),
+                                  buildLatexContent(problem.body),
                                   const Gap(10),
-                                  if (activeProblem.equation != null)
-                                    buildLatexContent(activeProblem.equation),
-                                  if (activeProblem.prompt.isNotEmpty)
-                                    buildLatexContent(activeProblem.prompt),
-                                  buildOptions(activeProblem),
-                                  if (activeProblem.followUpPrompt.isNotEmpty)
-                                    buildLatexContent(
-                                        activeProblem.followUpPrompt),
+                                  if (problem.equation != null)
+                                    buildLatexContent(problem.equation),
+                                  if (problem.prompt.isNotEmpty)
+                                    buildLatexContent(problem.prompt),
+                                  buildOptions(problem),
+                                  if (problem.followUpPrompt.isNotEmpty)
+                                    buildLatexContent(problem.followUpPrompt),
                                 ],
                               ),
                             ),
                             Expanded(
                               child: Column(
                                 children: [
-                                  if (activeProblem.urlImgs != null &&
-                                      activeProblem.urlImgs.isNotEmpty)
+                                  if (problem.urlImgs != null &&
+                                      problem.urlImgs.isNotEmpty)
                                     SizedBox(
                                       height: 400,
                                       width: 600,
@@ -503,7 +543,7 @@ class _QuizScreenState extends State<QuizScreen> {
                                     buildContext,
                                     state,
                                     problems,
-                                    activeProblem,
+                                    problem,
                                   ),
                                 ],
                               ),

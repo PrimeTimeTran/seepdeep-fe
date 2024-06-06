@@ -13,6 +13,7 @@ class QuizBloc extends Bloc<QuizEvent, QuizState> {
           await _quizRepo.getQuizProblems(event.category);
       List<Map<String, dynamic>> answers = problems.map((el) {
         return {
+          'type': el.type,
           'problemId': el.id,
           'answers': List<dynamic>.generate(
             el.answers?.length ?? 0,
@@ -36,9 +37,11 @@ class QuizBloc extends Bloc<QuizEvent, QuizState> {
     on<NextButtonPress>((event, emit) {
       if (state.problemIdx + 1 == state.problems.length) return;
       int idx = state.problemIdx + 1;
+      final activeAnswer = state.answers?[idx];
       emit(
         state.copyWith(
           problemIdx: idx,
+          activeAnswer: activeAnswer,
           activeProblem: state.problems[idx],
         ),
       );
@@ -46,9 +49,11 @@ class QuizBloc extends Bloc<QuizEvent, QuizState> {
     on<PrevButtonPress>((event, emit) {
       if (state.problemIdx - 1 < 0) return;
       int idx = state.problemIdx - 1;
+      final activeAnswer = state.answers?[idx];
       emit(
         state.copyWith(
           problemIdx: idx,
+          activeAnswer: activeAnswer,
           activeProblem: state.problems[idx],
         ),
       );

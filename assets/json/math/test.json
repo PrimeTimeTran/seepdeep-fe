@@ -1,16 +1,35 @@
+
 {
   "data": [
     {
       "type": "mc",
       "body": "What's Flutter primarily written in?",
       "options": ["dart", "ruby", "python", "mojo"],
-      "answer": ["dart"]
+      "answers": ["dart"]
     },
     {
       "type": "fr",
       "body": "What's 4 squared",
       "options": null,
-      "answer": [16]
+      "answers": [16]
+    },
+    {
+      "type": "tf",
+      "body": "Is learning Calculus good for Computer Science?",
+      "options": null,
+      "answers": [true]
+    },
+    {
+      "type": "fb",
+      "body": "Calculus is the study of ____ ?",
+      "options": null,
+      "answers": ["change"]
+    },
+    {
+      "type": "fb",
+      "body": "Roses are ___, violets are ___, sugar is ____, and so are ____.",
+      "options": null,
+      "answers": ["red", "blue", "sweet", "you"]
     },
     {
       "type": "fr",
@@ -19,7 +38,7 @@
       "options": [
         -3.5, -3.1, -3.01, -3.001, -3.0001, -2.5, -2.9, -2.99, -2.999, -2.9999
       ],
-      "answer": [
+      "answers": [
         -7.5, -6.3, -6.03, -6.003, -6.0003, -4.5, -5.7, -5.97, -5.997, -5.9997
       ],
       "hint": "$mPQ = f(x) = \\frac{f(x)-f(a)}{x-a}$",
@@ -29,19 +48,7 @@
       "type": "cb",
       "body": "Which numbers are prime?",
       "options": [1, 2, 3, 5, 7, 11, 13, 15],
-      "answer": [2, 3, 5, 7, 11, 13]
-    },
-    {
-      "type": "fb",
-      "body": "Calculus is the study of ____ ?",
-      "options": null,
-      "answer": ["change"]
-    },
-    {
-      "type": "fb",
-      "body": "Roses are ___, violets are ___, sugar is ____, and so are ____.",
-      "options": null,
-      "answer": ["red", "blue", "sweet", "you"]
+      "answers": [2, 3, 5, 7, 11, 13]
     },
     {
       "type": "m",
@@ -51,7 +58,7 @@
         "The study of change",
         "The straight line that 'just touches' the curve at that point"
       ],
-      "answer": [
+      "answers": [
         ["Calculus", "The study of change"],
         [
           "Tangent Line",
@@ -62,16 +69,11 @@
     {
       "type": "sa",
       "body": "If you invest $1000 at an annual interest rate of 5% for 2 years, how much will you have at the end? How about after 10 years?",
-      "answer": [1102.5, 1628.89],
+      "answers": [1102.5, 1628.89],
       "format": "money",
       "answerLabels": ["2 years", "10 years"]
     },
-    {
-      "type": "tf",
-      "body": "Is learning Calculus good for Computer Science?",
-      "options": null,
-      "answer": [true]
-    },
+    
     {
       "type": "fr",
       "body": "For the function $f(x) = 4(x + 1)^{2}$ and the point $P$ given by $x = -1$ answer each of the following questions.",
@@ -100,6 +102,35 @@
       "followUpAnswers": [-3],
       "followUpExplanation": "",
       "answerLabels": []
+    },
+    {
+      "type": "fr",
+      "title": "The Limit",
+      "body": "For the function $f(x) = \\frac{8-x^{3}}{x^{2}-4}$ answer each of the following questions.",
+      "prompt": "(a) Evaluate the function at the following values of  x  compute (accurate to at least 8 decimal places).",
+      "options": [2.5, 2.1, 2.01, 2.001, 2.0001, 1.5, 1.9, 1.99, 1.999, 1.9999],
+      "answers": [
+        -3.38888889, -3.07560976, -3.00750623, -3.00075006, -3.000075,
+        -2.64285714, -2.92564103, -2.99250627, -2.99925006, -2.999925
+      ],
+      "explanation": "",
+      "followUpPrompt": "(b) Use the information from (a) to estimate the value of $\\lim_{x \\to 2} \\frac{8-x^{3}}{x^{2}-4} $",
+      "followUpAns": "",
+      "followUpExplanation": "",
+      "answerLabels": []
+    },
+    {
+      "type": "fr",
+      "body": "For the function $f(x) = 4(x + 1)^{2}$ and the point $P$ given by $x = -1$ answer each of the following questions.",
+      "prompt": "(a) For the points $Q$ given by the following values of $x$ compute (accurate to at least 8 decimal places) the slope, $mPQ$, of the secant line through points $P$ and $Q$.",
+      "options": [
+        -1.5, -1.1, -1.01, -1.001, -1.0001, -0.5, -0.9, -0.99, -0.999, -0.9999
+      ],
+      "answers": [
+        -8.0, -6.6, -6.04, -6.004, -6.0004, -4.0, -6.2, -6.04, -6.004, -6.0004
+      ],
+      "hint": "$mPQ = \\frac{f(x) - f(a)}{x - a}$",
+      "followUpPrompt": "(b) Use the information from (a) to estimate the slope of the tangent line to $f(x)$ at $x = -1$ and write down the equation of the tangent line."
     }
   ]
 }
