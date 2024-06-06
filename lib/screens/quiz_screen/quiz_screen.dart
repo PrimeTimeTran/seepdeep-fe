@@ -34,12 +34,106 @@ class _QuizScreenState extends State<QuizScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<QuizBloc, QuizState>(
-      builder: (context, state) {
+      builder: (buildContext, state) {
         if (state.isDone) {
-          return const Center(
-            child: Column(
-              children: [Text('Done!')],
-            ),
+          final score = state.finalScore;
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(
+                width: MediaQuery.of(context).size.width / 4,
+                child: Card.outlined(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 48,
+                      vertical: 56,
+                    ),
+                    child: Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              '# Problems:',
+                              style: Theme.of(context).textTheme.titleLarge,
+                            ),
+                            const Gap(25),
+                            Text(
+                              score['countProblems'].toString(),
+                              style: Theme.of(context).textTheme.displayLarge,
+                            ),
+                          ],
+                        ),
+                        const Gap(20),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              '# Correct:',
+                              style: Theme.of(context).textTheme.titleLarge,
+                            ),
+                            const Gap(25),
+                            Text(
+                              score['countCorrect'].toString(),
+                              style: Theme.of(context).textTheme.displayLarge,
+                            ),
+                          ],
+                        ),
+                        const Gap(20),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'Final Score:',
+                              style: Theme.of(context).textTheme.titleLarge,
+                            ),
+                            const Gap(25),
+                            Text(
+                              (score['score'] * 100).toStringAsFixed(2),
+                              style: Theme.of(context).textTheme.displayLarge,
+                            ),
+                          ],
+                        ),
+                        const Gap(50),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            SizedBox(
+                              height: 50,
+                              width: 200,
+                              child: ElevatedButton(
+                                onPressed: () {},
+                                child: const Text('View Problems'),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 50,
+                              width: 200,
+                              child: ElevatedButton(
+                                onPressed: () {
+                                  buildContext
+                                      .read<QuizBloc>()
+                                      .add(RetakeQuiz());
+                                },
+                                child: const Text('Retake'),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 50,
+                              width: 200,
+                              child: ElevatedButton(
+                                onPressed: () {},
+                                child: const Text('Next'),
+                              ),
+                            )
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ],
           );
         }
         if (state.isError) {

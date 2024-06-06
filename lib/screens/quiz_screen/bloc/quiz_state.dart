@@ -3,7 +3,6 @@ import 'package:equatable/equatable.dart';
 
 class QuizState extends Equatable {
   final bool isDone;
-  final double score;
   final bool isError;
   final List problems;
   final int problemIdx;
@@ -12,6 +11,7 @@ class QuizState extends Equatable {
   final List<Map<String, dynamic>> answers;
   final List<Map<String, dynamic>> graded;
   final Map<String, dynamic> activeAnswer;
+  final Map<String, dynamic> finalScore;
 
   QuizState({
     this.problemIdx = 0,
@@ -19,17 +19,22 @@ class QuizState extends Equatable {
     this.graded = const [],
     this.problems = const [],
     this.isChallengeMode = false,
-    this.isDone = false,
+    this.isDone = true,
     this.isError = false,
-    this.score = 0.0,
     this.activeProblem,
     Map<String, dynamic>? activeAnswer,
-  }) : activeAnswer = activeAnswer ?? {};
+    Map<String, dynamic>? finalScore,
+  })  : activeAnswer = activeAnswer ?? {},
+        finalScore = finalScore ??
+            {
+              "score": 1,
+              "countProblems": 100,
+              "countCorrect": 100,
+            };
 
   @override
   List<Object?> get props => [
         isError,
-        score,
         isDone,
         isChallengeMode,
         problemIdx,
@@ -37,7 +42,8 @@ class QuizState extends Equatable {
         answers,
         activeProblem,
         activeAnswer,
-        graded
+        graded,
+        finalScore
       ];
 
   QuizState copyWith({
@@ -49,12 +55,14 @@ class QuizState extends Equatable {
     bool? isError,
     Problem? activeProblem,
     Map<String, dynamic>? activeAnswer,
+    Map<String, dynamic>? finalScore,
     List<Map<String, dynamic>>? answers,
     List<Map<String, dynamic>>? graded,
   }) {
     return QuizState(
       activeAnswer:
           activeAnswer ?? Map<String, dynamic>.from(this.activeAnswer),
+      finalScore: finalScore ?? Map<String, dynamic>.from(this.finalScore),
       answers: answers ?? List<Map<String, dynamic>>.from(this.answers),
       graded: graded ?? List<Map<String, dynamic>>.from(this.graded),
       problems: problems ?? this.problems,
@@ -62,7 +70,6 @@ class QuizState extends Equatable {
       isChallengeMode: isChallengeMode ?? this.isChallengeMode,
       isDone: isDone ?? this.isDone,
       isError: isError ?? this.isError,
-      score: score ?? this.score,
       activeProblem: activeProblem ?? this.activeProblem,
     );
   }

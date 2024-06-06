@@ -98,39 +98,6 @@ class QuizBloc extends Bloc<QuizEvent, QuizState> {
         ),
       );
     });
-    on<FinishQuizButtonPress>((event, emit) {
-      int right = 0;
-      int totalAnswers = 0;
-      List<Map<String, dynamic>> answers = state.answers;
-      for (var i = 0; i < answers.length; i++) {
-        MathProblem problem = state.problems[i];
-        Map<String, dynamic> answer = answers[i];
-        // if (answer['isMulti']) {
-        for (int index = 0; index < answer['answers'].length; index++) {
-          final answerValue = answer['answers'][index];
-          final correct =
-              problem.answers?[index].toString() == answerValue.toString();
-          totalAnswers += 1;
-          if (correct) {
-            right += 1;
-          }
-        }
-        // } else {
-        //   final answerValue = answer['answers'][0];
-        //   final correct =
-        //       problem.answers?[0].toString() == answerValue.toString();
-        //   totalAnswers += 1;
-        //   if (correct) {
-        //     right += 1;
-        //   }
-        // }
-      }
-      final finalScore =
-          double.parse((right / totalAnswers).toStringAsFixed(2));
-      print('finalScore $finalScore');
-
-      emit(state.copyWith(isDone: true));
-    });
     on<AnswerProblem>((event, emit) {
       final updatedActiveAnswer = Map<String, dynamic>.from(state.activeAnswer);
       updatedActiveAnswer['answers'] =
@@ -163,6 +130,70 @@ class QuizBloc extends Bloc<QuizEvent, QuizState> {
         state.copyWith(
           answers: updatedAnswers,
           activeAnswer: updatedActiveAnswer,
+        ),
+      );
+    });
+    on<FinishQuizButtonPress>((event, emit) {
+      int right = 0;
+      int problemCount = 0;
+      List<Map<String, dynamic>> answers = state.answers;
+      for (var i = 0; i < answers.length; i++) {
+        MathProblem problem = state.problems[i];
+        Map<String, dynamic> answer = answers[i];
+        for (int index = 0; index < answer['answers'].length; index++) {
+          if (answer['isMulti']) {
+            answer['answers'][index].map((answerValue) {
+              final correct =
+                  problem.answers?[index].toString() == answerValue.toString();
+              problemCount += 1;
+              if (correct) {
+                right += 1;
+              }
+            });
+          } else {
+            final answerValue = answer['answers'][0];
+            final correct =
+                problem.answers?[0].toString() == answerValue.toString();
+            problemCount += 1;
+            if (correct) {
+              right += 1;
+            }
+          }
+        }
+      }
+      final finalScore =
+          double.parse((right / problemCount).toStringAsFixed(2));
+
+      Map<String, dynamic> scoreMap = {
+        'score': finalScore,
+        'countCorrect': right,
+        'countProblems': problemCount,
+      };
+      // TODO: Send score to API
+      emit(state.copyWith(isDone: true, finalScore: scoreMap));
+    });
+    on<RetakeQuiz>((event, emit) {
+      List<Map<String, dynamic>> answers = state.problems.map((el) {
+        return {
+          'type': el.type,
+          'problemId': el.id,
+          'options': el.options,
+          'isMulti': el.answers?[0] is List,
+          'answers': List<dynamic>.generate(
+            el.answers?.length ?? 0,
+            (index) => el.answers?[0] is List ? ['', ''] : '',
+          ),
+          'followUpAnswers': List<dynamic>.generate(
+            el.followUpAnswers?.length ?? 0,
+            (index) => el.followUpAnswers?[0] is List ? ['', ''] : '',
+          ),
+        };
+      }).toList();
+      emit(
+        state.copyWith(
+          isDone: false,
+          problemIdx: 0,
+          answers: answers,
         ),
       );
     });

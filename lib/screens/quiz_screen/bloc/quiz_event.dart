@@ -33,3 +33,7 @@ class QuizScreenLoad extends QuizEvent {
   String category;
   QuizScreenLoad(this.category);
 }
+
+class RetakeQuiz extends QuizEvent {
+  RetakeQuiz();
+}
