@@ -219,7 +219,7 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
                 onPressed: () =>
                     setState(() => toggleProblemTopics = !toggleProblemTopics),
                 style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(Colors.blue),
+                  backgroundColor: WidgetStateProperty.all(Colors.blue),
                 ),
               ),
             ],
@@ -243,7 +243,7 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
                 onPressed: () =>
                     setState(() => toggleProblemTopics = !toggleProblemTopics),
                 style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(Colors.blue),
+                  backgroundColor: WidgetStateProperty.all(Colors.blue),
                 ),
               ),
             ],

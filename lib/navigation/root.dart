@@ -7,7 +7,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:go_router/go_router.dart';
 
 final routerConfig = GoRouter(
-  initialLocation: '/',
+  initialLocation: '/maths',
   debugLogDiagnostics: true,
   routes: [
     StatefulShellRoute.indexedStack(
@@ -107,7 +107,6 @@ class _AppState extends State<App> {
   @override
   void initState() {
     super.initState();
-    print('Loi ${Storage.instance.token}');
     getStoredTheme();
   }
 

@@ -326,9 +326,9 @@ Future<void> dialogGetCode(BuildContext context) {
           borderRadius: BorderRadius.all(Radius.circular(2)),
         ),
       ).copyWith(
-        side: MaterialStateProperty.resolveWith<BorderSide?>(
-          (Set<MaterialState> states) {
-            if (states.contains(MaterialState.pressed)) {
+        side: WidgetStateProperty.resolveWith<BorderSide?>(
+          (Set<WidgetState> states) {
+            if (states.contains(WidgetState.pressed)) {
               return BorderSide(
                 color: Theme.of(context).colorScheme.primary,
                 width: 1,

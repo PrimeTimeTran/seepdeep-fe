@@ -35,15 +35,24 @@ class _LandingScreenState extends State<LandingScreen> {
   final GlobalKey _sectionFKey = GlobalKey();
   final GlobalKey _sectionGKey = GlobalKey();
 
+  bool light1 = true;
+  late bool _isDarkMode = false;
+
   @override
   Widget build(BuildContext context) {
-    return Builder(
-      builder: (context) {
-        return Scaffold(
-          appBar: buildNavbar(),
-          body: buildDesktop(),
-        );
-      },
+    final themeMode = _isDarkMode ? ThemeMode.dark : ThemeMode.light;
+    return MaterialApp(
+      themeMode: themeMode,
+      theme: Style.lightTheme,
+      darkTheme: Style.darkTheme,
+      home: Builder(
+        builder: (context) {
+          return Scaffold(
+            appBar: buildNavbar(),
+            body: buildDesktop(),
+          );
+        },
+      ),
     );
   }
 
@@ -64,14 +73,20 @@ class _LandingScreenState extends State<LandingScreen> {
               const Gap(20),
               Text(
                 point['title'],
-                style: Theme.of(context).textTheme.headlineLarge,
+                style: Theme.of(context)
+                    .textTheme
+                    .headlineLarge
+                    ?.copyWith(color: Theme.of(context).colorScheme.outline),
               )
             ],
           ),
           const Gap(20),
           Text(
             point['description'],
-            style: Theme.of(context).textTheme.headlineSmall,
+            style: Theme.of(context)
+                .textTheme
+                .headlineSmall
+                ?.copyWith(color: Theme.of(context).colorScheme.primary),
           ),
         ],
       ),
@@ -106,7 +121,7 @@ class _LandingScreenState extends State<LandingScreen> {
     return Container(
       key: _sectionEKey,
       height: getHeight() * .75,
-      color: Colors.grey[100],
+      color: Theme.of(context).colorScheme.surfaceContainer,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 200, vertical: 200),
         child: Column(
@@ -339,7 +354,7 @@ class _LandingScreenState extends State<LandingScreen> {
                     const Gap(10),
                     TextButton(
                       onPressed: () {
-                        launchUrl(Uri.parse('https://seepdeep.com/math'));
+                        launchUrl(Uri.parse('https://seepdeep.com/maths'));
                       },
                       child: const Text(
                         'Maths',
@@ -405,7 +420,7 @@ class _LandingScreenState extends State<LandingScreen> {
                         // launchUrl(Uri.parse('https://seepdeep.com/math'));
                       },
                       child: const Text(
-                        'Applicant Scree ',
+                        'Applicant Screener',
                       ),
                     ),
                     TextButton(
@@ -643,7 +658,7 @@ class _LandingScreenState extends State<LandingScreen> {
     return Container(
       key: _sectionBKey,
       height: getHeight(),
-      color: Colors.white,
+      color: Theme.of(context).colorScheme.surface,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 200, vertical: 200),
         child: Row(
@@ -694,6 +709,7 @@ class _LandingScreenState extends State<LandingScreen> {
 
   AppBar buildNavbar() {
     return AppBar(
+      backgroundColor: Theme.of(context).colorScheme.surfaceContainer,
       actions: [
         const Gap(150),
         IconButton(
@@ -708,37 +724,53 @@ class _LandingScreenState extends State<LandingScreen> {
         TextButton.icon(
           icon: const Icon(Icons.directions_run_rounded),
           onPressed: () => scrollToSection(_sectionBKey),
-          label: const Text('Our Mission'),
+          label: Text('Our Mission',
+              style: TextStyle(color: Theme.of(context).colorScheme.onSurface)),
         ),
         const Gap(50),
         TextButton.icon(
           icon: const Icon(Icons.directions_outlined),
           onPressed: () => scrollToSection(_sectionCKey),
-          label: const Text('Our Approach'),
+          label: Text('Our Approach',
+              style: TextStyle(color: Theme.of(context).colorScheme.onSurface)),
         ),
         const Gap(50),
         TextButton.icon(
           icon: const Icon(Icons.category_outlined),
           onPressed: () => scrollToSection(_sectionGKey),
-          label: const Text('Technologies'),
+          label: Text('Technologies',
+              style: TextStyle(color: Theme.of(context).colorScheme.onSurface)),
         ),
         const Gap(50),
         TextButton.icon(
           icon: const Icon(Icons.supervised_user_circle_outlined),
           onPressed: () => scrollToSection(_sectionDKey),
-          label: const Text('Ideal Customers'),
+          label: Text('Ideal Customers',
+              style: TextStyle(color: Theme.of(context).colorScheme.onSurface)),
         ),
         const Gap(50),
         TextButton.icon(
           icon: const Icon(Icons.business),
           onPressed: () => scrollToSection(_sectionFKey),
-          label: const Text('Partners'),
+          label: Text('Partners',
+              style: TextStyle(color: Theme.of(context).colorScheme.onSurface)),
         ),
         const Gap(50),
         TextButton.icon(
           icon: const Icon(Icons.help),
           onPressed: () => scrollToSection(_sectionEKey),
-          label: const Text('FAQs'),
+          label: Text('FAQs',
+              style: TextStyle(color: Theme.of(context).colorScheme.onSurface)),
+        ),
+        AnimatedSwitch(
+          value: light1,
+          onChanged: (bool? value) {
+            Storage.instance.setTheme();
+            setState(() {
+              _isDarkMode = !_isDarkMode;
+              light1 = value!;
+            });
+          },
         ),
         const Gap(150),
       ],
@@ -748,7 +780,7 @@ class _LandingScreenState extends State<LandingScreen> {
   Container buildPartners() {
     return Container(
       key: _sectionFKey,
-      color: Colors.white,
+      color: Theme.of(context).colorScheme.surface,
       height: getHeight() / 1.5,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -849,7 +881,6 @@ class _LandingScreenState extends State<LandingScreen> {
           width: size,
           child: u != null ? getImg(u['file'], 500, true, true) : null,
           decoration: BoxDecoration(
-              // color: Colors.blue[300]!,
               border: Border.all(),
               borderRadius: const BorderRadius.all(Radius.elliptical(20, 20))),
         ),
@@ -861,7 +892,7 @@ class _LandingScreenState extends State<LandingScreen> {
     return Container(
       key: _sectionDKey,
       height: getHeight(),
-      color: Colors.grey[100],
+      color: Theme.of(context).colorScheme.surfaceContainer,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -922,7 +953,7 @@ class _LandingScreenState extends State<LandingScreen> {
     return Container(
       key: _sectionCKey,
       height: getHeight(),
-      color: Colors.grey[100],
+      color: Theme.of(context).colorScheme.surfaceContainer,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 200),
         child: Column(
@@ -985,7 +1016,7 @@ class _LandingScreenState extends State<LandingScreen> {
   Container buildSocialProof() {
     return Container(
       height: getHeight(),
-      color: Colors.white,
+      color: Theme.of(context).colorScheme.surface,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -1039,7 +1070,7 @@ class _LandingScreenState extends State<LandingScreen> {
     return Container(
       key: _sectionGKey,
       height: getHeight(),
-      color: Colors.white,
+      color: Theme.of(context).colorScheme.surface,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

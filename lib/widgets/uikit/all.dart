@@ -30,9 +30,9 @@ class Button extends StatelessWidget {
         borderRadius: BorderRadius.all(Radius.circular(2)),
       ),
     ).copyWith(
-      side: MaterialStateProperty.resolveWith<BorderSide?>(
-        (Set<MaterialState> states) {
-          final pressed = states.contains(MaterialState.pressed);
+      side: WidgetStateProperty.resolveWith<BorderSide?>(
+        (Set<WidgetState> states) {
+          final pressed = states.contains(WidgetState.pressed);
           return pressed
               ? BorderSide(
                   color: Theme.of(context).colorScheme.primary, width: 1)
@@ -57,7 +57,7 @@ class Button extends StatelessWidget {
       return TextButtonTheme(
         data: TextButtonThemeData(
           style: prefix.flatButtonStyle.copyWith(
-              foregroundColor: MaterialStatePropertyAll(Colors.lightBlue[700])),
+              foregroundColor: WidgetStatePropertyAll(Colors.lightBlue[700])),
         ),
         child: TextButton(
           onPressed: onPress,

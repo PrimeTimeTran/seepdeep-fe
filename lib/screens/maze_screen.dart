@@ -2,8 +2,8 @@ import 'package:app/all.dart';
 import 'package:flutter/material.dart';
 
 var greenButton = const ButtonStyle(
-  foregroundColor: MaterialStatePropertyAll(Colors.white),
-  backgroundColor: MaterialStatePropertyAll(Colors.green),
+  foregroundColor: WidgetStatePropertyAll(Colors.white),
+  backgroundColor: WidgetStatePropertyAll(Colors.green),
 );
 
 class MazeScreen extends StatefulWidget {
@@ -236,8 +236,8 @@ class _MazeScreenState extends State<MazeScreen> {
             const SizedBox(height: 10),
             ElevatedButton(
               style: const ButtonStyle(
-                  foregroundColor: MaterialStatePropertyAll(Colors.white),
-                  backgroundColor: MaterialStatePropertyAll(Colors.green)),
+                  foregroundColor: WidgetStatePropertyAll(Colors.white),
+                  backgroundColor: WidgetStatePropertyAll(Colors.green)),
               onPressed: () {
                 board.instantSearch = !board.instantSearch;
               },
@@ -272,8 +272,8 @@ class _MazeScreenState extends State<MazeScreen> {
                 Expanded(
                   child: ElevatedButton(
                     style: const ButtonStyle(
-                        foregroundColor: MaterialStatePropertyAll(Colors.white),
-                        backgroundColor: MaterialStatePropertyAll(
+                        foregroundColor: WidgetStatePropertyAll(Colors.white),
+                        backgroundColor: WidgetStatePropertyAll(
                             Color.fromARGB(255, 158, 193, 254))),
                     onPressed: () {
                       dialogBuilder(context, 'Breadth First Search',
@@ -286,8 +286,8 @@ class _MazeScreenState extends State<MazeScreen> {
                 IconButton(
                   icon: const Icon(Icons.clear),
                   style: const ButtonStyle(
-                    foregroundColor: MaterialStatePropertyAll(Colors.white),
-                    backgroundColor: MaterialStatePropertyAll(Colors.redAccent),
+                    foregroundColor: WidgetStatePropertyAll(Colors.white),
+                    backgroundColor: WidgetStatePropertyAll(Colors.redAccent),
                   ),
                   onPressed: () {
                     board.reset();

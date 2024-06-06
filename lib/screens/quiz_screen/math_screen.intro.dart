@@ -97,8 +97,8 @@ class _CategoryCardState extends State<CategoryCard> {
           child: ElevatedButton(
             style: isSelected
                 ? const ButtonStyle(
-                    foregroundColor: MaterialStatePropertyAll(Colors.white),
-                    backgroundColor: MaterialStatePropertyAll(Colors.green))
+                    foregroundColor: WidgetStatePropertyAll(Colors.white),
+                    backgroundColor: WidgetStatePropertyAll(Colors.green))
                 : null,
             onPressed: () {
               String encodedSubject = Uri.encodeComponent(categoryName);

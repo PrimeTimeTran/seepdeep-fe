@@ -57,7 +57,7 @@ class _SortScreenState extends State<SortScreen>
                         onPressed: () => _sort(sortType),
                         style: const ButtonStyle(
                             backgroundColor:
-                                MaterialStatePropertyAll(Colors.green)),
+                                WidgetStatePropertyAll(Colors.green)),
                         child: const Text(
                           'Sort',
                           style: TextStyle(
@@ -98,7 +98,7 @@ class _SortScreenState extends State<SortScreen>
     if (sortType == option) {
       textStyle = const TextStyle(color: Colors.white);
       style = const ButtonStyle(
-        backgroundColor: MaterialStatePropertyAll(
+        backgroundColor: WidgetStatePropertyAll(
           Colors.green,
         ),
       );

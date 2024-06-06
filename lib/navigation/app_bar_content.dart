@@ -36,10 +36,10 @@ class AppBarContent extends StatefulWidget {
 class _AnimatedSwitchState extends State<AnimatedSwitch> {
   late bool _value;
 
-  final MaterialStateProperty<Icon?> thumbIcon =
-      MaterialStateProperty.resolveWith<Icon?>(
-    (Set<MaterialState> states) {
-      if (states.contains(MaterialState.selected)) {
+  final WidgetStateProperty<Icon?> thumbIcon =
+      WidgetStateProperty.resolveWith<Icon?>(
+    (Set<WidgetState> states) {
+      if (states.contains(WidgetState.selected)) {
         return const Icon(Icons.wb_sunny_outlined);
       }
       return const Icon(Icons.nightlight_outlined);
@@ -82,10 +82,10 @@ class _AnimatedSwitchState extends State<AnimatedSwitch> {
 class _AppBarContentState extends State<AppBarContent> {
   SampleItem? selectedItem;
 
-  final MaterialStateProperty<Icon?> thumbIcon =
-      MaterialStateProperty.resolveWith<Icon?>(
-    (Set<MaterialState> states) {
-      if (states.contains(MaterialState.selected)) {
+  final WidgetStateProperty<Icon?> thumbIcon =
+      WidgetStateProperty.resolveWith<Icon?>(
+    (Set<WidgetState> states) {
+      if (states.contains(WidgetState.selected)) {
         return const Icon(Icons.wb_sunny_outlined);
       }
       return const Icon(Icons.nightlight_outlined);
@@ -125,15 +125,6 @@ class _AppBarContentState extends State<AppBarContent> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    // AnimatedSwitch(
-                    //   value: light1,
-                    //   onChanged: (bool? value) {
-                    //     widget.toggleTheme();
-                    //     setState(() {
-                    //       light1 = value!;
-                    //     });
-                    //   },
-                    // ),
                     // TextButton.icon(
                     //   onPressed: () {
                     //     GoRouter.of(context).go('/math/test');
@@ -284,6 +275,15 @@ class _AppBarContentState extends State<AppBarContent> {
               //     GoRouter.of(context).go(AppScreens.streak.path);
               //   },
               // ),
+              AnimatedSwitch(
+                value: light1,
+                onChanged: (bool? value) {
+                  widget.toggleTheme();
+                  setState(() {
+                    light1 = value!;
+                  });
+                },
+              ),
               IconButton(
                 icon: const Icon(
                   Icons.notifications_active,
@@ -353,21 +353,21 @@ class _AppBarContentState extends State<AppBarContent> {
                     Icons.settings,
                     AppScreens.settings.path,
                   ),
-                  PopupMenuItem<SampleItem>(
-                    value: SampleItem.itemOne,
-                    child: InkWell(
-                      onTap: () {},
-                      child: AnimatedSwitch(
-                        value: light1,
-                        onChanged: (bool? value) {
-                          widget.toggleTheme();
-                          setState(() {
-                            light1 = value!;
-                          });
-                        },
-                      ),
-                    ),
-                  ),
+                  // PopupMenuItem<SampleItem>(
+                  //   value: SampleItem.itemOne,
+                  //   child: InkWell(
+                  //     onTap: () {},
+                  //     child: AnimatedSwitch(
+                  //       value: light1,
+                  //       onChanged: (bool? value) {
+                  //         widget.toggleTheme();
+                  //         setState(() {
+                  //           light1 = value!;
+                  //         });
+                  //       },
+                  //     ),
+                  //   ),
+                  // ),
                   buildMenuItem(
                     'Report Bug',
                     Icons.bug_report,
