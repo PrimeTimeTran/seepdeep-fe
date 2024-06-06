@@ -15,6 +15,9 @@ class AnswerPanel extends StatefulWidget {
 }
 
 class _AnswerPanelState extends State<AnswerPanel> {
+  String dropdownValue = '';
+  bool isTrueOrFalse = false;
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<QuizBloc, QuizState>(
@@ -119,6 +122,19 @@ class _AnswerPanelState extends State<AnswerPanel> {
   Widget buildAnswerInputs(BuildContext blocContext, QuizState state) {
     List<Widget> items = [];
     Map<String, dynamic> activeAnswer = state.activeAnswer!;
+    if (activeAnswer['type'] == 'mc') {
+      List<String> options = (state.activeAnswer!['options'] as List<dynamic>)
+          .map((item) => item.toString())
+          .toList();
+
+      return buildSelectDropdown(
+        blocContext,
+        options,
+      );
+    }
+    if (activeAnswer['type'] == 'tf') {
+      return buildTrueFalse(blocContext);
+    }
     int answerLength = activeAnswer['answers'].length;
 
     List<TextEditingController> controllers = List.generate(
@@ -174,8 +190,6 @@ class _AnswerPanelState extends State<AnswerPanel> {
     List<Widget> items = [];
     Map<String, dynamic> answer = state.activeAnswer;
     int lengthOfAnswers = answer['followUpAnswers'].length;
-    // List<TextEditingController> controllers =
-    //     List.generate(lengthOfAnswers, (_) => TextEditingController());
     for (int i = 0; i < lengthOfAnswers; i++) {
       items.add(
         Padding(
@@ -217,6 +231,51 @@ class _AnswerPanelState extends State<AnswerPanel> {
           children: items,
         ),
       ),
+    );
+  }
+
+  Widget buildSelectDropdown(BuildContext blocContext, List<dynamic> list,
+      [i = 0]) {
+    List<String> options = list.map((item) => item.toString()).toList();
+    String value;
+    if (dropdownValue != '') {
+      value = dropdownValue;
+    } else {
+      value = options.isNotEmpty ? options[0] : '';
+    }
+    return DropdownButton<String>(
+      value: value,
+      icon: const Icon(Icons.arrow_downward),
+      elevation: 16,
+      style: const TextStyle(color: Colors.deepPurple),
+      underline: Container(
+        height: 2,
+        color: Colors.deepPurpleAccent,
+      ),
+      onChanged: (String? value) {
+        blocContext.read<QuizBloc>().add(AnswerProblem(i, value!));
+        setState(() {
+          dropdownValue = value;
+        });
+      },
+      items: options.map<DropdownMenuItem<String>>((String value) {
+        return DropdownMenuItem<String>(
+          value: value,
+          child: Text(value),
+        );
+      }).toList(),
+    );
+  }
+
+  Widget buildTrueFalse(BuildContext blocContext, [i = 0]) {
+    return Switch(
+      value: isTrueOrFalse,
+      onChanged: (bool value) {
+        blocContext.read<QuizBloc>().add(AnswerProblem(i, value.toString()));
+        setState(() {
+          isTrueOrFalse = value;
+        });
+      },
     );
   }
 }

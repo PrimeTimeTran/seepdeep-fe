@@ -22,6 +22,7 @@ class QuizBloc extends Bloc<QuizEvent, QuizState> {
             el.followUpAnswers?.length ?? 0,
             (index) => el.followUpAnswers?[0] is List ? ['', ''] : '',
           ),
+          'options': el.options
         };
       }).toList();
       emit(
