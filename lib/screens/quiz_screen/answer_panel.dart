@@ -173,8 +173,8 @@ class _AnswerPanelState extends State<AnswerPanel> {
       } else {
         controllers = List.generate(
           answerLength,
-          (idx) =>
-              TextEditingController(text: activeAnswer['answers'][idx] ?? ''),
+          (idx) => TextEditingController(
+              text: activeAnswer['answers'][idx].toString()),
         );
       }
 
