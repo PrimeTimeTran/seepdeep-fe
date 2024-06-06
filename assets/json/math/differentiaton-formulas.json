@@ -1,0 +1,69 @@
+{
+  "data": [
+    {
+      "type": "fr",
+      "body": "Find the derivative of the given function.",
+      "equation": "\\[f(x) = 6x^{3} - 9x + 4\\]",
+      "prompt": "",
+      "options": [],
+      "answers": ["\\[f'(x) = 18x^{2} - 9\\]"],
+      "explanation": "",
+      "followUpPrompt": "",
+      "followUpAnswers": [],
+      "followUpExplanation": "",
+      "answerLabels": []
+    },
+    {
+      "type": "fr",
+      "body": "Find the derivative of the given function.",
+      "equation": "\\[y=2t^{4} - 10t^{2} + 13t\\]",
+      "prompt": "",
+      "options": [],
+      "answers": ["\\[ \\frac{dy}{dt} = 8t^{3} - 20t + 13 \\]"],
+      "explanation": "",
+      "followUpPrompt": "",
+      "followUpAnswers": [],
+      "followUpExplanation": "",
+      "answerLabels": []
+    },
+    {
+      "type": "fr",
+      "body": "Find the derivative of the given function.",
+      "equation": "\\[g(z) = 4z^{7} -3z^{-7} +9z\\]",
+      "prompt": "",
+      "options": [],
+      "answers": ["\\[g'(z) = 28z^{6} + 21z^{-8} + 9 \\]"],
+      "explanation": "",
+      "followUpPrompt": "",
+      "followUpAnswers": [],
+      "followUpExplanation": "",
+      "answerLabels": []
+    },
+    {
+      "type": "fr",
+      "body": "Find the derivative of the given function.",
+      "equation": "\\[h(y) = y^{-4} - 9y^{-3} + 8y^{-2} + 12\\]",
+      "prompt": "",
+      "options": [],
+      "answers": ["\\[h'(y) = -4y^{-5} + 27y^{-4} - 16y^{-3}  \\]"],
+      "explanation": "",
+      "followUpPrompt": "",
+      "followUpAnswers": [],
+      "followUpExplanation": "",
+      "answerLabels": []
+    },
+    {
+      "type": "fr",
+      "body": "Find the derivative of the given function.",
+      "equation": "\\[ y = \\sqrt{x} + 8\\sqrt[3]{x} - 2\\sqrt[4]{x} \\]",
+      "prompt": "",
+      "options": [],
+      "answers": ["\\[\\frac{dy}{dx} = \\frac{1}{2}x^{-\\frac{1}{2}} + \\frac{8}{3}x^{-\\frac{2}{3}} - \\frac{1}{2}x^{-\\frac{3}{4}}\\]"],
+      "explanation": "",
+      "followUpPrompt": "",
+      "followUpAnswers": [],
+      "followUpExplanation": "",
+      "answerLabels": []
+    }
+  ]
+}

@@ -15,7 +15,7 @@ Copy assets from assets to web/assets
 
 ### Derivative
 
-"the-definition-of-the-derivative", "interpretation-of-the-derivative-differentiation", "product-and-quotient-rule", "derivatives-of-trig-functions", "derivatives-of-exponential-and-logarithm-functions", "derivatives-of-inverse-trig-functions", "derivatives-of-hyperbolic-functions", "chain-rule", "implicit-differentiation", "related-rates", "higher-order-derivatives", "logarithmic-differentiation",
+"the-definition-of-the-derivative", "interpretation-of-the-derivative", "differentiation-formulas", "product-and-quotient-rule", "derivatives-of-trig-functions", "derivatives-of-exponential-and-logarithm-functions", "derivatives-of-inverse-trig-functions", "derivatives-of-hyperbolic-functions", "chain-rule", "implicit-differentiation", "related-rates", "higher-order-derivatives", "logarithmic-differentiation",
 
 ### Applications of Derivatives
 

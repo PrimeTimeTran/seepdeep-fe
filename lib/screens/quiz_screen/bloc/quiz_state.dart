@@ -7,7 +7,7 @@ class QuizState extends Equatable {
   final List problems;
   final int problemIdx;
   final bool isChallengeMode;
-  final Problem? activeProblem;
+  final MathProblem? activeProblem;
   final List<Map<String, dynamic>> answers;
   final List<Map<String, dynamic>> graded;
   final Map<String, dynamic> activeAnswer;
@@ -53,7 +53,7 @@ class QuizState extends Equatable {
     double? score,
     bool? isDone,
     bool? isError,
-    Problem? activeProblem,
+    MathProblem? activeProblem,
     Map<String, dynamic>? activeAnswer,
     Map<String, dynamic>? finalScore,
     List<Map<String, dynamic>>? answers,

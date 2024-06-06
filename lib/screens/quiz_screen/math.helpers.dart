@@ -11,7 +11,8 @@ final allSubjects = [
   'The Definition of the Limit',
   // Derivatives
   'The Definition of the Derivative',
-  'Interpretation of the Derivative Differentiation',
+  'Interpretation of the Derivative',
+  'Differentiation Formulas',
   'Product and Quotient Rule',
   'Derivatives of Trig Functions',
   'Derivatives of Exponential and Logarithm Functions',
@@ -148,7 +149,8 @@ Map<String, dynamic> subjects = {
     "Derivatives": {
       "subjects": [
         'The Definition of the Derivative',
-        'Interpretation of the Derivative Differentiation',
+        'Interpretation of the Derivative',
+        'Differentiation Formulas',
         'Product and Quotient Rule',
         'Derivatives of Trig Functions',
         'Derivatives of Exponential and Logarithm Functions',
@@ -164,9 +166,13 @@ Map<String, dynamic> subjects = {
         "description":
             "The derivative of a function at a point provides the rate at which the function's value changes as the input changes. It is essentially the slope of the tangent line to the function's graph at that point, representing instantaneous change. This concept is foundational in calculus, enabling the analysis of dynamic systems and rates of change in various fields such as physics, economics, and engineering."
       },
-      'Interpretation of the Derivative Differentiation': {
+      'Interpretation of the Derivative': {
         "description":
             "Differentiation formulas are rules that simplify the process of finding derivatives of functions. These formulas include the basic rules for power, product, and quotient operations on functions, among others. Understanding these formulas allows one to quickly and accurately determine the rate of change of complex functions, facilitating problem-solving in real-world applications."
+      },
+      "Differentiation Formulas": {
+        "description":
+            "Differentiation formulas are rules that simplify the process of finding derivatives of functions. These include the power rule, product rule, quotient rule, and chain rule. The power rule helps differentiate functions of the form x^n. The product rule is used for differentiating products of two functions, while the quotient rule applies to the division of two functions. The chain rule is used for differentiating composite functions. These formulas are fundamental tools in calculus, enabling efficient computation of derivatives for a wide variety of functions, which are essential for analyzing rates of change and the behavior of functions."
       },
       'Product and Quotient Rule': {
         "description":

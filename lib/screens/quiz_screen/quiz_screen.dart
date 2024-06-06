@@ -190,29 +190,23 @@ class _QuizScreenState extends State<QuizScreen> {
     );
   }
 
-  buildAnswerPreview() {
-    if (kDebugMode) {
-      return BlocBuilder<QuizBloc, QuizState>(
-        buildWhen: (previous, current) {
-          return previous.activeAnswer != current.activeAnswer;
-        },
-        builder: (blocContext, state) {
-          return Card.outlined(
-            child: Padding(
-              padding: const EdgeInsets.all(20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(state.problemIdx.toString()),
-                  Text(state.activeAnswer['answers'].toString()),
-                ],
-              ),
+  buildAnswerPreview(state) {
+    return Card.outlined(
+      child: Padding(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text('Active Answers'),
+            SizedBox(
+              height: 50,
+              width: double.infinity,
+              child: Text(state.activeAnswer['answers'][0].toString()),
             ),
-          );
-        },
-      );
-    }
-    return const SizedBox();
+          ],
+        ),
+      ),
+    );
   }
 
   buildContentBox(value, style) {
@@ -226,6 +220,35 @@ class _QuizScreenState extends State<QuizScreen> {
       child: AppText(
         text: value,
         style: style,
+      ),
+    );
+  }
+
+  buildCorrectCheck(state) {
+    final activeProblemString =
+        state.activeProblem?.answers?[0].toString().replaceAll(' ', '');
+    final activeAnswerString =
+        state.activeAnswer['answers'][0].toString().replaceAll(' ', '');
+    final isSame = activeProblemString == activeAnswerString;
+    // \[f'(x) = 18x^{2} - 9\]
+    return Card.outlined(
+      child: Padding(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('Problem Answer: $activeProblemString'),
+            Text('Active Answer: $activeAnswerString'),
+            SizedBox(
+              height: 50,
+              width: double.infinity,
+              child: Text(
+                'Same: $isSame',
+                style: TextStyle(color: isSame ? Colors.green : Colors.red),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
@@ -253,7 +276,6 @@ class _QuizScreenState extends State<QuizScreen> {
   }
 
   buildLatexContent(value) {
-    print('value $value');
     return ConstrainedBox(
       constraints: const BoxConstraints(
         minWidth: 200,
@@ -300,6 +322,46 @@ class _QuizScreenState extends State<QuizScreen> {
     return const SizedBox();
   }
 
+  buildProblemAnswer(state) {
+    return Card.outlined(
+      child: Padding(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('Problem Idx: ${state.problemIdx}'),
+            SizedBox(
+              height: 50,
+              child: buildLatex(state.activeProblem?.answers?[0].toString()),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+  buildQCPanel() {
+    if (kDebugMode) {
+      return BlocBuilder<QuizBloc, QuizState>(
+        buildWhen: (previous, current) {
+          return previous.activeAnswer != current.activeAnswer;
+        },
+        builder: (blocContext, state) {
+          return SingleChildScrollView(
+            child: Column(
+              children: [
+                buildProblemAnswer(state),
+                buildAnswerPreview(state),
+                buildCorrectCheck(state),
+              ],
+            ),
+          );
+        },
+      );
+    }
+    return const SizedBox();
+  }
+
   buildUI(BuildContext buildContext, state) {
     final problems = state.problems;
     final problem = state.activeProblem;
@@ -316,82 +378,78 @@ class _QuizScreenState extends State<QuizScreen> {
             height: height,
             child: Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Card(
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
                     children: [
-                      Row(
-                        children: [
-                          if (title.isNotEmpty)
-                            Expanded(
-                              child: Text(
-                                title,
-                                style: Style.of(
-                                  context,
-                                  'displayL',
-                                ),
-                              ),
-                            ),
-                          Expanded(
-                            child: StepperDemo(
-                              activeStep: state.problemIdx + 1,
-                              problemsLength: problems.length,
-                              setStep: (int idx) {
-                                buildContext
-                                    .read<QuizBloc>()
-                                    .add(ProblemSelectButtonPress(idx));
-                              },
+                      if (title.isNotEmpty)
+                        Expanded(
+                          child: Text(
+                            title,
+                            style: Style.of(
+                              context,
+                              'displayL',
                             ),
                           ),
-                        ],
-                      ),
+                        ),
                       Expanded(
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  buildLatexContent(problem.body),
-                                  const Gap(10),
-                                  if (problem.equation != null)
-                                    buildLatexContent(problem.equation),
-                                  if (problem.prompt.isNotEmpty)
-                                    buildLatexContent(problem.prompt),
-                                  buildOptions(problem),
-                                  if (problem.followUpPrompt.isNotEmpty)
-                                    buildLatexContent(problem.followUpPrompt),
-                                ],
-                              ),
-                            ),
-                            Expanded(
-                              child: Column(
-                                children: [
-                                  if (problem.urlImgs != null &&
-                                      problem.urlImgs.isNotEmpty)
-                                    SizedBox(
-                                      height: 400,
-                                      width: 600,
-                                      child: Image.asset(
-                                        'assets/img/graph.png',
-                                        fit: BoxFit.cover,
-                                      ),
-                                    ),
-                                  const Spacer(),
-                                  buildAnswerPreview(),
-                                  const AnswerPanel(),
-                                ],
-                              ),
-                            )
-                          ],
+                        child: StepperDemo(
+                          activeStep: state.problemIdx + 1,
+                          problemsLength: problems.length,
+                          setStep: (int idx) {
+                            buildContext
+                                .read<QuizBloc>()
+                                .add(ProblemSelectButtonPress(idx));
+                          },
                         ),
                       ),
                     ],
                   ),
-                ),
+                  Expanded(
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              buildLatexContent(problem.body),
+                              const Gap(10),
+                              if (problem.equation != null)
+                                buildLatexContent(problem.equation),
+                              if (problem.prompt.isNotEmpty)
+                                buildLatexContent(problem.prompt),
+                              buildOptions(problem),
+                              if (problem.followUpPrompt.isNotEmpty)
+                                buildLatexContent(problem.followUpPrompt),
+                              const Spacer(),
+                              buildQCPanel()
+                            ],
+                          ),
+                        ),
+                        Expanded(
+                          child: Column(
+                            children: [
+                              if (problem.urlImgs != null &&
+                                  problem.urlImgs.isNotEmpty)
+                                SizedBox(
+                                  height: 400,
+                                  width: 600,
+                                  child: Image.asset(
+                                    'assets/img/graph.png',
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              const Spacer(),
+                              const AnswerPanel(),
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ],
               ),
             ),
           ),

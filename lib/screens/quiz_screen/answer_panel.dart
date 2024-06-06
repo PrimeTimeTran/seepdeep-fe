@@ -53,7 +53,7 @@ class _AnswerPanelState extends State<AnswerPanel> {
                   children: [
                     const Gap(20),
                     SizedBox(
-                      height: 50,
+                      height: 40,
                       width: 200,
                       child: OutlinedButton.icon(
                         label: const AppText(
@@ -67,7 +67,7 @@ class _AnswerPanelState extends State<AnswerPanel> {
                     ),
                     const Gap(20),
                     SizedBox(
-                      height: 50,
+                      height: 40,
                       width: 200,
                       child: OutlinedButton.icon(
                         label: const AppText(
@@ -86,7 +86,7 @@ class _AnswerPanelState extends State<AnswerPanel> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     SizedBox(
-                      height: 50,
+                      height: 40,
                       width: 300,
                       child: OutlinedButton.icon(
                         label: const AppText(
@@ -101,7 +101,7 @@ class _AnswerPanelState extends State<AnswerPanel> {
                     const Gap(20),
                     SizedBox(
                       width: 400,
-                      height: 50,
+                      height: 40,
                       child: OutlinedButton.icon(
                         label: const AppText(
                           text: 'Submit',

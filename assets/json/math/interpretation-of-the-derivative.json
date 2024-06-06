@@ -1,0 +1,78 @@
+{
+  "data": [
+    {
+      "type": "fr",
+      "body": "Use the graph of the function, $f(x)$, estimate the value of  $f'(a)$  for the given values of $a$",
+      "equation": "",
+      "options": ["\\[a=-2\\]", "\\[a=3 \\]"],
+      "prompt": "",
+      "answers": ["\\[f'(-2) = -4\\]", "\\[f'(3) = 2\\]"],
+      "explanation": "",
+      "followUpPrompt": "",
+      "followUpAnswers": [],
+      "followUpExplanation": "",
+      "answerLabels": [],
+      "urlImgs": [
+        "https://tutorial.math.lamar.edu/Solutions/CalcI/DerivativeInterp/DerivativeInterp_Files/image001.gif"
+      ]
+    },
+    {
+      "type": "fr",
+      "body": "Answer the following questions about the function $W(z) = 4z^{2} - 9z$",
+      "equation": "",
+      "options": [
+        "Is the function increasing or decreasing at $z=-1$",
+        "Is the function increasing or decreasing at $z=2$",
+        "Does the function ever stop changing? If yes, at what value(s) of $z$ does the function stop changing?"
+      ],
+      "prompt": "Answer the following questions:",
+      "answers": ["decreasing", "increasing", "\\[z=\\frac{9}{8} \\]"],
+      "explanation": "",
+      "followUpPrompt": "",
+      "followUpAnswers": [],
+      "followUpExplanation": "",
+      "answerLabels": [],
+      "urlImgs": [
+        "https://tutorial.math.lamar.edu/Solutions/CalcI/DerivativeInterp/DerivativeInterp_Files/image001.gif"
+      ]
+    },
+    {
+      "type": "fr",
+      "body": "What is the equation of the tangent line to $f(x) = 3 - 14x$ at $x = 8$",
+      "equation": "",
+      "options": [
+        "Is the function increasing or decreasing at $z=-1$",
+        "Is the function increasing or decreasing at $z=2$",
+        "Does the function ever stop changing? If yes, at what value(s) of $z$ does the function stop changing?"
+      ],
+      "prompt": "Answer the following questions:",
+      "answers": ["\\[y = -109 - 14(x - 8) = 3 - 14x \\]"],
+      "explanation": "",
+      "followUpPrompt": "",
+      "followUpAnswers": [],
+      "followUpExplanation": "",
+      "answerLabels": [],
+      "urlImgs": [
+      ]
+    },
+    {
+      "type": "fr",
+      "body": "Suppose that the volume of water in a tank for $0 ≤ t ≤ 6$ is given by $Q(t) = 10 + 5t - t^{2}$",
+      "equation": "",
+      "options": [
+        "Is the volume of water increasing or decreasing at $t=2$",
+        "Is the volume of water increasing or decreasing at $t=6$",
+        "Does the volume of water ever stop changing? If yes, at what times(s) does the volume stop changing?"
+      ],
+      "prompt": "Answer the following questions:",
+      "answers": ["increasing", "decreasing", "\\[t=\\frac{5}{2}\\]"],
+      "explanation": "",
+      "followUpPrompt": "",
+      "followUpAnswers": [],
+      "followUpExplanation": "",
+      "answerLabels": [],
+      "urlImgs": [
+      ]
+    }
+  ]
+}
