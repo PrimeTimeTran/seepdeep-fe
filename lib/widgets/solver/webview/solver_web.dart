@@ -6,6 +6,11 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:provider/provider.dart';
+import 'package:showcaseview/showcaseview.dart';
+
+GlobalKey _one = GlobalKey();
+GlobalKey _two = GlobalKey();
+GlobalKey _three = GlobalKey();
 
 class Solver extends StatefulWidget {
   const Solver({super.key});
@@ -43,13 +48,26 @@ class _SolverState extends State<Solver> {
                     MediaQuery.of(context).padding.top -
                     kToolbarHeight,
                 child: VerticalSplitView(
-                  left: SolverSidebar(
-                    problem: problem,
-                    passing: passing,
-                    testCases: testCases,
-                    submitted: submitted,
-                    submissions: submissions,
-                    submissionStream: _submissionStreamController.stream,
+                  left: Showcase(
+                    key: _one,
+                    targetPadding: EdgeInsets.symmetric(horizontal: 20),
+                    tooltipPosition: TooltipPosition.top,
+                    description:
+                        '1. Carefully read the questions description & example inputs and ouputs.',
+                    onBarrierClick: () => debugPrint('Barrier clicked'),
+                    child: SizedBox(
+                      child: GestureDetector(
+                        onTap: () => debugPrint('menu button clicked'),
+                        child: SolverSidebar(
+                          problem: problem,
+                          passing: passing,
+                          testCases: testCases,
+                          submitted: submitted,
+                          submissions: submissions,
+                          submissionStream: _submissionStreamController.stream,
+                        ),
+                      ),
+                    ),
                   ),
                   right: buildRight(problem),
                 ),
@@ -64,14 +82,23 @@ class _SolverState extends State<Solver> {
   // TODO: Add bg color change when slider is hovered
   buildRight(Problem p) {
     return HorizontalSplitView(
-      top: Editor(
-        problem: p,
-        key: ValueKey(p),
-        onRun: (code, lang) => onRun(code, lang),
-        onType: (c, lang) => setState(() {
-          code = c;
-          selectedLang = lang;
-        }),
+      top: Showcase(
+        key: _two,
+        description:
+            '2. Once you\'re ready to give it a shot enter your code in this panel.',
+        onBarrierClick: () => debugPrint('Barrier clicked'),
+        child: GestureDetector(
+          onTap: () => debugPrint('menu button clicked'),
+          child: Editor(
+            problem: p,
+            key: ValueKey(p),
+            onRun: (code, lang) => onRun(code, lang),
+            onType: (c, lang) => setState(() {
+              code = c;
+              selectedLang = lang;
+            }),
+          ),
+        ),
       ),
       bottom: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
@@ -168,93 +195,101 @@ class _SolverState extends State<Solver> {
         testCaseViews.add(view);
       }
     }
-
-    return Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            children: [
-              Expanded(
-                flex: 3,
-                child: Row(
-                  children: [
-                    TextButton.icon(
-                        style: TextButton.styleFrom(
-                            shape: const RoundedRectangleBorder(
-                                borderRadius: BorderRadius.all(Radius.zero))),
-                        onPressed: () {},
-                        icon: const Icon(Icons.science_outlined,
-                            color: Colors.green),
-                        label: Text(
-                          'Test Cases',
-                          style: Theme.of(context).textTheme.bodySmall,
-                        )),
-                    const Gap(10),
-                    TextButton.icon(
-                      style: TextButton.styleFrom(
-                          shape: const RoundedRectangleBorder(
-                              borderRadius: BorderRadius.all(Radius.zero))),
-                      onPressed: () {},
-                      icon: processing
-                          ? const SizedBox(
-                              height: 24,
-                              width: 24,
-                              child: CircularProgressIndicator())
-                          : const Icon(Icons.keyboard_double_arrow_right,
-                              color: Colors.green),
-                      label: Text(
-                        'Test Result',
-                        style: Theme.of(context).textTheme.bodySmall,
-                      ),
-                    )
-                  ],
-                ),
-              ),
-              Expanded(
-                child: GFButtonBadge(
-                  color: Colors.green.shade600,
-                  onPressed:
-                      processing ? null : () => onRun(code, selectedLang),
-                  textStyle: const TextStyle(
-                      fontWeight: FontWeight.bold, color: Colors.white),
-                  text: processing ? "Processing" : "Run",
-                ),
-              )
-            ],
-          ),
-        ),
-        Expanded(
-          child: DefaultTabController(
-            length: testCases.isNotEmpty ? testCaseTabs.length : 3,
-            animationDuration: Duration.zero,
-            child: Scaffold(
-              appBar: AppBar(
-                flexibleSpace: TabBar(
-                  tabAlignment: TabAlignment.start,
-                  isScrollable: true,
-                  tabs: testCases.isNotEmpty
-                      ? testCaseTabs
-                      : [
-                          buildTab('Case 1', false),
-                          buildTab('Case 2', false),
-                          buildTab('Case 3', false),
-                        ],
-                ),
-              ),
-              body: TabBarView(
-                children: testCases.isNotEmpty
-                    ? testCaseViews
-                    : [
-                        const Icon(Icons.directions),
-                        const Icon(Icons.directions_transit),
-                        const Icon(Icons.directions_bike),
+    return Showcase(
+      key: _three,
+      description: '3. View the results of your code here.',
+      onBarrierClick: () => debugPrint('Barrier clicked'),
+      child: GestureDetector(
+        onTap: () => debugPrint('menu button clicked'),
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                children: [
+                  Expanded(
+                    flex: 3,
+                    child: Row(
+                      children: [
+                        TextButton.icon(
+                            style: TextButton.styleFrom(
+                                shape: const RoundedRectangleBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.zero))),
+                            onPressed: () {},
+                            icon: const Icon(Icons.science_outlined,
+                                color: Colors.green),
+                            label: Text(
+                              'Test Cases',
+                              style: Theme.of(context).textTheme.bodySmall,
+                            )),
+                        const Gap(10),
+                        TextButton.icon(
+                          style: TextButton.styleFrom(
+                              shape: const RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.all(Radius.zero))),
+                          onPressed: () {},
+                          icon: processing
+                              ? const SizedBox(
+                                  height: 24,
+                                  width: 24,
+                                  child: CircularProgressIndicator())
+                              : const Icon(Icons.keyboard_double_arrow_right,
+                                  color: Colors.green),
+                          label: Text(
+                            'Test Result',
+                            style: Theme.of(context).textTheme.bodySmall,
+                          ),
+                        )
                       ],
+                    ),
+                  ),
+                  Expanded(
+                    child: GFButtonBadge(
+                      color: Colors.green.shade600,
+                      onPressed:
+                          processing ? null : () => onRun(code, selectedLang),
+                      textStyle: const TextStyle(
+                          fontWeight: FontWeight.bold, color: Colors.white),
+                      text: processing ? "Processing" : "Run",
+                    ),
+                  )
+                ],
               ),
             ),
-          ),
+            Expanded(
+              child: DefaultTabController(
+                length: testCases.isNotEmpty ? testCaseTabs.length : 3,
+                animationDuration: Duration.zero,
+                child: Scaffold(
+                  appBar: AppBar(
+                    flexibleSpace: TabBar(
+                      tabAlignment: TabAlignment.start,
+                      isScrollable: true,
+                      tabs: testCases.isNotEmpty
+                          ? testCaseTabs
+                          : [
+                              buildTab('Case 1', false),
+                              buildTab('Case 2', false),
+                              buildTab('Case 3', false),
+                            ],
+                    ),
+                  ),
+                  body: TabBarView(
+                    children: testCases.isNotEmpty
+                        ? testCaseViews
+                        : [
+                            const Icon(Icons.directions),
+                            const Icon(Icons.directions_transit),
+                            const Icon(Icons.directions_bike),
+                          ],
+                  ),
+                ),
+              ),
+            ),
+          ],
         ),
-      ],
+      ),
     );
   }
 
@@ -294,6 +329,15 @@ class _SolverState extends State<Solver> {
   void initState() {
     super.initState();
     initializeProblem();
+    checkIntroCompleted();
+  }
+
+  checkIntroCompleted() async {
+    final items = await Storage.instance.getIntros();
+    if (!items.contains('dsa-screen-done')) {
+      WidgetsBinding.instance.addPostFrameCallback((_) =>
+          ShowCaseWidget.of(context).startShowCase([_one, _two, _three]));
+    }
   }
 
   onRun(submission, lang) {

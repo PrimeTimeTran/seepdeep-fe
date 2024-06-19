@@ -38,6 +38,9 @@ final routerConfig = GoRouter(
               if (route == '/sql') {
                 Storage.instance.setIntros('sql-screen-done');
               }
+              if (route.contains('/problem')) {
+                // Storage.instance.setIntros('dsa-screen-done');
+              }
             });
       },
       branches: routes,
