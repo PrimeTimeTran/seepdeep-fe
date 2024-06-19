@@ -35,6 +35,9 @@ final routerConfig = GoRouter(
               if (route == '/maths') {
                 Storage.instance.setIntros('math-screen-done');
               }
+              if (route == '/sql') {
+                Storage.instance.setIntros('sql-screen-done');
+              }
             });
       },
       branches: routes,

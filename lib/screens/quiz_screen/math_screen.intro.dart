@@ -206,10 +206,10 @@ class _MathIntroScreenState extends State<MathIntroScreen> {
   @override
   initState() {
     super.initState();
-    checkstuff();
+    checkIntroCompleted();
   }
 
-  checkstuff() async {
+  checkIntroCompleted() async {
     final items = await Storage.instance.getIntros();
     if (!items.contains('math-screen-done')) {
       WidgetsBinding.instance.addPostFrameCallback((_) =>

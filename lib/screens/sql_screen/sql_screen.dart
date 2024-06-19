@@ -12,9 +12,15 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart' as provider;
+import 'package:showcaseview/showcaseview.dart';
 
 import '../../database/database.dart';
 import 'sql.helpers.dart';
+
+GlobalKey _one = GlobalKey();
+GlobalKey _two = GlobalKey();
+GlobalKey _three = GlobalKey();
+GlobalKey _four = GlobalKey();
 
 class SQLScreen extends ConsumerStatefulWidget {
   const SQLScreen({super.key});
@@ -63,7 +69,21 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
                         child: SingleChildScrollView(
                           child: Column(
                             children: [
-                              LessonMarkDown(lessonContent: lessonContent)
+                              Showcase(
+                                key: _one,
+                                description:
+                                    '1. Learn SQL concepts by reading the content in this panel.',
+                                onBarrierClick: () =>
+                                    debugPrint('Barrier clicked'),
+                                child: SizedBox(
+                                  child: GestureDetector(
+                                    onTap: () =>
+                                        debugPrint('menu button clicked'),
+                                    child: LessonMarkDown(
+                                        lessonContent: lessonContent),
+                                  ),
+                                ),
+                              ),
                             ],
                           ),
                         ),
@@ -94,11 +114,20 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Editor(
-                        onRun: onRun,
-                        problem: problem,
-                        lang: Language.sql,
-                        onType: (c, l) => setState(() => code = c),
+                      Showcase(
+                        key: _four,
+                        description:
+                            '4. And lastly this panel is for writing your SQL queries.',
+                        onBarrierClick: () => debugPrint('Barrier clicked'),
+                        child: GestureDetector(
+                          onTap: () => debugPrint('menu button clicked'),
+                          child: Editor(
+                            onRun: onRun,
+                            problem: problem,
+                            lang: Language.sql,
+                            onType: (c, l) => setState(() => code = c),
+                          ),
+                        ),
                       ),
                       if (isAIProcessing)
                         const Align(
@@ -264,43 +293,54 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
     return button;
   }
 
-  Expanded buildQueryPromptPanel() {
+  buildQueryPromptPanel() {
     return Expanded(
-      flex: 2,
-      child: Card(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: ListView.separated(
-            separatorBuilder: (BuildContext context, int index) =>
-                const Divider(),
-            itemCount: lessonQueryPrompts.length,
-            itemBuilder: (BuildContext context, int index) {
-              final item = lessonQueryPrompts[index];
-              final subtitle = item['queryPromptFollowup'] != null
-                  ? Text(item['queryPromptFollowup'])
-                  : null;
+      child: Showcase(
+        key: _two,
+        description:
+            '2. Practice what you\'ve learned by writing the queries found in this panel.',
+        onBarrierClick: () => debugPrint('Barrier clicked'),
+        child: GestureDetector(
+          onTap: () => debugPrint('menu button clicked'),
+          child: Expanded(
+            flex: 2,
+            child: Card(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ListView.separated(
+                  separatorBuilder: (BuildContext context, int index) =>
+                      const Divider(),
+                  itemCount: lessonQueryPrompts.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    final item = lessonQueryPrompts[index];
+                    final subtitle = item['queryPromptFollowup'] != null
+                        ? Text(item['queryPromptFollowup'])
+                        : null;
 
-              bool isDone = answerMap['$lessonId-$index'];
-              var checkboxColor = Colors.grey;
-              var icon = Icon(Icons.check_box_outline_blank_outlined,
-                  color: Colors.red.shade400);
-              if (isDone) {
-                checkboxColor = Colors.green;
-                icon =
-                    const Icon(Icons.check_box_outlined, color: Colors.green);
-              }
+                    bool isDone = answerMap['$lessonId-$index'];
+                    var checkboxColor = Colors.grey;
+                    var icon = Icon(Icons.check_box_outline_blank_outlined,
+                        color: Colors.red.shade400);
+                    if (isDone) {
+                      checkboxColor = Colors.green;
+                      icon = const Icon(Icons.check_box_outlined,
+                          color: Colors.green);
+                    }
 
-              return ListTile(
-                titleTextStyle: Theme.of(context)
-                    .textTheme
-                    .headlineSmall
-                    ?.copyWith(color: checkboxColor),
-                style: ListTileStyle.drawer,
-                leading: icon,
-                title: Text(item['queryPrompt']),
-                subtitle: subtitle,
-              );
-            },
+                    return ListTile(
+                      titleTextStyle: Theme.of(context)
+                          .textTheme
+                          .headlineSmall
+                          ?.copyWith(color: checkboxColor),
+                      style: ListTileStyle.drawer,
+                      leading: icon,
+                      title: Text(item['queryPrompt']),
+                      subtitle: subtitle,
+                    );
+                  },
+                ),
+              ),
+            ),
           ),
         ),
       ),
@@ -309,32 +349,41 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
 
   buildQueryResultsTable() {
     if (queryResults.isNotEmpty) {
-      return SingleChildScrollView(
-        child: Column(
-          children: [
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Column(
-                children: [
-                  DataTable(
-                    columns: columnNames.map<DataColumn>((String columnName) {
-                      return DataColumn(label: Text(columnName));
-                    }).toList(),
-                    rows: queryResults.map<DataRow>((cellMap) {
-                      return DataRow(
-                        cells: columnNames.map<DataCell>((String columnName) {
-                          return DataCell(
-                            SelectableText(
-                                cellMap[columnName]?.toString() ?? ''),
+      return Showcase(
+        key: _three,
+        description: '3. The results of your query can be found here.',
+        child: GestureDetector(
+          onTap: () => debugPrint('menu button clicked'),
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Column(
+                    children: [
+                      DataTable(
+                        columns:
+                            columnNames.map<DataColumn>((String columnName) {
+                          return DataColumn(label: Text(columnName));
+                        }).toList(),
+                        rows: queryResults.map<DataRow>((cellMap) {
+                          return DataRow(
+                            cells:
+                                columnNames.map<DataCell>((String columnName) {
+                              return DataCell(
+                                SelectableText(
+                                    cellMap[columnName]?.toString() ?? ''),
+                              );
+                            }).toList(),
                           );
                         }).toList(),
-                      );
-                    }).toList(),
+                      ),
+                    ],
                   ),
-                ],
-              ),
-            )
-          ],
+                )
+              ],
+            ),
+          ),
         ),
       );
     }
@@ -521,6 +570,16 @@ select id, year, title, oscars_nominated, oscars_won from films where oscars_won
     onRun("select id, year, title from films limit 5;");
     setup();
     super.initState();
+    checkIntroCompleted();
+  }
+
+  checkIntroCompleted() async {
+    final items = await Storage.instance.getIntros();
+    if (!items.contains('sql-screen-done')) {
+      WidgetsBinding.instance.addPostFrameCallback((_) =>
+          ShowCaseWidget.of(context)
+              .startShowCase([_one, _two, _three, _four]));
+    }
   }
 
   void onRun([String? c, Language? language]) {
