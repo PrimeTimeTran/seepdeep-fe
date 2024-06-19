@@ -143,53 +143,53 @@ class _RootNavigatorState extends State<RootNavigator> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        if (!path.toString().startsWith('/problem?'))
-          SizedBox(
-            height: double.infinity,
-            child: NavigationRail(
-              useIndicator: true,
-              labelType: labelType,
-              selectedIndex: currentPageIndex,
-              destinations: const [
-                NavigationRailDestination(
-                  icon: Icon(Icons.code),
-                  label: Text('Code'),
-                ),
-                NavigationRailDestination(
-                  icon: Icon(Icons.topic),
-                  label: Text('Topics'),
-                ),
-                NavigationRailDestination(
-                  icon: Icon(Icons.sort_by_alpha),
-                  label: Text('Sorting'),
-                ),
-                NavigationRailDestination(
-                  icon: Icon(Icons.grid_on),
-                  label: Text('Matrix'),
-                ),
-                NavigationRailDestination(
-                  icon: Icon(Icons.table_chart_rounded),
-                  label: Text('SQL'),
-                ),
-              ],
-              onDestinationSelected: (int index) {
-                if (index == 0) {
-                  GoRouter.of(context).go('/problems');
-                } else if (index == 1) {
-                  openDrawer();
-                } else if (index == 2) {
-                  GoRouter.of(context).go('/sort');
-                } else if (index == 3) {
-                  GoRouter.of(context).go('/maze');
-                } else if (index == 4) {
-                  GoRouter.of(context).go('/sql');
-                }
-                setState(() {
-                  currentPageIndex = index;
-                });
-              },
-            ),
-          ),
+        // if (!path.toString().startsWith('/problem?'))
+        //   SizedBox(
+        //     height: double.infinity,
+        //     child: NavigationRail(
+        //       useIndicator: true,
+        //       labelType: labelType,
+        //       selectedIndex: currentPageIndex,
+        //       destinations: const [
+        //         NavigationRailDestination(
+        //           icon: Icon(Icons.code),
+        //           label: Text('Code'),
+        //         ),
+        //         // NavigationRailDestination(
+        //         //   icon: Icon(Icons.topic),
+        //         //   label: Text('Topics'),
+        //         // ),
+        //         NavigationRailDestination(
+        //           icon: Icon(Icons.sort_by_alpha),
+        //           label: Text('Sorting'),
+        //         ),
+        //         NavigationRailDestination(
+        //           icon: Icon(Icons.grid_on),
+        //           label: Text('Matrix'),
+        //         ),
+        //         NavigationRailDestination(
+        //           icon: Icon(Icons.table_chart_rounded),
+        //           label: Text('SQL'),
+        //         ),
+        //       ],
+        //       onDestinationSelected: (int index) {
+        //         if (index == 0) {
+        //           GoRouter.of(context).go('/problems');
+        //         } else if (index == 1) {
+        //           openDrawer();
+        //         } else if (index == 2) {
+        //           GoRouter.of(context).go('/sort');
+        //         } else if (index == 3) {
+        //           GoRouter.of(context).go('/maze');
+        //         } else if (index == 4) {
+        //           GoRouter.of(context).go('/sql');
+        //         }
+        //         setState(() {
+        //           currentPageIndex = index;
+        //         });
+        //       },
+        //     ),
+        //   ),
         Expanded(
           child: SingleChildScrollView(
             child: Column(
