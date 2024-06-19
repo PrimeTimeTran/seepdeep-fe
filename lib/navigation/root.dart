@@ -4,6 +4,7 @@ import 'package:app/all.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:showcaseview/showcaseview.dart';
 import 'package:go_router/go_router.dart';
 
 final routerConfig = GoRouter(
@@ -26,7 +27,15 @@ final routerConfig = GoRouter(
     ),
     StatefulShellRoute.indexedStack(
       builder: (context, state, shell) {
-        return App(shell: shell);
+        return ShowCaseWidget(
+            builder: (context) => App(shell: shell),
+            onFinish: () {
+              final route =
+                  GoRouter.of(context).routeInformationProvider.value.location;
+              if (route == '/maths') {
+                Storage.instance.setIntros('math-screen-done');
+              }
+            });
       },
       branches: routes,
     ),

@@ -2,8 +2,13 @@ import 'package:app/all.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
+import 'package:showcaseview/showcaseview.dart';
 
 import 'math.helpers.dart';
+
+GlobalKey _one = GlobalKey();
+GlobalKey _two = GlobalKey();
+GlobalKey _three = GlobalKey();
 
 class CategoryCard extends StatefulWidget {
   final String category;
@@ -44,10 +49,18 @@ class _CategoryCardState extends State<CategoryCard> {
               ),
             ),
             const Gap(10),
-            Wrap(
-              children: [
-                ...buildButtons(widget.category),
-              ],
+            InputDecorator(
+              decoration: InputDecoration(
+                labelText: 'Subjects',
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+              ),
+              child: Wrap(
+                children: [
+                  ...buildButtons(widget.category),
+                ],
+              ),
             ),
             const Gap(10),
             Text(
@@ -62,9 +75,34 @@ class _CategoryCardState extends State<CategoryCard> {
                   width: 500,
                   height: 50,
                   child: ElevatedButton.icon(
-                    icon: const Icon(Icons.track_changes_outlined),
-                    label: Text('Practice: $selectedSubjectTitle'),
+                    style: selectedSubjectTitle != ''
+                        ? ButtonStyle(
+                            backgroundColor: WidgetStateProperty.all(
+                              Colors.green,
+                            ),
+                          )
+                        : null,
+                    icon: Icon(Icons.track_changes_outlined,
+                        color: Theme.of(context).colorScheme.primary),
+                    label: Showcase(
+                      key: _three,
+                      description:
+                          'Once you\'re ready you can practice exercises here.',
+                      onBarrierClick: () => debugPrint('Barrier clicked'),
+                      child: Text('Practice: $selectedSubjectTitle',
+                          style: selectedSubjectTitle != ''
+                              ? const TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                )
+                              : null),
+                    ),
                     onPressed: () {
+                      if (selectedSubjectTitle == '') {
+                        Glob.showSnack(
+                            'Select a subject then you can practice by pressing the green button.');
+                        return;
+                      }
                       String encodedSubject =
                           Uri.encodeComponent(selectedSubject);
                       String navigationUrl = '/math/$encodedSubject';
@@ -91,31 +129,66 @@ class _CategoryCardState extends State<CategoryCard> {
           .replaceAll(',', '')
           .toLowerCase();
       bool isSelected = categoryName == selectedSubject;
-      vals.add(
-        Padding(
-          padding: const EdgeInsets.all(10),
-          child: ElevatedButton(
-            style: isSelected
-                ? const ButtonStyle(
-                    foregroundColor: WidgetStatePropertyAll(Colors.white),
-                    backgroundColor: WidgetStatePropertyAll(Colors.green))
-                : null,
-            onPressed: () {
-              String encodedSubject = Uri.encodeComponent(categoryName);
-              String navigationUrl = '/math/$encodedSubject';
-              // String navigationUrl = '/math/test';
-              // String navigationUrl = '/math/test-latex';
-              GoRouter.of(context).go(navigationUrl);
-              setState(() {
-                selectedSubjectTitle = name;
-                selectedSubject = categoryName;
-                content = subjects['calculus'][domain][name]['description'];
-              });
-            },
-            child: Text(name),
+      if (domain == 'Limits' && i == 1) {
+        vals.add(Showcase(
+          key: _two,
+          description:
+              'Select from a concept\'s subjects to see it\'s description before practicing it with exercises.',
+          onBarrierClick: () => debugPrint('Barrier clicked'),
+          child: GestureDetector(
+            onTap: () => debugPrint('menu button clicked'),
+            child: Padding(
+              padding: const EdgeInsets.all(10),
+              child: ElevatedButton(
+                style: isSelected
+                    ? const ButtonStyle(
+                        foregroundColor: WidgetStatePropertyAll(Colors.white),
+                        backgroundColor: WidgetStatePropertyAll(Colors.green))
+                    : null,
+                onPressed: () {
+                  String encodedSubject = Uri.encodeComponent(categoryName);
+                  String navigationUrl = '/math/$encodedSubject';
+                  // GoRouter.of(context).go(navigationUrl);
+                  // String navigationUrl = '/math/test';
+                  // String navigationUrl = '/math/test-latex';
+                  setState(() {
+                    selectedSubjectTitle = name;
+                    selectedSubject = categoryName;
+                    content = subjects['calculus'][domain][name]['description'];
+                  });
+                },
+                child: Text(name),
+              ),
+            ),
           ),
-        ),
-      );
+        ));
+      } else {
+        vals.add(
+          Padding(
+            padding: const EdgeInsets.all(10),
+            child: ElevatedButton(
+              style: isSelected
+                  ? const ButtonStyle(
+                      foregroundColor: WidgetStatePropertyAll(Colors.white),
+                      backgroundColor: WidgetStatePropertyAll(Colors.green))
+                  : null,
+              onPressed: () {
+                String encodedSubject = Uri.encodeComponent(categoryName);
+                String navigationUrl = '/math/$encodedSubject';
+                // GoRouter.of(context).go(navigationUrl);
+                // String navigationUrl = '/math/test';
+                // String navigationUrl = '/math/test-latex';
+                setState(() {
+                  selectedSubjectTitle = name;
+                  selectedSubject = categoryName;
+                  content = subjects['calculus'][domain][name]['description'];
+                });
+              },
+              child: Text(name),
+            ),
+          ),
+        );
+      }
     }
     return vals.toList();
   }
@@ -131,53 +204,94 @@ class _CategoryCardState extends State<CategoryCard> {
 
 class _MathIntroScreenState extends State<MathIntroScreen> {
   @override
+  initState() {
+    super.initState();
+    checkstuff();
+  }
+
+  checkstuff() async {
+    final items = await Storage.instance.getIntros();
+    if (!items.contains('math-screen-done')) {
+      WidgetsBinding.instance.addPostFrameCallback((_) =>
+          ShowCaseWidget.of(context).startShowCase([_one, _two, _three]));
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 50),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Expanded(
-                  child: Text(
-                    'Calculus',
-                    style: Style.of(
-                      context,
-                      'displayL',
+    return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          dialogBuilder(
+            context,
+            'Maths Screen',
+            'Start developing your skills at higher level mathematics with us today.\nChoose a topic that sounds interesting, read the description below,\nand then dive into some examples with practice!',
+          );
+        },
+        child: const Icon(Icons.help),
+      ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 50),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                      'Calculus',
+                      style: Style.of(
+                        context,
+                        'displayL',
+                      ),
                     ),
                   ),
-                ),
-              ],
-            ),
-            const Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                CategoryCard(
-                  category: 'Limits',
-                ),
-                Gap(50),
-                CategoryCard(
-                  category: 'Derivatives',
-                ),
-                Gap(50),
-                CategoryCard(
-                  category: 'Applications of Derivatives',
-                ),
-                Gap(50),
-                CategoryCard(
-                  category: 'Integrals',
-                ),
-                Gap(50),
-                CategoryCard(
-                  category: 'Applications of Integrals',
-                ),
-              ],
-            )
-          ],
+                ],
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Showcase(
+                    key: _one,
+                    description:
+                        'Concept Cards organize the major subjects of a course. Brief descriptions of each subject are presented below the list as well. Click on any topic to see it\'s description. \'.',
+                    onBarrierClick: () => debugPrint('Barrier clicked'),
+                    child: GestureDetector(
+                      onTap: () => debugPrint('menu button clicked'),
+                      child: CategoryCard(
+                        category: 'Limits',
+                      ),
+                    ),
+                  ),
+                  Gap(50),
+                  CategoryCard(
+                    category: 'Derivatives',
+                  ),
+                  Gap(50),
+                  CategoryCard(
+                    category: 'Applications of Derivatives',
+                  ),
+                  Gap(50),
+                  CategoryCard(
+                    category: 'Integrals',
+                  ),
+                  Gap(50),
+                  CategoryCard(
+                    category: 'Applications of Integrals',
+                  ),
+                ],
+              )
+            ],
+          ),
         ),
       ),
     );
+    // return ShowCaseWidget(
+    //   onFinish: () {
+    //     Storage.instance.setIntros('math-screen-done');
+    //   },
+    //   builder: (context) => ,
+    // );
   }
 }

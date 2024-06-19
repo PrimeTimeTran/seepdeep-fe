@@ -29,6 +29,11 @@ class Storage {
     return prefs.getBool('introSqlHide') ?? false;
   }
 
+  Future<List<String>> getIntros() async {
+    final prefs = await _prefs;
+    return prefs.getStringList('intros') ?? [''];
+  }
+
   Future<int?> getSQLLesson() async {
     final prefs = await _prefs;
     return prefs.getInt('sql-lessonId');
@@ -56,6 +61,11 @@ class Storage {
   Future<void> setSqlIntroHide() async {
     final prefs = await _prefs;
     await prefs.setBool('introSqlHide', true);
+  }
+
+  Future<void> setIntros(flag) async {
+    final prefs = await _prefs;
+    prefs.setStringList('intros', [flag]);
   }
 
   Future<void> setSqlStep(int step) async {

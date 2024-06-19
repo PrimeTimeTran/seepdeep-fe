@@ -15,7 +15,7 @@ import 'package:seo/seo.dart';
 import 'package:url_strategy/url_strategy.dart';
 
 void main() async {
-  debugPaintSizeEnabled = false; // Enable visual debugging
+  debugPaintSizeEnabled = false;
 
   WidgetsFlutterBinding.ensureInitialized();
   Gemini.init(
