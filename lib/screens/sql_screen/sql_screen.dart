@@ -295,15 +295,15 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
 
   buildQueryPromptPanel() {
     return Expanded(
+      flex: 2,
       child: Showcase(
         key: _two,
         description:
             '2. Practice what you\'ve learned by writing the queries found in this panel.',
         onBarrierClick: () => debugPrint('Barrier clicked'),
-        child: GestureDetector(
-          onTap: () => debugPrint('menu button clicked'),
-          child: Expanded(
-            flex: 2,
+        child: SizedBox(
+          child: GestureDetector(
+            onTap: () => debugPrint('menu button clicked'),
             child: Card(
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
