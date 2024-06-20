@@ -146,6 +146,11 @@ final routes = [
         name: AppScreens.test.name,
         builder: (_, __) => const TestScreen(),
       ),
+      GoRoute(
+        path: AppScreens.home.path,
+        name: AppScreens.home.name,
+        builder: (_, __) => const HomeScreen(),
+      ),
     ],
   )
 ];
@@ -300,7 +305,7 @@ extension AppPageX on AppScreens {
       case AppScreens.test:
         return '/test';
       default:
-        return '/';
+        return '/home';
     }
   }
 }
