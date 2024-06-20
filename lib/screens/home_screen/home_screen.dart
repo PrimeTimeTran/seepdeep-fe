@@ -8,14 +8,14 @@ final cards = [
   CourseCard(
     'Calculus',
     '0',
-    'https://picsum.photos/250?image=9',
+    'assets/img/SVG/calculus.svg',
     '1. Find your next adventure and get started by clicking here.',
     _one,
   ),
   CourseCard(
     'Data Structures & Algorithms',
     '0',
-    'https://picsum.photos/250?image=9',
+    'assets/img/SVG/dsa.svg',
     '',
     _two,
   ),
@@ -113,7 +113,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       // - Decimal 2
                       // - Minify: true
                       child: SvgPicture.asset(
-                        'assets/img/SVG/calculus.svg',
+                        card.imgUrl,
                         height: 400,
                         width: 600,
                       ),

@@ -1,5 +1,8 @@
-/alpha/*    https://seepdeep-api-dev-7d6537ynfa-uc.a.run.app/  200
-/forum/*    https://seepdeep-api-dev-7d6537ynfa-uc.a.run.app/forum  200
-/example/*    https://seepdeep-api-dev-7d6537ynfa-uc.a.run.app/example  200
+/forum/*     https://seepdeep-api-dev-7d6537ynfa-uc.a.run.app/forum/:splat   200
+/example/*   https://seepdeep-api-dev-7d6537ynfa-uc.a.run.app/example/:splat 200
 
-/*    /index.html   200;
+/articles  https://seepdeep-api-dev-7d6537ynfa-uc.a.run.app/articles 200
+/articles/*  https://seepdeep-api-dev-7d6537ynfa-uc.a.run.app/articles/:splat 200
+
+# SPA fallback for all other routes
+/*    /index.html   200
