@@ -1,4 +1,21 @@
 [build]
   base = "/"
   publish = "build/web"
-  command = "if cd flutter; then git pull && cd ..; else git clone https://github.com/flutter/flutter.git; fi && flutter/bin/flutter pub get && flutter/bin/flutter pub run build_runner build --delete-conflicting-outputs && ./scripts/fix-dependency.sh && flutter/bin/flutter config --enable-web && flutter/bin/flutter build web --release --dart-define=FLUTTER_BASE_HREF='https://seepdeep.com'"
+  command = "if cd flutter; then git pull && cd ..; else git clone https://github.com/flutter/flutter.git; fi && flutter/bin/flutter pub get && flutter/bin/flutter pub run build_runner build --delete-conflicting-outputs && ./scripts/fix-dependency.sh && flutter/bin/flutter config --enable-web && flutter/bin/flutter build web --release --dart-define=FLUTTER_BASE_HREF='https://www.seepdeep.com' --dart-define=GEMINI_API_KEY='AIzaSyCOGROpRV464KETrdF7Ka8u07so9PmqfRY' --dart-define=API_URL='https://seepdeep-api-dev-7d6537ynfa-uc.a.run.app/api/'"
+
+[[redirects]]
+  from = "/articles"
+  to = "https://seepdeep-api-dev-7d6537ynfa-uc.a.run.app/articles"
+  status = 200
+  force = true # COMMENT: ensure that we always redirect
+  headers = {X-From = "Netlify"}
+  signed = "API_SIGNATURE_TOKEN"
+
+[[redirects]]
+  from = "/articles/*"
+  to = "https://seepdeep-api-dev-7d6537ynfa-uc.a.run.app/articles/:splat"
+  status = 200
+  force = true # ensure that we always redirect
+  headers = {X-From = "Netlify"}
+  signed = "API_SIGNATURE_TOKEN"
+
