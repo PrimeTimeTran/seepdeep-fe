@@ -233,12 +233,7 @@ class _MasteryScreenState extends State<MasteryScreen> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              // SvgPicture.asset(
-                              //   'assets/icons/the-limit.svg',
-                              //   height: 100,
-                              //   width: 100,
-                              //   color: Colors.red,
-                              // ),
+                              
                               // SvgPicture.asset(
                               //   'assets/icons/tangent-line.svg',
                               //   height: 100,

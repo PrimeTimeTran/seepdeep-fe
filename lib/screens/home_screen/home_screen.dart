@@ -1,5 +1,6 @@
 import 'package:app/all.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:showcaseview/showcaseview.dart';
 
@@ -51,9 +52,31 @@ class _HomeScreenState extends State<HomeScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                buildCourseCard(context, cards[0]),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Pick up Where your left off',
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                            fontWeight: FontWeight.bold,
+                          ),
+                    ),
+                    buildCourseCard(context, cards[0]),
+                  ],
+                ),
                 const Gap(20),
-                buildCourseCard(context, cards[1]),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // Text(
+                    //   'Pick up Where your left off',
+                    //   style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                    //         fontWeight: FontWeight.bold,
+                    //       ),
+                    // ),
+                    buildCourseCard(context, cards[1]),
+                  ],
+                ),
               ],
             ),
           ],
@@ -78,16 +101,21 @@ class _HomeScreenState extends State<HomeScreen> {
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Text(
-                      'Pick up Where your left off',
-                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                            fontWeight: FontWeight.bold,
-                          ),
-                    ),
                     Align(
                       alignment: Alignment.centerLeft,
-                      child: Image.network(
-                        card.imgUrl,
+                      // Illustrator Export Settings
+                      // Export as > Use ArtBoards
+                      // SVG Options:
+                      // - Styling: Inline Styles
+                      // - Font: SVG
+                      // - Images: Preserve
+                      // - Object IDs: Layer Names
+                      // - Decimal 2
+                      // - Minify: true
+                      child: SvgPicture.asset(
+                        'assets/img/SVG/calculus.svg',
+                        height: 400,
+                        width: 600,
                       ),
                     ),
                     ListTile(
