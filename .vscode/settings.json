@@ -10,14 +10,15 @@
     // ".dart_tool": true,
     // ".git": true,
     // ".netlify": true,
-    // "analysis_options.yaml": true,
     // "android": true,
     // "build": true,
-    // "devtools_options.yaml": true,
     // "drift_schemas": true,
     // "ios": true,
     // "macos": true,
-    // "tool": true
+    // "analysis_options.yaml": true,
+    // "devtools_options.yaml": true,
+    // "cors.json": true,
+    // "package-lock.json": true,
   },
   "workbench.colorCustomizations": {
     "titleBar.activeBackground": "#41b883",

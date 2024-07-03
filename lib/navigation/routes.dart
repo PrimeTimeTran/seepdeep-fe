@@ -21,9 +21,9 @@ final routes = [
         builder: (_, __) => const ProblemsScreen(),
       ),
       GoRoute(
-        path: '${AppScreens.problem.path}/:name',
-        name: AppScreens.problem.name,
-        builder: (_, __) => const ProblemScreen(),
+        path: '${AppScreens.dsa.path}/:name',
+        name: AppScreens.dsa.name,
+        builder: (_, __) => const DSAScreen(),
       ),
       GoRoute(
         path: AppScreens.sort.path,
@@ -157,7 +157,7 @@ final routes = [
 
 enum AppScreens {
   landing,
-  problem,
+  dsa,
   problems,
   sort,
   sql,
@@ -191,8 +191,8 @@ extension AppPageX on AppScreens {
     switch (this) {
       case AppScreens.problems:
         return 'PROBLEMS';
-      case AppScreens.problem:
-        return 'PROBLEM';
+      case AppScreens.dsa:
+        return 'DATA_STRUCTURE_ALGORITHMS';
       case AppScreens.explore:
         return 'EXPLORE';
       case AppScreens.leaderboards:
@@ -254,7 +254,7 @@ extension AppPageX on AppScreens {
         return '/';
       case AppScreens.problems:
         return '/problems';
-      case AppScreens.problem:
+      case AppScreens.dsa:
         return '/problem';
       case AppScreens.explore:
         return '/explore';

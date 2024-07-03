@@ -9,8 +9,8 @@ import 'package:provider/provider.dart';
 import 'package:showcaseview/showcaseview.dart';
 
 GlobalKey _one = GlobalKey();
-GlobalKey _two = GlobalKey();
 GlobalKey _three = GlobalKey();
+GlobalKey _two = GlobalKey();
 
 class Solver extends StatefulWidget {
   const Solver({super.key});
@@ -50,7 +50,7 @@ class _SolverState extends State<Solver> {
                 child: VerticalSplitView(
                   left: Showcase(
                     key: _one,
-                    targetPadding: EdgeInsets.symmetric(horizontal: 20),
+                    targetPadding: const EdgeInsets.symmetric(horizontal: 20),
                     tooltipPosition: TooltipPosition.top,
                     description:
                         '1. Carefully read the questions description & example inputs and ouputs.',
@@ -307,6 +307,14 @@ class _SolverState extends State<Solver> {
     );
   }
 
+  checkIntroCompleted() async {
+    final items = await Storage.instance.getIntros();
+    if (!items.contains('dsa-screen-done')) {
+      WidgetsBinding.instance.addPostFrameCallback((_) =>
+          ShowCaseWidget.of(context).startShowCase([_one, _two, _three]));
+    }
+  }
+
   @override
   void dispose() {
     _submissionStreamController.close();
@@ -330,14 +338,6 @@ class _SolverState extends State<Solver> {
     super.initState();
     initializeProblem();
     checkIntroCompleted();
-  }
-
-  checkIntroCompleted() async {
-    final items = await Storage.instance.getIntros();
-    if (!items.contains('dsa-screen-done')) {
-      WidgetsBinding.instance.addPostFrameCallback((_) =>
-          ShowCaseWidget.of(context).startShowCase([_one, _two, _three]));
-    }
   }
 
   onRun(submission, lang) {

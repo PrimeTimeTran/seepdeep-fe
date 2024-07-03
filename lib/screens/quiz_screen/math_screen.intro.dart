@@ -7,8 +7,8 @@ import 'package:showcaseview/showcaseview.dart';
 import 'math.helpers.dart';
 
 GlobalKey _one = GlobalKey();
-GlobalKey _two = GlobalKey();
 GlobalKey _three = GlobalKey();
+GlobalKey _two = GlobalKey();
 
 class CategoryCard extends StatefulWidget {
   final String category;
@@ -71,43 +71,43 @@ class _CategoryCardState extends State<CategoryCard> {
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
-                SizedBox(
-                  width: 500,
-                  height: 50,
-                  child: ElevatedButton.icon(
-                    style: selectedSubjectTitle != ''
-                        ? ButtonStyle(
-                            backgroundColor: WidgetStateProperty.all(
-                              Colors.green,
-                            ),
-                          )
-                        : null,
-                    icon: Icon(Icons.track_changes_outlined,
-                        color: Theme.of(context).colorScheme.primary),
-                    label: Showcase(
-                      key: _three,
-                      description:
-                          'Once you\'re ready you can practice exercises here.',
-                      onBarrierClick: () => debugPrint('Barrier clicked'),
-                      child: Text('Practice: $selectedSubjectTitle',
+                Showcase(
+                  key: _three,
+                  description:
+                      'Once you\'re ready you can practice exercises here.',
+                  onBarrierClick: () => debugPrint('Barrier clicked'),
+                  child: SizedBox(
+                    width: 500,
+                    height: 50,
+                    child: ElevatedButton.icon(
+                      style: selectedSubjectTitle != ''
+                          ? ButtonStyle(
+                              backgroundColor: WidgetStateProperty.all(
+                                Colors.green,
+                              ),
+                            )
+                          : null,
+                      icon: Icon(Icons.track_changes_outlined,
+                          color: Theme.of(context).colorScheme.primary),
+                      label: Text('Practice: $selectedSubjectTitle',
                           style: selectedSubjectTitle != ''
                               ? const TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,
                                 )
                               : null),
+                      onPressed: () {
+                        if (selectedSubjectTitle == '') {
+                          Glob.showSnack(
+                              'Select a subject then you can practice by pressing the green button.');
+                          return;
+                        }
+                        String encodedSubject =
+                            Uri.encodeComponent(selectedSubject);
+                        String navigationUrl = '/math/$encodedSubject';
+                        GoRouter.of(context).go(navigationUrl);
+                      },
                     ),
-                    onPressed: () {
-                      if (selectedSubjectTitle == '') {
-                        Glob.showSnack(
-                            'Select a subject then you can practice by pressing the green button.');
-                        return;
-                      }
-                      String encodedSubject =
-                          Uri.encodeComponent(selectedSubject);
-                      String navigationUrl = '/math/$encodedSubject';
-                      GoRouter.of(context).go(navigationUrl);
-                    },
                   ),
                 )
               ],
@@ -204,20 +204,6 @@ class _CategoryCardState extends State<CategoryCard> {
 
 class _MathIntroScreenState extends State<MathIntroScreen> {
   @override
-  initState() {
-    super.initState();
-    checkIntroCompleted();
-  }
-
-  checkIntroCompleted() async {
-    final items = await Storage.instance.getIntros();
-    if (!items.contains('math-screen-done')) {
-      WidgetsBinding.instance.addPostFrameCallback((_) =>
-          ShowCaseWidget.of(context).startShowCase([_one, _two, _three]));
-    }
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
@@ -259,25 +245,25 @@ class _MathIntroScreenState extends State<MathIntroScreen> {
                     onBarrierClick: () => debugPrint('Barrier clicked'),
                     child: GestureDetector(
                       onTap: () => debugPrint('menu button clicked'),
-                      child: CategoryCard(
+                      child: const CategoryCard(
                         category: 'Limits',
                       ),
                     ),
                   ),
-                  Gap(50),
-                  CategoryCard(
+                  const Gap(50),
+                  const CategoryCard(
                     category: 'Derivatives',
                   ),
-                  Gap(50),
-                  CategoryCard(
+                  const Gap(50),
+                  const CategoryCard(
                     category: 'Applications of Derivatives',
                   ),
-                  Gap(50),
-                  CategoryCard(
+                  const Gap(50),
+                  const CategoryCard(
                     category: 'Integrals',
                   ),
-                  Gap(50),
-                  CategoryCard(
+                  const Gap(50),
+                  const CategoryCard(
                     category: 'Applications of Integrals',
                   ),
                 ],
@@ -287,11 +273,19 @@ class _MathIntroScreenState extends State<MathIntroScreen> {
         ),
       ),
     );
-    // return ShowCaseWidget(
-    //   onFinish: () {
-    //     Storage.instance.setIntros('math-screen-done');
-    //   },
-    //   builder: (context) => ,
-    // );
+  }
+
+  checkIntroCompleted() async {
+    final items = await Storage.instance.getIntros();
+    if (!items.contains('math-screen-done')) {
+      WidgetsBinding.instance.addPostFrameCallback((_) =>
+          ShowCaseWidget.of(context).startShowCase([_one, _two, _three]));
+    }
+  }
+
+  @override
+  initState() {
+    super.initState();
+    checkIntroCompleted();
   }
 }

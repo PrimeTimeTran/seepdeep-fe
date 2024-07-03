@@ -1,15 +1,14 @@
-import http.server
-import json
 import os
-from openai import OpenAI
 import time
+import json
+import http.server
+from openai import OpenAI
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 
 key = os.environ.get("OPENAI_API_KEY")
 
-client = OpenAI(
-    api_key=key)
+client = OpenAI(api_key=key)
 
 def stream_audio(text):
     audio_dir = './audios'
@@ -28,7 +27,6 @@ def stream_audio(text):
             for chunk in response.iter_bytes():
                 audio_file.write(chunk)
                 yield chunk
-
 
 class JSONHandler(http.server.BaseHTTPRequestHandler):
     def do_OPTIONS(self):
@@ -53,7 +51,6 @@ class JSONHandler(http.server.BaseHTTPRequestHandler):
         except Exception as e:
             self.send_error(500, f'Internal Server Error: {str(e)}')
 
-
 def run(server_class=http.server.HTTPServer, handler_class=JSONHandler, port=8080):
     global server_process
     server_address = ('', port)
@@ -65,7 +62,6 @@ def run(server_class=http.server.HTTPServer, handler_class=JSONHandler, port=808
     except KeyboardInterrupt:
         httpd.server_close()
         print("Server stopped.")
-
 
 if __name__ == "__main__":
     run()

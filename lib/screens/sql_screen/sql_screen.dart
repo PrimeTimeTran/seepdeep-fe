@@ -17,10 +17,10 @@ import 'package:showcaseview/showcaseview.dart';
 import '../../database/database.dart';
 import 'sql.helpers.dart';
 
-GlobalKey _one = GlobalKey();
-GlobalKey _two = GlobalKey();
-GlobalKey _three = GlobalKey();
 GlobalKey _four = GlobalKey();
+GlobalKey _one = GlobalKey();
+GlobalKey _three = GlobalKey();
+GlobalKey _two = GlobalKey();
 
 class SQLScreen extends ConsumerStatefulWidget {
   const SQLScreen({super.key});
@@ -55,7 +55,7 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
         return Row(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            const Modal(type: GiffyType.rive, title: '', content: Gap(1)),
+            // const Modal(type: GiffyType.rive, title: '', content: Gap(1)),
             Expanded(
               child: ScrollConfiguration(
                 behavior:
@@ -452,6 +452,15 @@ select id, year, title, oscars_nominated, oscars_won from films where oscars_won
     });
   }
 
+  checkIntroCompleted() async {
+    final items = await Storage.instance.getIntros();
+    if (!items.contains('sql-screen-done')) {
+      WidgetsBinding.instance.addPostFrameCallback((_) =>
+          ShowCaseWidget.of(context)
+              .startShowCase([_one, _two, _three, _four]));
+    }
+  }
+
   Future<void> getAIHelp(content) async {
     try {
       final headers = <String, String>{};
@@ -571,15 +580,6 @@ select id, year, title, oscars_nominated, oscars_won from films where oscars_won
     setup();
     super.initState();
     checkIntroCompleted();
-  }
-
-  checkIntroCompleted() async {
-    final items = await Storage.instance.getIntros();
-    if (!items.contains('sql-screen-done')) {
-      WidgetsBinding.instance.addPostFrameCallback((_) =>
-          ShowCaseWidget.of(context)
-              .startShowCase([_one, _two, _three, _four]));
-    }
   }
 
   void onRun([String? c, Language? language]) {

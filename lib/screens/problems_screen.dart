@@ -2,12 +2,12 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:app/all.dart';
-import 'package:filter_list/filter_list.dart';
+import 'package:gap/gap.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:gap/gap.dart';
-import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import 'package:go_router/go_router.dart';
+import 'package:filter_list/filter_list.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class ProblemsScreen extends StatefulWidget {
@@ -120,7 +120,7 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
         Provider.of<ProblemProvider>(context, listen: false)
             .setFocusedProblem(item);
         GoRouter.of(context).go(
-            '${AppScreens.problem.path}/${item.title.replaceAll(' ', '-').toLowerCase()}');
+            '${AppScreens.dsa.path}/${item.title.replaceAll(' ', '-').toLowerCase()}');
       },
       child: Container(
         color: odd ? color : null,

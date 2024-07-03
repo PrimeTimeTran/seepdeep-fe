@@ -296,7 +296,7 @@ class _AppBarContentState extends State<AppBarContent> {
               ),
               PopupMenuButton<SampleItem>(
                 icon: const Icon(
-                  Icons.help_center_outlined,
+                  Icons.help_outline_outlined,
                   size: 20,
                   color: Colors.white,
                 ),
