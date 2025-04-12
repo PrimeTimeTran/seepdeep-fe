@@ -56,7 +56,7 @@ class Toaster {
         ),
       ),
       description: const Text('The item is deleted'),
-      animationType: AnimationType.fromTop,
+      animationType: AnimationType.slideInFromBottom,
       position: MotionToastPosition.top,
     ).show(context);
   }

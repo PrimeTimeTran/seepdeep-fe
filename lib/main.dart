@@ -1,9 +1,10 @@
 // ignore_for_file: must_be_immutable
+// TODO: Fix Firebase
 
 import 'package:app/all.dart';
 import 'package:app/observers.dart';
 import 'package:app/screens/quiz_screen/bloc/all.dart';
-import 'package:firebase_core/firebase_core.dart';
+// import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -25,7 +26,7 @@ void main() async {
   setPathUrlStrategy();
   Bloc.observer = SimpleBlocObserver();
 
-  await Firebase.initializeApp();
+  // await Firebase.initializeApp();
   Map<String, dynamic>? user = await Storage.instance.getUser();
 
   runApp(
