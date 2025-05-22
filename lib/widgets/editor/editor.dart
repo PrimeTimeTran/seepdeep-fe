@@ -93,13 +93,30 @@ class _EditorState extends State<Editor> {
                       setController();
                     },
                   ),
-                  // TODO: Shortcut Prompt
                   IconButton(
                     icon: const Icon(
                       Icons.keyboard,
                       size: 20,
                     ),
                     onPressed: () {},
+                  ),
+                  Tooltip(
+                    message: 'Submit Code (CTRL + ENTER)',
+                    child: IconButton(
+                      icon: const Icon(
+                        Icons.play_arrow,
+                        size: 20,
+                      ),
+                      onPressed: () {
+                        final RenderBox button =
+                            context.findRenderObject() as RenderBox;
+                        final RenderBox overlay = Overlay.of(context)
+                            .context
+                            .findRenderObject() as RenderBox;
+                        final Offset position = button
+                            .localToGlobal(Offset.zero, ancestor: overlay);
+                      },
+                    ),
                   ),
                   IconButton(
                     icon: const Icon(
@@ -114,27 +131,7 @@ class _EditorState extends State<Editor> {
           ),
           RawKeyboardListener(
             focusNode: focusNode,
-            onKey: (RawKeyEvent event) {
-              if (event is RawKeyDownEvent) {
-                if (event.isControlPressed &&
-                    event.logicalKey == LogicalKeyboardKey.enter) {
-                  onShortcutRun();
-                } else if (event.logicalKey == LogicalKeyboardKey.tab) {
-                  TextEditingValue value = _controller.value;
-                  int start = value.selection.baseOffset;
-                  int end = value.selection.extentOffset;
-                  String newText = value.text.replaceRange(start, end, '    ');
-                  _controller.value = TextEditingValue(
-                    text: newText,
-                    selection: TextSelection.collapsed(offset: start + 2),
-                  );
-                  return;
-                } else {
-                  widget.onType(_controller.text, selectedLang);
-                }
-              }
-              return;
-            },
+            onKey: _handleKeyboardPress,
             child: CodeTheme(
               data: CodeThemeData(
                 // INFO: Themes
@@ -201,16 +198,51 @@ class _EditorState extends State<Editor> {
     }
   }
 
-  onShortcutRun() {
-    String code = _controller.text;
-    widget.onRun(code, selectedLang);
-  }
-
   setController([Language? lang]) {
     _controller = selectCodeController(lang ?? selectedLang, widget.problem);
     widget.onType(_controller.text, lang ?? selectedLang);
     setState(() {
       _controller = _controller;
     });
+  }
+
+  _handleKeyboardPress(RawKeyEvent event) {
+    if (event is RawKeyDownEvent &&
+        event.logicalKey == LogicalKeyboardKey.tab) {
+      final selection = _controller.selection;
+      final text = _controller.text;
+      final newText = text.replaceRange(
+        selection.start,
+        selection.end,
+        '    ',
+      );
+      _controller.text = newText;
+      final newPosition = selection.start + 4;
+      _controller.selection = TextSelection.collapsed(offset: newPosition);
+    }
+    if (event is RawKeyDownEvent) {
+      if (event.isControlPressed &&
+          event.logicalKey == LogicalKeyboardKey.enter) {
+        _onShortcutRun();
+      } else if (event.logicalKey == LogicalKeyboardKey.tab) {
+        TextEditingValue value = _controller.value;
+        int start = value.selection.baseOffset;
+        int end = value.selection.extentOffset;
+        String newText = value.text.replaceRange(start, end, '    ');
+        _controller.value = TextEditingValue(
+          text: newText,
+          selection: TextSelection.collapsed(offset: start + 2),
+        );
+        return;
+      } else {
+        widget.onType(_controller.text, selectedLang);
+      }
+    }
+    return;
+  }
+
+  _onShortcutRun() {
+    String code = _controller.text;
+    widget.onRun(code, selectedLang);
   }
 }

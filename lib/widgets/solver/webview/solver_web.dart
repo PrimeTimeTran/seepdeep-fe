@@ -251,7 +251,7 @@ class _SolverState extends State<Solver> {
                           processing ? null : () => onRun(code, selectedLang),
                       textStyle: const TextStyle(
                           fontWeight: FontWeight.bold, color: Colors.white),
-                      text: processing ? "Processing" : "Run",
+                      text: processing ? "Processing" : "Run (CTRL + ENTER)",
                     ),
                   )
                 ],
