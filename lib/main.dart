@@ -4,7 +4,7 @@
 import 'package:app/all.dart';
 import 'package:app/observers.dart';
 import 'package:app/screens/quiz_screen/bloc/all.dart';
-// import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -14,6 +14,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:provider/provider.dart' as provider;
 import 'package:seo/seo.dart';
 import 'package:url_strategy/url_strategy.dart';
+
+import 'firebase_options.dart';
 
 void main() async {
   debugPaintSizeEnabled = false;
@@ -26,7 +28,9 @@ void main() async {
   setPathUrlStrategy();
   Bloc.observer = SimpleBlocObserver();
 
-  // await Firebase.initializeApp();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   Map<String, dynamic>? user = await Storage.instance.getUser();
 
   runApp(
