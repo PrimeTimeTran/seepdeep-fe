@@ -4,11 +4,11 @@ import 'package:app/all.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:showcaseview/showcaseview.dart';
 import 'package:go_router/go_router.dart';
+import 'package:showcaseview/showcaseview.dart';
 
 final routerConfig = GoRouter(
-  initialLocation: '/maths',
+  initialLocation: '/problems',
   debugLogDiagnostics: true,
   routes: [
     StatefulShellRoute.indexedStack(
