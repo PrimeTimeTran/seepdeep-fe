@@ -11,7 +11,9 @@
       rel="manifest"
       href="manifest.json"
     />
-    <title>Learn SQL, Data Structures & Algorithms & Higher Level Maths easy</title>
+    <title>
+      Learn SQL, Data Structures & Algorithms & Higher Level Maths easy
+    </title>
     <meta
       name="title"
       content="Learn SQL, Data Structures & Algorithms & Higher Level Maths easy."
@@ -115,7 +117,7 @@
   <body>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script>
-      var serviceWorkerVersion = null
+      var flutter_service_worker_version = null
       var scriptLoaded = false
       function loadMainDartJs() {
         if (scriptLoaded) {
@@ -135,7 +137,7 @@
           // Otherwise, the browser will load the script multiple times,
           // potentially different versions.
           var serviceWorkerUrl =
-            'flutter_service_worker.js?v=' + serviceWorkerVersion
+            'flutter_service_worker.js?v=' + flutter_service_worker_version
           navigator.serviceWorker.register(serviceWorkerUrl).then((reg) => {
             function waitForActivation(serviceWorker) {
               serviceWorker.addEventListener('statechange', () => {
@@ -149,8 +151,10 @@
               // No active web worker and we have installed or are installing
               // one for the first time. Simply wait for it to activate.
               waitForActivation(reg.installing || reg.waiting)
-            } else if (!reg.active.scriptURL.endsWith(serviceWorkerVersion)) {
-              // When the app updates the serviceWorkerVersion changes, so we
+            } else if (
+              !reg.active.scriptURL.endsWith(flutter_service_worker_version)
+            ) {
+              // When the app updates the flutter_service_worker_version changes, so we
               // need to ask the service worker to update.
               console.log('New service worker available.')
               reg.update()

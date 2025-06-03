@@ -71,45 +71,47 @@ class _CategoryCardState extends State<CategoryCard> {
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
-                Showcase(
-                  key: _three,
-                  description:
-                      'Once you\'re ready you can practice exercises here.',
-                  onBarrierClick: () => debugPrint('Barrier clicked'),
-                  child: SizedBox(
-                    width: 500,
-                    height: 50,
-                    child: ElevatedButton.icon(
-                      style: selectedSubjectTitle != ''
-                          ? ButtonStyle(
-                              backgroundColor: WidgetStateProperty.all(
-                                Colors.green,
-                              ),
-                            )
-                          : null,
-                      icon: Icon(Icons.track_changes_outlined,
-                          color: Theme.of(context).colorScheme.primary),
-                      label: Text('Practice: $selectedSubjectTitle',
-                          style: selectedSubjectTitle != ''
-                              ? const TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                )
-                              : null),
-                      onPressed: () {
-                        if (selectedSubjectTitle == '') {
-                          Glob.showSnack(
-                              'Select a subject then you can practice by pressing the green button.');
-                          return;
-                        }
-                        String encodedSubject =
-                            Uri.encodeComponent(selectedSubject);
-                        String navigationUrl = '/math/$encodedSubject';
-                        GoRouter.of(context).go(navigationUrl);
-                      },
-                    ),
+                // Todo: Fix multiple uses of GlobalKey when Showcase is used here.
+                SizedBox(
+                  width: 500,
+                  height: 50,
+                  child: ElevatedButton.icon(
+                    style: selectedSubjectTitle != ''
+                        ? ButtonStyle(
+                            backgroundColor: WidgetStateProperty.all(
+                              Colors.green,
+                            ),
+                          )
+                        : null,
+                    icon: Icon(Icons.track_changes_outlined,
+                        color: Theme.of(context).colorScheme.primary),
+                    label: Text('Practice: $selectedSubjectTitle',
+                        style: selectedSubjectTitle != ''
+                            ? const TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                              )
+                            : null),
+                    onPressed: () {
+                      if (selectedSubjectTitle == '') {
+                        Glob.showSnack(
+                            'Select a subject then you can practice by pressing the green button.');
+                        return;
+                      }
+                      String encodedSubject =
+                          Uri.encodeComponent(selectedSubject);
+                      String navigationUrl = '/math/$encodedSubject';
+                      GoRouter.of(context).go(navigationUrl);
+                    },
                   ),
-                )
+                ),
+
+                // Showcase(
+                //   key: _three,
+                //   description:
+                //       'Once you\'re ready you can practice exercises here.',
+                //   onBarrierClick: () => debugPrint('Barrier clicked'),
+                //   child: )
               ],
             ),
           ],
@@ -130,12 +132,8 @@ class _CategoryCardState extends State<CategoryCard> {
           .toLowerCase();
       bool isSelected = categoryName == selectedSubject;
       if (domain == 'Limits' && i == 1) {
-        vals.add(Showcase(
-          key: _two,
-          description:
-              'Select from a concept\'s subjects to see it\'s description before practicing it with exercises.',
-          onBarrierClick: () => debugPrint('Barrier clicked'),
-          child: GestureDetector(
+        vals.add(
+          GestureDetector(
             onTap: () => debugPrint('menu button clicked'),
             child: Padding(
               padding: const EdgeInsets.all(10),
@@ -161,7 +159,14 @@ class _CategoryCardState extends State<CategoryCard> {
               ),
             ),
           ),
-        ));
+        );
+        // vals.add(Showcase(
+        //   key: _two,
+        //   description:
+        //       'Select from a concept\'s subjects to see it\'s description before practicing it with exercises.',
+        //   onBarrierClick: () => debugPrint('Barrier clicked'),
+        //   child: ,
+        // ));
       } else {
         vals.add(
           Padding(
@@ -235,35 +240,38 @@ class _MathIntroScreenState extends State<MathIntroScreen> {
                   ),
                 ],
               ),
-              Column(
+              const Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Showcase(
-                    key: _one,
-                    description:
-                        'Concept Cards organize the major subjects of a course. Brief descriptions of each subject are presented below the list as well. Click on any topic to see it\'s description. \'.',
-                    onBarrierClick: () => debugPrint('Barrier clicked'),
-                    child: GestureDetector(
-                      onTap: () => debugPrint('menu button clicked'),
-                      child: const CategoryCard(
-                        category: 'Limits',
-                      ),
-                    ),
+                  // Showcase(
+                  //   key: _one,
+                  //   description:
+                  //       'Concept Cards organize the major subjects of a course. Brief descriptions of each subject are presented below the list as well. Click on any topic to see it\'s description. \'.',
+                  //   onBarrierClick: () => debugPrint('Barrier clicked'),
+                  //   child: GestureDetector(
+                  //     onTap: () => debugPrint('menu button clicked'),
+                  //     child: const CategoryCard(
+                  //       category: 'Limits',
+                  //     ),
+                  //   ),
+                  // ),
+                  CategoryCard(
+                    category: 'Limits',
                   ),
-                  const Gap(50),
-                  const CategoryCard(
+                  Gap(50),
+                  CategoryCard(
                     category: 'Derivatives',
                   ),
-                  const Gap(50),
-                  const CategoryCard(
+                  Gap(50),
+                  CategoryCard(
                     category: 'Applications of Derivatives',
                   ),
-                  const Gap(50),
-                  const CategoryCard(
+                  Gap(50),
+                  CategoryCard(
                     category: 'Integrals',
                   ),
-                  const Gap(50),
-                  const CategoryCard(
+                  Gap(50),
+                  CategoryCard(
                     category: 'Applications of Integrals',
                   ),
                 ],
@@ -286,6 +294,6 @@ class _MathIntroScreenState extends State<MathIntroScreen> {
   @override
   initState() {
     super.initState();
-    checkIntroCompleted();
+    // checkIntroCompleted();
   }
 }

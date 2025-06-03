@@ -48,6 +48,18 @@ class CodeElementBuilder extends MarkdownElementBuilder {
   }
 }
 
+// localhost:3000/api/v1/problems/63f1b0c8d2a3e4f5b8c7e4a9
+// localhost:3000/api/v1/problems/63f1b0c8d2a3e4f5b8c7e4a9/editorial
+// localhost:3000/api/v1/problems/63f1b0c8d2a3e4f5b8c7e4a9/submissions?user=true
+// localhost:3000/api/v1/problems/63f1b0c8d2a3e4f5b8c7e4a9/submissions
+// localhost:3000/api/v1/problems/63f1b0c8d2a3e4f5b8c7e4a9/testcases
+// localhost:3000/api/v1/problems/63f1b0c8d2a3e4f5b8c7e4a9/testcases/63f1b0c8d2a3e4f5b8c7e4a9
+// localhost:3000/api/v1/problems/63f1b0c8d2a3e4f5b8c7e4a9/testcases/63f1b0c8d2a3e4f5b8c7e4a9/submissions
+// localhost:3000/api/v1/problems/63f1b0c8d2a3e4f5b8c7e4a9/testcases/63f1b0c8d2a3e4f5b8c7e4a9/submissions?user=true
+// localhost:3000/api/v1/problems/63f1b0c8d2a3e4f5b8c7e4a9/testcases/63f1b0c8d2a3e4f5b8c7e4a9/submissions?user=true&problem=63f1b0c8d2a3e4f5b8c7e4a9
+// localhost:3000/api/v1/problems/63f1b0c8d2a3e4f5b8c7e4a9/testcases/63f1b0c8d2a3e4f5b8c7e4a9/submissions?user=true&problem=63f1b0c8d2a3e4f5b8c7e4a9&testcase=63f1b0c8d2a3e4f5b8c7e4a9
+// localhost:3000/api/v1/problems/63f1b0c8d2a3e4f5b8c7e4a9/testcases/63f1b0c8d2a3e4f5b8c7e4a9/submissions?user=true&problem=63f1b0c8d2a3e4f5b8c7e4a9&testcase=63f1b0c8d2a3e4f5b8c7e4a9&submission=63f1b0c8d2a3e4f5b8c7e4a9
+
 // ignore: must_be_immutable
 class SolverSidebar extends StatefulWidget {
   bool passing;
@@ -56,6 +68,7 @@ class SolverSidebar extends StatefulWidget {
   List<TestCase> testCases;
   List<Submission> submissions;
   final Stream<Submission> submissionStream;
+  final Function onSelectSubmission;
   SolverSidebar({
     super.key,
     required this.problem,
@@ -64,6 +77,7 @@ class SolverSidebar extends StatefulWidget {
     required this.testCases,
     required this.submissions,
     required this.submissionStream,
+    required this.onSelectSubmission,
   });
 
   @override
@@ -97,6 +111,7 @@ class _SolverSidebarState extends State<SolverSidebar> {
               problem: widget.problem,
               submissions: _submissions,
               submissionsFuture: _submissionsFuture,
+              onSelectSubmission: widget.onSelectSubmission
             ),
           ],
         ),

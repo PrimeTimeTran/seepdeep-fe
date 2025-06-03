@@ -16,11 +16,13 @@ class SubmissionTable extends StatefulWidget {
   Problem problem;
   List<Submission> submissions;
   Future<List<Submission>> submissionsFuture;
+  final Function onSelectSubmission;
   SubmissionTable({
     super.key,
     required this.problem,
     required this.submissions,
     required this.submissionsFuture,
+    required this.onSelectSubmission,
   });
 
   @override
@@ -109,20 +111,45 @@ class _SubmissionTableState extends State<SubmissionTable> {
                   ? const Icon(Icons.check_circle_outline_outlined,
                       color: Colors.green)
                   : const Icon(Icons.cancel_outlined, color: Colors.red);
+              final statusText = submission.isAccepted!
+                  ? const Text(
+                      'Accepted',
+                      style: TextStyle(
+                          color: Colors.green, fontWeight: FontWeight.bold),
+                    )
+                  : const Text(
+                      'Wrong Answer',
+                      style: TextStyle(
+                          color: Colors.red, fontWeight: FontWeight.bold),
+                    );
               rows.add(
                 DataRow(
                   cells: [
                     DataCell(statusIcon),
+                    DataCell(
+                      statusText,
+                      onTap: () {
+                        widget.onSelectSubmission(submission);
+                      },
+                    ),
+                    DataCell(Text(submission.id.toString())),
                     DataCell(Text(submission.language.toString())),
                     DataCell(Text(submission.runTime.toString())),
                     DataCell(Text(submission.memoryUsage!.toStringAsFixed(3))),
-                    const DataCell(Text('This is a note')),
+                    DataCell(
+                      const Text('This is a note'),
+                      onTap: () {
+                        widget.onSelectSubmission(submission);
+                      },
+                    ),
                   ],
                 ),
               );
             }
             return DataTable(
               columns: const [
+                DataColumn(label: Text('Id')),
+                DataColumn(label: Text('Status')),
                 DataColumn(label: Text('Status')),
                 DataColumn(label: Text('Language')),
                 DataColumn(label: Text('Runtime')),

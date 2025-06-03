@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:app/all.dart';
+import 'package:app/widgets/editor/accepted.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
@@ -11,6 +12,16 @@ import 'package:showcaseview/showcaseview.dart';
 GlobalKey _one = GlobalKey();
 GlobalKey _three = GlobalKey();
 GlobalKey _two = GlobalKey();
+
+// TODO:
+// 1. Add previous submissions to the sidebar clickable.
+// [x] API
+// [x] Query
+// [ ] Click to show in editor
+// [ ] Add a button to clear the editor.
+// [ ] Add a button to submit the code.
+// 2. Add a button to clear the editor.
+// 3. Add a button to submit the code.
 
 class Solver extends StatefulWidget {
   const Solver({super.key});
@@ -29,6 +40,7 @@ class _SolverState extends State<Solver> {
   bool processing = false;
   List<TestCase> testCases = [];
   List<Submission> submissions = [];
+  List<Submission> selectedSubmissions = [];
   final StreamController<Submission> _submissionStreamController =
       StreamController<Submission>();
   Language selectedLang = Language.python;
@@ -53,19 +65,19 @@ class _SolverState extends State<Solver> {
                     targetPadding: const EdgeInsets.symmetric(horizontal: 20),
                     tooltipPosition: TooltipPosition.top,
                     description:
-                        '1. Carefully read the questions description & example inputs and ouputs.',
+                        '1. Carefully read the questions description & example inputs and outputs.',
                     onBarrierClick: () => debugPrint('Barrier clicked'),
                     child: SizedBox(
-                      child: GestureDetector(
-                        onTap: () => debugPrint('menu button clicked'),
-                        child: SolverSidebar(
-                          problem: problem,
-                          passing: passing,
-                          testCases: testCases,
-                          submitted: submitted,
-                          submissions: submissions,
-                          submissionStream: _submissionStreamController.stream,
-                        ),
+                      child: SolverSidebar(
+                        problem: problem,
+                        passing: passing,
+                        testCases: testCases,
+                        submitted: submitted,
+                        submissions: submissions,
+                        submissionStream: _submissionStreamController.stream,
+                        onSelectSubmission: (submission) {
+                          onSelectSubmission(submission);
+                        },
                       ),
                     ),
                   ),
@@ -88,17 +100,25 @@ class _SolverState extends State<Solver> {
             '2. Once you\'re ready to give it a shot enter your code in this panel.',
         onBarrierClick: () => debugPrint('Barrier clicked'),
         child: GestureDetector(
-          onTap: () => debugPrint('menu button clicked'),
-          child: Editor(
-            problem: p,
-            key: ValueKey(p),
-            onRun: (code, lang) => onRun(code, lang),
-            onType: (c, lang) => setState(() {
-              code = c;
-              selectedLang = lang;
-            }),
-          ),
-        ),
+            onTap: () => debugPrint('menu button clicked'),
+            child: EditorTabs(
+              selectedSubmissions: selectedSubmissions,
+              tabTitles: const ['Editor', 'Tab 2', 'Tab 3'],
+              tabContents: [
+                Editor(
+                  problem: p,
+                  key: ValueKey(p),
+                  onRun: (code, lang) => onRun(code, lang),
+                  onType: (c, lang) => setState(() {
+                    code = c;
+                    selectedLang = lang;
+                  }),
+                ),
+                ...selectedSubmissions.map((submission) {
+                  return SubmissionPanel(submission: submission);
+                }),
+              ],
+            )),
       ),
       bottom: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
@@ -213,9 +233,10 @@ class _SolverState extends State<Solver> {
                       children: [
                         TextButton.icon(
                             style: TextButton.styleFrom(
-                                shape: const RoundedRectangleBorder(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.zero))),
+                              shape: const RoundedRectangleBorder(
+                                borderRadius: BorderRadius.all(Radius.zero),
+                              ),
+                            ),
                             onPressed: () {},
                             icon: const Icon(Icons.science_outlined,
                                 color: Colors.green),
@@ -355,6 +376,12 @@ class _SolverState extends State<Solver> {
       "name": problem!.title,
       "problem": problem!.id,
       "lang": l,
+    });
+  }
+
+  onSelectSubmission(Submission submission) {
+    setState(() {
+      selectedSubmissions = [submission];
     });
   }
 

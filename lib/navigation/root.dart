@@ -81,7 +81,7 @@ class _AppState extends State<App> {
       theme: Style.lightTheme,
       darkTheme: Style.darkTheme,
       builder: EasyLoading.init(),
-      debugShowCheckedModeBanner: kDebugMode ? true : false,
+      debugShowCheckedModeBanner: kDebugMode,
       home: Builder(
         builder: (context) {
           return Scaffold(

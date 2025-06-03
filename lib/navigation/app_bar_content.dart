@@ -106,7 +106,7 @@ class _AppBarContentState extends State<AppBarContent> {
             children: <Widget>[
               TextButton.icon(
                 onPressed: () =>
-                    GoRouter.of(context).go(AppScreens.mastery.path),
+                    GoRouter.of(context).go(AppScreens.problems.path),
                 icon: SvgPicture.asset(
                   'assets/img/favicon.svg',
                   width: 48,
@@ -135,16 +135,16 @@ class _AppBarContentState extends State<AppBarContent> {
                     //   ),
                     //   icon: const Icon(Icons.calculate, color: Colors.white),
                     // ),
-                    TextButton.icon(
-                      onPressed: () {
-                        GoRouter.of(context).go(AppScreens.mathIndex.path);
-                      },
-                      label: const Text(
-                        'Maths',
-                        style: TextStyle(color: Colors.white),
-                      ),
-                      icon: const Icon(Icons.calculate, color: Colors.white),
-                    ),
+                    // TextButton.icon(
+                    //   onPressed: () {
+                    //     GoRouter.of(context).go(AppScreens.mathIndex.path);
+                    //   },
+                    //   label: const Text(
+                    //     'Maths',
+                    //     style: TextStyle(color: Colors.white),
+                    //   ),
+                    //   icon: const Icon(Icons.calculate, color: Colors.white),
+                    // ),
                     TextButton.icon(
                       onPressed: () {
                         GoRouter.of(context).go(AppScreens.problems.path);

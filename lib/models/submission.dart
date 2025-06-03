@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:app/all.dart';
 
 class Submission {
+  String? id;
   String? body;
   String? title;
   // For those which are public
@@ -32,6 +33,7 @@ class Submission {
   List<TestCase>? testCases;
 
   Submission({
+    this.id,
     this.user,
     this.body,
     this.submitted,
@@ -98,6 +100,7 @@ class Submission {
 
   factory Submission.placeholder(problemId, userId) {
     return Submission(
+      id: '',
       user: userId,
       body: 'Placeholder body',
       title: 'Placeholder title',
@@ -124,6 +127,7 @@ class Submission {
 
   Map<String, dynamic> toJson() {
     return {
+      'id': id,
       'user': user?.toJson(),
       'body': body,
       'submitted': submitted?.toIso8601String(),

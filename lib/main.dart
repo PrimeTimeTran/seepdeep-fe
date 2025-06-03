@@ -1,5 +1,4 @@
 // ignore_for_file: must_be_immutable
-// TODO: Fix Firebase
 
 import 'package:app/all.dart';
 import 'package:app/observers.dart';
@@ -18,6 +17,10 @@ import 'package:url_strategy/url_strategy.dart';
 import 'firebase_options.dart';
 
 void main() async {
+  // For debugging prod builds(seeing logs in browser on Netlify), uncomment the following line:
+  // FlutterError.onError = (FlutterErrorDetails details) {
+  //   print("Flutter error: ${details.exception}");
+  // };
   debugPaintSizeEnabled = false;
 
   WidgetsFlutterBinding.ensureInitialized();

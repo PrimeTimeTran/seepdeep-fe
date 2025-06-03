@@ -3,6 +3,11 @@
 import 'package:app/all.dart';
 import 'package:flutter/material.dart';
 
+// Todo:
+// - Add a search bar to filter solutions by tags or keywords.
+// - Implement pagination or infinite scrolling for large datasets.
+// - Allow users to sort solutions by date, votes, or comments.
+
 class SolutionRow extends StatelessWidget {
   final solution;
   const SolutionRow({super.key, required this.solution});

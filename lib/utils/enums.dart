@@ -37,7 +37,32 @@ enum Language {
   java,
   go,
   cpp,
-  sql,
+  sql;
+
+  static Language fromName(String name) {
+    switch (name.toLowerCase()) {
+      case 'python':
+        return Language.python;
+      case 'ruby':
+        return Language.ruby;
+      case 'javascript':
+        return Language.js;
+      case 'typescript':
+        return Language.ts;
+      case 'dart':
+        return Language.dart;
+      case 'java':
+        return Language.java;
+      case 'go':
+        return Language.go;
+      case 'cpp':
+        return Language.cpp;
+      case 'sql':
+        return Language.sql;
+      default:
+        throw ArgumentError('Unknown language: $name');
+    }
+  }
 }
 
 enum PainterType {

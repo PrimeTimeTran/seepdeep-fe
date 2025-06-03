@@ -58,6 +58,7 @@ String parsePythonType(parameter) {
 }
 
 CodeController selectCodeController(Language lang, Problem problem) {
+  // Initial code
   return CodeController(
     language: selectLanguage(lang),
     text: selectInitialCode(lang, problem),
