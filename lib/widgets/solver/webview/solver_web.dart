@@ -30,7 +30,7 @@ class Solver extends StatefulWidget {
   State<Solver> createState() => _SolverState();
 }
 
-class _SolverState extends State<Solver> {
+class _SolverState extends State<Solver> with TickerProviderStateMixin {
   int? count = 0;
   Problem? problem;
   String code = '';
@@ -44,6 +44,7 @@ class _SolverState extends State<Solver> {
   final StreamController<Submission> _submissionStreamController =
       StreamController<Submission>();
   Language selectedLang = Language.python;
+  late TabController tabController;
 
   @override
   Widget build(BuildContext context) {
@@ -102,8 +103,12 @@ class _SolverState extends State<Solver> {
         child: GestureDetector(
             onTap: () => debugPrint('menu button clicked'),
             child: EditorTabs(
+              tabController: tabController,
               selectedSubmissions: selectedSubmissions,
-              tabTitles: const ['Editor', 'Tab 2', 'Tab 3'],
+              tabTitles: [
+                'Editor',
+                ...selectedSubmissions.map((_) => 'Accepted')
+              ],
               tabContents: [
                 Editor(
                   problem: p,
@@ -339,6 +344,7 @@ class _SolverState extends State<Solver> {
   @override
   void dispose() {
     _submissionStreamController.close();
+    tabController.dispose();
     super.dispose();
   }
 
@@ -357,6 +363,7 @@ class _SolverState extends State<Solver> {
   @override
   void initState() {
     super.initState();
+    updateTabController();
     initializeProblem();
     checkIntroCompleted();
   }
@@ -382,7 +389,10 @@ class _SolverState extends State<Solver> {
   onSelectSubmission(Submission submission) {
     setState(() {
       selectedSubmissions = [submission];
+      tabController.dispose(); // Dispose the old TabController
+      updateTabController(); // Create a new TabController
     });
+    tabController.animateTo(1); // Switch to the second tab
   }
 
   postSubmission(item) async {
@@ -434,5 +444,12 @@ class _SolverState extends State<Solver> {
       }));
     }
     return testCases;
+  }
+
+  void updateTabController() {
+    tabController = TabController(
+      length: selectedSubmissions.length + 1, // 1 for the "Editor" tab
+      vsync: this, // Now supports multiple tickers
+    );
   }
 }
