@@ -76,9 +76,7 @@ class _SolverState extends State<Solver> with TickerProviderStateMixin {
                         submitted: submitted,
                         submissions: submissions,
                         submissionStream: _submissionStreamController.stream,
-                        onSelectSubmission: (submission) {
-                          onSelectSubmission(submission);
-                        },
+                        onSelectSubmission: onSelectSubmission,
                       ),
                     ),
                   ),
@@ -387,12 +385,13 @@ class _SolverState extends State<Solver> with TickerProviderStateMixin {
   }
 
   onSelectSubmission(Submission submission) {
+    print(submission.id);
     setState(() {
       selectedSubmissions = [submission];
-      tabController.dispose(); // Dispose the old TabController
-      updateTabController(); // Create a new TabController
+      tabController.dispose();
+      updateTabController();
     });
-    tabController.animateTo(1); // Switch to the second tab
+    tabController.animateTo(1);
   }
 
   postSubmission(item) async {

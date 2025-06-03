@@ -14,11 +14,7 @@ class SubmissionPanel extends StatefulWidget {
 }
 
 class SubmissionPanelState extends State<SubmissionPanel> {
-  late final CodeController _controller = widget.submission.body != null
-      ? CodeController(
-          text: widget.submission.body!,
-        )
-      : CodeController();
+  late CodeController _controller;
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +24,8 @@ class SubmissionPanelState extends State<SubmissionPanel> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            Text('Submission ID: ${widget.submission.id}',
+                style: const TextStyle(fontSize: 20)),
             const Text('Accepted Submissions', style: TextStyle(fontSize: 20)),
             const SizedBox(height: 10),
             Expanded(
@@ -45,5 +43,27 @@ class SubmissionPanelState extends State<SubmissionPanel> {
         ),
       ),
     );
+  }
+
+  @override
+  void didUpdateWidget(covariant SubmissionPanel oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.submission.body != oldWidget.submission.body) {
+      _initializeController(); // Update the controller with the new submission body
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _initializeController();
+  }
+
+  void _initializeController() {
+    _controller = widget.submission.body != null
+        ? CodeController(
+            text: widget.submission.body!,
+          )
+        : CodeController();
   }
 }
