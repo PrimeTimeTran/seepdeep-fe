@@ -17,11 +17,8 @@ GlobalKey _two = GlobalKey();
 // 1. Add previous submissions to the sidebar clickable.
 // [x] API
 // [x] Query
-// [ ] Click to show in editor
+// [x] Click to show in editor
 // [ ] Add a button to clear the editor.
-// [ ] Add a button to submit the code.
-// 2. Add a button to clear the editor.
-// 3. Add a button to submit the code.
 
 class Solver extends StatefulWidget {
   const Solver({super.key});
@@ -105,7 +102,7 @@ class _SolverState extends State<Solver> with TickerProviderStateMixin {
               selectedSubmissions: selectedSubmissions,
               tabTitles: [
                 'Editor',
-                ...selectedSubmissions.map((_) => 'Accepted')
+                ...selectedSubmissions.map((_) => 'Submission')
               ],
               tabContents: [
                 Editor(

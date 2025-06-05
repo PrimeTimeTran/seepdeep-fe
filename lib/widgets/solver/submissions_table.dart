@@ -1,9 +1,9 @@
 // ignore_for_file: must_be_immutable
-
 import 'dart:async';
 
 import 'package:app/all.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class SubmissionRow extends StatefulWidget {
   const SubmissionRow({super.key});
@@ -122,17 +122,36 @@ class _SubmissionTableState extends State<SubmissionTable> {
                       style: TextStyle(
                           color: Colors.red, fontWeight: FontWeight.bold),
                     );
+              final status = Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [statusText],
+                  ),
+                  Row(
+                    children: [
+                      Text(
+                        submission.createdAt != null
+                            ? DateFormat("MMMM d, y")
+                                .format(submission.createdAt!)
+                            : '',
+                        style:
+                            const TextStyle(fontSize: 12, color: Colors.grey),
+                      ),
+                    ],
+                  ),
+                ],
+              );
               rows.add(
                 DataRow(
                   cells: [
                     DataCell(statusIcon),
                     DataCell(
-                      statusText,
+                      status,
                       onTap: () {
                         widget.onSelectSubmission(submission);
                       },
                     ),
-                    DataCell(Text(submission.id.toString())),
                     DataCell(Text(submission.language.toString())),
                     DataCell(Text(submission.runTime.toString())),
                     DataCell(Text(submission.memoryUsage!.toStringAsFixed(3))),
@@ -148,9 +167,8 @@ class _SubmissionTableState extends State<SubmissionTable> {
             }
             return DataTable(
               columns: const [
-                DataColumn(label: Text('Id')),
                 DataColumn(label: Text('Status')),
-                DataColumn(label: Text('Status')),
+                DataColumn(label: Text('Date')),
                 DataColumn(label: Text('Language')),
                 DataColumn(label: Text('Runtime')),
                 DataColumn(label: Text('Memory')),

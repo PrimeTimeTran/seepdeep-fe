@@ -4,6 +4,7 @@ import 'package:app/all.dart';
 
 class Submission {
   String? id;
+  DateTime? createdAt;
   String? body;
   String? title;
   // For those which are public
@@ -56,11 +57,15 @@ class Submission {
     this.penalty,
     this.memoryUsage,
     this.testCases,
+    this.createdAt,
   });
 
   Submission.fromJson(Map<String, dynamic> json)
       : user = _parseUser(json['user']),
         body = json['body'],
+        createdAt = json['createdAt'] != null
+            ? DateTime.parse(json['createdAt'])
+            : null,
         submitted = json['submitted'] != null
             ? DateTime.parse(json['submitted'])
             : null,
@@ -123,6 +128,7 @@ class Submission {
       topics: [],
       comments: [],
       testCases: [],
+      createdAt: DateTime.now(),
     );
   }
 
@@ -149,6 +155,7 @@ class Submission {
       'isContest': isContest,
       'contest': contest?.toJson(),
       'penalty': penalty,
+      'createdAt': createdAt?.toIso8601String(),
     };
   }
 

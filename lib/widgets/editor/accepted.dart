@@ -27,13 +27,18 @@ class SubmissionPanelState extends State<SubmissionPanel> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Submission ID: ${widget.submission.id}'),
             Text(
               widget.submission.isAccepted != null &&
                       widget.submission.isAccepted!
-                  ? 'Accepted Submissions'
+                  ? 'Accepted Submission'
                   : 'Wrong Answer',
-              style: const TextStyle(fontSize: 20),
+              style: TextStyle(
+                fontSize: 20,
+                color: widget.submission.isAccepted != null &&
+                        widget.submission.isAccepted!
+                    ? Colors.green
+                    : Colors.red,
+              ),
             ),
             const SizedBox(height: 10),
             Expanded(
