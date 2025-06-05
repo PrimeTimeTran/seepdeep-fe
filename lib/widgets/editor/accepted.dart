@@ -1,6 +1,9 @@
 import 'package:app/all.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_code_editor/flutter_code_editor.dart';
+import 'package:flutter_highlight/themes/vs.dart';
+import 'package:flutter_highlighter/themes/atelier-cave-dark.dart';
+import 'package:highlight/languages/python.dart';
 
 class SubmissionPanel extends StatefulWidget {
   Submission submission;
@@ -24,18 +27,34 @@ class SubmissionPanelState extends State<SubmissionPanel> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Submission ID: ${widget.submission.id}',
-                style: const TextStyle(fontSize: 20)),
-            const Text('Accepted Submissions', style: TextStyle(fontSize: 20)),
+            Text('Submission ID: ${widget.submission.id}'),
+            Text(
+              widget.submission.isAccepted != null &&
+                      widget.submission.isAccepted!
+                  ? 'Accepted Submissions'
+                  : 'Wrong Answer',
+              style: const TextStyle(fontSize: 20),
+            ),
             const SizedBox(height: 10),
             Expanded(
               child: SingleChildScrollView(
-                child: CodeField(
-                  textStyle: const TextStyle(
-                    height: 1.5,
-                    leadingDistribution: TextLeadingDistribution.even,
+                child: CodeTheme(
+                  data: CodeThemeData(
+                    styles: Style.currentTheme(context) == Brightness.light
+                        ? vsTheme
+                        : atelierCaveDarkTheme,
                   ),
-                  controller: _controller,
+                  child: SizedBox(
+                    height: 900,
+                    width: double.infinity,
+                    child: CodeField(
+                      textStyle: const TextStyle(
+                        height: 1.5,
+                        leadingDistribution: TextLeadingDistribution.even,
+                      ),
+                      controller: _controller,
+                    ),
+                  ),
                 ),
               ),
             ),
@@ -49,7 +68,7 @@ class SubmissionPanelState extends State<SubmissionPanel> {
   void didUpdateWidget(covariant SubmissionPanel oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (widget.submission.body != oldWidget.submission.body) {
-      _initializeController(); // Update the controller with the new submission body
+      _initializeController();
     }
   }
 
@@ -60,10 +79,9 @@ class SubmissionPanelState extends State<SubmissionPanel> {
   }
 
   void _initializeController() {
-    _controller = widget.submission.body != null
-        ? CodeController(
-            text: widget.submission.body!,
-          )
-        : CodeController();
+    _controller = CodeController(
+      language: python,
+      text: widget.submission.body!,
+    );
   }
 }
