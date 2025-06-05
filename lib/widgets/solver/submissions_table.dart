@@ -105,8 +105,13 @@ class _SubmissionTableState extends State<SubmissionTable> {
                 ),
               );
             }
+            final sortedSubmissions = [...widget.submissions];
+            sortedSubmissions.sort((a, b) => (b.createdAt ?? DateTime.now())
+                .compareTo(a.createdAt ?? DateTime.now()));
+
             List<DataRow> rows = [];
-            for (var submission in widget.submissions) {
+            for (var i = 0; i < sortedSubmissions.length; i++) {
+              final submission = sortedSubmissions[i];
               final statusIcon = submission.isAccepted!
                   ? const Icon(Icons.check_circle_outline_outlined,
                       color: Colors.green)
@@ -125,9 +130,7 @@ class _SubmissionTableState extends State<SubmissionTable> {
               final status = Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
-                    children: [statusText],
-                  ),
+                  Row(children: [statusText]),
                   Row(
                     children: [
                       Text(
@@ -142,9 +145,11 @@ class _SubmissionTableState extends State<SubmissionTable> {
                   ),
                 ],
               );
+
               rows.add(
                 DataRow(
                   cells: [
+                    DataCell(Text('${sortedSubmissions.length - i}')),
                     DataCell(statusIcon),
                     DataCell(
                       status,
@@ -165,8 +170,10 @@ class _SubmissionTableState extends State<SubmissionTable> {
                 ),
               );
             }
+
             return DataTable(
               columns: const [
+                DataColumn(label: Text('#')), // 👈 Row number column
                 DataColumn(label: Text('Status')),
                 DataColumn(label: Text('Date')),
                 DataColumn(label: Text('Language')),

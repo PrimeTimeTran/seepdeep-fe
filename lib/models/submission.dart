@@ -65,7 +65,7 @@ class Submission {
         body = json['body'],
         createdAt = json['createdAt'] != null
             ? DateTime.parse(json['createdAt'])
-            : null,
+            : DateTime.now(),
         submitted = json['submitted'] != null
             ? DateTime.parse(json['submitted'])
             : null,
