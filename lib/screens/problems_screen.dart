@@ -109,10 +109,9 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
   GestureDetector buildListItem(item, idx, BuildContext context) {
     idx -= 1;
     bool odd = idx % 2 == 0;
-    Color colorLight =
-        odd ? Colors.blueAccent.shade100 : Colors.greenAccent.shade200;
+    Color colorLight = odd ? Colors.blue.shade100 : Colors.blue.shade200;
 
-    Color colorDark = odd ? Colors.blueGrey.shade500 : Colors.blueGrey.shade600;
+    Color colorDark = odd ? Colors.blueGrey.shade800 : Colors.blueGrey.shade900;
     bool isDark = Theme.of(context).brightness == Brightness.dark;
     Color rowColor = isDark ? colorDark : colorLight;
 
@@ -138,7 +137,10 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
             children: [
               Expanded(
                 flex: 10,
-                child: AppText(text: '${item.numLC}. ${item.title}'),
+                child: AppText(
+                  text: '${item.numLC}. ${item.title}',
+                  style: const TextStyle(fontWeight: FontWeight.bold),
+                ),
               ),
               const Spacer(),
               const SizedBox(width: 60, child: Icon(Icons.abc)),

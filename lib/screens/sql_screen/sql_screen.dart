@@ -455,9 +455,11 @@ select id, year, title, oscars_nominated, oscars_won from films where oscars_won
   checkIntroCompleted() async {
     final items = await Storage.instance.getIntros();
     if (!items.contains('sql-screen-done')) {
-      WidgetsBinding.instance.addPostFrameCallback((_) =>
-          ShowCaseWidget.of(context)
-              .startShowCase([_one, _two, _three, _four]));
+      Future.delayed(const Duration(seconds: 2), () {
+        WidgetsBinding.instance.addPostFrameCallback((_) =>
+            ShowCaseWidget.of(context)
+                .startShowCase([_one, _two, _three, _four]));
+      });
     }
   }
 

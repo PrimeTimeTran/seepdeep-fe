@@ -21,9 +21,9 @@ class EditorTabs extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         TabBar(
-          controller: tabController,
-          isScrollable: true,
           tabs: tabTitles,
+          isScrollable: true,
+          controller: tabController,
           tabAlignment: TabAlignment.start,
         ),
         Expanded(

@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:app/all.dart';
-import 'package:app/widgets/editor/accepted.dart';
+import 'package:app/widgets/solver/submission_result_panel.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
@@ -14,10 +14,8 @@ GlobalKey _three = GlobalKey();
 GlobalKey _two = GlobalKey();
 
 // TODO:
-// [x] 1. Add previous submissions to the sidebar clickable.
 // [x] API
 // [x] Query
-// [x] Click to show in editor
 // [ ] Add a button to clear the editor.
 
 class Solver extends StatefulWidget {
@@ -138,7 +136,7 @@ class _SolverState extends State<Solver> with TickerProviderStateMixin {
                   }),
                 ),
                 ...selectedSubmissions.map((submission) {
-                  return SubmissionPanel(submission: submission);
+                  return SubmissionResultPanel(submission: submission);
                 }),
               ],
             )),
