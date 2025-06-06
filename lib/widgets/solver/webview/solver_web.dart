@@ -436,7 +436,13 @@ class _SolverState extends State<Solver> with TickerProviderStateMixin {
       });
       _submissionStreamController.add(submission);
       if (submission.isAccepted == true) {
-        Glob.showSnack('Success!');
+        Glob.showSnackSuccess(
+          'Submission Accepted!',
+        );
+      } else {
+        Glob.showSnackFailure(
+          'Submission Failed! Check your solution & try again!',
+        );
       }
     } catch (e) {
       print('Error: $e');

@@ -43,4 +43,10 @@ class Glob {
   static logIObj(msg) => loggerNoStack.t(jsonDecode(msg));
   static showSnack(msg) =>
       snackKey.currentState!.showSnackBar(SnackBar(content: Text(msg)));
+  static showSnackSuccess(msg) => snackKey.currentState!.showSnackBar(SnackBar(
+      content: Text(msg, style: const TextStyle(color: Colors.white)),
+      backgroundColor: Colors.green));
+  static showSnackFailure(msg) => snackKey.currentState!.showSnackBar(SnackBar(
+      content: Text(msg, style: const TextStyle(color: Colors.white)),
+      backgroundColor: Colors.red));
 }
