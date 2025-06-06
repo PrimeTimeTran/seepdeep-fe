@@ -127,15 +127,21 @@ class _SubmissionTableState extends State<SubmissionTable> {
                       style: TextStyle(
                           color: Colors.red, fontWeight: FontWeight.bold),
                     );
-              final status = Column(
+              final status = Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(children: [statusText]),
-                  Row(
+                  Center(
+                    child: statusIcon,
+                  ),
+                  const SizedBox(width: 8),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      statusText,
+                      const SizedBox(height: 4),
                       Text(
                         submission.createdAt != null
-                            ? DateFormat("MMMM d, y")
+                            ? DateFormat("MMMM d, y h:mm a")
                                 .format(submission.createdAt!)
                             : '',
                         style:
@@ -150,7 +156,6 @@ class _SubmissionTableState extends State<SubmissionTable> {
                 DataRow(
                   cells: [
                     DataCell(Text('${sortedSubmissions.length - i}')),
-                    DataCell(statusIcon),
                     DataCell(
                       status,
                       onTap: () {
@@ -158,8 +163,25 @@ class _SubmissionTableState extends State<SubmissionTable> {
                       },
                     ),
                     DataCell(Text(submission.language.toString())),
-                    DataCell(Text(submission.runTime.toString())),
-                    DataCell(Text(submission.memoryUsage!.toStringAsFixed(3))),
+                    DataCell(
+                      Row(
+                        children: [
+                          const Icon(Icons.timer, size: 16, color: Colors.grey),
+                          const SizedBox(width: 4),
+                          Text(submission.runTime.toString()),
+                        ],
+                      ),
+                    ),
+                    DataCell(
+                      Row(
+                        children: [
+                          const Icon(Icons.memory,
+                              size: 16, color: Colors.grey),
+                          const SizedBox(width: 4),
+                          Text(submission.memoryUsage!.toStringAsFixed(3)),
+                        ],
+                      ),
+                    ),
                     DataCell(
                       const Text('This is a note'),
                       onTap: () {
@@ -173,9 +195,10 @@ class _SubmissionTableState extends State<SubmissionTable> {
 
             return DataTable(
               columns: const [
-                DataColumn(label: Text('#')), // 👈 Row number column
-                DataColumn(label: Text('Status')),
-                DataColumn(label: Text('Date')),
+                DataColumn(label: Text('#')),
+                DataColumn(
+                    label: Text('Status'),
+                    columnWidth: FractionColumnWidth(0.3)),
                 DataColumn(label: Text('Language')),
                 DataColumn(label: Text('Runtime')),
                 DataColumn(label: Text('Memory')),

@@ -62,14 +62,24 @@ class _EditorState extends State<Editor> {
                       buildMenuItem('Go', Icons.bug_report, Language.go),
                       // buildMenuItem('SQL', Icons.bug_report, Language.sql),
                     ],
-                    child: TextButton.icon(
-                        onPressed: null,
-                        icon: const Icon(
-                            size: 20, Icons.code, color: Colors.green),
-                        label: AppText(
-                          text: selectedLanguageName(selectedLang),
-                          style: Theme.of(context).textTheme.bodyLarge,
-                        )),
+                    child: TextButton(
+                      onPressed: null,
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          AppText(
+                            text: selectedLanguageName(selectedLang),
+                            style: Theme.of(context).textTheme.bodyLarge,
+                          ),
+                          const SizedBox(width: 6),
+                          const Icon(
+                            Icons.arrow_drop_down_sharp,
+                            size: 20,
+                            color: Colors.grey,
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
                 ],
               ),

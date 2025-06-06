@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class EditorTabs extends StatelessWidget {
   final TabController tabController;
-  final List<String> tabTitles;
+  final List<Widget> tabTitles;
   final List<Widget> tabContents;
   final List<Submission> selectedSubmissions;
 
@@ -23,7 +23,8 @@ class EditorTabs extends StatelessWidget {
         TabBar(
           controller: tabController,
           isScrollable: true,
-          tabs: tabTitles.map((title) => Tab(text: title)).toList(),
+          tabs: tabTitles,
+          tabAlignment: TabAlignment.start,
         ),
         Expanded(
           child: TabBarView(

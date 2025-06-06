@@ -111,7 +111,7 @@ class _SolverSidebarState extends State<SolverSidebar> {
               problem: widget.problem,
               submissions: _submissions,
               submissionsFuture: _submissionsFuture,
-              onSelectSubmission: widget.onSelectSubmission
+              onSelectSubmission: widget.onSelectSubmission,
             ),
           ],
         ),
@@ -120,72 +120,78 @@ class _SolverSidebarState extends State<SolverSidebar> {
   }
 
   buildTab(title, icon) {
-    return Row(children: [
-      Tab(icon: Icon(icon)),
-      Text(title, style: Theme.of(context).textTheme.bodySmall)
-    ]);
+    return Row(
+      children: [
+        Tab(icon: Icon(icon)),
+        Text(title, style: Theme.of(context).textTheme.bodySmall)
+      ],
+    );
   }
 
   ScrollConfiguration buildTabEditorial() {
     return ScrollConfiguration(
       behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
-      child: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Gap(30),
-            Row(
-              children: [
-                SelectableText(
-                  'Editorial',
-                  style: Theme.of(context).textTheme.displaySmall,
-                ),
-                const Spacer(),
-                const Row(
-                  children: [
-                    Icon(Icons.star, color: Colors.yellow),
-                    Icon(Icons.star, color: Colors.yellow),
-                    Icon(Icons.star, color: Colors.yellow),
-                    Icon(Icons.star, color: Colors.yellow),
-                    Icon(Icons.star, color: Colors.yellow),
-                    SelectableText('4.53 (15 Votes)'),
-                  ],
-                ),
-              ],
-            ),
-            const Gap(30),
-            SelectableText(
-              widget.problem.title!,
-              style: Theme.of(context).textTheme.headlineLarge,
-            ),
-            const Gap(30),
-            SelectableText(
-              widget.problem.editorialBody!,
-              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-            ),
-            const Gap(30),
-            const TextField(
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                hintText: 'Type a comment here... (Markdown Supported)',
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Gap(30),
+              Row(
+                children: [
+                  SelectableText(
+                    'Editorial',
+                    style: Theme.of(context).textTheme.displaySmall,
+                  ),
+                  const Spacer(),
+                  const Row(
+                    children: [
+                      Icon(Icons.star, color: Colors.yellow),
+                      Icon(Icons.star, color: Colors.yellow),
+                      Icon(Icons.star, color: Colors.yellow),
+                      Icon(Icons.star, color: Colors.yellow),
+                      Icon(Icons.star, color: Colors.yellow),
+                      SelectableText('4.53 (15 Votes)'),
+                    ],
+                  ),
+                ],
               ),
-            ),
-            if (editorialComments.length < 10)
-              const SizedBox(
-                height: 200,
-                child: Center(
-                  child: Text('Too few comments so far for this editorial.'),
+              const Gap(30),
+              SelectableText(
+                widget.problem.title!,
+                style: Theme.of(context).textTheme.headlineLarge,
+              ),
+              const Gap(30),
+              SelectableText(
+                widget.problem.editorialBody!,
+                style:
+                    const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
+              const Gap(30),
+              const TextField(
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  hintText: 'Type a comment here... (Markdown Supported)',
                 ),
               ),
-            if (editorialComments.length > 5)
-              ListView.builder(
-                shrinkWrap: true,
-                itemCount: 10,
-                itemBuilder: (BuildContext context, int idx) {
-                  return const ui.CommentRow();
-                },
-              ),
-          ],
+              if (editorialComments.length < 10)
+                const SizedBox(
+                  height: 200,
+                  child: Center(
+                    child: Text('Too few comments so far for this editorial.'),
+                  ),
+                ),
+              if (editorialComments.length > 5)
+                ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: 10,
+                  itemBuilder: (BuildContext context, int idx) {
+                    return const ui.CommentRow();
+                  },
+                ),
+            ],
+          ),
         ),
       ),
     );
@@ -213,7 +219,7 @@ class _SolverSidebarState extends State<SolverSidebar> {
               ),
               const Gap(30),
               SizedBox(
-                height: getHeight() / 3,
+                height: getHeight(),
                 width: double.infinity,
                 child: ListView.builder(
                     itemCount: widget.testCases.length,

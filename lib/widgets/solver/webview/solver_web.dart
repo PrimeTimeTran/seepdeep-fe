@@ -101,8 +101,31 @@ class _SolverState extends State<Solver> with TickerProviderStateMixin {
               tabController: tabController,
               selectedSubmissions: selectedSubmissions,
               tabTitles: [
-                'Editor',
-                ...selectedSubmissions.map((_) => 'Submission')
+                const Tab(
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(
+                        Icons.code,
+                        color: Colors.green,
+                      ),
+                      SizedBox(width: 8),
+                      Text('Code'),
+                    ],
+                  ),
+                ),
+                ...selectedSubmissions.map(
+                  (_) => const Tab(
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(Icons.access_alarm, color: Colors.blue),
+                        SizedBox(width: 8),
+                        Text('Submission'),
+                      ],
+                    ),
+                  ),
+                ),
               ],
               tabContents: [
                 Editor(
