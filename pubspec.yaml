@@ -68,7 +68,7 @@ dependencies:
   image_downloader_web: ^2.0.6
   collection: ^1.18.0
   equatable: ^2.0.5
-  showcaseview: ^3.0.0
+  showcaseview: ^4.0.1
 
 dev_dependencies:
   flutter_test:

@@ -69,9 +69,9 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              buildStudyPlans(),
-              const Gap(5),
-              buildProblemTopics(),
+              // buildStudyPlans(),
+              // const Gap(5),
+              // buildProblemTopics(),
               const Gap(5),
               buildProblemList()
             ],
@@ -100,8 +100,8 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
             SizedBox(child: Text("Acceptance", style: style)),
             const Gap(50),
             SizedBox(child: Text("Difficulty", style: style)),
-            const Gap(60),
-            SizedBox(child: Text("Frequency", style: style)),
+            // const Gap(60),
+            // SizedBox(child: Text("Frequency", style: style)),
           ]),
     );
   }
@@ -109,7 +109,13 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
   GestureDetector buildListItem(item, idx, BuildContext context) {
     idx -= 1;
     bool odd = idx % 2 == 0;
-    Color color = odd ? Colors.grey.shade500 : Colors.grey.shade400;
+    Color colorLight =
+        odd ? Colors.blueAccent.shade100 : Colors.greenAccent.shade200;
+
+    Color colorDark = odd ? Colors.blueGrey.shade500 : Colors.blueGrey.shade600;
+    bool isDark = Theme.of(context).brightness == Brightness.dark;
+    Color rowColor = isDark ? colorDark : colorLight;
+
     Color difficultyColor = item.difficulty == 'Hard'
         ? Colors.red
         : item.difficulty == 'Medium'
@@ -120,10 +126,11 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
         Provider.of<ProblemProvider>(context, listen: false)
             .setFocusedProblem(item);
         GoRouter.of(context).go(
-            '${AppScreens.dsa.path}/${item.title.replaceAll(' ', '-').toLowerCase()}');
+          '${AppScreens.dsa.path}/${item.title.replaceAll(' ', '-').toLowerCase()}',
+        );
       },
       child: Container(
-        color: odd ? color : null,
+        color: rowColor,
         child: ListTile(
           iconColor: Colors.grey,
           leading: const Icon(Icons.abc),
@@ -143,14 +150,19 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
               const Spacer(),
               SizedBox(
                 width: 70,
-                child: Text(
-                  '${item.difficulty}',
-                  style: TextStyle(
-                      color: difficultyColor, fontWeight: FontWeight.bold),
+                child: Center(
+                  child: Text(
+                    '${item.difficulty}',
+                    style: TextStyle(
+                      color: difficultyColor,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 10,
+                    ),
+                  ),
                 ),
-              ),
-              const Spacer(),
-              SizedBox(width: 60, child: Text('${item.frequency}')),
+              )
+              // const Spacer(),
+              // SizedBox(width: 60, child: Text('${item.frequency}')),
             ],
           ),
         ),

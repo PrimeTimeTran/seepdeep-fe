@@ -14,7 +14,7 @@ GlobalKey _three = GlobalKey();
 GlobalKey _two = GlobalKey();
 
 // TODO:
-// 1. Add previous submissions to the sidebar clickable.
+// [x] 1. Add previous submissions to the sidebar clickable.
 // [x] API
 // [x] Query
 // [x] Click to show in editor
@@ -331,8 +331,11 @@ class _SolverState extends State<Solver> with TickerProviderStateMixin {
   checkIntroCompleted() async {
     final items = await Storage.instance.getIntros();
     if (!items.contains('dsa-screen-done')) {
-      WidgetsBinding.instance.addPostFrameCallback((_) =>
-          ShowCaseWidget.of(context).startShowCase([_one, _two, _three]));
+      Future.delayed(const Duration(seconds: 2), () {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          ShowCaseWidget.of(context).startShowCase([_one, _two, _three]);
+        });
+      });
     }
   }
 
