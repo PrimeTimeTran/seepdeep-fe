@@ -142,7 +142,7 @@ class _SubmissionTableState extends State<SubmissionTable> {
                       Text(
                         submission.createdAt != null
                             ? DateFormat("MMMM d, y h:mm a")
-                                .format(submission.createdAt!)
+                                .format(submission.createdAt ?? DateTime.now())
                             : '',
                         style:
                             const TextStyle(fontSize: 12, color: Colors.grey),
@@ -178,7 +178,7 @@ class _SubmissionTableState extends State<SubmissionTable> {
                           const Icon(Icons.memory,
                               size: 16, color: Colors.grey),
                           const SizedBox(width: 4),
-                          Text(submission.memoryUsage!.toStringAsFixed(3)),
+                          Text(submission.memoryUsage?.toStringAsFixed(3) ?? ''),
                         ],
                       ),
                     ),

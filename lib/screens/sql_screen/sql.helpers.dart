@@ -41,9 +41,10 @@ WHERE row_num <= 25;
 
 final lessonPromptMap = {
   '0.toc.md': [
-    makePrompt(queryPrompt: 'Checkout the table in the top right'),
-    makePrompt(queryPrompt: 'Checkout the next & find buttons'),
-    makePrompt(queryPrompt: 'Checkout the results'),
+    makePrompt(queryPrompt: 'Read Instructions'),
+    makePrompt(queryPrompt: 'Checkout Tasks'),
+    makePrompt(queryPrompt: 'Checkout Table(default query of Films table)'),
+    makePrompt(queryPrompt: 'Select 10 films instead of 7'),
   ],
   '1.insert.md': [
     makePrompt(
@@ -76,15 +77,6 @@ final lessonPromptMap = {
     ),
     makePrompt(
       queryPrompt:
-          'Select titles of the records(films) from the films table but LIMIT the results to only 25 records.',
-      answer: 'SELECT title FROM films LIMIT 25;',
-      followup:
-          'You probably experienced some lag there. The reason you did was because your query returned a tremendous number of results. You can limit the number of results with the `LIMIT` clause.',
-      followupPrompt: 'SELECT title FROM films LIMIT 25;',
-      hint: 'Think of querying your database as SELECTing data from it',
-    ),
-    makePrompt(
-      queryPrompt:
           'Select titles of the records in the films table but limit the results to 25 records only.',
       answer: 'SELECT title FROM films LIMIT 25;',
       hint:
@@ -93,7 +85,7 @@ final lessonPromptMap = {
     makePrompt(
       queryPrompt:
           'Select titles, runtime, & release_year of the records from the films table.',
-      answer: 'SELECT title, runtime, release_year FROM films;',
+      answer: 'SELECT title, runtime, year FROM films;',
       hint:
           'Remember that when searching for data we\'re SELECTing it FROM a table. Also remember to LIMIT the results so your system doesn\'t slow down.',
     ),

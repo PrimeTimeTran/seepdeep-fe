@@ -414,16 +414,12 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
     final answerQuery = lesson![lessonPromptIdx]['answer']!;
     List results = await queryDB(answerQuery);
     List answerIds = results.map((e) => e['id']).toList();
+
     print('lessonId $lessonId');
     print('lessonPromptIdx $lessonPromptIdx');
     print('query ${lesson[lessonPromptIdx]['answer']!}');
     print('resultIdsresultIds $answerIds');
 
-    const go = """
-select id, title, worldwide_gross from films where worldwide_gross >= 1000;
-select id, year, title, oscars_nominated from films where oscars_nominated >= 5;
-select id, year, title, oscars_nominated, oscars_won from films where oscars_won >= 3;
-""";
     final userQueryIds = queryResults.map((e) => e['id']).toList();
     if (answerIds.length != userQueryIds.length) {
     } else {
@@ -578,7 +574,7 @@ select id, year, title, oscars_nominated, oscars_won from films where oscars_won
   @override
   void initState() {
     super.initState();
-    onRun("select id, year, title from films limit 5;");
+    onRun("select id, year, title from films limit 7;");
     setup();
     super.initState();
     checkIntroCompleted();
@@ -615,15 +611,23 @@ select id, year, title, oscars_nominated, oscars_won from films where oscars_won
     }
   }
 
-  queryDB(String code) async {
+  Future<dynamic> queryDB(String code) async {
     final database = ref.read(AppDatabase.provider);
-    List<QueryRow> result = await database.customSelect(
-      '$code ',
-      readsFrom: {...database.allTables},
-    ).get();
+    final trimmed = code.trim().toLowerCase();
 
-    if (result.isNotEmpty) {
-      return parseResults(result);
+    if (trimmed.startsWith('select')) {
+      List<QueryRow> result = await database.customSelect(
+        code,
+        readsFrom: {...database.allTables},
+      ).get();
+
+      if (result.isNotEmpty) {
+        return parseResults(result);
+      }
+      return [];
+    } else {
+      await database.customStatement(code);
+      return [];
     }
   }
 
@@ -641,7 +645,7 @@ select id, year, title, oscars_nominated, oscars_won from films where oscars_won
       final results = await queryDB(code);
       setState(() {
         queryResults = results;
-        columnNames = results[0].keys;
+        columnNames = results.isNotEmpty ? results[0].keys : [];
       });
     } catch (e) {
       String msg = e.toString();

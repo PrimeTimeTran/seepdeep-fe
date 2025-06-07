@@ -52,7 +52,7 @@
       "difficulty": "Easy",
       "editorialAuthor": {
         "urlAvatar": "https://avatars.leetcode.com/u/9876",
-        "username": "LC_Solutions"
+        "username": "PrimeTimeTran"
       },
       "editorialBody": "Solutions include a brute force approach, using a hash table for efficient lookups, or sorting with two pointers.",
       "editorialRating": 4.5,

@@ -4,6 +4,8 @@ import 'package:app/all.dart';
 
 class Submission {
   String? id;
+  String? userId; // <-- Add this line
+
   DateTime? createdAt;
   String? body;
   String? title;
@@ -35,6 +37,7 @@ class Submission {
 
   Submission({
     this.id,
+    this.userId,
     this.user,
     this.body,
     this.submitted,
@@ -62,6 +65,7 @@ class Submission {
 
   Submission.fromJson(Map<String, dynamic> json)
       : user = _parseUser(json['user']),
+        userId = json['user'] is String ? json['user'] : (json['user']?['_id']),
         body = json['body'],
         createdAt = json['createdAt'] != null
             ? DateTime.parse(json['createdAt'])

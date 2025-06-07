@@ -143,8 +143,8 @@ class _ComposerSidebarState extends State<ComposerSidebar> {
               Row(
                 children: [
                   SelectableText(
-                    'Editorial',
-                    style: Theme.of(context).textTheme.displaySmall,
+                    widget.problem.title!,
+                    style: Theme.of(context).textTheme.headlineLarge,
                   ),
                   const Spacer(),
                   const Row(
@@ -160,10 +160,6 @@ class _ComposerSidebarState extends State<ComposerSidebar> {
                 ],
               ),
               const Gap(30),
-              SelectableText(
-                widget.problem.title!,
-                style: Theme.of(context).textTheme.headlineLarge,
-              ),
               const Gap(30),
               SelectableText(
                 widget.problem.editorialBody!,
