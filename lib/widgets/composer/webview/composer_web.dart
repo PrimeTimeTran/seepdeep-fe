@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:app/all.dart';
-import 'package:app/widgets/solver/submission_result_panel.dart';
+import 'package:app/widgets/composer/submission_result_panel.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
@@ -64,7 +64,7 @@ class _SolverState extends State<Solver> with TickerProviderStateMixin {
                         '1. Carefully read the questions description & example inputs and outputs.',
                     onBarrierClick: () => debugPrint('Barrier clicked'),
                     child: SizedBox(
-                      child: SolverSidebar(
+                      child: ComposerSidebar(
                         problem: problem,
                         passing: passing,
                         testCases: testCases,

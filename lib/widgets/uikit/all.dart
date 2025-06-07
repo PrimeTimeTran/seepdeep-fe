@@ -1,16 +1,15 @@
-// ignore_for_file: must_be_immutable
 import 'package:app/all.dart' as prefix;
 import 'package:app/all.dart';
 import 'package:flutter/material.dart';
 
 class Button extends StatelessWidget {
-  String title;
-  bool? outlined = false;
-  bool? textButton = false;
-  void Function()? onPress;
-  bool? elevatedButton = false;
+  final String title;
+  final bool? outlined;
+  final bool? textButton;
+  final void Function()? onPress;
+  final bool? elevatedButton;
 
-  Button({
+  const Button({
     super.key,
     this.outlined,
     this.textButton,
@@ -23,7 +22,6 @@ class Button extends StatelessWidget {
   Widget build(BuildContext context) {
     final ButtonStyle outlineButtonStyle = OutlinedButton.styleFrom(
       textStyle: const TextStyle(color: Colors.blue),
-      // foregroundColor: Colors.black87,
       minimumSize: const Size(88, 36),
       padding: const EdgeInsets.symmetric(horizontal: 16),
       shape: const RoundedRectangleBorder(

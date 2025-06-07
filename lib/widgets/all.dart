@@ -13,7 +13,7 @@ export 'markdown_editor/markdown_editor.dart';
 export 'modal/modals.dart';
 export 'shimmer_list.dart';
 export 'shimmers.dart';
-export 'solver/all.dart';
+export 'composer/all.dart';
 export 'toasts.dart';
 export 'uikit/all.dart';
 export 'vertical_split_view.dart';

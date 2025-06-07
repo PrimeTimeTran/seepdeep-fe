@@ -1,12 +1,10 @@
-// ignore_for_file: must_be_immutable
-
 import 'package:app/all.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 
 class MarkdownEditor extends StatefulWidget {
-  String body;
-  MarkdownEditor({super.key, required this.body});
+  final String body;
+  const MarkdownEditor({super.key, required this.body});
 
   @override
   State<MarkdownEditor> createState() => _MarkdownEditorState();

@@ -40,13 +40,14 @@ class _SolverState extends State<Solver> {
                     kToolbarHeight -
                     5,
                 child: VerticalSplitView(
-                  left: SolverSidebar(
+                  left: ComposerSidebar(
                     problem: problem,
                     passing: passing,
                     submitted: submitted,
                     testCases: testCases,
                     submissions: submissions,
                     submissionStream: _submissionStreamController.stream,
+                    onSelectSubmission: () {},
                   ),
                   right: buildRight(problem),
                 ),

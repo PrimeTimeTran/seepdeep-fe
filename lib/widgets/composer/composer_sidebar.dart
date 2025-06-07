@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:app/all.dart';
-import 'package:app/widgets/solver/comment.dart' as ui;
+import 'package:app/widgets/composer/comment.dart' as ui;
 import 'package:flutter/material.dart';
 import 'package:flutter_highlighter/flutter_highlighter.dart';
 import 'package:flutter_highlighter/themes/atom-one-dark.dart';
@@ -61,7 +61,7 @@ class CodeElementBuilder extends MarkdownElementBuilder {
 // localhost:3000/api/v1/problems/63f1b0c8d2a3e4f5b8c7e4a9/testcases/63f1b0c8d2a3e4f5b8c7e4a9/submissions?user=true&problem=63f1b0c8d2a3e4f5b8c7e4a9&testcase=63f1b0c8d2a3e4f5b8c7e4a9&submission=63f1b0c8d2a3e4f5b8c7e4a9
 
 // ignore: must_be_immutable
-class SolverSidebar extends StatefulWidget {
+class ComposerSidebar extends StatefulWidget {
   bool passing;
   bool submitted;
   Problem problem;
@@ -69,7 +69,7 @@ class SolverSidebar extends StatefulWidget {
   List<Submission> submissions;
   final Stream<Submission> submissionStream;
   final Function onSelectSubmission;
-  SolverSidebar({
+  ComposerSidebar({
     super.key,
     required this.problem,
     required this.passing,
@@ -81,10 +81,10 @@ class SolverSidebar extends StatefulWidget {
   });
 
   @override
-  State<SolverSidebar> createState() => _SolverSidebarState();
+  State<ComposerSidebar> createState() => _ComposerSidebarState();
 }
 
-class _SolverSidebarState extends State<SolverSidebar> {
+class _ComposerSidebarState extends State<ComposerSidebar> {
   ScrollController controller = ScrollController();
   late Future<List<Submission>> _submissionsFuture;
   late StreamSubscription<Submission> _streamSubscription;
