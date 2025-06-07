@@ -94,26 +94,28 @@ class _ComposerSidebarState extends State<ComposerSidebar> {
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 4,
-      key: ValueKey(widget.submitted),
-      initialIndex: widget.submitted ? 3 : 0,
-      animationDuration: Duration.zero,
-      child: Scaffold(
-        appBar: buildToolbar(context),
-        body: TabBarView(
-          physics: const NeverScrollableScrollPhysics(),
-          children: [
-            buildTabProblemDescription(context),
-            buildTabEditorial(),
-            SolutionsTable(problem: widget.problem),
-            SubmissionTable(
-              problem: widget.problem,
-              submissions: _submissions,
-              submissionsFuture: _submissionsFuture,
-              onSelectSubmission: widget.onSelectSubmission,
-            ),
-          ],
+    return Card.outlined(
+      child: DefaultTabController(
+        length: 4,
+        key: ValueKey(widget.submitted),
+        initialIndex: widget.submitted ? 3 : 0,
+        animationDuration: Duration.zero,
+        child: Scaffold(
+          appBar: buildToolbar(context),
+          body: TabBarView(
+            physics: const NeverScrollableScrollPhysics(),
+            children: [
+              buildTabProblemDescription(context),
+              buildTabEditorial(),
+              SolutionsTable(problem: widget.problem),
+              SubmissionTable(
+                problem: widget.problem,
+                submissions: _submissions,
+                submissionsFuture: _submissionsFuture,
+                onSelectSubmission: widget.onSelectSubmission,
+              ),
+            ],
+          ),
         ),
       ),
     );

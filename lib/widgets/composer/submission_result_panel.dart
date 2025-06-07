@@ -100,23 +100,26 @@ class SubmissionResultPanelState extends State<SubmissionResultPanel> {
                   padding: const EdgeInsets.symmetric(horizontal: 256.0),
                   child: Column(
                     children: [
-                      CodeTheme(
-                        data: CodeThemeData(
-                          styles:
-                              Style.currentTheme(context) == Brightness.light
-                                  ? vsTheme
-                                  : atelierCaveDarkTheme,
-                        ),
-                        child: SizedBox(
-                          height: 900,
-                          width: double.infinity,
-                          child: CodeField(
-                            lineNumbers: false,
-                            textStyle: const TextStyle(
-                              height: 1.5,
-                              leadingDistribution: TextLeadingDistribution.even,
+                      Card.outlined(
+                        child: CodeTheme(
+                          data: CodeThemeData(
+                            styles:
+                                Style.currentTheme(context) == Brightness.light
+                                    ? vsTheme
+                                    : atelierCaveDarkTheme,
+                          ),
+                          child: SizedBox(
+                            height: 900,
+                            width: double.infinity,
+                            child: CodeField(
+                              lineNumbers: false,
+                              textStyle: const TextStyle(
+                                height: 1.5,
+                                leadingDistribution:
+                                    TextLeadingDistribution.even,
+                              ),
+                              controller: _controller,
                             ),
-                            controller: _controller,
                           ),
                         ),
                       ),

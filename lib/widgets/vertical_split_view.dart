@@ -29,8 +29,12 @@ class HoverableContainer extends StatefulWidget {
   final width;
   final height;
 
-  const HoverableContainer(
-      {super.key, required this.child, this.width, this.height});
+  const HoverableContainer({
+    super.key,
+    this.width,
+    this.height,
+    required this.child,
+  });
 
   @override
   _HoverableContainerState createState() => _HoverableContainerState();

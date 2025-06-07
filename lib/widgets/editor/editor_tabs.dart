@@ -17,22 +17,25 @@ class EditorTabs extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        TabBar(
-          tabs: tabTitles,
-          isScrollable: true,
-          controller: tabController,
-          tabAlignment: TabAlignment.start,
-        ),
-        Expanded(
-          child: TabBarView(
+    return Card.outlined(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          TabBar(
+            tabs: tabTitles,
+            isScrollable: true,
             controller: tabController,
-            children: tabContents,
+            tabAlignment: TabAlignment.start,
           ),
-        ),
-      ],
+          Expanded(
+            child: TabBarView(
+              controller: tabController,
+              physics: const NeverScrollableScrollPhysics(),
+              children: tabContents,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

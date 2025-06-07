@@ -63,16 +63,14 @@ class _SolverState extends State<Solver> with TickerProviderStateMixin {
                     description:
                         '1. Carefully read the questions description & example inputs and outputs.',
                     onBarrierClick: () => debugPrint('Barrier clicked'),
-                    child: SizedBox(
-                      child: ComposerSidebar(
-                        problem: problem,
-                        passing: passing,
-                        testCases: testCases,
-                        submitted: submitted,
-                        submissions: submissions,
-                        submissionStream: _submissionStreamController.stream,
-                        onSelectSubmission: onSelectSubmission,
-                      ),
+                    child: ComposerSidebar(
+                      problem: problem,
+                      passing: passing,
+                      testCases: testCases,
+                      submitted: submitted,
+                      submissions: submissions,
+                      submissionStream: _submissionStreamController.stream,
+                      onSelectSubmission: onSelectSubmission,
                     ),
                   ),
                   right: buildRight(problem),
@@ -85,7 +83,6 @@ class _SolverState extends State<Solver> with TickerProviderStateMixin {
     );
   }
 
-  // TODO: Add bg color change when slider is hovered
   buildRight(Problem p) {
     return HorizontalSplitView(
       top: Showcase(
@@ -242,94 +239,97 @@ class _SolverState extends State<Solver> with TickerProviderStateMixin {
       onBarrierClick: () => debugPrint('Barrier clicked'),
       child: GestureDetector(
         onTap: () => debugPrint('menu button clicked'),
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                children: [
-                  Expanded(
-                    flex: 3,
-                    child: Row(
-                      children: [
-                        TextButton.icon(
-                            style: TextButton.styleFrom(
-                              shape: const RoundedRectangleBorder(
-                                borderRadius: BorderRadius.all(Radius.zero),
+        child: Card.outlined(
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  children: [
+                    Expanded(
+                      flex: 3,
+                      child: Row(
+                        children: [
+                          TextButton.icon(
+                              style: TextButton.styleFrom(
+                                shape: const RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.all(Radius.zero),
+                                ),
                               ),
-                            ),
-                            onPressed: () {},
-                            icon: const Icon(Icons.science_outlined,
-                                color: Colors.green),
-                            label: Text(
-                              'Test Cases',
-                              style: Theme.of(context).textTheme.bodySmall,
-                            )),
-                        const Gap(10),
-                        TextButton.icon(
-                          style: TextButton.styleFrom(
-                              shape: const RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.all(Radius.zero))),
-                          onPressed: () {},
-                          icon: processing
-                              ? const SizedBox(
-                                  height: 24,
-                                  width: 24,
-                                  child: CircularProgressIndicator())
-                              : const Icon(Icons.keyboard_double_arrow_right,
+                              onPressed: () {},
+                              icon: const Icon(Icons.science_outlined,
                                   color: Colors.green),
-                          label: Text(
-                            'Test Result',
-                            style: Theme.of(context).textTheme.bodySmall,
-                          ),
-                        )
-                      ],
+                              label: Text(
+                                'Test Cases',
+                                style: Theme.of(context).textTheme.bodySmall,
+                              )),
+                          const Gap(10),
+                          TextButton.icon(
+                            style: TextButton.styleFrom(
+                                shape: const RoundedRectangleBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.zero))),
+                            onPressed: () {},
+                            icon: processing
+                                ? const SizedBox(
+                                    height: 24,
+                                    width: 24,
+                                    child: CircularProgressIndicator())
+                                : const Icon(Icons.keyboard_double_arrow_right,
+                                    color: Colors.green),
+                            label: Text(
+                              'Test Result',
+                              style: Theme.of(context).textTheme.bodySmall,
+                            ),
+                          )
+                        ],
+                      ),
                     ),
-                  ),
-                  Expanded(
-                    child: GFButtonBadge(
-                      color: Colors.green.shade600,
-                      onPressed:
-                          processing ? null : () => onRun(code, selectedLang),
-                      textStyle: const TextStyle(
-                          fontWeight: FontWeight.bold, color: Colors.white),
-                      text: processing ? "Processing" : "Run (CTRL + ENTER)",
-                    ),
-                  )
-                ],
+                    Expanded(
+                      child: GFButtonBadge(
+                        color: Colors.green.shade600,
+                        onPressed:
+                            processing ? null : () => onRun(code, selectedLang),
+                        textStyle: const TextStyle(
+                            fontWeight: FontWeight.bold, color: Colors.white),
+                        text: processing ? "Processing" : "Run (CTRL + ENTER)",
+                      ),
+                    )
+                  ],
+                ),
               ),
-            ),
-            Expanded(
-              child: DefaultTabController(
-                length: testCases.isNotEmpty ? testCaseTabs.length : 3,
-                animationDuration: Duration.zero,
-                child: Scaffold(
-                  appBar: AppBar(
-                    flexibleSpace: TabBar(
-                      tabAlignment: TabAlignment.start,
-                      isScrollable: true,
-                      tabs: testCases.isNotEmpty
-                          ? testCaseTabs
+              Expanded(
+                child: DefaultTabController(
+                  length: testCases.isNotEmpty ? testCaseTabs.length : 3,
+                  animationDuration: Duration.zero,
+                  child: Scaffold(
+                    appBar: AppBar(
+                      flexibleSpace: TabBar(
+                        tabAlignment: TabAlignment.start,
+                        isScrollable: true,
+                        tabs: testCases.isNotEmpty
+                            ? testCaseTabs
+                            : [
+                                buildTab('Case 1', false),
+                                buildTab('Case 2', false),
+                                buildTab('Case 3', false),
+                              ],
+                      ),
+                    ),
+                    body: TabBarView(
+                      children: testCases.isNotEmpty
+                          ? testCaseViews
                           : [
-                              buildTab('Case 1', false),
-                              buildTab('Case 2', false),
-                              buildTab('Case 3', false),
+                              const Icon(Icons.directions),
+                              const Icon(Icons.directions_transit),
+                              const Icon(Icons.directions_bike),
                             ],
                     ),
                   ),
-                  body: TabBarView(
-                    children: testCases.isNotEmpty
-                        ? testCaseViews
-                        : [
-                            const Icon(Icons.directions),
-                            const Icon(Icons.directions_transit),
-                            const Icon(Icons.directions_bike),
-                          ],
-                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -384,7 +384,7 @@ class _SolverState extends State<Solver> with TickerProviderStateMixin {
     super.initState();
     updateTabController();
     initializeProblem();
-    checkIntroCompleted();
+    // checkIntroCompleted();
   }
 
   onRun(submission, lang) {
@@ -474,8 +474,8 @@ class _SolverState extends State<Solver> with TickerProviderStateMixin {
 
   void updateTabController() {
     tabController = TabController(
-      length: selectedSubmissions.length + 1, // 1 for the "Editor" tab
-      vsync: this, // Now supports multiple tickers
+      length: selectedSubmissions.length + 1,
+      vsync: this,
     );
   }
 }
