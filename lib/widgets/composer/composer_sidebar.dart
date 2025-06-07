@@ -217,13 +217,14 @@ class _ComposerSidebarState extends State<ComposerSidebar> {
               const Gap(30),
               SelectableText(
                 widget.problem.body!,
-                style: Theme.of(context).textTheme.titleLarge,
+                style: Theme.of(context).textTheme.bodyLarge,
               ),
               const Gap(30),
-              SizedBox(
-                height: getHeight(),
-                width: double.infinity,
-                child: ListView.builder(
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  ListView.builder(
+                    shrinkWrap: true,
                     itemCount: widget.testCases.length,
                     itemBuilder: (
                       BuildContext context,
@@ -235,10 +236,10 @@ class _ComposerSidebarState extends State<ComposerSidebar> {
                         children: [
                           Text(
                             "Example ${idx + 1}:",
-                            style: Theme.of(context).textTheme.headlineLarge,
+                            style: Theme.of(context).textTheme.headlineSmall,
                           ),
                           const SizedBox(height: 5),
-                          // TODO: Seperate parameters and add names
+                          // TODO: Separate parameters and add names
                           Row(
                             children: [
                               Text(
@@ -281,7 +282,9 @@ class _ComposerSidebarState extends State<ComposerSidebar> {
                           const SizedBox(height: 40),
                         ],
                       );
-                    }),
+                    },
+                  ),
+                ],
               ),
             ],
           ),
