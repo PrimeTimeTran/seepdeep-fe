@@ -105,12 +105,10 @@ class Submission {
             : [],
         contest =
             json['contest'] != null ? Contest.fromJson(json['contest']) : null,
-        id = json['_id'],
         penalty = json['penalty'];
 
   factory Submission.placeholder(problemId, userId) {
     return Submission(
-      id: '',
       user: userId,
       body: 'Placeholder body',
       title: 'Placeholder title',

@@ -13,8 +13,8 @@ class AuthScreen extends StatefulWidget {
 }
 
 class _AuthScreenState extends State<AuthScreen> {
-  String email = '';
-  String password = '';
+  String email = 'datloiboi@gmail.com';
+  String password = 'asdf!123';
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -53,7 +53,7 @@ class _AuthScreenState extends State<AuthScreen> {
                   onPressed: () {
                     _authRequest();
                   },
-                  child: const Text('authRequest'),
+                  child: const Text('Sign In'),
                 ),
                 const Gap(50),
                 ElevatedButton(
@@ -84,20 +84,22 @@ class _AuthScreenState extends State<AuthScreen> {
                 const Gap(50),
                 Consumer<AuthProvider>(
                   builder: (context, auth, child) {
-                    return Text('isAuthenticated: ${auth.isAuthenticated}',
-                        style: TextStyle(
-                            color: auth.isAuthenticated
-                                ? Colors.green
-                                : Colors.red));
+                    return Text(
+                      'isAuthenticated: ${auth.isAuthenticated}',
+                      style: TextStyle(
+                          color:
+                              auth.isAuthenticated ? Colors.green : Colors.red),
+                    );
                   },
                 ),
                 Consumer<AuthProvider>(
                   builder: (context, auth, child) {
-                    return Text('isAuthenticated: ${auth.user?.email}',
-                        style: TextStyle(
-                            color: auth.isAuthenticated
-                                ? Colors.green
-                                : Colors.red));
+                    return Text(
+                      'isAuthenticated: ${auth.user?.email}',
+                      style: TextStyle(
+                          color:
+                              auth.isAuthenticated ? Colors.green : Colors.red),
+                    );
                   },
                 )
               ],
@@ -131,8 +133,7 @@ class _AuthScreenState extends State<AuthScreen> {
     try {
       final result = await Api.post(
           'auth/authenticate', {'email': email, 'password': password});
-      final user = User.fromJson(result['user']);
-      Provider.of<AuthProvider>(context, listen: false).setUser(user);
+      Provider.of<AuthProvider>(context, listen: false).setUser(result['user']);
     } catch (e) {
       Glob.logE('Error: $e');
     }

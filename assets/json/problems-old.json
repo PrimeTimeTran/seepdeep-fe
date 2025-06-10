@@ -12,7 +12,7 @@
       "difficulty": "Easy",
       "editorialAuthor": {
         "urlAvatar": "https://avatars.leetcode.com/u/9876",
-        "username": "LC_Solutions"
+        "username": "PrimeTimeTran"
       },
       "editorialBody": "Solutions include a brute force approach, using a hash table for efficient lookups, or sorting with two pointers.",
       "editorialRating": 4.5,
@@ -186,6 +186,9 @@
       }
     },
     {
+      "id": "66367f5e0d552cf0a90e8614",
+      "title": "Median of Two Sorted Arrays",
+      "numLC": 4,
       "acceptanceRate": 31.6,
       "accepted": 15.3,
       "author": {
@@ -206,7 +209,6 @@
       "hints": [],
       "isPublished": true,
       "isSubmitted": true,
-      "numLC": 4,
       "similar": [
         {
           "difficulty": "Hard",
@@ -239,13 +241,12 @@
           ]
         }
       ],
-      "title": "Median of Two Sorted Arrays",
       "topics": [
         { "name": "Array" },
         { "name": "Binary Search" },
         { "name": "Divide and Conquer" }
       ],
-      "id": "66367f5e0d552cf0a90e8614",
+
       "signature": {
         "parameters": [
           { "type": "List[int]", "name": "nums1" },
@@ -529,6 +530,9 @@
       }
     },
     {
+      "id": "66367f5e0d552cf0a90e865b",
+      "title": "Container With Most Water",
+      "numLC": 11,
       "acceptanceRate": 50.3,
       "accepted": 32.1,
       "author": {
@@ -549,7 +553,6 @@
       "hints": [],
       "isPublished": true,
       "isSubmitted": true,
-      "numLC": 11,
       "similar": [
         { "difficulty": "Hard", "id": 42, "title": "Trapping Rain Water" },
         {
@@ -568,9 +571,7 @@
         { "output": 1, "explanation": "", "input": [[1, 1]] },
         { "output": 16, "explanation": "", "input": [[4, 3, 2, 1, 4]] }
       ],
-      "title": "Container With Most Water",
       "topics": [{ "name": "Array" }, { "name": "Two Pointers" }],
-      "id": "66367f5e0d552cf0a90e865b",
       "signature": {
         "parameters": [{ "type": "List[int]", "name": "height" }],
         "returnType": "int"
@@ -717,6 +718,9 @@
       }
     },
     {
+      "id": "66367f5e0d552cf0a90e8682",
+      "title": "3Sum",
+      "numLC": 15,
       "acceptanceRate": 28.6,
       "accepted": 20.5,
       "author": {
@@ -737,7 +741,6 @@
       "hints": [],
       "isPublished": true,
       "isSubmitted": true,
-      "numLC": 15,
       "similar": [
         { "difficulty": "Medium", "id": 1, "title": "Two Sum" },
         {
@@ -759,9 +762,7 @@
         { "output": [], "explanation": "", "input": [[]] },
         { "output": [], "explanation": "", "input": [[0]] }
       ],
-      "title": "3Sum",
       "topics": [{ "name": "Array" }, { "name": "Two Pointers" }],
-      "id": "66367f5e0d552cf0a90e8682",
       "signature": {
         "parameters": [{ "type": "List[int]", "name": "nums" }],
         "returnType": "List[List[int]]"
@@ -1746,6 +1747,9 @@
       }
     },
     {
+      "id": "66367f5e0d552cf0a90e875c",
+      "title": "Valid Sudoku",
+      "numLC": 36,
       "acceptanceRate": 45.6,
       "accepted": 40.2,
       "author": {
@@ -1766,7 +1770,6 @@
       "hints": [],
       "isPublished": true,
       "isSubmitted": true,
-      "numLC": 36,
       "similar": [
         { "difficulty": "Medium", "id": 37, "title": "Sudoku Solver" }
       ],
@@ -1807,9 +1810,7 @@
           ]
         }
       ],
-      "title": "Valid Sudoku",
       "topics": [{ "name": "Array" }, { "name": "Hash Table" }],
-      "id": "66367f5e0d552cf0a90e875c",
       "signature": {
         "parameters": [{ "type": "List[List[str]]", "name": "board" }],
         "returnType": "bool"

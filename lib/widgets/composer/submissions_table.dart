@@ -108,7 +108,6 @@ class _SubmissionTableState extends State<SubmissionTable> {
             final sortedSubmissions = [...widget.submissions];
             sortedSubmissions.sort((a, b) => (b.createdAt ?? DateTime.now())
                 .compareTo(a.createdAt ?? DateTime.now()));
-
             List<DataRow> rows = [];
             for (var i = 0; i < sortedSubmissions.length; i++) {
               final submission = sortedSubmissions[i];
@@ -152,6 +151,7 @@ class _SubmissionTableState extends State<SubmissionTable> {
                 ],
               );
 
+              // rows.add(const DataRow(cells: [DataCell(Text('Gogogogogogog'))]));
               rows.add(
                 DataRow(
                   cells: [
@@ -178,7 +178,8 @@ class _SubmissionTableState extends State<SubmissionTable> {
                           const Icon(Icons.memory,
                               size: 16, color: Colors.grey),
                           const SizedBox(width: 4),
-                          Text(submission.memoryUsage?.toStringAsFixed(3) ?? ''),
+                          Text(
+                              submission.memoryUsage?.toStringAsFixed(3) ?? ''),
                         ],
                       ),
                     ),

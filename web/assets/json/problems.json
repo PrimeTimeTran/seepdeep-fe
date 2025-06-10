@@ -1,46 +1,8 @@
 {
   "data": [
     {
-      "acceptanceRate": 52.4,
-      "accepted": 12.9,
-      "author": {
-        "urlAvatar": "https://avatars.leetcode.com/u/12345",
-        "username": "PrimeTimeTran"
-      },
-      "body": "Given an array of integers and a target value, determine if there are two numbers that add up to the target. You may assume that each input would have exactly one solution, and you may not use the same element twice.",
-      "constraints": [],
-      "difficulty": "Easy",
-      "editorialAuthor": {
-        "urlAvatar": "https://avatars.leetcode.com/u/9876",
-        "username": "LC_Solutions"
-      },
-      "editorialBody": "Solutions include a brute force approach, using a hash table for efficient lookups, or sorting with two pointers.",
-      "editorialRating": 4.5,
-      "editorialVotes": { "1": 5, "2": 4 },
-      "frequency": "High",
-      "hints": [],
-      "isPublished": true,
-      "isSubmitted": true,
-      "numLC": 1,
-      "similar": [{ "difficulty": "Medium", "id": 2, "title": "3 Sum" }],
-      "submissions": 24.6,
-      "testCases": [
-        { "output": [0, 1], "explanation": "", "input": [[2, 7, 11, 15], 9] },
-        { "output": [1, 2], "explanation": "", "input": [[3, 2, 4], 6] },
-        { "output": [0, 1], "explanation": "", "input": [[3, 3], 6] }
-      ],
-      "title": "Two Sum",
-      "topics": [{ "name": "Array" }, { "name": "Hash Table" }],
       "id": "66367f5e0d552cf0a90e85e9",
-      "signature": {
-        "parameters": [
-          { "type": "List[int]", "name": "nums" },
-          { "type": "int", "name": "target" }
-        ],
-        "returnType": "List[int]"
-      }
-    },
-    {
+      "title": "Two Sum",
       "acceptanceRate": 52.4,
       "accepted": 12.9,
       "author": {
@@ -69,9 +31,7 @@
         { "output": [1, 2], "explanation": "", "input": [[3, 2, 4], 6] },
         { "output": [0, 1], "explanation": "", "input": [[3, 3], 6] }
       ],
-      "title": "Two Sum",
       "topics": [{ "name": "Array" }, { "name": "Hash Table" }],
-      "id": "66367f5e0d552cf0a90e85e9",
       "signature": {
         "parameters": [
           { "type": "List[int]", "name": "nums" },
@@ -81,99 +41,311 @@
       }
     },
     {
-      "acceptanceRate": 59.6,
-      "accepted": 18.7,
+      "id": "66367f5e0d552cf0a90e8609",
+      "title": "Longest Substring Without Repeating Characters",
+      "body": "Given a string s, find the length of the longest substring without repeating characters.",
+      "acceptanceRate": 35.2,
+      "accepted": 5.9,
+      "submissions": 16.8,
       "author": {
-        "urlAvatar": "https://avatars.leetcode.com/u/12345",
+        "urlAvatar": "https://avatars.leetcode.com/u/54321",
         "username": "PrimeTimeTran"
       },
-      "body": "Given an integer array `nums`, return `true` if any value appears at least twice in the array, and return `false` if every element is distinct.",
-      "constraints": [],
-      "difficulty": "Easy",
-      "editorialAuthor": {
-        "urlAvatar": "https://avatars.leetcode.com/u/9876",
-        "username": "LC_Solutions"
-      },
-      "editorialBody": "Common solutions include sorting the array and checking neighboring elements, or using a hash set to track seen values for O(n) time complexity.",
-      "editorialRating": 4.3,
-      "editorialVotes": { "1": 3, "2": 6 },
+      "difficulty": "Medium",
       "frequency": "High",
-      "hints": [],
+      "constraints": [],
+      "hints": [
+        "Use a sliding window approach.",
+        "Try using a set to store characters.",
+        "When a duplicate character is found, move the left pointer."
+      ],
       "isPublished": true,
       "isSubmitted": true,
-      "numLC": 217,
-      "similar": [
-        { "difficulty": "Easy", "id": 136, "title": "Single Number" }
-      ],
-      "submissions": 31.4,
-      "testCases": [
-        { "output": true, "explanation": "", "input": [[1, 2, 3, 1]] },
-        { "output": false, "explanation": "", "input": [[1, 2, 3, 4]] },
-        {
-          "output": true,
-          "explanation": "",
-          "input": [[1, 1, 1, 3, 3, 4, 3, 2, 4, 2]]
-        }
-      ],
-      "title": "Contains Duplicate",
-      "topics": [
-        { "name": "Array" },
-        { "name": "Hash Table" },
-        { "name": "Sorting" }
-      ],
-      "id": "663680c70d552cf0a90e8612",
-      "signature": {
-        "parameters": [{ "type": "List[int]", "name": "nums" }],
-        "returnType": "bool"
-      }
-    },
-    {
-      "acceptanceRate": 63.7,
-      "accepted": 19.2,
-      "author": {
-        "urlAvatar": "https://avatars.leetcode.com/u/12345",
-        "username": "ExperiencedCoder"
-      },
-      "body": "Given two strings `s` and `t`, return `true` if `t` is an anagram of `s`, and `false` otherwise.\n\nAn Anagram is a word or phrase formed by rearranging the letters of a different word or phrase, typically using all the original letters exactly once.",
-      "constraints": [],
-      "difficulty": "Easy",
-      "editorialAuthor": {
-        "urlAvatar": "https://avatars.leetcode.com/u/9876",
-        "username": "LC_Solutions"
-      },
-      "editorialBody": "Common approaches include sorting both strings and comparing them, or using a hash map or array to count character frequencies for O(n) time and space efficiency.",
-      "editorialRating": 4.6,
-      "editorialVotes": { "1": 2, "2": 5 },
-      "frequency": "High",
-      "hints": [],
-      "isPublished": true,
-      "isSubmitted": true,
-      "numLC": 242,
-      "similar": [
-        { "difficulty": "Easy", "id": 49, "title": "Group Anagrams" }
-      ],
-      "submissions": 30.1,
-      "testCases": [
-        { "output": true, "explanation": "", "input": ["anagram", "nagaram"] },
-        { "output": false, "explanation": "", "input": ["rat", "car"] },
-        { "output": false, "explanation": "", "input": ["a", "ab"] }
-      ],
-      "title": "Valid Anagram",
+      "numLC": 3,
       "topics": [
         { "name": "Hash Table" },
         { "name": "String" },
-        { "name": "Sorting" }
+        { "name": "Sliding Window" }
       ],
-      "id": "663681e10d552cf0a90e8637",
+      "similar": [
+        {
+          "id": 159,
+          "title": "Longest Substring with At Most Two Distinct Characters",
+          "difficulty": "Medium"
+        },
+        { "id": 76, "title": "Minimum Window Substring", "difficulty": "Hard" }
+      ],
+      "testCases": [
+        {
+          "input": ["abcabcbb"],
+          "output": 3,
+          "explanation": "\"abc\" is the longest substring."
+        },
+        {
+          "input": ["bbbbb"],
+          "output": 1,
+          "explanation": "\"b\" is the longest substring."
+        },
+        {
+          "input": ["pwwkew"],
+          "output": 3,
+          "explanation": "\"wke\" is the longest substring."
+        }
+      ],
+      "signature": {
+        "parameters": [{ "type": "str", "name": "s" }],
+        "returnType": "int"
+      },
+      "editorialAuthor": {
+        "urlAvatar": "https://avatars.leetcode.com/u/6789",
+        "username": "PrimeTimeTran"
+      },
+      "editorialBody": "A sliding window approach using a hash set or a dictionary can efficiently solve this problem in linear time. You maintain a window and slide it forward while ensuring that all characters inside are unique.",
+      "editorialRating": 4.7,
+      "editorialVotes": { "1": 3, "2": 7 }
+    },
+    {
+      "id": "66367f5e0d552cf0a90e8614",
+      "title": "Median of Two Sorted Arrays",
+      "numLC": 4,
+      "acceptanceRate": 31.6,
+      "accepted": 15.3,
+      "author": {
+        "urlAvatar": "https://avatars.leetcode.com/u/13579",
+        "username": "MedianFinder"
+      },
+      "body": "Given two sorted arrays nums1 and nums2 of size m and n respectively, return the median of the two sorted arrays.",
+      "constraints": [],
+      "difficulty": "Hard",
+      "editorialAuthor": {
+        "urlAvatar": "https://avatars.leetcode.com/u/54321",
+        "username": "SortedArrayMaster"
+      },
+      "editorialBody": "The problem can be solved using binary search to partition the arrays into two parts such that elements on the left are smaller than elements on the right. Then, calculate the median based on the partitioned arrays.",
+      "editorialRating": 4.9,
+      "editorialVotes": { "1": 9, "2": 1 },
+      "frequency": "High",
+      "hints": [],
+      "isPublished": true,
+      "isSubmitted": true,
+      "similar": [
+        {
+          "difficulty": "Hard",
+          "id": 719,
+          "title": "Find K-th Smallest Pair Distance"
+        },
+        {
+          "difficulty": "Hard",
+          "id": 295,
+          "title": "Find Median from Data Stream"
+        }
+      ],
+      "submissions": 27.8,
+      "testCases": [
+        { "output": 2, "explanation": "", "input": [[1, 3], [2]] },
+        {
+          "output": 2.5,
+          "explanation": "",
+          "input": [
+            [1, 2],
+            [3, 4]
+          ]
+        },
+        {
+          "output": 0,
+          "explanation": "",
+          "input": [
+            [0, 0],
+            [0, 0]
+          ]
+        }
+      ],
+      "topics": [
+        { "name": "Array" },
+        { "name": "Binary Search" },
+        { "name": "Divide and Conquer" }
+      ],
+
       "signature": {
         "parameters": [
-          { "type": "str", "name": "s" },
-          { "type": "str", "name": "t" }
+          { "type": "List[int]", "name": "nums1" },
+          { "type": "List[int]", "name": "nums2" }
         ],
+        "returnType": "float"
+      }
+    },
+    {
+      "id": "66367f5e0d552cf0a90e865b",
+      "title": "Container With Most Water",
+      "numLC": 11,
+      "acceptanceRate": 50.3,
+      "accepted": 32.1,
+      "author": {
+        "urlAvatar": "https://avatars.leetcode.com/u/75321",
+        "username": "WaterContainerMaster"
+      },
+      "body": "Given n non-negative integers a1, a2, ..., an , where each represents a point at coordinate (i, ai). n vertical lines are drawn such that the two endpoints of the line i is at (i, ai) and (i, 0). Find two lines, which, together with the x-axis forms a container, such that the container contains the most water.",
+      "constraints": [],
+      "difficulty": "Medium",
+      "editorialAuthor": {
+        "urlAvatar": "https://avatars.leetcode.com/u/54321",
+        "username": "ContainerExpert"
+      },
+      "editorialBody": "The problem can be solved using a two-pointer approach. Start with two pointers at the beginning and end of the array, and move them towards each other while updating the maximum area.",
+      "editorialRating": 4.6,
+      "editorialVotes": { "1": 7, "2": 3 },
+      "frequency": "High",
+      "hints": [],
+      "isPublished": true,
+      "isSubmitted": true,
+      "similar": [
+        { "difficulty": "Hard", "id": 42, "title": "Trapping Rain Water" },
+        {
+          "difficulty": "Medium",
+          "id": 42,
+          "title": "Container With Most Water"
+        }
+      ],
+      "submissions": 27.8,
+      "testCases": [
+        {
+          "output": 49,
+          "explanation": "",
+          "input": [[1, 8, 6, 2, 5, 4, 8, 3, 7]]
+        },
+        { "output": 1, "explanation": "", "input": [[1, 1]] },
+        { "output": 16, "explanation": "", "input": [[4, 3, 2, 1, 4]] }
+      ],
+      "topics": [{ "name": "Array" }, { "name": "Two Pointers" }],
+      "signature": {
+        "parameters": [{ "type": "List[int]", "name": "height" }],
+        "returnType": "int"
+      }
+    },
+    {
+      "id": "66367f5e0d552cf0a90e8682",
+      "title": "3Sum",
+      "numLC": 15,
+      "acceptanceRate": 28.6,
+      "accepted": 20.5,
+      "author": {
+        "urlAvatar": "https://avatars.leetcode.com/u/98765",
+        "username": "ThreeSumMaster"
+      },
+      "body": "Given an array nums of n integers, are there elements a, b, c in nums such that a + b + c = 0? Find all unique triplets in the array which gives the sum of zero. Notice that the solution set must not contain duplicate triplets.",
+      "constraints": [],
+      "difficulty": "Medium",
+      "editorialAuthor": {
+        "urlAvatar": "https://avatars.leetcode.com/u/54321",
+        "username": "ThreeSumExpert"
+      },
+      "editorialBody": "The problem can be solved by sorting the array and using a two-pointer approach to find triplets that sum up to zero. Handle duplicate triplets by skipping duplicates in the array.",
+      "editorialRating": 4.6,
+      "editorialVotes": { "1": 6, "2": 4 },
+      "frequency": "High",
+      "hints": [],
+      "isPublished": true,
+      "isSubmitted": true,
+      "similar": [
+        { "difficulty": "Medium", "id": 1, "title": "Two Sum" },
+        {
+          "difficulty": "Medium",
+          "id": 11,
+          "title": "Container With Most Water"
+        }
+      ],
+      "submissions": 25.3,
+      "testCases": [
+        {
+          "output": [
+            [-1, -1, 2],
+            [-1, 0, 1]
+          ],
+          "explanation": "",
+          "input": [[-1, 0, 1, 2, -1, -4]]
+        },
+        { "output": [], "explanation": "", "input": [[]] },
+        { "output": [], "explanation": "", "input": [[0]] }
+      ],
+      "topics": [{ "name": "Array" }, { "name": "Two Pointers" }],
+      "signature": {
+        "parameters": [{ "type": "List[int]", "name": "nums" }],
+        "returnType": "List[List[int]]"
+      }
+    },
+    {
+      "id": "66367f5e0d552cf0a90e875c",
+      "title": "Valid Sudoku",
+      "numLC": 36,
+      "acceptanceRate": 45.6,
+      "accepted": 40.2,
+      "author": {
+        "urlAvatar": "https://avatars.leetcode.com/u/98765",
+        "username": "ValidSudokuMaster"
+      },
+      "body": "Determine if a 9 x 9 Sudoku board is valid. Only the filled cells need to be validated according to the following rules: Each row must contain the digits 1-9 without repetition. Each column must contain the digits 1-9 without repetition. Each of the nine 3 x 3 sub-boxes of the grid must contain the digits 1-9 without repetition.",
+      "constraints": [],
+      "difficulty": "Medium",
+      "editorialAuthor": {
+        "urlAvatar": "https://avatars.leetcode.com/u/54321",
+        "username": "ValidSudokuExpert"
+      },
+      "editorialBody": "The problem can be solved by checking each row, column, and sub-box separately for validity. Use hash sets to keep track of seen digits.",
+      "editorialRating": 4.3,
+      "editorialVotes": { "1": 6, "2": 4 },
+      "frequency": "High",
+      "hints": [],
+      "isPublished": true,
+      "isSubmitted": true,
+      "similar": [
+        { "difficulty": "Medium", "id": 37, "title": "Sudoku Solver" }
+      ],
+      "submissions": 29.4,
+      "testCases": [
+        {
+          "output": true,
+          "explanation": "",
+          "input": [
+            [
+              ["5", "3", ".", ".", "7", ".", ".", ".", "."],
+              ["6", ".", ".", "1", "9", "5", ".", ".", "."],
+              [".", "9", "8", ".", ".", ".", ".", "6", "."],
+              ["8", ".", ".", ".", "6", ".", ".", ".", "3"],
+              ["4", ".", ".", "8", ".", "3", ".", ".", "1"],
+              ["7", ".", ".", ".", "2", ".", ".", ".", "6"],
+              [".", "6", ".", ".", ".", ".", "2", "8", "."],
+              [".", ".", ".", "4", "1", "9", ".", ".", "5"],
+              [".", ".", ".", ".", "8", ".", ".", "7", "9"]
+            ]
+          ]
+        },
+        {
+          "output": false,
+          "explanation": "",
+          "input": [
+            [
+              ["8", "3", ".", ".", "7", ".", ".", ".", "."],
+              ["6", ".", ".", "1", "9", "5", ".", ".", "."],
+              [".", "9", "8", ".", ".", ".", ".", "6", "."],
+              ["8", ".", ".", ".", "6", ".", ".", ".", "3"],
+              ["4", ".", ".", "8", ".", "3", ".", ".", "1"],
+              ["7", ".", ".", ".", "2", ".", ".", ".", "6"],
+              [".", "6", ".", ".", ".", ".", "2", "8", "."],
+              [".", ".", ".", "4", "1", "9", ".", ".", "5"],
+              [".", ".", ".", ".", "8", ".", ".", "7", "9"]
+            ]
+          ]
+        }
+      ],
+      "topics": [{ "name": "Array" }, { "name": "Hash Table" }],
+      "signature": {
+        "parameters": [{ "type": "List[List[str]]", "name": "board" }],
         "returnType": "bool"
       }
     },
     {
+      "id": "6844bbfa438d7b9a15caa7cf",
+      "title": "Group Anagrams",
       "acceptanceRate": 66.4,
       "accepted": 12.8,
       "author": {
@@ -216,16 +388,112 @@
           "input": [["a"]]
         }
       ],
-      "title": "Group Anagrams",
       "topics": [
         { "name": "Hash Table" },
         { "name": "String" },
         { "name": "Sorting" }
       ],
-      "id": "663683710d552cf0a90e8659",
       "signature": {
         "parameters": [{ "type": "List[str]", "name": "strs" }],
         "returnType": "List[List[str]]"
+      }
+    },
+    {
+      "id": "68449561e05ddd247bea6d2d",
+      "title": "Contains Duplicate",
+      "acceptanceRate": 59.6,
+      "accepted": 18.7,
+      "author": {
+        "urlAvatar": "https://avatars.leetcode.com/u/12345",
+        "username": "PrimeTimeTran"
+      },
+      "body": "Given an integer array `nums`, return `true` if any value appears at least twice in the array, and return `false` if every element is distinct.",
+      "constraints": [],
+      "difficulty": "Easy",
+      "editorialAuthor": {
+        "urlAvatar": "https://avatars.leetcode.com/u/9876",
+        "username": "PrimeTimeTran"
+      },
+      "editorialBody": "Common solutions include sorting the array and checking neighboring elements, or using a hash set to track seen values for O(n) time complexity.",
+      "editorialRating": 4.3,
+      "editorialVotes": { "1": 3, "2": 6 },
+      "frequency": "High",
+      "hints": [],
+      "isPublished": true,
+      "isSubmitted": true,
+      "numLC": 217,
+      "similar": [
+        { "difficulty": "Easy", "id": 136, "title": "Single Number" }
+      ],
+      "submissions": 31.4,
+      "testCases": [
+        { "output": true, "explanation": "", "input": [[1, 2, 3, 1]] },
+        { "output": false, "explanation": "", "input": [[1, 2, 3, 4]] },
+        {
+          "output": true,
+          "explanation": "",
+          "input": [[1, 1, 1, 3, 3, 4, 3, 2, 4, 2]]
+        },
+        {
+          "output": true,
+          "explanation": "",
+          "input": [[1, 1, 1, 3, 3, 4, 3, 2, 4, 2]]
+        }
+      ],
+      "topics": [
+        { "name": "Array" },
+        { "name": "Hash Table" },
+        { "name": "Sorting" }
+      ],
+      "signature": {
+        "parameters": [{ "type": "List[int]", "name": "nums" }],
+        "returnType": "bool"
+      }
+    },
+    {
+      "id": "6844ba7876977e14d4795339",
+      "title": "Valid Anagram",
+      "difficulty": "Easy",
+      "frequency": "High",
+      "acceptanceRate": 65.5,
+      "accepted": 1000,
+      "isPublished": true,
+      "isSubmitted": true,
+      "submissions": 24.6,
+      "author": {
+        "username": "PrimeTimeTran",
+        "urlAvatar": "https://example.com/avatar.jpg"
+      },
+      "body": "Given two strings s and t, return true if t is an anagram of s, and false otherwise. An anagram is a word or phrase formed by rearranging the letters of another, using all the original letters exactly once.",
+      "constraints": [],
+      "topics": [{ "name": "Hash Table" }, { "name": "Sorting" }],
+      "testCases": [
+        { "input": ["anagram", "nagaram"], "output": true, "explanation": "" },
+        { "input": ["rat", "car"], "output": false, "explanation": "" },
+        { "input": ["", ""], "output": true, "explanation": "" }
+      ],
+      "hints": [
+        "Check that the two strings have the same length",
+        "Use a hash table (or Counter) to count characters",
+        "Alternatively, sort both strings and compare"
+      ],
+      "similar": [
+        { "id": 1, "title": "Group Anagrams", "difficulty": "Medium" }
+      ],
+      "editorialAuthor": {
+        "username": "PrimeTimeTran",
+        "urlAvatar": null
+      },
+      "editorialBody": "One approach is to check length first. Then either:\n\n1. **Hash‑table counting**: count frequencies of characters in `s`, then decrement with `t`. If any count mismatches, return false.\n\n2. **Sorting**: sort both `s` and `t` and compare equality.\n\nThe hash‑table method runs in O(n) time and uses O(1) extra space for fixed alphabet. The sorting method runs in O(nlogn).",
+      "editorialRating": 4.2,
+      "editorialVotes": { "1": 8, "2": 3 },
+      "numLC": 242,
+      "signature": {
+        "parameters": [
+          { "type": "str", "name": "s" },
+          { "type": "str", "name": "t" }
+        ],
+        "returnType": "bool"
       }
     }
   ]

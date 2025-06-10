@@ -286,11 +286,6 @@ Future<void> dialogFeatureRequest(BuildContext context) {
 }
 
 Future<void> dialogGetCode(BuildContext context) {
-  // String email = 'user@seepdeep.com';
-  // String firstName = 'Loi';
-  // String lastName = 'Tran';
-  // String password = 'asdf!1234';
-  // String passwordConfirm = 'asdf!1234';
   String email = '';
   String firstName = '';
   String lastName = '';
@@ -298,7 +293,7 @@ Future<void> dialogGetCode(BuildContext context) {
   String passwordConfirm = '';
   bool isSignUp = true;
 
-  signUpForAccess(context) async {
+  authSignUp(context) async {
     final response = await Api.post('auth/create', {
       'email': email,
       'firstName': firstName,
@@ -315,10 +310,17 @@ Future<void> dialogGetCode(BuildContext context) {
     }
   }
 
+  authSignIn(context) async {
+    final result = await Api.post(
+        'auth/authenticate', {'email': email, 'password': password});
+    Provider.of<AuthProvider>(context, listen: false).setUser(result['user']);
+    Navigator.of(context).pop();
+  }
+
   return showDialog<void>(
     context: context,
     builder: (BuildContext context) {
-      final ButtonStyle outlineButtonStyle = OutlinedButton.styleFrom(
+      OutlinedButton.styleFrom(
         foregroundColor: Colors.black87,
         minimumSize: const Size(88, 36),
         padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -498,7 +500,11 @@ Future<void> dialogGetCode(BuildContext context) {
                           child: OutlinedButton(
                             child: Text(isSignUp ? 'Sign Up' : 'Log In'),
                             onPressed: () {
-                              signUpForAccess(context);
+                              if (isSignUp) {
+                                authSignUp(context);
+                              } else {
+                                authSignIn(context);
+                              }
                             },
                           ),
                         ),

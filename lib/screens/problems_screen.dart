@@ -182,7 +182,14 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
             itemCount: snapshot.data?.length,
             itemBuilder: (BuildContext context, int idx) {
               if (idx == 0) {
-                return buildListHeader();
+                final item = Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    buildListHeader(),
+                    buildListItem(snapshot.data?[idx], idx, context),
+                  ],
+                );
+                return item;
               }
               return buildListItem(snapshot.data?[idx], idx, context);
             },
