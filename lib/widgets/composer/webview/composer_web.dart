@@ -34,12 +34,12 @@ class _SolverState extends State<Solver> with TickerProviderStateMixin {
   bool submitted = false;
   bool processing = false;
   List<TestCase> testCases = [];
+  late TabController tabController;
   List<Submission> submissions = [];
   List<Submission> selectedSubmissions = [];
   final StreamController<Submission> _submissionStreamController =
       StreamController<Submission>();
   Language selectedLang = Language.python;
-  late TabController tabController;
 
   @override
   Widget build(BuildContext context) {
@@ -83,7 +83,7 @@ class _SolverState extends State<Solver> with TickerProviderStateMixin {
     );
   }
 
-  buildRight(Problem p) {
+  HorizontalSplitView buildRight(Problem p) {
     return HorizontalSplitView(
       top: Showcase(
         key: _two,
@@ -145,29 +145,7 @@ class _SolverState extends State<Solver> with TickerProviderStateMixin {
     );
   }
 
-  buildTab(title, casePassing) {
-    final color = submitted && testCases.isEmpty
-        ? Colors.grey
-        : casePassing
-            ? Colors.green
-            : Colors.red;
-    return SizedBox(
-      height: 40,
-      width: 75,
-      child: Row(
-        children: [
-          if (submitted) Tab(icon: Icon(Icons.circle, size: 10, color: color)),
-          const Gap(5),
-          Text(
-            title,
-            style: Theme.of(context).textTheme.bodySmall,
-          )
-        ],
-      ),
-    );
-  }
-
-  buildTestCase(idx, TestCase testCase, height) {
+  SizedBox buildTestCase(idx, TestCase testCase, height) {
     final inputs = testCase.input;
     return SizedBox(
         height: height,
@@ -214,23 +192,63 @@ class _SolverState extends State<Solver> with TickerProviderStateMixin {
                   border: OutlineInputBorder(),
                 ),
               ),
+            if (testCase.stackTrace != null)
+              TextFormField(
+                readOnly: true,
+                initialValue: testCase.stackTrace,
+                minLines: 3, // Minimum number of lines to show
+                maxLines: null, // Expands as needed
+                decoration: const InputDecoration(
+                  labelText: "Stack Trace",
+                  border: OutlineInputBorder(),
+                ),
+              ),
           ],
         ));
   }
 
-  buildTestPanel(height) {
+  SizedBox buildTestCaseTab(title, casePassing) {
+    final color = submitted && testCases.isEmpty
+        ? Colors.grey
+        : casePassing
+            ? Colors.green
+            : Colors.red;
+    return SizedBox(
+      height: 40,
+      width: 75,
+      child: Row(
+        children: [
+          if (submitted) Tab(icon: Icon(Icons.circle, size: 10, color: color)),
+          const Gap(5),
+          Text(
+            title,
+            style: Theme.of(context).textTheme.bodySmall,
+          )
+        ],
+      ),
+    );
+  }
+
+  Showcase buildTestPanel(height) {
     List<Widget> testCaseTabs = [];
     List<Widget> testCaseViews = [];
     if (testCases.isNotEmpty) {
       for (var entry in testCases.asMap().entries) {
         int idx = entry.key;
         final item = entry.value;
-        final tab = buildTab('Case $idx', item.passing);
+        final tab = buildTestCaseTab('Case $idx', item.passing);
         testCaseTabs.add(tab);
         final view = buildTestRunResultView(idx, item, height);
         testCaseViews.add(view);
       }
     }
+    final icon = processing
+        ? const SizedBox(
+            height: 24,
+            width: 24,
+            child: CircularProgressIndicator(),
+          )
+        : const Icon(Icons.keyboard_double_arrow_right, color: Colors.green);
     return Showcase(
       key: _three,
       description: '3. View the results of your code here.',
@@ -263,21 +281,16 @@ class _SolverState extends State<Solver> with TickerProviderStateMixin {
                               )),
                           const Gap(10),
                           TextButton.icon(
-                            style: TextButton.styleFrom(
-                                shape: const RoundedRectangleBorder(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.zero))),
                             onPressed: () {},
-                            icon: processing
-                                ? const SizedBox(
-                                    height: 24,
-                                    width: 24,
-                                    child: CircularProgressIndicator())
-                                : const Icon(Icons.keyboard_double_arrow_right,
-                                    color: Colors.green),
+                            icon: icon,
                             label: Text(
                               'Test Result',
                               style: Theme.of(context).textTheme.bodySmall,
+                            ),
+                            style: TextButton.styleFrom(
+                              shape: const RoundedRectangleBorder(
+                                borderRadius: BorderRadius.all(Radius.zero),
+                              ),
                             ),
                           )
                         ],
@@ -308,9 +321,9 @@ class _SolverState extends State<Solver> with TickerProviderStateMixin {
                         tabs: testCases.isNotEmpty
                             ? testCaseTabs
                             : [
-                                buildTab('Case 1', false),
-                                buildTab('Case 2', false),
-                                buildTab('Case 3', false),
+                                buildTestCaseTab('Case 1', false),
+                                buildTestCaseTab('Case 2', false),
+                                buildTestCaseTab('Case 3', false),
                               ],
                       ),
                     ),
@@ -396,10 +409,10 @@ class _SolverState extends State<Solver> with TickerProviderStateMixin {
       l = 'ts';
     }
     postSubmission({
+      "lang": l,
       "body": submission,
       "name": problem!.title,
       "problem": problem!.id,
-      "lang": l,
     });
   }
 
@@ -476,5 +489,19 @@ class _SolverState extends State<Solver> with TickerProviderStateMixin {
       length: selectedSubmissions.length + 1,
       vsync: this,
     );
+    tabController.addListener(() {
+      if (tabController.index == 0) {
+        initializeProblem();
+        setState(() {
+          submitted = false;
+        });
+      }
+      if (tabController.index == 1) {
+        setState(() {
+          submitted = true;
+          testCases = selectedSubmissions[0].testCases;
+        });
+      }
+    });
   }
 }

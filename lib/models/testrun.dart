@@ -4,6 +4,7 @@ class TestCase {
   final String? outActual;
   final String outExpected;
   final Map<String, dynamic> signature;
+  final String? stackTrace;
 
   TestCase({
     required this.input,
@@ -11,6 +12,7 @@ class TestCase {
     required this.signature,
     required this.outActual,
     required this.outExpected,
+    this.stackTrace,
   });
 
   factory TestCase.fromJSON(Map<String, dynamic> json) {
@@ -23,6 +25,7 @@ class TestCase {
       outActual: map['outActual'].toString(),
       outExpected: map['outExpected'].toString(),
       signature: map['signature'] ?? {"parameters": []},
+      stackTrace: map['stackTrace']?.toString(),
     );
   }
 }
