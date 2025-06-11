@@ -208,11 +208,30 @@ class _EditorState extends State<Editor> {
     }
   }
 
-  setController([Language? lang]) {
+  void setController([Language? lang]) {
     _controller = selectCodeController(lang ?? selectedLang, widget.problem);
     widget.onType(_controller.text, lang ?? selectedLang);
     setState(() {
       _controller = _controller;
+    });
+    setupPreviouslyTypedCode();
+  }
+
+  void setupPreviouslyTypedCode() {
+    Storage.instance
+        .getProblemCode(
+      widget.problem.id,
+      selectedLang,
+    )
+        .then((code) {
+      if (code != null && code.isNotEmpty) {
+        _controller.value = TextEditingValue(
+          text: code,
+          selection: TextSelection.collapsed(offset: code.length),
+        );
+        _controller.notifyListeners();
+        setState(() {});
+      }
     });
   }
 
@@ -245,6 +264,11 @@ class _EditorState extends State<Editor> {
         );
         return;
       } else {
+        Storage.instance.setProblemCode(
+          widget.problem.id,
+          selectedLang,
+          _controller.text,
+        );
         widget.onType(_controller.text, selectedLang);
       }
     }

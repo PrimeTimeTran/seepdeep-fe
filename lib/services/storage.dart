@@ -19,19 +19,19 @@ class Storage {
     return _cachedToken!;
   }
 
-  Future<String?> getProblemCode(problemId, lang, code) async {
+  Future<List<String>> getIntros() async {
     final prefs = await _prefs;
-    return prefs.getString('problemId-$lang-$problemId');
+    return prefs.getStringList('intros') ?? [''];
+  }
+
+  Future<String?> getProblemCode(problemId, lang) async {
+    final prefs = await _prefs;
+    return prefs.getString('problemId-$problemId-$lang');
   }
 
   Future<bool> getSqlIntroHide() async {
     final prefs = await _prefs;
     return prefs.getBool('introSqlHide') ?? false;
-  }
-
-  Future<List<String>> getIntros() async {
-    final prefs = await _prefs;
-    return prefs.getStringList('intros') ?? [''];
   }
 
   Future<int?> getSQLLesson() async {
@@ -53,19 +53,19 @@ class Storage {
     return user;
   }
 
+  Future<void> setIntros(flag) async {
+    final prefs = await _prefs;
+    prefs.setStringList('intros', [flag]);
+  }
+
   Future<void> setProblemCode(problemId, lang, code) async {
     final prefs = await _prefs;
-    await prefs.setString('problemId-$lang-$problemId', code);
+    await prefs.setString('problemId-$problemId-$lang', code);
   }
 
   Future<void> setSqlIntroHide() async {
     final prefs = await _prefs;
     await prefs.setBool('introSqlHide', true);
-  }
-
-  Future<void> setIntros(flag) async {
-    final prefs = await _prefs;
-    prefs.setStringList('intros', [flag]);
   }
 
   Future<void> setSqlStep(int step) async {
