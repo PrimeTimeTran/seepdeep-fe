@@ -90,53 +90,51 @@ class _SolverState extends State<Solver> with TickerProviderStateMixin {
         description:
             '2. Once you\'re ready to give it a shot enter your code in this panel.',
         onBarrierClick: () => debugPrint('Barrier clicked'),
-        child: GestureDetector(
-            onTap: () => debugPrint('menu button clicked'),
-            child: EditorTabs(
-              tabController: tabController,
-              selectedSubmissions: selectedSubmissions,
-              tabTitles: [
-                const Tab(
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Icon(
-                        Icons.code,
-                        color: Colors.green,
-                      ),
-                      SizedBox(width: 8),
-                      Text('Code'),
-                    ],
+        child: EditorTabs(
+          tabController: tabController,
+          selectedSubmissions: selectedSubmissions,
+          tabTitles: [
+            const Tab(
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(
+                    Icons.code,
+                    color: Colors.green,
                   ),
+                  SizedBox(width: 8),
+                  Text('Code'),
+                ],
+              ),
+            ),
+            ...selectedSubmissions.map(
+              (_) => const Tab(
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(Icons.access_alarm, color: Colors.blue),
+                    SizedBox(width: 8),
+                    Text('Submission'),
+                  ],
                 ),
-                ...selectedSubmissions.map(
-                  (_) => const Tab(
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Icon(Icons.access_alarm, color: Colors.blue),
-                        SizedBox(width: 8),
-                        Text('Submission'),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-              tabContents: [
-                Editor(
-                  problem: p,
-                  key: ValueKey(p),
-                  onRun: (code, lang) => onRun(code, lang),
-                  onType: (c, lang) => setState(() {
-                    code = c;
-                    selectedLang = lang;
-                  }),
-                ),
-                ...selectedSubmissions.map((submission) {
-                  return SubmissionResultPanel(submission: submission);
-                }),
-              ],
-            )),
+              ),
+            ),
+          ],
+          tabContents: [
+            Editor(
+              problem: p,
+              key: ValueKey(p),
+              onRun: (code, lang) => onRun(code, lang),
+              onType: (c, lang) => setState(() {
+                code = c;
+                selectedLang = lang;
+              }),
+            ),
+            ...selectedSubmissions.map((submission) {
+              return SubmissionResultPanel(submission: submission);
+            }),
+          ],
+        ),
       ),
       bottom: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
@@ -406,8 +404,9 @@ class _SolverState extends State<Solver> with TickerProviderStateMixin {
   }
 
   onSelectSubmission(Submission submission) {
-    print(submission.id);
     setState(() {
+      submitted = true;
+      testCases = submission.testCases;
       selectedSubmissions = [submission];
       tabController.dispose();
       updateTabController();
@@ -430,7 +429,7 @@ class _SolverState extends State<Solver> with TickerProviderStateMixin {
       final response = await Api.post('submissions', item);
       final submission = Submission.fromJson(response['submission']);
       submissions.insert(0, submission);
-      testCases = submission.testCases!;
+      testCases = submission.testCases;
       setState(() {
         testCases = testCases;
       });
@@ -447,8 +446,8 @@ class _SolverState extends State<Solver> with TickerProviderStateMixin {
     } catch (e) {
       print('Error: $e');
       final submission = Submission.placeholder(problem!.id, 1);
-      submissions.insert(0, submission);
-      testCases = submission.testCases!;
+      // submissions.insert(0, submission);
+      testCases = submission.testCases;
       setState(() {
         testCases = testCases;
       });

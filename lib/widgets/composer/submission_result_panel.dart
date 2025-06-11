@@ -22,6 +22,59 @@ class SubmissionResultPanelState extends State<SubmissionResultPanel> {
 
   @override
   Widget build(BuildContext context) {
+    final codeThemeStyle = Style.currentTheme(context) == Brightness.light
+        ? vsTheme
+        : atelierCaveDarkTheme;
+
+    // Calculate the number of lines in the code body
+    // and set the height of the editor accordingly.
+    final int lineCount =
+        '\n'.allMatches(widget.submission.body ?? '').length + 1;
+    const double lineHeight = 24.0;
+    final double editorHeight = (lineCount * lineHeight).clamp(80.0, 600.0);
+
+    return SafeArea(
+      child: SingleChildScrollView(
+        child: Card(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                buildHeader(),
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 256.0),
+                    child: Card.outlined(
+                      child: CodeTheme(
+                        data: CodeThemeData(
+                          styles: codeThemeStyle,
+                        ),
+                        child: SizedBox(
+                          width: 800,
+                          height: 700,
+                          child: CodeField(
+                            textStyle: const TextStyle(
+                              height: 1.5,
+                              leadingDistribution: TextLeadingDistribution.even,
+                            ),
+                            controller: _controller,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  buildHeader() {
     final isAccepted =
         widget.submission.isAccepted != null && widget.submission.isAccepted!;
     final textTitle = isAccepted ? 'Accepted Submission' : 'Wrong Answer';
@@ -39,98 +92,59 @@ class SubmissionResultPanelState extends State<SubmissionResultPanel> {
         ?.where((test) => test.passing == true)
         .length;
 
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text(
+          'Summary',
+          style: TextStyle(
+            fontSize: 26,
+          ),
+        ),
+        const Gap(10),
+        Row(
           children: [
-            const Text(
-              'Summary',
+            Text(
+              textTitle,
               style: TextStyle(
-                fontSize: 26,
-              ),
-            ),
-            const Gap(10),
-            Row(
-              children: [
-                Text(
-                  textTitle,
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: textTitleColor,
-                  ),
-                ),
-                const SizedBox(width: 8),
-                Text(
-                  '(${testCountPassing ?? 0}/${testCount ?? 0}) test cases passed',
-                  style: const TextStyle(fontSize: 16, color: Colors.grey),
-                ),
-              ],
-            ),
-            Text(
-              textDate,
-              style: const TextStyle(
                 fontSize: 16,
+                color: textTitleColor,
               ),
             ),
+            const SizedBox(width: 8),
             Text(
-              memory != null
-                  ? 'Memory Usage: ${memory.toStringAsFixed(2)} MB'
-                  : 'Memory Usage: N/A',
-              style: const TextStyle(
-                fontSize: 16,
-              ),
-            ),
-            Text(
-              runTime != null
-                  ? 'Run Time: ${runTime.toStringAsFixed(2)} ms'
-                  : 'Run Time: N/A',
-              style: const TextStyle(
-                fontSize: 16,
-              ),
-            ),
-            const Gap(10),
-            const Text('Code', style: TextStyle(fontSize: 26)),
-            const Gap(10),
-            const SizedBox(height: 10),
-            Expanded(
-              child: SingleChildScrollView(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 256.0),
-                  child: Column(
-                    children: [
-                      Card.outlined(
-                        child: CodeTheme(
-                          data: CodeThemeData(
-                            styles:
-                                Style.currentTheme(context) == Brightness.light
-                                    ? vsTheme
-                                    : atelierCaveDarkTheme,
-                          ),
-                          child: SizedBox(
-                            height: 900,
-                            width: double.infinity,
-                            child: CodeField(
-                              lineNumbers: false,
-                              textStyle: const TextStyle(
-                                height: 1.5,
-                                leadingDistribution:
-                                    TextLeadingDistribution.even,
-                              ),
-                              controller: _controller,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+              '(${testCountPassing ?? 0}/${testCount ?? 0}) test cases passed',
+              style: const TextStyle(fontSize: 16, color: Colors.grey),
             ),
           ],
         ),
-      ),
+        Text(
+          textDate,
+          style: const TextStyle(
+            fontSize: 16,
+          ),
+        ),
+        Text(
+          memory != null
+              ? 'Memory Usage: ${memory.toStringAsFixed(2)} MB'
+              : 'Memory Usage: N/A',
+          style: const TextStyle(
+            fontSize: 16,
+          ),
+        ),
+        Text(
+          runTime != null
+              ? 'Run Time: ${runTime.toStringAsFixed(2)} ms'
+              : 'Run Time: N/A',
+          style: const TextStyle(
+            fontSize: 16,
+          ),
+        ),
+        const Gap(10),
+        const Text('Code', style: TextStyle(fontSize: 26)),
+        const Gap(10),
+        const SizedBox(height: 10),
+      ],
     );
   }
 

@@ -4,11 +4,12 @@ import 'package:app/all.dart';
 
 class Submission {
   String? id;
-  String? userId; // <-- Add this line
+  String? userId;
 
   DateTime? createdAt;
   String? body;
   String? title;
+
   // For those which are public
   String? explanation;
   String? language;
@@ -33,7 +34,7 @@ class Submission {
   List<int>? voterIds;
   List<Topic>? topics;
   List<Comment>? comments;
-  List<TestCase>? testCases;
+  List<TestCase> testCases;
 
   Submission({
     this.id,
@@ -59,7 +60,7 @@ class Submission {
     this.contest,
     this.penalty,
     this.memoryUsage,
-    this.testCases,
+    required this.testCases,
     this.createdAt,
   });
 
