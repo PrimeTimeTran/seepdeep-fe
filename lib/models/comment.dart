@@ -1,6 +1,7 @@
 import 'package:app/all.dart';
 
 class Comment {
+  DateTime? createdAt;
   String? body;
   String? code;
   int? numVotes;
@@ -27,27 +28,40 @@ class Comment {
     this.numVotes,
     this.voterIds,
     this.code,
+    this.createdAt,
   });
 
   Comment.fromJson(Map<String, dynamic> json)
       : body = json['body'],
-        user = json['user'] != null ? User.fromJson(json['user']) : null,
-        post = json['post'] != null ? Post.fromJson(json['post']) : null,
-        article =
-            json['article'] != null ? Article.fromJson(json['article']) : null,
-        comment =
-            json['comment'] != null ? Comment.fromJson(json['comment']) : null,
-        problem =
-            json['problem'] != null ? Problem.fromJson(json['problem']) : null,
-        submission = json['submission'] != null
-            ? Submission.fromJson(json['submission'])
-            : null,
+        createdAt = json['createdAt'] != null
+            ? DateTime.parse(json['createdAt'])
+            : DateTime.now(),
+        // user = json['user'] != null ? User.fromJson(json['user']) : null,
+        // post = json['post'] != null ? Post.fromJson(json['post']) : null,
+        // article =
+        // json['article'] != null ? Article.fromJson(json['article']) : null,
+        // comment =
+        // json['comment'] != null ? Comment.fromJson(json['comment']) : null,
+        // problem =
+        // json['problem'] != null ? Problem.fromJson(json['problem']) : null,
+        // submission = json['submission'] != null
+        //     ? Submission.fromJson(json['submission'])
+        //     : null,
         comments = (json['comments'] as List<dynamic>?)
-            ?.map((commentJson) => Comment.fromJson(commentJson))
-            .toList(),
-        numVotes = json['numVotes'],
-        voterIds = (json['voterIds'] as List<dynamic>?)?.cast<int>(),
-        code = json['code'];
+            ?.map((commentJson) {
+              if (commentJson is Map<String, dynamic>) {
+                return Comment.fromJson(commentJson);
+              } else if (commentJson is String) {
+                return Comment(body: commentJson);
+              } else {
+                return null;
+              }
+            })
+            .whereType<Comment>()
+            .toList();
+  // numVotes = json['numVotes'],
+  // voterIds = (json['voterIds'] as List<dynamic>?)?.cast<int>(),
+  // code = json['code'];
 
   Map<String, dynamic> toJson() {
     return {

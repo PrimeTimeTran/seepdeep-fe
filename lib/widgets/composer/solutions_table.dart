@@ -23,15 +23,15 @@ class SolutionsTable extends StatefulWidget {
 }
 
 class _SolutionsTableState extends State<SolutionsTable> {
-  late Future<List<Submission>> _solutionsFuture;
+  List<String> solutions = [];
+  List<Comment> comments = [];
   bool solutionSelected = false;
   late Submission selectedSolution;
-  List<String> solutions = [];
+  late Future<List<Submission>> _solutionsFuture;
+  final TextEditingController _commentController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
-    final codeStyle = Style.currentTheme(context) == Brightness.light
-        ? vsTheme
-        : atelierCaveDarkTheme;
     return ScrollConfiguration(
       behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
       child: SingleChildScrollView(
@@ -79,41 +79,7 @@ class _SolutionsTableState extends State<SolutionsTable> {
               builder: (BuildContext context, snapshot) {
                 if (snapshot.hasData) {
                   if (solutionSelected) {
-                    return Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        TextButton.icon(
-                          icon: const Icon(Icons.chevron_left),
-                          label: const Text('Back to All Solutions'),
-                          onPressed: () {
-                            setState(() {
-                              solutionSelected = false;
-                            });
-                          },
-                        ),
-                        const SizedBox(height: 20),
-                        CodeTheme(
-                          data: CodeThemeData(
-                            styles: codeStyle,
-                          ),
-                          child: SizedBox(
-                            height: 900,
-                            width: 500,
-                            child: CodeField(
-                              textStyle: const TextStyle(
-                                height: 1.5,
-                                leadingDistribution:
-                                    TextLeadingDistribution.even,
-                              ),
-                              controller: CodeController(
-                                language: python,
-                                text: selectedSolution.body,
-                              ),
-                            ),
-                          ),
-                        )
-                      ],
-                    );
+                    return buildSolutionFocusedPanel();
                   }
                   List<Submission> solutions = snapshot.data!;
                   if (solutions.isEmpty) {
@@ -124,7 +90,6 @@ class _SolutionsTableState extends State<SolutionsTable> {
                       ),
                     );
                   }
-
                   return ListView.separated(
                     shrinkWrap: true,
                     itemCount: solutions.length,
@@ -165,6 +130,100 @@ class _SolutionsTableState extends State<SolutionsTable> {
     );
   }
 
+  Column buildSolutionFocusedPanel() {
+    final codeStyle = Style.currentTheme(context) == Brightness.light
+        ? vsTheme
+        : atelierCaveDarkTheme;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        TextButton.icon(
+          icon: const Icon(Icons.chevron_left),
+          label: const Text('Back to All Solutions'),
+          onPressed: () {
+            setState(() {
+              solutionSelected = false;
+            });
+          },
+        ),
+        const SizedBox(height: 20),
+        CodeTheme(
+          data: CodeThemeData(
+            styles: codeStyle,
+          ),
+          child: SizedBox(
+            height: 500,
+            width: double.infinity,
+            child: CodeField(
+              textStyle: const TextStyle(
+                height: 1.5,
+                leadingDistribution: TextLeadingDistribution.even,
+              ),
+              controller: CodeController(
+                language: python,
+                text: selectedSolution.body,
+              ),
+            ),
+          ),
+        ),
+        if (comments.isNotEmpty)
+          ListView.builder(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemCount: comments.length,
+            itemBuilder: (context, index) {
+              final comment = comments[index];
+              return ListTile(
+                leading: const Icon(Icons.comment),
+                title: Text(comment.user?.username ?? 'Anonymous'),
+                subtitle: Text(comment.body ?? ''),
+                trailing: Text(
+                  comment.createdAt != null
+                      ? DateFormat("MMM d, y h:mm a").format(comment.createdAt!)
+                      : '',
+                  style: const TextStyle(fontSize: 12, color: Colors.grey),
+                ),
+              );
+            },
+          )
+        else
+          const Padding(
+            padding: EdgeInsets.symmetric(vertical: 8.0),
+            child: Text('No comments yet.'),
+          ),
+        const SizedBox(height: 20),
+        Row(
+          children: [
+            Expanded(
+              child: TextField(
+                controller: _commentController,
+                minLines: 1,
+                maxLines: 3,
+                decoration: const InputDecoration(
+                  hintText: 'Add a comment...',
+                  border: OutlineInputBorder(),
+                  isDense: true,
+                  contentPadding:
+                      EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+                ),
+              ),
+            ),
+            const SizedBox(width: 10),
+            ElevatedButton(
+              onPressed: () async {
+                if (_commentController.text.trim().isNotEmpty) {
+                  await postComment(_commentController.text.trim());
+                  _commentController.clear();
+                }
+              },
+              child: const Text('Submit'),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+
   GestureDetector buildSolutionRow(Submission solution) {
     final username = solution.user?.username ?? 'Anonymous';
     return GestureDetector(
@@ -173,6 +232,7 @@ class _SolutionsTableState extends State<SolutionsTable> {
           solutionSelected = !solutionSelected;
           selectedSolution = solution;
         });
+        fetchComments(solution);
       },
       child: ListTile(
         subtitleTextStyle: const TextStyle(height: 3),
@@ -249,15 +309,28 @@ class _SolutionsTableState extends State<SolutionsTable> {
     );
   }
 
-  @override
-  void initState() {
-    super.initState();
-    _solutionsFuture = _getSolutions();
+  fetchComments(solution) async {
+    try {
+      final response = await Api.get('comments?submission=${solution.id}');
+      List<Comment> newComments = [];
+      final data = response is List ? response : response['comments'];
+      for (var comment in data) {
+        if (comment is Map<String, dynamic>) {
+          newComments.add(Comment.fromJson(comment));
+        } else if (comment is String) {
+          newComments.add(Comment(body: comment));
+        }
+      }
+      setState(() {
+        comments = newComments;
+      });
+    } catch (e) {
+      print('Error fetching comments: $e');
+    }
   }
 
-  Future<List<Submission>> _getSolutions() async {
+  Future<List<Submission>> fetchSolutions() async {
     try {
-      print('_getSolutions called for problem: ${widget.problem.id}');
       final response = await Api.get('solutions?problem=${widget.problem.id}');
       List<Submission> solutions = [];
       List<dynamic> data = response.toList();
@@ -272,5 +345,22 @@ class _SolutionsTableState extends State<SolutionsTable> {
       print('Error: $e');
       return [];
     } finally {}
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _solutionsFuture = fetchSolutions();
+  }
+
+  postComment(comment) async {
+    try {
+      final body = {"body": comment, "submission": selectedSolution.id};
+      final response = await Api.post('comments', body);
+    } catch (e) {
+      print('Error posting comment: $e');
+    } finally {
+      _commentController.clear();
+    }
   }
 }

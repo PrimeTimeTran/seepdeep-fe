@@ -75,9 +75,9 @@ class Api {
         Glob.showSnack('Authentication successful');
         return body;
       }
-      final data = body['data'];
+      List<dynamic> data = body['data'];
       if (isArray(data)) {
-        if (data.length == 0) {
+        if (data.isEmpty) {
           Glob.logI('0 Results');
         } else {
           Glob.logI(body['meta']);

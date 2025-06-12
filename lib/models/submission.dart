@@ -97,8 +97,13 @@ class Submission {
             ? List<Topic>.from(json['topics'].map((x) => Topic.fromJson(x)))
             : null,
         comments = json['comments'] != null
-            ? List<Comment>.from(
-                json['comments'].map((x) => Comment.fromJson(x)))
+            ? (json['comments'] is List && json['comments'].isNotEmpty
+                ? (json['comments'][0] is String
+                    ? List<Comment>.from(
+                        json['comments'].map((x) => Comment(body: x)))
+                    : List<Comment>.from(
+                        json['comments'].map((x) => Comment.fromJson(x))))
+                : [])
             : null,
         isContest = json['isContest'],
         testCases = json['testCases'] != null
