@@ -1,59 +1,42 @@
 import 'package:app/all.dart';
 
 class Solve {
-  User user;
   String id;
   SolveLVL level;
   String problemId;
   String problemTitle;
-  int numSolvedTotal;
-  int numSolvedLevel;
-  String submissionId;
-  DateTime dateChallenge;
-  List<Topic> topics;
 
   Solve(
     this.id,
-    this.user,
     this.level,
-    this.topics,
     this.problemId,
     this.problemTitle,
-    this.numSolvedTotal,
-    this.numSolvedLevel,
-    this.dateChallenge,
-    this.submissionId,
   );
+
   factory Solve.fromJson(Map<String, dynamic> json) {
-    List<dynamic> topicsJson = json['topics'] as List<dynamic>;
+    List<dynamic> topicsJson =
+        json['topics'] != null ? json['topics'] as List<dynamic> : [];
     List<Topic> topics = topicsJson
         .map((topicJson) => Topic.fromJson(topicJson as Map<String, dynamic>))
         .toList();
 
+    final problem = json['problem'];
+    final problemId = problem != null ? problem['_id'] as String : '';
+    final problemTitle = problem != null ? problem['title'] as String : '';
     return Solve(
-      json['id'] as String,
-      User.fromJson(json['user'] as Map<String, dynamic>),
-      _parseSolveLVL(json['level'] as String),
-      topics,
-      json['problemId'] as String,
-      json['problemTitle'] as String,
-      json['numSolvedTotal'] as int,
-      json['numSolvedLevel'] as int,
-      DateTime.parse(json['dateChallenge'] as String),
-      json['submissionId'] as String,
+      json['_id'],
+      _parseSolveLVL(json['level']),
+      problemId,
+      problemTitle,
     );
   }
+
   Map<String, dynamic> toJson() {
     return {
       'id': id,
-      'user': user.toJson(),
       'level': _levelToString(level),
       'problemId': problemId,
       'problemTitle': problemTitle,
-      'numSolvedTotal': numSolvedTotal,
-      'numSolvedLevel': numSolvedLevel,
-      'dateChallenge': dateChallenge.toIso8601String(),
-      'submissionId': submissionId,
     };
   }
 
@@ -85,7 +68,7 @@ class Solve {
   }
 
   static SolveLVL _parseSolveLVL(String value) {
-    switch (value) {
+    switch (value.toLowerCase()) {
       case 'encountered':
         return SolveLVL.encountered;
       case 'novice':

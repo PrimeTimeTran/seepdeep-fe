@@ -19,7 +19,8 @@ class ProblemsScreen extends StatefulWidget {
 
 class _ProblemsScreenState extends State<ProblemsScreen> {
   bool toggleProblemTopics = false;
-  Future<List<Problem>>? problems;
+  Future<List<Problem>> problems = Future.value([]);
+  Future<List<Solve>> solves = Future.value([]);
   List<CSTopic>? selectedTopicList = topicList;
   @override
   Widget build(BuildContext context) {
@@ -95,8 +96,8 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
             const Gap(10),
             Expanded(flex: 4, child: Text("Title", style: style)),
             const Gap(50),
-            SizedBox(child: Text("Solution", style: style)),
-            const Gap(50),
+            // SizedBox(child: Text("Solution", style: style)),
+            // const Gap(50),
             SizedBox(child: Text("Acceptance", style: style)),
             const Gap(50),
             SizedBox(child: Text("Difficulty", style: style)),
@@ -106,7 +107,7 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
     );
   }
 
-  GestureDetector buildListItem(item, idx, BuildContext context) {
+  GestureDetector buildListItem(item, idx, BuildContext context, solvesList) {
     idx -= 1;
     bool odd = idx % 2 == 0;
     Color colorLight = odd ? Colors.blue.shade100 : Colors.blue.shade200;
@@ -120,6 +121,9 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
         : item.difficulty == 'Medium'
             ? Colors.yellow
             : Colors.green;
+    final isSolved = solvesList.any((solve) => solve.problemId == item.id);
+    final icon = isSolved ? Icons.check_circle : Icons.circle_outlined;
+    final iconColor = isSolved ? Colors.green : Colors.grey;
     return GestureDetector(
       onTap: () {
         Provider.of<ProblemProvider>(context, listen: false)
@@ -132,7 +136,7 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
         color: rowColor,
         child: ListTile(
           iconColor: Colors.grey,
-          leading: const Icon(Icons.abc),
+          leading: Icon(icon, color: iconColor),
           title: Row(
             children: [
               Expanded(
@@ -142,8 +146,8 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
                   style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
               ),
-              const Spacer(),
-              const SizedBox(width: 60, child: Icon(Icons.abc)),
+              // const Spacer(),
+              // SizedBox(width: 60, child: Icon(icon, color: iconColor)),
               const Spacer(),
               SizedBox(
                 width: 60,
@@ -177,21 +181,35 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
       future: problems,
       builder: (BuildContext context, snapshot) {
         if (snapshot.hasData) {
-          return ListView.builder(
-            shrinkWrap: true,
-            itemCount: snapshot.data?.length,
-            itemBuilder: (BuildContext context, int idx) {
-              if (idx == 0) {
-                final item = Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    buildListHeader(),
-                    buildListItem(snapshot.data?[idx], idx, context),
-                  ],
+          return FutureBuilder<List<Solve>>(
+            future: solves,
+            builder: (context, solvesSnapshot) {
+              final solvesList = solvesSnapshot.data ?? [];
+              if (snapshot.hasData) {
+                return ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: snapshot.data?.length,
+                  itemBuilder: (BuildContext context, int idx) {
+                    if (idx == 0) {
+                      final item = Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          buildListHeader(),
+                          buildListItem(
+                              snapshot.data?[idx], idx, context, solvesList),
+                        ],
+                      );
+                      return item;
+                    }
+                    return buildListItem(
+                        snapshot.data?[idx], idx, context, solvesList);
+                  },
                 );
-                return item;
+              } else {
+                return const Center(
+                  child: Text('No Solves.'),
+                );
               }
-              return buildListItem(snapshot.data?[idx], idx, context);
             },
           );
         } else if (snapshot.hasError) {
@@ -397,10 +415,20 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
     }
   }
 
+  fetchSolved() async {
+    try {
+      final json = await Api.get('solves');
+      setSolves(json);
+    } catch (e) {
+      Glob.logE('Error fetching Solves: $e');
+    }
+  }
+
   @override
   void initState() {
     super.initState();
     fetchProblems();
+    fetchSolved();
   }
 
   setProblems(Map<String, dynamic> data) {
@@ -409,5 +437,16 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
     setState(() {
       problems = Future.value(res);
     });
+  }
+
+  setSolves(List<dynamic> data) {
+    try {
+      List<Solve> res = data.map((i) => Solve.fromJson(i)).toList();
+      setState(() {
+        solves = Future.value(res);
+      });
+    } catch (e) {
+      Glob.logE('Error setting solves: $e');
+    }
   }
 }

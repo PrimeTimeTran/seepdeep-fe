@@ -52,3 +52,6 @@ node_modules
 scripts/databases/venv
 scripts/databases/__pycache__
 .venv
+
+# Local Python virtual environment
+assets/json/venv
