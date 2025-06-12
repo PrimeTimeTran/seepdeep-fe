@@ -87,9 +87,9 @@ class SubmissionResultPanelState extends State<SubmissionResultPanel> {
     final memory = widget.submission.runTime;
     final runTime = widget.submission.memoryUsage;
 
-    final testCount = widget.submission.testCases?.length;
+    final testCount = widget.submission.testCases.length;
     final testCountPassing = widget.submission.testCases
-        ?.where((test) => test.passing == true)
+        .where((test) => test.passing == true)
         .length;
 
     return Column(

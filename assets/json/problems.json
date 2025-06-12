@@ -31,6 +31,32 @@
         { "output": [1, 2], "explanation": "", "input": [[3, 2, 4], 6] },
         { "output": [0, 1], "explanation": "", "input": [[3, 3], 6] }
       ],
+      "testCases2": [
+        {
+          "output": [0, 1],
+          "explanation": "",
+          "inputs": {
+            "nums": [2, 7, 11, 15],
+            "target": 9
+          }
+        },
+        {
+          "output": [1, 2],
+          "explanation": "",
+          "inputs": {
+            "nums": [3, 2, 4],
+            "target": 6
+          }
+        },
+        {
+          "output": [0, 1],
+          "explanation": "",
+          "inputs": {
+            "nums": [3, 3],
+            "target": 6
+          }
+        }
+      ],
       "topics": [{ "name": "Array" }, { "name": "Hash Table" }],
       "signature": {
         "parameters": [

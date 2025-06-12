@@ -405,12 +405,13 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
   fetchProblems() async {
     try {
       final json = await Api.get('problems');
-      final Map<String, dynamic> data = jsonDecode(json);
-      setProblems(data);
+      // final Map<String, dynamic> data = jsonDecode(json);
+      setProblems(json);
     } catch (e) {
-      Glob.logE('Fetching Problems');
-      final json = await rootBundle.loadString("json/problems.json");
-      final Map<String, dynamic> data = jsonDecode(json);
+      Glob.logE('Fetching Problems: $e');
+      final response = await rootBundle.loadString("json/problems.json");
+      final Map<String, dynamic> json = jsonDecode(response);
+      final List<dynamic> data = json['data'];
       setProblems(data);
     }
   }
@@ -431,9 +432,8 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
     fetchSolved();
   }
 
-  setProblems(Map<String, dynamic> data) {
-    final List<dynamic> fetched = data['data'];
-    List<Problem> res = fetched.map((i) => Problem.fromJson(i)).toList();
+  setProblems(List<dynamic> data) {
+    List<Problem> res = data.map((i) => Problem.fromJson(i)).toList();
     setState(() {
       problems = Future.value(res);
     });

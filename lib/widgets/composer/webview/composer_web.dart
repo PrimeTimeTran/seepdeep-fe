@@ -45,7 +45,7 @@ class _SolverState extends State<Solver> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Consumer<ProblemProvider>(
       builder: (context, problemProvider, _) {
-        var problem = problemProvider.focusedProblem;
+        Problem problem = problemProvider.focusedProblem;
         return AppHead(
           title: problem.title!,
           description: problem.body!,

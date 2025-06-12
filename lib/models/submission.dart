@@ -65,7 +65,8 @@ class Submission {
   });
 
   Submission.fromJson(Map<String, dynamic> json)
-      : user = _parseUser(json['user']),
+      : id = json['id'] ?? json['_id'],
+        user = _parseUser(json['user']),
         userId = json['user'] is String ? json['user'] : (json['user']?['_id']),
         body = json['body'],
         createdAt = json['createdAt'] != null
