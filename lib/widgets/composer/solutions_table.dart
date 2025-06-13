@@ -3,8 +3,6 @@
 import 'package:app/all.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_code_editor/flutter_code_editor.dart';
-import 'package:flutter_highlight/themes/vs.dart';
-import 'package:flutter_highlighter/themes/atelier-cave-dark.dart';
 import 'package:gap/gap.dart';
 import 'package:highlight/languages/python.dart';
 import 'package:intl/intl.dart';
@@ -131,9 +129,6 @@ class _SolutionsTableState extends State<SolutionsTable> {
   }
 
   Column buildSolutionFocusedPanel() {
-    final codeStyle = Style.currentTheme(context) == Brightness.light
-        ? vsTheme
-        : atelierCaveDarkTheme;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -147,22 +142,17 @@ class _SolutionsTableState extends State<SolutionsTable> {
           },
         ),
         const SizedBox(height: 20),
-        CodeTheme(
-          data: CodeThemeData(
-            styles: codeStyle,
-          ),
-          child: SizedBox(
-            height: 500,
-            width: double.infinity,
-            child: CodeField(
-              textStyle: const TextStyle(
-                height: 1.5,
-                leadingDistribution: TextLeadingDistribution.even,
-              ),
-              controller: CodeController(
-                language: python,
-                text: selectedSolution.body,
-              ),
+        SizedBox(
+          height: 500,
+          width: double.infinity,
+          child: CodeField(
+            textStyle: const TextStyle(
+              height: 1.5,
+              leadingDistribution: TextLeadingDistribution.even,
+            ),
+            controller: CodeController(
+              language: python,
+              text: selectedSolution.body,
             ),
           ),
         ),
@@ -281,7 +271,10 @@ class _SolutionsTableState extends State<SolutionsTable> {
                 },
               ),
             ),
-            const Text('sososo'),
+            Text(
+              solution.explanation,
+              style: Style.of(context, 'labelL'),
+            ),
             const SizedBox(height: 5),
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,

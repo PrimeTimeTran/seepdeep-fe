@@ -4,6 +4,9 @@ import 'package:app/all.dart';
 import 'package:app/widgets/composer/submission_result_panel.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_code_editor/flutter_code_editor.dart';
+import 'package:flutter_highlight/themes/vs.dart';
+import 'package:flutter_highlighter/themes/atelier-cave-dark.dart';
 import 'package:gap/gap.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:provider/provider.dart';
@@ -12,11 +15,6 @@ import 'package:showcaseview/showcaseview.dart';
 GlobalKey _one = GlobalKey();
 GlobalKey _three = GlobalKey();
 GlobalKey _two = GlobalKey();
-
-// TODO:
-// [x] API
-// [x] Query
-// [ ] Add a button to clear the editor.
 
 class Solver extends StatefulWidget {
   const Solver({super.key});
@@ -43,43 +41,50 @@ class _SolverState extends State<Solver> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<ProblemProvider>(
-      builder: (context, problemProvider, _) {
-        Problem problem = problemProvider.focusedProblem;
-        return AppHead(
-          title: problem.title!,
-          description: problem.body!,
-          child: Column(
-            children: [
-              SizedBox(
-                height: MediaQuery.of(context).size.height -
-                    MediaQuery.of(context).padding.top -
-                    kToolbarHeight,
-                child: VerticalSplitView(
-                  left: Showcase(
-                    key: _one,
-                    targetPadding: const EdgeInsets.symmetric(horizontal: 20),
-                    tooltipPosition: TooltipPosition.top,
-                    description:
-                        '1. Carefully read the questions description & example inputs and outputs.',
-                    onBarrierClick: () => debugPrint('Barrier clicked'),
-                    child: ComposerSidebar(
-                      problem: problem,
-                      passing: passing,
-                      testCases: testCases,
-                      submitted: submitted,
-                      submissions: submissions,
-                      submissionStream: _submissionStreamController.stream,
-                      onSelectSubmission: onSelectSubmission,
+    return CodeTheme(
+      data: CodeThemeData(
+        styles: Style.currentTheme(context) == Brightness.light
+            ? vsTheme
+            : atelierCaveDarkTheme,
+      ),
+      child: Consumer<ProblemProvider>(
+        builder: (context, problemProvider, _) {
+          Problem problem = problemProvider.focusedProblem;
+          return AppHead(
+            title: problem.title!,
+            description: problem.body!,
+            child: Column(
+              children: [
+                SizedBox(
+                  height: MediaQuery.of(context).size.height -
+                      MediaQuery.of(context).padding.top -
+                      kToolbarHeight,
+                  child: VerticalSplitView(
+                    left: Showcase(
+                      key: _one,
+                      targetPadding: const EdgeInsets.symmetric(horizontal: 20),
+                      tooltipPosition: TooltipPosition.top,
+                      description:
+                          '1. Carefully read the questions description & example inputs and outputs.',
+                      onBarrierClick: () => debugPrint('Barrier clicked'),
+                      child: ComposerSidebar(
+                        problem: problem,
+                        passing: passing,
+                        testCases: testCases,
+                        submitted: submitted,
+                        submissions: submissions,
+                        submissionStream: _submissionStreamController.stream,
+                        onSelectSubmission: onSelectSubmission,
+                      ),
                     ),
+                    right: buildRight(problem),
                   ),
-                  right: buildRight(problem),
                 ),
-              ),
-            ],
-          ),
-        );
-      },
+              ],
+            ),
+          );
+        },
+      ),
     );
   }
 
@@ -457,13 +462,13 @@ class _SolverState extends State<Solver> with TickerProviderStateMixin {
         );
       }
     } catch (e) {
-      print('Error: $e');
-      final submission = Submission.placeholder(problem!.id, 1);
+      print('Error posting submission: $e');
+      // final submission = Submission.placeholder(problem!.id, 1);
       // submissions.insert(0, submission);
-      testCases = submission.testCases;
-      setState(() {
-        testCases = testCases;
-      });
+      // testCases = submission.testCases;
+      // setState(() {
+      //   testCases = testCases;
+      // });
     } finally {
       setState(() {
         submitted = true;

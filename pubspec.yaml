@@ -69,6 +69,7 @@ dependencies:
   collection: ^1.18.0
   equatable: ^2.0.5
   showcaseview: ^4.0.1
+  flutter_dotenv: ^5.2.1
 
 dev_dependencies:
   flutter_test:
@@ -99,6 +100,8 @@ flutter:
     - assets/img/logos/
     - assets/img/headshots/
     - assets/img/SVG/
+    - assets/.env.local
+    - assets/.env.production
 
   fonts:
     - family: SDIcon

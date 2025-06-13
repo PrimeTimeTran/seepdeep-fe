@@ -8,6 +8,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:provider/provider.dart' as provider;
@@ -21,6 +22,9 @@ void main() async {
   // FlutterError.onError = (FlutterErrorDetails details) {
   //   print("Flutter error: ${details.exception}");
   // };
+  const envFile = kReleaseMode ? '.env.production' : '.env.local';
+  await dotenv.load(fileName: envFile);
+
   debugPaintSizeEnabled = false;
 
   WidgetsFlutterBinding.ensureInitialized();

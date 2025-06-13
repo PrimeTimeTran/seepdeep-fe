@@ -55,3 +55,5 @@ scripts/databases/__pycache__
 
 # Local Python virtual environment
 assets/json/venv
+assets/.env.local
+assets/.env.production

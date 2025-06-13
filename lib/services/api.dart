@@ -3,14 +3,13 @@ import 'dart:convert';
 
 import 'package:app/all.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 
 class Api {
   static http.Client client = http.Client();
-  static const base = kDebugMode
-      ? 'http://localhost:3000/api/'
-      : 'https://seepdeep-api-dev-7d6537ynfa-uc.a.run.app/api/';
+  static String? base = dotenv.env['API_BASE_URL'];
   static String authToken = kDebugMode
       ? 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWNkMmY0YzAyNjAwNDZhNDQzNTExYTIiLCJpYXQiOjE3MTM2NDg2NzgsImV4cCI6MjAyOTAwODY3OH0.HnX3iDxGkKdcgaxpZSAR34jXq5T1pASW6vaeEjuJ6EM'
       : 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWNkMmY0YzAyNjAwNDZhNDQzNTExYTIiLCJpYXQiOjE3MTM2NDg2NzgsImV4cCI6MjAyOTAwODY3OH0.HnX3iDxGkKdcgaxpZSAR34jXq5T1pASW6vaeEjuJ6EM';
@@ -49,11 +48,21 @@ class Api {
         return http.Response('Email Taken', 400);
       }
       if (response.statusCode == 200) {
+        print('response: ${response.body}');
         return _result(response);
       }
     } catch (e) {
       Glob.logI('Error $e');
     }
+  }
+
+  static FutureOr<dynamic> put(String path, dynamic body) async {
+    final response = await client.put(
+      _url(path),
+      body: jsonEncode(body),
+      headers: _headers(),
+    );
+    print(response);
   }
 
   static void setAuthToken(String token) => authToken = token;
@@ -75,7 +84,7 @@ class Api {
         Glob.showSnack('Authentication successful');
         return body;
       }
-      List<dynamic> data = body['data'];
+      final data = body['data'];
       if (isArray(data)) {
         if (data.isEmpty) {
           Glob.logI('0 Results');
@@ -92,5 +101,5 @@ class Api {
     }
   }
 
-  static _url(path) => Uri.parse(base + path);
+  static _url(path) => Uri.parse(base! + path);
 }

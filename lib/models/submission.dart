@@ -11,7 +11,7 @@ class Submission {
   String? title;
 
   // For those which are public
-  String? explanation;
+  String explanation = '';
   String? language;
   String? notes;
 
@@ -50,7 +50,6 @@ class Submission {
     this.notes,
     this.isShared,
     this.title,
-    this.explanation,
     this.numVotes,
     this.voterIds,
     this.numComments,
@@ -60,6 +59,7 @@ class Submission {
     this.contest,
     this.penalty,
     this.memoryUsage,
+    required this.explanation,
     required this.testCases,
     this.createdAt,
   });
@@ -116,6 +116,7 @@ class Submission {
 
   factory Submission.placeholder(problemId, userId) {
     return Submission(
+      id: '',
       user: userId,
       body: 'Placeholder body',
       title: 'Placeholder title',
