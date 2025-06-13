@@ -304,17 +304,17 @@ Future<void> dialogGetCode(BuildContext context) {
     if (response['user'] != null) {
       final auth = Provider.of<AuthProvider>(context, listen: false);
       auth.setUser(response['user']);
-      Navigator.of(context).pop();
     } else {
       print('Error');
     }
+    Navigator.pop(context);
   }
 
   authSignIn(context) async {
     final result = await Api.post(
         'auth/authenticate', {'email': email, 'password': password});
     Provider.of<AuthProvider>(context, listen: false).setUser(result['user']);
-    Navigator.of(context).pop();
+    Navigator.pop(context);
   }
 
   return showDialog<void>(
@@ -340,10 +340,11 @@ Future<void> dialogGetCode(BuildContext context) {
           },
         ),
       );
+      final buildContext = context;
       return StatefulBuilder(
         builder: (BuildContext context, StateSetter setState) {
           return AlertDialog(
-            title: const Text('Get Code'),
+            title: const Text('Sign Up/Log In'),
             content: SizedBox(
               height: getHeight() / 3,
               width: getWidth() / 2,
@@ -489,7 +490,7 @@ Future<void> dialogGetCode(BuildContext context) {
                           width: 100,
                           child: TextButton(
                               onPressed: () {
-                                Navigator.of(context).pop();
+                                Navigator.of(buildContext).pop();
                               },
                               child: const Text('Cancel')),
                         ),
@@ -499,11 +500,11 @@ Future<void> dialogGetCode(BuildContext context) {
                           width: 300,
                           child: OutlinedButton(
                             child: Text(isSignUp ? 'Sign Up' : 'Log In'),
-                            onPressed: () {
+                            onPressed: () async {
                               if (isSignUp) {
-                                authSignUp(context);
+                                await authSignUp(context);
                               } else {
-                                authSignIn(context);
+                                await authSignIn(context);
                               }
                             },
                           ),

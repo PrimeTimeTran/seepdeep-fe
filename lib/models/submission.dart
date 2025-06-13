@@ -9,6 +9,7 @@ class Submission {
   DateTime? createdAt;
   String? body;
   String? title;
+  int viewCount;
 
   // For those which are public
   String explanation = '';
@@ -33,8 +34,10 @@ class Submission {
 
   List<int>? voterIds;
   List<Topic>? topics;
-  List<Comment>? comments;
+  List<Comment> comments = [];
   List<TestCase> testCases;
+  List<String> voteIdsUp;
+  List<String> voteIdsDown;
 
   Submission({
     this.id,
@@ -54,13 +57,16 @@ class Submission {
     this.voterIds,
     this.numComments,
     this.topics,
-    this.comments,
     this.isContest,
     this.contest,
     this.penalty,
     this.memoryUsage,
+    required this.comments,
     required this.explanation,
     required this.testCases,
+    required this.viewCount,
+    required this.voteIdsUp,
+    required this.voteIdsDown,
     this.createdAt,
   });
 
@@ -92,19 +98,24 @@ class Submission {
         numVotes = json['numVotes'],
         voterIds =
             json['voterIds'] != null ? List<int>.from(json['voterIds']) : null,
+        voteIdsUp = json['voteIdsUp'] != null
+            ? List<String>.from(json['voteIdsUp'])
+            : [],
+        voteIdsDown = json['voteIdsDown'] != null
+            ? List<String>.from(json['voteIdsDown'])
+            : [],
         numComments = json['numComments'],
         topics = json['topics'] != null
             ? List<Topic>.from(json['topics'].map((x) => Topic.fromJson(x)))
             : null,
-        comments = json['comments'] != null
-            ? (json['comments'] is List && json['comments'].isNotEmpty
-                ? (json['comments'][0] is String
-                    ? List<Comment>.from(
-                        json['comments'].map((x) => Comment(body: x)))
-                    : List<Comment>.from(
-                        json['comments'].map((x) => Comment.fromJson(x))))
-                : [])
-            : null,
+        comments = (json['comments'] is List && json['comments'].isNotEmpty)
+            ? (json['comments'][0] is String
+                ? List<Comment>.from(
+                    json['comments'].map((x) => Comment(body: x)))
+                : List<Comment>.from(
+                    json['comments'].map((x) => Comment.fromJson(x))))
+            : [],
+        viewCount = json['viewCount'],
         isContest = json['isContest'],
         testCases = json['testCases'] != null
             ? List<TestCase>.from(
@@ -138,6 +149,9 @@ class Submission {
       topics: [],
       comments: [],
       testCases: [],
+      viewCount: 0,
+      voteIdsUp: [],
+      voteIdsDown: [],
       createdAt: DateTime.now(),
     );
   }
@@ -161,7 +175,7 @@ class Submission {
       'voterIds': voterIds,
       'numComments': numComments,
       'topics': topics?.map((topic) => topic.toJson()).toList(),
-      'comments': comments?.map((comment) => comment.toJson()).toList(),
+      'comments': comments.map((comment) => comment.toJson()).toList(),
       'isContest': isContest,
       'contest': contest?.toJson(),
       'penalty': penalty,

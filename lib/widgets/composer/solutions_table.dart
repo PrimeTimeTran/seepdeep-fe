@@ -156,6 +156,30 @@ class _SolutionsTableState extends State<SolutionsTable> {
             ),
           ),
         ),
+        Row(
+          children: [
+            TextButton.icon(
+              icon: const Icon(Icons.thumb_up),
+              label: const Text('Upvote'),
+              onPressed: () {
+                onVote(selectedSolution, 'up');
+                // setState(() {
+                //   solutionSelected = false;
+                // });
+              },
+            ),
+            TextButton.icon(
+              icon: const Icon(Icons.thumb_down),
+              label: const Text('Downvote'),
+              onPressed: () {
+                onVote(selectedSolution, 'down');
+                // setState(() {
+                //   solutionSelected = false;
+                // });
+              },
+            ),
+          ],
+        ),
         if (comments.isNotEmpty)
           ListView.builder(
             shrinkWrap: true,
@@ -280,17 +304,17 @@ class _SolutionsTableState extends State<SolutionsTable> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 TextButton.icon(
-                  label: const Text('10'),
+                  label: Text(solution.voteIdsUp.length.toString()),
                   onPressed: () {},
                   icon: const Icon(Icons.arrow_upward),
                 ),
                 TextButton.icon(
-                  label: const Text('4.5K'),
+                  label: Text(solution.viewCount.toString()),
                   onPressed: () {},
                   icon: const Icon(Icons.remove_red_eye_outlined),
                 ),
                 TextButton.icon(
-                  label: const Text('5'),
+                  label: Text(solution.comments.length.toString()),
                   onPressed: () {},
                   icon: const Icon(Icons.comment),
                 ),
@@ -344,6 +368,15 @@ class _SolutionsTableState extends State<SolutionsTable> {
   void initState() {
     super.initState();
     _solutionsFuture = fetchSolutions();
+  }
+
+  onVote(submission, upDown) async {
+    final body = {'id': submission.id, 'upDown': upDown, 'spam': 'ham'};
+    final resp = await Api.put('submissions/${submission.id}', body);
+    print(resp);
+    Glob.showSnackSuccess(
+      'Vote Saved',
+    );
   }
 
   postComment(comment) async {
