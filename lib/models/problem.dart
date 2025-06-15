@@ -68,7 +68,7 @@ class Problem {
       parameters: j['parameters'],
       returnType: j['returnType'],
     );
-    id = json['id'];
+    id = json['_id'];
     type = json['type'] ?? '';
     urlImgs = json['urlImgs'] ?? [];
     title = json['title'];

@@ -1,7 +1,7 @@
 {
   "data": [
     {
-      "id": "66367f5e0d552cf0a90e85e9",
+      "_id": "66367f5e0d552cf0a90e85e9",
       "title": "Two Sum",
       "acceptanceRate": 52.4,
       "accepted": 12.9,
@@ -24,12 +24,38 @@
       "isPublished": true,
       "isSubmitted": true,
       "numLC": 1,
-      "similar": [{ "difficulty": "Medium", "id": 2, "title": "3 Sum" }],
+      "similar": [{ "difficulty": "Medium", "_id": 2, "title": "3 Sum" }],
       "submissions": 24.6,
       "testCases": [
         { "output": [0, 1], "explanation": "", "input": [[2, 7, 11, 15], 9] },
         { "output": [1, 2], "explanation": "", "input": [[3, 2, 4], 6] },
         { "output": [0, 1], "explanation": "", "input": [[3, 3], 6] }
+      ],
+      "testCases2": [
+        {
+          "output": [0, 1],
+          "explanation": "",
+          "inputs": {
+            "nums": [2, 7, 11, 15],
+            "target": 9
+          }
+        },
+        {
+          "output": [1, 2],
+          "explanation": "",
+          "inputs": {
+            "nums": [3, 2, 4],
+            "target": 6
+          }
+        },
+        {
+          "output": [0, 1],
+          "explanation": "",
+          "inputs": {
+            "nums": [3, 3],
+            "target": 6
+          }
+        }
       ],
       "topics": [{ "name": "Array" }, { "name": "Hash Table" }],
       "signature": {
@@ -41,7 +67,7 @@
       }
     },
     {
-      "id": "66367f5e0d552cf0a90e8609",
+      "_id": "66367f5e0d552cf0a90e8609",
       "title": "Longest Substring Without Repeating Characters",
       "body": "Given a string s, find the length of the longest substring without repeating characters.",
       "acceptanceRate": 35.2,
@@ -69,11 +95,11 @@
       ],
       "similar": [
         {
-          "id": 159,
+          "_id": 159,
           "title": "Longest Substring with At Most Two Distinct Characters",
           "difficulty": "Medium"
         },
-        { "id": 76, "title": "Minimum Window Substring", "difficulty": "Hard" }
+        { "_id": 76, "title": "Minimum Window Substring", "difficulty": "Hard" }
       ],
       "testCases": [
         {
@@ -105,7 +131,7 @@
       "editorialVotes": { "1": 3, "2": 7 }
     },
     {
-      "id": "66367f5e0d552cf0a90e8614",
+      "_id": "66367f5e0d552cf0a90e8614",
       "title": "Median of Two Sorted Arrays",
       "numLC": 4,
       "acceptanceRate": 31.6,
@@ -131,12 +157,12 @@
       "similar": [
         {
           "difficulty": "Hard",
-          "id": 719,
+          "_id": 719,
           "title": "Find K-th Smallest Pair Distance"
         },
         {
           "difficulty": "Hard",
-          "id": 295,
+          "_id": 295,
           "title": "Find Median from Data Stream"
         }
       ],
@@ -175,7 +201,7 @@
       }
     },
     {
-      "id": "66367f5e0d552cf0a90e865b",
+      "_id": "66367f5e0d552cf0a90e865b",
       "title": "Container With Most Water",
       "numLC": 11,
       "acceptanceRate": 50.3,
@@ -199,10 +225,10 @@
       "isPublished": true,
       "isSubmitted": true,
       "similar": [
-        { "difficulty": "Hard", "id": 42, "title": "Trapping Rain Water" },
+        { "difficulty": "Hard", "_id": 42, "title": "Trapping Rain Water" },
         {
           "difficulty": "Medium",
-          "id": 42,
+          "_id": 42,
           "title": "Container With Most Water"
         }
       ],
@@ -223,7 +249,7 @@
       }
     },
     {
-      "id": "66367f5e0d552cf0a90e8682",
+      "_id": "66367f5e0d552cf0a90e8682",
       "title": "3Sum",
       "numLC": 15,
       "acceptanceRate": 28.6,
@@ -247,10 +273,10 @@
       "isPublished": true,
       "isSubmitted": true,
       "similar": [
-        { "difficulty": "Medium", "id": 1, "title": "Two Sum" },
+        { "difficulty": "Medium", "_id": 1, "title": "Two Sum" },
         {
           "difficulty": "Medium",
-          "id": 11,
+          "_id": 11,
           "title": "Container With Most Water"
         }
       ],
@@ -274,7 +300,7 @@
       }
     },
     {
-      "id": "66367f5e0d552cf0a90e875c",
+      "_id": "66367f5e0d552cf0a90e875c",
       "title": "Valid Sudoku",
       "numLC": 36,
       "acceptanceRate": 45.6,
@@ -298,7 +324,7 @@
       "isPublished": true,
       "isSubmitted": true,
       "similar": [
-        { "difficulty": "Medium", "id": 37, "title": "Sudoku Solver" }
+        { "difficulty": "Medium", "_id": 37, "title": "Sudoku Solver" }
       ],
       "submissions": 29.4,
       "testCases": [
@@ -344,7 +370,7 @@
       }
     },
     {
-      "id": "6844bbfa438d7b9a15caa7cf",
+      "_id": "6844bbfa438d7b9a15caa7cf",
       "title": "Group Anagrams",
       "acceptanceRate": 66.4,
       "accepted": 12.8,
@@ -368,7 +394,7 @@
       "isSubmitted": true,
       "numLC": 49,
       "similar": [
-        { "difficulty": "Easy", "id": 242, "title": "Valid Anagram" }
+        { "difficulty": "Easy", "_id": 242, "title": "Valid Anagram" }
       ],
       "submissions": 19.3,
       "testCases": [
@@ -399,7 +425,7 @@
       }
     },
     {
-      "id": "68449561e05ddd247bea6d2d",
+      "_id": "68449561e05ddd247bea6d2d",
       "title": "Contains Duplicate",
       "acceptanceRate": 59.6,
       "accepted": 18.7,
@@ -423,7 +449,7 @@
       "isSubmitted": true,
       "numLC": 217,
       "similar": [
-        { "difficulty": "Easy", "id": 136, "title": "Single Number" }
+        { "difficulty": "Easy", "_id": 136, "title": "Single Number" }
       ],
       "submissions": 31.4,
       "testCases": [
@@ -451,7 +477,7 @@
       }
     },
     {
-      "id": "6844ba7876977e14d4795339",
+      "_id": "6844ba7876977e14d4795339",
       "title": "Valid Anagram",
       "difficulty": "Easy",
       "frequency": "High",
@@ -478,7 +504,7 @@
         "Alternatively, sort both strings and compare"
       ],
       "similar": [
-        { "id": 1, "title": "Group Anagrams", "difficulty": "Medium" }
+        { "_id": 1, "title": "Group Anagrams", "difficulty": "Medium" }
       ],
       "editorialAuthor": {
         "username": "PrimeTimeTran",
