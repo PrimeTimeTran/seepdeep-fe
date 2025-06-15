@@ -27,6 +27,7 @@ class _SolutionsTableState extends State<SolutionsTable> {
   late Submission selectedSolution;
   late Future<List<Submission>> _solutionsFuture;
   final TextEditingController _commentController = TextEditingController();
+  final TextEditingController _searchController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -39,6 +40,10 @@ class _SolutionsTableState extends State<SolutionsTable> {
           children: [
             if (!solutionSelected)
               TextField(
+                onSubmitted: (value) {
+                  onSearch(value);
+                },
+                controller: _searchController,
                 decoration: InputDecoration(
                   isDense: true,
                   hintText: 'Search',
@@ -242,11 +247,7 @@ class _SolutionsTableState extends State<SolutionsTable> {
     final username = solution.user?.username ?? 'Anonymous';
     return GestureDetector(
       onTap: () {
-        setState(() {
-          solutionSelected = !solutionSelected;
-          selectedSolution = solution;
-        });
-        fetchComments(solution);
+        onFocusSolution(solution);
       },
       child: ListTile(
         subtitleTextStyle: const TextStyle(height: 3),
@@ -278,18 +279,37 @@ class _SolutionsTableState extends State<SolutionsTable> {
               height: 50,
               width: double.infinity,
               child: ListView.builder(
-                itemCount: 0,
+                itemCount: 1,
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) {
                   return Column(
                     children: [
+                      const Gap(5),
                       TextButton(
-                        style: const ButtonStyle(
-                            visualDensity: VisualDensity.compact),
-                        onPressed: () {},
-                        child: Text('Tag $index',
-                            style: const TextStyle(fontSize: 12)),
+                        style: TextButton.styleFrom(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 16,
+                            vertical: 8,
+                          ),
+                          backgroundColor: themeColor(context, 'secondary'),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(50),
+                          ),
+                        ),
+                        onPressed: () {
+                          // your action here
+                        },
+                        child: Text(
+                          solution.language!,
+                          style: TextStyle(
+                              color:
+                                  Style.currentTheme(context) == Brightness.dark
+                                      ? Colors.black
+                                      : Colors.white,
+                              fontSize: 10),
+                        ),
                       ),
+                      const Gap(5),
                     ],
                   );
                 },
@@ -297,7 +317,7 @@ class _SolutionsTableState extends State<SolutionsTable> {
             ),
             Text(
               solution.explanation,
-              style: Style.of(context, 'labelL'),
+              style: Style.of(context, 'headlineS'),
             ),
             const SizedBox(height: 5),
             Row(
@@ -310,12 +330,16 @@ class _SolutionsTableState extends State<SolutionsTable> {
                 ),
                 TextButton.icon(
                   label: Text(solution.viewCount.toString()),
-                  onPressed: () {},
+                  onPressed: () {
+                    onFocusSolution(solution);
+                  },
                   icon: const Icon(Icons.remove_red_eye_outlined),
                 ),
                 TextButton.icon(
                   label: Text(solution.comments.length.toString()),
-                  onPressed: () {},
+                  onPressed: () {
+                    onFocusSolution(solution);
+                  },
                   icon: const Icon(Icons.comment),
                 ),
               ],
@@ -364,16 +388,40 @@ class _SolutionsTableState extends State<SolutionsTable> {
     } finally {}
   }
 
+  Future<List<Submission>> fetchSolutionsWithParams(String url) async {
+    final response = await Api.get(url);
+    if (response == null) return [];
+
+    final List<dynamic> data = response.toList();
+    return data.map((json) => Submission.fromJson(json)).toList();
+  }
+
   @override
   void initState() {
     super.initState();
     _solutionsFuture = fetchSolutions();
   }
 
+  onFocusSolution(solution) {
+    setState(() {
+      selectedSolution = solution;
+      solutionSelected = !solutionSelected;
+    });
+    fetchComments(solution);
+  }
+
+  onSearch(String value) async {
+    final query = Uri.encodeQueryComponent(value);
+    final url = '/solutions?explanation=$query&problem=${widget.problem.id}';
+
+    setState(() {
+      _solutionsFuture = fetchSolutionsWithParams(url);
+    });
+  }
+
   onVote(submission, upDown) async {
     final body = {'id': submission.id, 'upDown': upDown, 'spam': 'ham'};
     final resp = await Api.put('submissions/${submission.id}', body);
-    print(resp);
     Glob.showSnackSuccess(
       'Vote Saved',
     );
