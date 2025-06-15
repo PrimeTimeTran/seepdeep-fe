@@ -22,6 +22,45 @@ class LanguageScore {
 }
 
 class User {
+  static final User placeholder = User(
+    id: 'unknown',
+    username: 'Anonymous',
+    email: '',
+    phone: '',
+    firstName: '',
+    lastName: '',
+    location: '',
+    urlAvatar: '',
+    urlPayPal: '',
+    urlGithub: '',
+    urlLinkedIn: '',
+    urlPortfolio: '',
+    urlCSProfile: '',
+    siteUrls: [],
+    views: 0,
+    discuss: 0,
+    solutions: 0,
+    reputation: 0,
+    contestRating: 0,
+    globalRanking: 0,
+    attended: 0,
+    contests: [],
+    startYear: 0,
+    top: 0.0,
+    activity: [],
+    contestRatings: [],
+    notes: [],
+    solved: [],
+    submissions: [],
+    languages: [],
+    numSubmissions: 0,
+    numAcceptedProblems: 0,
+    numSubmittedProblems: 0,
+    numAcceptedSubmissions: 0,
+    gender: '',
+    avatar: '',
+    streak: {},
+  );
   int? rank;
   String? id;
   String? email;
@@ -36,41 +75,42 @@ class User {
   String? urlLinkedIn;
   String? urlPortfolio;
   String? urlCSProfile;
+
   // Badge? activeBadge;
   List<String>? siteUrls;
-
   // Community
   int? views;
   int? discuss;
   int? solutions;
-  int? reputation;
 
+  int? reputation;
   // Contests
   int? contestRating;
   int? globalRanking;
   int? attended;
   List<Participant>? contests;
+
   int? startYear;
 
   double? top;
-
   // List<Badge>? badges;
   List<String>? activity;
-  List<String>? contestRatings;
 
+  List<String>? contestRatings;
   // Learnings
   List<Note>? notes;
   List<Solve>? solved;
   List<Submission>? submissions;
-  List<LanguageScore>? languages;
 
+  List<LanguageScore>? languages;
   int? numSubmissions;
   int? numAcceptedProblems;
   int? numSubmittedProblems;
-  int? numAcceptedSubmissions;
 
+  int? numAcceptedSubmissions;
   String? gender;
   String? avatar;
+
   Map<String, dynamic>? streak;
 
   User({

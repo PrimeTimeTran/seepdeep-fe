@@ -22,6 +22,12 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
   Future<List<Problem>> problems = Future.value([]);
   Future<List<Solve>> solves = Future.value([]);
   List<CSTopic>? selectedTopicList = topicList;
+
+  DateTime _focusedDay = DateTime.now();
+  DateTime? _selectedDay;
+  final Set<DateTime> _doneDays = {};
+  final CalendarFormat _calendarFormat = CalendarFormat.month;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -301,9 +307,40 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
             width: 400,
             height: 400,
             child: TableCalendar(
-              focusedDay: DateTime.now(),
-              lastDay: DateTime.utc(2030, 3, 14),
-              firstDay: DateTime.utc(2010, 10, 16),
+              firstDay: DateTime.utc(2020, 1, 1),
+              lastDay: DateTime.utc(2030, 12, 31),
+              focusedDay: _focusedDay,
+              // calendarFormat: _calendarFormat,
+              // selectedDayPredicate: (day) => _isSameDay(_selectedDay, day),
+              onDaySelected: (selectedDay, focusedDay) {
+                setState(() {
+                  _selectedDay = selectedDay;
+                  _focusedDay = focusedDay;
+
+                  // Toggle "done" status
+                  final alreadyDone =
+                      _doneDays.any((d) => _isSameDay(d, selectedDay));
+                  if (alreadyDone) {
+                    _doneDays.removeWhere((d) => _isSameDay(d, selectedDay));
+                  } else {
+                    _doneDays.add(selectedDay);
+                  }
+                });
+              },
+              calendarBuilders: CalendarBuilders(
+                defaultBuilder: (context, day, focusedDay) {
+                  final isDone = _doneDays.any((d) => _isSameDay(d, day));
+                  return Container(
+                    margin: const EdgeInsets.all(6.0),
+                    decoration: BoxDecoration(
+                      color: isDone ? Colors.greenAccent : null,
+                      shape: BoxShape.circle,
+                    ),
+                    alignment: Alignment.center,
+                    child: Text('${day.day}'),
+                  );
+                },
+              ),
             ),
           ),
         ],
@@ -404,9 +441,10 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
 
   fetchProblems() async {
     try {
+      throw 'Error!';
       final json = await Api.get('problems');
-      // final Map<String, dynamic> data = jsonDecode(json);
       setProblems(json);
+      // Until you update the problems DB use the JSON ones
     } catch (e) {
       Glob.logE('Fetching Problems: $e');
       final response = await rootBundle.loadString("json/problems.json");
@@ -423,6 +461,14 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
     } catch (e) {
       Glob.logE('Error fetching Solves: $e');
     }
+  }
+
+  fetchUserStreak() {
+    final auth = Provider.of<AuthProvider>(context);
+    print('providerprovider $auth');
+    // final user = Provider.of<SubmissionProvider>(context, listen: false)
+    //     .fetchSubmissions(auth.user.id);
+    // print('user $user');
   }
 
   @override
@@ -442,11 +488,16 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
   setSolves(List<dynamic> data) {
     try {
       List<Solve> res = data.map((i) => Solve.fromJson(i)).toList();
+      print('res $res');
       setState(() {
         solves = Future.value(res);
       });
     } catch (e) {
       Glob.logE('Error setting solves: $e');
     }
+  }
+
+  bool _isSameDay(DateTime a, DateTime b) {
+    return a.year == b.year && a.month == b.month && a.day == b.day;
   }
 }

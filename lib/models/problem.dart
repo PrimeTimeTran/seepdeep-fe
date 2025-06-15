@@ -69,8 +69,8 @@ class Problem {
       returnType: j['returnType'],
     );
     id = json['id'];
-    type = json['type'];
-    urlImgs = json['urlImgs'];
+    type = json['type'] ?? '';
+    urlImgs = json['urlImgs'] ?? [];
     title = json['title'];
     numLC = json['numLC'];
     body = json['body'];
@@ -79,22 +79,38 @@ class Problem {
         .toList();
     isPublished = json['isPublished'];
     isSubmitted = json['isSubmitted'];
-    author = User.fromJson(json['author']);
+    author = json['author'] != null
+        ? User.fromJson(json['author'])
+        : User.placeholder;
     hints = (json['hints'] as List<dynamic>?)?.cast<String>();
     constraints = (json['constraints'] as List<dynamic>?)?.cast<String>();
     similar = (json['similar'] as List<dynamic>?)?.cast<Map<String, String>>();
     editorialBody = json['editorialBody'];
-    editorialAuthor = User.fromJson(json['editorialAuthor']);
-    editorialRating = json['editorialRating'];
+    editorialAuthor = json['editorialAuthor'] != null
+        ? User.fromJson(json['editorialAuthor'])
+        : User.placeholder;
     editorialVotes = json['editorialVotes']?.cast<String, int>();
     frequency = json['frequency'];
     difficulty = json['difficulty'];
-    accepted = json['accepted'];
-    submissions = json['submissions'];
-    acceptanceRate = json['acceptanceRate']?.toDouble();
-    this.signature = signature;
     testCases =
         (json['testCases'] as List<dynamic>?)?.cast<Map<String, dynamic>>();
+    // Sometimes MongoDB wraps the number in a object
+    // "accepted {$numberDecimal: 46.2}"
+    accepted = parseAccepted(json['accepted']);
+    acceptanceRate = parseAccepted(json['acceptanceRate']);
+    // editorialRating = json['editorialRating'];
+
+    // submissions = json['submissions'];
+    this.signature = signature;
+  }
+
+  double? parseAccepted(dynamic value) {
+    if (value is Map && value.containsKey('\$numberDecimal')) {
+      return double.tryParse(value['\$numberDecimal']);
+    } else if (value is num) {
+      return value.toDouble();
+    }
+    return null;
   }
 
   Map<String, dynamic> toJson() {

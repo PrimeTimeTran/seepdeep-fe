@@ -48,6 +48,7 @@ void main() async {
           provider.ChangeNotifierProvider(
               create: (_) => AuthProvider(user: user)),
           provider.ChangeNotifierProvider(create: (_) => ProblemProvider()),
+          provider.ChangeNotifierProvider(create: (_) => SubmissionProvider()),
         ],
         child: MyApp(),
       ),
