@@ -1,7 +1,8 @@
 import 'all.dart';
 
 class Topic {
-  String? name;
+  String id;
+  String name;
   List<Post>? posts;
   List<Guide>? guides;
   List<Problem>? problems;
@@ -9,31 +10,39 @@ class Topic {
   List<Submission>? submissions;
 
   Topic({
-    this.name,
     this.posts,
     this.guides,
     this.problems,
     this.contests,
     this.submissions,
+    required this.id,
+    required this.name,
   });
 
   Topic.fromJson(Map<String, dynamic> json)
-      : name = json['name'],
-        posts = (json['posts'] as List<dynamic>?)
-            ?.map((postJson) => Post.fromJson(postJson))
-            .toList(),
-        guides = (json['guides'] as List<dynamic>?)
-            ?.map((guideJson) => Guide.fromJson(guideJson))
-            .toList(),
-        problems = (json['problems'] as List<dynamic>?)
-            ?.map((problemJson) => Problem.fromJson(problemJson))
-            .toList(),
-        contests = (json['contests'] as List<dynamic>?)
-            ?.map((contestJson) => Contest.fromJson(contestJson))
-            .toList(),
-        submissions = (json['submissions'] as List<dynamic>?)
-            ?.map((submissionJson) => Submission.fromJson(submissionJson))
-            .toList();
+      : id = json['_id'],
+        name = json['name'],
+        posts = [],
+        guides = [],
+        problems = [],
+        contests = [],
+        submissions = [];
+  // posts = (json['posts'] as List<dynamic>?)
+  //     ?.map((postJson) => Post.fromJson(postJson))
+  //     .toList(),
+  // guides = (json['guides'] as List<dynamic>?)
+  //     ?.map((guideJson) => Guide.fromJson(guideJson))
+  //     .toList(),
+  // problems = (json['problems'] as List<dynamic>?)
+  //     ?.map((problemJson) => Problem.fromJson(problemJson))
+  //     .toList(),
+  // contests = (json['contests'] as List<dynamic>?)
+  //     ?.map((contestJson) => Contest.fromJson(contestJson))
+  //     .toList(),
+  // submissions = (json['submissions'] as List<dynamic>?)
+  //     ?.map((submissionJson) => Submission.fromJson(submissionJson))
+  //     .toList();
+  // numProblems = json['submissions'].length as List<dynamic>;
 
   Map<String, dynamic> toJson() {
     return {

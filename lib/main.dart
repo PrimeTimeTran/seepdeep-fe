@@ -49,6 +49,7 @@ void main() async {
               create: (_) => AuthProvider(user: user)),
           provider.ChangeNotifierProvider(create: (_) => ProblemProvider()),
           provider.ChangeNotifierProvider(create: (_) => SubmissionProvider()),
+          provider.ChangeNotifierProvider(create: (_) => TopicProvider()),
         ],
         child: MyApp(),
       ),
@@ -90,5 +91,10 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final topicProvider =
+          provider.Provider.of<TopicProvider>(context, listen: false);
+      topicProvider.fetchTopics();
+    });
   }
 }

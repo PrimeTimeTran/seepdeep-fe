@@ -57,7 +57,6 @@
           }
         }
       ],
-      "topics": [{ "name": "Array" }, { "name": "Hash Table" }],
       "signature": {
         "parameters": [
           { "type": "List[int]", "name": "nums" },
@@ -88,11 +87,6 @@
       "isPublished": true,
       "isSubmitted": true,
       "numLC": 3,
-      "topics": [
-        { "name": "Hash Table" },
-        { "name": "String" },
-        { "name": "Sliding Window" }
-      ],
       "similar": [
         {
           "_id": 159,
@@ -186,12 +180,6 @@
           ]
         }
       ],
-      "topics": [
-        { "name": "Array" },
-        { "name": "Binary Search" },
-        { "name": "Divide and Conquer" }
-      ],
-
       "signature": {
         "parameters": [
           { "type": "List[int]", "name": "nums1" },
@@ -242,7 +230,6 @@
         { "output": 1, "explanation": "", "input": [[1, 1]] },
         { "output": 16, "explanation": "", "input": [[4, 3, 2, 1, 4]] }
       ],
-      "topics": [{ "name": "Array" }, { "name": "Two Pointers" }],
       "signature": {
         "parameters": [{ "type": "List[int]", "name": "height" }],
         "returnType": "int"
@@ -293,7 +280,6 @@
         { "output": [], "explanation": "", "input": [[]] },
         { "output": [], "explanation": "", "input": [[0]] }
       ],
-      "topics": [{ "name": "Array" }, { "name": "Two Pointers" }],
       "signature": {
         "parameters": [{ "type": "List[int]", "name": "nums" }],
         "returnType": "List[List[int]]"
@@ -363,7 +349,6 @@
           ]
         }
       ],
-      "topics": [{ "name": "Array" }, { "name": "Hash Table" }],
       "signature": {
         "parameters": [{ "type": "List[List[str]]", "name": "board" }],
         "returnType": "bool"
@@ -414,11 +399,6 @@
           "input": [["a"]]
         }
       ],
-      "topics": [
-        { "name": "Hash Table" },
-        { "name": "String" },
-        { "name": "Sorting" }
-      ],
       "signature": {
         "parameters": [{ "type": "List[str]", "name": "strs" }],
         "returnType": "List[List[str]]"
@@ -466,11 +446,6 @@
           "input": [[1, 1, 1, 3, 3, 4, 3, 2, 4, 2]]
         }
       ],
-      "topics": [
-        { "name": "Array" },
-        { "name": "Hash Table" },
-        { "name": "Sorting" }
-      ],
       "signature": {
         "parameters": [{ "type": "List[int]", "name": "nums" }],
         "returnType": "bool"
@@ -492,7 +467,6 @@
       },
       "body": "Given two strings s and t, return true if t is an anagram of s, and false otherwise. An anagram is a word or phrase formed by rearranging the letters of another, using all the original letters exactly once.",
       "constraints": [],
-      "topics": [{ "name": "Hash Table" }, { "name": "Sorting" }],
       "testCases": [
         { "input": ["anagram", "nagaram"], "output": true, "explanation": "" },
         { "input": ["rat", "car"], "output": false, "explanation": "" },

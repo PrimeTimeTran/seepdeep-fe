@@ -249,6 +249,7 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
   }
 
   buildProblemTopics() {
+    final topics = context.watch<TopicProvider>().topics;
     if (toggleProblemTopics) {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.end,
@@ -273,6 +274,15 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
         ],
       );
     }
+    return SizedBox(
+      height: 400,
+      child: ListView.builder(
+        itemCount: topics.length,
+        itemBuilder: (context, index) {
+          return Text(topics[index].name);
+        },
+      ),
+    );
     return SizedBox(
       width: 925,
       child: Column(
@@ -463,14 +473,6 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
     }
   }
 
-  fetchUserStreak() {
-    final auth = Provider.of<AuthProvider>(context);
-    print('providerprovider $auth');
-    // final user = Provider.of<SubmissionProvider>(context, listen: false)
-    //     .fetchSubmissions(auth.user.id);
-    // print('user $user');
-  }
-
   @override
   void initState() {
     super.initState();
@@ -488,7 +490,6 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
   setSolves(List<dynamic> data) {
     try {
       List<Solve> res = data.map((i) => Solve.fromJson(i)).toList();
-      print('res $res');
       setState(() {
         solves = Future.value(res);
       });
