@@ -76,7 +76,7 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
             children: <Widget>[
               // buildStudyPlans(),
               // const Gap(5),
-              // buildProblemTopics(),
+              buildProblemTopics(),
               const Gap(5),
               buildProblemList()
             ],
@@ -182,10 +182,10 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
   }
 
   buildProblemList() {
-    final problems = context.watch<ProblemsProvider>().problems;
     return FutureBuilder<List<Solve>>(
       future: solves,
       builder: (context, solvesSnapshot) {
+        final problems = context.watch<ProblemsProvider>().problems;
         final solvesList = solvesSnapshot.data ?? [];
         return ListView.builder(
           shrinkWrap: true,
@@ -193,14 +193,13 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
           itemBuilder: (BuildContext context, int idx) {
             final problem = problems[idx];
             if (idx == 0) {
-              final item = Column(
+              return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   buildListHeader(),
                   buildListItem(problem, idx, context, solvesList),
                 ],
               );
-              return item;
             }
             return buildListItem(problem, idx, context, solvesList);
           },
@@ -223,8 +222,11 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
                     const Text("Topics", style: TextStyle(color: Colors.white)),
                 icon: const Icon(Icons.arrow_circle_up_outlined,
                     color: Colors.white),
-                onPressed: () =>
-                    setState(() => toggleProblemTopics = !toggleProblemTopics),
+                onPressed: () {
+                  setState(
+                    () => toggleProblemTopics = !toggleProblemTopics,
+                  );
+                },
                 style: ButtonStyle(
                   backgroundColor: WidgetStateProperty.all(Colors.blue),
                 ),
@@ -235,36 +237,50 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
         ],
       );
     }
-    return SizedBox(
-      height: 400,
-      child: ListView.builder(
-        itemCount: topics.length,
-        itemBuilder: (context, index) {
-          Topic topic = topics[index];
-          return Text('${topic.name} ${topic.numProblems}');
-        },
-      ),
-    );
-    return SizedBox(
-      width: 925,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(8),
+      child: Wrap(
+        spacing: 8,
+        runSpacing: 8,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              TextButton.icon(
-                label: const AppText(text: "Topics"),
-                icon: const Icon(Icons.arrow_circle_down_outlined,
-                    color: Colors.white),
-                onPressed: () =>
-                    setState(() => toggleProblemTopics = !toggleProblemTopics),
-                style: ButtonStyle(
-                  backgroundColor: WidgetStateProperty.all(Colors.blue),
-                ),
+          TextButton.icon(
+            label: const Text('Reset', style: TextStyle(color: Colors.black)),
+            icon: const Icon(Icons.refresh, color: Colors.white),
+            onPressed: () {
+              final problemsProvider = context.read<ProblemsProvider>();
+              problemsProvider.resetProblems(topics.first);
+            },
+            style: TextButton.styleFrom(
+              backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(30),
               ),
-            ],
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+              minimumSize: Size.zero,
+            ),
           ),
+          for (final topic in topics)
+            TextButton.icon(
+              label: Text('${topic.name} (${topic.numProblems})',
+                  style: const TextStyle(color: Colors.black)),
+              icon: const Icon(Icons.arrow_circle_up_outlined,
+                  color: Colors.white),
+              onPressed: () {
+                final problemsProvider = context.read<ProblemsProvider>();
+                problemsProvider.fetchProblemsByTopic(topic);
+              },
+              style: TextButton.styleFrom(
+                backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30),
+                ),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                minimumSize: Size.zero,
+              ),
+            ),
         ],
       ),
     );

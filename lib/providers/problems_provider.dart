@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 
 class ProblemsProvider extends ChangeNotifier {
   final List<Problem> _problems = [];
+  final List<Problem> _allProblems = [];
 
   List<Problem> get problems => _problems;
 
@@ -23,6 +24,21 @@ class ProblemsProvider extends ChangeNotifier {
       final Map<String, dynamic> json = jsonDecode(response);
       final List<dynamic> data = json['data'];
       _problems.addAll((data).map((e) => Problem.fromJson(e)).toList());
+      _allProblems.addAll((data).map((e) => Problem.fromJson(e)).toList());
     }
+  }
+
+  Future<void> fetchProblemsByTopic(Topic topic) async {
+    final response = await Api.get('problems?topicId=${topic.id}');
+    _problems.clear();
+    _problems
+        .addAll((response as List).map((e) => Problem.fromJson(e)).toList());
+    notifyListeners();
+  }
+
+  Future<void> resetProblems(Topic topic) async {
+    _problems.clear();
+    _problems.addAll(_allProblems);
+    notifyListeners();
   }
 }

@@ -6,7 +6,7 @@ class Topic {
   List<Post>? posts;
   List<Guide>? guides;
   List<Contest>? contests;
-  List<Problem>? problems;
+  List<dynamic>? problems;
   List<Submission>? submissions;
 
   Topic({
@@ -24,7 +24,7 @@ class Topic {
         name = json['name'],
         posts = [],
         guides = [],
-        problems = [],
+        problems = List.from(json['problems'] ?? []),
         contests = [],
         submissions = [];
 
