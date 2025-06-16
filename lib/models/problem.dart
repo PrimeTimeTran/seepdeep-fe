@@ -12,11 +12,11 @@ class Problem {
   bool? isSubmitted;
 
   int? numLC;
-  List<Topic>? topics;
-  List<String>? hints;
-  List<String>? urlImgs;
-  List<String>? constraints;
-  List<Map<String, String>>? similar;
+  List<String>? hints = [];
+  List<Topic>? topics = [];
+  List<String>? urlImgs = [];
+  List<String>? constraints = [];
+  List<Map<String, String>>? similar = [];
 
   String? editorialBody;
   User? editorialAuthor;
@@ -74,9 +74,10 @@ class Problem {
     title = json['title'];
     numLC = json['numLC'];
     body = json['body'];
-    topics = (json['topics'] as List<dynamic>?)
-        ?.map((topicJson) => Topic.fromJson(topicJson))
-        .toList();
+    // topics = (json['topics'] as List<dynamic>?)
+    //         ?.map((topicJson) => Topic.fromJson(topicJson))
+    //         .toList() ??
+    //     [];
     isPublished = json['isPublished'];
     isSubmitted = json['isSubmitted'];
     author = json['author'] != null

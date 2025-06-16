@@ -5,8 +5,8 @@ class Topic {
   String name;
   List<Post>? posts;
   List<Guide>? guides;
-  List<Problem>? problems;
   List<Contest>? contests;
+  List<Problem>? problems;
   List<Submission>? submissions;
 
   Topic({
@@ -27,6 +27,8 @@ class Topic {
         problems = [],
         contests = [],
         submissions = [];
+
+  int get numProblems => problems?.length ?? 0;
   // posts = (json['posts'] as List<dynamic>?)
   //     ?.map((postJson) => Post.fromJson(postJson))
   //     .toList(),

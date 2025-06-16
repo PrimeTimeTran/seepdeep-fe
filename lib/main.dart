@@ -48,6 +48,7 @@ void main() async {
           provider.ChangeNotifierProvider(
               create: (_) => AuthProvider(user: user)),
           provider.ChangeNotifierProvider(create: (_) => ProblemProvider()),
+          provider.ChangeNotifierProvider(create: (_) => ProblemsProvider()),
           provider.ChangeNotifierProvider(create: (_) => SubmissionProvider()),
           provider.ChangeNotifierProvider(create: (_) => TopicProvider()),
         ],
@@ -95,6 +96,9 @@ class _MyAppState extends State<MyApp> {
       final topicProvider =
           provider.Provider.of<TopicProvider>(context, listen: false);
       topicProvider.fetchTopics();
+      final problemsProvider =
+          provider.Provider.of<ProblemsProvider>(context, listen: false);
+      problemsProvider.fetchProblems();
     });
   }
 }

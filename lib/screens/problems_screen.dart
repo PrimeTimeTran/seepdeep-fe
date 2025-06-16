@@ -1,10 +1,8 @@
 import 'dart:async';
-import 'dart:convert';
 
 import 'package:app/all.dart';
 import 'package:filter_list/filter_list.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -113,7 +111,8 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
     );
   }
 
-  GestureDetector buildListItem(item, idx, BuildContext context, solvesList) {
+  GestureDetector buildListItem(
+      Problem item, idx, BuildContext context, solvesList) {
     idx -= 1;
     bool odd = idx % 2 == 0;
     Color colorLight = odd ? Colors.blue.shade100 : Colors.blue.shade200;
@@ -135,7 +134,7 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
         Provider.of<ProblemProvider>(context, listen: false)
             .setFocusedProblem(item);
         GoRouter.of(context).go(
-          '${AppScreens.dsa.path}/${item.title.replaceAll(' ', '-').toLowerCase()}',
+          '${AppScreens.dsa.path}/${item.title?.replaceAll(' ', '-').toLowerCase()}',
         );
       },
       child: Container(
@@ -183,66 +182,28 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
   }
 
   buildProblemList() {
-    return FutureBuilder<List<Problem>>(
-      future: problems,
-      builder: (BuildContext context, snapshot) {
-        if (snapshot.hasData) {
-          return FutureBuilder<List<Solve>>(
-            future: solves,
-            builder: (context, solvesSnapshot) {
-              final solvesList = solvesSnapshot.data ?? [];
-              if (snapshot.hasData) {
-                return ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: snapshot.data?.length,
-                  itemBuilder: (BuildContext context, int idx) {
-                    if (idx == 0) {
-                      final item = Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          buildListHeader(),
-                          buildListItem(
-                              snapshot.data?[idx], idx, context, solvesList),
-                        ],
-                      );
-                      return item;
-                    }
-                    return buildListItem(
-                        snapshot.data?[idx], idx, context, solvesList);
-                  },
-                );
-              } else {
-                return const Center(
-                  child: Text('No Solves.'),
-                );
-              }
-            },
-          );
-        } else if (snapshot.hasError) {
-          return Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Icon(
-                Icons.error_outline,
-                size: 60,
-                color: Colors.red,
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 16),
-                child: Text('Error: ${snapshot.error}'),
-              ),
-            ],
-          );
-        }
-        return const Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            CircularProgressIndicator(),
-            Padding(
-              padding: EdgeInsets.only(top: 16),
-              child: Text('Awaiting result...'),
-            ),
-          ],
+    final problems = context.watch<ProblemsProvider>().problems;
+    return FutureBuilder<List<Solve>>(
+      future: solves,
+      builder: (context, solvesSnapshot) {
+        final solvesList = solvesSnapshot.data ?? [];
+        return ListView.builder(
+          shrinkWrap: true,
+          itemCount: problems.length,
+          itemBuilder: (BuildContext context, int idx) {
+            final problem = problems[idx];
+            if (idx == 0) {
+              final item = Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  buildListHeader(),
+                  buildListItem(problem, idx, context, solvesList),
+                ],
+              );
+              return item;
+            }
+            return buildListItem(problem, idx, context, solvesList);
+          },
         );
       },
     );
@@ -279,7 +240,8 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
       child: ListView.builder(
         itemCount: topics.length,
         itemBuilder: (context, index) {
-          return Text(topics[index].name);
+          Topic topic = topics[index];
+          return Text('${topic.name} ${topic.numProblems}');
         },
       ),
     );
@@ -449,21 +411,6 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
     );
   }
 
-  fetchProblems() async {
-    try {
-      throw 'Error!';
-      final json = await Api.get('problems');
-      setProblems(json);
-      // Until you update the problems DB use the JSON ones
-    } catch (e) {
-      Glob.logE('Fetching Problems: $e');
-      final response = await rootBundle.loadString("json/problems.json");
-      final Map<String, dynamic> json = jsonDecode(response);
-      final List<dynamic> data = json['data'];
-      setProblems(data);
-    }
-  }
-
   fetchSolved() async {
     try {
       final json = await Api.get('solves');
@@ -476,15 +423,7 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
   @override
   void initState() {
     super.initState();
-    fetchProblems();
     fetchSolved();
-  }
-
-  setProblems(List<dynamic> data) {
-    List<Problem> res = data.map((i) => Problem.fromJson(i)).toList();
-    setState(() {
-      problems = Future.value(res);
-    });
   }
 
   setSolves(List<dynamic> data) {
