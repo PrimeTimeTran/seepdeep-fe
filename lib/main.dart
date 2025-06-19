@@ -51,6 +51,7 @@ void main() async {
           provider.ChangeNotifierProvider(create: (_) => ProblemsProvider()),
           provider.ChangeNotifierProvider(create: (_) => SubmissionProvider()),
           provider.ChangeNotifierProvider(create: (_) => TopicProvider()),
+          provider.ChangeNotifierProvider(create: (_) => SolvesProvider()),
         ],
         child: MyApp(),
       ),
@@ -99,6 +100,9 @@ class _MyAppState extends State<MyApp> {
       final problemsProvider =
           provider.Provider.of<ProblemsProvider>(context, listen: false);
       problemsProvider.fetchProblems();
+      final solvesProvider =
+          provider.Provider.of<SolvesProvider>(context, listen: false);
+      solvesProvider.fetchSolves();
     });
   }
 }

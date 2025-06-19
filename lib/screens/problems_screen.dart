@@ -111,8 +111,8 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
     );
   }
 
-  GestureDetector buildListItem(
-      Problem item, idx, BuildContext context, solvesList) {
+  GestureDetector buildListItem(Problem item, int idx, BuildContext context) {
+    final solvesList = context.watch<SolvesProvider>().solves;
     idx -= 1;
     bool odd = idx % 2 == 0;
     Color colorLight = odd ? Colors.blue.shade100 : Colors.blue.shade200;
@@ -182,28 +182,22 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
   }
 
   buildProblemList() {
-    return FutureBuilder<List<Solve>>(
-      future: solves,
-      builder: (context, solvesSnapshot) {
-        final problems = context.watch<ProblemsProvider>().problems;
-        final solvesList = solvesSnapshot.data ?? [];
-        return ListView.builder(
-          shrinkWrap: true,
-          itemCount: problems.length,
-          itemBuilder: (BuildContext context, int idx) {
-            final problem = problems[idx];
-            if (idx == 0) {
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  buildListHeader(),
-                  buildListItem(problem, idx, context, solvesList),
-                ],
-              );
-            }
-            return buildListItem(problem, idx, context, solvesList);
-          },
-        );
+    final problems = context.watch<ProblemsProvider>().problems;
+    return ListView.builder(
+      shrinkWrap: true,
+      itemCount: problems.length,
+      itemBuilder: (BuildContext context, int idx) {
+        final problem = problems[idx];
+        if (idx == 0) {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              buildListHeader(),
+              buildListItem(problem, idx, context),
+            ],
+          );
+        }
+        return buildListItem(problem, idx, context);
       },
     );
   }
@@ -427,30 +421,9 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
     );
   }
 
-  fetchSolved() async {
-    try {
-      final json = await Api.get('solves');
-      setSolves(json);
-    } catch (e) {
-      Glob.logE('Error fetching Solves: $e');
-    }
-  }
-
   @override
   void initState() {
     super.initState();
-    fetchSolved();
-  }
-
-  setSolves(List<dynamic> data) {
-    try {
-      List<Solve> res = data.map((i) => Solve.fromJson(i)).toList();
-      setState(() {
-        solves = Future.value(res);
-      });
-    } catch (e) {
-      Glob.logE('Error setting solves: $e');
-    }
   }
 
   bool _isSameDay(DateTime a, DateTime b) {
