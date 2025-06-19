@@ -1,13 +1,13 @@
 class TestCase {
   final bool passing;
-  final List<dynamic> input;
   final String? outActual;
   final String outExpected;
-  final Map<String, dynamic> signature;
   final String? stackTrace;
+  final Map<String, dynamic> inputs;
+  final Map<String, dynamic> signature;
 
   TestCase({
-    required this.input,
+    required this.inputs,
     required this.passing,
     required this.signature,
     required this.outActual,
@@ -21,7 +21,7 @@ class TestCase {
   factory TestCase.fromMap(Map<String, dynamic> map) {
     return TestCase(
       passing: map['passing'] ?? false,
-      input: map['input'] ?? [].toString(),
+      inputs: map['inputs'] ?? {},
       outActual: map['outActual'].toString(),
       outExpected: map['outExpected'].toString(),
       signature: map['signature'] ?? {"parameters": []},

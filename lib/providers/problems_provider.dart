@@ -12,7 +12,7 @@ class ProblemsProvider extends ChangeNotifier {
 
   Future<void> fetchProblems() async {
     try {
-      throw 'Error';
+      // throw 'Error';
       final response = await Api.get('problems');
       _problems.clear();
       _problems

@@ -12,13 +12,6 @@ import 'package:google_fonts/google_fonts.dart';
 // ignore: depend_on_referenced_packages
 import 'package:markdown/markdown.dart' as md;
 
-// Problem Requirements
-// 1. Name
-// 2. Prompt/Description
-// 3. Examples
-// 4. Answer
-// 5. Tests
-
 class CodeElementBuilder extends MarkdownElementBuilder {
   getTheme() {
     return MediaQueryData.fromView(WidgetsBinding.instance.window)
@@ -47,18 +40,6 @@ class CodeElementBuilder extends MarkdownElementBuilder {
     );
   }
 }
-
-// localhost:3000/api/v1/problems/63f1b0c8d2a3e4f5b8c7e4a9
-// localhost:3000/api/v1/problems/63f1b0c8d2a3e4f5b8c7e4a9/editorial
-// localhost:3000/api/v1/problems/63f1b0c8d2a3e4f5b8c7e4a9/submissions?user=true
-// localhost:3000/api/v1/problems/63f1b0c8d2a3e4f5b8c7e4a9/submissions
-// localhost:3000/api/v1/problems/63f1b0c8d2a3e4f5b8c7e4a9/testcases
-// localhost:3000/api/v1/problems/63f1b0c8d2a3e4f5b8c7e4a9/testcases/63f1b0c8d2a3e4f5b8c7e4a9
-// localhost:3000/api/v1/problems/63f1b0c8d2a3e4f5b8c7e4a9/testcases/63f1b0c8d2a3e4f5b8c7e4a9/submissions
-// localhost:3000/api/v1/problems/63f1b0c8d2a3e4f5b8c7e4a9/testcases/63f1b0c8d2a3e4f5b8c7e4a9/submissions?user=true
-// localhost:3000/api/v1/problems/63f1b0c8d2a3e4f5b8c7e4a9/testcases/63f1b0c8d2a3e4f5b8c7e4a9/submissions?user=true&problem=63f1b0c8d2a3e4f5b8c7e4a9
-// localhost:3000/api/v1/problems/63f1b0c8d2a3e4f5b8c7e4a9/testcases/63f1b0c8d2a3e4f5b8c7e4a9/submissions?user=true&problem=63f1b0c8d2a3e4f5b8c7e4a9&testcase=63f1b0c8d2a3e4f5b8c7e4a9
-// localhost:3000/api/v1/problems/63f1b0c8d2a3e4f5b8c7e4a9/testcases/63f1b0c8d2a3e4f5b8c7e4a9/submissions?user=true&problem=63f1b0c8d2a3e4f5b8c7e4a9&testcase=63f1b0c8d2a3e4f5b8c7e4a9&submission=63f1b0c8d2a3e4f5b8c7e4a9
 
 // ignore: must_be_immutable
 class ComposerSidebar extends StatefulWidget {
@@ -247,7 +228,7 @@ class _ComposerSidebarState extends State<ComposerSidebar> {
                               ),
                               const Gap(10),
                               SelectableText(
-                                testCase.input.toString(),
+                                testCase.inputs.toString(),
                                 style: Theme.of(context)
                                     .textTheme
                                     .headlineSmall

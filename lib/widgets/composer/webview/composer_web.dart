@@ -151,7 +151,7 @@ class _SolverState extends State<Solver> with TickerProviderStateMixin {
   }
 
   SizedBox buildTestCase(idx, TestCase testCase, height) {
-    final inputs = testCase.input;
+    final inputEntries = testCase.inputs.entries.toList();
     return SizedBox(
         height: height,
         width: double.infinity,
@@ -161,16 +161,17 @@ class _SolverState extends State<Solver> with TickerProviderStateMixin {
               height: 150,
               width: double.infinity,
               child: ListView.builder(
-                itemCount: inputs.length,
+                itemCount: inputEntries.length,
                 itemBuilder: (BuildContext context, int idx) {
-                  final input = inputs[idx];
+                  final key = inputEntries[idx].key;
+                  final value = inputEntries[idx].value;
                   return Column(
                     children: [
                       TextFormField(
-                        initialValue: '$input',
-                        decoration: const InputDecoration(
-                          labelText: "Input",
-                          border: OutlineInputBorder(),
+                        initialValue: '$value',
+                        decoration: InputDecoration(
+                          labelText: key,
+                          border: const OutlineInputBorder(),
                         ),
                       ),
                       const SizedBox(height: 10),
@@ -463,12 +464,6 @@ class _SolverState extends State<Solver> with TickerProviderStateMixin {
       }
     } catch (e) {
       print('Error posting submission: $e');
-      // final submission = Submission.placeholder(problem!.id, 1);
-      // submissions.insert(0, submission);
-      // testCases = submission.testCases;
-      // setState(() {
-      //   testCases = testCases;
-      // });
     } finally {
       setState(() {
         submitted = true;
@@ -480,11 +475,15 @@ class _SolverState extends State<Solver> with TickerProviderStateMixin {
   setupTestCases(problem) {
     testCases = [];
     for (var testCase in problem.testCases) {
-      testCases.add(TestCase.fromMap({
-        "passing": false,
-        "input": testCase['input'],
-        "outExpected": testCase['output'].toString()
-      }));
+      testCases.add(
+        TestCase.fromMap(
+          {
+            "passing": false,
+            "inputs": testCase['inputs'],
+            "outExpected": testCase['output'].toString()
+          },
+        ),
+      );
     }
     return testCases;
   }

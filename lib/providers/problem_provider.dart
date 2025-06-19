@@ -7,12 +7,13 @@ import 'package:flutter/services.dart';
 class ProblemProvider extends ChangeNotifier {
   Problem _focusedProblem = Problem.fromJson(
     {
-      "id": '66367f5e0d552cf0a90e85e9',
+      "_id": "66367f5e0d552cf0a90e85e9",
+      "title": "Two Sum",
       "acceptanceRate": 52.4,
       "accepted": 12.9,
       "author": {
         "urlAvatar": "https://avatars.leetcode.com/u/12345",
-        "username": "ExperiencedCoder"
+        "username": "PrimeTimeTran"
       },
       "body":
           "Given an array of integers and a target value, determine if there are two numbers that add up to the target. You may assume that each input would have exactly one solution, and you may not use the same element twice.",
@@ -20,7 +21,7 @@ class ProblemProvider extends ChangeNotifier {
       "difficulty": "Easy",
       "editorialAuthor": {
         "urlAvatar": "https://avatars.leetcode.com/u/9876",
-        "username": "LC_Solutions"
+        "username": "PrimeTimeTran"
       },
       "editorialBody":
           "Solutions include a brute force approach, using a hash table for efficient lookups, or sorting with two pointers.",
@@ -32,36 +33,34 @@ class ProblemProvider extends ChangeNotifier {
       "isSubmitted": true,
       "numLC": 1,
       "similar": [
-        {"difficulty": "Medium", "id": 2, "title": "3 Sum"}
+        {"difficulty": "Medium", "_id": 2, "title": "3 Sum"}
       ],
       "submissions": 24.6,
       "testCases": [
         {
-          "input": [
-            [2, 7, 11, 15],
-            9
-          ],
-          "output": [0, 1]
+          "output": [0, 1],
+          "explanation": "",
+          "inputs": {
+            "nums": [2, 7, 11, 15],
+            "target": 9
+          }
         },
         {
-          "input": [
-            [3, 2, 4],
-            6
-          ],
-          "output": [1, 2]
+          "output": [1, 2],
+          "explanation": "",
+          "inputs": {
+            "nums": [3, 2, 4],
+            "target": 6
+          }
         },
         {
-          "input": [
-            [3, 3],
-            6
-          ],
-          "output": [0, 1]
+          "output": [0, 1],
+          "explanation": "",
+          "inputs": {
+            "nums": [3, 3],
+            "target": 6
+          }
         }
-      ],
-      "title": "Two Sum",
-      "topics": [
-        {"name": "Array"},
-        {"name": "Hash Table"}
       ],
       "signature": {
         "parameters": [

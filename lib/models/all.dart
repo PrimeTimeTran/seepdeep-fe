@@ -14,6 +14,6 @@ export 'post.dart';
 export 'problem.dart';
 export 'solve.dart';
 export 'submission.dart';
-export 'testrun.dart';
+export 'test_case.dart';
 export 'topic.dart';
 export 'user.dart';

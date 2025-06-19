@@ -24,14 +24,9 @@
       "isPublished": true,
       "isSubmitted": true,
       "numLC": 1,
-      "similar": [{ "difficulty": "Medium", "_id": 2, "title": "3 Sum" }],
+      "similar": [],
       "submissions": 24.6,
       "testCases": [
-        { "output": [0, 1], "explanation": "", "input": [[2, 7, 11, 15], 9] },
-        { "output": [1, 2], "explanation": "", "input": [[3, 2, 4], 6] },
-        { "output": [0, 1], "explanation": "", "input": [[3, 3], 6] }
-      ],
-      "testCases2": [
         {
           "output": [0, 1],
           "explanation": "",
@@ -87,27 +82,26 @@
       "isPublished": true,
       "isSubmitted": true,
       "numLC": 3,
-      "similar": [
-        {
-          "_id": 159,
-          "title": "Longest Substring with At Most Two Distinct Characters",
-          "difficulty": "Medium"
-        },
-        { "_id": 76, "title": "Minimum Window Substring", "difficulty": "Hard" }
-      ],
+      "similar": [],
       "testCases": [
         {
-          "input": ["abcabcbb"],
+          "inputs": {
+            "s": "abcabcbb"
+          },
           "output": 3,
           "explanation": "\"abc\" is the longest substring."
         },
         {
-          "input": ["bbbbb"],
+          "inputs": {
+            "s": "bbbbb"
+          },
           "output": 1,
           "explanation": "\"b\" is the longest substring."
         },
         {
-          "input": ["pwwkew"],
+          "inputs": {
+            "s": "pwwkew"
+          },
           "output": 3,
           "explanation": "\"wke\" is the longest substring."
         }
@@ -148,36 +142,23 @@
       "hints": [],
       "isPublished": true,
       "isSubmitted": true,
-      "similar": [
-        {
-          "difficulty": "Hard",
-          "_id": 719,
-          "title": "Find K-th Smallest Pair Distance"
-        },
-        {
-          "difficulty": "Hard",
-          "_id": 295,
-          "title": "Find Median from Data Stream"
-        }
-      ],
+      "similar": [],
       "submissions": 27.8,
       "testCases": [
-        { "output": 2, "explanation": "", "input": [[1, 3], [2]] },
+        {
+          "output": 2,
+          "explanation": "",
+          "inputs": { "nums1": [1, 3], "nums2": [2] }
+        },
         {
           "output": 2.5,
           "explanation": "",
-          "input": [
-            [1, 2],
-            [3, 4]
-          ]
+          "inputs": { "nums1": [1, 2], "nums2": [3, 4] }
         },
         {
           "output": 0,
           "explanation": "",
-          "input": [
-            [0, 0],
-            [0, 0]
-          ]
+          "inputs": { "nums1": [0, 0], "nums2": [0, 0] }
         }
       ],
       "signature": {
@@ -212,23 +193,30 @@
       "hints": [],
       "isPublished": true,
       "isSubmitted": true,
-      "similar": [
-        { "difficulty": "Hard", "_id": 42, "title": "Trapping Rain Water" },
-        {
-          "difficulty": "Medium",
-          "_id": 42,
-          "title": "Container With Most Water"
-        }
-      ],
+      "similar": [],
       "submissions": 27.8,
       "testCases": [
         {
           "output": 49,
           "explanation": "",
-          "input": [[1, 8, 6, 2, 5, 4, 8, 3, 7]]
+          "inputs": {
+            "height": [1, 8, 6, 2, 5, 4, 8, 3, 7]
+          }
         },
-        { "output": 1, "explanation": "", "input": [[1, 1]] },
-        { "output": 16, "explanation": "", "input": [[4, 3, 2, 1, 4]] }
+        {
+          "output": 1,
+          "explanation": "",
+          "inputs": {
+            "height": [1, 1]
+          }
+        },
+        {
+          "output": 16,
+          "explanation": "",
+          "inputs": {
+            "height": [4, 3, 2, 1, 4]
+          }
+        }
       ],
       "signature": {
         "parameters": [{ "type": "List[int]", "name": "height" }],
@@ -259,14 +247,7 @@
       "hints": [],
       "isPublished": true,
       "isSubmitted": true,
-      "similar": [
-        { "difficulty": "Medium", "_id": 1, "title": "Two Sum" },
-        {
-          "difficulty": "Medium",
-          "_id": 11,
-          "title": "Container With Most Water"
-        }
-      ],
+      "similar": [],
       "submissions": 25.3,
       "testCases": [
         {
@@ -275,10 +256,18 @@
             [-1, 0, 1]
           ],
           "explanation": "",
-          "input": [[-1, 0, 1, 2, -1, -4]]
+          "inputs": {
+            "nums": [-1, 0, 1, 2, -1, -4]
+          }
         },
-        { "output": [], "explanation": "", "input": [[]] },
-        { "output": [], "explanation": "", "input": [[0]] }
+        {
+          "output": [],
+          "explanation": "",
+          "inputs": {
+            "nums": []
+          }
+        },
+        { "output": [], "explanation": "", "inputs": { "nums": [0] } }
       ],
       "signature": {
         "parameters": [{ "type": "List[int]", "name": "nums" }],
@@ -309,16 +298,14 @@
       "hints": [],
       "isPublished": true,
       "isSubmitted": true,
-      "similar": [
-        { "difficulty": "Medium", "_id": 37, "title": "Sudoku Solver" }
-      ],
+      "similar": [],
       "submissions": 29.4,
       "testCases": [
         {
           "output": true,
           "explanation": "",
-          "input": [
-            [
+          "inputs": {
+            "board": [
               ["5", "3", ".", ".", "7", ".", ".", ".", "."],
               ["6", ".", ".", "1", "9", "5", ".", ".", "."],
               [".", "9", "8", ".", ".", ".", ".", "6", "."],
@@ -329,13 +316,13 @@
               [".", ".", ".", "4", "1", "9", ".", ".", "5"],
               [".", ".", ".", ".", "8", ".", ".", "7", "9"]
             ]
-          ]
+          }
         },
         {
           "output": false,
           "explanation": "",
-          "input": [
-            [
+          "inputs": {
+            "board": [
               ["8", "3", ".", ".", "7", ".", ".", ".", "."],
               ["6", ".", ".", "1", "9", "5", ".", ".", "."],
               [".", "9", "8", ".", ".", ".", ".", "6", "."],
@@ -346,7 +333,32 @@
               [".", ".", ".", "4", "1", "9", ".", ".", "5"],
               [".", ".", ".", ".", "8", ".", ".", "7", "9"]
             ]
-          ]
+          }
+        },
+
+        {
+          "output": false,
+          "explanation": "",
+          "inputs": {
+            "board": []
+          }
+        },
+        {
+          "output": true,
+          "explanation": "",
+          "inputs": {
+            "board": [
+              ["5", "3", ".", ".", "7", ".", ".", ".", "."],
+              ["6", ".", ".", "1", "9", "5", ".", ".", "."],
+              [".", "9", "8", ".", ".", ".", ".", "6", "."],
+              ["8", ".", ".", ".", "6", ".", ".", ".", "3"],
+              ["4", ".", ".", "8", ".", "3", ".", ".", "1"],
+              ["7", ".", ".", ".", "2", ".", ".", ".", "6"],
+              [".", "6", ".", ".", ".", ".", "2", "8", "."],
+              [".", ".", ".", "4", "1", "9", ".", ".", "5"],
+              [".", ".", ".", ".", "8", ".", ".", "7", "9"]
+            ]
+          }
         }
       ],
       "signature": {
@@ -378,30 +390,85 @@
       "isPublished": true,
       "isSubmitted": true,
       "numLC": 49,
-      "similar": [
-        { "difficulty": "Easy", "_id": 242, "title": "Valid Anagram" }
-      ],
+      "similar": [],
       "submissions": 19.3,
       "testCases": [
         {
           "output": [["bat"], ["nat", "tan"], ["ate", "eat", "tea"]],
           "explanation": "",
-          "input": [["eat", "tea", "tan", "ate", "nat", "bat"]]
+          "inputs": {
+            "strs": ["eat", "tea", "tan", "ate", "nat", "bat"]
+          }
         },
         {
           "output": [[""]],
           "explanation": "",
-          "input": [[""]]
+          "inputs": {
+            "strs": [""]
+          }
         },
         {
           "output": [["a"]],
           "explanation": "",
-          "input": [["a"]]
+          "inputs": {
+            "strs": ["a"]
+          }
         }
       ],
       "signature": {
         "parameters": [{ "type": "List[str]", "name": "strs" }],
         "returnType": "List[List[str]]"
+      }
+    },
+    {
+      "_id": "66367f5e0d552cf0a90e86bb",
+      "title": "Longest Consecutive Sequence",
+      "acceptanceRate": 48.7,
+      "accepted": 8.1,
+      "author": {
+        "urlAvatar": "https://avatars.leetcode.com/u/54321",
+        "username": "SequenceSolver"
+      },
+      "body": "Given an unsorted array of integers `nums`, return the length of the longest consecutive elements sequence. You must write an algorithm that runs in O(n) time.",
+      "constraints": ["0 <= nums.length <= 10⁵", "-10⁹ <= nums[i] <= 10⁹"],
+      "difficulty": "Medium",
+      "editorialAuthor": {
+        "urlAvatar": "https://avatars.leetcode.com/u/54321",
+        "username": "SequenceSolver"
+      },
+      "editorialBody": "The optimal solution uses a HashSet to store the elements, then checks for the start of a sequence by verifying that `num - 1` is not in the set. It then counts the length of the sequence starting from that number.",
+      "editorialRating": 4.6,
+      "editorialVotes": { "1": 6, "2": 3 },
+      "frequency": "Medium",
+      "hints": [
+        "Think about what happens when you sort the array.",
+        "Can you do it in O(n) using extra space?",
+        "Try using a set and checking for the beginning of a sequence."
+      ],
+      "isPublished": true,
+      "isSubmitted": true,
+      "numLC": 128,
+      "similar": [],
+      "submissions": 16.5,
+      "testCases": [
+        {
+          "output": 4,
+          "explanation": "",
+          "inputs": {
+            "nums": [100, 4, 200, 1, 3, 2]
+          }
+        },
+        {
+          "output": 9,
+          "explanation": "",
+          "inputs": {
+            "nums": [0, 3, 7, 2, 5, 8, 4, 6, 0, 1]
+          }
+        }
+      ],
+      "signature": {
+        "parameters": [{ "type": "List[int]", "name": "nums" }],
+        "returnType": "int"
       }
     },
     {
@@ -428,22 +495,34 @@
       "isPublished": true,
       "isSubmitted": true,
       "numLC": 217,
-      "similar": [
-        { "difficulty": "Easy", "_id": 136, "title": "Single Number" }
-      ],
+      "similar": [],
       "submissions": 31.4,
       "testCases": [
-        { "output": true, "explanation": "", "input": [[1, 2, 3, 1]] },
-        { "output": false, "explanation": "", "input": [[1, 2, 3, 4]] },
         {
           "output": true,
           "explanation": "",
-          "input": [[1, 1, 1, 3, 3, 4, 3, 2, 4, 2]]
+          "inputs": { "nums": [1, 2, 3, 1] }
+        },
+        {
+          "output": false,
+          "explanation": "",
+          "inputs": {
+            "nums": [1, 2, 3, 4]
+          }
         },
         {
           "output": true,
           "explanation": "",
-          "input": [[1, 1, 1, 3, 3, 4, 3, 2, 4, 2]]
+          "inputs": {
+            "nums": [1, 1, 1, 3, 3, 4, 3, 2, 4, 2]
+          }
+        },
+        {
+          "output": true,
+          "explanation": "",
+          "inputs": {
+            "nums": [1, 1, 1, 3, 3, 4, 3, 2, 4, 2]
+          }
         }
       ],
       "signature": {
@@ -468,18 +547,23 @@
       "body": "Given two strings s and t, return true if t is an anagram of s, and false otherwise. An anagram is a word or phrase formed by rearranging the letters of another, using all the original letters exactly once.",
       "constraints": [],
       "testCases": [
-        { "input": ["anagram", "nagaram"], "output": true, "explanation": "" },
-        { "input": ["rat", "car"], "output": false, "explanation": "" },
-        { "input": ["", ""], "output": true, "explanation": "" }
+        {
+          "inputs": { "s": "anagram", "t": "nagaram" },
+          "output": true,
+          "explanation": ""
+        },
+        {
+          "inputs": { "s": "rat", "t": "car" },
+          "output": false,
+          "explanation": ""
+        }
       ],
       "hints": [
         "Check that the two strings have the same length",
         "Use a hash table (or Counter) to count characters",
         "Alternatively, sort both strings and compare"
       ],
-      "similar": [
-        { "_id": 1, "title": "Group Anagrams", "difficulty": "Medium" }
-      ],
+      "similar": [],
       "editorialAuthor": {
         "username": "PrimeTimeTran",
         "urlAvatar": null
@@ -534,18 +618,6 @@
         {
           "output": [24, 12, 8, 6],
           "explanation": "",
-          "input": [[1, 2, 3, 4]]
-        },
-        {
-          "output": [0, 0, 9, 0, 0],
-          "explanation": "",
-          "input": [[-1, 1, 0, -3, 3]]
-        }
-      ],
-      "testCases2": [
-        {
-          "output": [24, 12, 8, 6],
-          "explanation": "",
           "inputs": {
             "nums": [1, 2, 3, 4]
           }
@@ -561,65 +633,6 @@
       "signature": {
         "parameters": [{ "type": "List[int]", "name": "nums" }],
         "returnType": "List[int]"
-      }
-    },
-    {
-      "_id": "66367f5e0d552cf0a90e86bb",
-      "title": "Longest Consecutive Sequence",
-      "acceptanceRate": 48.7,
-      "accepted": 8.1,
-      "author": {
-        "urlAvatar": "https://avatars.leetcode.com/u/54321",
-        "username": "SequenceSolver"
-      },
-      "body": "Given an unsorted array of integers `nums`, return the length of the longest consecutive elements sequence. You must write an algorithm that runs in O(n) time.",
-      "constraints": ["0 <= nums.length <= 10⁵", "-10⁹ <= nums[i] <= 10⁹"],
-      "difficulty": "Medium",
-      "editorialAuthor": {
-        "urlAvatar": "https://avatars.leetcode.com/u/54321",
-        "username": "SequenceSolver"
-      },
-      "editorialBody": "The optimal solution uses a HashSet to store the elements, then checks for the start of a sequence by verifying that `num - 1` is not in the set. It then counts the length of the sequence starting from that number.",
-      "editorialRating": 4.6,
-      "editorialVotes": { "1": 6, "2": 3 },
-      "frequency": "Medium",
-      "hints": [
-        "Think about what happens when you sort the array.",
-        "Can you do it in O(n) using extra space?",
-        "Try using a set and checking for the beginning of a sequence."
-      ],
-      "isPublished": true,
-      "isSubmitted": true,
-      "numLC": 128,
-      "similar": [],
-      "submissions": 16.5,
-      "testCases": [
-        { "output": 4, "explanation": "", "input": [[100, 4, 200, 1, 3, 2]] },
-        {
-          "output": 9,
-          "explanation": "",
-          "input": [[0, 3, 7, 2, 5, 8, 4, 6, 0, 1]]
-        }
-      ],
-      "testCases2": [
-        {
-          "output": 4,
-          "explanation": "",
-          "inputs": {
-            "nums": [100, 4, 200, 1, 3, 2]
-          }
-        },
-        {
-          "output": 9,
-          "explanation": "",
-          "inputs": {
-            "nums": [0, 3, 7, 2, 5, 8, 4, 6, 0, 1]
-          }
-        }
-      ],
-      "signature": {
-        "parameters": [{ "type": "List[int]", "name": "nums" }],
-        "returnType": "int"
       }
     },
     {
@@ -659,30 +672,6 @@
       "similar": [],
       "submissions": 14.2,
       "testCases": [
-        {
-          "output": 16,
-          "explanation": "",
-          "input": [
-            [
-              [0, 1, 0, 0],
-              [1, 1, 1, 0],
-              [0, 1, 0, 0],
-              [1, 1, 0, 0]
-            ]
-          ]
-        },
-        {
-          "output": 4,
-          "explanation": "",
-          "input": [[[1]]]
-        },
-        {
-          "output": 4,
-          "explanation": "",
-          "input": [[[1, 0]]]
-        }
-      ],
-      "testCases2": [
         {
           "output": 16,
           "explanation": "",
