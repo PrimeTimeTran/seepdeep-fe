@@ -5,18 +5,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class ProblemsProvider extends ChangeNotifier {
-  final List<Problem> _problems = [];
+  List<Problem> _problems = [];
   final List<Problem> _allProblems = [];
 
   List<Problem> get problems => _problems;
 
   Future<void> fetchProblems() async {
     try {
-      // throw 'Error';
       final response = await Api.get('problems');
       _problems.clear();
       _problems
           .addAll((response as List).map((e) => Problem.fromJson(e)).toList());
+      _allProblems.addAll((response).map((e) => Problem.fromJson(e)).toList());
       notifyListeners();
     } catch (e) {
       Glob.logE('Fetching Problems: $e');
@@ -37,8 +37,7 @@ class ProblemsProvider extends ChangeNotifier {
   }
 
   Future<void> resetProblems(Topic topic) async {
-    _problems.clear();
-    _problems.addAll(_allProblems);
+    _problems = List.from(_allProblems);
     notifyListeners();
   }
 }
