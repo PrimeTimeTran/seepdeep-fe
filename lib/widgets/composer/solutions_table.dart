@@ -4,7 +4,6 @@ import 'package:app/all.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_code_editor/flutter_code_editor.dart';
 import 'package:gap/gap.dart';
-import 'package:highlight/languages/python.dart';
 import 'package:intl/intl.dart';
 
 // Todo:
@@ -134,6 +133,9 @@ class _SolutionsTableState extends State<SolutionsTable> {
   }
 
   Column buildSolutionFocusedPanel() {
+    final language =
+        selectLanguage(Language.fromName(selectedSolution.language!));
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -156,7 +158,7 @@ class _SolutionsTableState extends State<SolutionsTable> {
               leadingDistribution: TextLeadingDistribution.even,
             ),
             controller: CodeController(
-              language: python,
+              language: language,
               text: selectedSolution.body,
             ),
           ),
