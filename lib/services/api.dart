@@ -68,6 +68,7 @@ class Api {
   static _headers() {
     final headers = <String, String>{};
     headers['authorization'] = 'Bearer $authToken';
+    headers['content-type'] = 'application/json';
     return headers;
   }
 

@@ -14,17 +14,19 @@ class ProblemsProvider extends ChangeNotifier {
     try {
       final response = await Api.get('problems');
       _problems.clear();
-      _problems
-          .addAll((response as List).map((e) => Problem.fromJson(e)).toList());
-      _allProblems.addAll((response).map((e) => Problem.fromJson(e)).toList());
+      final problems =
+          (response as List).map((e) => Problem.fromJson(e)).toList();
+      _problems.addAll(problems);
+      _allProblems.addAll(problems);
       notifyListeners();
     } catch (e) {
-      Glob.logE('Fetching Problems: $e');
+      Glob.logE('Error fetching Problems: $e');
       final response = await rootBundle.loadString("json/problems.json");
       final Map<String, dynamic> json = jsonDecode(response);
       final List<dynamic> data = json['data'];
-      _problems.addAll((data).map((e) => Problem.fromJson(e)).toList());
-      _allProblems.addAll((data).map((e) => Problem.fromJson(e)).toList());
+      final problems = (data).map((e) => Problem.fromJson(e)).toList();
+      _problems.addAll(problems);
+      _allProblems.addAll(problems);
     }
   }
 
