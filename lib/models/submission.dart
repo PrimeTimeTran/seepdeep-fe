@@ -19,6 +19,7 @@ class Submission {
   User? user;
   DateTime? submitted;
   Problem? problem;
+  String? problemTitle = '';
   Contest? contest;
 
   bool? isAccepted;
@@ -61,6 +62,7 @@ class Submission {
     this.contest,
     this.penalty,
     this.memoryUsage,
+    this.problemTitle,
     required this.comments,
     required this.explanation,
     required this.testCases,
@@ -81,7 +83,6 @@ class Submission {
         submitted = json['submitted'] != null
             ? DateTime.parse(json['submitted'])
             : null,
-        problem = _parseProblem(json['problem']),
         language = json['language'],
         isAccepted = json['passing'] ?? false,
         runTime = json['runResult'] != null
@@ -123,7 +124,12 @@ class Submission {
             : [],
         contest =
             json['contest'] != null ? Contest.fromJson(json['contest']) : null,
-        penalty = json['penalty'];
+        penalty = json['penalty'],
+        problem = _parseProblem(json['problem'] is String
+            ? json['problem']
+            : json['problem']?['_id']),
+        problemTitle =
+            json['problem'] is String ? '' : json['problem']?['title'];
 
   factory Submission.placeholder(problemId, userId) {
     return Submission(

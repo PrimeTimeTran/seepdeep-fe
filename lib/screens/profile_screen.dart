@@ -226,7 +226,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
           itemCount: submissionsProvider.submissions.length,
           itemBuilder: (context, index) {
             final submission = submissionsProvider.submissions[index];
-            return ListTile(title: Text('item ${submission.id}'));
+            final dateTime = submission.createdAt?.toLocal();
+
+            return ListTile(
+                title: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text('${submission.problemTitle}'),
+                Text(timeAgo(dateTime!))
+              ],
+            ));
           },
         ),
       ),
@@ -249,5 +258,23 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   void initState() {
     super.initState();
+  }
+
+  String timeAgo(DateTime dateTime) {
+    final now = DateTime.now();
+    final diff = now.difference(dateTime);
+
+    if (diff.inSeconds < 60) return 'just now';
+    if (diff.inMinutes < 60)
+      return '${diff.inMinutes} minute${diff.inMinutes == 1 ? '' : 's'} ago';
+    if (diff.inHours < 24)
+      return '${diff.inHours} hour${diff.inHours == 1 ? '' : 's'} ago';
+    if (diff.inDays < 7)
+      return '${diff.inDays} day${diff.inDays == 1 ? '' : 's'} ago';
+    if (diff.inDays < 30)
+      return '${(diff.inDays / 7).floor()} week${(diff.inDays / 7).floor() == 1 ? '' : 's'} ago';
+    if (diff.inDays < 365)
+      return '${(diff.inDays / 30).floor()} month${(diff.inDays / 30).floor() == 1 ? '' : 's'} ago';
+    return '${(diff.inDays / 365).floor()} year${(diff.inDays / 365).floor() == 1 ? '' : 's'} ago';
   }
 }
