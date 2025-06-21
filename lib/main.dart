@@ -94,6 +94,9 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
+      final authProvider =
+          provider.Provider.of<AuthProvider>(context, listen: false);
+      authProvider.setUserFromStorage();
       final topicProvider =
           provider.Provider.of<TopicProvider>(context, listen: false);
       topicProvider.fetchTopics();
@@ -103,6 +106,10 @@ class _MyAppState extends State<MyApp> {
       final solvesProvider =
           provider.Provider.of<SolvesProvider>(context, listen: false);
       solvesProvider.fetchSolves();
+
+      final submissionsProvider =
+          provider.Provider.of<SubmissionProvider>(context, listen: false);
+      submissionsProvider.fetchSubmissions('65cd2f4c0260046a443511a2');
     });
   }
 }

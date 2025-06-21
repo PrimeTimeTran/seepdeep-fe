@@ -92,7 +92,7 @@ class Api {
           Glob.logI(data[0]);
         }
       } else {
-        Glob.logI(data);
+        // Glob.logI(data);
       }
       return data;
     } catch (e) {

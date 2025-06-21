@@ -175,13 +175,13 @@ class User {
         // activeBadge = json['activeBadge'] != null
         //     ? Badge.fromJson(json['activeBadge'])
         //     : null,
-        views = json['views'],
+        views = int.tryParse(json['views'].toString()) ?? 0,
         streak = json['streak'],
         discuss = json['discuss'],
         solutions = json['solutions'],
-        reputation = json['reputation'],
-        contestRating = json['contestRating'],
-        globalRanking = json['globalRanking'],
+        reputation = int.tryParse(json['reputation'].toString()) ?? 0,
+        contestRating = int.tryParse(json['contestRating'].toString()) ?? 0,
+        globalRanking = int.tryParse(json['globalRanking'].toString()) ?? 0,
         attended = json['attended'],
         contests = (json['contests'] as List<dynamic>?)
             ?.map((contestJson) => Participant.fromJson(contestJson))

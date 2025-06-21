@@ -41,9 +41,21 @@ class AuthProvider extends ChangeNotifier {
     if (u == null) {
       _user = null;
       setAuthenticated(false);
+      Storage.instance.setUser(null);
     } else {
       _user = User.fromJson(u);
       setAuthenticated(true);
+      Storage.instance.setUser(u);
+    }
+    notifyListeners();
+  }
+
+  setUserFromStorage() async {
+    final user = await Storage.instance.getUser();
+    if (user != null) {
+      setAuthenticated(true);
+      _user = User.fromJson(user);
+      notifyListeners();
     }
   }
 }

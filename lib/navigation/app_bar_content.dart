@@ -350,11 +350,11 @@ class _AppBarContentState extends State<AppBarContent> {
                     Icons.person,
                     AppScreens.profile.path,
                   ),
-                  buildMenuItem(
-                    'Settings',
-                    Icons.settings,
-                    AppScreens.settings.path,
-                  ),
+                  // buildMenuItem(
+                  //   'Settings',
+                  //   Icons.settings,
+                  //   AppScreens.settings.path,
+                  // ),
                   // PopupMenuItem<SampleItem>(
                   //   value: SampleItem.itemOne,
                   //   child: InkWell(
