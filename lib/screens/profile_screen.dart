@@ -234,7 +234,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ),
                         Row(
                           children: [
-                            Text('${submissions.length}'),
+                            Text('Submissions: ${submissions.length}'),
                           ],
                         ),
                       ],

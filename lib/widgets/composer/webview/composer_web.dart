@@ -16,14 +16,15 @@ GlobalKey _one = GlobalKey();
 GlobalKey _three = GlobalKey();
 GlobalKey _two = GlobalKey();
 
-class Solver extends StatefulWidget {
-  const Solver({super.key});
+class Composer extends StatefulWidget {
+  final void Function(VoidCallback) provideFabCallback;
+  const Composer({super.key, required this.provideFabCallback});
 
   @override
-  State<Solver> createState() => _SolverState();
+  State<Composer> createState() => _ComposerState();
 }
 
-class _SolverState extends State<Solver> with TickerProviderStateMixin {
+class _ComposerState extends State<Composer> with TickerProviderStateMixin {
   int? count = 0;
   Problem? problem;
   String code = '';
@@ -367,14 +368,9 @@ class _SolverState extends State<Solver> with TickerProviderStateMixin {
   }
 
   checkIntroCompleted() async {
-    final items = await Storage.instance.getIntros();
-    if (!items.contains('dsa-screen-done')) {
-      Future.delayed(const Duration(seconds: 2), () {
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          ShowCaseWidget.of(context).startShowCase([_one, _two, _three]);
-        });
-      });
-    }
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ShowCaseWidget.of(context).startShowCase([_one, _two, _three]);
+    });
   }
 
   @override
@@ -401,7 +397,7 @@ class _SolverState extends State<Solver> with TickerProviderStateMixin {
     super.initState();
     updateTabController();
     initializeProblem();
-    // checkIntroCompleted();
+    widget.provideFabCallback(checkIntroCompleted);
   }
 
   onRun(submission, lang) {

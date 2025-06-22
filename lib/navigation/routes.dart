@@ -23,7 +23,7 @@ final routes = [
       GoRoute(
         path: '${AppScreens.dsa.path}/:name',
         name: AppScreens.dsa.name,
-        builder: (_, __) => const DSAScreen(),
+        builder: (_, __) => const ProblemScreen(),
       ),
       GoRoute(
         path: AppScreens.sort.path,

@@ -1,5 +1,4 @@
 import 'package:app/all.dart' as prefix;
-import 'package:app/screens/designkit_screen/designkit_screen.helpers.dart';
 import 'package:app/utils/enums.dart';
 import 'package:app/utils/styles.dart';
 import 'package:flutter/material.dart';
@@ -40,47 +39,15 @@ class _DesignKitScreenState extends State<DesignKitScreen> {
       ),
     );
 
-    return Builder(builder: (context) {
-      return Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Expanded(
-              child: ScrollConfiguration(
-                behavior:
-                    ScrollConfiguration.of(context).copyWith(scrollbars: false),
-                child: SingleChildScrollView(
-                  child: Card.outlined(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 50, vertical: 25),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          // const Expanded(
-                          //   child: ColorsDemo(),
-                          // ),
-                          Text(
-                            'Typography',
-                            style: Style.of(context, 'displayLUnderline'),
-                          ),
-                          buildTexts(),
-                          Text(
-                            'Buttons',
-                            style: Style.of(context, 'displayLUnderline'),
-                          ),
-                          buildDefaultButtons(),
-                          buildCustomStyledButtons(outlineButtonStyle),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            const Gap(25),
-            Expanded(
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(
+            child: ScrollConfiguration(
+              behavior:
+                  ScrollConfiguration.of(context).copyWith(scrollbars: false),
               child: SingleChildScrollView(
                 child: Card.outlined(
                   child: Padding(
@@ -89,29 +56,61 @@ class _DesignKitScreenState extends State<DesignKitScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        // const Expanded(
+                        //   child: ColorsDemo(),
+                        // ),
                         Text(
-                          'Icons',
-                          style: Theme.of(context).textTheme.titleLarge,
+                          'Typography',
+                          style: Style.of(context, 'displayLUnderline'),
                         ),
-                        buildIconButtons(),
-                        buildSegmentedButtons(),
-                        const Gap(25),
-                        buildBadges(),
-                        buildCheckboxes(),
-                        buildChips(),
+                        buildTexts(),
+                        Text(
+                          'Buttons',
+                          style: Style.of(context, 'displayLUnderline'),
+                        ),
+                        buildDefaultButtons(),
+                        buildCustomStyledButtons(outlineButtonStyle),
                       ],
                     ),
                   ),
                 ),
               ),
             ),
-            const Center(
-              child: ColorsDemo(),
-            )
-          ],
-        ),
-      );
-    });
+          ),
+          const Gap(25),
+          Expanded(
+            child: SingleChildScrollView(
+              child: Card.outlined(
+                child: Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 50, vertical: 25),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Icons',
+                        style: Theme.of(context).textTheme.titleLarge,
+                      ),
+                      buildIconButtons(),
+                      buildSegmentedButtons(),
+                      const Gap(25),
+                      buildBadges(),
+                      buildCheckboxes(),
+                      buildChips(),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+          // const Flexible(
+          //   child: Center(
+          //     child: ColorsDemo(),
+          //   ),
+          // )
+        ],
+      ),
+    );
   }
 
   buildBadges() {

@@ -183,22 +183,25 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
 
   buildProblemList() {
     final problems = context.watch<ProblemsProvider>().problems;
-    return ListView.builder(
-      shrinkWrap: true,
-      itemCount: problems.length,
-      itemBuilder: (BuildContext context, int idx) {
-        final problem = problems[idx];
-        if (idx == 0) {
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              buildListHeader(),
-              buildListItem(problem, idx, context),
-            ],
-          );
-        }
-        return buildListItem(problem, idx, context);
-      },
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: ListView.builder(
+        shrinkWrap: true,
+        itemCount: problems.length,
+        itemBuilder: (BuildContext context, int idx) {
+          final problem = problems[idx];
+          if (idx == 0) {
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                buildListHeader(),
+                buildListItem(problem, idx, context),
+              ],
+            );
+          }
+          return buildListItem(problem, idx, context);
+        },
+      ),
     );
   }
 
@@ -237,23 +240,6 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
         spacing: 8,
         runSpacing: 8,
         children: [
-          TextButton.icon(
-            label: const Text('Reset', style: TextStyle(color: Colors.black)),
-            icon: const Icon(Icons.refresh, color: Colors.white),
-            onPressed: () {
-              final problemsProvider = context.read<ProblemsProvider>();
-              problemsProvider.resetProblems(topics.first);
-            },
-            style: TextButton.styleFrom(
-              backgroundColor: Theme.of(context).colorScheme.primaryContainer,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(30),
-              ),
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-              minimumSize: Size.zero,
-            ),
-          ),
           for (final topic in topics)
             TextButton.icon(
               label: Text('${topic.name} (${topic.numProblems})',
@@ -275,6 +261,23 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
                 minimumSize: Size.zero,
               ),
             ),
+          TextButton.icon(
+            label: const Text('Reset', style: TextStyle(color: Colors.black)),
+            icon: const Icon(Icons.refresh, color: Colors.white),
+            onPressed: () {
+              final problemsProvider = context.read<ProblemsProvider>();
+              problemsProvider.resetProblems(topics.first);
+            },
+            style: TextButton.styleFrom(
+              backgroundColor: Theme.of(context).colorScheme.tertiaryContainer,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(30),
+              ),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+              minimumSize: Size.zero,
+            ),
+          ),
         ],
       ),
     );

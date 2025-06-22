@@ -16,6 +16,11 @@ class ProblemsProvider extends ChangeNotifier {
       _problems.clear();
       final problems =
           (response as List).map((e) => Problem.fromJson(e)).toList();
+      problems.sort((a, b) {
+        final aVal = a.numLC ?? double.infinity;
+        final bVal = b.numLC ?? double.infinity;
+        return aVal.compareTo(bVal);
+      });
       _problems.addAll(problems);
       _allProblems.addAll(problems);
       notifyListeners();
@@ -25,6 +30,11 @@ class ProblemsProvider extends ChangeNotifier {
       final Map<String, dynamic> json = jsonDecode(response);
       final List<dynamic> data = json['data'];
       final problems = (data).map((e) => Problem.fromJson(e)).toList();
+      problems.sort((a, b) {
+        final aVal = a.numLC ?? double.infinity;
+        final bVal = b.numLC ?? double.infinity;
+        return aVal.compareTo(bVal);
+      });
       _problems.addAll(problems);
       _allProblems.addAll(problems);
     }

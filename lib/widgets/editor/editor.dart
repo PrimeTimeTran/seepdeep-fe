@@ -29,7 +29,7 @@ class _EditorState extends State<Editor> {
   int step = 1;
   FocusNode focusNode = FocusNode();
   // Default Language of editor
-  Language selectedLang = Language.ruby;
+  Language selectedLang = Language.python;
   final GlobalKey _codeEditorKey = GlobalKey();
   late CodeController _controller = methodBuilder();
   @override
