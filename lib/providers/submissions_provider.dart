@@ -11,6 +11,13 @@ class SubmissionProvider extends ChangeNotifier {
       final response = await Api.get('users/$userId');
       final List<dynamic> data = response['submissions'].toList();
       _submissions = data.map((json) => Submission.fromJson(json)).toList();
+      // If we need to sort. But we sorted server side for now.
+      // _submissions.sort((a, b) {
+      //   final aDate = a.createdAt ?? DateTime.fromMillisecondsSinceEpoch(0);
+      //   final bDate = b.createdAt ?? DateTime.fromMillisecondsSinceEpoch(0);
+      //   return bDate.compareTo(aDate);
+      // });
+
       notifyListeners();
       return _submissions;
     } catch (e) {

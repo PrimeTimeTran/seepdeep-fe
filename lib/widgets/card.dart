@@ -31,7 +31,7 @@ class ColoredCard extends StatelessWidget {
     this.child,
     this.height = 300,
     this.padding = 8,
-    this.color = Colors.grey,
+    this.color = Colors.black,
     this.width = double.infinity,
   });
 

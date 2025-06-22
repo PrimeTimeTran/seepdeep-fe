@@ -22,7 +22,7 @@ class Submission {
   String? problemTitle = '';
   Contest? contest;
 
-  bool? isAccepted;
+  bool isAccepted;
   bool? isShared;
   bool? isContest;
 
@@ -48,7 +48,6 @@ class Submission {
     this.submitted,
     this.problem,
     this.language,
-    this.isAccepted,
     this.runTime,
     this.beats,
     this.notes,
@@ -64,6 +63,7 @@ class Submission {
     this.memoryUsage,
     this.problemTitle,
     required this.comments,
+    required this.isAccepted,
     required this.explanation,
     required this.testCases,
     required this.viewCount,

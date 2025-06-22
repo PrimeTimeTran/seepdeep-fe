@@ -170,15 +170,27 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
+  buildLanguageRow(language, languageCounts) {
+    return Row(
+      children: [
+        Text(
+            '${language[0].toUpperCase() + language.substring(1)}: ${languageCounts[language]}'),
+      ],
+    );
+  }
+
   buildProfileSidebar() {
     final authProvider = context.watch<AuthProvider>();
+    final user = authProvider.user;
+    final submissionsProvider = context.watch<SubmissionProvider>();
+    final submissions = submissionsProvider.submissions;
+    final languageCounts = countSubmissionsByLanguage(submissions);
 
     return Expanded(
       flex: 1,
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             ColoredCard(
               height: getHeight() * 1.75,
@@ -187,23 +199,68 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ColoredCard(
                     color: Theme.of(context).colorScheme.onSecondary,
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(authProvider.user?.email != null
-                            ? authProvider.user.email.toString()
-                            : ''),
-                        Text(authProvider.user?.firstName != null
-                            ? authProvider.user.firstName.toString()
-                            : ''),
-                        Text(authProvider.user?.lastName != null
-                            ? authProvider.user.lastName.toString()
-                            : '')
+                        Text('Profile', style: Style.of(context, 'headlineL')),
+                        Row(
+                          children: [
+                            Text(user?.email != null ? user.email : ''),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Text(user?.firstName != null
+                                ? '${user.firstName} ${user.lastName}'
+                                : ''),
+                          ],
+                        ),
                       ],
                     ),
                   ),
                   const Divider(),
-                  ColoredCard(color: Theme.of(context).colorScheme.onSecondary),
+                  ColoredCard(
+                    color: Theme.of(context).colorScheme.onSecondary,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('Community',
+                            style: Style.of(context, 'headlineL')),
+                        Row(
+                          children: [
+                            Text(user?.views != null
+                                ? 'Views: ${user.views.toString()}'
+                                : ''),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Text('${submissions.length}'),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
                   const Divider(),
-                  ColoredCard(color: Theme.of(context).colorScheme.onSecondary),
+                  ColoredCard(
+                    color: Theme.of(context).colorScheme.onSecondary,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('Languages',
+                            style: Style.of(context, 'headlineL')),
+                        if (languageCounts['python'] > 0)
+                          buildLanguageRow('python', languageCounts),
+                        if (languageCounts['java'] > 0)
+                          buildLanguageRow('java', languageCounts),
+                        if (languageCounts['go'] > 0)
+                          buildLanguageRow('go', languageCounts),
+                        if (languageCounts['dart'] > 0)
+                          buildLanguageRow('dart', languageCounts),
+                        if (languageCounts['ruby'] > 0)
+                          buildLanguageRow('ruby', languageCounts),
+                      ],
+                    ),
+                  ),
                   const Divider(),
                   ColoredCard(color: Theme.of(context).colorScheme.onSecondary),
                 ],
@@ -220,24 +277,46 @@ class _ProfileScreenState extends State<ProfileScreen> {
         provider.Provider.of<SubmissionProvider>(context, listen: false);
     return ColoredCard(
       height: getHeight() * .5,
-      child: ColoredCard(
-        color: Theme.of(context).colorScheme.onSecondary,
-        child: ListView.builder(
-          itemCount: submissionsProvider.submissions.length,
-          itemBuilder: (context, index) {
-            final submission = submissionsProvider.submissions[index];
-            final dateTime = submission.createdAt?.toLocal();
+      child: ListView.builder(
+        itemCount: submissionsProvider.submissions.length,
+        itemBuilder: (context, index) {
+          final submission = submissionsProvider.submissions[index];
+          final dateTime = submission.createdAt?.toLocal();
 
-            return ListTile(
-                title: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text('${submission.problemTitle}'),
-                Text(timeAgo(dateTime!))
-              ],
-            ));
-          },
-        ),
+          final backgroundColor =
+              index % 2 == 0 ? Colors.grey.shade200 : Colors.white;
+          final isAccepted = submission.isAccepted;
+          return Container(
+            color: backgroundColor,
+            child: ListTile(
+              title: Row(
+                children: [
+                  Icon(
+                    isAccepted ? Icons.check_circle : Icons.cancel,
+                    color: isAccepted ? Colors.green : Colors.red,
+                    size: 20,
+                  ),
+                  const SizedBox(width: 8), // space between icon and text row
+                  Expanded(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          '${submission.problemTitle}',
+                          style: const TextStyle(color: Colors.black),
+                        ),
+                        Text(
+                          timeAgo(dateTime!),
+                          style: const TextStyle(color: Colors.black),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        },
       ),
     );
   }
@@ -253,6 +332,30 @@ class _ProfileScreenState extends State<ProfileScreen> {
     }
 
     return counts;
+  }
+
+  countSubmissionsByLanguage(submissions) {
+    final languagesToCount = {
+      'python',
+      'go',
+      'java',
+      'ruby',
+      'js',
+      'ts',
+      'dart',
+      'c++'
+    };
+    final Map<String, int> languageCounts = {
+      for (var lang in languagesToCount) lang: 0
+    };
+
+    for (var submission in submissions) {
+      final lang = submission.language?.toLowerCase();
+      if (lang != null && languageCounts.containsKey(lang)) {
+        languageCounts[lang] = languageCounts[lang]! + 1;
+      }
+    }
+    return languageCounts;
   }
 
   @override

@@ -28,7 +28,8 @@ class Editor extends StatefulWidget {
 class _EditorState extends State<Editor> {
   int step = 1;
   FocusNode focusNode = FocusNode();
-  Language selectedLang = Language.python;
+  // Default Language of editor
+  Language selectedLang = Language.ruby;
   final GlobalKey _codeEditorKey = GlobalKey();
   late CodeController _controller = methodBuilder();
   @override
