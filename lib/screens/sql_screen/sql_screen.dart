@@ -49,204 +49,214 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return provider.Consumer<ProblemProvider>(
-      builder: (context, problemProvider, _) {
-        var problem = problemProvider.focusedProblem;
-        return Row(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            // const Modal(type: GiffyType.rive, title: '', content: Gap(1)),
-            Expanded(
-              child: ScrollConfiguration(
-                behavior:
-                    ScrollConfiguration.of(context).copyWith(scrollbars: false),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Expanded(
-                      flex: 3,
-                      child: Card(
-                        child: SingleChildScrollView(
-                          child: Column(
-                            children: [
-                              Showcase(
-                                key: _one,
-                                description:
-                                    '1. Learn SQL concepts by reading the content in this panel.',
-                                onBarrierClick: () =>
-                                    debugPrint('Barrier clicked'),
-                                child: SizedBox(
-                                  child: GestureDetector(
-                                    onTap: () =>
-                                        debugPrint('menu button clicked'),
-                                    child: LessonMarkDown(
-                                        lessonContent: lessonContent),
+    return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          WidgetsBinding.instance.addPostFrameCallback((_) =>
+              ShowCaseWidget.of(context)
+                  .startShowCase([_one, _two, _three, _four]));
+        },
+        child: const Icon(Icons.question_mark_rounded),
+      ),
+      body: provider.Consumer<ProblemProvider>(
+        builder: (context, problemProvider, _) {
+          var problem = problemProvider.focusedProblem;
+          return Row(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              // const Modal(type: GiffyType.rive, title: '', content: Gap(1)),
+              Expanded(
+                child: ScrollConfiguration(
+                  behavior: ScrollConfiguration.of(context)
+                      .copyWith(scrollbars: false),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Expanded(
+                        flex: 3,
+                        child: Card(
+                          child: SingleChildScrollView(
+                            child: Column(
+                              children: [
+                                Showcase(
+                                  key: _one,
+                                  description:
+                                      '1. Learn SQL concepts by reading the content in this panel.',
+                                  onBarrierClick: () =>
+                                      debugPrint('Barrier clicked'),
+                                  child: SizedBox(
+                                    child: GestureDetector(
+                                      onTap: () =>
+                                          debugPrint('menu button clicked'),
+                                      child: LessonMarkDown(
+                                          lessonContent: lessonContent),
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    buildQueryPromptPanel(),
-                  ],
+                      buildQueryPromptPanel(),
+                    ],
+                  ),
                 ),
               ),
-            ),
-            Expanded(
-              child: Card.outlined(
-                child: HorizontalSplitView(
-                  borderless: false,
-                  borderColor: Colors.grey,
-                  ratio: .45,
-                  top: Align(
-                    alignment: Alignment.topLeft,
-                    child: Container(
-                        decoration: BoxDecoration(
-                          border: Border(
-                            bottom: BorderSide(color: Colors.grey.shade300),
+              Expanded(
+                child: Card.outlined(
+                  child: HorizontalSplitView(
+                    borderless: false,
+                    borderColor: Colors.grey,
+                    ratio: .45,
+                    top: Align(
+                      alignment: Alignment.topLeft,
+                      child: Container(
+                          decoration: BoxDecoration(
+                            border: Border(
+                              bottom: BorderSide(color: Colors.grey.shade300),
+                            ),
+                          ),
+                          child: buildQueryResultsTable()),
+                    ),
+                    bottom: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Showcase(
+                          key: _four,
+                          description:
+                              '4. And lastly this panel is for writing your SQL queries.',
+                          onBarrierClick: () => debugPrint('Barrier clicked'),
+                          child: GestureDetector(
+                            onTap: () => debugPrint('menu button clicked'),
+                            child: Editor(
+                              onRun: onRun,
+                              problem: problem,
+                              lang: Language.sql,
+                              onType: (c, l) => setState(() => code = c),
+                            ),
                           ),
                         ),
-                        child: buildQueryResultsTable()),
-                  ),
-                  bottom: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Showcase(
-                        key: _four,
-                        description:
-                            '4. And lastly this panel is for writing your SQL queries.',
-                        onBarrierClick: () => debugPrint('Barrier clicked'),
-                        child: GestureDetector(
-                          onTap: () => debugPrint('menu button clicked'),
-                          child: Editor(
-                            onRun: onRun,
-                            problem: problem,
-                            lang: Language.sql,
-                            onType: (c, l) => setState(() => code = c),
+                        if (isAIProcessing)
+                          const Align(
+                            alignment: Alignment.center,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                CircularProgressIndicator(),
+                                Gap(25),
+                                Text('AI Processing')
+                              ],
+                            ),
                           ),
-                        ),
-                      ),
-                      if (isAIProcessing)
-                        const Align(
-                          alignment: Alignment.center,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              CircularProgressIndicator(),
-                              Gap(25),
-                              Text('AI Processing')
-                            ],
+                        if (!isAIProcessing && aiText != '')
+                          Align(
+                            alignment: Alignment.center,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: SizedBox(
+                                width: double.infinity,
+                                child: Text(
+                                  aiText,
+                                  style: Theme.of(context).textTheme.bodyLarge,
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                            ),
                           ),
-                        ),
-                      if (!isAIProcessing && aiText != '')
-                        Align(
-                          alignment: Alignment.center,
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
+                        if (showHint)
+                          Align(
+                            alignment: Alignment.center,
                             child: SizedBox(
                               width: double.infinity,
                               child: Text(
-                                aiText,
+                                lessonPromptMap[lessons[lessonId]]
+                                    ?[lessonPromptIdx]['hint'],
                                 style: Theme.of(context).textTheme.bodyLarge,
                                 textAlign: TextAlign.center,
                               ),
                             ),
                           ),
-                        ),
-                      if (showHint)
-                        Align(
-                          alignment: Alignment.center,
-                          child: SizedBox(
-                            width: double.infinity,
-                            child: Text(
-                              lessonPromptMap[lessons[lessonId]]
-                                  ?[lessonPromptIdx]['hint'],
-                              style: Theme.of(context).textTheme.bodyLarge,
-                              textAlign: TextAlign.center,
-                            ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                            children: [
+                              Row(
+                                children: [
+                                  buildButton(
+                                    icon: Icons.restore_outlined,
+                                    title: 'Start Over',
+                                    onPressed: () {
+                                      setLesson(0);
+                                    },
+                                  ),
+                                  const Gap(10),
+                                  buildButton(
+                                    icon: Icons.delete_outline_outlined,
+                                    title: 'Clear',
+                                    onPressed: () {
+                                      setState(() {
+                                        code = '';
+                                      });
+                                    },
+                                  ),
+                                  const Gap(10),
+                                  buildButton(
+                                    icon: Icons.arrow_back,
+                                    title: 'Back',
+                                    onPressed: () {
+                                      if (lessonId == 0) return;
+                                      setLesson(lessonId - 1);
+                                    },
+                                  ),
+                                ],
+                              ),
+                              const Gap(10),
+                              Row(
+                                children: [
+                                  buildButton(
+                                    icon: Icons.co_present_outlined,
+                                    title: 'Hint',
+                                    onPressed: () {
+                                      setState(() {
+                                        showHint = true;
+                                      });
+                                    },
+                                  ),
+                                  const Gap(10),
+                                  buildButton(
+                                    icon: SDIcon.ai_enabled,
+                                    title: 'A.I. Help',
+                                    onPressed: () {
+                                      getOpenAIHint();
+                                    },
+                                  ),
+                                  const Gap(10),
+                                  buildButton(
+                                    title: 'Next',
+                                    color: 'primaryContainer',
+                                    icon: Icons.navigate_next_outlined,
+                                    size: 2,
+                                    onPressed: () {
+                                      if (lessonId == 15) return;
+                                      setLesson(lessonId + 1);
+                                    },
+                                  ),
+                                ],
+                              )
+                            ],
                           ),
-                        ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Column(
-                          children: [
-                            Row(
-                              children: [
-                                buildButton(
-                                  icon: Icons.restore_outlined,
-                                  title: 'Start Over',
-                                  onPressed: () {
-                                    setLesson(0);
-                                  },
-                                ),
-                                const Gap(10),
-                                buildButton(
-                                  icon: Icons.delete_outline_outlined,
-                                  title: 'Clear',
-                                  onPressed: () {
-                                    setState(() {
-                                      code = '';
-                                    });
-                                  },
-                                ),
-                                const Gap(10),
-                                buildButton(
-                                  icon: Icons.arrow_back,
-                                  title: 'Back',
-                                  onPressed: () {
-                                    if (lessonId == 0) return;
-                                    setLesson(lessonId - 1);
-                                  },
-                                ),
-                              ],
-                            ),
-                            const Gap(10),
-                            Row(
-                              children: [
-                                buildButton(
-                                  icon: Icons.co_present_outlined,
-                                  title: 'Hint',
-                                  onPressed: () {
-                                    setState(() {
-                                      showHint = true;
-                                    });
-                                  },
-                                ),
-                                const Gap(10),
-                                buildButton(
-                                  icon: SDIcon.ai_enabled,
-                                  title: 'A.I. Help',
-                                  onPressed: () {
-                                    getOpenAIHint();
-                                  },
-                                ),
-                                const Gap(10),
-                                buildButton(
-                                  title: 'Next',
-                                  color: 'primaryContainer',
-                                  icon: Icons.navigate_next_outlined,
-                                  size: 2,
-                                  onPressed: () {
-                                    if (lessonId == 15) return;
-                                    setLesson(lessonId + 1);
-                                  },
-                                ),
-                              ],
-                            )
-                          ],
-                        ),
-                      )
-                    ],
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ),
-            ),
-          ],
-        );
-      },
+            ],
+          );
+        },
+      ),
     );
   }
 
@@ -448,17 +458,6 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
     });
   }
 
-  checkIntroCompleted() async {
-    final items = await Storage.instance.getIntros();
-    if (!items.contains('sql-screen-done')) {
-      Future.delayed(const Duration(seconds: 2), () {
-        WidgetsBinding.instance.addPostFrameCallback((_) =>
-            ShowCaseWidget.of(context)
-                .startShowCase([_one, _two, _three, _four]));
-      });
-    }
-  }
-
   Future<void> getAIHelp(content) async {
     try {
       final headers = <String, String>{};
@@ -577,7 +576,6 @@ class _SQLScreenState extends ConsumerState<SQLScreen> {
     onRun("select id, year, title from films limit 7;");
     setup();
     super.initState();
-    checkIntroCompleted();
   }
 
   void onRun([String? c, Language? language]) {
