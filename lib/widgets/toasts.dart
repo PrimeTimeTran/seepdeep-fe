@@ -13,7 +13,7 @@ class Toaster {
   void displayCustomMotionToast([msg]) {
     fToast.showToast(
       toastDuration: const Duration(seconds: 10),
-      gravity: ToastGravity.TOP_RIGHT,
+      gravity: ToastGravity.BOTTOM_RIGHT,
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
         decoration: BoxDecoration(
@@ -22,16 +22,6 @@ class Toaster {
         ),
         child: Column(
           children: [
-            const Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Icon(Icons.check),
-                SizedBox(
-                  width: 12.0,
-                ),
-                Text("This is a Custom Toast"),
-              ],
-            ),
             Row(
               children: [
                 const Icon(Icons.check),

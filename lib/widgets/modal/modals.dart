@@ -304,6 +304,9 @@ Future<void> dialogGetCode(BuildContext context) {
     if (response['user'] != null) {
       final auth = Provider.of<AuthProvider>(context, listen: false);
       auth.setUser(response['user']);
+      Api.setAuthToken(response['token']);
+      Toaster toaster = Toaster(context);
+      toaster.displayCustomMotionToast('Welcome!');
     } else {
       print('Error');
     }
@@ -311,10 +314,13 @@ Future<void> dialogGetCode(BuildContext context) {
   }
 
   authSignIn(context) async {
-    final result = await Api.post(
+    final response = await Api.post(
         'auth/authenticate', {'email': email, 'password': password});
-    Provider.of<AuthProvider>(context, listen: false).setUser(result['user']);
+    Provider.of<AuthProvider>(context, listen: false).setUser(response['user']);
+    Api.setAuthToken(response['token']);
     Navigator.pop(context);
+    Toaster toaster = Toaster(context);
+    toaster.displayCustomMotionToast('Welcome back');
   }
 
   return showDialog<void>(
