@@ -111,11 +111,11 @@ class _SubmissionTableState extends State<SubmissionTable> {
             List<DataRow> rows = [];
             for (var i = 0; i < sortedSubmissions.length; i++) {
               final submission = sortedSubmissions[i];
-              final statusIcon = submission.isAccepted!
+              final statusIcon = submission.isAccepted
                   ? const Icon(Icons.check_circle_outline_outlined,
                       color: Colors.green)
                   : const Icon(Icons.cancel_outlined, color: Colors.red);
-              final statusText = submission.isAccepted!
+              final statusText = submission.isAccepted
                   ? const Text(
                       'Accepted',
                       style: TextStyle(
@@ -144,14 +144,13 @@ class _SubmissionTableState extends State<SubmissionTable> {
                                 .format(submission.createdAt ?? DateTime.now())
                             : '',
                         style:
-                            const TextStyle(fontSize: 12, color: Colors.grey),
+                            const TextStyle(fontSize: 10, color: Colors.grey),
                       ),
                     ],
                   ),
                 ],
               );
 
-              // rows.add(const DataRow(cells: [DataCell(Text('Gogogogogogog'))]));
               rows.add(
                 DataRow(
                   cells: [
@@ -183,27 +182,29 @@ class _SubmissionTableState extends State<SubmissionTable> {
                         ],
                       ),
                     ),
-                    DataCell(
-                      const Text('This is a note'),
-                      onTap: () {
-                        widget.onSelectSubmission(submission);
-                      },
-                    ),
+                    // DataCell(
+                    //   const Text('This is a note'),
+                    //   onTap: () {
+                    //     widget.onSelectSubmission(submission);
+                    //   },
+                    // ),
                   ],
                 ),
               );
             }
 
             return DataTable(
+              columnSpacing: 12,
               columns: const [
-                DataColumn(label: Text('#')),
                 DataColumn(
-                    label: Text('Status'),
-                    columnWidth: FractionColumnWidth(0.3)),
+                  label: Text('#', textAlign: TextAlign.center),
+                  numeric: true,
+                ),
+                DataColumn(label: Text('Status')),
                 DataColumn(label: Text('Language')),
                 DataColumn(label: Text('Runtime')),
                 DataColumn(label: Text('Memory')),
-                DataColumn(label: Text('Notes')),
+                // DataColumn(label: Text('Notes')),
               ],
               rows: rows,
             );

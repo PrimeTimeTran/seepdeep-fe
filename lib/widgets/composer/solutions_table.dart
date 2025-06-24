@@ -3,7 +3,6 @@
 import 'package:app/all.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_code_editor/flutter_code_editor.dart';
-import 'package:gap/gap.dart';
 import 'package:intl/intl.dart';
 
 // Todo:
@@ -245,107 +244,100 @@ class _SolutionsTableState extends State<SolutionsTable> {
     );
   }
 
-  GestureDetector buildSolutionRow(Submission solution) {
+  buildSolutionRow(Submission solution) {
     final username = solution.user?.username ?? 'Anonymous';
     return GestureDetector(
       onTap: () {
         onFocusSolution(solution);
       },
-      child: ListTile(
-        subtitleTextStyle: const TextStyle(height: 3),
-        title: Row(
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Row(
           children: [
-            const CircleAvatar(
-              radius: 20,
-              child: Icon(Icons.person),
-            ),
-            const Gap(20),
-            Text(
-              username,
-              style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
+            Container(
+              height: 125,
+              alignment: Alignment.topCenter,
+              child: const CircleAvatar(
+                radius: 20,
+                child: Icon(Icons.person),
               ),
             ),
-            const Spacer(),
-            Text(solution.createdAt != null
-                ? DateFormat("MMMM d, y h:mm a")
-                    .format(solution.createdAt ?? DateTime.now())
-                : '')
-          ],
-        ),
-        subtitle: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(
-              height: 50,
-              width: double.infinity,
-              child: ListView.builder(
-                itemCount: 1,
-                scrollDirection: Axis.horizontal,
-                itemBuilder: (context, index) {
-                  return Column(
-                    children: [
-                      const Gap(5),
-                      TextButton(
-                        style: TextButton.styleFrom(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 16,
-                            vertical: 8,
-                          ),
-                          backgroundColor: themeColor(context, 'secondary'),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(50),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          username,
+                          style: Theme.of(context).textTheme.labelLarge,
+                        ),
+                        Text(solution.createdAt != null
+                            ? DateFormat("MMMM d, y h:mm a")
+                                .format(solution.createdAt ?? DateTime.now())
+                            : '')
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Text(
+                          solution.explanation,
+                          style: Theme.of(context).textTheme.headlineLarge,
+                        ),
+                        const SizedBox(height: 5),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        SizedBox(
+                          height: 60,
+                          width: 200,
+                          child: ListView.builder(
+                            itemCount: 1,
+                            scrollDirection: Axis.horizontal,
+                            itemBuilder: (context, index) {
+                              return TextButton(
+                                onPressed: () {},
+                                child: Text(
+                                  solution.language!,
+                                  style: const TextStyle(fontSize: 12),
+                                ),
+                              );
+                            },
                           ),
                         ),
-                        onPressed: () {
-                          // your action here
-                        },
-                        child: Text(
-                          solution.language!,
-                          style: TextStyle(
-                              color:
-                                  Style.currentTheme(context) == Brightness.dark
-                                      ? Colors.black
-                                      : Colors.white,
-                              fontSize: 10),
+                      ],
+                    ),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        TextButton.icon(
+                          label: Text(solution.voteIdsUp.length.toString()),
+                          onPressed: () {},
+                          icon: const Icon(Icons.arrow_upward),
                         ),
-                      ),
-                      const Gap(5),
-                    ],
-                  );
-                },
+                        TextButton.icon(
+                          label: Text(solution.viewCount.toString()),
+                          onPressed: () {
+                            onFocusSolution(solution);
+                          },
+                          icon: const Icon(Icons.remove_red_eye_outlined),
+                        ),
+                        TextButton.icon(
+                          label: Text(solution.comments.length.toString()),
+                          onPressed: () {
+                            onFocusSolution(solution);
+                          },
+                          icon: const Icon(Icons.comment),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
-            Text(
-              solution.explanation,
-              style: Style.of(context, 'headlineS'),
-            ),
-            const SizedBox(height: 5),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                TextButton.icon(
-                  label: Text(solution.voteIdsUp.length.toString()),
-                  onPressed: () {},
-                  icon: const Icon(Icons.arrow_upward),
-                ),
-                TextButton.icon(
-                  label: Text(solution.viewCount.toString()),
-                  onPressed: () {
-                    onFocusSolution(solution);
-                  },
-                  icon: const Icon(Icons.remove_red_eye_outlined),
-                ),
-                TextButton.icon(
-                  label: Text(solution.comments.length.toString()),
-                  onPressed: () {
-                    onFocusSolution(solution);
-                  },
-                  icon: const Icon(Icons.comment),
-                ),
-              ],
-            )
           ],
         ),
       ),

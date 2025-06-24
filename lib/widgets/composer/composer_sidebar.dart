@@ -120,12 +120,11 @@ class _ComposerSidebarState extends State<ComposerSidebar> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Gap(30),
               Row(
                 children: [
                   SelectableText(
                     widget.problem.title!,
-                    style: Theme.of(context).textTheme.headlineLarge,
+                    style: Theme.of(context).textTheme.displaySmall,
                   ),
                   const Spacer(),
                   const Row(
@@ -183,13 +182,13 @@ class _ComposerSidebarState extends State<ComposerSidebar> {
       behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
       child: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.symmetric(horizontal: 8),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SelectableText(
                 widget.problem.title!,
-                style: Theme.of(context).textTheme.displayLarge,
+                style: Theme.of(context).textTheme.displaySmall,
               ),
               const Gap(30),
               SelectableText(
@@ -216,22 +215,44 @@ class _ComposerSidebarState extends State<ComposerSidebar> {
                             style: Theme.of(context).textTheme.headlineSmall,
                           ),
                           const SizedBox(height: 5),
-                          // TODO: Separate parameters and add names
                           Row(
                             children: [
                               Text(
                                 'Input:',
                                 style: Theme.of(context)
                                     .textTheme
-                                    .headlineSmall
+                                    .labelLarge
                                     ?.copyWith(fontWeight: FontWeight.bold),
                               ),
                               const Gap(10),
-                              SelectableText(
-                                testCase.inputs.toString(),
+                              SelectableText.rich(
+                                TextSpan(
+                                  children:
+                                      testCase.inputs.entries.map((entry) {
+                                    return TextSpan(
+                                      children: [
+                                        TextSpan(
+                                          text: '${entry.key}: ',
+                                          style: TextStyle(
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .primary,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        TextSpan(
+                                          text: '${entry.value}  ',
+                                          style: TextStyle(
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .secondary),
+                                        ),
+                                      ],
+                                    );
+                                  }).toList(),
+                                ),
                                 style: Theme.of(context)
                                     .textTheme
-                                    .headlineSmall
+                                    .bodyLarge
                                     ?.copyWith(color: Colors.grey),
                               ),
                             ],
@@ -243,7 +264,7 @@ class _ComposerSidebarState extends State<ComposerSidebar> {
                                 'Output:',
                                 style: Theme.of(context)
                                     .textTheme
-                                    .headlineSmall
+                                    .labelLarge
                                     ?.copyWith(fontWeight: FontWeight.bold),
                               ),
                               const Gap(10),
@@ -251,8 +272,8 @@ class _ComposerSidebarState extends State<ComposerSidebar> {
                                 testCase.outExpected.toString(),
                                 style: Theme.of(context)
                                     .textTheme
-                                    .headlineSmall
-                                    ?.copyWith(color: Colors.grey),
+                                    .bodyLarge
+                                    ?.copyWith(color: Colors.green),
                               ),
                             ],
                           ),
