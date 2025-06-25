@@ -194,6 +194,7 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                buildSearchBar(),
                 buildListHeader(),
                 buildListItem(problem, idx, context),
               ],
@@ -329,6 +330,23 @@ class _ProblemsScreenState extends State<ProblemsScreen> {
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  buildSearchBar() {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: SearchBar(
+        onSubmitted: (query) {
+          final problemsProvider = context.read<ProblemsProvider>();
+          problemsProvider.searchProblems(query);
+        },
+        // onClear: () {
+        //   final problemsProvider = context.read<ProblemsProvider>();
+        //   problemsProvider.resetProblems();
+        // },
+        hintText: 'Search Problems',
       ),
     );
   }

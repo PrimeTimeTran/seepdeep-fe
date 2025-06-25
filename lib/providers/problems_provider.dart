@@ -52,4 +52,12 @@ class ProblemsProvider extends ChangeNotifier {
     _problems = List.from(_allProblems);
     notifyListeners();
   }
+
+  Future<void> searchProblems(String title) async {
+    final response = await Api.get('problems?title=$title');
+    _problems.clear();
+    _problems
+        .addAll((response as List).map((e) => Problem.fromJson(e)).toList());
+    notifyListeners();
+  }
 }
