@@ -11,8 +11,7 @@ class Api {
   static String? base = kDebugMode
       ? 'http://localhost:3000/api/'
       : 'https://seepdeep-api-dev-7d6537ynfa-uc.a.run.app/api/';
-  static String authToken =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWNkMmY0YzAyNjAwNDZhNDQzNTExYTIiLCJpYXQiOjE3MTM2NDg2NzgsImV4cCI6MjAyOTAwODY3OH0.HnX3iDxGkKdcgaxpZSAR34jXq5T1pASW6vaeEjuJ6EM';
+  static String authToken = '';
 
   Api._();
 
@@ -90,8 +89,8 @@ class Api {
         if (data.isEmpty) {
           Glob.logI('0 Results');
         } else {
-          Glob.logI(body['meta']);
-          Glob.logI(data[0]);
+          // Glob.logI(body['meta']);
+          // Glob.logI(data[0]);
         }
       } else {
         // Glob.logI(data);

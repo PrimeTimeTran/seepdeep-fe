@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Ace Editor POC</title>
+    <link
+      rel="stylesheet"
+      href="ace.css"
+    />
+    <script>
+      const params = new URLSearchParams(window.location.search)
+      window.PROBLEM_ID = params.get('problemId')
+    </script>
+  </head>
+  <body>
+    <!-- Toolbar -->
+    <div id="toolbar">
+      <label>
+        Language:
+        <select id="language">
+          <option value="python">Python</option>
+          <option value="dart">Dart</option>
+          <option value="javascript">JavaScript</option>
+          <option value="typescript">TypeScript</option>
+          <option value="json">JSON</option>
+          <option value="html">HTML</option>
+        </select>
+      </label>
+
+      <label>
+        Tab Size:
+        <select id="tabSize">
+          <option value="4">4</option>
+          <option value="8">6</option>
+          <option value="2">8</option>
+        </select>
+      </label>
+
+      <label>
+        <input
+          type="checkbox"
+          id="softTabs"
+          checked
+        />
+        Soft Tabs
+      </label>
+    </div>
+    <!-- Editor -->
+    <div id="editor"></div>
+    <!-- Ace -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.32.3/ace.js"></script>
+    <script src="ace.js"></script>
+  </body>
+</html>

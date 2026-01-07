@@ -82,7 +82,7 @@ class _MyAppState extends State<MyApp> {
             child: MaterialApp.router(
               title: 'SeepDeep',
               routerConfig: routerConfig,
-              debugShowCheckedModeBanner: false,
+              debugShowCheckedModeBanner: kDebugMode,
             ),
           );
         },

@@ -76,15 +76,18 @@ class ProblemProvider extends ChangeNotifier {
 
   Problem get focusedProblem => _focusedProblem;
 
-  Future<Problem> checkUrl(context) async {
-    final Map<String, dynamic>? routeArgs =
-        ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>?;
-    final String? routeProblemName = routeArgs?['name'];
-    final defaultProblem =
-        _focusedProblem.title?.replaceAll(' ', '-').toLowerCase();
-    if (defaultProblem != routeProblemName) {
-      await setByRouteUrl(routeProblemName);
+  Future<Problem> checkUrl() async {
+    final uri = Uri.base;
+    final pathSegments = uri.pathSegments;
+    if (pathSegments.length >= 2 && pathSegments[0] == 'problem') {
+      final routeProblemName = pathSegments[1];
+      final defaultProblem =
+          _focusedProblem.title?.replaceAll(' ', '-').toLowerCase();
+      if (defaultProblem != routeProblemName) {
+        await setByRouteUrl(routeProblemName);
+      }
     }
+    debugPrint(_focusedProblem.title);
     return _focusedProblem;
   }
 

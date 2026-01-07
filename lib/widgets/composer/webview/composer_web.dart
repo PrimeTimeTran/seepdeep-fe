@@ -310,7 +310,7 @@ class _ComposerState extends State<Composer> with TickerProviderStateMixin {
                             processing ? null : () => onRun(code, selectedLang),
                         textStyle: const TextStyle(
                             fontWeight: FontWeight.bold, color: Colors.white),
-                        text: processing ? "Processing" : "Run (CTRL + ENTER)",
+                        text: processing ? "Processing" : "Run (CMD + ')",
                       ),
                     )
                   ],
@@ -383,7 +383,7 @@ class _ComposerState extends State<Composer> with TickerProviderStateMixin {
   void initializeProblem() {
     var provider = Provider.of<ProblemProvider>(context, listen: false);
     Future.delayed(Duration.zero, () async {
-      problem = await provider.checkUrl(context);
+      problem = await provider.checkUrl();
       testCases = setupTestCases(problem);
       setState(() {
         problem = problem;
@@ -409,6 +409,8 @@ class _ComposerState extends State<Composer> with TickerProviderStateMixin {
       l = 'js';
     } else if (l == 'typescript') {
       l = 'ts';
+    } else if (l == 'python') {
+      l = 'python';
     }
     postSubmission({
       "lang": l,

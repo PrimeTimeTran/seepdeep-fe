@@ -12,7 +12,11 @@ class ProblemsProvider extends ChangeNotifier {
 
   Future<void> fetchProblems() async {
     try {
-      final response = await Api.get('problems');
+      var response = await Api.get('problems');
+      if (response is! List || response.isEmpty) {
+        Glob.logE('Empty or invalid response, retrying...');
+        response = await Api.get('problems');
+      }
       _problems.clear();
       final problems =
           (response as List).map((e) => Problem.fromJson(e)).toList();
